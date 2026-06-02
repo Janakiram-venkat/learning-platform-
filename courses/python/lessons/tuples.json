@@ -1,0 +1,70 @@
+{
+  "lessonId": "tuples",
+  "title": "Unchangeable Scrolls",
+  "description": "Learn about Tuples: the magical unchangeable scrolls that look like lists but lock their values forever!",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Magical Scrolls"
+    },
+    {
+      "type": "paragraph",
+      "value": "Lists are great because we can change them, append items, or delete items. But what if we want to store a list of things that should NEVER change? Like the coordinates of a treasure chest or the months of the year? For that, we use Tuples! Tuples are like ancient, magical scrolls: once you write something on them, it is locked forever."
+    },
+    {
+      "type": "heading",
+      "value": "Creating a Tuple"
+    },
+    {
+      "type": "paragraph",
+      "value": "We write tuples using regular parentheses `( )` instead of square brackets `[ ]`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "treasure_location = (12, 45)\nprint(treasure_location)"
+    },
+    {
+      "type": "heading",
+      "value": "Locked in Stone"
+    },
+    {
+      "type": "paragraph",
+      "value": "If you try to change a tuple after creating it, Python will protect it and raise an error. This is a super useful feature to make sure your important data doesn't get messed up by accident!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "coords = (10, 20)\n# coords[0] = 5   # If you run this, Python will crash with a TypeError!"
+    }
+  ],
+  "editorCode": "months = (\"January\", \"February\", \"March\")\nprint(months[0])\nprint(\"Length of tuple:\", len(months))",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Create a tuple called 'rgb_colors' with three numbers representing Red, Green, and Blue values (like 255, 120, 0) and print the tuple!",
+      "starterCode": "# Create the rgb_colors tuple below\n\n# Print it"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What punctuation marks are used to create a Tuple?",
+      "options": [
+        "Square brackets [ ]",
+        "Parentheses ( )",
+        "Curly brackets { }"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Can you add or modify items in a Tuple after creating it?",
+      "options": [
+        "Yes, using append()",
+        "No, tuples are unchangeable (immutable).",
+        "Yes, but only with strings."
+      ],
+      "answer": 1
+    }
+  ]
+}

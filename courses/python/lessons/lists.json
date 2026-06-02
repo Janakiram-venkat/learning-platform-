@@ -1,0 +1,83 @@
+{
+  "lessonId": "lists",
+  "title": "Magic Backpacks",
+  "description": "Learn how to store multiple items in order inside a single variable using Lists!",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Magic Backpack"
+    },
+    {
+      "type": "paragraph",
+      "value": "So far, our variables (magic boxes) could only hold one thing at a time. What if we want to store all of our favorite toys? We can use a Magic Backpack (called a List)! Lists can store lots of items in a specific order."
+    },
+    {
+      "type": "heading",
+      "value": "Creating a List"
+    },
+    {
+      "type": "paragraph",
+      "value": "We create a list by wrapping our items in square brackets `[ ]` and separating them with commas."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\nprint(toys)"
+    },
+    {
+      "type": "heading",
+      "value": "Grabbing Items (Indexing)"
+    },
+    {
+      "type": "paragraph",
+      "value": "To grab an item from the backpack, we use its Index (its slot number). BUT BE CAREFUL! Computers are quirky and they start counting slots from 0! Slot 0 is the first item, Slot 1 is the second item, and so on."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\nprint(toys[0])  # Prints Lego\nprint(toys[2])  # Prints Action Figure"
+    },
+    {
+      "type": "heading",
+      "value": "Adding Items (.append)"
+    },
+    {
+      "type": "paragraph",
+      "value": "If you get a new toy, you can put it in your backpack using the `.append()` command!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "toys = [\"Lego\", \"Teddy Bear\"]\ntoys.append(\"Water Gun\")\nprint(toys)  # Prints: ['Lego', 'Teddy Bear', 'Water Gun']"
+    }
+  ],
+  "editorCode": "my_shopping_list = [\"Apples\", \"Cookies\", \"Milk\"]\nmy_shopping_list.append(\"Juice\")\nprint(my_shopping_list[1])\nprint(my_shopping_list)",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Create a list called 'colors' containing 'red', 'green', and 'blue'. Then append 'yellow' to the list and print the full list!",
+      "starterCode": "# Create list, append 'yellow', and print below"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What index does the first item in a Python list start at?",
+      "options": [
+        "1",
+        "0",
+        "-1"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Which method is used to add an item to the end of a list?",
+      "options": [
+        "add()",
+        "append()",
+        "insert()"
+      ],
+      "answer": 1
+    }
+  ]
+}

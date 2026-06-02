@@ -1,0 +1,66 @@
+{
+  "lessonId": "function_args",
+  "title": "Inputs and Outputs",
+  "description": "Learn how to feed ingredients into your recipes (arguments) and get results back (return values)!",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Adding Ingredients"
+    },
+    {
+      "type": "paragraph",
+      "value": "Our recipe `bake_cake` is cool, but what if we want to change the flavor? We can pass INGREDIENTS (parameters) into our functions inside the parentheses. Let's see how!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "def greet_user(name):\n    print(\"Hello, \" + name + \"!\")\n\ngreet_user(\"Alex\")   # Prints: Hello, Alex!\ngreet_user(\"Sarah\")  # Prints: Hello, Sarah!"
+    },
+    {
+      "type": "heading",
+      "value": "Returning Treasures"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sometimes, we don't want the function to print the result immediately. We want the function to give it BACK to us so we can put it in a box (variable) or use it later. For this, we use the `return` spell!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "def double_number(number):\n    return number * 2\n\n# Put the result in a variable box:\nmagic_result = double_number(10)\nprint(magic_result)  # Prints 20"
+    },
+    {
+      "type": "tip",
+      "value": "Once a function executes a `return` statement, it exits immediately. Any code written after `return` inside the function will be ignored by Python!"
+    }
+  ],
+  "editorCode": "def make_full_name(first, last):\n    return first + \" \" + last\n\nfull_name = make_full_name(\"Harry\", \"Potter\")\nprint(full_name)",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Create a function called 'double' that takes a number, multiplies it by 2, and RETURNS the result. Then call it with 5 and print the output!",
+      "starterCode": "# Define 'double(number)' function here\n\nresult = double(5)\nprint(result)"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What do we call the inputs inside the function's parentheses?",
+      "options": [
+        "Keypads",
+        "Parameters or Arguments",
+        "Spells"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Which keyword do you use to send a result back from a function?",
+      "options": [
+        "send",
+        "return",
+        "output"
+      ],
+      "answer": 1
+    }
+  ]
+}

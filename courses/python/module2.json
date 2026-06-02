@@ -1,0 +1,21 @@
+{
+  "moduleId": 2,
+  "title": "Making Decisions",
+  "lessons": [
+    {
+      "lessonId": "booleans",
+      "title": "True or False?",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "conditionals",
+      "title": "If, Elif, and Else",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "logical_operators",
+      "title": "Combining Conditions",
+      "duration": "15 min"
+    }
+  ]
+}

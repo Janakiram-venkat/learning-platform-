@@ -1,0 +1,56 @@
+{
+  "lessonId": "intro",
+  "title": "Introduction to Python",
+  "description": "Welcome to the magical world of Python programming! Let's start our coding journey.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Welcome to the World of Python!"
+    },
+    {
+      "type": "paragraph",
+      "value": "Imagine you have a magical robot that can do anything you ask it to do. But there's a catch! The robot only understands a special secret language. In our world, that robot is the computer, and the secret language is called Python!"
+    },
+    {
+      "type": "paragraph",
+      "value": "Python is a very friendly and popular programming language. People all over the world use it to make games, build websites, and even send rockets into space. It's like learning how to cast magic spells, but instead of a wand, we use a keyboard!"
+    },
+    {
+      "type": "heading",
+      "value": "Our First Magic Spell"
+    },
+    {
+      "type": "paragraph",
+      "value": "Let's learn our very first spell. It's called the `print` spell. When you cast this spell, you can make the computer talk to you! You just say `print()`, and whatever you put inside the parentheses with quotation marks will show up on the screen."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "print(\"Hello, World!\")\nprint(\"I am learning Python!\")"
+    },
+    {
+      "type": "tip",
+      "value": "Always remember the quotation marks (\" \") around your words. Without them, the computer gets very confused!"
+    }
+  ],
+  "editorCode": "print(\"Hello, World!\")",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Make the computer say your name using the print spell!",
+      "starterCode": "print(\"My name is ...\")"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does the `print` spell do?",
+      "options": [
+        "It prints paper from a printer.",
+        "It makes the computer show words on the screen.",
+        "It turns the computer off."
+      ],
+      "answer": 1
+    }
+  ]
+}

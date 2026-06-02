@@ -1,0 +1,50 @@
+{
+  "courseId": "python",
+  "title": "Python Programming",
+  "description": "Learn Python from basics to projects.",
+  "level": "Beginner",
+  "estimatedHours": 25,
+  "thumbnail": "/images/python.png",
+  "modules": [
+    {
+      "id": 1,
+      "title": "Python Basics",
+      "file": "module1.json"
+    },
+    {
+      "id": 2,
+      "title": "Making Decisions",
+      "file": "module2.json"
+    },
+    {
+      "id": 3,
+      "title": "Loops and Repetition",
+      "file": "module3.json"
+    },
+    {
+      "id": 4,
+      "title": "Functions & Magical Recipes",
+      "file": "module4.json"
+    },
+    {
+      "id": 5,
+      "title": "Lists and Collections",
+      "file": "module5.json"
+    },
+    {
+      "id": 6,
+      "title": "Text Magic (Strings)",
+      "file": "module6.json"
+    },
+    {
+      "id": 7,
+      "title": "Classes and Object-Oriented Magic",
+      "file": "module7.json"
+    },
+    {
+      "id": 8,
+      "title": "Errors & Python's Built-in Libraries",
+      "file": "module8.json"
+    }
+  ]
+}

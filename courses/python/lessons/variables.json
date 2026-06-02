@@ -1,0 +1,82 @@
+{
+  "lessonId": "variables",
+  "title": "Variables",
+  "description": "Learn how to store your treasures using magic boxes called Variables.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What are Variables?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Imagine you have a bunch of magic boxes. You can put anything you want inside these boxes—like a number, a secret word, or even your favorite color. In Python, these magic boxes are called Variables!"
+    },
+    {
+      "type": "paragraph",
+      "value": "Why do we need them? Well, computers have terrible memories! If you don't put things in a box with a label on it, the computer will forget them immediately. So, we create a box, stick a label on it (a name), and put our treasure (a value) inside."
+    },
+    {
+      "type": "heading",
+      "value": "Creating Your Magic Box"
+    },
+    {
+      "type": "paragraph",
+      "value": "To create a variable, you just write the label you want, an equals sign `=`, and then what you want to put inside. Like this:"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "toys = 10\nname = \"Alex\""
+    },
+    {
+      "type": "paragraph",
+      "value": "Now, whenever you ask Python for `toys`, it will look inside the box labeled 'toys' and give you the number 10."
+    },
+    {
+      "type": "tip",
+      "value": "Always give your boxes good names! If you label a box `x`, you might forget what's inside. But if you label it `score`, you know exactly what it is."
+    },
+    {
+      "type": "heading",
+      "value": "Opening the Box"
+    },
+    {
+      "type": "paragraph",
+      "value": "To see what's inside your box, you can use our `print` spell from the last lesson! Just put the name of the box inside the print spell."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "score = 100\nprint(score)"
+    }
+  ],
+  "editorCode": "score = 100\nprint(score)",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Create a magic box named 'age', put your age inside it (like 10 or 12), and print it!",
+      "starterCode": "age = \nprint()"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is a variable?",
+      "options": [
+        "A type of computer mouse.",
+        "A magic box that stores information.",
+        "A secret code to hack games."
+      ],
+      "answer": 1
+    },
+    {
+      "question": "How do you put the number 5 into a box labeled 'apples'?",
+      "options": [
+        "apples = 5",
+        "5 = apples",
+        "box apples 5"
+      ],
+      "answer": 0
+    }
+  ]
+}

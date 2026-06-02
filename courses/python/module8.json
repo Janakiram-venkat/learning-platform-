@@ -1,0 +1,16 @@
+{
+  "moduleId": 8,
+  "title": "Errors & Python's Built-in Libraries",
+  "lessons": [
+    {
+      "lessonId": "exceptions",
+      "title": "Catching Bugs",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "imports",
+      "title": "Importing Spells",
+      "duration": "20 min"
+    }
+  ]
+}

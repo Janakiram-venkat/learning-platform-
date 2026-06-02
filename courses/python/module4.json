@@ -1,0 +1,16 @@
+{
+  "moduleId": 4,
+  "title": "Functions & Magical Recipes",
+  "lessons": [
+    {
+      "lessonId": "intro_functions",
+      "title": "Creating Magic Recipes",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "function_args",
+      "title": "Inputs and Outputs",
+      "duration": "20 min"
+    }
+  ]
+}

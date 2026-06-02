@@ -1,0 +1,69 @@
+{
+  "lessonId": "while_loops",
+  "title": "The While Loop",
+  "description": "Loops that keep spinning as long as a magic condition remains True!",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Running on a Condition"
+    },
+    {
+      "type": "paragraph",
+      "value": "We learned about the `for` loop, which repeats a set number of times. But what if we don't know how many times we need to repeat? For example, how many times do you chew your food? You keep chewing WHILE you still have food in your mouth! In Python, we do this using a `while` loop."
+    },
+    {
+      "type": "heading",
+      "value": "How it Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "A `while` loop checks a condition first. If the condition is True, it runs the indented code. Then it checks the condition again, and again, and again, until the condition becomes False!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "energy = 3\nwhile energy > 0:\n    print(\"Jumping jack!\")\n    energy = energy - 1\nprint(\"Out of energy, time to rest!\")"
+    },
+    {
+      "type": "heading",
+      "value": "Watch out for Infinite Loops!"
+    },
+    {
+      "type": "paragraph",
+      "value": "If the condition NEVER becomes False, the loop will spin forever! We call this an Infinite Loop. If you forget to decrease the energy (`energy = energy - 1`), the computer will jump forever until it gets exhausted! Always make sure your loop has a way to stop."
+    },
+    {
+      "type": "tip",
+      "value": "You can also write `energy -= 1` instead of `energy = energy - 1`. It is a cool shortcut programmers use to save typing time!"
+    }
+  ],
+  "editorCode": "count = 1\nwhile count <= 5:\n    print(\"Count is:\", count)\n    count += 1",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write a while loop that prints a countdown from 5 down to 1. Inside the loop, make sure to subtract 1 from the count variable!",
+      "starterCode": "count = 5\nwhile count > 0:\n    print(count)\n    # Subtract 1 from count below this line"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "When does a while loop stop running?",
+      "options": [
+        "After exactly 10 spins.",
+        "When its condition becomes False.",
+        "When the computer is shut down."
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What happens if a while loop's condition is ALWAYS True?",
+      "options": [
+        "It stops immediately.",
+        "It runs forever (Infinite Loop).",
+        "It changes itself to False."
+      ],
+      "answer": 1
+    }
+  ]
+}

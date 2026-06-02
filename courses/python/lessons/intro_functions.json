@@ -1,0 +1,70 @@
+{
+  "lessonId": "intro_functions",
+  "title": "Creating Magic Recipes",
+  "description": "Learn how to write reusable cooking recipes (functions) that you can perform whenever you want by calling their name!",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Magical Recipes"
+    },
+    {
+      "type": "paragraph",
+      "value": "Imagine you love baking chocolate cakes. Instead of writing down the 10 steps every time you want a cake, you write them once in a recipe book and name it: 'bake_cake'. Now, whenever you want cake, you just say 'bake_cake()'! In programming, this named recipe is called a Function."
+    },
+    {
+      "type": "heading",
+      "value": "How to Define a Function"
+    },
+    {
+      "type": "paragraph",
+      "value": "In Python, we define a function using the keyword `def` (which stands for 'define'). We give our function a name, add parentheses `()`, a colon `:`, and then indent the recipe steps underneath."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "def sing_song():\n    print(\"Happy birthday to you!\")\n    print(\"Happy birthday to you!\")"
+    },
+    {
+      "type": "heading",
+      "value": "Calling the Spell"
+    },
+    {
+      "type": "paragraph",
+      "value": "Defining a function does NOT run it. It just teaches the computer how to do it. To actually perform the function, you have to CALL it by writing its name with parentheses!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "def sing_song():\n    print(\"Happy birthday to you!\")\n\n# Let's call it twice!\nsing_song()\nsing_song()"
+    }
+  ],
+  "editorCode": "def greet():\n    print(\"Welcome, wizard!\")\n    print(\"Let's write some code!\")\n\ngreet()",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Create a function named 'greet' that prints 'Hello, Explorer!'. Then, call it twice below the definition.",
+      "starterCode": "# Define the function 'greet' here\n\n# Call greet() twice below"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which keyword is used to define a new function in Python?",
+      "options": [
+        "function",
+        "def",
+        "create"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What does calling a function mean?",
+      "options": [
+        "Renaming the function.",
+        "Telling Python to execute the function's code.",
+        "Deleting the function."
+      ],
+      "answer": 1
+    }
+  ]
+}

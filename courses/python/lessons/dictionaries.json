@@ -1,0 +1,70 @@
+{
+  "lessonId": "dictionaries",
+  "title": "The Phonebook",
+  "description": "Learn how to link keys and values together inside Python Dictionaries!",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Magical Phonebook"
+    },
+    {
+      "type": "paragraph",
+      "value": "Lists are great, but what if you want to find a phone number for your friend? In a list, you'd have to search item by item. It would be much better if you could just lookup 'Alex' and immediately get their number! In Python, we do this using a Dictionary (or dict). Dictionaries connect a Key (like a name) to a Value (like a phone number)."
+    },
+    {
+      "type": "heading",
+      "value": "Creating a Dictionary"
+    },
+    {
+      "type": "paragraph",
+      "value": "We write dictionaries using curly braces `{ }`. Inside, we write a key, a colon `:`, and then its value. We separate different pairs with commas."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "phonebook = {\n    \"Alex\": 5551234,\n    \"Sarah\": 5558888\n}\nprint(phonebook[\"Alex\"])  # Prints 5551234"
+    },
+    {
+      "type": "heading",
+      "value": "Updating and Adding Pairs"
+    },
+    {
+      "type": "paragraph",
+      "value": "To add a new key-value pair or update an existing one, you just use the square brackets with the key name!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "hero = {\n    \"name\": \"Peter Parker\",\n    \"power\": \"Spider webs\"\n}\nhero[\"power\"] = \"Shooting spider webs\"  # Update power\nhero[\"city\"] = \"New York\"                # Add a new pair\nprint(hero)"
+    }
+  ],
+  "editorCode": "wizard = {\n    \"name\": \"Dumbledore\",\n    \"house\": \"Gryffindor\",\n    \"wand\": \"Elder Wand\"\n}\nprint(wizard[\"name\"])\nprint(wizard[\"wand\"])",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Create a dictionary called 'pet' containing keys 'name' (e.g. 'Buddy') and 'animal' (e.g. 'Dog'). Then add a new key 'age' with the value 3 and print the dictionary!",
+      "starterCode": "# Create the 'pet' dictionary\n\n# Add the key 'age' with value 3\n\n# Print the dictionary"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which brackets are used to create a Python Dictionary?",
+      "options": [
+        "[ ]",
+        "( )",
+        "{ }"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "In a dictionary pair 'name': 'Batman', what is 'name'?",
+      "options": [
+        "The Value",
+        "The Key",
+        "The Index"
+      ],
+      "answer": 1
+    }
+  ]
+}

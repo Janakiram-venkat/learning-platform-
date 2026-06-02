@@ -1,0 +1,75 @@
+{
+  "lessonId": "slicing",
+  "title": "Slicing and Dicing",
+  "description": "Learn how to cut and crop your strings using indices and slicing!",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Dicing Your Strings"
+    },
+    {
+      "type": "paragraph",
+      "value": "Remember how lists have slots starting at index 0? Strings do too! You can grab a single letter from a string just like you grab a toy from a list."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "word = \"Python\"\nprint(word[0])  # Prints P\nprint(word[2])  # Prints t"
+    },
+    {
+      "type": "heading",
+      "value": "Slicing a Range"
+    },
+    {
+      "type": "paragraph",
+      "value": "What if you want to grab a chunk of the string instead of just one letter? We use Slicing! We specify the start index, a colon `:`, and the end index. Python will slice the string, starting at the start index, and stopping JUST BEFORE the end index!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "word = \"Python\"\n# Slice from slot 0 up to (but not including) slot 2:\nprint(word[0:2])  # Prints Py"
+    },
+    {
+      "type": "heading",
+      "value": "Shortcut Slices"
+    },
+    {
+      "type": "paragraph",
+      "value": "If you leave out the first number, Python starts at the very beginning: `[:3]` slices from slot 0 to 3. If you leave out the second number, Python slices all the way to the end: `[2:]` slices from slot 2 to the end!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "word = \"Python\"\nprint(word[:2])  # Prints Py\nprint(word[2:])  # Prints thon"
+    }
+  ],
+  "editorCode": "secret = \"AbraCadabra\"\nprint(secret[0:4])\nprint(secret[4:])",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Slice the word 'Minecraft' to print only the first four letters ('Mine')!",
+      "starterCode": "game = \"Minecraft\"\n# Slice and print the first four letters below"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "If word = 'Magic', what does word[0] print?",
+      "options": [
+        "M",
+        "a",
+        "c"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "For word = 'Python', what does word[:2] print?",
+      "options": [
+        "Py",
+        "Pyt",
+        "y"
+      ],
+      "answer": 0
+    }
+  ]
+}

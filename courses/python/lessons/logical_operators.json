@@ -1,0 +1,83 @@
+{
+  "lessonId": "logical_operators",
+  "title": "Combining Conditions",
+  "description": "Supercharge your decision-making by combining multiple check conditions using logical operators!",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Logical Operators"
+    },
+    {
+      "type": "paragraph",
+      "value": "What if you want to go to the park, but ONLY if it is sunny AND you have finished your homework? In Python, we can combine multiple checks using three magical keywords: `and`, `or`, and `not`."
+    },
+    {
+      "type": "heading",
+      "value": "1. The 'and' Operator"
+    },
+    {
+      "type": "paragraph",
+      "value": "The `and` spell is strict. It requires BOTH sides to be True to output True. If even one side is False, the whole thing is False!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "sunny = True\nhomework_done = True\nif sunny and homework_done:\n    print(\"You can go to the park!\")"
+    },
+    {
+      "type": "heading",
+      "value": "2. The 'or' Operator"
+    },
+    {
+      "type": "paragraph",
+      "value": "The `or` spell is more relaxed. It only requires ONE of the sides to be True to output True. If both sides are False, only then does it output False!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "has_cookie = True\nhas_cake = False\nif has_cookie or has_cake:\n    print(\"You have a sweet treat!\")"
+    },
+    {
+      "type": "heading",
+      "value": "3. The 'not' Operator"
+    },
+    {
+      "type": "paragraph",
+      "value": "The `not` spell is like a mirror that flips everything upside down! It turns True into False, and False into True."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "raining = False\nprint(not raining)  # Prints True"
+    }
+  ],
+  "editorCode": "raining = True\nhas_umbrella = False\nif raining and not has_umbrella:\n    print(\"You will get wet!\")",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Complete the condition below so it prints 'Access Granted!' only if both 'has_key' is True and 'knows_password' is True.",
+      "starterCode": "has_key = True\nknows_password = True\nif :\n    print(\"Access Granted!\")\nelse:\n    print(\"Access Denied!\")"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which operator needs BOTH sides to be True for the whole statement to be True?",
+      "options": [
+        "or",
+        "and",
+        "not"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "If raining = True, what does 'not raining' equal?",
+      "options": [
+        "True",
+        "False",
+        "Error"
+      ],
+      "answer": 1
+    }
+  ]
+}

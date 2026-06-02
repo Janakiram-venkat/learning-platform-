@@ -1,0 +1,83 @@
+{
+  "lessonId": "string_methods",
+  "title": "String Secrets",
+  "description": "Learn how to use Python's text commands to find lengths, capitalize, lower case, or change parts of your text strings!",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Manipulating Text"
+    },
+    {
+      "type": "paragraph",
+      "value": "Strings aren't just for reading. Python gives us built-in functions to modify and inspect text! Let's look at some cool built-in spells."
+    },
+    {
+      "type": "heading",
+      "value": "1. Finding Length (len)"
+    },
+    {
+      "type": "paragraph",
+      "value": "To find out how many characters (letters, numbers, and even spaces!) are in a string, we use the `len()` spell."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "message = \"Hello World\"\nprint(len(message))  # Prints 11 (5 letters + 1 space + 5 letters)"
+    },
+    {
+      "type": "heading",
+      "value": "2. Upper and Lower Case (.upper() and .lower())"
+    },
+    {
+      "type": "paragraph",
+      "value": "Want to make your text shout? Use `.upper()`! Want to whisper it? Use `.lower()`!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "msg = \"Coding is Fun!\"\nprint(msg.upper())  # Prints: CODING IS FUN!\nprint(msg.lower())  # Prints: coding is fun!"
+    },
+    {
+      "type": "heading",
+      "value": "3. Replacing Words (.replace())"
+    },
+    {
+      "type": "paragraph",
+      "value": "If you want to swap a word inside your string, you can use `.replace()`! It takes two arguments: the old word you want to replace, and the new word you want instead."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "sentence = \"I like apples\"\nnew_sentence = sentence.replace(\"apples\", \"cookies\")\nprint(new_sentence)  # Prints: I like cookies"
+    }
+  ],
+  "editorCode": "secret = \"python is awesome\"\nprint(secret.upper())\nprint(secret.replace(\"python\", \"coding\"))",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Find the length of the string 'Supercalifragilistic' and print it!",
+      "starterCode": "word = \"Supercalifragilistic\"\n# Print the length of 'word' below"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which function gives you the number of characters in a string?",
+      "options": [
+        "length()",
+        "len()",
+        "count()"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What does 'hello'.upper() return?",
+      "options": [
+        "HELLO",
+        "hello",
+        "Hello"
+      ],
+      "answer": 0
+    }
+  ]
+}

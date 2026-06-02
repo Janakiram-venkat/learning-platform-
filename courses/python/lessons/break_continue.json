@@ -1,0 +1,70 @@
+{
+  "lessonId": "break_continue",
+  "title": "Break and Continue",
+  "description": "Learn how to control loops dynamically using the emergency eject button (break) and the skip button (continue)!",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Controlling Your Loops"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sometimes, you want to stop a loop early or skip a specific turn. Python gives us two magic spells to do this: `break` and `continue`."
+    },
+    {
+      "type": "heading",
+      "value": "1. The 'break' Spell (Emergency Eject)"
+    },
+    {
+      "type": "paragraph",
+      "value": "The `break` spell immediately ends the loop, even if the loop condition is still True! It is like pulling the emergency eject handle on a ride."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "for cookie in range(1, 6):\n    if cookie == 4:\n        print(\"Oh no, a spider is on cookie 4! Stop eating!\")\n        break\n    print(\"Eating cookie\", cookie)"
+    },
+    {
+      "type": "heading",
+      "value": "2. The 'continue' Spell (Skip Turn)"
+    },
+    {
+      "type": "paragraph",
+      "value": "The `continue` spell doesn't stop the loop. It just skips the rest of the current turn and jumps straight to the next spin!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "for floor in range(1, 6):\n    if floor == 3:\n        print(\"Skipping floor 3 (it is haunted!)\")\n        continue\n    print(\"Visiting floor\", floor)"
+    }
+  ],
+  "editorCode": "for i in range(1, 6):\n    if i == 3:\n        break\n    print(i)",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Modify the code to print numbers from 1 to 5, but skip the number 3 using the continue keyword.",
+      "starterCode": "for i in range(1, 6):\n    if i == 3:\n        # Write the skip spell here\n    print(i)"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which keyword immediately exits the entire loop?",
+      "options": [
+        "continue",
+        "break",
+        "pass"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What does 'continue' do inside a loop?",
+      "options": [
+        "Stops the loop forever.",
+        "Skips the rest of the current turn and starts the next one.",
+        "Speeds up the loop."
+      ],
+      "answer": 1
+    }
+  ]
+}

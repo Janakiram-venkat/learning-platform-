@@ -1,0 +1,21 @@
+{
+  "moduleId": 5,
+  "title": "Lists and Collections",
+  "lessons": [
+    {
+      "lessonId": "lists",
+      "title": "Magic Backpacks",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "tuples",
+      "title": "Unchangeable Scrolls",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "dictionaries",
+      "title": "The Phonebook",
+      "duration": "20 min"
+    }
+  ]
+}

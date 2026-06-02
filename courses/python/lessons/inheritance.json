@@ -1,0 +1,70 @@
+{
+  "lessonId": "inheritance",
+  "title": "Family Traits",
+  "description": "Learn how child classes inherit magical traits and superpowers from parent classes!",
+  "difficulty": "Advanced",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Passing Down Superpowers"
+    },
+    {
+      "type": "paragraph",
+      "value": "Imagine you are designing a superhero video game. You have a general `Hero` class with traits like `name` and actions like `run()`. Now you want to create a `FlyingHero` class. Instead of re-writing `name` and `run()`, you can make `FlyingHero` INHERIT (or adopt) them from `Hero`!"
+    },
+    {
+      "type": "heading",
+      "value": "How Inheritance Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "We specify the Parent class in parentheses when defining the Child class."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "class Animal:\n    def __init__(self, name):\n        self.name = name\n    \n    def eat(self):\n        print(self.name + \" is eating!\")\n\n# Dog inherits from Animal:\nclass Dog(Animal):\n    def bark(self):\n        print(self.name + \" says Woof!\")"
+    },
+    {
+      "type": "heading",
+      "value": "Calling Inherited Methods"
+    },
+    {
+      "type": "paragraph",
+      "value": "Even though `Dog` does not have an `eat` method written inside it, it inherits it from `Animal`! You can call `dog.eat()` and it works perfectly."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "my_dog = Dog(\"Buddy\")\nmy_dog.eat()   # Prints: Buddy is eating!\nmy_dog.bark()  # Prints: Buddy says Woof!"
+    }
+  ],
+  "editorCode": "class Bird:\n    def fly(self):\n        print(\"I am flying high!\")\n\nclass Parrot(Bird):\n    def speak(self):\n        print(\"Polly wants a cracker!\")\n\nmy_parrot = Parrot()\nmy_parrot.fly()\nmy_parrot.speak()",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Create a Dog object named 'rover' (which inherits from Animal) and call its rover.eat() method!",
+      "starterCode": "class Animal:\n    def __init__(self, name):\n        self.name = name\n    def eat(self):\n        print(self.name + \" is eating!\")\n\nclass Dog(Animal):\n    def bark(self):\n        print(self.name + \" barks!\")\n\n# Create 'rover' and make him eat below"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does a child class do in inheritance?",
+      "options": [
+        "Deletes the parent class.",
+        "Adopts all attributes and methods from the parent class.",
+        "Hides the parent class."
+      ],
+      "answer": 1
+    },
+    {
+      "question": "How do you define a class 'Car' that inherits from 'Vehicle'?",
+      "options": [
+        "class Car(Vehicle):",
+        "class Car inherits Vehicle:",
+        "class Vehicle(Car):"
+      ],
+      "answer": 0
+    }
+  ]
+}

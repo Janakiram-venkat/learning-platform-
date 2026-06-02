@@ -1,0 +1,83 @@
+{
+  "lessonId": "imports",
+  "title": "Importing Spells",
+  "description": "Learn how to borrow code libraries written by other wizards using the import statement!",
+  "difficulty": "Advanced",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Borrowing Pre-made Spells"
+    },
+    {
+      "type": "paragraph",
+      "value": "You don't need to write every single code function yourself. Python has a huge library of pre-written code (called Modules) that other programmers wrote! You can borrow their work using the `import` statement."
+    },
+    {
+      "type": "heading",
+      "value": "1. The 'random' Spell"
+    },
+    {
+      "type": "paragraph",
+      "value": "If you want to roll a dice, pick a random card, or select a random option in a game, you can import the `random` module!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "import random\n\n# Roll a 6-sided dice:\ndice_roll = random.randint(1, 6)\nprint(\"You rolled a:\", dice_roll)"
+    },
+    {
+      "type": "heading",
+      "value": "2. The 'math' Spell"
+    },
+    {
+      "type": "paragraph",
+      "value": "The `math` module gives you access to advanced math operations like calculating square roots (`math.sqrt`) or getting the exact value of Pi!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "import math\nprint(math.pi)          # Prints 3.141592653589793\nprint(math.sqrt(25))    # Prints 5.0"
+    },
+    {
+      "type": "heading",
+      "value": "3. The 'time' Spell"
+    },
+    {
+      "type": "paragraph",
+      "value": "The `time` module can make the computer pause and wait before running the next lines of code using `time.sleep()`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "import time\nprint(\"Starting timer...\")\ntime.sleep(1)\nprint(\"1 second passed!\")"
+    }
+  ],
+  "editorCode": "import random\nimport math\n\nprint(\"Random number between 10 and 20:\", random.randint(10, 20))\nprint(\"Square root of 81:\", math.sqrt(81))",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Import the 'random' module and print a random integer between 1 and 100!",
+      "starterCode": "# Import random and print a random number between 1 and 100 below"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which keyword is used to load a pre-written library module in Python?",
+      "options": [
+        "load",
+        "import",
+        "borrow"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Which module would you import to generate a random number?",
+      "options": [
+        "math",
+        "random",
+        "time"
+      ],
+      "answer": 1
+    }
+  ]
+}

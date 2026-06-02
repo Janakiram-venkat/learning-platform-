@@ -1,0 +1,91 @@
+{
+  "lessonId": "data_types",
+  "title": "Data Types",
+  "description": "Discover the different shapes and sizes of treasures you can store in your magic boxes.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Different Kinds of Treasures"
+    },
+    {
+      "type": "paragraph",
+      "value": "Remember our magic boxes (variables) from the last lesson? Well, you can't just put anything in them the exact same way. Think about your toy box: you have soft teddy bears, hard building blocks, and watery slime. They are all different kinds of toys!"
+    },
+    {
+      "type": "paragraph",
+      "value": "In Python, we have different kinds of data too. Let's learn about the three most important ones: Integers, Floats, and Strings."
+    },
+    {
+      "type": "heading",
+      "value": "1. Integers (Whole Numbers)"
+    },
+    {
+      "type": "paragraph",
+      "value": "Integers are just normal, whole numbers. Like the number of apples you have, or your age. No dots or fractions allowed!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "apples = 5\nage = 10"
+    },
+    {
+      "type": "heading",
+      "value": "2. Floats (Numbers with Dots)"
+    },
+    {
+      "type": "paragraph",
+      "value": "What if you have half a cookie? Or what if you are measuring your height? For that, we use 'Floats'. A Float is a number with a decimal point (a dot) in it."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "cookies = 2.5\nheight = 4.2"
+    },
+    {
+      "type": "heading",
+      "value": "3. Strings (Words and Text)"
+    },
+    {
+      "type": "paragraph",
+      "value": "Strings are used for words, names, and sentences. To make a string, you MUST wrap your words in quotation marks like a cozy blanket. If you forget the blanket, the computer will shiver and get confused!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "hero_name = \"Batman\"\nsecret_message = 'I love coding!'"
+    },
+    {
+      "type": "tip",
+      "value": "You can use double quotes (\") or single quotes ('). Both work perfectly fine as long as you use the same one at the beginning and the end."
+    }
+  ],
+  "editorCode": "apples = 5\ncookies = 2.5\nhero = \"Spiderman\"\n\nprint(apples)\nprint(cookies)\nprint(hero)",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Create a string variable called 'pet_name' and put the name of your pet (or a dream pet) inside it, then print it!",
+      "starterCode": "pet_name = \nprint(pet_name)"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which of these is a Float?",
+      "options": [
+        "10",
+        "3.14",
+        "\"Hello\""
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What is wrong with this string: name = Batman",
+      "options": [
+        "Batman is not a real name.",
+        "It is missing quotation marks.",
+        "Nothing is wrong."
+      ],
+      "answer": 1
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "moduleId": 3,
+  "title": "Loops and Repetition",
+  "lessons": [
+    {
+      "lessonId": "loops",
+      "title": "The For Loop",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "while_loops",
+      "title": "The While Loop",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "break_continue",
+      "title": "Break and Continue",
+      "duration": "15 min"
+    }
+  ]
+}

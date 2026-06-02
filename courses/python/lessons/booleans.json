@@ -1,0 +1,69 @@
+{
+  "lessonId": "booleans",
+  "title": "True or False?",
+  "description": "Meet Booleans, the binary wizards who only speak in absolute truths and falsehoods!",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Wizards of Truth"
+    },
+    {
+      "type": "paragraph",
+      "value": "In Python, there is a special data type called a Boolean. Booleans are named after a mathematician named George Boole. The best part? Booleans are extremely simple: they can only ever be True or False!"
+    },
+    {
+      "type": "heading",
+      "value": "Comparing Things"
+    },
+    {
+      "type": "paragraph",
+      "value": "We can use special comparison operators to ask the computer questions. The computer will always answer with True or False!"
+    },
+    {
+      "type": "heading",
+      "value": "Comparison Spells"
+    },
+    {
+      "type": "paragraph",
+      "value": "- `>`: Is it greater than?\n- `<`: Is it less than?\n- `==`: Are they EXACTLY equal? (Notice we use two equals signs `==` to compare, and one equals sign `=` to put things in a variable box!)\n- `!=`: Are they NOT equal?"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "print(5 > 3)    # Prints True\nprint(2 == 4)   # Prints False\nprint(10 != 9)  # Prints True"
+    },
+    {
+      "type": "tip",
+      "value": "In Python, the first letters of True and False must ALWAYS be capitalized. Writing 'true' or 'false' in lowercase will make the computer throw a tantrum!"
+    }
+  ],
+  "editorCode": "print(12 > 15)\nprint(7 == 7)\nprint(4 != 5)",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Create a variable called 'my_guess' and check if 8 is equal to 8. Print your variable!",
+      "starterCode": "my_guess = 8 == 8\nprint(my_guess)"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which symbol do we use to check if two values are equal?",
+      "options": [
+        "=",
+        "==",
+        "!="
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What does '5 != 5' print?",
+      "options": [
+        "True",
+        "False",
+        "Error"
+      ],
+      "answer": 1
+    }
+  ]
+}

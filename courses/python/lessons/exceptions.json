@@ -1,0 +1,65 @@
+{
+  "lessonId": "exceptions",
+  "title": "Catching Bugs",
+  "description": "Learn how to use safety nets (try and except) to catch errors and prevent your game from crashing!",
+  "difficulty": "Advanced",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Magical Safety Nets"
+    },
+    {
+      "type": "paragraph",
+      "value": "No matter how good a wizard you are, sometimes your spells go wrong. In coding, if a user inputs something bad, or if you try to divide a number by 0, the program crashes immediately! To prevent this, Python gives us a safety net: the `try` and `except` block."
+    },
+    {
+      "type": "heading",
+      "value": "How to Catch an Error"
+    },
+    {
+      "type": "paragraph",
+      "value": "We put code that might crash inside a `try` block. Below it, we write an `except` block. If the `try` code throws an error, instead of crashing, Python immediately jumps to the `except` block and runs the safety code!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "try:\n    # Trying to divide by zero (impossible!):\n    result = 10 / 0\n    print(result)\nexcept:\n    print(\"Oops! You cannot divide by zero. Please try again!\")"
+    },
+    {
+      "type": "heading",
+      "value": "Why Use Safety Nets?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Without `try`/`except`, your game or app would close immediately and show an ugly computer error screen to players. With it, you can print a friendly helper message and keep the application running smoothly!"
+    }
+  ],
+  "editorCode": "try:\n    number = int(\"not_a_number\")\n    print(number)\nexcept:\n    print(\"That is not a valid number!\")",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Wrap the division code below in a try/except block. If it succeeds, it should print the result. If it fails, print 'Division failed!'",
+      "starterCode": "numerator = 10\ndenominator = 0\n\n# Add try/except block to handle division safely\nresult = numerator / denominator\nprint(result)"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which block contains code that might fail or cause a crash?",
+      "options": [
+        "except",
+        "try",
+        "catch"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What happens if code inside a 'try' block succeeds without any errors?",
+      "options": [
+        "The 'except' block runs anyway.",
+        "The 'except' block is skipped.",
+        "The program restarts."
+      ],
+      "answer": 1
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "lessonId": "math_magic",
+  "title": "Math Magic",
+  "description": "Learn how to use Python's built-in calculators to perform magical number tricks!",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Magical Calculators"
+    },
+    {
+      "type": "paragraph",
+      "value": "Did you know that computers are incredibly good at math? Python has built-in symbols (we call them Operators) that act like mini calculator spells. Let's learn them!"
+    },
+    {
+      "type": "heading",
+      "value": "1. The Basic Spells (+, -, *, /)"
+    },
+    {
+      "type": "paragraph",
+      "value": "Addition `+` and subtraction `-` work exactly like in school. For multiplication, we use the star key `*` (asterisk), and for division, we use the forward slash `/`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "print(5 + 3)\nprint(10 - 4)\nprint(3 * 4)\nprint(10 / 2)"
+    },
+    {
+      "type": "heading",
+      "value": "2. The Secret Modulo Spell (%)"
+    },
+    {
+      "type": "paragraph",
+      "value": "This is one of the coolest operators: the Modulo `%` spell. It doesn't give you the division answer, it only gives you the REMAINDER left over! If you share 7 cookies between 3 friends, each friend gets 2 whole cookies and there is 1 cookie left over. Modulo tells you exactly that remainder!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "print(7 % 3)  # Prints 1 because 7 / 3 has a remainder of 1"
+    },
+    {
+      "type": "heading",
+      "value": "3. Power Up (**)"
+    },
+    {
+      "type": "paragraph",
+      "value": "To multiply a number by itself multiple times, we use the Double Star `**` (exponentiation). For example, `2 ** 3` means 2 multiplied by itself 3 times (2 * 2 * 2 = 8)."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "print(2 ** 3)  # Prints 8\nprint(5 ** 2)  # Prints 25"
+    },
+    {
+      "type": "tip",
+      "value": "Python also has a Floor Division `//` spell which does division but throws away any decimal remainder, returning only a whole number. Try `7 // 3` in the compiler!"
+    }
+  ],
+  "editorCode": "print(10 + 5)\nprint(3 * 3)\nprint(15 % 4)",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Find the remainder when you divide 15 by 4 using the modulo spell, and print it!",
+      "starterCode": "# Use the modulo operator (%) to find 15 divided by 4\nprint()"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which operator is used to find the remainder of a division?",
+      "options": [
+        "/",
+        "%",
+        "*"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What is the result of 3 ** 2 in Python?",
+      "options": [
+        "6",
+        "9",
+        "5"
+      ],
+      "answer": 1
+    }
+  ]
+}

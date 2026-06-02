@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import courses, lessons, compiler, quiz, users
@@ -9,9 +10,14 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Student Coding Platform API")
 
+# Allowed frontend origins. Set CORS_ORIGINS on Render to your Vercel URL
+# (comma-separated for multiple). Falls back to local dev origins.
+_default_origins = "http://localhost:5173,http://localhost:3000"
+allowed_origins = [o.strip() for o in os.getenv("CORS_ORIGINS", _default_origins).split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # For development
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

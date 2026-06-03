@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Terminal, Bot, Cpu, Rocket, Sparkles, Gamepad2, Star, Zap, Heart } from 'lucide-react';
+import logo from '../assets/pocketlab.png';
 
 // Three.js is heavy — load it lazily so hero text paints instantly.
 const FloatingScene = lazy(() => import('../components/three/FloatingScene'));
@@ -51,6 +52,13 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(244,241,255,0.85)_0%,rgba(244,241,255,0.45)_55%,transparent_100%)]" />
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 py-16 text-center sm:py-28">
+          {/* Floating Pocket Lab brand logo */}
+          <img
+            src={logo}
+            alt="Pocket Lab"
+            className="animate-logo-float mb-8 h-16 w-auto sm:h-24 drop-shadow-xl"
+          />
+
           <div className="mb-6 inline-flex animate-bounce-in items-center gap-2 rounded-full bg-white/80 px-5 py-2 text-sm font-bold text-purple-700 shadow-md ring-1 ring-purple-200 backdrop-blur">
             <Gamepad2 className="h-4 w-4" />
             Code · AI · Robotics — Learn by Playing!

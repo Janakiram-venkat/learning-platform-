@@ -87,6 +87,13 @@ body {
   100% { transform: scale(1); }
 }
 
+/* Gentle bob + sway for the brand logo */
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0) rotate(-1.2deg); }
+  50% { transform: translateY(-14px) rotate(1.2deg); }
+}
+
+.animate-logo-float { animation: logoFloat 5s ease-in-out infinite; }
 .animate-float { animation: float 4s ease-in-out infinite; }
 .animate-float-slow { animation: float 6s ease-in-out infinite; }
 .animate-wiggle { animation: wiggle 2.5s ease-in-out infinite; }
@@ -112,7 +119,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-float, .animate-float-slow, .animate-wiggle, .animate-glow, .gradient-text {
+  .animate-float, .animate-float-slow, .animate-wiggle, .animate-glow, .animate-logo-float, .gradient-text {
     animation: none;
   }
 }

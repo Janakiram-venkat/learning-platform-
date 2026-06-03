@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
-import { X, LogIn } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import GoogleSignInButton from './GoogleSignInButton';
+import logo from '../../assets/pocketlab.png';
 
 export default function SignInModal({ open, onClose }) {
   const { signIn, signInWithGoogle } = useAuth();
@@ -65,10 +66,8 @@ export default function SignInModal({ open, onClose }) {
           <X className="h-5 w-5" />
         </button>
 
-        <div className="mb-6 flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white">
-            <LogIn className="h-5 w-5" />
-          </div>
+        <div className="mb-6 flex flex-col items-center gap-2 text-center">
+          <img src={logo} alt="Pocket Lab" className="h-12 w-auto" />
           <div>
             <h2 className="text-xl font-extrabold text-gray-900">Welcome</h2>
             <p className="text-sm text-gray-500">Sign in to save your progress</p>

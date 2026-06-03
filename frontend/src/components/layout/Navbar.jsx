@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Rocket, BookOpen } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import SignInModal from '../auth/SignInModal';
 import ProfileMenu from '../profile/ProfileMenu';
+import logo from '../../assets/pocketlab.png';
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -12,14 +13,13 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 flex h-[64px] items-center border-b-2 border-purple-100 bg-white/80 px-6 backdrop-blur-md">
-      <div className="mr-8 flex items-center gap-2">
-        <span className="flex h-9 w-9 animate-float items-center justify-center rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 text-white shadow-md">
-          <Rocket className="h-5 w-5" />
-        </span>
-        <Link to="/" className="font-display text-2xl font-bold tracking-tight text-[#2D2A4A]">
-          Code<span className="text-purple-600">Quest</span>
-        </Link>
-      </div>
+      <Link to="/" className="mr-4 flex shrink-0 items-center sm:mr-8">
+        <img
+          src={logo}
+          alt="Pocket Lab"
+          className="h-8 w-auto sm:h-9"
+        />
+      </Link>
       <div className="flex gap-2">
         <Link
           to="/courses"

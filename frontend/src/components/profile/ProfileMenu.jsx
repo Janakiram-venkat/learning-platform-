@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Award, LogOut, Mail, CalendarDays, BookOpenCheck, BookMarked } from 'lucide-react';
+import { Award, LogOut, Mail, CalendarDays, Layers } from 'lucide-react';
 
 export default function ProfileMenu({ open, onClose }) {
   const { user, signOut } = useAuth();
@@ -24,13 +24,11 @@ export default function ProfileMenu({ open, onClose }) {
     }
   }, [open]); // re-read each time the popup opens
 
-  const completedCount = useMemo(() => {
-    try {
-      return JSON.parse(localStorage.getItem('completedLessons') || '[]').length;
-    } catch {
-      return 0;
-    }
-  }, [open]);
+  // Modules done = module badges earned (one badge is awarded per finished module).
+  const moduleCount = useMemo(
+    () => badges.filter((b) => b.type === 'module').length,
+    [badges]
+  );
 
   if (!open || !user) return null;
 
@@ -62,9 +60,9 @@ export default function ProfileMenu({ open, onClose }) {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 px-5 py-4">
         <div className="rounded-xl bg-gray-50 p-3">
-          <BookOpenCheck className="mb-1 h-5 w-5 text-blue-600" />
-          <p className="text-xl font-extrabold text-gray-900">{completedCount}</p>
-          <p className="text-xs text-gray-500">Lessons done</p>
+          <Layers className="mb-1 h-5 w-5 text-blue-600" />
+          <p className="text-xl font-extrabold text-gray-900">{moduleCount}</p>
+          <p className="text-xs text-gray-500">Modules done</p>
         </div>
         <div className="rounded-xl bg-gray-50 p-3">
           <Award className="mb-1 h-5 w-5 text-amber-500" />
@@ -82,29 +80,20 @@ export default function ProfileMenu({ open, onClose }) {
           </p>
         ) : (
           <div className="space-y-2">
-            {badges.map((b) => {
-              const isModule = b.type === 'module';
-              return (
-                <div
-                  key={b.id}
-                  className={`flex items-center gap-3 rounded-xl p-2.5 ${isModule ? 'bg-amber-50 ring-1 ring-amber-100' : 'bg-gray-50'}`}
-                >
-                  <div
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white shadow ${
-                      isModule
-                        ? 'bg-gradient-to-br from-amber-400 to-yellow-500'
-                        : 'bg-gradient-to-br from-green-400 to-emerald-500'
-                    }`}
-                  >
-                    {isModule ? <Award className="h-4 w-4" strokeWidth={2.5} /> : <BookMarked className="h-4 w-4" strokeWidth={2.5} />}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-bold text-gray-800">{b.name}</p>
-                    <p className="text-xs text-gray-400">{isModule ? 'Module badge' : 'Perfect quiz'}</p>
-                  </div>
+            {badges.map((b) => (
+              <div
+                key={b.id}
+                className="flex items-center gap-3 rounded-xl bg-amber-50 p-2.5 ring-1 ring-amber-100"
+              >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 text-white shadow">
+                  <Award className="h-4 w-4" strokeWidth={2.5} />
                 </div>
-              );
-            })}
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-bold text-gray-800">{b.name}</p>
+                  <p className="text-xs text-gray-400">Module badge</p>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

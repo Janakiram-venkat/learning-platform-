@@ -6,7 +6,7 @@ import CodeEditor from '../components/editor/CodeEditor';
 import OutputPanel from '../components/editor/OutputPanel';
 import Celebration from '../components/feedback/Celebration';
 import { getUnlockedLessonIds } from '../utils/progress';
-import { Play, CheckCircle2 } from 'lucide-react';
+import { Play, CheckCircle2, Menu, X } from 'lucide-react';
 
 export default function LessonPage() {
   const { courseId, lessonId } = useParams();
@@ -24,6 +24,7 @@ export default function LessonPage() {
   const [quizAnswers, setQuizAnswers] = useState({});
   const [quizResult, setQuizResult] = useState(null);
   const [celebration, setCelebration] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -77,20 +78,14 @@ export default function LessonPage() {
       const res = await quizService.submitQuiz(courseId, lessonId, answers);
       setQuizResult(res.data);
 
-      // Celebrate a perfect score and award a badge for this lesson.
+      // Celebrate a perfect score with an animation (badges are earned by
+      // completing whole modules, not individual quizzes).
       const { score, total } = res.data;
       if (total > 0 && score === total) {
-        const badgeId = `quiz-${lessonId}`;
-        const badgeName = `${lesson.title} Master`;
-        const badges = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
-        if (!badges.some(b => b.id === badgeId)) {
-          badges.push({ id: badgeId, name: badgeName, type: 'quiz', earnedAt: new Date().toISOString() });
-          localStorage.setItem('earnedBadges', JSON.stringify(badges));
-        }
         setCelebration({
-          title: 'Congratulations! 🎉',
-          message: `Perfect score! You answered all ${total} ${total === 1 ? 'question' : 'questions'} correctly.`,
-          badge: badgeName,
+          variant: 'lesson',
+          title: 'Perfect Score! 🎉',
+          message: `You answered all ${total} ${total === 1 ? 'question' : 'questions'} correctly. Awesome work!`,
         });
       } else if (total > 0) {
         // Not all correct — gently prompt a retry.
@@ -151,7 +146,13 @@ export default function LessonPage() {
       }
     }
 
-    goToNext();
+    // Regular lesson finished — celebrate with an animation (no badge), then advance.
+    setCelebration({
+      variant: 'lesson',
+      title: 'Lesson Complete! ✅',
+      message: 'Nice progress! Keep going to finish the module and earn its badge.',
+      next: true,
+    });
   };
 
   const handleCelebrationClose = () => {
@@ -164,7 +165,7 @@ export default function LessonPage() {
   if (!lesson) return <div className="flex-1 flex items-center justify-center">Lesson not found.</div>;
 
   return (
-    <div className="flex w-full overflow-hidden" style={{ height: 'calc(100vh - 60px)' }}>
+    <div className="flex w-full flex-col lg:h-[calc(100vh-64px)] lg:flex-row lg:overflow-hidden">
       <Celebration
         open={!!celebration}
         title={celebration?.title}
@@ -173,13 +174,47 @@ export default function LessonPage() {
         variant={celebration?.variant}
         onClose={handleCelebrationClose}
       />
-      <Sidebar course={course} currentLessonId={lessonId} />
-      
+
+      {/* Mobile-only top bar to open the lesson list */}
+      <div className="flex items-center gap-3 border-b border-gray-200 bg-white px-4 py-3 lg:hidden">
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2 text-sm font-bold text-gray-700 active:scale-95"
+        >
+          <Menu className="h-4 w-4" /> Lessons
+        </button>
+        <span className="truncate text-sm font-semibold text-gray-500">{course?.title}</span>
+      </div>
+
+      {/* Backdrop for the mobile drawer */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar: slide-in drawer on mobile, static column on desktop */}
+      <div
+        className={`fixed inset-y-0 left-0 z-40 w-72 transform bg-gray-50 shadow-xl transition-transform duration-300 lg:static lg:z-0 lg:w-64 lg:translate-x-0 lg:shadow-none ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <button
+          onClick={() => setSidebarOpen(false)}
+          className="absolute right-2 top-2 z-10 rounded-md p-1.5 text-gray-500 hover:bg-gray-200 lg:hidden"
+          aria-label="Close lessons"
+        >
+          <X className="h-5 w-5" />
+        </button>
+        <Sidebar course={course} currentLessonId={lessonId} onNavigate={() => setSidebarOpen(false)} />
+      </div>
+
       {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto p-8 bg-gray-50 border-r border-gray-200">
-        <div className="max-w-3xl mx-auto bg-white p-10 rounded-2xl shadow-sm border border-gray-100">
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">{lesson.title}</h1>
-          <p className="text-lg text-gray-600 mb-10 pb-6 border-b border-gray-100">{lesson.description}</p>
+      <div className="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-8 lg:border-r lg:border-gray-200">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-10">
+          <h1 className="mb-4 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{lesson.title}</h1>
+          <p className="mb-6 border-b border-gray-100 pb-6 text-base text-gray-600 sm:mb-10 sm:text-lg">{lesson.description}</p>
           
           <div className="space-y-8 mb-16">
             {lesson.content?.map((block, idx) => {
@@ -203,10 +238,10 @@ export default function LessonPage() {
           {/* Practice Section */}
           {lesson.practice && lesson.practice.length > 0 && (
             <div className="mb-16 border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <div className="bg-blue-50 px-8 py-5 border-b border-blue-100">
+              <div className="bg-blue-50 px-5 py-4 border-b border-blue-100 sm:px-8 sm:py-5">
                 <h3 className="font-bold text-blue-900 text-lg">Practice Exercises</h3>
               </div>
-              <div className="p-8 bg-white">
+              <div className="p-5 bg-white sm:p-8">
                 {lesson.practice.map(p => (
                   <div key={p.id} className="mb-6 last:mb-0">
                     <p className="font-medium text-gray-800 text-lg mb-4">Task: {p.question}</p>
@@ -225,10 +260,10 @@ export default function LessonPage() {
           {/* Quiz Section */}
           {lesson.quiz && lesson.quiz.length > 0 && (
             <div className="mb-16 border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <div className="bg-green-50 px-8 py-5 border-b border-green-100">
+              <div className="bg-green-50 px-5 py-4 border-b border-green-100 sm:px-8 sm:py-5">
                 <h3 className="font-bold text-green-900 text-lg">Knowledge Check</h3>
               </div>
-              <div className="p-8 bg-white space-y-10">
+              <div className="p-5 bg-white space-y-8 sm:p-8 sm:space-y-10">
                 {lesson.quiz.map((q, qIdx) => (
                   <div key={qIdx}>
                     <p className="font-bold text-gray-900 text-lg mb-5">{q.question}</p>
@@ -249,8 +284,8 @@ export default function LessonPage() {
                   </div>
                 ))}
                 
-                <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
-                  <button 
+                <div className="flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-6">
+                  <button
                     onClick={handleQuizSubmit}
                     className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-bold transition-colors shadow-sm"
                   >
@@ -279,10 +314,10 @@ export default function LessonPage() {
       </div>
 
       {/* Compiler Panel */}
-      <div className="w-[600px] bg-white flex flex-col h-full border-l border-gray-200 shadow-2xl z-10">
-        
+      <div className="z-10 flex w-full flex-col border-t border-gray-200 bg-white shadow-2xl lg:h-full lg:w-[600px] lg:border-l lg:border-t-0">
+
         {/* Editor Area */}
-        <div className="h-[65%] p-5 flex flex-col border-b border-gray-200 bg-gray-50">
+        <div className="flex h-[55vh] flex-col border-b border-gray-200 bg-gray-50 p-4 sm:p-5 lg:h-[65%]">
           <div className="flex justify-between items-center mb-4 shrink-0">
             <h3 className="font-extrabold text-gray-900 text-lg flex items-center">
               <span className="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
@@ -303,7 +338,7 @@ export default function LessonPage() {
         </div>
         
         {/* Output Area */}
-        <div className="h-[35%] p-5 flex flex-col bg-gray-50">
+        <div className="flex h-[40vh] flex-col bg-gray-50 p-4 sm:p-5 lg:h-[35%]">
           <div className="flex-1 min-h-0 rounded-xl overflow-hidden shadow-inner border border-gray-300">
             <OutputPanel output={output} isRunning={isRunning} error={runError} />
           </div>

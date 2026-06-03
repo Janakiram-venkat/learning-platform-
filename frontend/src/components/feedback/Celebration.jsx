@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Award, X, RotateCcw } from 'lucide-react';
+import { Award, X, RotateCcw, PartyPopper } from 'lucide-react';
 
 // A small confetti burst rendered with pure CSS — no extra dependencies.
 const CONFETTI_COLORS = ['#34d399', '#60a5fa', '#fbbf24', '#f472b6', '#a78bfa', '#f87171'];
@@ -7,6 +7,7 @@ const CONFETTI_PIECES = Array.from({ length: 40 }, (_, i) => i);
 
 export default function Celebration({ open, title, message, badge, onClose, variant = 'success' }) {
   const isRetry = variant === 'retry';
+  const isLesson = variant === 'lesson'; // lesson complete: animation only, no badge
 
   // Auto-dismiss after a few seconds so it never blocks the lesson.
   useEffect(() => {
@@ -58,11 +59,15 @@ export default function Celebration({ open, title, message, badge, onClose, vari
           className={`mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full shadow-lg animate-[badgePop_0.6s_cubic-bezier(0.34,1.56,0.64,1)_0.15s_both] ${
             isRetry
               ? 'bg-gradient-to-br from-orange-400 to-rose-500'
+              : isLesson
+              ? 'bg-gradient-to-br from-teal-400 to-emerald-500'
               : 'bg-gradient-to-br from-amber-400 to-yellow-500'
           }`}
         >
           {isRetry ? (
             <RotateCcw className="h-12 w-12 text-white drop-shadow" strokeWidth={2.5} />
+          ) : isLesson ? (
+            <PartyPopper className="h-12 w-12 text-white drop-shadow" strokeWidth={2.5} />
           ) : (
             <Award className="h-12 w-12 text-white drop-shadow" strokeWidth={2.5} />
           )}

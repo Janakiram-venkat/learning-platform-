@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import { ChevronDown, CheckCircle2, Circle, Lock } from 'lucide-react';
 import { getCompletedLessons, getUnlockedLessonIds } from '../../utils/progress';
 
-export default function Sidebar({ course, currentLessonId }) {
-  if (!course) return <div className="w-64 bg-gray-50 border-r border-gray-200 h-full p-4">Loading...</div>;
+export default function Sidebar({ course, currentLessonId, onNavigate }) {
+  if (!course) return <div className="w-full bg-gray-50 border-r border-gray-200 h-full p-4">Loading...</div>;
 
   const completedLessons = getCompletedLessons();
   const unlocked = getUnlockedLessonIds(course);
 
   return (
-    <div className="w-64 bg-gray-50 border-r border-gray-200 h-full flex flex-col overflow-y-auto">
+    <div className="w-full bg-gray-50 border-r border-gray-200 h-full flex flex-col overflow-y-auto">
       <div className="p-4 border-b border-gray-200">
         <h2 className="font-bold text-gray-900">{course.title}</h2>
       </div>
@@ -52,6 +52,7 @@ export default function Sidebar({ course, currentLessonId }) {
                   <Link
                     key={lesson.lessonId}
                     to={`/course/${course.courseId}/lesson/${lesson.lessonId}`}
+                    onClick={onNavigate}
                     className={`flex items-center text-sm p-2 rounded-md ${isCurrent ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-600 hover:bg-gray-100'}`}
                   >
                     {icon}

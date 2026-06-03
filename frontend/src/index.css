@@ -1,14 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1F2937;
-  --color-secondary: #6B7280;
-  --color-accent: #2563EB;
-  --color-background: #FFFFFF;
-  --color-sidebar: #F5F5F5;
-  --color-border: #D1D5DB;
+  /* Playful, kid-friendly palette */
+  --color-primary: #2D2A4A;     /* deep friendly indigo for text */
+  --color-secondary: #6C63A6;
+  --color-accent: #7C3AED;      /* vibrant purple */
+  --color-accent2: #FF8A3D;     /* warm orange */
+  --color-accent3: #2DD4BF;     /* teal */
+  --color-accent4: #F472B6;     /* pink */
+  --color-background: #F4F1FF;  /* soft lavender */
+  --color-sidebar: #EFEafe;
+  --color-border: #E2DBFF;
 
-  --font-sans: 'Inter', 'Roboto', sans-serif;
+  --font-sans: 'Nunito', 'Segoe UI', sans-serif;
+  --font-display: 'Fredoka', 'Nunito', sans-serif;
 }
 
 body {
@@ -16,10 +21,15 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-background);
   color: var(--color-primary);
+  overflow-x: hidden;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.font-display {
+  font-family: var(--font-display);
 }
 
 /* --- Celebration animations --- */
@@ -42,4 +52,67 @@ body {
 @keyframes confettiFall {
   0% { transform: translateY(-10vh) rotateZ(0deg); opacity: 1; }
   100% { transform: translateY(110vh) rotateZ(720deg); opacity: 0.8; }
+}
+
+/* --- Game-like UI animations --- */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.6) translateY(30px); }
+  60% { opacity: 1; transform: scale(1.05) translateY(-4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+  50% { box-shadow: 0 0 28px 6px rgba(124, 58, 237, 0.35); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-float-slow { animation: float 6s ease-in-out infinite; }
+.animate-wiggle { animation: wiggle 2.5s ease-in-out infinite; }
+.animate-bounce-in { animation: bounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.animate-glow { animation: glowPulse 2.8s ease-in-out infinite; }
+
+/* Hover lift used on game cards */
+.game-card {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+.game-card:hover {
+  transform: translateY(-8px) rotate(-1deg);
+}
+
+/* Rainbow gradient text */
+.gradient-text {
+  background: linear-gradient(90deg, #7C3AED, #F472B6, #FF8A3D, #2DD4BF, #7C3AED);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float, .animate-float-slow, .animate-wiggle, .animate-glow, .gradient-text {
+    animation: none;
+  }
 }

@@ -1,0 +1,59 @@
+{
+  "moduleId": 5,
+  "title": "Collection Keeper Arcade",
+  "intro": "Backpacks (lists), scrolls (tuples) and phonebooks (dicts) hold your treasures! Grab the right items and store them well. First-try wins earn ⭐⭐⭐!",
+  "emoji": "🎒",
+  "rounds": [
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "fruits = [\"apple\", \"banana\", \"cherry\"]\nprint(fruits[0])",
+      "options": ["apple", "banana", "1"],
+      "answer": 0,
+      "explain": "Lists start counting at 0, so fruits[0] is the first item: apple."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which collection CANNOT be changed after you make it?",
+      "options": ["A tuple", "A list", "A dictionary"],
+      "answer": 0,
+      "explain": "Tuples are like unchangeable scrolls — once written, they stay the same."
+    },
+    {
+      "type": "predict",
+      "prompt": "What prints here?",
+      "code": "ages = {\"Sam\": 9, \"Mia\": 11}\nprint(ages[\"Mia\"])",
+      "options": ["11", "9", "Mia"],
+      "answer": 0,
+      "explain": "A dictionary looks up a value by its key. The key \"Mia\" points to 11."
+    },
+    {
+      "type": "bug",
+      "prompt": "This crashes! The list only has 3 items. Pick the fix.",
+      "code": "colors = [\"red\", \"green\", \"blue\"]\nprint(colors[3])",
+      "options": [
+        "Use a valid index like colors[2]",
+        "Add more print lines",
+        "Remove the square brackets"
+      ],
+      "answer": 0,
+      "explain": "3 items use indexes 0, 1, 2. Index 3 doesn't exist, so it errors out."
+    },
+    {
+      "type": "concept",
+      "prompt": "How do you add a new item to the end of a list called bag?",
+      "options": ["bag.append(\"sword\")", "bag.add(\"sword\")", "bag + \"sword\""],
+      "answer": 0,
+      "explain": ".append() drops a new item neatly onto the end of the list."
+    },
+    {
+      "type": "order",
+      "prompt": "Build a list of two pets, then print the first one.",
+      "solution": [
+        "pets = [\"cat\", \"dog\"]",
+        "print(pets[0])"
+      ],
+      "explain": "Create the list first, then use index [0] to grab the first pet."
+    }
+  ]
+}

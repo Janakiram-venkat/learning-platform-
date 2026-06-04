@@ -54,7 +54,8 @@
         "==",
         "!="
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "We use a double equals sign `==` to compare two values. A single `=` puts a value into a variable, and `!=` means 'not equal'."
     },
     {
       "question": "What does '5 != 5' print?",
@@ -63,7 +64,8 @@
         "False",
         "Error"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`!=` means 'not equal'. Since 5 IS equal to 5, the statement '5 != 5' is False."
     }
   ]
 }

@@ -55,3 +55,20 @@ def get_lesson_by_id(course_id: str, lesson_id: str):
         with open(lesson_file, 'r', encoding='utf-8') as f:
             return json.load(f)
     return None
+
+def get_assignment_by_id(course_id: str, module_id: str):
+    # module_id is e.g. "module1"; assignments live in courses/<course>/assignments/.
+    assignment_file = COURSES_DIR / course_id / "assignments" / f"{module_id}.json"
+    if assignment_file.exists():
+        with open(assignment_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return None
+
+
+def get_project_by_id(course_id: str, module_id: str):
+    # module_id is e.g. "module1"; mini-projects live in courses/<course>/projects/.
+    project_file = COURSES_DIR / course_id / "projects" / f"{module_id}.json"
+    if project_file.exists():
+        with open(project_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return None

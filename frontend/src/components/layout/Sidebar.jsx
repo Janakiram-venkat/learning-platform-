@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom';
-import { ChevronDown, CheckCircle2, Circle, Lock } from 'lucide-react';
-import { getCompletedLessons, getUnlockedLessonIds } from '../../utils/progress';
+import { ChevronDown, CheckCircle2, Circle, Lock, Gamepad2, Hammer } from 'lucide-react';
+import {
+  getCompletedLessons,
+  getUnlockedLessonIds,
+  isAssignmentUnlocked,
+  isAssignmentCompleted,
+  getAssignmentKey,
+  getModuleNumericId,
+  isProjectCompleted,
+} from '../../utils/progress';
 
 export default function Sidebar({ course, currentLessonId, onNavigate }) {
   if (!course) return <div className="w-full bg-gray-50 border-r border-gray-200 h-full p-4">Loading...</div>;
@@ -60,6 +68,68 @@ export default function Sidebar({ course, currentLessonId, onNavigate }) {
                   </Link>
                 );
               })}
+
+              {/* Module arcade challenge — unlocks once every lesson is done */}
+              {(() => {
+                const aUnlocked = isAssignmentUnlocked(module);
+                const aKey = getAssignmentKey(module);
+                const aDone = isAssignmentCompleted(aKey);
+
+                if (!aUnlocked) {
+                  return (
+                    <div
+                      title="Finish all lessons in this module to unlock the challenge"
+                      className="flex items-center text-sm p-2 rounded-md text-gray-400 cursor-not-allowed select-none"
+                    >
+                      <Lock className="w-4 h-4 mr-2 shrink-0" />
+                      <span className="truncate">🎮 Module Challenge</span>
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    to={`/course/${course.courseId}/module/module${getModuleNumericId(module)}/assignment`}
+                    onClick={onNavigate}
+                    className={`flex items-center text-sm font-semibold p-2 rounded-md ${aDone ? 'text-green-600 hover:bg-green-50' : 'text-purple-600 hover:bg-purple-50'}`}
+                  >
+                    {aDone
+                      ? <CheckCircle2 className="w-4 h-4 mr-2 text-green-500 shrink-0" />
+                      : <Gamepad2 className="w-4 h-4 mr-2 text-purple-500 shrink-0" />}
+                    <span className="truncate">Module Challenge 🎮</span>
+                  </Link>
+                );
+              })()}
+
+              {/* Mini project — only for modules that have one, unlocks with the arcade */}
+              {module.hasProject && (() => {
+                const pUnlocked = isAssignmentUnlocked(module);
+                const pKey = `module${getModuleNumericId(module)}`;
+                const pDone = isProjectCompleted(pKey);
+
+                if (!pUnlocked) {
+                  return (
+                    <div
+                      title="Finish all lessons in this module to unlock the project"
+                      className="flex items-center text-sm p-2 rounded-md text-gray-400 cursor-not-allowed select-none"
+                    >
+                      <Lock className="w-4 h-4 mr-2 shrink-0" />
+                      <span className="truncate">🛠️ Mini Project</span>
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    to={`/course/${course.courseId}/module/${pKey}/project`}
+                    onClick={onNavigate}
+                    className={`flex items-center text-sm font-semibold p-2 rounded-md ${pDone ? 'text-green-600 hover:bg-green-50' : 'text-orange-600 hover:bg-orange-50'}`}
+                  >
+                    {pDone
+                      ? <CheckCircle2 className="w-4 h-4 mr-2 text-green-500 shrink-0" />
+                      : <Hammer className="w-4 h-4 mr-2 text-orange-500 shrink-0" />}
+                    <span className="truncate">Mini Project 🛠️</span>
+                  </Link>
+                );
+              })()}
             </div>
           </div>
         ))}

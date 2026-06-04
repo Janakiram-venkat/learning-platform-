@@ -4,6 +4,7 @@ import { BookOpen } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import SignInModal from '../auth/SignInModal';
 import ProfileMenu from '../profile/ProfileMenu';
+import XPBadge from '../profile/XPBadge';
 import logo from '../../assets/pocketlab.png';
 
 export default function Navbar() {
@@ -29,7 +30,8 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="relative ml-auto">
+      <div className="relative ml-auto flex items-center gap-3">
+        {user && <XPBadge />}
         {user ? (
           <>
             <button

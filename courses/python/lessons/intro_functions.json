@@ -55,7 +55,8 @@
         "def",
         "create"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`def` (short for 'define') starts a new function. `function` and `create` are not Python keywords."
     },
     {
       "question": "What does calling a function mean?",
@@ -64,7 +65,8 @@
         "Telling Python to execute the function's code.",
         "Deleting the function."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "Calling a function means telling Python to run the code inside it, by writing the function's name with `()`."
     }
   ]
 }

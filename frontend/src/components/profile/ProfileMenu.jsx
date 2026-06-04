@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Award, LogOut, Mail, CalendarDays, Layers } from 'lucide-react';
+import { getXP, getLevelInfo } from '../../utils/progress';
+import { Award, LogOut, Mail, CalendarDays, Layers, Zap } from 'lucide-react';
 
 export default function ProfileMenu({ open, onClose }) {
   const { user, signOut } = useAuth();
@@ -30,6 +31,13 @@ export default function ProfileMenu({ open, onClose }) {
     [badges]
   );
 
+  // XP / level — re-read each time the popup opens.
+  const { xp, level, intoLevel, perLevel } = useMemo(() => {
+    const x = getXP();
+    const info = getLevelInfo(x);
+    return { xp: x, ...info };
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
+
   if (!open || !user) return null;
 
   const joined = user.created_at
@@ -54,6 +62,25 @@ export default function ProfileMenu({ open, onClose }) {
           <p className="mt-0.5 flex items-center gap-1 text-xs text-gray-400">
             <CalendarDays className="h-3 w-3 shrink-0" /> Joined {joined}
           </p>
+        </div>
+      </div>
+
+      {/* Level / XP progress */}
+      <div className="px-5 pt-4">
+        <div className="rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 p-4 ring-1 ring-amber-100">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="flex items-center gap-1.5 font-extrabold text-orange-600">
+              <Zap className="h-4 w-4 fill-orange-500 text-orange-500" /> Level {level}
+            </span>
+            <span className="text-sm font-bold text-amber-600">{xp} XP</span>
+          </div>
+          <div className="h-2.5 w-full overflow-hidden rounded-full bg-amber-100">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-500"
+              style={{ width: `${(intoLevel / perLevel) * 100}%` }}
+            />
+          </div>
+          <p className="mt-1.5 text-xs font-semibold text-amber-700">{perLevel - intoLevel} XP to Level {level + 1}</p>
         </div>
       </div>
 
@@ -90,7 +117,7 @@ export default function ProfileMenu({ open, onClose }) {
                 </div>
                 <div className="min-w-0">
                   <p className="truncate text-sm font-bold text-gray-800">{b.name}</p>
-                  <p className="text-xs text-gray-400">Module badge</p>
+                  <p className="text-xs text-gray-400">{b.type === 'arcade' ? 'Arcade badge' : 'Module badge'}</p>
                 </div>
               </div>
             ))}

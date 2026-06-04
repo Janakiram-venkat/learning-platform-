@@ -21,3 +21,17 @@ def get_module(course_id: str, module_id: str):
     if not module:
         raise HTTPException(status_code=404, detail="Module not found")
     return {"success": True, "data": module}
+
+@router.get("/courses/{course_id}/assignments/{module_id}")
+def get_assignment(course_id: str, module_id: str):
+    assignment = course_service.get_assignment_by_id(course_id, module_id)
+    if not assignment:
+        raise HTTPException(status_code=404, detail="Assignment not found")
+    return {"success": True, "data": assignment}
+
+@router.get("/courses/{course_id}/projects/{module_id}")
+def get_project(course_id: str, module_id: str):
+    project = course_service.get_project_by_id(course_id, module_id)
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return {"success": True, "data": project}

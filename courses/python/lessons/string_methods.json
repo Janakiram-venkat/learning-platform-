@@ -68,7 +68,8 @@
         "len()",
         "count()"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`len()` counts the characters in a string. (`length()` isn't a Python function.)"
     },
     {
       "question": "What does 'hello'.upper() return?",
@@ -77,7 +78,8 @@
         "hello",
         "Hello"
       ],
-      "answer": 0
+      "answer": 0,
+      "explain": "`.upper()` turns every letter UPPERCASE, so 'hello' becomes 'HELLO'."
     }
   ]
 }

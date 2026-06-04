@@ -59,7 +59,8 @@
         "A blueprint for creating objects.",
         "A secret math calculator."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "A class is a blueprint or plan. From one blueprint you can build many objects, like one cookie-cutter makes many cookies."
     },
     {
       "question": "In object-oriented programming, what are actions inside a class called?",
@@ -68,7 +69,8 @@
         "Methods",
         "Lessons"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "Actions a class can do are called methods. The data it stores (like a name or colour) are called attributes."
     }
   ]
 }

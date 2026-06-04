@@ -1,0 +1,60 @@
+{
+  "moduleId": 6,
+  "title": "Word Wizard Arcade",
+  "intro": "Strings are magical text! Transform them, measure them, and slice them into pieces. First-try wins earn ⭐⭐⭐!",
+  "emoji": "✨",
+  "rounds": [
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "print(\"hello\".upper())",
+      "options": ["HELLO", "hello", "Hello"],
+      "answer": 0,
+      "explain": ".upper() shouts the whole word in CAPITAL letters."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this slice print?",
+      "code": "word = \"Python\"\nprint(word[0:3])",
+      "options": ["Pyt", "Pyth", "yth"],
+      "answer": 0,
+      "explain": "Slicing [0:3] takes letters at 0, 1, 2 — that's P, y, t — and stops before 3."
+    },
+    {
+      "type": "concept",
+      "prompt": "What does len(\"cat\") give you?",
+      "options": ["3", "2", "\"cat\""],
+      "answer": 0,
+      "explain": "len() counts the characters. \"cat\" has 3 letters."
+    },
+    {
+      "type": "bug",
+      "prompt": "We want lowercase but the method name is wrong. Pick the fix.",
+      "code": "name = \"SAM\"\nprint(name.lowercase())",
+      "options": [
+        "Use the correct method: name.lower()",
+        "Remove the dot",
+        "Add quotes around name"
+      ],
+      "answer": 0,
+      "explain": "The method is called .lower(), not .lowercase()."
+    },
+    {
+      "type": "predict",
+      "prompt": "What is the first letter printed?",
+      "code": "title = \"Magic\"\nprint(title[0])",
+      "options": ["M", "a", "g"],
+      "answer": 0,
+      "explain": "Strings are indexed like lists — position 0 is the first letter, M."
+    },
+    {
+      "type": "order",
+      "prompt": "Build code that stores a word and prints it in CAPITALS.",
+      "solution": [
+        "word = \"hooray\"",
+        "print(word.upper())"
+      ],
+      "explain": "Store the string first, then call .upper() on it inside print."
+    }
+  ]
+}

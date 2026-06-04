@@ -51,7 +51,8 @@
         "Parameters or Arguments",
         "Spells"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "The inputs in the parentheses are called parameters (when defining) or arguments (when calling). They feed information into the function."
     },
     {
       "question": "Which keyword do you use to send a result back from a function?",
@@ -60,7 +61,8 @@
         "return",
         "output"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`return` sends a value back out of the function so the rest of your program can use the result."
     }
   ]
 }

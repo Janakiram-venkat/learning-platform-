@@ -49,6 +49,12 @@
       "type": "code",
       "language": "python",
       "value": "score = 100\nprint(score)"
+    },
+    {
+      "type": "simulation",
+      "kind": "variable",
+      "name": "score",
+      "value": "100"
     }
   ],
   "editorCode": "score = 100\nprint(score)",
@@ -67,7 +73,8 @@
         "A magic box that stores information.",
         "A secret code to hack games."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "A variable is like a labelled box that stores information so the computer can remember it for later."
     },
     {
       "question": "How do you put the number 5 into a box labeled 'apples'?",
@@ -76,7 +83,8 @@
         "5 = apples",
         "box apples 5"
       ],
-      "answer": 0
+      "answer": 0,
+      "explain": "The name goes on the left and the value on the right: `apples = 5`. You can't put a number on the left of the `=`."
     }
   ]
 }

@@ -5,8 +5,9 @@ import Sidebar from '../components/layout/Sidebar';
 import CodeEditor from '../components/editor/CodeEditor';
 import OutputPanel from '../components/editor/OutputPanel';
 import Celebration from '../components/feedback/Celebration';
-import { getUnlockedLessonIds } from '../utils/progress';
-import { Play, CheckCircle2, Menu, X } from 'lucide-react';
+import { getUnlockedLessonIds, awardXPOnce } from '../utils/progress';
+import LessonSimulation from '../components/lesson/LessonSimulation';
+import { Play, CheckCircle2, XCircle, Lightbulb, Menu, X } from 'lucide-react';
 
 export default function LessonPage() {
   const { courseId, lessonId } = useParams();
@@ -81,18 +82,22 @@ export default function LessonPage() {
       // Celebrate a perfect score with an animation (badges are earned by
       // completing whole modules, not individual quizzes).
       const { score, total } = res.data;
+
+      // Award XP for correct answers — once per lesson so retakes don't farm.
+      const gained = awardXPOnce(`quiz-${lessonId}`, score * 10);
+
       if (total > 0 && score === total) {
         setCelebration({
           variant: 'lesson',
           title: 'Perfect Score! 🎉',
-          message: `You answered all ${total} ${total === 1 ? 'question' : 'questions'} correctly. Awesome work!`,
+          message: `You answered all ${total} ${total === 1 ? 'question' : 'questions'} correctly.${gained ? ` +${gained} XP earned!` : ''} Awesome work!`,
         });
       } else if (total > 0) {
-        // Not all correct — gently prompt a retry.
+        // Not all correct — gently prompt a retry. Explanations appear inline.
         setCelebration({
           variant: 'retry',
           title: 'Almost there!',
-          message: `You scored ${score} / ${total}. Review the lesson and give it another try!`,
+          message: `You scored ${score} / ${total}. Check the notes below each question to see why, then try again!`,
         });
       }
     } catch (err) {
@@ -231,6 +236,7 @@ export default function LessonPage() {
                   {block.value}
                 </pre>
               );
+              if (block.type === 'simulation') return <LessonSimulation key={idx} sim={block} />;
               return null;
             })}
           </div>
@@ -264,35 +270,66 @@ export default function LessonPage() {
                 <h3 className="font-bold text-green-900 text-lg">Knowledge Check</h3>
               </div>
               <div className="p-5 bg-white space-y-8 sm:p-8 sm:space-y-10">
-                {lesson.quiz.map((q, qIdx) => (
-                  <div key={qIdx}>
-                    <p className="font-bold text-gray-900 text-lg mb-5">{q.question}</p>
-                    <div className="space-y-3">
-                      {q.options.map((opt, oIdx) => (
-                        <label key={oIdx} className={`flex items-center space-x-4 p-4 border rounded-xl cursor-pointer transition-colors ${quizAnswers[qIdx] === oIdx ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:bg-gray-50'}`}>
-                          <input 
-                            type="radio" 
-                            name={`quiz-${qIdx}`} 
-                            className="w-5 h-5 text-green-600"
-                            checked={quizAnswers[qIdx] === oIdx}
-                            onChange={() => setQuizAnswers(prev => ({ ...prev, [qIdx]: oIdx }))}
-                          />
-                          <span className="text-gray-800 font-medium">{opt}</span>
-                        </label>
-                      ))}
+                {lesson.quiz.map((q, qIdx) => {
+                  const result = quizResult?.results?.[qIdx];
+                  const graded = !!result;
+                  return (
+                    <div key={qIdx}>
+                      <p className="font-bold text-gray-900 text-lg mb-5">{q.question}</p>
+                      <div className="space-y-3">
+                        {q.options.map((opt, oIdx) => {
+                          const chosen = quizAnswers[qIdx] === oIdx;
+                          // After grading, paint the correct option green and a
+                          // wrongly-chosen option red; otherwise normal selection.
+                          let cls = chosen ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:bg-gray-50';
+                          if (graded) {
+                            if (oIdx === result.correctIndex) cls = 'border-green-500 bg-green-50';
+                            else if (chosen) cls = 'border-rose-400 bg-rose-50';
+                            else cls = 'border-gray-200 opacity-70';
+                          }
+                          return (
+                            <label key={oIdx} className={`flex items-center space-x-4 p-4 border rounded-xl transition-colors ${graded ? 'cursor-default' : 'cursor-pointer'} ${cls}`}>
+                              <input
+                                type="radio"
+                                name={`quiz-${qIdx}`}
+                                className="w-5 h-5 text-green-600"
+                                checked={chosen}
+                                disabled={graded}
+                                onChange={() => setQuizAnswers(prev => ({ ...prev, [qIdx]: oIdx }))}
+                              />
+                              <span className="text-gray-800 font-medium flex-1">{opt}</span>
+                              {graded && oIdx === result.correctIndex && <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />}
+                              {graded && chosen && oIdx !== result.correctIndex && <XCircle className="w-5 h-5 text-rose-500 shrink-0" />}
+                            </label>
+                          );
+                        })}
+                      </div>
+
+                      {/* Why-it's-wrong / why-it's-right explanation */}
+                      {graded && (
+                        <div className={`mt-4 flex items-start gap-3 rounded-xl p-4 ring-1 animate-slide-up ${result.correct ? 'bg-green-50 ring-green-100 text-green-900' : 'bg-amber-50 ring-amber-100 text-amber-900'}`}>
+                          <Lightbulb className="mt-0.5 h-5 w-5 shrink-0" />
+                          <p className="text-sm font-medium leading-relaxed">
+                            <span className="font-bold">{result.correct ? 'Correct! ' : 'Not quite. '}</span>
+                            {q.explain || (result.correct
+                              ? 'Nice work!'
+                              : `The right answer is "${q.options[result.correctIndex]}".`)}
+                          </p>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
-                
+                  );
+                })}
+
                 <div className="flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-6">
                   <button
                     onClick={handleQuizSubmit}
                     className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-bold transition-colors shadow-sm"
                   >
-                    Submit Quiz
+                    {quizResult ? 'Submit Again' : 'Submit Quiz'}
                   </button>
                   {quizResult && (
-                    <span className="font-extrabold text-green-600 flex items-center text-xl bg-green-100 px-4 py-2 rounded-lg">
+                    <span className={`font-extrabold flex items-center text-xl px-4 py-2 rounded-lg ${quizResult.score === quizResult.total ? 'text-green-600 bg-green-100' : 'text-amber-600 bg-amber-100'}`}>
                       <CheckCircle2 className="w-6 h-6 mr-2" />
                       Score: {quizResult.score} / {quizResult.total}
                     </span>

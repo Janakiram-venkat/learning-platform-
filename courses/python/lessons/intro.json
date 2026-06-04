@@ -32,6 +32,14 @@
     {
       "type": "tip",
       "value": "Always remember the quotation marks (\" \") around your words. Without them, the computer gets very confused!"
+    },
+    {
+      "type": "simulation",
+      "kind": "print",
+      "lines": [
+        "Hello, wizard!",
+        "Python is fun!"
+      ]
     }
   ],
   "editorCode": "print(\"Hello, World!\")",
@@ -50,7 +58,8 @@
         "It makes the computer show words on the screen.",
         "It turns the computer off."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`print` shows words or numbers on the screen — it has nothing to do with a paper printer."
     }
   ]
 }

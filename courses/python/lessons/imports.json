@@ -68,7 +68,8 @@
         "import",
         "borrow"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`import` loads a ready-made module so you can use its tools without writing them yourself."
     },
     {
       "question": "Which module would you import to generate a random number?",
@@ -77,7 +78,8 @@
         "random",
         "time"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "The `random` module makes random numbers. `math` is for calculations and `time` is for clocks and delays."
     }
   ]
 }

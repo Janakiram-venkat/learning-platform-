@@ -50,7 +50,8 @@
         "try",
         "catch"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "The `try` block holds the risky code that might fail. If it crashes, the `except` block catches the error."
     },
     {
       "question": "What happens if code inside a 'try' block succeeds without any errors?",
@@ -59,7 +60,8 @@
         "The 'except' block is skipped.",
         "The program restarts."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "If the `try` code works fine, there's no error to catch, so Python skips the `except` block entirely."
     }
   ]
 }

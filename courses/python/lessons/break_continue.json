@@ -55,7 +55,8 @@
         "break",
         "pass"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`break` jumps straight out of the loop and stops it completely. `continue` only skips one turn, and `pass` does nothing."
     },
     {
       "question": "What does 'continue' do inside a loop?",
@@ -64,7 +65,8 @@
         "Skips the rest of the current turn and starts the next one.",
         "Speeds up the loop."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`continue` skips whatever is left in the current turn and jumps back to the top to start the next one."
     }
   ]
 }

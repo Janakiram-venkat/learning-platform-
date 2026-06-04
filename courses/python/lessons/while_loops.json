@@ -54,7 +54,8 @@
         "When its condition becomes False.",
         "When the computer is shut down."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "A while loop keeps going as long as its condition is True, and stops the moment the condition becomes False."
     },
     {
       "question": "What happens if a while loop's condition is ALWAYS True?",
@@ -63,7 +64,8 @@
         "It runs forever (Infinite Loop).",
         "It changes itself to False."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "If the condition never becomes False, the loop never stops -- that's called an infinite loop."
     }
   ]
 }

@@ -1,0 +1,65 @@
+{
+  "moduleId": 8,
+  "title": "Bug Catcher Arcade",
+  "intro": "Catch errors before they crash your spells, and import powerful toolkits! First-try wins earn ⭐⭐⭐!",
+  "emoji": "🐞",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "Which pair safely handles code that might cause an error?",
+      "options": ["try / except", "if / else", "for / while"],
+      "answer": 0,
+      "explain": "try runs the risky code; except catches the error so your program doesn't crash."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "try:\n    print(10 / 0)\nexcept:\n    print(\"Oops, can't divide by zero!\")",
+      "options": ["Oops, can't divide by zero!", "0", "10"],
+      "answer": 0,
+      "explain": "Dividing by zero causes an error, so Python jumps to except and prints the safe message."
+    },
+    {
+      "type": "predict",
+      "prompt": "What number is printed?",
+      "code": "import math\nprint(math.sqrt(16))",
+      "options": ["4.0", "16", "256"],
+      "answer": 0,
+      "explain": "math.sqrt finds the square root. The square root of 16 is 4.0."
+    },
+    {
+      "type": "bug",
+      "prompt": "We want to use random but forgot something. Pick the fix.",
+      "code": "print(random.randint(1, 6))",
+      "options": [
+        "Add import random at the top",
+        "Remove the numbers",
+        "Change print to return"
+      ],
+      "answer": 0,
+      "explain": "Before using a toolkit like random, you must import it first."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why do we use except in a try block?",
+      "options": [
+        "To run a backup plan when something goes wrong",
+        "To make the code run faster",
+        "To repeat the code forever"
+      ],
+      "answer": 0,
+      "explain": "except is your safety net — it catches problems and lets the program keep going."
+    },
+    {
+      "type": "order",
+      "prompt": "Build a try/except that warns when dividing by zero.",
+      "solution": [
+        "try:",
+        "    print(5 / 0)",
+        "except:",
+        "    print(\"Cannot divide by zero\")"
+      ],
+      "explain": "Risky code goes under try, and the rescue message goes under except."
+    }
+  ]
+}

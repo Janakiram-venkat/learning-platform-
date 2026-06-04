@@ -1,0 +1,64 @@
+{
+  "moduleId": 4,
+  "title": "Recipe Maker Arcade",
+  "intro": "Functions are reusable magic recipes! Define them, feed them inputs, and read their outputs. First-try wins earn ⭐⭐⭐!",
+  "emoji": "🪄",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "Which keyword creates a new function?",
+      "options": ["def", "func", "make"],
+      "answer": 0,
+      "explain": "In Python we use def (short for 'define') to create a function."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "def greet():\n    print(\"Hi there!\")\n\ngreet()",
+      "options": ["Hi there!", "greet()", "Nothing"],
+      "answer": 0,
+      "explain": "Defining greet doesn't run it — calling greet() does, which prints the message."
+    },
+    {
+      "type": "bug",
+      "prompt": "This function never runs. Pick the fix.",
+      "code": "def add(a, b):\n    return a + b\n\nadd(2, 3)\nprint(result)",
+      "options": [
+        "Save and print it: result = add(2, 3) then print(result)",
+        "Remove the return line",
+        "Rename add to sum"
+      ],
+      "answer": 0,
+      "explain": "The function returns a value, but you must store it in a variable to use it later."
+    },
+    {
+      "type": "predict",
+      "prompt": "What number is printed?",
+      "code": "def double(n):\n    return n * 2\n\nprint(double(4))",
+      "options": ["8", "4", "24"],
+      "answer": 0,
+      "explain": "double(4) sends 4 in as n, returns 4 * 2 = 8, which then prints."
+    },
+    {
+      "type": "concept",
+      "prompt": "What's the difference between return and print?",
+      "options": [
+        "return hands a value back to your code; print just shows it on screen",
+        "They do exactly the same thing",
+        "return shows text and print hides it"
+      ],
+      "answer": 0,
+      "explain": "return gives a value you can reuse; print only displays text and gives nothing back."
+    },
+    {
+      "type": "order",
+      "prompt": "Build a function that returns a number squared, then print it for 5.",
+      "solution": [
+        "def square(n):",
+        "    return n * n",
+        "print(square(5))"
+      ],
+      "explain": "Define the recipe first, then call it inside print to show the result."
+    }
+  ]
+}

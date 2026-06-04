@@ -1,0 +1,67 @@
+{
+  "moduleId": 1,
+  "title": "Python Basics Arcade",
+  "intro": "Time to test your first spells! Predict outputs, fix broken magic, and build code blocks. Get them right on the first try to earn ⭐⭐⭐!",
+  "emoji": "🐍",
+  "rounds": [
+    {
+      "type": "predict",
+      "prompt": "Cast this spell. What shows up on the screen?",
+      "code": "print(\"Hello, wizard!\")",
+      "options": ["Hello, wizard!", "print(Hello, wizard!)", "Nothing happens"],
+      "answer": 0,
+      "explain": "The print spell shows whatever is inside the quotation marks."
+    },
+    {
+      "type": "bug",
+      "prompt": "This spell is broken! Pick the fix.",
+      "code": "print(\"Magic is fun)",
+      "options": [
+        "Add the missing closing quote: print(\"Magic is fun\")",
+        "Remove the word print",
+        "Add a number at the end"
+      ],
+      "answer": 0,
+      "explain": "Every opening quote needs a closing quote, or Python gets confused!"
+    },
+    {
+      "type": "concept",
+      "prompt": "Which line stores the number 7 in a box called score?",
+      "options": ["score = 7", "7 = score", "print(score = 7)"],
+      "answer": 0,
+      "explain": "Variables work like labelled boxes: the name goes on the left, the value on the right."
+    },
+    {
+      "type": "predict",
+      "prompt": "What number will this print?",
+      "code": "x = 5\ny = 3\nprint(x + y)",
+      "options": ["8", "53", "x + y"],
+      "answer": 0,
+      "explain": "x is 5 and y is 3, so x + y becomes 8."
+    },
+    {
+      "type": "concept",
+      "prompt": "What kind of data is \"42\" (with the quotation marks)?",
+      "options": ["A string (text)", "A number you can add", "A True/False value"],
+      "answer": 0,
+      "explain": "Quotation marks turn anything into text — a string — even if it looks like a number."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each Python piece to what it does.",
+      "pairs": [
+        { "left": "print()", "right": "Shows text on the screen" },
+        { "left": "=", "right": "Puts a value into a variable" },
+        { "left": "\"hi\"", "right": "A string (text)" },
+        { "left": "7", "right": "A whole number (int)" }
+      ],
+      "explain": "print() displays things, = stores a value in a variable, quotes make a string, and a bare number like 7 is an int."
+    },
+    {
+      "type": "order",
+      "prompt": "Build the code: store a name, then greet it.",
+      "solution": ["name = \"Mia\"", "print(\"Hi \" + name)"],
+      "explain": "First create the variable, then you can use it on the next line."
+    }
+  ]
+}

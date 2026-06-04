@@ -49,6 +49,12 @@
       "type": "code",
       "language": "python",
       "value": "for i in range(5):\n    print(\"Spin number:\", i)"
+    },
+    {
+      "type": "simulation",
+      "kind": "loop",
+      "times": 3,
+      "say": "I love Python!"
     }
   ],
   "editorCode": "for i in range(5):\n    print(\"I am learning so fast!\")",
@@ -67,7 +73,8 @@
         "It repeats an action over and over again.",
         "It makes the computer shut down."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "A loop repeats the same action again and again so you don't have to copy-paste the code."
     },
     {
       "question": "Why do we need an indent (space) inside a loop?",
@@ -76,7 +83,8 @@
         "To tell Python which code should be repeated.",
         "To slow down the computer."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "The indent tells Python exactly which lines belong inside the loop and should be repeated."
     }
   ]
 }

@@ -1,0 +1,66 @@
+{
+  "moduleId": 7,
+  "title": "Blueprint Builder Arcade",
+  "intro": "Classes are blueprints for building objects! Design them, create them, and pass down family traits. First-try wins earn ⭐⭐⭐!",
+  "emoji": "🏗️",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "Which keyword creates a blueprint (a class)?",
+      "options": ["class", "object", "blueprint"],
+      "answer": 0,
+      "explain": "We use the class keyword to design a new type of object."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "class Dog:\n    def __init__(self, name):\n        self.name = name\n\nd = Dog(\"Rex\")\nprint(d.name)",
+      "options": ["Rex", "Dog", "name"],
+      "answer": 0,
+      "explain": "We built a Dog named Rex, and d.name reads back the name we stored."
+    },
+    {
+      "type": "bug",
+      "prompt": "This method is missing something important. Pick the fix.",
+      "code": "class Cat:\n    def speak():\n        print(\"Meow\")",
+      "options": [
+        "Add self: def speak(self):",
+        "Remove the print line",
+        "Rename the class to cat"
+      ],
+      "answer": 0,
+      "explain": "Methods inside a class need self as their first input so they know which object they belong to."
+    },
+    {
+      "type": "concept",
+      "prompt": "Inheritance lets a new class...",
+      "options": [
+        "Reuse the traits and methods of another class",
+        "Delete an old class",
+        "Run faster than normal"
+      ],
+      "answer": 0,
+      "explain": "Inheritance passes down 'family traits' — a child class gets the parent's abilities for free."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "class Hero:\n    def shout(self):\n        print(\"For glory!\")\n\nh = Hero()\nh.shout()",
+      "options": ["For glory!", "shout", "Hero"],
+      "answer": 0,
+      "explain": "We made a Hero object and called its shout() method, which prints the message."
+    },
+    {
+      "type": "order",
+      "prompt": "Build a simple class, create an object from it, and call its method.",
+      "solution": [
+        "class Robot:",
+        "    def beep(self):",
+        "        print(\"Beep!\")",
+        "r = Robot()",
+        "r.beep()"
+      ],
+      "explain": "Define the class and its method first, then create an object and call the method on it."
+    }
+  ]
+}

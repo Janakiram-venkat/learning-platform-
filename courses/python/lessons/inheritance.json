@@ -55,7 +55,8 @@
         "Adopts all attributes and methods from the parent class.",
         "Hides the parent class."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "A child class automatically gets (inherits) all the attributes and methods of its parent, then can add its own."
     },
     {
       "question": "How do you define a class 'Car' that inherits from 'Vehicle'?",
@@ -64,7 +65,8 @@
         "class Car inherits Vehicle:",
         "class Vehicle(Car):"
       ],
-      "answer": 0
+      "answer": 0,
+      "explain": "You put the parent's name in parentheses: `class Car(Vehicle):` means Car inherits from Vehicle."
     }
   ]
 }

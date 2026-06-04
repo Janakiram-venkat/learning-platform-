@@ -1,0 +1,20 @@
+{
+  "moduleId": 1,
+  "title": "Greeting Bot",
+  "emoji": "🤖",
+  "brief": "Build a friendly robot that knows your name and your age, and says hello! You'll use variables and the print spell — everything you learned in Module 1.",
+  "steps": [
+    "Make a variable called name and put your name inside it (in quotes).",
+    "Make a variable called age and put your age inside it (a number).",
+    "Use print() to say hello using your name.",
+    "Use print() to say how old you are using your age."
+  ],
+  "starterCode": "# Your Greeting Bot\nname = \"\"\nage = \n\nprint(\"Hello, my name is \" + name)\nprint(\"I am\", age, \"years old\")",
+  "checks": [
+    { "label": "You created a 'name' variable", "codeContains": "name =" },
+    { "label": "You created an 'age' variable", "codeContains": "age =" },
+    { "label": "Your bot says 'Hello'", "outputContains": "Hello" },
+    { "label": "Your bot mentions being 'years old'", "outputContains": "years old" }
+  ],
+  "successMessage": "Your Greeting Bot is alive! 🤖 You combined variables and print like a real coder."
+}

@@ -55,7 +55,8 @@
         "Parentheses ( )",
         "Curly brackets { }"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "Tuples are made with parentheses `( )`. Square brackets make lists and curly brackets make dictionaries/sets."
     },
     {
       "question": "Can you add or modify items in a Tuple after creating it?",
@@ -64,7 +65,8 @@
         "No, tuples are unchangeable (immutable).",
         "Yes, but only with strings."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "Tuples are immutable -- once created they can't be changed, so there's no append() for them."
     }
   ]
 }

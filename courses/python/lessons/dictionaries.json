@@ -55,7 +55,8 @@
         "( )",
         "{ }"
       ],
-      "answer": 2
+      "answer": 2,
+      "explain": "Dictionaries use curly brackets `{ }`. Square brackets `[ ]` make lists and parentheses `( )` make tuples."
     },
     {
       "question": "In a dictionary pair 'name': 'Batman', what is 'name'?",
@@ -64,7 +65,8 @@
         "The Key",
         "The Index"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "In a key:value pair, the part before the colon ('name') is the key you look things up with. 'Batman' is the value."
     }
   ]
 }

@@ -76,7 +76,8 @@
         "3.14",
         "\"Hello\""
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "A float is a number with a decimal point, like 3.14. `10` is a whole number (int) and \"Hello\" is text (a string)."
     },
     {
       "question": "What is wrong with this string: name = Batman",
@@ -85,7 +86,8 @@
         "It is missing quotation marks.",
         "Nothing is wrong."
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "Text must always be wrapped in quotation marks. Without them, Python thinks `Batman` is a variable name and gets confused."
     }
   ]
 }

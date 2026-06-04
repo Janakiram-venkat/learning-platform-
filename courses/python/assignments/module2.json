@@ -1,0 +1,61 @@
+{
+  "moduleId": 2,
+  "title": "Decision Maker Arcade",
+  "intro": "Sharpen your logic! Decide what's True, what's False, and how Python makes choices. First-try wins earn ⭐⭐⭐!",
+  "emoji": "🧭",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "Which of these is a Boolean value?",
+      "options": ["True", "\"yes\"", "100"],
+      "answer": 0,
+      "explain": "Booleans are special: they can only be True or False (no quotes!)."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "if 5 > 3:\n    print(\"Big!\")",
+      "options": ["Big!", "Nothing", "5 > 3"],
+      "answer": 0,
+      "explain": "5 is greater than 3, so the condition is True and the message prints."
+    },
+    {
+      "type": "bug",
+      "prompt": "Why won't this run? Pick the fix.",
+      "code": "if score == 10\n    print(\"Winner\")",
+      "options": [
+        "Add a colon: if score == 10:",
+        "Use one = instead of ==",
+        "Remove the print line"
+      ],
+      "answer": 0,
+      "explain": "An if statement always needs a colon ( : ) at the end of its line."
+    },
+    {
+      "type": "concept",
+      "prompt": "What is the result of:  True and False ?",
+      "options": ["False", "True", "Error"],
+      "answer": 0,
+      "explain": "'and' is only True when BOTH sides are True. One False makes the whole thing False."
+    },
+    {
+      "type": "predict",
+      "prompt": "age is 10. What prints?",
+      "code": "age = 10\nif age >= 13:\n    print(\"Teen\")\nelse:\n    print(\"Kid\")",
+      "options": ["Kid", "Teen", "Both"],
+      "answer": 0,
+      "explain": "10 is not >= 13, so Python jumps to the else branch and prints Kid."
+    },
+    {
+      "type": "order",
+      "prompt": "Build a check: if it's raining, take an umbrella, otherwise wear sunglasses.",
+      "solution": [
+        "if raining == True:",
+        "    print(\"Take umbrella\")",
+        "else:",
+        "    print(\"Wear sunglasses\")"
+      ],
+      "explain": "The if comes first, then its action, then else with its own action."
+    }
+  ]
+}

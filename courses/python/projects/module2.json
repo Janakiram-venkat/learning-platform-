@@ -1,0 +1,19 @@
+{
+  "moduleId": 2,
+  "title": "Age Checker",
+  "emoji": "🚦",
+  "brief": "Build a smart program that checks an age and decides what to say. You'll use if, elif, and else — the decision-making magic from Module 2!",
+  "steps": [
+    "Make a variable called age with any number you like.",
+    "If the age is 13 or more, print \"You are a teenager!\".",
+    "Otherwise (else), print \"You are a kid!\".",
+    "Run it, then try changing the age to test both messages."
+  ],
+  "starterCode": "age=\nif :\n    print(\"You are a !\")\nelse:\n    print(\"You are a !\")",
+  "checks": [
+    { "label": "You used an 'if' statement", "codeContains": "if " },
+    { "label": "You used 'else'", "codeContains": "else" },
+    { "label": "It prints one of the two messages", "outputContains": "You are a" }
+  ],
+  "successMessage": "Nice! Your program makes its own decisions now. 🚦 That's the power of if/else!"
+}

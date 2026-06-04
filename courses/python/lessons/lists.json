@@ -68,7 +68,8 @@
         "0",
         "-1"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "Python counts from 0, so the first item is at index 0, the second at index 1, and so on."
     },
     {
       "question": "Which method is used to add an item to the end of a list?",
@@ -77,7 +78,8 @@
         "append()",
         "insert()"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`append()` adds an item to the end of a list. `insert()` adds at a chosen spot, and `add()` isn't a list method."
     }
   ]
 }

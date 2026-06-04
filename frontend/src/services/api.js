@@ -11,6 +11,8 @@ export const courseService = {
   getCourse: (courseId) => api.get(`/courses/${courseId}`),
   getModule: (courseId, moduleId) => api.get(`/courses/${courseId}/modules/${moduleId}`),
   getLesson: (courseId, lessonId) => api.get(`/courses/${courseId}/lessons/${lessonId}`),
+  getAssignment: (courseId, moduleId) => api.get(`/courses/${courseId}/assignments/${moduleId}`),
+  getProject: (courseId, moduleId) => api.get(`/courses/${courseId}/projects/${moduleId}`),
 };
 
 export const compilerService = {

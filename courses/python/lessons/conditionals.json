@@ -72,7 +72,8 @@
         "Else if",
         "Elves logic"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`elif` is short for 'else if'. It lets you check another condition when the first `if` turned out False."
     },
     {
       "question": "What punctuation mark must you put at the end of an 'if' line?",
@@ -81,7 +82,8 @@
         "A colon (:)",
         "A semicolon (;)"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "Every `if` line ends with a colon `:`. It tells Python the indented block below belongs to that `if`."
     }
   ]
 }

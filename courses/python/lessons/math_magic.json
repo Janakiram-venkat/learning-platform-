@@ -54,6 +54,14 @@
     {
       "type": "tip",
       "value": "Python also has a Floor Division `//` spell which does division but throws away any decimal remainder, returning only a whole number. Try `7 // 3` in the compiler!"
+    },
+    {
+      "type": "simulation",
+      "kind": "print",
+      "lines": [
+        "10 + 5 = 15",
+        "10 % 3 = 1"
+      ]
     }
   ],
   "editorCode": "print(10 + 5)\nprint(3 * 3)\nprint(15 % 4)",
@@ -72,7 +80,8 @@
         "%",
         "*"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`%` (called modulo) gives the remainder left over after dividing. `/` divides and `*` multiplies."
     },
     {
       "question": "What is the result of 3 ** 2 in Python?",
@@ -81,7 +90,8 @@
         "9",
         "5"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`**` means 'to the power of'. So 3 ** 2 is 3 squared = 3 x 3 = 9."
     }
   ]
 }

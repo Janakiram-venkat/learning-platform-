@@ -68,7 +68,8 @@
         "and",
         "not"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`and` needs BOTH sides to be True. `or` only needs one side, and `not` flips a single value."
     },
     {
       "question": "If raining = True, what does 'not raining' equal?",
@@ -77,7 +78,8 @@
         "False",
         "Error"
       ],
-      "answer": 1
+      "answer": 1,
+      "explain": "`not` flips the value. Since raining is True, `not raining` becomes False."
     }
   ]
 }

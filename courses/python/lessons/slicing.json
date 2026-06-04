@@ -60,7 +60,8 @@
         "a",
         "c"
       ],
-      "answer": 0
+      "answer": 0,
+      "explain": "Counting starts at 0, so word[0] is the very first letter -- 'M' in 'Magic'."
     },
     {
       "question": "For word = 'Python', what does word[:2] print?",
@@ -69,7 +70,8 @@
         "Pyt",
         "y"
       ],
-      "answer": 0
+      "answer": 0,
+      "explain": "`[:2]` means 'from the start up to (but not including) index 2', giving the first two letters: 'Py'."
     }
   ]
 }

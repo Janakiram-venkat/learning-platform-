@@ -1,0 +1,77 @@
+{
+  "lessonId": "data",
+  "title": "The Importance of Data",
+  "description": "Data is the food that AI eats to learn. Let's explore what data is, and why good data makes smart AI.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What is Data?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Data is information a computer can learn from — photos, text, sounds, numbers, and more. To teach an AI to recognize cats, we feed it lots of cat pictures. Those pictures are the data."
+    },
+    {
+      "type": "heading",
+      "value": "Training Data vs Testing Data"
+    },
+    {
+      "type": "paragraph",
+      "value": "We usually split our data into two parts. Training data is used to teach the model. Testing data is kept secret and used afterward to check how well the model really learned — just like studying from practice questions, then taking a real exam you've never seen."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🐱🐶  Lots of labeled images\n        │\n        ├── 80%  ➜  TRAINING DATA  (teach the model)\n        └── 20%  ➜  TESTING DATA   (check the model)"
+    },
+    {
+      "type": "heading",
+      "value": "Data Quality Matters"
+    },
+    {
+      "type": "paragraph",
+      "value": "If you teach an AI using blurry, wrong, or unfair examples, it will make poor predictions — 'garbage in, garbage out.' Good, clean, and varied data produces a much smarter and fairer AI."
+    },
+    {
+      "type": "tip",
+      "value": "Activity — 'Build a Mini Dataset': Collect and label 10 small images into two groups (for example, 'apple' and 'banana'). Notice how clear labels make the dataset more useful!"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Good data produces better AI models. The quality of an AI depends on the quality of its data."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why is data so important for AI?",
+      "options": [
+        "AI learns patterns from data",
+        "Data makes the screen brighter",
+        "AI doesn't actually use data"
+      ],
+      "answer": 0,
+      "explain": "Data is what an AI learns from — without examples, there's nothing to learn."
+    },
+    {
+      "question": "What is testing data used for?",
+      "options": [
+        "Teaching the model the first time",
+        "Checking how well the model learned, using examples it hasn't seen",
+        "Deleting the model"
+      ],
+      "answer": 1,
+      "explain": "Testing data is held back and used like an exam to measure how well the model performs on new, unseen examples."
+    },
+    {
+      "question": "What happens if you train AI with poor-quality data?",
+      "options": [
+        "The AI becomes perfect",
+        "Nothing changes",
+        "The AI makes poor or unfair predictions — 'garbage in, garbage out'"
+      ],
+      "answer": 2,
+      "explain": "Low-quality data leads to a low-quality model. Clean, fair, varied data is essential."
+    }
+  ]
+}

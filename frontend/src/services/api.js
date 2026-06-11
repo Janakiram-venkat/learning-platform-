@@ -13,10 +13,11 @@ export const courseService = {
   getLesson: (courseId, lessonId) => api.get(`/courses/${courseId}/lessons/${lessonId}`),
   getAssignment: (courseId, moduleId) => api.get(`/courses/${courseId}/assignments/${moduleId}`),
   getProject: (courseId, moduleId) => api.get(`/courses/${courseId}/projects/${moduleId}`),
+  getLab: (courseId, moduleId) => api.get(`/courses/${courseId}/labs/${moduleId}`),
 };
 
 export const compilerService = {
-  runPython: (code) => api.post('/run-python', { code }),
+  runPython: (code, stdin = '') => api.post('/run-python', { code, stdin }),
 };
 
 export const quizService = {

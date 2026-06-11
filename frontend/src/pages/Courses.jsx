@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, Play, Sparkles, Bot, Cpu, Lock } from 'lucide-react';
+import { Clock, Play, Sparkles, Cpu, Lock, Calculator, FlaskConical } from 'lucide-react';
 import { courseService } from '../services/api';
 
 // Rotating friendly accent colors + emojis so each course card feels unique.
@@ -13,8 +13,9 @@ const CARD_THEMES = [
 
 // Tracks we're building next — shown as "coming soon" teasers below the live courses.
 const COMING_SOON = [
-  { icon: Bot, title: 'AI & Machine Learning', desc: 'Teach computers to think, see, and learn.', accent: 'from-orange-400 to-pink-500', bg: 'bg-orange-100 text-orange-600' },
   { icon: Cpu, title: 'Robotics', desc: 'Write code that moves robots in the real world.', accent: 'from-teal-400 to-cyan-500', bg: 'bg-teal-100 text-teal-600' },
+  { icon: Calculator, title: 'Math', desc: 'Level up your number skills with fun challenges.', accent: 'from-purple-400 to-violet-500', bg: 'bg-purple-100 text-purple-600' },
+  { icon: FlaskConical, title: 'Science', desc: 'Explore experiments and discover how the world works.', accent: 'from-emerald-400 to-green-500', bg: 'bg-emerald-100 text-emerald-600' },
 ];
 
 export default function Courses() {
@@ -66,7 +67,7 @@ export default function Courses() {
               <div className={`absolute -right-6 -top-6 h-24 w-24 rounded-full blur-2xl ${theme.glow}`} />
               <div className="relative flex flex-1 flex-col">
                 <span className="mb-4 flex h-14 w-14 animate-float items-center justify-center rounded-2xl bg-gradient-to-br from-purple-50 to-white text-3xl shadow-sm ring-1 ring-purple-100">
-                  {theme.emoji}
+                  {course.emoji || theme.emoji}
                 </span>
                 <h3 className="font-display mb-2 text-xl font-semibold text-[#2D2A4A]">{course.title}</h3>
                 <span className={`mb-4 inline-block self-start rounded-full px-3 py-1 text-xs font-extrabold ${theme.badge}`}>

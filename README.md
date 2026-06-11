@@ -10,10 +10,14 @@ An interactive coding and learning platform designed to help students learn Pyth
 Run these commands from the `backend` directory.
 
 #### On Windows (PowerShell/CMD):
-```powershell
-# Activate the virtual environment
-.\venv\Scripts\activate
 
+```powershell
+# create virtual environtemt 
+pythom -m venv venv
+#for first time install requirements 
+pip install -r requirements.txt
+# Activate the virtual environment
+venv\Scripts\activate
 # Start the FastAPI server with reload
 uvicorn app.main:app --reload
 ```

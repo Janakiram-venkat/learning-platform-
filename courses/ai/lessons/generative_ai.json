@@ -1,0 +1,73 @@
+{
+  "lessonId": "generative_ai",
+  "title": "What is Generative AI?",
+  "description": "Some AI doesn't just understand — it creates! Let's explore AI that writes, draws, and composes.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "AI That Creates"
+    },
+    {
+      "type": "paragraph",
+      "value": "Most AI we've seen so far analyzes things — it sorts photos or understands words. Generative AI is different: it creates brand-new content that never existed before, like a story, a picture, or a song."
+    },
+    {
+      "type": "heading",
+      "value": "What Generative AI Can Make"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "✍️  Text   → stories, poems, essays, code\n🎨  Images → art and pictures from a description\n🎵  Music  → original melodies and beats\n🎬  Video  → short animated clips"
+    },
+    {
+      "type": "heading",
+      "value": "Famous Generative AI Tools"
+    },
+    {
+      "type": "paragraph",
+      "value": "You may have heard of some of these: ChatGPT and Claude generate text and answer questions, DALL·E creates images from words, and Gemini works with text and pictures together. They learned to create by studying enormous amounts of human-made text, art, and sound."
+    },
+    {
+      "type": "tip",
+      "value": "Activity — 'Create Something New': Ask a generative AI to write a short funny story about a robot who loves cricket, or describe an image you'd like it to draw. Notice that it makes something original each time!"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Generative AI creates new content rather than simply analyzing information."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What makes Generative AI special?",
+      "options": [
+        "It creates brand-new content",
+        "It only deletes files",
+        "It just sorts photos into folders"
+      ],
+      "answer": 0,
+      "explain": "Generative AI generates new text, images, music, or video — it creates rather than just analyzing."
+    },
+    {
+      "question": "Which of these is a generative AI tool?",
+      "options": [
+        "DALL·E (creates images from text)",
+        "A flashlight",
+        "A ruler"
+      ],
+      "answer": 0,
+      "explain": "DALL·E generates images from a written description — a classic example of generative AI."
+    },
+    {
+      "question": "How did generative AI tools learn to create?",
+      "options": [
+        "By studying huge amounts of human-made text, art, and sound",
+        "They were born knowing everything",
+        "By guessing randomly with no learning"
+      ],
+      "answer": 0,
+      "explain": "They learned patterns from enormous datasets of human-created content, then use those patterns to make new things."
+    }
+  ]
+}

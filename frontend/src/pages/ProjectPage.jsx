@@ -11,17 +11,40 @@ import {
   awardXPOnce,
   getNextLessonAfterModule,
 } from '../utils/progress';
-import { Play, CheckCircle2, Circle, ListChecks, Hammer, Loader2, Trophy, ArrowRight } from 'lucide-react';
+import { Play, CheckCircle2, Circle, ListChecks, Hammer, Loader2, Trophy, ArrowRight, XCircle, Terminal } from 'lucide-react';
 
 const PROJECT_XP = 80;
 
-// Evaluate one check against the student's code + program output.
+function normalize(s) {
+  return String(s || '').replace(/\r/g, '').trim().toLowerCase();
+}
+
+// Evaluate one legacy check against the student's code + program output.
 function checkPasses(check, code, output) {
   const out = (output || '').toLowerCase();
   const src = (code || '').toLowerCase();
   if (check.outputContains && !out.includes(String(check.outputContains).toLowerCase())) return false;
   if (check.codeContains && !src.includes(String(check.codeContains).toLowerCase())) return false;
   return true;
+}
+
+// Evaluate one test case against the output produced for that test's input.
+function testPasses(test, output) {
+  if (output == null) return false;
+  if (Array.isArray(test.expect)) {
+    const out = normalize(output);
+    return test.expect.every(e => out.includes(normalize(e)));
+  }
+  if (test.expectedOutput != null) {
+    return normalize(output) === normalize(test.expectedOutput);
+  }
+  return true;
+}
+
+// Join a test's input lines into a stdin string (one answer per line).
+function toStdin(input) {
+  if (!input || input.length === 0) return '';
+  return input.join('\n') + '\n';
 }
 
 export default function ProjectPage() {
@@ -34,11 +57,13 @@ export default function ProjectPage() {
   const [notFound, setNotFound] = useState(false);
 
   const [code, setCode] = useState('');
+  const [stdinInput, setStdinInput] = useState('');
   const [output, setOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
   const [runError, setRunError] = useState('');
 
-  const [checkResults, setCheckResults] = useState(null); // array of bool | null
+  const [checkResults, setCheckResults] = useState(null); // legacy checks: array of bool | null
+  const [testResults, setTestResults] = useState(null);   // test cases: array of bool | null
   const [checking, setChecking] = useState(false);
   const [celebration, setCelebration] = useState(null);
 
@@ -63,6 +88,7 @@ export default function ProjectPage() {
         const data = projectRes.data.data;
         setProject(data);
         setCode(data.starterCode || '');
+        setStdinInput(data.inputPlaceholder || '');
       })
       .catch(() => { if (active) setNotFound(true); })
       .finally(() => { if (active) setLoading(false); });
@@ -73,7 +99,7 @@ export default function ProjectPage() {
     setIsRunning(true);
     setRunError('');
     try {
-      const res = await compilerService.runPython(code);
+      const res = await compilerService.runPython(code, stdinInput);
       setOutput(res.data.output);
       return res.data.output;
     } catch {
@@ -82,17 +108,44 @@ export default function ProjectPage() {
     } finally {
       setIsRunning(false);
     }
-  }, [code]);
+  }, [code, stdinInput]);
 
   const handleCheck = async () => {
     setChecking(true);
-    const out = await runCode();
-    const checks = project.checks || [];
-    const results = checks.map(c => checkPasses(c, code, out ?? ''));
-    setCheckResults(results);
+
+    const tests = project.tests || [];
+    let allGoalsPassed;
+
+    if (tests.length > 0) {
+      // Run the student's code once per test case, feeding each its own input.
+      const results = [];
+      let lastOutput = '';
+      for (const t of tests) {
+        let out = null;
+        try {
+          const res = await compilerService.runPython(code, toStdin(t.input));
+          out = res.data.output;
+          lastOutput = out;
+        } catch {
+          setRunError('Failed to run your code. Please try again.');
+        }
+        results.push(testPasses(t, out));
+      }
+      setTestResults(results);
+      setOutput(lastOutput); // show the output of the final test case
+      allGoalsPassed = results.length > 0 && results.every(Boolean);
+    } else {
+      // Legacy projects: substring checks against a single run.
+      const out = await runCode();
+      const checks = project.checks || [];
+      const results = checks.map(c => checkPasses(c, code, out ?? ''));
+      setCheckResults(results);
+      allGoalsPassed = results.length > 0 && results.every(Boolean);
+    }
+
     setChecking(false);
 
-    if (results.length > 0 && results.every(Boolean)) {
+    if (allGoalsPassed) {
       const projectKey = moduleId; // e.g. "module1"
       const firstTime = !isProjectCompleted(projectKey);
       markProjectComplete(projectKey);
@@ -141,7 +194,10 @@ export default function ProjectPage() {
     );
   }
 
-  const allPassed = checkResults && checkResults.length > 0 && checkResults.every(Boolean);
+  const hasTests = (project.tests?.length || 0) > 0;
+  const usesInput = hasTests || project.inputPlaceholder != null || (project.starterCode || '').includes('input(');
+  const goalResults = hasTests ? testResults : checkResults;
+  const allPassed = goalResults && goalResults.length > 0 && goalResults.every(Boolean);
   const nextLessonId = getNextLessonAfterModule(course, moduleId.replace('module', ''));
 
   return (
@@ -186,31 +242,79 @@ export default function ProjectPage() {
             </div>
           )}
 
-          {/* Checklist of goals */}
+          {/* Goals: test cases (new) or legacy substring checks */}
           <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6">
             <h3 className="mb-4 flex items-center gap-2 font-bold text-gray-900">
-              <ListChecks className="h-5 w-5 text-green-600" /> Goals to pass
+              <ListChecks className="h-5 w-5 text-green-600" />
+              {hasTests ? 'Test Cases — your bot must pass them all' : 'Goals to pass'}
             </h3>
-            <ul className="space-y-3">
-              {(project.checks || []).map((c, i) => {
-                const passed = checkResults?.[i];
-                return (
-                  <li key={i} className="flex items-center gap-3">
-                    {passed === true ? (
-                      <CheckCircle2 className="h-5 w-5 shrink-0 text-green-500" />
-                    ) : passed === false ? (
-                      <Circle className="h-5 w-5 shrink-0 text-rose-300" />
-                    ) : (
-                      <Circle className="h-5 w-5 shrink-0 text-gray-300" />
-                    )}
-                    <span className={`font-medium ${passed === true ? 'text-green-700' : passed === false ? 'text-rose-600' : 'text-gray-600'}`}>
-                      {c.label}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-            {checkResults && !allPassed && (
+
+            {hasTests ? (
+              <ul className="space-y-3">
+                {project.tests.map((t, i) => {
+                  const passed = testResults?.[i];
+                  return (
+                    <li
+                      key={i}
+                      className={`rounded-xl border p-3 ${
+                        passed === true ? 'border-green-200 bg-green-50'
+                          : passed === false ? 'border-rose-200 bg-rose-50'
+                          : 'border-gray-200 bg-gray-50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        {passed === true ? (
+                          <CheckCircle2 className="h-5 w-5 shrink-0 text-green-500" />
+                        ) : passed === false ? (
+                          <XCircle className="h-5 w-5 shrink-0 text-rose-400" />
+                        ) : (
+                          <Circle className="h-5 w-5 shrink-0 text-gray-300" />
+                        )}
+                        <span className="font-bold text-gray-800">Test {i + 1}: {t.name}</span>
+                      </div>
+                      <div className="mt-2 space-y-1 pl-7 text-sm">
+                        <p className="text-gray-600">
+                          <span className="font-semibold">We type:</span>{' '}
+                          <code className="rounded bg-white px-1.5 py-0.5 text-purple-700 ring-1 ring-gray-200">
+                            {(t.input || []).join(' → ')}
+                          </code>
+                        </p>
+                        {Array.isArray(t.expect) && (
+                          <p className="text-gray-600">
+                            <span className="font-semibold">Bot must say:</span>{' '}
+                            {t.expect.map((e, j) => (
+                              <code key={j} className="mr-1 rounded bg-white px-1.5 py-0.5 text-emerald-700 ring-1 ring-gray-200">{e}</code>
+                            ))}
+                          </p>
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <ul className="space-y-3">
+                {(project.checks || []).map((c, i) => {
+                  const passed = checkResults?.[i];
+                  return (
+                    <li key={i} className="flex items-center gap-3">
+                      {passed === true ? (
+                        <CheckCircle2 className="h-5 w-5 shrink-0 text-green-500" />
+                      ) : passed === false ? (
+                        <Circle className="h-5 w-5 shrink-0 text-rose-300" />
+                      ) : (
+                        <Circle className="h-5 w-5 shrink-0 text-gray-300" />
+                      )}
+                      <span className={`font-medium ${passed === true ? 'text-green-700' : passed === false ? 'text-rose-600' : 'text-gray-600'}`}>
+                        {c.label}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+
+            {goalResults && !allPassed && (
               <p className="mt-4 rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-800 ring-1 ring-amber-100">
                 Almost! Some goals aren't met yet — tweak your code and check again. 💪
               </p>
@@ -272,7 +376,25 @@ export default function ProjectPage() {
           </div>
         </div>
 
-        <div className="flex h-[40vh] flex-col bg-gray-50 p-4 sm:p-5 lg:h-[40%]">
+        <div className="flex h-[40vh] flex-col gap-3 bg-gray-50 p-4 sm:p-5 lg:h-[40%]">
+          {usesInput && (
+            <div className="shrink-0">
+              <label className="mb-1 flex items-center gap-1.5 text-sm font-bold text-gray-700">
+                <Terminal className="h-4 w-4 text-purple-500" /> What you say to the bot
+              </label>
+              <textarea
+                value={stdinInput}
+                onChange={(e) => setStdinInput(e.target.value)}
+                rows={2}
+                spellCheck={false}
+                placeholder={project.inputPlaceholder || 'Type one answer per line...'}
+                className="w-full resize-none rounded-xl border border-gray-300 bg-white p-2.5 font-mono text-sm text-gray-800 shadow-inner focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
+              />
+              {project.inputHint && (
+                <p className="mt-1 text-xs text-gray-500">{project.inputHint}</p>
+              )}
+            </div>
+          )}
           <div className="min-h-0 flex-1 overflow-hidden rounded-xl border border-gray-300 shadow-inner">
             <OutputPanel output={output} isRunning={isRunning} error={runError} />
           </div>

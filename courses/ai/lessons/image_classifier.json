@@ -1,0 +1,86 @@
+{
+  "lessonId": "image_classifier",
+  "title": "Build Your First Image Classifier",
+  "description": "Time to train a real AI model — no coding required! We'll use Google's Teachable Machine.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Train Your Own AI with Teachable Machine"
+    },
+    {
+      "type": "paragraph",
+      "value": "Google Teachable Machine is a free, friendly website that lets you train an image classifier using just your webcam — no code at all. You'll teach the AI to tell apart different hand signs and faces!"
+    },
+    {
+      "type": "tip",
+      "value": "Open teachablemachine.withgoogle.com in your browser and click 'Get Started', then 'Image Project' → 'Standard image model'."
+    },
+    {
+      "type": "heading",
+      "value": "Your Project: A Gesture & Mood Detector"
+    },
+    {
+      "type": "paragraph",
+      "value": "You'll train the AI to recognize four classes:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "👍  Thumbs Up\n👎  Thumbs Down\n😀  Happy Face\n😢  Sad Face"
+    },
+    {
+      "type": "heading",
+      "value": "The Three Steps of Training"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every Teachable Machine project follows the same simple steps that all Machine Learning follows: 1) Collect examples for each class using your webcam. 2) Click 'Train Model' so the AI learns the patterns. 3) Preview it live — show a thumbs up and watch the AI guess!"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Step 1: COLLECT  → record ~30 webcam samples per class\nStep 2: TRAIN    → click 'Train Model' and wait a few seconds\nStep 3: TEST     → show a gesture, watch the confidence bars move"
+    },
+    {
+      "type": "tip",
+      "value": "More examples = a smarter model! Try collecting samples from different angles and lighting so your AI works in lots of situations."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: You just followed the real AI workflow — collect data, train a model, and test it. That's exactly how professionals build AI, just on a bigger scale!"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What tool are we using to build an image classifier without code?",
+      "options": [
+        "Google Teachable Machine",
+        "A spreadsheet",
+        "A paint program"
+      ],
+      "answer": 0,
+      "explain": "Teachable Machine lets you train image, sound, and pose models right in the browser — no coding needed."
+    },
+    {
+      "question": "What are the three main steps to build the model?",
+      "options": [
+        "Delete, restart, give up",
+        "Collect examples, train the model, test it",
+        "Paint, print, frame"
+      ],
+      "answer": 1,
+      "explain": "Collect data for each class, train the model so it learns the patterns, then test it live."
+    },
+    {
+      "question": "How can you make your classifier more accurate?",
+      "options": [
+        "Collect more and more varied examples",
+        "Use only one blurry photo",
+        "Turn off the camera"
+      ],
+      "answer": 0,
+      "explain": "More examples — from different angles and lighting — help the model recognize each class more reliably."
+    }
+  ]
+}

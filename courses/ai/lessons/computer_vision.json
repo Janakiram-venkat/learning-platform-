@@ -1,0 +1,77 @@
+{
+  "lessonId": "computer_vision",
+  "title": "How AI Sees the World",
+  "description": "Cameras capture pictures, but how does a computer understand them? Welcome to Computer Vision!",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Giving Computers Eyes"
+    },
+    {
+      "type": "paragraph",
+      "value": "Computer Vision is the part of AI that helps machines understand images and videos. To a computer, a photo is just a giant grid of numbers (the colors of each tiny pixel). Computer Vision finds patterns in those numbers to recognize what's in the picture."
+    },
+    {
+      "type": "heading",
+      "value": "Three Common Vision Tasks"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🏷️  Image Classification → 'This whole photo is a CAT'\n📦  Object Detection     → 'There's a cat HERE and a dog THERE'\n🙂  Facial Recognition   → 'This face belongs to Priya'"
+    },
+    {
+      "type": "paragraph",
+      "value": "Image classification labels a whole picture. Object detection finds and boxes individual things. Facial recognition matches a face to a specific person."
+    },
+    {
+      "type": "heading",
+      "value": "Where We Use Computer Vision"
+    },
+    {
+      "type": "paragraph",
+      "value": "Computer Vision is everywhere: unlocking phones with your face, helping doctors spot problems in medical scans, watching traffic to keep roads safe, and helping self-driving cars 'see' pedestrians and stop signs."
+    },
+    {
+      "type": "tip",
+      "value": "Activity — 'What Do You See?': Look at a busy photo and list every object in it. Then think about how an AI would need to learn each shape, color, and pattern to do the same."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Computer Vision enables machines to understand visual information from images and videos."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does Computer Vision help machines do?",
+      "options": [
+        "Understand images and videos",
+        "Play music",
+        "Charge the battery faster"
+      ],
+      "answer": 0,
+      "explain": "Computer Vision is all about helping computers 'see' and understand visual information."
+    },
+    {
+      "question": "To a computer, what is an image really made of?",
+      "options": [
+        "Magic",
+        "A grid of numbers (pixels)",
+        "Tiny paintings"
+      ],
+      "answer": 1,
+      "explain": "Every image is stored as numbers describing the color of each pixel. AI finds patterns in those numbers."
+    },
+    {
+      "question": "Which task means 'find and box each object in a photo'?",
+      "options": [
+        "Image classification",
+        "Object detection",
+        "Speech recognition"
+      ],
+      "answer": 1,
+      "explain": "Object detection locates and boxes individual objects, while classification just labels the whole image."
+    }
+  ]
+}

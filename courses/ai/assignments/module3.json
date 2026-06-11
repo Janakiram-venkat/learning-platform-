@@ -1,0 +1,49 @@
+{
+  "moduleId": 3,
+  "title": "Computer Vision Arcade",
+  "intro": "How well does AI see? Prove it! Nail every round on the first try for ⭐⭐⭐.",
+  "emoji": "👁️",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What does Computer Vision help machines do?",
+      "options": ["Understand images and videos", "Play loud music", "Cool down the CPU"],
+      "answer": 0,
+      "explain": "Computer Vision helps computers 'see' and understand visual information."
+    },
+    {
+      "type": "concept",
+      "prompt": "To a computer, an image is really a...",
+      "options": ["grid of numbers (pixels)", "tiny painting", "magic spell"],
+      "answer": 0,
+      "explain": "Images are stored as numbers describing each pixel's color."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each vision task to what it does.",
+      "pairs": [
+        { "left": "Image classification", "right": "Label the whole photo" },
+        { "left": "Object detection", "right": "Box each object" },
+        { "left": "Facial recognition", "right": "Identify a person" }
+      ],
+      "explain": "Classification labels the whole image, detection boxes objects, and facial recognition matches a face to a person."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which uses Computer Vision?",
+      "options": ["Face unlock on a phone", "A wind-up clock", "A paper notebook"],
+      "answer": 0,
+      "explain": "Face unlock uses computer vision to recognize your face."
+    },
+    {
+      "type": "order",
+      "prompt": "Order the steps to train an image classifier.",
+      "solution": [
+        "Collect example images for each class",
+        "Train the model",
+        "Test it with a live image"
+      ],
+      "explain": "Collect data, train the model, then test it — the same steps in every ML project."
+    }
+  ]
+}

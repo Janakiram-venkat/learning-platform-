@@ -143,6 +143,39 @@ export function markProjectComplete(projectKey) {
   }
 }
 
+// --- Module interactive labs ---
+
+export function getCompletedLabs() {
+  try {
+    return JSON.parse(localStorage.getItem('completedLabs') || '[]');
+  } catch {
+    return [];
+  }
+}
+
+export function isLabCompleted(labKey) {
+  return getCompletedLabs().includes(labKey);
+}
+
+export function markLabComplete(labKey) {
+  const completed = getCompletedLabs();
+  if (!completed.includes(labKey)) {
+    completed.push(labKey);
+    localStorage.setItem('completedLabs', JSON.stringify(completed));
+  }
+}
+
+// Saves a student's "Design Your Own AI" concept card to their profile.
+export function saveAiIdea(idea) {
+  try {
+    const ideas = JSON.parse(localStorage.getItem('aiIdeas') || '[]');
+    ideas.push({ ...idea, savedAt: new Date().toISOString() });
+    localStorage.setItem('aiIdeas', JSON.stringify(ideas));
+  } catch {
+    // ignore storage errors
+  }
+}
+
 // Records a finished assignment along with its best star score (1-3).
 export function markAssignmentComplete(assignmentKey, stars) {
   const completed = getCompletedAssignments();

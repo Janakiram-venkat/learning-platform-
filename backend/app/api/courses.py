@@ -35,3 +35,10 @@ def get_project(course_id: str, module_id: str):
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
     return {"success": True, "data": project}
+
+@router.get("/courses/{course_id}/labs/{module_id}")
+def get_lab(course_id: str, module_id: str):
+    lab = course_service.get_lab_by_id(course_id, module_id)
+    if not lab:
+        raise HTTPException(status_code=404, detail="Lab not found")
+    return {"success": True, "data": lab}

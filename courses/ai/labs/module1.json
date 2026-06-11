@@ -1,0 +1,169 @@
+{
+  "labId": "module1",
+  "title": "AI Explorer Lab",
+  "emoji": "🤖",
+  "tagline": "Introduction to Artificial Intelligence",
+  "difficulty": "Beginner",
+  "duration": "15–20 min",
+  "badge": "AI Explorer",
+  "objectives": [
+    "Define Artificial Intelligence",
+    "Recognize AI in daily life",
+    "Tell AI apart from traditional software",
+    "Compare human intelligence with AI",
+    "Explain Narrow AI vs General AI"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Welcome, Explorer!",
+      "xp": 10,
+      "narration": "Artificial Intelligence is already part of your everyday life. Let's go find it!",
+      "steps": [
+        { "emoji": "😴", "text": "You wake up in the morning…" },
+        { "emoji": "📱", "text": "Face Unlock opens your phone instantly." },
+        { "emoji": "▶️", "text": "YouTube already knows what you want to watch." },
+        { "emoji": "🗺️", "text": "Google Maps suggests the fastest route to school." },
+        { "emoji": "🔊", "text": "Your voice assistant answers your question." }
+      ],
+      "cta": "Start Exploring"
+    },
+    {
+      "type": "pick",
+      "title": "Find AI Around You",
+      "xp": 15,
+      "prompt": "Tap every object in the room that uses Artificial Intelligence.",
+      "items": [
+        { "id": "smartphone", "label": "Smart Camera", "emoji": "📸", "isAI": true },
+        { "id": "face", "label": "Face Unlock", "emoji": "🔐", "isAI": true },
+        { "id": "speaker", "label": "Smart Speaker", "emoji": "🔊", "isAI": true },
+        { "id": "recommend", "label": "Video Recommendations", "emoji": "📺", "isAI": true },
+        { "id": "calculator", "label": "Calculator", "emoji": "🧮", "isAI": false },
+        { "id": "flashlight", "label": "Flashlight", "emoji": "🔦", "isAI": false },
+        { "id": "fan", "label": "Ceiling Fan", "emoji": "🌀", "isAI": false }
+      ],
+      "feedback": {
+        "correct": "Great! This technology uses AI.",
+        "incorrect": "This is software/electronics, but it does not use AI."
+      }
+    },
+    {
+      "type": "sort",
+      "title": "AI vs Non-AI Challenge",
+      "xp": 20,
+      "prompt": "Sort each card into the right bucket. Does it use AI, or is it a plain program?",
+      "pass": 0.8,
+      "columns": [
+        { "id": "ai", "label": "Uses AI", "emoji": "🤖" },
+        { "id": "not", "label": "Not AI", "emoji": "⚙️" }
+      ],
+      "cards": [
+        { "id": "chatgpt", "label": "ChatGPT", "emoji": "💬", "column": "ai" },
+        { "id": "maps", "label": "Google Maps", "emoji": "🗺️", "column": "ai" },
+        { "id": "netflix", "label": "Netflix Suggestions", "emoji": "🎬", "column": "ai" },
+        { "id": "voice", "label": "Voice Assistant", "emoji": "🗣️", "column": "ai" },
+        { "id": "face2", "label": "Face Unlock", "emoji": "🔐", "column": "ai" },
+        { "id": "calc", "label": "Calculator", "emoji": "🧮", "column": "not" },
+        { "id": "stopwatch", "label": "Stopwatch", "emoji": "⏱️", "column": "not" }
+      ]
+    },
+    {
+      "type": "choose",
+      "title": "Human vs AI Challenge",
+      "xp": 20,
+      "prompt": "Who is better at each task — a Human, an AI, or are they about equal?",
+      "options": [
+        { "id": "human", "label": "Human", "emoji": "🧑" },
+        { "id": "ai", "label": "AI", "emoji": "🤖" },
+        { "id": "both", "label": "Both", "emoji": "🤝" }
+      ],
+      "tasks": [
+        { "id": "math", "label": "Solve a giant math sum fast", "emoji": "➗", "answer": "ai", "explain": "Computers crunch numbers far faster than people." },
+        { "id": "chess", "label": "Win a game of chess", "emoji": "♟️", "answer": "ai", "explain": "AI has beaten the world's best chess champions." },
+        { "id": "emotion", "label": "Sense how a friend truly feels", "emoji": "🥺", "answer": "human", "explain": "Real empathy and feelings are a human strength." },
+        { "id": "bike", "label": "Learn to ride a bicycle", "emoji": "🚲", "answer": "human", "explain": "Bodies + balance + practice — humans shine here." },
+        { "id": "movies", "label": "Suggest movies you'll love", "emoji": "🍿", "answer": "ai", "explain": "Recommendation AI spots patterns in what you watch." },
+        { "id": "art", "label": "Create a brand new artwork", "emoji": "🎨", "answer": "both", "explain": "Humans and AI can both make art — in their own way." }
+      ]
+    },
+    {
+      "type": "sort",
+      "title": "Types of AI Explorer",
+      "xp": 15,
+      "prompt": "Drag each robot to its category. Hint: most AI today can only do ONE job.",
+      "pass": 1,
+      "note": "Key idea: General AI — a machine that can do ANY task a human can — does NOT exist yet.",
+      "columns": [
+        { "id": "narrow", "label": "Narrow AI", "emoji": "🎯" },
+        { "id": "general", "label": "General AI", "emoji": "🌍" }
+      ],
+      "cards": [
+        { "id": "alpha", "label": "Robot Alpha — only plays chess", "emoji": "♟️", "column": "narrow" },
+        { "id": "beta", "label": "Robot Beta — only recommends movies", "emoji": "🎬", "column": "narrow" },
+        { "id": "gamma", "label": "Robot Gamma — only reads X-rays", "emoji": "🩻", "column": "narrow" },
+        { "id": "omega", "label": "Robot Omega — can do ANY task", "emoji": "🌟", "column": "general" }
+      ]
+    },
+    {
+      "type": "explore",
+      "title": "AI in the Real World",
+      "xp": 15,
+      "prompt": "Tap each place in AI City to discover how AI helps there. Visit them all!",
+      "locations": [
+        { "id": "hospital", "label": "Hospital", "emoji": "🏥", "info": "AI helps doctors analyze medical images to spot illness earlier." },
+        { "id": "school", "label": "School", "emoji": "🏫", "info": "AI tutors give students hints and explanations at their own pace." },
+        { "id": "farm", "label": "Farm", "emoji": "🚜", "info": "AI watches crop health and warns farmers about pests and water." },
+        { "id": "transport", "label": "Transportation", "emoji": "🚦", "info": "AI optimizes routes and traffic so journeys are faster and safer." },
+        { "id": "home", "label": "Home", "emoji": "🏠", "info": "Smart assistants respond to your voice and control the lights." }
+      ]
+    },
+    {
+      "type": "design",
+      "title": "Design Your Own AI",
+      "xp": 25,
+      "prompt": "You're the inventor! Dream up an AI and we'll make you a Concept Card.",
+      "fields": [
+        { "key": "name", "label": "AI Name", "placeholder": "e.g. Homework Hero" },
+        { "key": "problem", "label": "Problem It Solves", "placeholder": "e.g. Students get stuck on hard homework" },
+        { "key": "users", "label": "Who Uses It", "placeholder": "e.g. School students" },
+        { "key": "how", "label": "How It Works", "placeholder": "e.g. Gives hints and step-by-step explanations" }
+      ],
+      "example": {
+        "name": "Homework Hero",
+        "problem": "Students struggle with difficult homework",
+        "users": "School students",
+        "how": "Provides hints and clear explanations"
+      }
+    },
+    {
+      "type": "quiz",
+      "title": "Final Assessment",
+      "xp": 30,
+      "prompt": "Answer at least 80% correctly to earn your badge.",
+      "pass": 0.8,
+      "questions": [
+        { "q": "Which technology uses AI?", "options": ["Calculator", "Face Unlock"], "answer": 1, "explain": "Face Unlock learns to recognize your face — that's AI." },
+        { "q": "Can AI learn from data?", "options": ["Yes", "No"], "answer": 0, "explain": "Learning from data (examples) is exactly what AI does." },
+        { "q": "Which type of AI exists today?", "options": ["Narrow AI", "General AI"], "answer": 0, "explain": "Only Narrow AI (one-job AI) exists today." },
+        { "q": "Can AI make mistakes?", "options": ["Yes", "No"], "answer": 0, "explain": "AI can be wrong, especially with bad or unfair data." },
+        { "q": "What does a recommendation system do?", "options": ["Suggests things you might like", "Charges your phone"], "answer": 0, "explain": "It finds patterns in your choices to suggest more." },
+        { "q": "Is a basic calculator an example of AI?", "options": ["Yes", "No"], "answer": 1, "explain": "A calculator follows fixed rules — it doesn't learn." },
+        { "q": "What helps an AI get smarter?", "options": ["More data and training", "A bigger screen"], "answer": 0, "explain": "AI improves by learning from more examples." },
+        { "q": "Which is a strength of humans over AI?", "options": ["Understanding feelings", "Adding numbers fast"], "answer": 0, "explain": "Empathy and real feelings are a human superpower." },
+        { "q": "A robot that can ONLY play chess is…", "options": ["Narrow AI", "General AI"], "answer": 0, "explain": "One job only = Narrow AI." },
+        { "q": "Is AI a part of everyday life?", "options": ["Yes", "No"], "answer": 0, "explain": "From maps to cameras, AI is all around us." }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Lab Complete!",
+      "xp": 30,
+      "badge": "AI Explorer",
+      "messages": [
+        "🏆 You earned the AI Explorer Badge",
+        "Module 1 completed",
+        "Certificate eligibility unlocked"
+      ]
+    }
+  ]
+}

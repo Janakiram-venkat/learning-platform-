@@ -1,0 +1,62 @@
+{
+  "moduleId": 6,
+  "title": "AI Ethics Arcade",
+  "intro": "Be a responsible AI hero! Test your ethics know-how. First-try wins earn ⭐⭐⭐.",
+  "emoji": "⚖️",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What does 'bias' in AI mean?",
+      "options": [
+        "The AI is unfair, often from unfair data",
+        "The AI runs too fast",
+        "The AI uses too much battery"
+      ],
+      "answer": 0,
+      "explain": "Bias means the AI treats some groups unfairly, usually because of unbalanced training data."
+    },
+    {
+      "type": "concept",
+      "prompt": "What is a deepfake?",
+      "options": [
+        "A fake image or video made by AI that looks real",
+        "A deep swimming pool",
+        "A strong password"
+      ],
+      "answer": 0,
+      "explain": "Deepfakes are AI-generated images or videos designed to look real."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each concern to its description.",
+      "pairs": [
+        { "left": "Privacy", "right": "Protecting personal data" },
+        { "left": "Misinformation", "right": "Confident but wrong info" },
+        { "left": "Bias", "right": "Unfair treatment of groups" }
+      ],
+      "explain": "Privacy, misinformation, and bias are key things to watch for when using AI."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which is a responsible way to use AI?",
+      "options": [
+        "Double-check answers and protect private info",
+        "Believe everything without checking",
+        "Use it to trick people"
+      ],
+      "answer": 0,
+      "explain": "Responsible users verify answers, protect privacy, and never use AI to harm others."
+    },
+    {
+      "type": "concept",
+      "prompt": "Can AI make mistakes?",
+      "options": [
+        "Yes — it can be confidently wrong",
+        "No, AI is always correct",
+        "Only on weekends"
+      ],
+      "answer": 0,
+      "explain": "AI can sound very sure and still be wrong, so always think critically and check."
+    }
+  ]
+}

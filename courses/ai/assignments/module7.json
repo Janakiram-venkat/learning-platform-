@@ -1,0 +1,61 @@
+{
+  "moduleId": 7,
+  "title": "Future of AI Arcade",
+  "intro": "Look ahead and level up! Test your knowledge of AI careers and the future. First-try wins earn ⭐⭐⭐.",
+  "emoji": "🚀",
+  "rounds": [
+    {
+      "type": "match",
+      "prompt": "Match each AI career to what they do.",
+      "pairs": [
+        { "left": "Data Scientist", "right": "Finds patterns in data" },
+        { "left": "Robotics Engineer", "right": "Builds intelligent robots" },
+        { "left": "ML Engineer", "right": "Trains smart models" }
+      ],
+      "explain": "Each AI career focuses on a different part of building and using intelligent systems."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which field can AI help improve?",
+      "options": [
+        "Healthcare, agriculture, space, and education",
+        "Only video games",
+        "Nothing in the real world"
+      ],
+      "answer": 0,
+      "explain": "AI is transforming many fields — from medicine and farming to space and education."
+    },
+    {
+      "type": "concept",
+      "prompt": "What's a good first step to design an AI solution?",
+      "options": [
+        "Pick a real problem and think about the data needed",
+        "Wait for someone else to do it",
+        "Decide AI can't help"
+      ],
+      "answer": 0,
+      "explain": "Great AI projects start with a real problem and the right data to learn from."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each project to its level.",
+      "pairs": [
+        { "left": "AI Quiz Bot", "right": "Beginner" },
+        { "left": "Mood Detector", "right": "Intermediate" },
+        { "left": "Virtual Study Assistant", "right": "Advanced" }
+      ],
+      "explain": "Projects range from beginner quiz bots to advanced study assistants."
+    },
+    {
+      "type": "concept",
+      "prompt": "What will AI do to many industries?",
+      "options": [
+        "Create new opportunities and transform them",
+        "Leave them exactly the same",
+        "Make them disappear instantly"
+      ],
+      "answer": 0,
+      "explain": "AI will create new opportunities and transform many industries — and you can help build that future."
+    }
+  ]
+}

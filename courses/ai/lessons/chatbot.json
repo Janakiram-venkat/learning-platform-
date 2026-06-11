@@ -1,0 +1,82 @@
+{
+  "lessonId": "chatbot",
+  "title": "Building a Simple Chatbot",
+  "description": "Let's design a friendly study-helper chatbot and learn how conversational AI really works.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What is a Chatbot?"
+    },
+    {
+      "type": "paragraph",
+      "value": "A chatbot is a program you can talk to. It takes your message, figures out what you mean, and replies. Simple chatbots follow rules ('if the user says hello, reply hi'), while advanced ones like ChatGPT use powerful AI language models."
+    },
+    {
+      "type": "heading",
+      "value": "Your Project: A Study Buddy Bot"
+    },
+    {
+      "type": "paragraph",
+      "value": "Let's design a chatbot that helps students. It should be able to:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "💬  Answer common questions   ('What's the homework?')\n💡  Give quiz hints           ('Need a hint? Think about data!')\n📚  Share study tips          ('Try the Pomodoro technique!')"
+    },
+    {
+      "type": "heading",
+      "value": "How a Rule-Based Chatbot Thinks"
+    },
+    {
+      "type": "paragraph",
+      "value": "A simple chatbot matches what you type to a list of patterns and picks a reply. Here's the basic idea written like a recipe:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "IF the message contains 'hello'  → say 'Hi there! 👋'\nIF the message contains 'hint'   → give a small clue\nIF the message contains 'tip'    → share a study tip\nOTHERWISE                         → say 'Can you ask that another way?'"
+    },
+    {
+      "type": "tip",
+      "value": "Build it yourself! Free tools like Scratch, MIT App Inventor, and web-based chatbot builders let you create a working chatbot by dragging blocks together — no typing code required."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Chatbots are conversational AI systems that understand a message and choose a helpful reply."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is a chatbot?",
+      "options": [
+        "A program you can talk to that understands and replies",
+        "A robot vacuum",
+        "A type of battery"
+      ],
+      "answer": 0,
+      "explain": "A chatbot reads your message, works out what you mean, and responds — that's conversational AI."
+    },
+    {
+      "question": "How does a simple rule-based chatbot decide what to say?",
+      "options": [
+        "It randomly guesses with no logic",
+        "It matches your message to patterns and picks a reply",
+        "It calls a human every time"
+      ],
+      "answer": 1,
+      "explain": "Rule-based chatbots look for patterns in your message ('if it contains hint...') and respond accordingly."
+    },
+    {
+      "question": "Which tool can you use to build a chatbot without writing code?",
+      "options": [
+        "Scratch or MIT App Inventor",
+        "A microwave",
+        "A pencil sharpener"
+      ],
+      "answer": 0,
+      "explain": "Block-based tools like Scratch and MIT App Inventor let you build chatbots by dragging blocks together."
+    }
+  ]
+}

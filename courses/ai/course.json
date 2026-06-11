@@ -1,0 +1,47 @@
+{
+  "courseId": "ai",
+  "title": "Artificial Intelligence Fundamentals",
+  "description": "Discover how machines think, see, and learn — no coding experience needed!",
+  "level": "Beginner",
+  "estimatedHours": 12,
+  "emoji": "🤖",
+  "thumbnail": "/images/ai.png",
+  "hasEditor": false,
+  "modules": [
+    {
+      "id": 1,
+      "title": "Introduction to AI",
+      "file": "module1.json"
+    },
+    {
+      "id": 2,
+      "title": "How Machines Learn",
+      "file": "module2.json"
+    },
+    {
+      "id": 3,
+      "title": "Computer Vision",
+      "file": "module3.json"
+    },
+    {
+      "id": 4,
+      "title": "Natural Language Processing",
+      "file": "module4.json"
+    },
+    {
+      "id": 5,
+      "title": "Generative AI",
+      "file": "module5.json"
+    },
+    {
+      "id": 6,
+      "title": "AI Ethics & Responsible Use",
+      "file": "module6.json"
+    },
+    {
+      "id": 7,
+      "title": "The Future of AI",
+      "file": "module7.json"
+    }
+  ]
+}

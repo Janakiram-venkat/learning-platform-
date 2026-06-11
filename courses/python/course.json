@@ -4,6 +4,7 @@
   "description": "Learn Python from basics to projects.",
   "level": "Beginner",
   "estimatedHours": 25,
+  "emoji": "🐍",
   "thumbnail": "/images/python.png",
   "modules": [
     {

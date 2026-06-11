@@ -1,0 +1,17 @@
+{
+  "moduleId": 2,
+  "title": "How Machines Learn",
+  "lessons": [
+    {
+      "lessonId": "machine_learning",
+      "title": "Understanding Machine Learning",
+      "duration": "12 min"
+    },
+    {
+      "lessonId": "data",
+      "title": "The Importance of Data",
+      "duration": "12 min"
+    }
+  ],
+  "hasProject": false
+}

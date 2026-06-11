@@ -1,0 +1,12 @@
+{
+  "moduleId": 6,
+  "title": "AI Ethics & Responsible Use",
+  "lessons": [
+    {
+      "lessonId": "ethics",
+      "title": "Ethical & Responsible AI",
+      "duration": "12 min"
+    }
+  ],
+  "hasProject": false
+}

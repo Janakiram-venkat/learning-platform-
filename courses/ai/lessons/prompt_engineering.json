@@ -1,0 +1,82 @@
+{
+  "lessonId": "prompt_engineering",
+  "title": "Prompt Engineering",
+  "description": "The secret to great AI answers is asking great questions. Let's master the art of writing prompts!",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What is a Prompt?"
+    },
+    {
+      "type": "paragraph",
+      "value": "A prompt is the instruction or question you give to an AI. Prompt engineering is the skill of writing prompts that get clear, useful, and accurate answers. The better your prompt, the better the AI's reply."
+    },
+    {
+      "type": "heading",
+      "value": "Weak vs Strong Prompts"
+    },
+    {
+      "type": "paragraph",
+      "value": "A vague prompt gives a vague answer. A specific prompt — with details about who it's for, the topic, and the style — gives a much better result."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "❌  Weak:   'Tell me about space.'\n\n✅  Strong: 'Explain black holes to a 12-year-old\n            using cricket examples.'"
+    },
+    {
+      "type": "heading",
+      "value": "The Recipe for a Great Prompt"
+    },
+    {
+      "type": "paragraph",
+      "value": "Strong prompts usually include four things: who the answer is for, the exact topic, the format you want, and the tone or style."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "👤  Audience  → 'for a 12-year-old'\n🎯  Topic     → 'how black holes work'\n📐  Format    → 'in 3 short bullet points'\n🎨  Tone      → 'fun and using cricket examples'"
+    },
+    {
+      "type": "tip",
+      "value": "Activity — 'Prompt Challenge': Take a boring prompt like 'write about dogs' and rewrite it three different ways to get a poem, a fun fact list, and a short story. Compare the results!"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: The quality of AI output depends heavily on the quality of the prompt."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is a prompt?",
+      "options": [
+        "The instruction or question you give to an AI",
+        "A type of computer screen",
+        "The AI's electricity supply"
+      ],
+      "answer": 0,
+      "explain": "A prompt is what you ask or tell the AI. Better prompts lead to better answers."
+    },
+    {
+      "question": "Which is the stronger prompt?",
+      "options": [
+        "'Tell me about space.'",
+        "'Explain black holes to a 12-year-old using cricket examples.'",
+        "'Space.'"
+      ],
+      "answer": 1,
+      "explain": "The strong prompt is specific about the audience, topic, and style, so the AI can give a focused, helpful answer."
+    },
+    {
+      "question": "What usually makes a prompt strong?",
+      "options": [
+        "Including the audience, topic, format, and tone",
+        "Making it as short and vague as possible",
+        "Using only one word"
+      ],
+      "answer": 0,
+      "explain": "Clear details — who it's for, the topic, the format, and the tone — guide the AI to a much better response."
+    }
+  ]
+}

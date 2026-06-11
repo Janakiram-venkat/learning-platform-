@@ -6,5 +6,5 @@ router = APIRouter()
 
 @router.post("/run-python", response_model=CodeResponse)
 def run_python(request: CodeRequest):
-    output = compiler_service.execute_python_code(request.code)
+    output = compiler_service.execute_python_code(request.code, request.stdin)
     return CodeResponse(output=output)

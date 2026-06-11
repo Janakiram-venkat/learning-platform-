@@ -1,0 +1,82 @@
+{
+  "lessonId": "careers",
+  "title": "AI Careers & Emerging Tech",
+  "description": "Where can AI take you? Explore exciting careers and the future you could help build.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Jobs in the World of AI"
+    },
+    {
+      "type": "paragraph",
+      "value": "AI is creating exciting new careers — and you don't have to wait until you're grown up to start exploring them! Here are some roles people have today:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🤖  AI Engineer            → builds AI systems\n📊  Data Scientist         → finds patterns in data\n🦾  Robotics Engineer      → makes intelligent robots\n🧠  Machine Learning Eng.  → trains smart models\n🔬  AI Researcher          → invents new AI ideas"
+    },
+    {
+      "type": "heading",
+      "value": "AI is Changing Every Field"
+    },
+    {
+      "type": "paragraph",
+      "value": "AI isn't just for tech companies. It's transforming healthcare (spotting diseases early), space exploration (guiding rovers on Mars), education (personal tutors), agriculture (helping farmers grow more food), and environmental protection (tracking climate and wildlife)."
+    },
+    {
+      "type": "heading",
+      "value": "Capstone & Project Ideas"
+    },
+    {
+      "type": "paragraph",
+      "value": "Ready to build? Pick a project that matches your level and present it to your class:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🟢  Beginner     → AI Quiz Bot · AI Story Generator · Smart Flashcards\n🟡  Intermediate → Mood Detector · Image Classifier · Gesture Recognition\n🔴  Advanced     → Virtual Study Assistant · Recommendation System"
+    },
+    {
+      "type": "tip",
+      "value": "Activity — 'Design an AI Solution': Pick a real problem in your school or town (like reducing waste or helping students study) and sketch an AI that could help solve it. What data would it need?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: AI will create new opportunities and transform many industries — and you can be part of building that future."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which of these is an AI-related career?",
+      "options": [
+        "Data Scientist",
+        "Bus driver",
+        "Chef"
+      ],
+      "answer": 0,
+      "explain": "A Data Scientist finds patterns in data — one of many careers built around AI, along with AI Engineer and ML Engineer."
+    },
+    {
+      "question": "Which field can AI help improve?",
+      "options": [
+        "Only video games",
+        "Healthcare, agriculture, space, education, and more",
+        "Nothing in the real world"
+      ],
+      "answer": 1,
+      "explain": "AI is transforming many fields — from medicine and farming to space exploration and education."
+    },
+    {
+      "question": "What's a good first step to designing an AI solution?",
+      "options": [
+        "Pick a real problem and think about what data the AI would need",
+        "Wait for someone else to do it",
+        "Decide AI can't help with anything"
+      ],
+      "answer": 0,
+      "explain": "Great AI projects start with a real problem and the right data to learn from."
+    }
+  ]
+}

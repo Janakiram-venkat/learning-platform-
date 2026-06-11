@@ -4,6 +4,7 @@ import Courses from '../pages/Courses';
 import LessonPage from '../pages/LessonPage';
 import AssignmentPage from '../pages/AssignmentPage';
 import ProjectPage from '../pages/ProjectPage';
+import LabPage from '../pages/LabPage';
 
 export default function AppRoutes() {
   return (
@@ -13,6 +14,7 @@ export default function AppRoutes() {
       <Route path="/course/:courseId/lesson/:lessonId" element={<LessonPage />} />
       <Route path="/course/:courseId/module/:moduleId/assignment" element={<AssignmentPage />} />
       <Route path="/course/:courseId/module/:moduleId/project" element={<ProjectPage />} />
+      <Route path="/course/:courseId/module/:moduleId/lab" element={<LabPage />} />
     </Routes>
   );
 }

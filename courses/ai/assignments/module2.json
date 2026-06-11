@@ -1,0 +1,57 @@
+`{
+  "moduleId": 2,
+  "title": "Machine Learning Arcade",
+  "intro": "Show what you know about how machines learn from data. First-try wins earn ⭐⭐⭐!",
+  "emoji": "🧠",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What is Machine Learning?",
+      "options": [
+        "Computers learning patterns from examples",
+        "A machine that lifts heavy boxes",
+        "Writing every rule by hand"
+      ],
+      "answer": 0,
+      "explain": "ML learns patterns from data instead of following hand-written rules."
+    },
+    {
+      "type": "concept",
+      "prompt": "In Machine Learning, the computer figures out the...",
+      "options": ["rules/patterns", "wifi password", "screen color"],
+      "answer": 0,
+      "explain": "We give it data and answers; it learns the rules that connect them."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each data idea to its job.",
+      "pairs": [
+        { "left": "Training data", "right": "Teaches the model" },
+        { "left": "Testing data", "right": "Checks the model" },
+        { "left": "Good quality data", "right": "Makes a smarter model" }
+      ],
+      "explain": "Training data teaches, testing data checks, and quality data leads to a better model."
+    },
+    {
+      "type": "order",
+      "prompt": "Put the Machine Learning steps in order.",
+      "solution": [
+        "Collect labeled data",
+        "Train the model on the data",
+        "Test the model on new data"
+      ],
+      "explain": "First collect data, then train the model, then test it on examples it hasn't seen."
+    },
+    {
+      "type": "concept",
+      "prompt": "What happens with poor-quality data?",
+      "options": [
+        "The AI makes poor predictions (garbage in, garbage out)",
+        "The AI becomes perfect",
+        "Nothing at all"
+      ],
+      "answer": 0,
+      "explain": "Low-quality data leads to a low-quality model."
+    }
+  ]
+}

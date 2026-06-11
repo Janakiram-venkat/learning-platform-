@@ -1,0 +1,17 @@
+{
+  "moduleId": 4,
+  "title": "Natural Language Processing",
+  "lessons": [
+    {
+      "lessonId": "nlp",
+      "title": "How AI Understands Language",
+      "duration": "12 min"
+    },
+    {
+      "lessonId": "chatbot",
+      "title": "Building a Simple Chatbot",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": false
+}

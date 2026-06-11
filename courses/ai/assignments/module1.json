@@ -1,0 +1,54 @@
+{
+  "moduleId": 1,
+  "title": "Intro to AI Arcade",
+  "intro": "Test your AI basics! Answer quick questions and match the concepts. Get them right on the first try to earn ⭐⭐⭐!",
+  "emoji": "🤖",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What is Artificial Intelligence?",
+      "options": [
+        "Machines doing tasks that normally need human intelligence",
+        "Any machine made of metal",
+        "A brand of computer"
+      ],
+      "answer": 0,
+      "explain": "AI is about machines performing 'smart' tasks — recognizing, understanding, deciding, and learning."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which type of AI do we actually have today?",
+      "options": ["Narrow AI", "General AI", "Super AI"],
+      "answer": 0,
+      "explain": "Today's AI is all Narrow AI — great at one task. General and Super AI don't exist yet."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which is an example of AI?",
+      "options": [
+        "YouTube recommending your next video",
+        "A calculator adding 2 + 2",
+        "A door opening when pushed"
+      ],
+      "answer": 0,
+      "explain": "Recommendations learn from your behavior — that's AI. Calculators and doors just follow fixed rules."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each example to its AI type.",
+      "pairs": [
+        { "left": "Chess program", "right": "Narrow AI (one task)" },
+        { "left": "Human-level all-rounder", "right": "General AI (not yet real)" },
+        { "left": "Smarter than all humans", "right": "Super AI (just an idea)" }
+      ],
+      "explain": "Almost everything today is Narrow AI; General and Super AI are still future concepts."
+    },
+    {
+      "type": "concept",
+      "prompt": "How does modern AI mostly learn?",
+      "options": ["From lots of data", "By sleeping", "It never learns"],
+      "answer": 0,
+      "explain": "Modern AI learns patterns from large amounts of data — like practicing with many examples."
+    }
+  ]
+}

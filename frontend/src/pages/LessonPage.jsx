@@ -7,6 +7,7 @@ import OutputPanel from '../components/editor/OutputPanel';
 import Celebration from '../components/feedback/Celebration';
 import { getUnlockedLessonIds, awardXPOnce } from '../utils/progress';
 import LessonSimulation from '../components/lesson/LessonSimulation';
+import LabRunner from '../components/lab/LabRunner';
 import { Play, CheckCircle2, XCircle, Lightbulb, Menu, X } from 'lucide-react';
 
 export default function LessonPage() {
@@ -26,6 +27,7 @@ export default function LessonPage() {
   const [quizResult, setQuizResult] = useState(null);
   const [celebration, setCelebration] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [lab, setLab] = useState(null); // { data, moduleKey } — embedded in the right panel for no-code courses
 
   useEffect(() => {
     setLoading(true);
@@ -58,6 +60,22 @@ export default function LessonPage() {
       setLoading(false);
     });
   }, [courseId, lessonId]);
+
+  // For no-code courses (course.hasEditor === false), the right panel hosts the
+  // module's Interactive Lab instead of a Python editor. Fetch it once we know
+  // the course + which lesson we're on.
+  useEffect(() => {
+    if (!course || !lesson) { setLab(null); return; }
+    if (course.hasEditor !== false) { setLab(null); return; }
+    const parent = course.modules?.find(m => m.lessons?.some(l => l.lessonId === lessonId));
+    if (!parent?.hasLab) { setLab(null); return; }
+    const moduleKey = `module${parent.moduleId ?? parent.id}`;
+    let active = true;
+    courseService.getLab(courseId, moduleKey)
+      .then(res => { if (active) setLab({ data: res.data.data, moduleKey }); })
+      .catch(() => { if (active) setLab(null); });
+    return () => { active = false; };
+  }, [course, lesson, courseId, lessonId]);
 
   const handleRunCode = async () => {
     setIsRunning(true);
@@ -169,6 +187,10 @@ export default function LessonPage() {
   if (loading) return <div className="flex-1 flex items-center justify-center">Loading lesson...</div>;
   if (!lesson) return <div className="flex-1 flex items-center justify-center">Lesson not found.</div>;
 
+  // No-code courses (e.g. AI Fundamentals) opt out of the Python editor panel
+  // via "hasEditor": false in course.json. Coding courses default to showing it.
+  const showEditor = course?.hasEditor !== false;
+
   return (
     <div className="flex w-full flex-col lg:h-[calc(100vh-64px)] lg:flex-row lg:overflow-hidden">
       <Celebration
@@ -216,7 +238,7 @@ export default function LessonPage() {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-8 lg:border-r lg:border-gray-200">
+      <div className={`flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-8 ${showEditor ? 'lg:border-r lg:border-gray-200' : ''}`}>
         <div className="mx-auto max-w-3xl rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-10">
           <h1 className="mb-4 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{lesson.title}</h1>
           <p className="mb-6 border-b border-gray-100 pb-6 text-base text-gray-600 sm:mb-10 sm:text-lg">{lesson.description}</p>
@@ -241,8 +263,8 @@ export default function LessonPage() {
             })}
           </div>
 
-          {/* Practice Section */}
-          {lesson.practice && lesson.practice.length > 0 && (
+          {/* Practice Section — coding exercises, only for courses with the editor */}
+          {showEditor && lesson.practice && lesson.practice.length > 0 && (
             <div className="mb-16 border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
               <div className="bg-blue-50 px-5 py-4 border-b border-blue-100 sm:px-8 sm:py-5">
                 <h3 className="font-bold text-blue-900 text-lg">Practice Exercises</h3>
@@ -350,7 +372,8 @@ export default function LessonPage() {
         </div>
       </div>
 
-      {/* Compiler Panel */}
+      {/* Compiler Panel — hidden for no-code courses (course.hasEditor === false) */}
+      {showEditor && (
       <div className="z-10 flex w-full flex-col border-t border-gray-200 bg-white shadow-2xl lg:h-full lg:w-[600px] lg:border-l lg:border-t-0">
 
         {/* Editor Area */}
@@ -382,6 +405,16 @@ export default function LessonPage() {
         </div>
 
       </div>
+      )}
+
+      {/* Interactive Lab Panel — for no-code courses whose module ships a lab */}
+      {!showEditor && lab && (
+        <div className="z-10 flex w-full flex-col border-t border-gray-200 bg-gradient-to-b from-purple-50/40 to-white shadow-2xl lg:h-full lg:w-[600px] lg:overflow-y-auto lg:border-l lg:border-t-0">
+          <div className="p-4 sm:p-6">
+            <LabRunner lab={lab.data} course={course} courseId={courseId} moduleId={lab.moduleKey} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

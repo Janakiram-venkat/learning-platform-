@@ -1,0 +1,61 @@
+{
+  "moduleId": 5,
+  "title": "Generative AI Arcade",
+  "intro": "Create, prompt, and win! Test your generative AI and prompt skills. First-try wins earn ⭐⭐⭐.",
+  "emoji": "✨",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What makes Generative AI special?",
+      "options": [
+        "It creates brand-new content",
+        "It only deletes files",
+        "It just sorts photos"
+      ],
+      "answer": 0,
+      "explain": "Generative AI creates new text, images, music, or video — it generates rather than only analyzing."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each tool to what it generates.",
+      "pairs": [
+        { "left": "ChatGPT / Claude", "right": "Text and answers" },
+        { "left": "DALL·E", "right": "Images from words" },
+        { "left": "Music AI", "right": "Original melodies" }
+      ],
+      "explain": "Different generative tools specialize in text, images, or music."
+    },
+    {
+      "type": "concept",
+      "prompt": "What is a prompt?",
+      "options": [
+        "The instruction or question you give an AI",
+        "A type of screen",
+        "The AI's battery"
+      ],
+      "answer": 0,
+      "explain": "A prompt is what you ask or tell the AI — better prompts give better answers."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which is the STRONGER prompt?",
+      "options": [
+        "Explain black holes to a 12-year-old using cricket examples",
+        "Tell me about space",
+        "Space"
+      ],
+      "answer": 0,
+      "explain": "It's specific about audience, topic, and style, so the AI gives a focused answer."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each prompt ingredient to its example.",
+      "pairs": [
+        { "left": "Audience", "right": "for a 12-year-old" },
+        { "left": "Format", "right": "in 3 bullet points" },
+        { "left": "Tone", "right": "fun and friendly" }
+      ],
+      "explain": "Strong prompts name the audience, the format, and the tone you want."
+    }
+  ]
+}

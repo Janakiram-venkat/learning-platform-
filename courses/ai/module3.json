@@ -1,0 +1,17 @@
+{
+  "moduleId": 3,
+  "title": "Computer Vision",
+  "lessons": [
+    {
+      "lessonId": "computer_vision",
+      "title": "How AI Sees the World",
+      "duration": "12 min"
+    },
+    {
+      "lessonId": "image_classifier",
+      "title": "Build Your First Image Classifier",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": false
+}

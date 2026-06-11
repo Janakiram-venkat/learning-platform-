@@ -2,13 +2,17 @@ import subprocess
 import os
 import sys
 
-def execute_python_code(code: str) -> str:
-    """Executes python code using subprocess and returns standard output"""
+def execute_python_code(code: str, stdin: str = "") -> str:
+    """Executes python code using subprocess and returns standard output.
+
+    `stdin` is fed to the program so that input() prompts work (each answer
+    should be separated by a newline)."""
     try:
         # For an MVP, we are directly running Python via subprocess
         # NOTE: This is NOT safe for production, needs Docker sandbox later
         result = subprocess.run(
             [sys.executable, "-c", code],
+            input=stdin,
             capture_output=True,
             text=True,
             timeout=5

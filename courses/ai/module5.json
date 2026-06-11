@@ -1,0 +1,17 @@
+{
+  "moduleId": 5,
+  "title": "Generative AI",
+  "lessons": [
+    {
+      "lessonId": "generative_ai",
+      "title": "What is Generative AI?",
+      "duration": "12 min"
+    },
+    {
+      "lessonId": "prompt_engineering",
+      "title": "Prompt Engineering",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": false
+}

@@ -72,3 +72,12 @@ def get_project_by_id(course_id: str, module_id: str):
         with open(project_file, 'r', encoding='utf-8') as f:
             return json.load(f)
     return None
+
+
+def get_lab_by_id(course_id: str, module_id: str):
+    # module_id is e.g. "module1"; interactive labs live in courses/<course>/labs/.
+    lab_file = COURSES_DIR / course_id / "labs" / f"{module_id}.json"
+    if lab_file.exists():
+        with open(lab_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return None

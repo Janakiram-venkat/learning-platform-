@@ -1,0 +1,54 @@
+{
+  "moduleId": 4,
+  "title": "Language AI Arcade",
+  "intro": "Time to talk the talk! Test your NLP and chatbot smarts. First-try wins earn ⭐⭐⭐.",
+  "emoji": "💬",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What does NLP stand for?",
+      "options": ["Natural Language Processing", "New Laptop Power", "Never Lose Points"],
+      "answer": 0,
+      "explain": "NLP = Natural Language Processing — helping computers work with human language."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each NLP task to an example.",
+      "pairs": [
+        { "left": "Translation", "right": "English to French" },
+        { "left": "Speech recognition", "right": "Voice into text" },
+        { "left": "Text generation", "right": "Writing a story" }
+      ],
+      "explain": "Translation changes languages, speech recognition turns voice into text, and text generation writes new content."
+    },
+    {
+      "type": "concept",
+      "prompt": "What is a chatbot?",
+      "options": [
+        "A program you can talk to that replies",
+        "A robot vacuum",
+        "A type of battery"
+      ],
+      "answer": 0,
+      "explain": "A chatbot reads your message, understands it, and responds."
+    },
+    {
+      "type": "concept",
+      "prompt": "How does a rule-based chatbot choose a reply?",
+      "options": [
+        "It matches your message to patterns",
+        "It guesses with no logic",
+        "It calls a human each time"
+      ],
+      "answer": 0,
+      "explain": "Rule-based chatbots look for patterns ('if it contains hint...') and pick a reply."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which everyday tool uses NLP?",
+      "options": ["Voice assistant like Alexa", "A bicycle", "A stapler"],
+      "answer": 0,
+      "explain": "Voice assistants use NLP to understand speech and respond in human language."
+    }
+  ]
+}

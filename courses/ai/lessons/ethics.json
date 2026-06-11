@@ -1,0 +1,81 @@
+{
+  "lessonId": "ethics",
+  "title": "Ethical & Responsible AI",
+  "description": "AI is powerful — and with great power comes great responsibility. Let's learn to use AI safely and fairly.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Using AI the Right Way"
+    },
+    {
+      "type": "paragraph",
+      "value": "AI can do amazing things, but it can also cause harm if used carelessly. Ethics means thinking about what is fair, honest, and safe. Responsible AI users understand the risks and try to avoid them."
+    },
+    {
+      "type": "heading",
+      "value": "Things to Watch Out For"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "⚖️  Bias          → unfair AI that favors some groups\n🔒  Privacy       → protecting people's personal data\n📰  Misinformation → AI can sound confident but be WRONG\n🎭  Deepfakes     → fake images/videos that look real"
+    },
+    {
+      "type": "heading",
+      "value": "Why Bias Happens"
+    },
+    {
+      "type": "paragraph",
+      "value": "AI learns from data made by humans, and if that data is unfair or one-sided, the AI becomes unfair too. For example, if a face system only trained on certain faces, it may work poorly for others. That's why fair, varied data matters so much."
+    },
+    {
+      "type": "tip",
+      "value": "Activity — 'Real or AI-Generated?': Look at some images and messages and guess which were made by AI. It's getting harder to tell — which is exactly why we must think critically!"
+    },
+    {
+      "type": "heading",
+      "value": "Be a Responsible AI User"
+    },
+    {
+      "type": "paragraph",
+      "value": "Always double-check AI answers, never share private information, give credit when AI helps you, and never use AI to trick or harm others. Discussion: Can AI make mistakes? Should AI replace teachers? How can we use AI responsibly?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: AI should be used responsibly, ethically, and safely."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does 'bias' in AI mean?",
+      "options": [
+        "The AI is unfair, often because it learned from unfair data",
+        "The AI runs too fast",
+        "The AI uses too much battery"
+      ],
+      "answer": 0,
+      "explain": "Bias happens when AI treats some groups unfairly, usually because its training data was unbalanced or unfair."
+    },
+    {
+      "question": "What is a deepfake?",
+      "options": [
+        "A very deep swimming pool",
+        "A fake image or video made by AI that looks real",
+        "A type of strong password"
+      ],
+      "answer": 1,
+      "explain": "Deepfakes are AI-generated images or videos designed to look real, which can be used to spread misinformation."
+    },
+    {
+      "question": "Which is a responsible way to use AI?",
+      "options": [
+        "Double-check its answers and protect private information",
+        "Believe everything it says without checking",
+        "Use it to trick your friends"
+      ],
+      "answer": 0,
+      "explain": "Responsible users verify AI answers, protect privacy, give credit, and never use AI to harm others."
+    }
+  ]
+}

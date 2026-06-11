@@ -1,0 +1,73 @@
+{
+  "lessonId": "nlp",
+  "title": "How AI Understands Language",
+  "description": "How can a computer chat, translate, and understand your words? Meet Natural Language Processing.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Teaching Machines to Understand Words"
+    },
+    {
+      "type": "paragraph",
+      "value": "Natural Language Processing (NLP) is the part of AI that helps computers understand, read, and write human language — like English, Hindi, or Spanish. It's how machines turn messy human words into something they can work with."
+    },
+    {
+      "type": "heading",
+      "value": "What NLP Can Do"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "✍️  Text Generation     → write stories, answers, and emails\n🌐  Translation         → change English into French instantly\n🎙️  Speech Recognition  → turn your voice into text\n😀  Sentiment Analysis  → tell if a review is happy or angry"
+    },
+    {
+      "type": "heading",
+      "value": "NLP in Your Daily Life"
+    },
+    {
+      "type": "paragraph",
+      "value": "You already use NLP all the time! ChatGPT and Claude answer questions, Siri and Alexa understand your voice, and Google Translate switches between languages. Autocorrect and predictive text on your phone are NLP too."
+    },
+    {
+      "type": "tip",
+      "value": "Activity — 'Explain It Simply': Ask an AI assistant to explain a tricky school topic 'like I'm 10 years old.' Notice how it reshapes the language to be easy to understand."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: NLP enables machines to understand and generate human language."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does NLP stand for?",
+      "options": [
+        "Natural Language Processing",
+        "New Laptop Program",
+        "Never Lose Power"
+      ],
+      "answer": 0,
+      "explain": "NLP = Natural Language Processing — helping computers work with human language."
+    },
+    {
+      "question": "Which of these is an NLP task?",
+      "options": [
+        "Translating English to French",
+        "Charging a phone",
+        "Painting a wall"
+      ],
+      "answer": 0,
+      "explain": "Translation is a classic NLP task, along with text generation, speech recognition, and sentiment analysis."
+    },
+    {
+      "question": "Which everyday tool uses NLP?",
+      "options": [
+        "A voice assistant like Siri or Alexa",
+        "A bicycle",
+        "A stapler"
+      ],
+      "answer": 0,
+      "explain": "Voice assistants use NLP to understand your spoken words and reply in language you understand."
+    }
+  ]
+}

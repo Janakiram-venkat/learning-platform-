@@ -85,12 +85,6 @@ export default function Home() {
               Play & Learn
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
-            <Link
-              to="/course/python/lesson/intro"
-              className="rounded-2xl bg-white px-9 py-4 text-lg font-extrabold text-purple-700 shadow-md ring-2 ring-purple-200 transition-transform hover:scale-105 active:scale-95"
-            >
-              Quick Start ⚡
-            </Link>
           </div>
 
           {/* Fun stat chips */}

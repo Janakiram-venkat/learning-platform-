@@ -1,9 +1,10 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import courses, lessons, compiler, quiz, users
+from app.api import courses, lessons, compiler, quiz, users, feedback
 from app.db import Base, engine
 from app.models import user as _user_model  # noqa: F401  (register model with Base)
+from app.models import feedback as _feedback_model  # noqa: F401  (register model with Base)
 
 # Create tables on startup if they don't already exist.
 Base.metadata.create_all(bind=engine)
@@ -28,6 +29,7 @@ app.include_router(lessons.router, prefix="/api", tags=["Lessons"])
 app.include_router(compiler.router, prefix="/api", tags=["Compiler"])
 app.include_router(quiz.router, prefix="/api", tags=["Quiz"])
 app.include_router(users.router, prefix="/api", tags=["Users"])
+app.include_router(feedback.router, prefix="/api", tags=["Feedback"])
 
 @app.get("/")
 def read_root():

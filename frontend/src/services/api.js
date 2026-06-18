@@ -24,6 +24,10 @@ export const quizService = {
   submitQuiz: (courseId, lessonId, answers) => api.post(`/courses/${courseId}/quiz/submit`, { lessonId, answers }),
 };
 
+export const feedbackService = {
+  submit: (payload) => api.post('/feedback', payload),
+};
+
 export const authService = {
   signIn: (email, name) => api.post('/auth/signin', { email, name }),
   googleSignIn: (token) => api.post('/auth/google', { token }),

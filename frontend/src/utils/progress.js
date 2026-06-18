@@ -51,6 +51,50 @@ export function awardXPOnce(key, amount) {
   return amount;
 }
 
+// --- Feedback prompts -------------------------------------------------
+// We ask students to rate the content + animations after every few
+// modules. Completed modules are tracked via the 'module' badges earned.
+
+const FEEDBACK_EVERY_N_MODULES = 2;
+
+export function getCompletedModuleCount() {
+  try {
+    const badges = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
+    return badges.filter(b => b.type === 'module').length;
+  } catch {
+    return 0;
+  }
+}
+
+// True (at most once per milestone) when a feedback prompt is due — i.e.
+// the student just crossed a multiple of FEEDBACK_EVERY_N_MODULES modules
+// and hasn't been asked at that milestone yet.
+export function shouldAskFeedback() {
+  const count = getCompletedModuleCount();
+  if (count === 0 || count % FEEDBACK_EVERY_N_MODULES !== 0) return false;
+  try {
+    const asked = JSON.parse(localStorage.getItem('feedbackAsked') || '[]');
+    return !asked.includes(count);
+  } catch {
+    return true;
+  }
+}
+
+// Records that we've prompted at the current module milestone, so the
+// modal isn't shown again for the same milestone.
+export function markFeedbackAsked() {
+  const count = getCompletedModuleCount();
+  try {
+    const asked = JSON.parse(localStorage.getItem('feedbackAsked') || '[]');
+    if (!asked.includes(count)) {
+      asked.push(count);
+      localStorage.setItem('feedbackAsked', JSON.stringify(asked));
+    }
+  } catch {
+    // ignore storage errors
+  }
+}
+
 export function getCompletedLessons() {
   try {
     return JSON.parse(localStorage.getItem('completedLessons') || '[]');

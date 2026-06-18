@@ -5,7 +5,8 @@ import Sidebar from '../components/layout/Sidebar';
 import CodeEditor from '../components/editor/CodeEditor';
 import OutputPanel from '../components/editor/OutputPanel';
 import Celebration from '../components/feedback/Celebration';
-import { getUnlockedLessonIds, awardXPOnce } from '../utils/progress';
+import FeedbackModal from '../components/feedback/FeedbackModal';
+import { getUnlockedLessonIds, awardXPOnce, shouldAskFeedback, markFeedbackAsked } from '../utils/progress';
 import LessonSimulation from '../components/lesson/LessonSimulation';
 import LabRunner from '../components/lab/LabRunner';
 import { Play, CheckCircle2, XCircle, Lightbulb, Menu, X } from 'lucide-react';
@@ -26,6 +27,8 @@ export default function LessonPage() {
   const [quizAnswers, setQuizAnswers] = useState({});
   const [quizResult, setQuizResult] = useState(null);
   const [celebration, setCelebration] = useState(null);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [pendingAdvance, setPendingAdvance] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [lab, setLab] = useState(null); // { data, moduleKey } — embedded in the right panel for no-code courses
 
@@ -34,6 +37,8 @@ export default function LessonPage() {
     setQuizResult(null);
     setQuizAnswers({});
     setCelebration(null);
+    setFeedbackOpen(false);
+    setPendingAdvance(false);
     setOutput('');
     setRunError('');
 
@@ -181,7 +186,23 @@ export default function LessonPage() {
   const handleCelebrationClose = () => {
     const advance = celebration?.next;
     setCelebration(null);
+    // After finishing a module, occasionally ask for feedback before moving
+    // on. Hold off navigating until the feedback modal is dismissed.
+    if (shouldAskFeedback()) {
+      setPendingAdvance(advance);
+      setFeedbackOpen(true);
+      return;
+    }
     if (advance) goToNext();
+  };
+
+  const handleFeedbackClose = () => {
+    markFeedbackAsked();
+    setFeedbackOpen(false);
+    if (pendingAdvance) {
+      setPendingAdvance(false);
+      goToNext();
+    }
   };
 
   if (loading) return <div className="flex-1 flex items-center justify-center">Loading lesson...</div>;
@@ -200,6 +221,12 @@ export default function LessonPage() {
         badge={celebration?.badge}
         variant={celebration?.variant}
         onClose={handleCelebrationClose}
+      />
+
+      <FeedbackModal
+        open={feedbackOpen}
+        courseId={courseId}
+        onClose={handleFeedbackClose}
       />
 
       {/* Mobile-only top bar to open the lesson list */}

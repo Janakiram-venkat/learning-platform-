@@ -51,7 +51,7 @@
       "type": "concept",
       "prompt": "Can AI make mistakes?",
       "options": [
-        "Yes — it can be confidently wrong",
+        "Yes, it can be confidently wrong",
         "No, AI is always correct",
         "Only on weekends"
       ],

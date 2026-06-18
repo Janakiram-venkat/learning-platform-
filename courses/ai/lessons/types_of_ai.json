@@ -1,7 +1,7 @@
 {
   "lessonId": "types_of_ai",
   "title": "Types of AI",
-  "description": "Not all AI is the same! Let's explore the three big types of AI — and find out which one actually exists today.",
+  "description": "Not all AI is the same! Let's explore the three big types of AI, and find out which one actually exists today.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -18,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Narrow AI is really good at ONE specific job. A chess program can beat champions at chess — but it can't drive a car or cook dinner. Almost every AI you use today is Narrow AI."
+      "value": "Narrow AI is really good at ONE specific job. A chess program can beat champions at chess, but it can't drive a car or cook dinner. Almost every AI you use today is Narrow AI."
     },
     {
       "type": "code",
@@ -31,7 +31,7 @@
     },
     {
       "type": "paragraph",
-      "value": "General AI would be as flexible as a human — able to learn and do ANY task across many different areas, from writing a poem to fixing a bike. This kind of AI does not exist yet. It's still a goal that researchers are working toward."
+      "value": "General AI would be as flexible as a human, able to learn and do ANY task across many different areas, from writing a poem to fixing a bike. This kind of AI does not exist yet. It's still a goal that researchers are working toward."
     },
     {
       "type": "heading",
@@ -39,15 +39,15 @@
     },
     {
       "type": "paragraph",
-      "value": "Super AI is a conceptual idea of a machine that is smarter than humans at almost everything. It only exists in movies and imagination for now — but thinking about it helps us plan how to build AI safely."
+      "value": "Super AI is a conceptual idea of a machine that is smarter than humans at almost everything. It only exists in movies and imagination for now, but thinking about it helps us plan how to build AI safely."
     },
     {
       "type": "tip",
-      "value": "Activity — 'AI or Not?': Look at examples like a smart thermostat, a wind-up toy, a self-driving car, and a regular calculator. Which ones use AI, and which just follow fixed rules?"
+      "value": "Activity: 'AI or Not?': Look at examples like a smart thermostat, a wind-up toy, a self-driving car, and a regular calculator. Which ones use AI, and which just follow fixed rules?"
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: Most AI systems today are Narrow AI — brilliant at one task, but not flexible like a human."
+      "value": "Key Takeaway: Most AI systems today are Narrow AI, brilliant at one task, but not flexible like a human."
     }
   ],
   "quiz": [
@@ -59,7 +59,7 @@
         "Super AI"
       ],
       "answer": 0,
-      "explain": "Everything from chatbots to recommendation systems is Narrow AI — great at one specific task. General and Super AI don't exist yet."
+      "explain": "Everything from chatbots to recommendation systems is Narrow AI, great at one specific task. General and Super AI don't exist yet."
     },
     {
       "question": "What makes General AI different from Narrow AI?",
@@ -69,7 +69,7 @@
         "It only plays chess"
       ],
       "answer": 1,
-      "explain": "General AI would be flexible across many different tasks, just like a person — but it hasn't been built yet."
+      "explain": "General AI would be flexible across many different tasks, just like a person, but it hasn't been built yet."
     },
     {
       "question": "A program that ONLY recommends songs is an example of...",
@@ -79,7 +79,7 @@
         "Narrow AI"
       ],
       "answer": 2,
-      "explain": "It does one job — recommending songs — which makes it Narrow AI."
+      "explain": "It does one job, recommending songs, which makes it Narrow AI."
     }
   ]
 }

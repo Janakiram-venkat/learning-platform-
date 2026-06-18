@@ -48,7 +48,7 @@
         "To repeat the code forever"
       ],
       "answer": 0,
-      "explain": "except is your safety net — it catches problems and lets the program keep going."
+      "explain": "except is your safety net, it catches problems and lets the program keep going."
     },
     {
       "type": "order",

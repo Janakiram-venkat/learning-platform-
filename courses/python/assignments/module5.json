@@ -17,7 +17,7 @@
       "prompt": "Which collection CANNOT be changed after you make it?",
       "options": ["A tuple", "A list", "A dictionary"],
       "answer": 0,
-      "explain": "Tuples are like unchangeable scrolls — once written, they stay the same."
+      "explain": "Tuples are like unchangeable scrolls, once written, they stay the same."
     },
     {
       "type": "predict",

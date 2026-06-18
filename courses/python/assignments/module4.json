@@ -17,7 +17,7 @@
       "code": "def greet():\n    print(\"Hi there!\")\n\ngreet()",
       "options": ["Hi there!", "greet()", "Nothing"],
       "answer": 0,
-      "explain": "Defining greet doesn't run it — calling greet() does, which prints the message."
+      "explain": "Defining greet doesn't run it, calling greet() does, which prints the message."
     },
     {
       "type": "bug",

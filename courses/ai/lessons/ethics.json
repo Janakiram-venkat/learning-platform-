@@ -1,7 +1,7 @@
 {
   "lessonId": "ethics",
   "title": "Ethical & Responsible AI",
-  "description": "AI is powerful — and with great power comes great responsibility. Let's learn to use AI safely and fairly.",
+  "description": "AI is powerful, and with great power comes great responsibility. Let's learn to use AI safely and fairly.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -31,7 +31,7 @@
     },
     {
       "type": "tip",
-      "value": "Activity — 'Real or AI-Generated?': Look at some images and messages and guess which were made by AI. It's getting harder to tell — which is exactly why we must think critically!"
+      "value": "Activity: 'Real or AI-Generated?': Look at some images and messages and guess which were made by AI. It's getting harder to tell, which is exactly why we must think critically!"
     },
     {
       "type": "heading",

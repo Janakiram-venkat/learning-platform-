@@ -18,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "value": "A vague prompt gives a vague answer. A specific prompt — with details about who it's for, the topic, and the style — gives a much better result."
+      "value": "A vague prompt gives a vague answer. A specific prompt, with details about who it's for, the topic, and the style, gives a much better result."
     },
     {
       "type": "code",
@@ -40,7 +40,7 @@
     },
     {
       "type": "tip",
-      "value": "Activity — 'Prompt Challenge': Take a boring prompt like 'write about dogs' and rewrite it three different ways to get a poem, a fun fact list, and a short story. Compare the results!"
+      "value": "Activity: 'Prompt Challenge': Take a boring prompt like 'write about dogs' and rewrite it three different ways to get a poem, a fun fact list, and a short story. Compare the results!"
     },
     {
       "type": "paragraph",
@@ -76,7 +76,7 @@
         "Using only one word"
       ],
       "answer": 0,
-      "explain": "Clear details — who it's for, the topic, the format, and the tone — guide the AI to a much better response."
+      "explain": "Clear details, who it's for, the topic, the format, and the tone, guide the AI to a much better response."
     }
   ]
 }

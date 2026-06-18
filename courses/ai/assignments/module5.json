@@ -13,7 +13,7 @@
         "It just sorts photos"
       ],
       "answer": 0,
-      "explain": "Generative AI creates new text, images, music, or video — it generates rather than only analyzing."
+      "explain": "Generative AI creates new text, images, music, or video, it generates rather than only analyzing."
     },
     {
       "type": "match",
@@ -34,7 +34,7 @@
         "The AI's battery"
       ],
       "answer": 0,
-      "explain": "A prompt is what you ask or tell the AI — better prompts give better answers."
+      "explain": "A prompt is what you ask or tell the AI, better prompts give better answers."
     },
     {
       "type": "concept",

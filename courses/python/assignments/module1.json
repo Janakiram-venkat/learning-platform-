@@ -44,7 +44,7 @@
       "prompt": "What kind of data is \"42\" (with the quotation marks)?",
       "options": ["A string (text)", "A number you can add", "A True/False value"],
       "answer": 0,
-      "explain": "Quotation marks turn anything into text — a string — even if it looks like a number."
+      "explain": "Quotation marks turn anything into text, a string, even if it looks like a number."
     },
     {
       "type": "match",

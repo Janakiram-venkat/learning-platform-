@@ -40,7 +40,7 @@
         "Run faster than normal"
       ],
       "answer": 0,
-      "explain": "Inheritance passes down 'family traits' — a child class gets the parent's abilities for free."
+      "explain": "Inheritance passes down 'family traits', a child class gets the parent's abilities for free."
     },
     {
       "type": "predict",

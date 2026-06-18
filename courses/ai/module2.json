@@ -13,5 +13,7 @@
       "duration": "12 min"
     }
   ],
-  "hasProject": false
+  "hasProject": false,
+  "hasLab": true,
+  "labTitle": "Machine Learning Lab"
 }

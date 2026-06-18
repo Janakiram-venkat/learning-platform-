@@ -477,6 +477,238 @@ function DesignStage({ stage, onComplete }) {
   );
 }
 
+// --- ML Stage: Train Your First Model (feed-data mini-game) -----------------
+// Tap to feed labeled examples into the "brain"; accuracy climbs along a
+// learning curve (fast at first, then plateaus). Once trained, the model
+// predicts a brand-new example the learner picks alongside it.
+function TrainStage({ stage, onComplete }) {
+  const needed = stage.needed || stage.examples.length;
+  const [fed, setFed] = useState(0);
+  const [flying, setFlying] = useState(null); // the example currently animating in
+  const [phase, setPhase] = useState('train'); // train | ready | test
+  const [guess, setGuess] = useState(null);
+  const [revealed, setRevealed] = useState(false);
+
+  // Learning curve: 50% at zero examples up to 98% when fully trained.
+  const accuracy = Math.round(50 + 48 * (1 - Math.pow(1 - fed / needed, 1.8)));
+  const trained = fed >= needed;
+
+  const feed = () => {
+    if (flying || trained) return;
+    setFlying(stage.examples[fed % stage.examples.length]);
+    setTimeout(() => {
+      setFed((n) => {
+        const next = n + 1;
+        if (next >= needed) setPhase('ready');
+        return next;
+      });
+      setFlying(null);
+    }, 650);
+  };
+
+  const test = stage.test;
+  const correct = guess === test?.answer;
+
+  return (
+    <div>
+      {/* The model brain + live accuracy gauge */}
+      <div className="relative flex flex-col items-center rounded-3xl bg-gradient-to-b from-indigo-50 to-purple-50 p-6 ring-1 ring-purple-100">
+        <p className="mb-1 text-xs font-bold uppercase tracking-wide text-purple-500">{stage.modelName || 'Your Model'}</p>
+        <div className="relative">
+          <div className={`flex h-24 w-24 items-center justify-center rounded-full bg-white text-5xl shadow-md ${flying ? 'animate-pop' : trained ? 'animate-glow' : 'animate-float-slow'}`}>
+            🧠
+          </div>
+          {flying && (
+            <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 animate-feed-fly text-3xl">
+              {flying.emoji}
+            </span>
+          )}
+        </div>
+
+        <div className="mt-5 w-full max-w-xs">
+          <div className="mb-1 flex items-center justify-between text-xs font-bold text-gray-500">
+            <span>Accuracy</span>
+            <span className={trained ? 'text-green-600' : 'text-purple-600'}>{accuracy}%</span>
+          </div>
+          <div className="h-3 w-full overflow-hidden rounded-full bg-white ring-1 ring-purple-100">
+            <div
+              className={`h-full rounded-full transition-all duration-500 ${trained ? 'bg-gradient-to-r from-green-400 to-emerald-500' : 'bg-gradient-to-r from-purple-500 to-violet-500'}`}
+              style={{ width: `${accuracy}%` }}
+            />
+          </div>
+          <p className="mt-2 text-center text-xs font-semibold text-gray-500">
+            {fed}/{needed} examples learned
+          </p>
+        </div>
+      </div>
+
+      {phase === 'train' && (
+        <>
+          {/* Preview of the labeled examples waiting to be fed */}
+          <div className="mt-5 flex flex-wrap justify-center gap-2">
+            {stage.examples.map((ex, i) => (
+              <span
+                key={i}
+                className={`flex items-center gap-1 rounded-xl border-2 px-2.5 py-1.5 text-xs font-bold transition-all ${
+                  i < fed ? 'border-green-200 bg-green-50 text-green-700 opacity-60' : 'border-gray-200 bg-white text-gray-700'
+                }`}
+              >
+                <span className="text-base">{ex.emoji}</span> {ex.label}
+                {i < fed && <CheckCircle2 className="h-3.5 w-3.5 text-green-500" />}
+              </span>
+            ))}
+          </div>
+          <button
+            onClick={feed}
+            disabled={!!flying}
+            className="mt-6 w-full rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:scale-[1.02] active:scale-95 disabled:opacity-60"
+          >
+            Feed a Labeled Photo 📸
+          </button>
+        </>
+      )}
+
+      {phase === 'ready' && (
+        <div className="mt-5 animate-slide-up text-center">
+          <p className="rounded-2xl bg-green-50 p-4 text-lg font-extrabold text-green-700 ring-1 ring-green-100">
+            🎉 Model trained! It reached {accuracy}% accuracy.
+          </p>
+          <button
+            onClick={() => setPhase('test')}
+            className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-7 py-3.5 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
+          >
+            Test the Model <ArrowRight className="h-5 w-5" />
+          </button>
+        </div>
+      )}
+
+      {phase === 'test' && test && (
+        <div className="mt-5">
+          <div className="rounded-2xl border-2 border-purple-100 bg-white p-5 text-center shadow-sm">
+            <p className="text-sm font-semibold text-gray-600">{test.prompt}</p>
+            <div className="my-3 text-6xl animate-bounce-in">{revealed ? test.emoji : '❓'}</div>
+            <div className="flex justify-center gap-3">
+              {test.options.map((opt, oi) => {
+                const sel = guess === oi;
+                let cls = sel ? 'border-purple-500 bg-purple-100 text-purple-800' : 'border-gray-200 bg-white text-gray-700 hover:border-purple-300';
+                if (revealed) {
+                  if (oi === test.answer) cls = 'border-green-400 bg-green-50 text-green-800';
+                  else if (sel) cls = 'border-rose-400 bg-rose-50 text-rose-700';
+                  else cls = 'border-gray-200 bg-white text-gray-400';
+                }
+                return (
+                  <button
+                    key={oi}
+                    disabled={revealed}
+                    onClick={() => setGuess(oi)}
+                    className={`rounded-xl border-2 px-5 py-2.5 text-sm font-bold transition-all active:scale-95 ${cls}`}
+                  >
+                    {opt}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {revealed && (
+            <p className="mt-4 flex items-start gap-2 rounded-xl bg-indigo-50 p-3 text-sm font-medium text-indigo-900 ring-1 ring-indigo-100 animate-slide-up">
+              <Lightbulb className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>
+                <b>{correct ? 'Spot on! ' : 'Good try! '}</b>
+                Your model predicts <b>{test.options[test.answer]}</b>. {stage.explain}
+              </span>
+            </p>
+          )}
+
+          {!revealed ? (
+            <button
+              onClick={() => setRevealed(true)}
+              disabled={guess == null}
+              className="mt-6 w-full rounded-2xl bg-gray-900 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:bg-black active:scale-95 disabled:opacity-40"
+            >
+              {guess == null ? 'Pick a prediction first' : 'Run the Model'}
+            </button>
+          ) : (
+            <ContinueBar xp={stage.xp} onClick={() => onComplete(true)} />
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// --- ML Stage: Garbage In, Garbage Out (clean the dataset) ------------------
+// Learners toss mislabeled cards. A live accuracy meter rewards removing bad
+// data and penalizes removing good data; 100% (all bad gone, all good kept)
+// passes the stage.
+function DataQualityStage({ stage, onComplete }) {
+  const [removed, setRemoved] = useState({}); // cardId -> true
+  const totalGood = stage.cards.filter((c) => !c.bad).length;
+
+  const goodKept = stage.cards.filter((c) => !c.bad && !removed[c.id]).length;
+  const badKept = stage.cards.filter((c) => c.bad && !removed[c.id]).length;
+  // Each remaining mislabeled card drags accuracy down; removing a good card
+  // costs you a correct example too.
+  const accuracy = Math.max(0, Math.round(((goodKept - badKept) / totalGood) * 100));
+  const passed = accuracy >= 100;
+
+  const toggle = (id) => setRemoved((p) => ({ ...p, [id]: !p[id] }));
+
+  return (
+    <div>
+      {/* Live accuracy meter */}
+      <div className="mb-5 rounded-2xl bg-gradient-to-b from-indigo-50 to-purple-50 p-4 ring-1 ring-purple-100">
+        <div className="mb-1 flex items-center justify-between text-xs font-bold text-gray-500">
+          <span>{stage.meterLabel || 'Model Accuracy'}</span>
+          <span className={passed ? 'text-green-600' : 'text-purple-600'}>{accuracy}%</span>
+        </div>
+        <div className="h-3 w-full overflow-hidden rounded-full bg-white ring-1 ring-purple-100">
+          <div
+            className={`h-full rounded-full transition-all duration-500 ${passed ? 'bg-gradient-to-r from-green-400 to-emerald-500' : 'bg-gradient-to-r from-amber-400 to-orange-500'}`}
+            style={{ width: `${accuracy}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Dataset cards */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {stage.cards.map((c) => {
+          const gone = removed[c.id];
+          return (
+            <button
+              key={c.id}
+              onClick={() => toggle(c.id)}
+              className={`relative flex flex-col items-center gap-1 rounded-2xl border-2 p-3 text-center transition-all active:scale-95 ${
+                gone ? 'border-gray-200 bg-gray-50 opacity-40' : 'border-gray-200 bg-white hover:border-rose-300'
+              }`}
+            >
+              <span className={`text-4xl ${gone ? 'grayscale' : ''}`}>{c.emoji}</span>
+              <span className="text-xs font-bold text-gray-600">labeled “{c.label}”</span>
+              <span className={`mt-1 rounded-full px-2 py-0.5 text-[10px] font-extrabold ${gone ? 'bg-gray-200 text-gray-500' : 'bg-rose-50 text-rose-500'}`}>
+                {gone ? 'removed · tap to undo' : 'tap to remove'}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {stage.note && passed && (
+        <p className="mt-4 flex items-start gap-2 rounded-xl bg-indigo-50 p-3 text-sm font-medium text-indigo-900 ring-1 ring-indigo-100 animate-slide-up">
+          <Lightbulb className="mt-0.5 h-5 w-5 shrink-0" /> {stage.note}
+        </p>
+      )}
+
+      {passed ? (
+        <ContinueBar xp={stage.xp} onClick={() => onComplete(true)} />
+      ) : (
+        <p className="mt-6 text-center text-sm font-semibold text-gray-500">
+          Get the accuracy to 100% by removing every wrong label and keeping the good ones.
+        </p>
+      )}
+    </div>
+  );
+}
+
 // --- Stage 8: Quiz / Final Assessment --------------------------------------
 function QuizStage({ stage, onComplete }) {
   const [answers, setAnswers] = useState({});
@@ -634,6 +866,8 @@ export default function LabRunner({ lab, course, courseId, moduleId }) {
       case 'sort': return <SortStage stage={stage} onComplete={onComplete} />;
       case 'choose': return <ChooseStage stage={stage} onComplete={onComplete} />;
       case 'explore': return <ExploreStage stage={stage} onComplete={onComplete} />;
+      case 'train': return <TrainStage stage={stage} onComplete={onComplete} />;
+      case 'dataquality': return <DataQualityStage stage={stage} onComplete={onComplete} />;
       case 'design': return <DesignStage stage={stage} onComplete={onComplete} />;
       case 'quiz': return <QuizStage stage={stage} onComplete={onComplete} />;
       case 'rewards': return <RewardsStage stage={stage} courseId={courseId} moduleId={moduleId} course={course} />;

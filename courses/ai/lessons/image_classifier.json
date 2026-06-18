@@ -1,7 +1,7 @@
 {
   "lessonId": "image_classifier",
   "title": "Build Your First Image Classifier",
-  "description": "Time to train a real AI model — no coding required! We'll use Google's Teachable Machine.",
+  "description": "Time to train a real AI model, no coding required! We'll use Google's Teachable Machine.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Google Teachable Machine is a free, friendly website that lets you train an image classifier using just your webcam — no code at all. You'll teach the AI to tell apart different hand signs and faces!"
+      "value": "Google Teachable Machine is a free, friendly website that lets you train an image classifier using just your webcam, no code at all. You'll teach the AI to tell apart different hand signs and faces!"
     },
     {
       "type": "tip",
@@ -35,7 +35,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Every Teachable Machine project follows the same simple steps that all Machine Learning follows: 1) Collect examples for each class using your webcam. 2) Click 'Train Model' so the AI learns the patterns. 3) Preview it live — show a thumbs up and watch the AI guess!"
+      "value": "Every Teachable Machine project follows the same simple steps that all Machine Learning follows: 1) Collect examples for each class using your webcam. 2) Click 'Train Model' so the AI learns the patterns. 3) Preview it live, show a thumbs up and watch the AI guess!"
     },
     {
       "type": "code",
@@ -48,7 +48,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: You just followed the real AI workflow — collect data, train a model, and test it. That's exactly how professionals build AI, just on a bigger scale!"
+      "value": "Key Takeaway: You just followed the real AI workflow, collect data, train a model, and test it. That's exactly how professionals build AI, just on a bigger scale!"
     }
   ],
   "quiz": [
@@ -60,7 +60,7 @@
         "A paint program"
       ],
       "answer": 0,
-      "explain": "Teachable Machine lets you train image, sound, and pose models right in the browser — no coding needed."
+      "explain": "Teachable Machine lets you train image, sound, and pose models right in the browser, no coding needed."
     },
     {
       "question": "What are the three main steps to build the model?",
@@ -80,7 +80,7 @@
         "Turn off the camera"
       ],
       "answer": 0,
-      "explain": "More examples — from different angles and lighting — help the model recognize each class more reliably."
+      "explain": "More examples, from different angles and lighting, help the model recognize each class more reliably."
     }
   ]
 }

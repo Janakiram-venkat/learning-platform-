@@ -2,16 +2,16 @@
   "moduleId": 1,
   "title": "Greeting Bot",
   "emoji": "🤖",
-  "brief": "Time to build a REAL interactive bot! Your Greeting Bot will ask the person for their name and age, then greet them and tell them how old they'll be next year. The magic word is input() — it lets your program ask questions and listen to the answer. Try it yourself in the input box, then run the Test Cases to make sure your bot works for everyone!",
+  "brief": "Time to build a REAL interactive bot! Your Greeting Bot will ask the person for their name and age, then greet them and tell them how old they'll be next year. The magic word is input(), it lets your program ask questions and listen to the answer. Try it yourself in the input box, then run the Test Cases to make sure your bot works for everyone!",
   "steps": [
     "Use input() to ask for the person's name and store it in a variable called name.",
     "Use age = int(input(\"...\")) to ask for their age. The int() turns the typed text into a real number so you can do math with it.",
-    "Use print() to say hello using their name — for example: Hello, Alex!",
+    "Use print() to say hello using their name, for example: Hello, Alex!",
     "Calculate next year's age with age + 1 and print a message about it, like: Next year you will be 11"
   ],
-  "starterCode": "# 🤖 Greeting Bot — now it asks YOU questions!\n\n# These two lines ask the user for info. input() is the new magic spell!\nname = input(\"What is your name? \")\nage = int(input(\"How old are you? \"))\n\n# 👇 Your turn! Finish the bot:\n\n# 1) Say hello using their name, like:  Hello, Alex!\nprint(\"Hello, \" + name + \"!\")\n\n# 2) Tell them how old they'll be next year (use age + 1)\n# print(...)\n",
+  "starterCode": "# 🤖 Greeting Bot, now it asks YOU questions!\n\n# These two lines ask the user for info. input() is the new magic spell!\nname = input(\"What is your name? \")\nage = int(input(\"How old are you? \"))\n\n# 👇 Your turn! Finish the bot:\n\n# 1) Say hello using their name, like:  Hello, Alex!\nprint(\"Hello, \" + name + \"!\")\n\n# 2) Tell them how old they'll be next year (use age + 1)\n# print(...)\n",
   "inputPlaceholder": "Alex\n10",
-  "inputHint": "Your bot asks 2 questions, so type 2 answers — a name on the first line and an age on the second.",
+  "inputHint": "Your bot asks 2 questions, so type 2 answers, a name on the first line and an age on the second.",
   "tests": [
     {
       "name": "Alex is 10",
@@ -29,5 +29,5 @@
       "expect": ["Hello, Sam", "13"]
     }
   ],
-  "successMessage": "Your Greeting Bot is ALIVE and talking! 🤖 It asks questions, listens, does math, and greets everyone correctly. That's a real interactive program — awesome work!"
+  "successMessage": "Your Greeting Bot is ALIVE and talking! 🤖 It asks questions, listens, does math, and greets everyone correctly. That's a real interactive program, awesome work!"
 }

@@ -1,7 +1,7 @@
 {
   "lessonId": "machine_learning",
   "title": "Understanding Machine Learning",
-  "description": "How do machines actually learn? Let's discover Machine Learning — the engine that powers most modern AI.",
+  "description": "How do machines actually learn? Let's discover Machine Learning, the engine that powers most modern AI.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -31,11 +31,11 @@
     },
     {
       "type": "paragraph",
-      "value": "Imagine teaching a friend to spot a spam message. You show them lots of real spam ('You won a free prize!!!') and lots of normal messages. After enough examples, they start to notice the patterns. Machine Learning works the same way — it learns from many labeled examples until it can make good guesses on new ones."
+      "value": "Imagine teaching a friend to spot a spam message. You show them lots of real spam ('You won a free prize!!!') and lots of normal messages. After enough examples, they start to notice the patterns. Machine Learning works the same way, it learns from many labeled examples until it can make good guesses on new ones."
     },
     {
       "type": "tip",
-      "value": "Activity — 'Human AI Game': Be the machine! A friend shows you cards with a hidden pattern (like 'animals that fly'). Guess the pattern from the examples. That's exactly what an ML model does!"
+      "value": "Activity: 'Human AI Game': Be the machine! A friend shows you cards with a hidden pattern (like 'animals that fly'). Guess the pattern from the examples. That's exactly what an ML model does!"
     },
     {
       "type": "paragraph",

@@ -43,7 +43,7 @@
         "Train the model",
         "Test it with a live image"
       ],
-      "explain": "Collect data, train the model, then test it — the same steps in every ML project."
+      "explain": "Collect data, train the model, then test it, the same steps in every ML project."
     }
   ]
 }

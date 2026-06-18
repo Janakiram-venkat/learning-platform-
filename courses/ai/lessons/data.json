@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Data is information a computer can learn from — photos, text, sounds, numbers, and more. To teach an AI to recognize cats, we feed it lots of cat pictures. Those pictures are the data."
+      "value": "Data is information a computer can learn from, photos, text, sounds, numbers, and more. To teach an AI to recognize cats, we feed it lots of cat pictures. Those pictures are the data."
     },
     {
       "type": "heading",
@@ -18,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "value": "We usually split our data into two parts. Training data is used to teach the model. Testing data is kept secret and used afterward to check how well the model really learned — just like studying from practice questions, then taking a real exam you've never seen."
+      "value": "We usually split our data into two parts. Training data is used to teach the model. Testing data is kept secret and used afterward to check how well the model really learned, just like studying from practice questions, then taking a real exam you've never seen."
     },
     {
       "type": "code",
@@ -31,11 +31,11 @@
     },
     {
       "type": "paragraph",
-      "value": "If you teach an AI using blurry, wrong, or unfair examples, it will make poor predictions — 'garbage in, garbage out.' Good, clean, and varied data produces a much smarter and fairer AI."
+      "value": "If you teach an AI using blurry, wrong, or unfair examples, it will make poor predictions, 'garbage in, garbage out.' Good, clean, and varied data produces a much smarter and fairer AI."
     },
     {
       "type": "tip",
-      "value": "Activity — 'Build a Mini Dataset': Collect and label 10 small images into two groups (for example, 'apple' and 'banana'). Notice how clear labels make the dataset more useful!"
+      "value": "Activity: 'Build a Mini Dataset': Collect and label 10 small images into two groups (for example, 'apple' and 'banana'). Notice how clear labels make the dataset more useful!"
     },
     {
       "type": "paragraph",
@@ -51,7 +51,7 @@
         "AI doesn't actually use data"
       ],
       "answer": 0,
-      "explain": "Data is what an AI learns from — without examples, there's nothing to learn."
+      "explain": "Data is what an AI learns from, without examples, there's nothing to learn."
     },
     {
       "question": "What is testing data used for?",
@@ -68,7 +68,7 @@
       "options": [
         "The AI becomes perfect",
         "Nothing changes",
-        "The AI makes poor or unfair predictions — 'garbage in, garbage out'"
+        "The AI makes poor or unfair predictions, 'garbage in, garbage out'"
       ],
       "answer": 2,
       "explain": "Low-quality data leads to a low-quality model. Clean, fair, varied data is essential."

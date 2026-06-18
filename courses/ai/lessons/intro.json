@@ -10,11 +10,11 @@
     },
     {
       "type": "paragraph",
-      "value": "Artificial Intelligence (AI) is the ability of machines to perform tasks that normally require human intelligence — things like understanding language, recognizing faces, making decisions, and learning from experience."
+      "value": "Artificial Intelligence (AI) is the ability of machines to perform tasks that normally require human intelligence, things like understanding language, recognizing faces, making decisions, and learning from experience."
     },
     {
       "type": "paragraph",
-      "value": "When YouTube guesses the next video you'll love, when your phone unlocks by looking at your face, or when a voice assistant answers your question — that's AI quietly doing its job."
+      "value": "When YouTube guesses the next video you'll love, when your phone unlocks by looking at your face, or when a voice assistant answers your question, that's AI quietly doing its job."
     },
     {
       "type": "heading",
@@ -35,7 +35,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Humans learn from experience, feelings, and the world around them. AI learns from data — huge amounts of examples. A human child learns what a cat is after seeing a few. An AI might need thousands of cat photos. But once it learns, AI can work super fast and never gets tired!"
+      "value": "Humans learn from experience, feelings, and the world around them. AI learns from data, huge amounts of examples. A human child learns what a cat is after seeing a few. An AI might need thousands of cat photos. But once it learns, AI can work super fast and never gets tired!"
     },
     {
       "type": "heading",
@@ -43,11 +43,11 @@
     },
     {
       "type": "paragraph",
-      "value": "The idea of 'thinking machines' began in the 1950s. For many years AI was slow and limited. But thanks to faster computers and oceans of data, AI has exploded over the last decade — leading to self-driving cars, smart assistants, and tools that can create art and stories."
+      "value": "The idea of 'thinking machines' began in the 1950s. For many years AI was slow and limited. But thanks to faster computers and oceans of data, AI has exploded over the last decade, leading to self-driving cars, smart assistants, and tools that can create art and stories."
     },
     {
       "type": "tip",
-      "value": "Activity — 'Find AI Around You': Look around your day and list at least five AI-powered technologies you use. Hint: think about your phone, apps, games, and TV!"
+      "value": "Activity: 'Find AI Around You': Look around your day and list at least five AI-powered technologies you use. Hint: think about your phone, apps, games, and TV!"
     },
     {
       "type": "paragraph",
@@ -63,7 +63,7 @@
         "A type of video game console"
       ],
       "answer": 1,
-      "explain": "AI is about machines doing 'smart' tasks — understanding, recognizing, deciding, and learning — that usually require human intelligence."
+      "explain": "AI is about machines doing 'smart' tasks, understanding, recognizing, deciding, and learning, that usually require human intelligence."
     },
     {
       "question": "Which of these is an example of AI in everyday life?",
@@ -73,12 +73,12 @@
         "Netflix suggesting a show you might like"
       ],
       "answer": 2,
-      "explain": "Netflix learns from what you watch to predict what you'll enjoy — that's AI. A calculator and a light switch just follow fixed rules."
+      "explain": "Netflix learns from what you watch to predict what you'll enjoy, that's AI. A calculator and a light switch just follow fixed rules."
     },
     {
       "question": "How does AI mainly learn?",
       "options": [
-        "From data — lots of examples",
+        "From data, lots of examples",
         "By sleeping and dreaming",
         "It is born already knowing everything"
       ],

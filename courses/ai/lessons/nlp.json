@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Natural Language Processing (NLP) is the part of AI that helps computers understand, read, and write human language — like English, Hindi, or Spanish. It's how machines turn messy human words into something they can work with."
+      "value": "Natural Language Processing (NLP) is the part of AI that helps computers understand, read, and write human language, like English, Hindi, or Spanish. It's how machines turn messy human words into something they can work with."
     },
     {
       "type": "heading",
@@ -31,7 +31,7 @@
     },
     {
       "type": "tip",
-      "value": "Activity — 'Explain It Simply': Ask an AI assistant to explain a tricky school topic 'like I'm 10 years old.' Notice how it reshapes the language to be easy to understand."
+      "value": "Activity: 'Explain It Simply': Ask an AI assistant to explain a tricky school topic 'like I'm 10 years old.' Notice how it reshapes the language to be easy to understand."
     },
     {
       "type": "paragraph",
@@ -47,7 +47,7 @@
         "Never Lose Power"
       ],
       "answer": 0,
-      "explain": "NLP = Natural Language Processing — helping computers work with human language."
+      "explain": "NLP = Natural Language Processing, helping computers work with human language."
     },
     {
       "question": "Which of these is an NLP task?",

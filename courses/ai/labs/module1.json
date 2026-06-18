@@ -71,7 +71,7 @@
       "type": "choose",
       "title": "Human vs AI Challenge",
       "xp": 20,
-      "prompt": "Who is better at each task — a Human, an AI, or are they about equal?",
+      "prompt": "Who is better at each task, a Human, an AI, or are they about equal?",
       "options": [
         { "id": "human", "label": "Human", "emoji": "🧑" },
         { "id": "ai", "label": "AI", "emoji": "🤖" },
@@ -81,9 +81,9 @@
         { "id": "math", "label": "Solve a giant math sum fast", "emoji": "➗", "answer": "ai", "explain": "Computers crunch numbers far faster than people." },
         { "id": "chess", "label": "Win a game of chess", "emoji": "♟️", "answer": "ai", "explain": "AI has beaten the world's best chess champions." },
         { "id": "emotion", "label": "Sense how a friend truly feels", "emoji": "🥺", "answer": "human", "explain": "Real empathy and feelings are a human strength." },
-        { "id": "bike", "label": "Learn to ride a bicycle", "emoji": "🚲", "answer": "human", "explain": "Bodies + balance + practice — humans shine here." },
+        { "id": "bike", "label": "Learn to ride a bicycle", "emoji": "🚲", "answer": "human", "explain": "Bodies + balance + practice, humans shine here." },
         { "id": "movies", "label": "Suggest movies you'll love", "emoji": "🍿", "answer": "ai", "explain": "Recommendation AI spots patterns in what you watch." },
-        { "id": "art", "label": "Create a brand new artwork", "emoji": "🎨", "answer": "both", "explain": "Humans and AI can both make art — in their own way." }
+        { "id": "art", "label": "Create a brand new artwork", "emoji": "🎨", "answer": "both", "explain": "Humans and AI can both make art, in their own way." }
       ]
     },
     {
@@ -92,16 +92,16 @@
       "xp": 15,
       "prompt": "Drag each robot to its category. Hint: most AI today can only do ONE job.",
       "pass": 1,
-      "note": "Key idea: General AI — a machine that can do ANY task a human can — does NOT exist yet.",
+      "note": "Key idea: General AI, a machine that can do ANY task a human can, does NOT exist yet.",
       "columns": [
         { "id": "narrow", "label": "Narrow AI", "emoji": "🎯" },
         { "id": "general", "label": "General AI", "emoji": "🌍" }
       ],
       "cards": [
-        { "id": "alpha", "label": "Robot Alpha — only plays chess", "emoji": "♟️", "column": "narrow" },
-        { "id": "beta", "label": "Robot Beta — only recommends movies", "emoji": "🎬", "column": "narrow" },
-        { "id": "gamma", "label": "Robot Gamma — only reads X-rays", "emoji": "🩻", "column": "narrow" },
-        { "id": "omega", "label": "Robot Omega — can do ANY task", "emoji": "🌟", "column": "general" }
+        { "id": "alpha", "label": "Robot Alpha, only plays chess", "emoji": "♟️", "column": "narrow" },
+        { "id": "beta", "label": "Robot Beta, only recommends movies", "emoji": "🎬", "column": "narrow" },
+        { "id": "gamma", "label": "Robot Gamma, only reads X-rays", "emoji": "🩻", "column": "narrow" },
+        { "id": "omega", "label": "Robot Omega, can do ANY task", "emoji": "🌟", "column": "general" }
       ]
     },
     {
@@ -142,12 +142,12 @@
       "prompt": "Answer at least 80% correctly to earn your badge.",
       "pass": 0.8,
       "questions": [
-        { "q": "Which technology uses AI?", "options": ["Calculator", "Face Unlock"], "answer": 1, "explain": "Face Unlock learns to recognize your face — that's AI." },
+        { "q": "Which technology uses AI?", "options": ["Calculator", "Face Unlock"], "answer": 1, "explain": "Face Unlock learns to recognize your face, that's AI." },
         { "q": "Can AI learn from data?", "options": ["Yes", "No"], "answer": 0, "explain": "Learning from data (examples) is exactly what AI does." },
         { "q": "Which type of AI exists today?", "options": ["Narrow AI", "General AI"], "answer": 0, "explain": "Only Narrow AI (one-job AI) exists today." },
         { "q": "Can AI make mistakes?", "options": ["Yes", "No"], "answer": 0, "explain": "AI can be wrong, especially with bad or unfair data." },
         { "q": "What does a recommendation system do?", "options": ["Suggests things you might like", "Charges your phone"], "answer": 0, "explain": "It finds patterns in your choices to suggest more." },
-        { "q": "Is a basic calculator an example of AI?", "options": ["Yes", "No"], "answer": 1, "explain": "A calculator follows fixed rules — it doesn't learn." },
+        { "q": "Is a basic calculator an example of AI?", "options": ["Yes", "No"], "answer": 1, "explain": "A calculator follows fixed rules, it doesn't learn." },
         { "q": "What helps an AI get smarter?", "options": ["More data and training", "A bigger screen"], "answer": 0, "explain": "AI improves by learning from more examples." },
         { "q": "Which is a strength of humans over AI?", "options": ["Understanding feelings", "Adding numbers fast"], "answer": 0, "explain": "Empathy and real feelings are a human superpower." },
         { "q": "A robot that can ONLY play chess is…", "options": ["Narrow AI", "General AI"], "answer": 0, "explain": "One job only = Narrow AI." },

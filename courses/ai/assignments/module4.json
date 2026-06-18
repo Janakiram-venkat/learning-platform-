@@ -9,7 +9,7 @@
       "prompt": "What does NLP stand for?",
       "options": ["Natural Language Processing", "New Laptop Power", "Never Lose Points"],
       "answer": 0,
-      "explain": "NLP = Natural Language Processing — helping computers work with human language."
+      "explain": "NLP = Natural Language Processing, helping computers work with human language."
     },
     {
       "type": "match",

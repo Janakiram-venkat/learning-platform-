@@ -59,7 +59,7 @@
         "It turns the computer off."
       ],
       "answer": 1,
-      "explain": "`print` shows words or numbers on the screen — it has nothing to do with a paper printer."
+      "explain": "`print` shows words or numbers on the screen, it has nothing to do with a paper printer."
     }
   ]
 }

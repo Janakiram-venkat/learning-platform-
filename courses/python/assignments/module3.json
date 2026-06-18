@@ -10,14 +10,14 @@
       "code": "for i in range(3):\n    print(i)",
       "options": ["0 1 2", "1 2 3", "0 1 2 3"],
       "answer": 0,
-      "explain": "range(3) counts 0, 1, 2 — it starts at 0 and stops before 3."
+      "explain": "range(3) counts 0, 1, 2, it starts at 0 and stops before 3."
     },
     {
       "type": "concept",
       "prompt": "How many times does range(5) repeat?",
       "options": ["5 times", "4 times", "6 times"],
       "answer": 0,
-      "explain": "range(5) gives 0,1,2,3,4 — that's 5 numbers, so 5 loops."
+      "explain": "range(5) gives 0,1,2,3,4, that's 5 numbers, so 5 loops."
     },
     {
       "type": "bug",

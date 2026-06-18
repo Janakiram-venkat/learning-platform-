@@ -1,7 +1,7 @@
 {
   "lessonId": "generative_ai",
   "title": "What is Generative AI?",
-  "description": "Some AI doesn't just understand — it creates! Let's explore AI that writes, draws, and composes.",
+  "description": "Some AI doesn't just understand, it creates! Let's explore AI that writes, draws, and composes.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Most AI we've seen so far analyzes things — it sorts photos or understands words. Generative AI is different: it creates brand-new content that never existed before, like a story, a picture, or a song."
+      "value": "Most AI we've seen so far analyzes things, it sorts photos or understands words. Generative AI is different: it creates brand-new content that never existed before, like a story, a picture, or a song."
     },
     {
       "type": "heading",
@@ -31,7 +31,7 @@
     },
     {
       "type": "tip",
-      "value": "Activity — 'Create Something New': Ask a generative AI to write a short funny story about a robot who loves cricket, or describe an image you'd like it to draw. Notice that it makes something original each time!"
+      "value": "Activity: 'Create Something New': Ask a generative AI to write a short funny story about a robot who loves cricket, or describe an image you'd like it to draw. Notice that it makes something original each time!"
     },
     {
       "type": "paragraph",
@@ -47,7 +47,7 @@
         "It just sorts photos into folders"
       ],
       "answer": 0,
-      "explain": "Generative AI generates new text, images, music, or video — it creates rather than just analyzing."
+      "explain": "Generative AI generates new text, images, music, or video, it creates rather than just analyzing."
     },
     {
       "question": "Which of these is a generative AI tool?",
@@ -57,7 +57,7 @@
         "A ruler"
       ],
       "answer": 0,
-      "explain": "DALL·E generates images from a written description — a classic example of generative AI."
+      "explain": "DALL·E generates images from a written description, a classic example of generative AI."
     },
     {
       "question": "How did generative AI tools learn to create?",

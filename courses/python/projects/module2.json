@@ -2,7 +2,7 @@
   "moduleId": 2,
   "title": "Age Checker",
   "emoji": "🚦",
-  "brief": "Build a smart program that checks an age and decides what to say. You'll use if, elif, and else — the decision-making magic from Module 2!",
+  "brief": "Build a smart program that checks an age and decides what to say. You'll use if, elif, and else, the decision-making magic from Module 2!",
   "steps": [
     "Make a variable called age with any number you like.",
     "If the age is 13 or more, print \"You are a teenager!\".",

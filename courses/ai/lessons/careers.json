@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "AI is creating exciting new careers — and you don't have to wait until you're grown up to start exploring them! Here are some roles people have today:"
+      "value": "AI is creating exciting new careers, and you don't have to wait until you're grown up to start exploring them! Here are some roles people have today:"
     },
     {
       "type": "code",
@@ -40,11 +40,11 @@
     },
     {
       "type": "tip",
-      "value": "Activity — 'Design an AI Solution': Pick a real problem in your school or town (like reducing waste or helping students study) and sketch an AI that could help solve it. What data would it need?"
+      "value": "Activity: 'Design an AI Solution': Pick a real problem in your school or town (like reducing waste or helping students study) and sketch an AI that could help solve it. What data would it need?"
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: AI will create new opportunities and transform many industries — and you can be part of building that future."
+      "value": "Key Takeaway: AI will create new opportunities and transform many industries, and you can be part of building that future."
     }
   ],
   "quiz": [
@@ -56,7 +56,7 @@
         "Chef"
       ],
       "answer": 0,
-      "explain": "A Data Scientist finds patterns in data — one of many careers built around AI, along with AI Engineer and ML Engineer."
+      "explain": "A Data Scientist finds patterns in data, one of many careers built around AI, along with AI Engineer and ML Engineer."
     },
     {
       "question": "Which field can AI help improve?",
@@ -66,7 +66,7 @@
         "Nothing in the real world"
       ],
       "answer": 1,
-      "explain": "AI is transforming many fields — from medicine and farming to space exploration and education."
+      "explain": "AI is transforming many fields, from medicine and farming to space exploration and education."
     },
     {
       "question": "What's a good first step to designing an AI solution?",

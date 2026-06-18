@@ -13,14 +13,14 @@
         "A brand of computer"
       ],
       "answer": 0,
-      "explain": "AI is about machines performing 'smart' tasks — recognizing, understanding, deciding, and learning."
+      "explain": "AI is about machines performing 'smart' tasks, recognizing, understanding, deciding, and learning."
     },
     {
       "type": "concept",
       "prompt": "Which type of AI do we actually have today?",
       "options": ["Narrow AI", "General AI", "Super AI"],
       "answer": 0,
-      "explain": "Today's AI is all Narrow AI — great at one task. General and Super AI don't exist yet."
+      "explain": "Today's AI is all Narrow AI, great at one task. General and Super AI don't exist yet."
     },
     {
       "type": "concept",
@@ -31,7 +31,7 @@
         "A door opening when pushed"
       ],
       "answer": 0,
-      "explain": "Recommendations learn from your behavior — that's AI. Calculators and doors just follow fixed rules."
+      "explain": "Recommendations learn from your behavior, that's AI. Calculators and doors just follow fixed rules."
     },
     {
       "type": "match",
@@ -48,7 +48,7 @@
       "prompt": "How does modern AI mostly learn?",
       "options": ["From lots of data", "By sleeping", "It never learns"],
       "answer": 0,
-      "explain": "Modern AI learns patterns from large amounts of data — like practicing with many examples."
+      "explain": "Modern AI learns patterns from large amounts of data, like practicing with many examples."
     }
   ]
 }

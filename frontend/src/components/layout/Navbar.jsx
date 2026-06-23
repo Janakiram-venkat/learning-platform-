@@ -4,6 +4,7 @@ import { BookOpen } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import SignInModal from '../auth/SignInModal';
 import ProfileMenu from '../profile/ProfileMenu';
+import SettingsModal from '../profile/SettingsModal';
 import XPBadge from '../profile/XPBadge';
 import logo from '../../assets/pocketlab.png';
 
@@ -11,6 +12,7 @@ export default function Navbar() {
   const { user } = useAuth();
   const [signInOpen, setSignInOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 z-50 flex h-[64px] items-center border-b-2 border-purple-100 bg-white/80 px-6 backdrop-blur-md">
@@ -43,7 +45,11 @@ export default function Navbar() {
                 {user.name?.[0]?.toUpperCase() || '?'}
               </span>
             </button>
-            <ProfileMenu open={profileOpen} onClose={() => setProfileOpen(false)} />
+            <ProfileMenu
+              open={profileOpen}
+              onClose={() => setProfileOpen(false)}
+              onOpenSettings={() => setSettingsOpen(true)}
+            />
           </>
         ) : (
           <button
@@ -56,6 +62,7 @@ export default function Navbar() {
       </div>
 
       <SignInModal open={signInOpen} onClose={() => setSignInOpen(false)} />
+      {settingsOpen && <SettingsModal open onClose={() => setSettingsOpen(false)} />}
     </nav>
   );
 }

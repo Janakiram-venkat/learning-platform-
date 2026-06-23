@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { getXP, getLevelInfo } from '../../utils/progress';
-import { Award, LogOut, Mail, CalendarDays, Layers, Zap } from 'lucide-react';
+import { INTERESTS } from '../../constants/interests';
+import { Award, LogOut, Mail, CalendarDays, Layers, Zap, Heart, Settings } from 'lucide-react';
 
-export default function ProfileMenu({ open, onClose }) {
+export default function ProfileMenu({ open, onClose, onOpenSettings }) {
   const { user, signOut } = useAuth();
   const ref = useRef(null);
 
@@ -39,6 +40,11 @@ export default function ProfileMenu({ open, onClose }) {
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!open || !user) return null;
+
+  // Map stored interest keys back to their emoji + label for display.
+  const myInterests = (user.interests || [])
+    .map((key) => INTERESTS.find((i) => i.key === key))
+    .filter(Boolean);
 
   const joined = user.created_at
     ? new Date(user.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
@@ -98,8 +104,27 @@ export default function ProfileMenu({ open, onClose }) {
         </div>
       </div>
 
+      {/* Interests */}
+      {myInterests.length > 0 && (
+        <div className="px-5 pb-1">
+          <p className="mb-2 flex items-center gap-1 text-xs font-bold uppercase tracking-wide text-gray-400">
+            <Heart className="h-3 w-3" /> Interests
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {myInterests.map(({ key, label, emoji }) => (
+              <span
+                key={key}
+                className="flex items-center gap-1 rounded-full bg-purple-50 px-2.5 py-1 text-xs font-bold text-purple-700 ring-1 ring-purple-100"
+              >
+                <span>{emoji}</span> {label}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Badges */}
-      <div className="max-h-56 overflow-y-auto px-5 pb-4">
+      <div className="max-h-56 overflow-y-auto px-5 pb-4 pt-3">
         <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">Badges</p>
         {badges.length === 0 ? (
           <p className="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-400">
@@ -126,7 +151,16 @@ export default function ProfileMenu({ open, onClose }) {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-gray-100 p-3">
+      <div className="space-y-2 border-t border-gray-100 p-3">
+        <button
+          onClick={() => {
+            onClose();
+            onOpenSettings?.();
+          }}
+          className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 py-2.5 font-semibold text-gray-700 transition-colors hover:bg-gray-50"
+        >
+          <Settings className="h-4 w-4" /> Settings
+        </button>
         <button
           onClick={() => {
             signOut();

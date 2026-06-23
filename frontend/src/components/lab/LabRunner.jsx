@@ -5,6 +5,7 @@ import {
   markLabComplete,
   saveAiIdea,
   getNextLessonAfterModule,
+  notifyProgressChange,
 } from '../../utils/progress';
 import {
   Sparkles, ArrowRight, CheckCircle2, XCircle, RotateCcw, Trophy,
@@ -848,6 +849,7 @@ export default function LabRunner({ lab, course, courseId, moduleId }) {
         if (lab.badge && !badges.some((b) => b.id === badgeId)) {
           badges.push({ id: badgeId, name: `${lab.badge}`, type: 'lab', earnedAt: new Date().toISOString() });
           localStorage.setItem('earnedBadges', JSON.stringify(badges));
+          notifyProgressChange();
         }
       } catch { /* ignore storage errors */ }
     }

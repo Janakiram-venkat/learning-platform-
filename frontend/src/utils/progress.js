@@ -6,6 +6,75 @@
 // window event on every change so the navbar badge can update live.
 
 const XP_EVENT = 'xp-change';
+const PROGRESS_EVENT = 'progress-change';
+
+// Every localStorage key that makes up a student's saved progress. This is the
+// single source of truth for what gets synced to the backend per user.
+const PROGRESS_KEYS = [
+  'totalXP',
+  'xpClaimed',
+  'earnedBadges',
+  'feedbackAsked',
+  'completedLessons',
+  'completedAssignments',
+  'assignmentStars',
+  'completedProjects',
+  'completedLabs',
+  'aiIdeas',
+];
+
+// Fire whenever progress changes so the sync layer can push it to the server.
+// Call this after any write to a PROGRESS_KEYS entry.
+export function notifyProgressChange() {
+  try {
+    window.dispatchEvent(new CustomEvent(PROGRESS_EVENT));
+  } catch {
+    // ignore (e.g. non-browser env)
+  }
+}
+
+// Bundle all progress values into one plain object to send to the backend.
+export function snapshotProgress() {
+  const out = {};
+  for (const key of PROGRESS_KEYS) {
+    const raw = localStorage.getItem(key);
+    if (raw == null) continue;
+    if (key === 'totalXP') {
+      out[key] = parseInt(raw, 10) || 0;
+    } else {
+      try { out[key] = JSON.parse(raw); } catch { /* skip corrupt value */ }
+    }
+  }
+  return out;
+}
+
+// Write a server progress document back into localStorage (the local cache the
+// synchronous UI reads from). Overwrites any keys present in `blob`.
+export function applyProgress(blob) {
+  if (!blob || typeof blob !== 'object') return;
+  for (const key of PROGRESS_KEYS) {
+    if (!(key in blob)) continue;
+    const val = blob[key];
+    localStorage.setItem(key, key === 'totalXP' ? String(val ?? 0) : JSON.stringify(val));
+  }
+  // Nudge live widgets (XP badge, etc.) to re-read the freshly loaded values.
+  try {
+    window.dispatchEvent(new CustomEvent(XP_EVENT, { detail: { total: getXP(), gained: 0 } }));
+  } catch {
+    // ignore
+  }
+}
+
+// Wipe the local progress cache — used on sign-out so the next student on this
+// browser doesn't inherit the previous user's progress.
+export function clearProgress() {
+  for (const key of PROGRESS_KEYS) localStorage.removeItem(key);
+  try {
+    window.dispatchEvent(new CustomEvent(XP_EVENT, { detail: { total: 0, gained: 0 } }));
+  } catch {
+    // ignore
+  }
+}
 
 export function getXP() {
   try {
@@ -22,6 +91,7 @@ export function addXP(amount) {
   try {
     localStorage.setItem('totalXP', String(next));
     window.dispatchEvent(new CustomEvent(XP_EVENT, { detail: { total: next, gained: amount } }));
+    notifyProgressChange();
   } catch {
     // ignore storage errors
   }
@@ -89,6 +159,7 @@ export function markFeedbackAsked() {
     if (!asked.includes(count)) {
       asked.push(count);
       localStorage.setItem('feedbackAsked', JSON.stringify(asked));
+      notifyProgressChange();
     }
   } catch {
     // ignore storage errors
@@ -184,6 +255,7 @@ export function markProjectComplete(projectKey) {
   if (!completed.includes(projectKey)) {
     completed.push(projectKey);
     localStorage.setItem('completedProjects', JSON.stringify(completed));
+    notifyProgressChange();
   }
 }
 
@@ -206,6 +278,7 @@ export function markLabComplete(labKey) {
   if (!completed.includes(labKey)) {
     completed.push(labKey);
     localStorage.setItem('completedLabs', JSON.stringify(completed));
+    notifyProgressChange();
   }
 }
 
@@ -215,6 +288,7 @@ export function saveAiIdea(idea) {
     const ideas = JSON.parse(localStorage.getItem('aiIdeas') || '[]');
     ideas.push({ ...idea, savedAt: new Date().toISOString() });
     localStorage.setItem('aiIdeas', JSON.stringify(ideas));
+    notifyProgressChange();
   } catch {
     // ignore storage errors
   }
@@ -236,4 +310,5 @@ export function markAssignmentComplete(assignmentKey, stars) {
   } catch {
     // ignore storage errors
   }
+  notifyProgressChange();
 }

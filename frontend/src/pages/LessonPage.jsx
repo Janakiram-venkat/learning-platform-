@@ -6,7 +6,7 @@ import CodeEditor from '../components/editor/CodeEditor';
 import OutputPanel from '../components/editor/OutputPanel';
 import Celebration from '../components/feedback/Celebration';
 import FeedbackModal from '../components/feedback/FeedbackModal';
-import { getUnlockedLessonIds, awardXPOnce, shouldAskFeedback, markFeedbackAsked } from '../utils/progress';
+import { getUnlockedLessonIds, awardXPOnce, shouldAskFeedback, markFeedbackAsked, notifyProgressChange } from '../utils/progress';
 import LessonSimulation from '../components/lesson/LessonSimulation';
 import LabRunner from '../components/lab/LabRunner';
 import { Play, CheckCircle2, XCircle, Lightbulb, Menu, X } from 'lucide-react';
@@ -145,6 +145,7 @@ export default function LessonPage() {
     if (!completed.includes(lessonId)) {
       completed.push(lessonId);
       localStorage.setItem('completedLessons', JSON.stringify(completed));
+      notifyProgressChange();
     }
 
     // Did finishing this lesson complete its whole module? If so, award a badge.
@@ -163,6 +164,7 @@ export default function LessonPage() {
           earnedAt: new Date().toISOString(),
         });
         localStorage.setItem('earnedBadges', JSON.stringify(badges));
+        notifyProgressChange();
         // Show the celebration; navigate to the next lesson once it closes.
         setCelebration({
           title: 'Module Complete! 🏆',

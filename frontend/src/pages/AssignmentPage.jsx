@@ -7,6 +7,7 @@ import {
   getAssignmentKey,
   awardXPOnce,
   getNextLessonAfterModule,
+  notifyProgressChange,
 } from '../utils/progress';
 import {
   Sparkles, Bug, Wand2, Brain, Blocks, Flame, Check, X,
@@ -316,6 +317,7 @@ export default function AssignmentPage() {
           earnedAt: new Date().toISOString(),
         });
         localStorage.setItem('earnedBadges', JSON.stringify(badges));
+        notifyProgressChange();
       }
     } catch { /* ignore storage errors */ }
 

@@ -6,6 +6,24 @@ export const api = axios.create({
   baseURL: API_URL,
 });
 
+// Session token persistence + auto-attach as a Bearer header on every request.
+const TOKEN_KEY = 'authToken';
+
+export function setAuthToken(token) {
+  if (token) localStorage.setItem(TOKEN_KEY, token);
+  else localStorage.removeItem(TOKEN_KEY);
+}
+
+export function getAuthToken() {
+  return localStorage.getItem(TOKEN_KEY);
+}
+
+api.interceptors.request.use((config) => {
+  const token = getAuthToken();
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 export const courseService = {
   getCourses: () => api.get('/courses'),
   getCourse: (courseId) => api.get(`/courses/${courseId}`),
@@ -29,7 +47,16 @@ export const feedbackService = {
 };
 
 export const authService = {
-  signIn: (email, name) => api.post('/auth/signin', { email, name }),
+  signUp: (email, name, password, interests = []) =>
+    api.post('/auth/signup', { email, name, password, interests }),
+  login: (email, password) => api.post('/auth/login', { email, password }),
   googleSignIn: (token) => api.post('/auth/google', { token }),
-  getUser: (email) => api.get(`/users/${encodeURIComponent(email)}`),
+  me: () => api.get('/auth/me'),
+  updateProfile: (payload) => api.patch('/auth/profile', payload),
+  changePassword: (payload) => api.post('/auth/password', payload),
+};
+
+export const progressService = {
+  get: () => api.get('/progress'),
+  save: (progress) => api.put('/progress', { progress }),
 };

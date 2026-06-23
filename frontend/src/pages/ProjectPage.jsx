@@ -10,6 +10,7 @@ import {
   markProjectComplete,
   awardXPOnce,
   getNextLessonAfterModule,
+  notifyProgressChange,
 } from '../utils/progress';
 import { Play, CheckCircle2, Circle, ListChecks, Hammer, Loader2, Trophy, ArrowRight, XCircle, Terminal } from 'lucide-react';
 
@@ -163,6 +164,7 @@ export default function ProjectPage() {
             earnedAt: new Date().toISOString(),
           });
           localStorage.setItem('earnedBadges', JSON.stringify(badges));
+          notifyProgressChange();
         }
       } catch { /* ignore storage errors */ }
 

@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 # Base path for courses directory
-COURSES_DIR = Path(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../courses")))
+COURSES_DIR = Path(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../courses")))
 
 def get_all_courses():
     courses = []

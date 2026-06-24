@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { courseService, compilerService, quizService } from '../services/api';
 import Sidebar from '../components/layout/Sidebar';
@@ -9,12 +9,15 @@ import FeedbackModal from '../components/feedback/FeedbackModal';
 import { getUnlockedLessonIds, awardXPOnce, shouldAskFeedback, markFeedbackAsked, notifyProgressChange } from '../utils/progress';
 import LessonSimulation from '../components/lesson/LessonSimulation';
 import LabRunner from '../components/lab/LabRunner';
-import { Play, CheckCircle2, XCircle, Lightbulb, Menu, X } from 'lucide-react';
+import SignInModal from '../components/auth/SignInModal';
+import { useAuth } from '../context/AuthContext';
+import { Play, CheckCircle2, XCircle, Lightbulb, Menu, X, Lock } from 'lucide-react';
 
 export default function LessonPage() {
   const { courseId, lessonId } = useParams();
   const navigate = useNavigate();
-  
+  const { user } = useAuth();
+
   const [course, setCourse] = useState(null);
   const [lesson, setLesson] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,8 +32,76 @@ export default function LessonPage() {
   const [celebration, setCelebration] = useState(null);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [pendingAdvance, setPendingAdvance] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [lab, setLab] = useState(null); // { data, moduleKey } — embedded in the right panel for no-code courses
+
+  // --- Resizable split between the lesson and the right panel (editor/lab) ---
+  // `splitPct` is the lesson column's width as a % of the row; the right panel
+  // takes the rest. Persisted so a student's preferred layout sticks. The
+  // interactive lab needs more room than the code editor, so each panel type
+  // has its own default + saved width. Only active on desktop (side-by-side).
+  const SPLIT_MIN = 30;
+  const SPLIT_MAX = 80;
+  const isLabCourse = course?.hasEditor === false;
+  const splitKey = isLabCourse ? 'lessonSplitPct:lab' : 'lessonSplitPct:editor';
+  const defaultSplit = isLabCourse ? 55 : 65; // lab gets 45%, editor gets 35%
+  const clampSplit = (v) => Math.min(SPLIT_MAX, Math.max(SPLIT_MIN, v));
+
+  const splitContainerRef = useRef(null);
+  const draggingRef = useRef(false);
+  const [splitPct, setSplitPct] = useState(defaultSplit);
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const onChange = (e) => setIsDesktop(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  // Load the saved (or default) split once we know which panel type this course
+  // uses, then persist any change back under that type's key.
+  useEffect(() => {
+    if (!course) return;
+    const saved = parseFloat(localStorage.getItem(splitKey));
+    setSplitPct(Number.isFinite(saved) ? clampSplit(saved) : defaultSplit);
+  }, [course, splitKey, defaultSplit]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (course) localStorage.setItem(splitKey, String(splitPct));
+  }, [splitPct, splitKey, course]);
+
+  const startResize = useCallback((e) => {
+    e.preventDefault();
+    draggingRef.current = true;
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  }, []);
+
+  useEffect(() => {
+    const onMove = (e) => {
+      if (!draggingRef.current || !splitContainerRef.current) return;
+      const rect = splitContainerRef.current.getBoundingClientRect();
+      const pct = ((e.clientX - rect.left) / rect.width) * 100;
+      setSplitPct(Math.min(SPLIT_MAX, Math.max(SPLIT_MIN, pct)));
+      // (clamp inlined to keep this listener free of render-scope deps)
+    };
+    const onUp = () => {
+      if (!draggingRef.current) return;
+      draggingRef.current = false;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+    };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -39,6 +110,7 @@ export default function LessonPage() {
     setCelebration(null);
     setFeedbackOpen(false);
     setPendingAdvance(false);
+    setSignInOpen(false);
     setOutput('');
     setRunError('');
 
@@ -140,7 +212,33 @@ export default function LessonPage() {
     }
   };
 
+  // Every finished chapter (lesson) requires the student to be signed in before
+  // moving on. Signed-in students continue straight away; otherwise we open the
+  // sign-in modal and only advance once they've actually authenticated.
+  const advanceToNext = () => {
+    if (!user) {
+      setSignInOpen(true);
+      return;
+    }
+    goToNext();
+  };
+
+  const handleSignInClose = () => {
+    setSignInOpen(false);
+    // The modal closes on both success and dismissal. Only move on if the
+    // student actually signed in (the auth context persists the profile).
+    if (localStorage.getItem('currentUser')) {
+      goToNext();
+    }
+  };
+
+  // A lesson with a Knowledge Check can only be completed once every question
+  // has been answered correctly (a perfect score on the most recent attempt).
+  const hasQuiz = !!(lesson?.quiz && lesson.quiz.length > 0);
+  const quizPassed = !hasQuiz || (!!quizResult && quizResult.total > 0 && quizResult.score === quizResult.total);
+
   const handleMarkComplete = () => {
+    if (!quizPassed) return;
     const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
     if (!completed.includes(lessonId)) {
       completed.push(lessonId);
@@ -195,7 +293,7 @@ export default function LessonPage() {
       setFeedbackOpen(true);
       return;
     }
-    if (advance) goToNext();
+    if (advance) advanceToNext();
   };
 
   const handleFeedbackClose = () => {
@@ -203,7 +301,7 @@ export default function LessonPage() {
     setFeedbackOpen(false);
     if (pendingAdvance) {
       setPendingAdvance(false);
-      goToNext();
+      advanceToNext();
     }
   };
 
@@ -213,6 +311,16 @@ export default function LessonPage() {
   // No-code courses (e.g. AI Fundamentals) opt out of the Python editor panel
   // via "hasEditor": false in course.json. Coding courses default to showing it.
   const showEditor = course?.hasEditor !== false;
+  const showRightPanel = showEditor || (!showEditor && !!lab);
+
+  // Apply the draggable split only on desktop, and only when a right panel
+  // exists. The 3px offsets leave room for the divider so the row stays at 100%.
+  // The row reserves a fixed 14px: the 6px drag handle plus two 4px gaps
+  // (lg:gap-1) on either side of it. Split that overhead evenly (7px) between
+  // the two panels so their percentages still total the full row width.
+  const splitActive = isDesktop && showRightPanel;
+  const lessonStyle = splitActive ? { flex: `0 0 calc(${splitPct}% - 7px)`, maxWidth: `calc(${splitPct}% - 7px)` } : undefined;
+  const panelStyle = splitActive ? { flex: `0 0 calc(${100 - splitPct}% - 7px)`, maxWidth: `calc(${100 - splitPct}% - 7px)` } : undefined;
 
   return (
     <div className="flex w-full flex-col lg:h-[calc(100vh-64px)] lg:flex-row lg:overflow-hidden">
@@ -230,6 +338,9 @@ export default function LessonPage() {
         courseId={courseId}
         onClose={handleFeedbackClose}
       />
+
+      {/* Chapter gate: students must be signed in to move on to the next lesson. */}
+      <SignInModal open={signInOpen} onClose={handleSignInClose} />
 
       {/* Mobile-only top bar to open the lesson list */}
       <div className="flex items-center gap-3 border-b border-gray-200 bg-white px-4 py-3 lg:hidden">
@@ -266,8 +377,16 @@ export default function LessonPage() {
         <Sidebar course={course} currentLessonId={lessonId} onNavigate={() => setSidebarOpen(false)} />
       </div>
 
+      {/* Split region (next to the sidebar): lesson | divider | right panel.
+          The resize percentages are relative to THIS area, not the whole row,
+          so the static sidebar can't push the panels off-screen. */}
+      <div
+        ref={splitContainerRef}
+        className="flex w-full min-w-0 flex-1 flex-col lg:h-full lg:flex-row lg:gap-1 lg:overflow-hidden"
+      >
+
       {/* Main Content Area */}
-      <div className={`flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-8 ${showEditor ? 'lg:border-r lg:border-gray-200' : ''}`}>
+      <div style={lessonStyle} className="min-w-0 flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-8">
         <div className="mx-auto max-w-3xl rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-10">
           <h1 className="mb-4 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{lesson.title}</h1>
           <p className="mb-6 border-b border-gray-100 pb-6 text-base text-gray-600 sm:mb-10 sm:text-lg">{lesson.description}</p>
@@ -390,20 +509,40 @@ export default function LessonPage() {
             </div>
           )}
 
-          <div className="border-t border-gray-200 pt-10 flex justify-end">
-            <button 
+          <div className="border-t border-gray-200 pt-10 flex flex-col items-end gap-3">
+            {!quizPassed && (
+              <p className="flex items-center gap-2 text-sm font-semibold text-amber-600">
+                <Lock className="h-4 w-4 shrink-0" />
+                Answer every Knowledge Check question correctly to finish this chapter.
+              </p>
+            )}
+            <button
               onClick={handleMarkComplete}
-              className="bg-gray-900 hover:bg-black text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors shadow-md"
+              disabled={!quizPassed}
+              className="flex items-center gap-2 bg-gray-900 hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-300 disabled:hover:bg-gray-300 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors shadow-md"
             >
-              Complete & Continue
+              {!quizPassed && <Lock className="h-5 w-5" />}
+              Complete &amp; Continue
             </button>
           </div>
         </div>
       </div>
 
+      {/* Draggable divider between the lesson and the right panel (desktop only) */}
+      {splitActive && (
+        <div
+          role="separator"
+          aria-orientation="vertical"
+          onPointerDown={startResize}
+          onDoubleClick={() => setSplitPct(defaultSplit)}
+          title="Drag to resize · double-click to reset"
+          className="z-20 hidden w-1.5 shrink-0 cursor-col-resize bg-gray-200 transition-colors hover:bg-indigo-400 lg:block"
+        />
+      )}
+
       {/* Compiler Panel — hidden for no-code courses (course.hasEditor === false) */}
       {showEditor && (
-      <div className="z-10 flex w-full flex-col border-t border-gray-200 bg-white shadow-2xl lg:h-full lg:w-[600px] lg:border-l lg:border-t-0">
+      <div style={panelStyle} className="z-10 flex w-full min-w-0 flex-col border-t border-gray-200 bg-white shadow-2xl lg:h-full lg:w-[600px] lg:border-l lg:border-l-gray-300 lg:border-t-0">
 
         {/* Editor Area */}
         <div className="flex h-[55vh] flex-col border-b border-gray-200 bg-gray-50 p-4 sm:p-5 lg:h-[65%]">
@@ -438,12 +577,13 @@ export default function LessonPage() {
 
       {/* Interactive Lab Panel — for no-code courses whose module ships a lab */}
       {!showEditor && lab && (
-        <div className="z-10 flex w-full flex-col border-t border-gray-200 bg-gradient-to-b from-purple-50/40 to-white shadow-2xl lg:h-full lg:w-[600px] lg:overflow-y-auto lg:border-l lg:border-t-0">
+        <div style={panelStyle} className="z-10 flex w-full min-w-0 flex-col border-t border-gray-200 bg-gradient-to-b from-purple-50/40 to-white shadow-2xl lg:h-full lg:w-[600px] lg:overflow-y-auto lg:border-l lg:border-t-0">
           <div className="p-4 sm:p-6">
             <LabRunner lab={lab.data} course={course} courseId={courseId} moduleId={lab.moduleKey} />
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

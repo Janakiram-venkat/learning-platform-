@@ -15,7 +15,10 @@ export default function CodeEditor({ code, onChange }) {
           lineNumbers: 'on',
           wordWrap: 'on',
           scrollBeyondLastLine: false,
-          padding: { top: 16 }
+          padding: { top: 16 },
+          // Observe the container and re-layout when it resizes (e.g. when the
+          // lesson/editor splitter is dragged) so the editor never overflows.
+          automaticLayout: true
         }}
       />
     </div>

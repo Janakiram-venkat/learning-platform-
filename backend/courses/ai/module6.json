@@ -8,5 +8,7 @@
       "duration": "12 min"
     }
   ],
-  "hasProject": false
+  "hasProject": false,
+  "hasLab": true,
+  "labTitle": "Responsible AI Lab"
 }

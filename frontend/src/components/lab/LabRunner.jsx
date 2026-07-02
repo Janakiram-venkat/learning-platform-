@@ -9,7 +9,7 @@ import {
 } from '../../utils/progress';
 import {
   Sparkles, ArrowRight, CheckCircle2, XCircle, RotateCcw, Trophy,
-  Lightbulb, Award, ChevronRight,
+  Lightbulb, Award, ChevronRight, ChevronLeft, SkipForward,
 } from 'lucide-react';
 
 // ---------------------------------------------------------------------------
@@ -183,22 +183,47 @@ function PickStage({ stage, onComplete }) {
   );
 }
 
-// --- Stages 3 & 5: Sort into buckets (tap card, tap column) ----------------
+// --- Stages 3 & 5: Sort into buckets (drag a card, or tap card then bucket) -
 function SortStage({ stage, onComplete }) {
   const [placements, setPlacements] = useState({}); // cardId -> columnId
-  const [picked, setPicked] = useState(null);       // cardId currently selected
+  const [picked, setPicked] = useState(null);       // cardId currently selected (tap flow)
+  const [dragId, setDragId] = useState(null);       // cardId currently being dragged
+  const [dragOverCol, setDragOverCol] = useState(null); // column highlighted during drag
+  const [dragOverTray, setDragOverTray] = useState(false);
   const [checked, setChecked] = useState(false);
 
   const unplaced = stage.cards.filter((c) => !placements[c.id]);
 
-  const place = (columnId) => {
-    if (!picked || checked) return;
-    setPlacements((p) => ({ ...p, [picked]: columnId }));
+  const place = (columnId, cardId = picked) => {
+    if (!cardId || checked) return;
+    setPlacements((p) => ({ ...p, [cardId]: columnId }));
     setPicked(null);
   };
   const unplace = (cardId) => {
     if (checked) return;
     setPlacements((p) => { const n = { ...p }; delete n[cardId]; return n; });
+  };
+
+  // Drag handlers (native HTML5 DnD). Tap-to-place still works alongside.
+  const onDragStart = (cardId) => (e) => {
+    if (checked) return;
+    setDragId(cardId);
+    setPicked(null);
+    e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', cardId); } catch { /* Safari */ }
+  };
+  const onDragEnd = () => { setDragId(null); setDragOverCol(null); setDragOverTray(false); };
+  const dropOnColumn = (columnId) => (e) => {
+    e.preventDefault();
+    const id = dragId || e.dataTransfer.getData('text/plain');
+    place(columnId, id);
+    onDragEnd();
+  };
+  const dropOnTray = (e) => {
+    e.preventDefault();
+    const id = dragId || e.dataTransfer.getData('text/plain');
+    if (id) unplace(id);
+    onDragEnd();
   };
 
   const correctCount = stage.cards.filter((c) => placements[c.id] === c.column).length;
@@ -208,15 +233,27 @@ function SortStage({ stage, onComplete }) {
   return (
     <div>
       {/* Card tray */}
-      <div className="mb-4 min-h-[64px] rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 p-3">
-        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">Tap a card, then tap a bucket</p>
+      <div
+        onDragOver={(e) => { if (dragId) { e.preventDefault(); setDragOverTray(true); } }}
+        onDragLeave={() => setDragOverTray(false)}
+        onDrop={dropOnTray}
+        className={`mb-4 min-h-[64px] rounded-2xl border-2 border-dashed p-3 transition-colors ${
+          dragOverTray ? 'border-purple-400 bg-purple-50' : 'border-gray-200 bg-gray-50'
+        }`}
+      >
+        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">Drag a card into a bucket — or tap a card, then tap a bucket</p>
         <div className="flex flex-wrap gap-2">
           {unplaced.length === 0 && <span className="text-sm text-gray-400">All cards placed!</span>}
           {unplaced.map((c) => (
             <button
               key={c.id}
+              draggable={!checked}
+              onDragStart={onDragStart(c.id)}
+              onDragEnd={onDragEnd}
               onClick={() => setPicked(picked === c.id ? null : c.id)}
-              className={`flex items-center gap-2 rounded-xl border-2 px-3 py-2 text-sm font-bold transition-all active:scale-95 ${
+              className={`flex cursor-grab items-center gap-2 rounded-xl border-2 px-3 py-2 text-sm font-bold transition-all active:scale-95 active:cursor-grabbing ${
+                dragId === c.id ? 'opacity-40' : ''
+              } ${
                 picked === c.id ? 'border-purple-500 bg-purple-100 text-purple-800 ring-2 ring-purple-200' : 'border-gray-200 bg-white text-gray-700 hover:border-purple-300'
               }`}
             >
@@ -228,37 +265,48 @@ function SortStage({ stage, onComplete }) {
 
       {/* Buckets */}
       <div className="grid grid-cols-2 gap-3">
-        {stage.columns.map((col) => (
-          <button
-            key={col.id}
-            onClick={() => place(col.id)}
-            disabled={checked || !picked}
-            className={`flex min-h-[140px] flex-col rounded-2xl border-2 p-3 text-left transition-colors ${
-              picked && !checked ? 'border-purple-400 bg-purple-50/60' : 'border-gray-200 bg-white'
-            }`}
-          >
-            <span className="mb-2 flex items-center gap-1.5 font-extrabold text-gray-800">
-              <span className="text-xl">{col.emoji}</span> {col.label}
-            </span>
-            <div className="flex flex-1 flex-col gap-1.5">
-              {stage.cards.filter((c) => placements[c.id] === col.id).map((c) => {
-                const right = c.column === col.id;
-                let cls = 'border-gray-200 bg-gray-50 text-gray-700';
-                if (checked) cls = right ? 'border-green-300 bg-green-50 text-green-800' : 'border-rose-300 bg-rose-50 text-rose-700';
-                return (
-                  <span
-                    key={c.id}
-                    onClick={(e) => { e.stopPropagation(); unplace(c.id); }}
-                    className={`flex items-center justify-between gap-1 rounded-lg border px-2 py-1.5 text-xs font-bold ${cls}`}
-                  >
-                    <span>{c.emoji} {c.label}</span>
-                    {checked && (right ? <CheckCircle2 className="h-4 w-4 shrink-0 text-green-500" /> : <XCircle className="h-4 w-4 shrink-0 text-rose-400" />)}
-                  </span>
-                );
-              })}
-            </div>
-          </button>
-        ))}
+        {stage.columns.map((col) => {
+          const active = (picked || dragId) && !checked;
+          const highlight = dragOverCol === col.id && !checked;
+          return (
+            <button
+              key={col.id}
+              onClick={() => place(col.id)}
+              onDragOver={(e) => { if (dragId && !checked) { e.preventDefault(); setDragOverCol(col.id); } }}
+              onDragLeave={() => setDragOverCol((c) => (c === col.id ? null : c))}
+              onDrop={dropOnColumn(col.id)}
+              disabled={checked || (!picked && !dragId)}
+              className={`flex min-h-[140px] flex-col rounded-2xl border-2 p-3 text-left transition-colors ${
+                highlight ? 'border-purple-500 bg-purple-100/70 ring-2 ring-purple-200'
+                : active ? 'border-purple-400 bg-purple-50/60' : 'border-gray-200 bg-white'
+              }`}
+            >
+              <span className="mb-2 flex items-center gap-1.5 font-extrabold text-gray-800">
+                <span className="text-xl">{col.emoji}</span> {col.label}
+              </span>
+              <div className="flex flex-1 flex-col gap-1.5">
+                {stage.cards.filter((c) => placements[c.id] === col.id).map((c) => {
+                  const right = c.column === col.id;
+                  let cls = 'border-gray-200 bg-gray-50 text-gray-700';
+                  if (checked) cls = right ? 'border-green-300 bg-green-50 text-green-800' : 'border-rose-300 bg-rose-50 text-rose-700';
+                  return (
+                    <span
+                      key={c.id}
+                      draggable={!checked}
+                      onDragStart={(e) => { e.stopPropagation(); onDragStart(c.id)(e); }}
+                      onDragEnd={onDragEnd}
+                      onClick={(e) => { e.stopPropagation(); unplace(c.id); }}
+                      className={`flex cursor-grab items-center justify-between gap-1 rounded-lg border px-2 py-1.5 text-xs font-bold active:cursor-grabbing ${dragId === c.id ? 'opacity-40' : ''} ${cls}`}
+                    >
+                      <span>{c.emoji} {c.label}</span>
+                      {checked && (right ? <CheckCircle2 className="h-4 w-4 shrink-0 text-green-500" /> : <XCircle className="h-4 w-4 shrink-0 text-rose-400" />)}
+                    </span>
+                  );
+                })}
+              </div>
+            </button>
+          );
+        })}
       </div>
 
       {stage.note && checked && passed && (
@@ -714,13 +762,21 @@ function DataQualityStage({ stage, onComplete }) {
 function QuizStage({ stage, onComplete }) {
   const [answers, setAnswers] = useState({});
   const [graded, setGraded] = useState(false);
+  const quizTopRef = useRef(null);
   const allAnswered = stage.questions.every((_, i) => answers[i] != null);
   const score = stage.questions.filter((q, i) => answers[i] === q.answer).length;
   const ratio = score / stage.questions.length;
   const passed = ratio >= (stage.pass ?? 0.8);
+  const allCorrect = score === stage.questions.length;
+  const retry = () => {
+    setGraded(false);
+    setAnswers({});
+    // Scroll back to the first question so a fresh attempt is obvious.
+    quizTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
-    <div>
+    <div ref={quizTopRef} className="scroll-mt-24">
       <ul className="space-y-6">
         {stage.questions.map((q, qi) => (
           <li key={qi} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
@@ -773,6 +829,14 @@ function QuizStage({ stage, onComplete }) {
           <p className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-green-50 p-3 text-lg font-extrabold text-green-700 ring-1 ring-green-100">
             <Trophy className="h-5 w-5" /> Score: {score}/{stage.questions.length} — you passed!
           </p>
+          {!allCorrect && (
+            <button
+              onClick={retry}
+              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-orange-300 bg-orange-50 px-6 py-3 font-bold text-orange-700 transition-colors hover:bg-orange-100"
+            >
+              <RotateCcw className="h-5 w-5" /> Try Again for a Perfect Score
+            </button>
+          )}
           <ContinueBar xp={stage.xp} onClick={() => onComplete(true)} last />
         </>
       ) : (
@@ -781,7 +845,7 @@ function QuizStage({ stage, onComplete }) {
             You scored {score}/{stage.questions.length}. You need {Math.ceil((stage.pass ?? 0.8) * stage.questions.length)} to pass — read the notes and retry!
           </p>
           <button
-            onClick={() => { setGraded(false); setAnswers({}); }}
+            onClick={retry}
             className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-orange-500 px-6 py-3 font-bold text-white transition-colors hover:bg-orange-600"
           >
             <RotateCcw className="h-5 w-5" /> Try Again
@@ -856,9 +920,17 @@ export default function LabRunner({ lab, course, courseId, moduleId }) {
     setStageIdx((i) => Math.min(i + 1, lab.stages.length - 1));
   };
 
+  // Skip the current stage without awarding XP or marking it complete.
+  const handleSkip = () => setStageIdx((i) => Math.min(i + 1, lab.stages.length - 1));
+  // Step back to revisit an earlier stage.
+  const handleBack = () => setStageIdx((i) => Math.max(i - 1, 0));
+
   const stage = lab.stages[stageIdx];
   const total = lab.stages.length;
   const pct = Math.round((stageIdx / (total - 1)) * 100);
+  // Rewards is the final screen; everything before it is skippable.
+  const canSkip = stage.type !== 'rewards' && stageIdx < total - 1;
+  const canGoBack = stageIdx > 0;
 
   const renderStage = () => {
     const onComplete = () => handleStageComplete(stage, stageIdx);
@@ -890,9 +962,31 @@ export default function LabRunner({ lab, course, courseId, moduleId }) {
 
       {/* Progress */}
       <div className="mb-6 mt-4">
-        <div className="mb-1 flex items-center justify-between text-xs font-bold text-gray-500">
-          <span>Stage {stageIdx + 1} of {total}</span>
-          <span className="inline-flex items-center gap-1"><ChevronRight className="h-3 w-3" /> {stage.title}</span>
+        <div className="mb-1 flex items-center justify-between gap-3 text-xs font-bold text-gray-500">
+          <div className="flex items-center gap-3">
+            <span>Stage {stageIdx + 1} of {total}</span>
+            {canGoBack && (
+              <button
+                onClick={handleBack}
+                className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-bold text-gray-400 transition-colors hover:bg-gray-100 hover:text-purple-600"
+                title="Go back to the previous stage"
+              >
+                <ChevronLeft className="h-3.5 w-3.5" /> Back
+              </button>
+            )}
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1"><ChevronRight className="h-3 w-3" /> {stage.title}</span>
+            {canSkip && (
+              <button
+                onClick={handleSkip}
+                className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-bold text-gray-400 transition-colors hover:bg-gray-100 hover:text-purple-600"
+                title="Skip to the next stage (no XP awarded)"
+              >
+                Skip <SkipForward className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
         </div>
         <div className="h-2.5 w-full overflow-hidden rounded-full bg-gray-200">
           <div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-violet-500 transition-all duration-500" style={{ width: `${pct}%` }} />

@@ -1,0 +1,159 @@
+{
+  "labId": "module3",
+  "title": "Computer Vision Lab",
+  "emoji": "👁️",
+  "tagline": "Teach a computer to see",
+  "difficulty": "Beginner",
+  "duration": "15 to 20 min",
+  "badge": "Vision Voyager",
+  "objectives": [
+    "Explain what Computer Vision is",
+    "Know that images are grids of numbers (pixels)",
+    "Tell classification, detection, and facial recognition apart",
+    "Train an image classifier the way pros do",
+    "Spot Computer Vision in the real world"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Give Computers Eyes!",
+      "xp": 10,
+      "narration": "A photo is just a giant grid of numbers to a computer. Computer Vision finds patterns in those numbers so machines can understand what they see. Let's explore how!",
+      "steps": [
+        { "emoji": "📷", "text": "A camera captures a picture…" },
+        { "emoji": "🔢", "text": "The computer sees it as a grid of number-pixels." },
+        { "emoji": "🧠", "text": "Computer Vision hunts for patterns in those numbers." },
+        { "emoji": "🏷️", "text": "Finally it says: 'That's a cat!'" }
+      ],
+      "cta": "Open Your Eyes"
+    },
+    {
+      "type": "pick",
+      "title": "Spot Computer Vision",
+      "xp": 15,
+      "prompt": "Tap everything that uses Computer Vision to understand images.",
+      "items": [
+        { "id": "faceunlock", "label": "Face Unlock", "emoji": "🔐", "isAI": true },
+        { "id": "selfdrive", "label": "Self-Driving Car", "emoji": "🚗", "isAI": true },
+        { "id": "xray", "label": "Medical Scan Reader", "emoji": "🩻", "isAI": true },
+        { "id": "phototag", "label": "Photo Auto-Tagging", "emoji": "🖼️", "isAI": true },
+        { "id": "calculator", "label": "Calculator", "emoji": "🧮", "isAI": false },
+        { "id": "music", "label": "Music Player", "emoji": "🎵", "isAI": false },
+        { "id": "thermometer", "label": "Thermometer", "emoji": "🌡️", "isAI": false }
+      ],
+      "feedback": {
+        "correct": "Yes! This 'sees' and understands images, that's Computer Vision.",
+        "incorrect": "This works without looking at images, so it does not use Computer Vision."
+      }
+    },
+    {
+      "type": "sort",
+      "title": "Classification vs Detection",
+      "xp": 20,
+      "prompt": "Image Classification gives the WHOLE picture one label. Object Detection finds and boxes EACH thing. Sort each job into the right bucket.",
+      "pass": 0.8,
+      "note": "Classification = one label for the whole image. Detection = find and box every object separately.",
+      "columns": [
+        { "id": "classify", "label": "Classification", "emoji": "🏷️" },
+        { "id": "detect", "label": "Detection", "emoji": "📦" }
+      ],
+      "cards": [
+        { "id": "beach", "label": "Label this photo as 'beach'", "emoji": "🏖️", "column": "classify" },
+        { "id": "dogtag", "label": "Tag the whole image as 'dog'", "emoji": "🐶", "column": "classify" },
+        { "id": "xrayok", "label": "Is this X-ray 'normal' or 'not'?", "emoji": "🩻", "column": "classify" },
+        { "id": "boxcars", "label": "Draw a box around every car", "emoji": "🚗", "column": "detect" },
+        { "id": "faces", "label": "Mark each face in a crowd", "emoji": "👥", "column": "detect" },
+        { "id": "signs", "label": "Locate all the traffic signs", "emoji": "🚸", "column": "detect" }
+      ]
+    },
+    {
+      "type": "choose",
+      "title": "Name That Vision Task",
+      "xp": 20,
+      "prompt": "Three big Computer Vision jobs. Pick the right one for each task.",
+      "options": [
+        { "id": "classify", "label": "Classification", "emoji": "🏷️" },
+        { "id": "detect", "label": "Detection", "emoji": "📦" },
+        { "id": "facial", "label": "Facial Recognition", "emoji": "🙂" }
+      ],
+      "tasks": [
+        { "id": "album", "label": "Sort photos into 'cat' or 'dog' albums", "emoji": "🐾", "answer": "classify", "explain": "One label for the whole photo, that's image classification." },
+        { "id": "pedestrian", "label": "Box every pedestrian for a self-driving car", "emoji": "🚶", "answer": "detect", "explain": "Finding and boxing each object is object detection." },
+        { "id": "unlock", "label": "Unlock a phone by matching its owner's face", "emoji": "🔓", "answer": "facial", "explain": "Matching a face to a specific person is facial recognition." },
+        { "id": "sunset", "label": "Tag a whole picture as 'sunset'", "emoji": "🌅", "answer": "classify", "explain": "The entire image gets a single label, so it's classification." },
+        { "id": "shelf", "label": "Outline all products on a store shelf", "emoji": "🛒", "answer": "detect", "explain": "Locating many separate items means object detection." },
+        { "id": "friend", "label": "Recognize which friend is in a photo", "emoji": "👧", "answer": "facial", "explain": "Identifying a known person by their face is facial recognition." }
+      ]
+    },
+    {
+      "type": "train",
+      "title": "Train a Gesture Classifier",
+      "xp": 30,
+      "prompt": "Just like Google Teachable Machine, feed the model labeled webcam frames. Watch the accuracy climb as it learns each gesture!",
+      "modelName": "Hand Gesture Classifier",
+      "needed": 8,
+      "classes": [
+        { "emoji": "👍", "label": "Thumbs Up" },
+        { "emoji": "👎", "label": "Thumbs Down" }
+      ],
+      "examples": [
+        { "emoji": "👍", "label": "Thumbs Up" },
+        { "emoji": "👎", "label": "Thumbs Down" },
+        { "emoji": "👍", "label": "Thumbs Up" },
+        { "emoji": "👎", "label": "Thumbs Down" },
+        { "emoji": "👍", "label": "Thumbs Up" },
+        { "emoji": "👎", "label": "Thumbs Down" },
+        { "emoji": "👍", "label": "Thumbs Up" },
+        { "emoji": "👎", "label": "Thumbs Down" }
+      ],
+      "test": {
+        "emoji": "👍",
+        "prompt": "A brand new webcam frame arrives. What will YOUR model predict?",
+        "options": ["Thumbs Up", "Thumbs Down"],
+        "answer": 0
+      },
+      "explain": "You just followed the real workflow: collect examples, train the model, test on a new image. Varied examples (angles, lighting) make it even smarter."
+    },
+    {
+      "type": "explore",
+      "title": "Computer Vision in the Real World",
+      "xp": 15,
+      "prompt": "Tap each place to discover how Computer Vision helps there. Visit them all!",
+      "locations": [
+        { "id": "phone", "label": "Your Phone", "emoji": "📱", "info": "Face Unlock uses Computer Vision to recognize your face and open the phone instantly." },
+        { "id": "hospital", "label": "Hospital", "emoji": "🏥", "info": "AI reads X-rays and scans to help doctors spot illness earlier and more accurately." },
+        { "id": "car", "label": "Self-Driving Car", "emoji": "🚗", "info": "Cameras plus Computer Vision detect pedestrians, lanes, and stop signs to drive safely." },
+        { "id": "farm", "label": "Farm", "emoji": "🚜", "info": "Drones with cameras check crop health and spot pests from high above the fields." },
+        { "id": "store", "label": "Smart Store", "emoji": "🛒", "info": "Cameras recognize products at checkout, so there's no need to scan barcodes one by one." }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Vision Final Test",
+      "xp": 30,
+      "prompt": "Score at least 80% to earn your Vision Voyager badge.",
+      "pass": 0.8,
+      "questions": [
+        { "q": "What does Computer Vision let machines do?", "options": ["Understand images and videos", "Charge the battery faster"], "answer": 0, "explain": "Computer Vision helps computers 'see' and understand visual information." },
+        { "q": "To a computer, an image is really made of...", "options": ["A grid of numbers (pixels)", "Tiny paintings"], "answer": 0, "explain": "Every image is stored as numbers describing each pixel's color." },
+        { "q": "Labeling a WHOLE photo as 'cat' is called...", "options": ["Image classification", "Object detection"], "answer": 0, "explain": "Classification gives the entire image one label." },
+        { "q": "Finding and boxing each object in a photo is...", "options": ["Object detection", "Facial recognition"], "answer": 0, "explain": "Detection locates and boxes individual objects." },
+        { "q": "Matching a face to a specific person is...", "options": ["Facial recognition", "Image classification"], "answer": 0, "explain": "Facial recognition identifies a known person by their face." },
+        { "q": "Which of these uses Computer Vision?", "options": ["Face Unlock", "A basic calculator"], "answer": 0, "explain": "Face Unlock 'sees' your face, that's Computer Vision. A calculator just follows rules." },
+        { "q": "How do you make an image classifier more accurate?", "options": ["Collect more varied examples", "Use one blurry photo"], "answer": 0, "explain": "More examples from different angles and lighting help it recognize each class." },
+        { "q": "What are the 3 steps to build a classifier?", "options": ["Collect, train, test", "Paint, print, frame"], "answer": 0, "explain": "Collect examples, train the model, then test it, just like Teachable Machine." }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Lab Complete!",
+      "xp": 30,
+      "badge": "Vision Voyager",
+      "messages": [
+        "🏆 You earned the Vision Voyager Badge",
+        "You trained an image classifier and helped a computer see",
+        "Module 3 completed"
+      ]
+    }
+  ]
+}

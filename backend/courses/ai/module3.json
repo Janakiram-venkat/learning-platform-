@@ -13,5 +13,7 @@
       "duration": "15 min"
     }
   ],
-  "hasProject": false
+  "hasProject": false,
+  "hasLab": true,
+  "labTitle": "Computer Vision Lab"
 }

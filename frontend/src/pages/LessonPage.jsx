@@ -458,14 +458,18 @@ export default function LessonPage() {
                             else cls = 'border-gray-200 opacity-70';
                           }
                           return (
-                            <label key={oIdx} className={`flex items-center space-x-4 p-4 border rounded-xl transition-colors ${graded ? 'cursor-default' : 'cursor-pointer'} ${cls}`}>
+                            <label key={oIdx} className={`flex items-center space-x-4 p-4 border rounded-xl transition-colors cursor-pointer ${cls}`}>
                               <input
                                 type="radio"
                                 name={`quiz-${qIdx}`}
                                 className="w-5 h-5 text-green-600"
                                 checked={chosen}
-                                disabled={graded}
-                                onChange={() => setQuizAnswers(prev => ({ ...prev, [qIdx]: oIdx }))}
+                                onChange={() => {
+                                  setQuizAnswers(prev => ({ ...prev, [qIdx]: oIdx }));
+                                  // Changing an answer starts a fresh attempt — clear
+                                  // the previous grading so the student can retry.
+                                  if (quizResult) setQuizResult(null);
+                                }}
                               />
                               <span className="text-gray-800 font-medium flex-1">{opt}</span>
                               {graded && oIdx === result.correctIndex && <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />}

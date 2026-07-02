@@ -14,8 +14,8 @@ const CARD_THEMES = [
 // Tracks we're building next — shown as "coming soon" teasers below the live courses.
 const COMING_SOON = [
   { icon: Cpu, title: 'Robotics', desc: 'Write code that moves robots in the real world.', accent: 'from-teal-400 to-cyan-500', bg: 'bg-teal-100 text-teal-600' },
-  { icon: Calculator, title: 'Math', desc: 'Level up your number skills with fun challenges.', accent: 'from-purple-400 to-violet-500', bg: 'bg-purple-100 text-purple-600' },
-  { icon: FlaskConical, title: 'Science', desc: 'Explore experiments and discover how the world works.', accent: 'from-emerald-400 to-green-500', bg: 'bg-emerald-100 text-emerald-600' },
+  { icon: Calculator, title: 'Math', desc: 'Level up your number skills with fun challenges.', accent: 'from-purple-400 to-violet-500', bg: 'bg-purple-100 text-purple-600', to: '/subject/math' },
+  { icon: FlaskConical, title: 'Science', desc: 'Explore experiments and discover how the world works.', accent: 'from-emerald-400 to-green-500', bg: 'bg-emerald-100 text-emerald-600', to: '/subject/science' },
 ];
 
 export default function Courses() {
@@ -105,23 +105,45 @@ export default function Courses() {
           New quests are in the lab — get ready to level up!
         </p>
         <div className="grid gap-6 sm:grid-cols-2">
-          {COMING_SOON.map(({ icon: Icon, title, desc, accent, bg }) => (
-            <div
-              key={title}
-              className="relative flex items-center gap-4 overflow-hidden rounded-3xl border-2 border-dashed border-purple-200 bg-white/60 p-6"
-            >
-              <span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${accent} text-white shadow-md`}>
-                <Icon className="h-7 w-7" />
-              </span>
-              <div className="flex-1">
-                <h3 className="font-display text-lg font-semibold text-[#2D2A4A]">{title}</h3>
-                <p className="text-sm font-semibold text-[#6C63A6]">{desc}</p>
+          {COMING_SOON.map(({ icon: Icon, title, desc, accent, bg, to }) => {
+            const cardContent = (
+              <>
+                <span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${accent} text-white shadow-md`}>
+                  <Icon className="h-7 w-7" />
+                </span>
+                <div className="flex-1">
+                  <h3 className="font-display text-lg font-semibold text-[#2D2A4A]">{title}</h3>
+                  <p className="text-sm font-semibold text-[#6C63A6]">{desc}</p>
+                </div>
+                {to ? (
+                  <span className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-extrabold ${bg}`}>
+                    <Play className="h-3 w-3 fill-current" /> Explore
+                  </span>
+                ) : (
+                  <span className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-extrabold ${bg}`}>
+                    <Lock className="h-3 w-3" /> Soon
+                  </span>
+                )}
+              </>
+            );
+
+            return to ? (
+              <Link
+                key={title}
+                to={to}
+                className="relative flex items-center gap-4 overflow-hidden rounded-3xl border-2 border-dashed border-purple-200 bg-white/60 p-6 transition-transform hover:scale-[1.02] active:scale-95"
+              >
+                {cardContent}
+              </Link>
+            ) : (
+              <div
+                key={title}
+                className="relative flex items-center gap-4 overflow-hidden rounded-3xl border-2 border-dashed border-purple-200 bg-white/60 p-6"
+              >
+                {cardContent}
               </div>
-              <span className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-extrabold ${bg}`}>
-                <Lock className="h-3 w-3" /> Soon
-              </span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

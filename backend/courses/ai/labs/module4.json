@@ -1,0 +1,134 @@
+{
+  "labId": "module4",
+  "title": "Language AI Lab",
+  "emoji": "🗣️",
+  "tagline": "Teach a computer to understand words",
+  "difficulty": "Beginner",
+  "duration": "15 to 20 min",
+  "badge": "Language Whiz",
+  "objectives": [
+    "Explain what Natural Language Processing is",
+    "Spot NLP in everyday tools",
+    "Tell understanding tasks from generating tasks",
+    "See how a rule-based chatbot picks replies",
+    "Clean messy training labels for a sentiment AI"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Meet Language AI!",
+      "xp": 10,
+      "narration": "Human language is messy, full of slang, typos, and feelings. Natural Language Processing helps computers read, understand, and write our words. Let's explore how!",
+      "steps": [
+        { "emoji": "💬", "text": "You type or speak a message…" },
+        { "emoji": "🔤", "text": "The AI breaks it into words and patterns." },
+        { "emoji": "🧠", "text": "It works out what you actually mean." },
+        { "emoji": "✍️", "text": "Then it replies in language you understand." }
+      ],
+      "cta": "Start Talking"
+    },
+    {
+      "type": "pick",
+      "title": "Spot the Language AI",
+      "xp": 15,
+      "prompt": "Tap everything that uses Natural Language Processing to work with human words.",
+      "items": [
+        { "id": "voice", "label": "Voice Assistant", "emoji": "🗣️", "isAI": true },
+        { "id": "translate", "label": "Translation App", "emoji": "🌐", "isAI": true },
+        { "id": "autocorrect", "label": "Autocorrect", "emoji": "⌨️", "isAI": true },
+        { "id": "chatbot", "label": "Chatbot", "emoji": "💬", "isAI": true },
+        { "id": "calculator", "label": "Calculator", "emoji": "🧮", "isAI": false },
+        { "id": "flashlight", "label": "Flashlight", "emoji": "🔦", "isAI": false },
+        { "id": "thermometer", "label": "Thermometer", "emoji": "🌡️", "isAI": false }
+      ],
+      "feedback": {
+        "correct": "Yes! This works with human language, that's NLP.",
+        "incorrect": "This doesn't read or understand words, so it isn't NLP."
+      }
+    },
+    {
+      "type": "sort",
+      "title": "Understanding vs Generating",
+      "xp": 20,
+      "prompt": "Some NLP tasks make sense of language coming IN. Others create new language going OUT. Sort each one.",
+      "pass": 0.8,
+      "note": "Understanding = making sense of words coming in. Generating = producing brand-new words.",
+      "columns": [
+        { "id": "understand", "label": "Understanding", "emoji": "🧠" },
+        { "id": "generate", "label": "Generating", "emoji": "✍️" }
+      ],
+      "cards": [
+        { "id": "sentiment", "label": "Tell if a review is happy or angry", "emoji": "😀", "column": "understand" },
+        { "id": "speech", "label": "Turn spoken words into text", "emoji": "🎙️", "column": "understand" },
+        { "id": "spam", "label": "Flag an email as spam", "emoji": "🚫", "column": "understand" },
+        { "id": "story", "label": "Write a short story", "emoji": "📖", "column": "generate" },
+        { "id": "autocomplete", "label": "Suggest the next word as you type", "emoji": "⌨️", "column": "generate" },
+        { "id": "reply", "label": "Compose a reply email", "emoji": "📧", "column": "generate" }
+      ]
+    },
+    {
+      "type": "choose",
+      "title": "Build a Rule-Based Chatbot",
+      "xp": 20,
+      "prompt": "A simple chatbot matches your message to a rule, then replies. Which reply should fire for each message?",
+      "options": [
+        { "id": "greeting", "label": "Greeting", "emoji": "👋" },
+        { "id": "hint", "label": "Hint", "emoji": "💡" },
+        { "id": "tip", "label": "Study Tip", "emoji": "📚" }
+      ],
+      "tasks": [
+        { "id": "hello", "label": "\"Hello there!\"", "emoji": "🙂", "answer": "greeting", "explain": "The message contains 'hello', so the greeting rule fires." },
+        { "id": "clue", "label": "\"Can I get a hint for question 3?\"", "emoji": "🙋", "answer": "hint", "explain": "It asks for a hint, so the hint rule replies with a small clue." },
+        { "id": "study", "label": "\"Got any study tips?\"", "emoji": "📖", "answer": "tip", "explain": "It mentions tips, so the study-tip rule responds." },
+        { "id": "hi", "label": "\"Hi! 😊\"", "emoji": "👋", "answer": "greeting", "explain": "A greeting word triggers the friendly hello reply." },
+        { "id": "stuck", "label": "\"I need a clue to solve this\"", "emoji": "🤔", "answer": "hint", "explain": "Asking for a clue matches the hint rule." }
+      ]
+    },
+    {
+      "type": "dataquality",
+      "title": "Clean the Sentiment Data",
+      "xp": 25,
+      "prompt": "You're training an AI to tell happy reviews from angry ones. Some reviews are mislabeled and will confuse it. Tap the wrong ones to toss them out. Watch the accuracy meter!",
+      "meterLabel": "Sentiment Accuracy",
+      "cards": [
+        { "id": "c1", "emoji": "😍", "label": "Positive", "bad": false },
+        { "id": "c2", "emoji": "😠", "label": "Positive", "bad": true },
+        { "id": "c3", "emoji": "😀", "label": "Positive", "bad": false },
+        { "id": "c4", "emoji": "😢", "label": "Negative", "bad": false },
+        { "id": "c5", "emoji": "😡", "label": "Negative", "bad": false },
+        { "id": "c6", "emoji": "🤩", "label": "Negative", "bad": true },
+        { "id": "c7", "emoji": "😞", "label": "Negative", "bad": false },
+        { "id": "c8", "emoji": "😃", "label": "Negative", "bad": true }
+      ],
+      "note": "A happy face labeled 'Negative' teaches the AI the wrong lesson. Correct labels are everything.",
+      "explain": "Once every review was labeled correctly, accuracy hit 100%. Clean labels make a smart language model."
+    },
+    {
+      "type": "quiz",
+      "title": "Language AI Final Test",
+      "xp": 30,
+      "prompt": "Score at least 80% to earn your Language Whiz badge.",
+      "pass": 0.8,
+      "questions": [
+        { "q": "What does NLP stand for?", "options": ["Natural Language Processing", "New Laptop Program"], "answer": 0, "explain": "NLP = Natural Language Processing, helping computers work with human language." },
+        { "q": "Which is an NLP task?", "options": ["Translating English to French", "Charging a phone"], "answer": 0, "explain": "Translation is a classic NLP task, along with text generation and sentiment analysis." },
+        { "q": "Deciding if a review is happy or angry is called...", "options": ["Sentiment analysis", "Object detection"], "answer": 0, "explain": "Sentiment analysis reads the feeling behind the words." },
+        { "q": "How does a rule-based chatbot pick a reply?", "options": ["It matches your message to patterns", "It guesses with no logic"], "answer": 0, "explain": "It looks for patterns ('if it contains hint...') and responds accordingly." },
+        { "q": "Turning your voice into text is...", "options": ["Speech recognition", "Image classification"], "answer": 0, "explain": "Speech recognition converts spoken words into written text." },
+        { "q": "Which everyday tool uses NLP?", "options": ["A voice assistant like Siri", "A stapler"], "answer": 0, "explain": "Voice assistants use NLP to understand your words and reply." },
+        { "q": "Why fix wrong labels in training data?", "options": ["Wrong labels confuse the model", "Bigger files train faster"], "answer": 0, "explain": "Garbage labels in, garbage predictions out. Clean data matters most." }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Lab Complete!",
+      "xp": 30,
+      "badge": "Language Whiz",
+      "messages": [
+        "🏆 You earned the Language Whiz Badge",
+        "You taught a computer to understand words",
+        "Module 4 completed"
+      ]
+    }
+  ]
+}

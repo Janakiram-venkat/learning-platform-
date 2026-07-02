@@ -118,24 +118,6 @@
       ]
     },
     {
-      "type": "design",
-      "title": "Design Your Own AI",
-      "xp": 25,
-      "prompt": "You're the inventor! Dream up an AI and we'll make you a Concept Card.",
-      "fields": [
-        { "key": "name", "label": "AI Name", "placeholder": "e.g. Homework Hero" },
-        { "key": "problem", "label": "Problem It Solves", "placeholder": "e.g. Students get stuck on hard homework" },
-        { "key": "users", "label": "Who Uses It", "placeholder": "e.g. School students" },
-        { "key": "how", "label": "How It Works", "placeholder": "e.g. Gives hints and step-by-step explanations" }
-      ],
-      "example": {
-        "name": "Homework Hero",
-        "problem": "Students struggle with difficult homework",
-        "users": "School students",
-        "how": "Provides hints and clear explanations"
-      }
-    },
-    {
       "type": "quiz",
       "title": "Final Assessment",
       "xp": 30,

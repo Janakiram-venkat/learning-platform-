@@ -1,0 +1,10 @@
+{
+  "moduleId": 8,
+  "title": "Burning & the Environment",
+  "lessons": [
+    { "lessonId": "harmful_effects", "title": "The Cost of Burning", "duration": "11 min" },
+    { "lessonId": "global_warming", "title": "Global Warming & Cleaner Fuels", "duration": "11 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Final Mission: Relight the Guardian Flame"
+}

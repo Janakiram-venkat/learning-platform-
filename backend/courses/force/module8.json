@@ -1,0 +1,10 @@
+{
+  "moduleId": 8,
+  "title": "Taming Friction",
+  "lessons": [
+    { "lessonId": "types_of_friction", "title": "Static, Sliding & Rolling", "duration": "11 min" },
+    { "lessonId": "reducing_friction", "title": "Lubricants & Streamlining", "duration": "11 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Final Mission: Power the Momentum Core"
+}

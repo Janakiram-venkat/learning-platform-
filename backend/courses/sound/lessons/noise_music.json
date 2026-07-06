@@ -1,0 +1,77 @@
+{
+  "lessonId": "noise_music",
+  "title": "Noise vs Music",
+  "description": "Baron Mute floods the city with harsh noise. Tell noise from music to begin reforging the Harmony Bell.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Pleasant vs Unpleasant Sounds"
+    },
+    {
+      "type": "paragraph",
+      "value": "Not all sounds feel the same to us. MUSIC is a sound that is pleasant to hear. NOISE is a sound that is unpleasant, harsh, or unwanted. The difference is mostly about whether the sound is smooth and regular or rough and jarring."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "MUSIC 🎶                    NOISE 🔊\npleasant, smooth            unpleasant, harsh\nregular vibrations          irregular vibrations\ne.g. a flute, singing       e.g. traffic, machinery"
+    },
+    {
+      "type": "heading",
+      "value": "It Can Depend on the Situation"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sometimes the same sound can be music to one person and noise to another. Loud music you love might be noise to a neighbour trying to sleep. A sound becomes 'noise' when it is unwanted or too loud for the moment."
+    },
+    {
+      "type": "heading",
+      "value": "Why It Matters"
+    },
+    {
+      "type": "paragraph",
+      "value": "Pleasant sounds can relax us, but too much harsh, loud noise is tiring and even harmful to health. That's why controlling noise — which you'll learn next — is so important for a healthy life."
+    },
+    {
+      "type": "tip",
+      "value": "The key difference: musical sounds come from regular, repeating vibrations, while noise comes from irregular, jumbled vibrations. Loudness alone doesn't decide it — but very loud sound is usually experienced as noise."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Music is pleasant sound from regular vibrations; noise is unpleasant or unwanted sound from irregular vibrations. The same sound can be music or noise depending on the situation."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Music is best described as a sound that is…",
+      "options": [
+        "pleasant to hear, from regular vibrations",
+        "always very loud",
+        "too high to hear"
+      ],
+      "answer": 0,
+      "explain": "Music is pleasant sound produced by regular, repeating vibrations."
+    },
+    {
+      "question": "Noise usually comes from vibrations that are…",
+      "options": [
+        "regular and smooth",
+        "irregular and jumbled",
+        "too slow to exist"
+      ],
+      "answer": 1,
+      "explain": "Noise is harsh, unwanted sound from irregular vibrations."
+    },
+    {
+      "question": "Can the same sound be music to one person and noise to another?",
+      "options": [
+        "Yes, it can depend on the situation",
+        "No, sounds are fixed as one or the other",
+        "Only underwater"
+      ],
+      "answer": 0,
+      "explain": "A sound becomes 'noise' when it is unwanted — so it can differ from person to person."
+    }
+  ]
+}

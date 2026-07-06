@@ -1,0 +1,77 @@
+{
+  "lessonId": "levels_of_organisation",
+  "title": "Cells, Tissues & Organs",
+  "description": "See how single cells team up to build a whole living body. Assemble the levels of life to reach the final piece.",
+  "difficulty": "Biology",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Teamwork Builds a Body"
+    },
+    {
+      "type": "paragraph",
+      "value": "In a large organism, cells don't work alone — they team up in levels, each bigger than the last, to build a complete living body."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "LEVELS OF ORGANISATION (small → big)\n🔵  CELL     → the basic unit of life\n🧵  TISSUE   → a group of similar cells doing one job\n🫀  ORGAN    → different tissues working together\n🧑  ORGAN SYSTEM → organs working together\n🌍  ORGANISM → the whole living body"
+    },
+    {
+      "type": "heading",
+      "value": "From Cells to Tissues to Organs"
+    },
+    {
+      "type": "paragraph",
+      "value": "A group of similar cells doing the same job forms a TISSUE (for example, muscle tissue). Different tissues working together form an ORGAN (like the heart, which has muscle and nerve tissue). Organs that work together form an ORGAN SYSTEM, and all the systems together make up the whole ORGANISM."
+    },
+    {
+      "type": "heading",
+      "value": "Why This Matters"
+    },
+    {
+      "type": "paragraph",
+      "value": "This 'division of labour' — cells specialising and grouping into tissues and organs — is what lets a huge organism like you work so smoothly. Every level is built from the one below, and it all starts with the cell."
+    },
+    {
+      "type": "tip",
+      "value": "Remember the ladder: Cells → Tissues → Organs → Organ Systems → Organism. Each step is a bigger team, and the cell is the foundation of them all."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Cells group into tissues, tissues form organs, organs form organ systems, and systems make up the whole organism. The cell is the foundation of every living body."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A group of similar cells doing the same job forms a…",
+      "options": [
+        "tissue",
+        "organ",
+        "organism"
+      ],
+      "answer": 0,
+      "explain": "Similar cells working together form a tissue, such as muscle tissue."
+    },
+    {
+      "question": "What is the correct order from smallest to largest?",
+      "options": [
+        "cell → tissue → organ → organism",
+        "organ → cell → tissue → organism",
+        "organism → organ → cell → tissue"
+      ],
+      "answer": 0,
+      "explain": "The levels go cell → tissue → organ → organ system → organism."
+    },
+    {
+      "question": "Different tissues working together form an…",
+      "options": [
+        "organ",
+        "atom",
+        "electron"
+      ],
+      "answer": 0,
+      "explain": "An organ (like the heart) is made of different tissues working together."
+    }
+  ]
+}

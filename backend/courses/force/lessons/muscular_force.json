@@ -1,0 +1,73 @@
+{
+  "lessonId": "muscular_force",
+  "title": "Muscular Force",
+  "description": "The Baron freezes all machines, but your muscles still work! Learn about contact forces to grab shard 2.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Contact Forces"
+    },
+    {
+      "type": "paragraph",
+      "value": "Some forces act only when two objects TOUCH. These are called CONTACT FORCES. The two everyday contact forces are muscular force and friction."
+    },
+    {
+      "type": "heading",
+      "value": "Muscular Force"
+    },
+    {
+      "type": "paragraph",
+      "value": "The force our body applies using muscles is called MUSCULAR FORCE. Lifting a bag, pushing a door, and chewing food all use muscular force. Animals use it too — bullocks pull carts, horses pull carriages."
+    },
+    {
+      "type": "paragraph",
+      "value": "Even actions inside your body use muscular force! Your heart muscles pump blood and the muscles of your food pipe push food down to your stomach — all thanks to muscular force."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "MUSCULAR FORCE IN ACTION\n🏋️  lifting a weight        🐂  a bullock pulling a cart\n🚪  pushing a door          🫀  the heart pumping blood\n🍽️  chewing food           💪  an arm bending"
+    },
+    {
+      "type": "tip",
+      "value": "Muscular force is always a CONTACT force — your muscles must be in contact (directly or through your body) with the object they move."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Contact forces act only when objects touch. Muscular force is the force applied by muscles — used to lift, push, chew, and even pump blood inside the body."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A contact force acts…",
+      "options": [
+        "only when two objects touch",
+        "across empty space with no touching",
+        "only on magnets"
+      ],
+      "answer": 0,
+      "explain": "Contact forces, like muscular force and friction, require the objects to be in contact."
+    },
+    {
+      "question": "Which of these uses muscular force?",
+      "options": [
+        "A magnet attracting a nail from a distance",
+        "A bullock pulling a cart",
+        "The Earth pulling a falling apple"
+      ],
+      "answer": 1,
+      "explain": "A bullock uses its muscles (in contact with the cart via a rope/yoke) — that's muscular force. The other two are non-contact forces."
+    },
+    {
+      "question": "Your heart pumping blood is an example of…",
+      "options": [
+        "gravitational force",
+        "muscular force",
+        "magnetic force"
+      ],
+      "answer": 1,
+      "explain": "Heart muscles apply muscular force to pump blood — muscular force works inside the body too."
+    }
+  ]
+}

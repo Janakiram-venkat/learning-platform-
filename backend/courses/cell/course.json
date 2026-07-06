@@ -1,0 +1,53 @@
+{
+  "courseId": "cell",
+  "title": "Secrets of the Cell",
+  "description": "Science: shrink down to explore cells, organelles and the nucleus to rebuild the Cell of Life and defeat Lord Necrosis!",
+  "level": "Biology",
+  "estimatedHours": 8,
+  "emoji": "🔬",
+  "thumbnail": "/images/cell.png",
+  "hasEditor": false,
+  "modules": [
+    {
+      "id": 1,
+      "title": "Discovering the Cell",
+      "file": "module1.json"
+    },
+    {
+      "id": 2,
+      "title": "The Basic Unit of Life",
+      "file": "module2.json"
+    },
+    {
+      "id": 3,
+      "title": "Shape, Size & Number",
+      "file": "module3.json"
+    },
+    {
+      "id": 4,
+      "title": "The Cell's Outer Parts",
+      "file": "module4.json"
+    },
+    {
+      "id": 5,
+      "title": "The Control Centre",
+      "file": "module5.json"
+    },
+    {
+      "id": 6,
+      "title": "Cell Organelles",
+      "file": "module6.json"
+    },
+    {
+      "id": 7,
+      "title": "Plant vs Animal Cells",
+      "file": "module7.json"
+    },
+    {
+      "id": 8,
+      "title": "From Cells to You",
+      "file": "module8.json"
+    }
+  ],
+  "subject": "science"
+}

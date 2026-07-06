@@ -1,0 +1,77 @@
+{
+  "lessonId": "cell_size_number",
+  "title": "How Big, How Many",
+  "description": "From the tiniest bacterium to a giant egg — cells vary hugely. Master cell size and number to seize piece 5.",
+  "difficulty": "Biology",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Cells Vary in Size"
+    },
+    {
+      "type": "paragraph",
+      "value": "Cells range enormously in size. Most are so small you need a microscope. The smallest cells are bacteria. But the LARGEST single cell is the egg of an ostrich — big enough to see easily with your bare eyes!"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "SMALLEST cell   → bacterium (needs a microscope)  🔬\nLARGEST cell    → ostrich egg (see it easily!)    🥚\n\nMost cells are microscopic — far too small to see."
+    },
+    {
+      "type": "heading",
+      "value": "Size Doesn't Depend on Body Size"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here's a surprise: the size of a cell has NOTHING to do with the size of the animal. An elephant's cells are NOT bigger than a mouse's cells — the elephant simply has many MORE cells. Big animals have more cells, not bigger ones."
+    },
+    {
+      "type": "heading",
+      "value": "Number of Cells"
+    },
+    {
+      "type": "paragraph",
+      "value": "The number of cells in an organism can be one (unicellular) or many trillions (large multicellular). A human body contains many trillions of cells. Just like cell size, the number depends on the organism — and bigger organisms generally have more cells."
+    },
+    {
+      "type": "tip",
+      "value": "Common myth busted: bigger animals do NOT have bigger cells — they have more cells. A whale and a mouse have similar-sized cells; the whale just has vastly more of them."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Cells vary greatly in size (smallest = bacteria, largest single cell = ostrich egg) and number. Cell size does not depend on body size — larger organisms have more cells, not bigger ones."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "The largest single cell is the…",
+      "options": [
+        "ostrich egg",
+        "human skin cell",
+        "bacterium"
+      ],
+      "answer": 0,
+      "explain": "An ostrich egg is the largest single cell and can be seen with the naked eye."
+    },
+    {
+      "question": "Compared to a mouse, an elephant has…",
+      "options": [
+        "much bigger cells",
+        "more cells (not bigger ones)",
+        "no cells at all"
+      ],
+      "answer": 1,
+      "explain": "Cell size doesn't depend on body size — big animals simply have MORE cells."
+    },
+    {
+      "question": "Most cells are…",
+      "options": [
+        "too small to see without a microscope",
+        "easily visible to the naked eye",
+        "the same size as a coin"
+      ],
+      "answer": 0,
+      "explain": "Most cells are microscopic and need a microscope to be seen."
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "lessonId": "microscope",
+  "title": "The Microscope",
+  "description": "Nucleus Bot 🤖 powers up the academy's microscopes. Master the tool that reveals the invisible world of cells to earn the first piece of the Cell of Life.",
+  "difficulty": "Biology",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Cells Are Too Small to See"
+    },
+    {
+      "type": "paragraph",
+      "value": "Most cells are far too small for our eyes to see. To study them, scientists use a MICROSCOPE — an instrument that magnifies (enlarges) tiny objects hundreds or thousands of times so we can examine them."
+    },
+    {
+      "type": "heading",
+      "value": "How a Microscope Helps"
+    },
+    {
+      "type": "paragraph",
+      "value": "A microscope uses lenses to bend light and produce a hugely enlarged image of a small object. A thin sample is placed on a glass slide, light shines through it, and the lenses magnify the view. Without it, the whole world of cells would stay hidden."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "👁️  eyepiece lens (you look here)\n🔎  objective lens (magnifies the sample)\n🧪  glass slide with a thin sample\n💡  light shines up through the sample"
+    },
+    {
+      "type": "heading",
+      "value": "Preparing a Slide"
+    },
+    {
+      "type": "paragraph",
+      "value": "To see cells, the sample must be very THIN so light can pass through it. Scientists often add a drop of a stain (dye) to colour parts of the cell, making them easier to see. A classic school example is peeling the thin skin of an onion to view its neat brick-like cells."
+    },
+    {
+      "type": "tip",
+      "value": "The thinner the sample, the clearer the view — thick samples block the light and look dark. That is why we peel just a single see-through layer, like onion skin."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: A microscope magnifies tiny objects using lenses and light, letting us see cells. Samples must be thin (and are often stained) so light can pass through and reveal the cells."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A microscope is used to…",
+      "options": [
+        "magnify tiny objects so we can see them",
+        "make objects smaller",
+        "measure temperature"
+      ],
+      "answer": 0,
+      "explain": "A microscope magnifies (enlarges) small objects like cells so they can be studied."
+    },
+    {
+      "question": "Why must a sample be very THIN to view under a microscope?",
+      "options": [
+        "so it fits on the slide",
+        "so light can pass through it for a clear image",
+        "so it weighs less"
+      ],
+      "answer": 1,
+      "explain": "Light must pass through the sample; a thin slice gives a clear, bright image."
+    },
+    {
+      "question": "Scientists often add a stain (dye) to a sample in order to…",
+      "options": [
+        "make parts of the cell easier to see",
+        "kill the microscope",
+        "make the cell bigger"
+      ],
+      "answer": 0,
+      "explain": "Stains colour parts of the cell so they stand out and are easier to observe."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "moduleId": 5,
+  "title": "Many Mirrors: Multiple Images",
+  "lessons": [
+    { "lessonId": "multiple_images", "title": "Two Mirrors, Many Images", "duration": "11 min" },
+    { "lessonId": "periscope_kaleidoscope", "title": "Periscopes & Kaleidoscopes", "duration": "11 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Kaleidoscope Lab"
+}

@@ -1,0 +1,10 @@
+{
+  "moduleId": 5,
+  "title": "Pressure in Liquids",
+  "lessons": [
+    { "lessonId": "liquid_pressure", "title": "Pressure Under Water", "duration": "11 min" },
+    { "lessonId": "liquid_pressure_apps", "title": "Dams, Straws & More", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Liquid Pressure Lab"
+}

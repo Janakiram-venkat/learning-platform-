@@ -1,0 +1,10 @@
+{
+  "moduleId": 7,
+  "title": "The Amazing Human Eye",
+  "lessons": [
+    { "lessonId": "eye_structure", "title": "Inside Your Eye", "duration": "12 min" },
+    { "lessonId": "how_eye_works", "title": "How the Eye Makes Pictures", "duration": "11 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Eye Explorer Lab"
+}

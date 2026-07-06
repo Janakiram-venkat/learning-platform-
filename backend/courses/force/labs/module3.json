@@ -1,0 +1,208 @@
+{
+  "labId": "module3",
+  "title": "Invisible Force Lab",
+  "emoji": "🧲",
+  "tagline": "Non-Contact Forces",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Invisible Master",
+  "objectives": [
+    "Identify gravitational, magnetic and electrostatic forces",
+    "Apply 'like repels, unlike attracts'",
+    "Tell mass apart from weight"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Forces You Can't See",
+      "xp": 10,
+      "narration": "The Baron switches off gravity in one hall! Master the invisible forces to restore order.",
+      "steps": [
+        {
+          "emoji": "🎈",
+          "text": "Objects drift in mid-air as gravity flickers off."
+        },
+        {
+          "emoji": "🧲",
+          "text": "A magnet tugs a key across the room by itself."
+        },
+        {
+          "emoji": "🤖",
+          "text": "Newton Bot: 'These forces need no contact!'"
+        }
+      ],
+      "cta": "Enter the Lab"
+    },
+    {
+      "type": "sort",
+      "title": "Name the Non-Contact Force",
+      "xp": 20,
+      "prompt": "Sort each example by which non-contact force is at work.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "gravity",
+          "label": "Gravity",
+          "emoji": "🌍"
+        },
+        {
+          "id": "magnetic",
+          "label": "Magnetic",
+          "emoji": "🧲"
+        }
+      ],
+      "cards": [
+        {
+          "id": "apple",
+          "label": "An apple falling down",
+          "emoji": "🍎",
+          "column": "gravity"
+        },
+        {
+          "id": "rain",
+          "label": "Rain falling to the ground",
+          "emoji": "🌧️",
+          "column": "gravity"
+        },
+        {
+          "id": "moon",
+          "label": "Moon orbiting the Earth",
+          "emoji": "🌙",
+          "column": "gravity"
+        },
+        {
+          "id": "pin",
+          "label": "A pin jumping to a magnet",
+          "emoji": "📌",
+          "column": "magnetic"
+        },
+        {
+          "id": "compass",
+          "label": "A compass needle turning",
+          "emoji": "🧭",
+          "column": "magnetic"
+        },
+        {
+          "id": "fridge",
+          "label": "A fridge magnet sticking",
+          "emoji": "🧲",
+          "column": "magnetic"
+        }
+      ],
+      "note": "Both act across a gap — gravity and magnetism are non-contact forces."
+    },
+    {
+      "type": "choose",
+      "title": "Attract or Repel?",
+      "xp": 15,
+      "prompt": "Use 'like repels, unlike attracts' to decide each case.",
+      "options": [
+        {
+          "id": "attract",
+          "label": "Attract",
+          "emoji": "🧲"
+        },
+        {
+          "id": "repel",
+          "label": "Repel",
+          "emoji": "💥"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "ns",
+          "label": "North pole near South pole",
+          "emoji": "🔀",
+          "answer": "attract",
+          "explain": "Unlike poles attract."
+        },
+        {
+          "id": "nn",
+          "label": "North pole near North pole",
+          "emoji": "🔁",
+          "answer": "repel",
+          "explain": "Like poles repel."
+        },
+        {
+          "id": "pn",
+          "label": "Positive charge near negative charge",
+          "emoji": "➕",
+          "answer": "attract",
+          "explain": "Unlike charges attract."
+        },
+        {
+          "id": "pp",
+          "label": "Two positive charges",
+          "emoji": "➕",
+          "answer": "repel",
+          "explain": "Like charges repel."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Restore Gravity",
+      "xp": 30,
+      "prompt": "Score 80% to switch gravity back on and grab shard 3!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "A non-contact force can act…",
+          "options": [
+            "without touching",
+            "only when touching"
+          ],
+          "answer": 0,
+          "explain": "Non-contact forces act across a gap."
+        },
+        {
+          "q": "Weight is…",
+          "options": [
+            "the pull of gravity on an object",
+            "the amount of matter"
+          ],
+          "answer": 0,
+          "explain": "Weight is the gravitational force; mass is the amount of matter."
+        },
+        {
+          "q": "Two south poles will…",
+          "options": [
+            "repel",
+            "attract"
+          ],
+          "answer": 0,
+          "explain": "Like poles repel."
+        },
+        {
+          "q": "A charged comb lifting paper shows…",
+          "options": [
+            "electrostatic force",
+            "muscular force"
+          ],
+          "answer": 0,
+          "explain": "Charged objects attract via electrostatic force."
+        },
+        {
+          "q": "On the Moon your mass…",
+          "options": [
+            "stays the same",
+            "becomes 1/6"
+          ],
+          "answer": 0,
+          "explain": "Mass is unchanged; only weight becomes about 1/6."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Momentum Shard 3 Charged!",
+      "xp": 20,
+      "badge": "Invisible Master",
+      "messages": [
+        "🏅 You earned the Invisible Master badge",
+        "⚡ Momentum Core: 3 of 8 shards charged",
+        "Gravity snaps back on — everything settles safely!"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "lessonId": "white_light_dispersion",
+  "title": "White Light Is a Rainbow",
+  "description": "Time to rebuild the Rainbow Crystal's colours! Professor Prism reveals the biggest secret of all: white light is secretly made of seven colours.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Great Surprise"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sunlight looks white, but it is actually a mixture of seven colours all travelling together. When white light passes through a glass PRISM, it splits into these colours. This splitting of white light into its colours is called DISPERSION."
+    },
+    {
+      "type": "heading",
+      "value": "VIBGYOR — The Seven Colours"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "V  Violet   🟣\nI  Indigo   🔵\nB  Blue     🟦\nG  Green    🟩\nY  Yellow   🟨\nO  Orange   🟧\nR  Red      🟥\n\nRemember the name:  V-I-B-G-Y-O-R"
+    },
+    {
+      "type": "paragraph",
+      "value": "The colours always come out in the same order because each colour bends by a different amount in the prism. Violet bends the most and red bends the least — so they spread out into a band called a SPECTRUM."
+    },
+    {
+      "type": "heading",
+      "value": "Newton's Disc: Colours Back to White"
+    },
+    {
+      "type": "paragraph",
+      "value": "Isaac Newton proved the idea works both ways. Paint the seven colours on a disc and spin it fast — the colours blend and the disc looks almost WHITE! This shows that combining the seven colours gives back white light."
+    },
+    {
+      "type": "tip",
+      "value": "The memory word VIBGYOR lists the colours from the one that bends most (Violet) to the one that bends least (Red)."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: White light is made of seven colours (VIBGYOR). A prism splits it by dispersion; a spinning Newton's disc recombines the colours back into white."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "The splitting of white light into its seven colours by a prism is called…",
+      "options": [
+        "reflection",
+        "dispersion",
+        "lateral inversion"
+      ],
+      "answer": 1,
+      "explain": "Dispersion is the spreading of white light into its component colours as it passes through a prism."
+    },
+    {
+      "question": "What does the word VIBGYOR help you remember?",
+      "options": [
+        "The parts of the eye",
+        "The seven colours of the spectrum in order",
+        "The laws of reflection"
+      ],
+      "answer": 1,
+      "explain": "VIBGYOR stands for Violet, Indigo, Blue, Green, Yellow, Orange, Red — the seven colours of white light."
+    },
+    {
+      "question": "When a Newton's disc painted with seven colours is spun fast, it appears…",
+      "options": [
+        "black",
+        "almost white",
+        "bright green"
+      ],
+      "answer": 1,
+      "explain": "Spinning blends the seven colours together, and combined they give back (nearly) white light."
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "lessonId": "audible_range",
+  "title": "What We Can Hear",
+  "description": "Some of Baron Mute's traps make sounds you can't even hear! Learn the range of human hearing to detect them.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Human Hearing Range"
+    },
+    {
+      "type": "paragraph",
+      "value": "Human ears can only hear sounds within a certain range of frequencies. We can hear sounds from about 20 Hz up to about 20,000 Hz. Sounds in this range are called AUDIBLE sounds."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "HUMAN HEARING RANGE: about 20 Hz  →  20,000 Hz\n\nBelow 20 Hz      → INFRASOUND (too low to hear)\n20–20,000 Hz     → AUDIBLE (we can hear these)\nAbove 20,000 Hz  → ULTRASOUND (too high to hear)"
+    },
+    {
+      "type": "heading",
+      "value": "Too Low and Too High"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sounds below 20 Hz are called INFRASONIC (infrasound) — too low-pitched for us to hear. Sounds above 20,000 Hz are called ULTRASONIC (ultrasound) — too high-pitched for us. Both are INAUDIBLE to humans, even though they are real sounds."
+    },
+    {
+      "type": "heading",
+      "value": "Hearing Changes With Age"
+    },
+    {
+      "type": "paragraph",
+      "value": "Young people can usually hear the full range, but as we get older the ability to hear the highest frequencies fades. That's why some very high tones can be heard by children but not by many adults."
+    },
+    {
+      "type": "tip",
+      "value": "Just because YOU can't hear a sound doesn't mean it isn't there! Infrasound and ultrasound are perfectly real — our ears simply aren't built to detect them."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Humans hear frequencies from about 20 Hz to 20,000 Hz (audible sounds). Below 20 Hz is infrasound and above 20,000 Hz is ultrasound — both inaudible to us."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "The approximate range of human hearing is…",
+      "options": [
+        "20 Hz to 20,000 Hz",
+        "0 Hz to 100 Hz",
+        "1 Hz to 1,000,000 Hz"
+      ],
+      "answer": 0,
+      "explain": "Humans can hear roughly from 20 Hz up to 20,000 Hz."
+    },
+    {
+      "question": "Sounds ABOVE 20,000 Hz are called…",
+      "options": [
+        "infrasound",
+        "ultrasound",
+        "audible sound"
+      ],
+      "answer": 1,
+      "explain": "Frequencies above 20,000 Hz are ultrasound (ultrasonic) — too high for us to hear."
+    },
+    {
+      "question": "A sound of 10 Hz is…",
+      "options": [
+        "audible to humans",
+        "infrasound (too low to hear)",
+        "ultrasound (too high to hear)"
+      ],
+      "answer": 1,
+      "explain": "10 Hz is below 20 Hz, so it is infrasound — too low-pitched for human ears."
+    }
+  ]
+}

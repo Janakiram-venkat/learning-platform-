@@ -1,0 +1,10 @@
+{
+  "moduleId": 6,
+  "title": "Splitting Light & the Rainbow",
+  "lessons": [
+    { "lessonId": "white_light_dispersion", "title": "White Light Is a Rainbow", "duration": "11 min" },
+    { "lessonId": "rainbow", "title": "How Rainbows Form", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Prism Lab"
+}

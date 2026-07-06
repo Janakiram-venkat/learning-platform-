@@ -1,0 +1,77 @@
+{
+  "lessonId": "vibrating_objects",
+  "title": "Vibrations All Around",
+  "description": "Echo Bot 🤖 scans the academy for hidden vibrations. Spot how different instruments make sound to earn the first bell fragment.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Different Instruments, Same Idea"
+    },
+    {
+      "type": "paragraph",
+      "value": "Musical instruments are machines for making controlled vibrations. Even though they look very different, each one works by vibrating some part of itself."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "TYPE          EXAMPLE          WHAT VIBRATES\nString        🎸 guitar, sitar   the strings\nWind          🎺 flute, trumpet  the air column inside\nPercussion    🥁 drum, tabla     the stretched membrane\nMetal         🔔 bell, cymbal    the metal itself"
+    },
+    {
+      "type": "heading",
+      "value": "Stringed Instruments"
+    },
+    {
+      "type": "paragraph",
+      "value": "In a guitar or sitar, plucking a string makes it vibrate, and the vibration produces sound. A tighter or shorter string vibrates faster and gives a different note — that's how musicians play tunes."
+    },
+    {
+      "type": "heading",
+      "value": "Wind and Percussion"
+    },
+    {
+      "type": "paragraph",
+      "value": "In a flute, blowing makes the AIR COLUMN inside vibrate. In a drum or tabla, striking makes the stretched skin vibrate. The vibrating part always sets the surrounding air moving, and that carries the sound to your ears."
+    },
+    {
+      "type": "tip",
+      "value": "A vibrating object is called a SOURCE of sound. In every instrument, find the source — the part that shakes — and you've found where the sound is born."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: All instruments make sound by vibrating a part of themselves — strings, air columns, membranes, or metal. The vibrating part is the source of the sound."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "In a flute, what actually vibrates to make the sound?",
+      "options": [
+        "the metal keys",
+        "the column of air inside",
+        "the player's fingers"
+      ],
+      "answer": 1,
+      "explain": "Blowing across a flute makes the air column inside it vibrate, producing the sound."
+    },
+    {
+      "question": "In a drum, the sound comes from the vibrating…",
+      "options": [
+        "stretched skin (membrane)",
+        "wooden legs",
+        "air outside the room"
+      ],
+      "answer": 0,
+      "explain": "Striking a drum makes its stretched membrane vibrate, which produces sound."
+    },
+    {
+      "question": "The vibrating part of an instrument is called the…",
+      "options": [
+        "source of sound",
+        "echo",
+        "medium"
+      ],
+      "answer": 0,
+      "explain": "The object that vibrates and makes the sound is the source."
+    }
+  ]
+}

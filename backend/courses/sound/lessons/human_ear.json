@@ -1,0 +1,73 @@
+{
+  "lessonId": "human_ear",
+  "title": "Inside Your Ear",
+  "description": "To hear the faint chime of a hidden bell fragment, you must understand your own amazing sound detector — the ear.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Your Sound Detector"
+    },
+    {
+      "type": "paragraph",
+      "value": "The ear is a natural instrument that catches vibrations from the air and turns them into signals your brain understands as sound. It has three parts: the outer ear, the middle ear, and the inner ear."
+    },
+    {
+      "type": "heading",
+      "value": "The Main Parts"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "PINNA      → the outer flap that collects sound\nEAR CANAL  → tube that carries sound inward\nEARDRUM    → thin stretched membrane that vibrates\nMIDDLE EAR → tiny bones that amplify the vibration\nINNER EAR  → converts vibration into nerve signals\nAUDITORY NERVE → carries the signal to the brain"
+    },
+    {
+      "type": "heading",
+      "value": "The Eardrum"
+    },
+    {
+      "type": "paragraph",
+      "value": "The most important part is the EARDRUM — a thin, tightly stretched skin like a tiny drum. When sound waves reach it, it vibrates back and forth. These vibrations are passed on and eventually sent to the brain as the sounds we recognise."
+    },
+    {
+      "type": "tip",
+      "value": "The eardrum is delicate! Never poke anything sharp into your ear — a damaged eardrum can seriously harm your hearing. Very loud sounds can hurt it too."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: The ear collects sound with the pinna, funnels it to the vibrating eardrum, and the inner ear turns those vibrations into signals sent to the brain by the auditory nerve."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which part of the ear vibrates when sound reaches it?",
+      "options": [
+        "the pinna",
+        "the eardrum",
+        "the auditory nerve"
+      ],
+      "answer": 1,
+      "explain": "The eardrum is a thin stretched membrane that vibrates when sound waves hit it."
+    },
+    {
+      "question": "The outer flap of the ear that collects sound is the…",
+      "options": [
+        "pinna",
+        "eardrum",
+        "inner ear"
+      ],
+      "answer": 0,
+      "explain": "The pinna is the visible outer flap that gathers sound and directs it into the ear canal."
+    },
+    {
+      "question": "The signal from the ear is carried to the brain by the…",
+      "options": [
+        "auditory nerve",
+        "ear canal",
+        "pinna"
+      ],
+      "answer": 0,
+      "explain": "The auditory nerve carries the sound signal from the inner ear to the brain."
+    }
+  ]
+}

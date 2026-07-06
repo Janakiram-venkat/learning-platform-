@@ -1,0 +1,11 @@
+{
+  "title": "Fuels Around Us Challenge",
+  "emoji": "🛢️",
+  "rounds": [
+    { "type": "concept", "prompt": "LPG is a…", "options": ["gaseous fuel", "solid fuel"], "answer": 0, "explain": "LPG is a gaseous cooking fuel." },
+    { "type": "match", "prompt": "Match each fuel to its state.", "pairs": [ { "left": "Coal", "right": "Solid" }, { "left": "Kerosene", "right": "Liquid" }, { "left": "CNG", "right": "Gas" } ], "explain": "Fuels come as solids, liquids and gases." },
+    { "type": "concept", "prompt": "Compared with solids, gaseous fuels burn…", "options": ["cleaner", "dirtier"], "answer": 0, "explain": "Gases burn completely and cleanly." },
+    { "type": "concept", "prompt": "Incomplete burning produces the poison…", "options": ["carbon monoxide", "oxygen"], "answer": 0, "explain": "Too little oxygen makes CO." },
+    { "type": "concept", "prompt": "Fuels should be burned in a place that is…", "options": ["well ventilated", "sealed shut"], "answer": 0, "explain": "Ventilation supplies oxygen and removes gases." }
+  ]
+}

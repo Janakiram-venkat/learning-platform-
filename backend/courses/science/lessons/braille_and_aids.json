@@ -1,0 +1,77 @@
+{
+  "lessonId": "braille_and_aids",
+  "title": "Braille & Seeing Without Sight",
+  "description": "Umbra's final trick plunges the world into darkness. But the greatest lesson of all: people who cannot see still read, learn and thrive. Master it to restore the Rainbow Crystal!",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Reading With Fingertips"
+    },
+    {
+      "type": "paragraph",
+      "value": "People who are visually impaired can read and write using BRAILLE — a system of raised dots felt with the fingertips. It was developed by Louis Braille, who was himself blind, in the 1820s."
+    },
+    {
+      "type": "heading",
+      "value": "How Braille Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "Braille uses a 'cell' of up to six raised dots, arranged in two columns of three. Different patterns of raised dots stand for different letters, numbers and even musical notes. By moving their fingers across the dots, a reader recognises each pattern quickly."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "A Braille cell = 6 dot positions\n  1 • • 4\n  2 • • 5\n  3 • • 6\nRaising different dots makes different letters:\n  A = dot 1     B = dots 1,2     C = dots 1,4"
+    },
+    {
+      "type": "heading",
+      "value": "Tools That Help"
+    },
+    {
+      "type": "paragraph",
+      "value": "Beyond Braille, many aids help people with limited vision live fully: walking canes, guide dogs, audiobooks, screen-reader software that speaks text aloud, and Braille keyboards and displays for computers. Technology keeps opening new doors."
+    },
+    {
+      "type": "tip",
+      "value": "Being visually impaired does not stop people from achieving great things — many scientists, musicians, teachers and athletes are blind or partially sighted. Other senses, like touch and hearing, often become remarkably sharp."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Braille is a touch-based system of raised dots that lets visually impaired people read and write. Along with canes, audiobooks and screen readers, it helps everyone access knowledge — with or without sight."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Braille is read by…",
+      "options": [
+        "listening to sounds",
+        "feeling patterns of raised dots with the fingertips",
+        "looking at bright colours"
+      ],
+      "answer": 1,
+      "explain": "Braille uses raised dots that a reader feels with their fingertips to recognise letters and numbers."
+    },
+    {
+      "question": "How many dot positions are in a single standard Braille cell?",
+      "options": [
+        "Four",
+        "Six",
+        "Nine"
+      ],
+      "answer": 1,
+      "explain": "A Braille cell has six dot positions, in two columns of three. Different raised patterns make different characters."
+    },
+    {
+      "question": "Which of these is an aid for people with limited vision?",
+      "options": [
+        "A screen reader that speaks text aloud",
+        "A brighter light bulb only",
+        "A pair of sunglasses only"
+      ],
+      "answer": 0,
+      "explain": "Screen readers, audiobooks, canes and guide dogs all help visually impaired people access information and move safely."
+    }
+  ]
+}

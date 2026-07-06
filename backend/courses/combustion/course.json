@@ -1,0 +1,53 @@
+{
+  "courseId": "combustion",
+  "title": "Combustion & Flame",
+  "description": "Science: master fire, fuels and flames to relight the Guardian Flame and stop Lord Cinder's wildfire!",
+  "level": "Chemistry",
+  "estimatedHours": 8,
+  "emoji": "🔥",
+  "thumbnail": "/images/combustion.png",
+  "hasEditor": false,
+  "modules": [
+    {
+      "id": 1,
+      "title": "What Is Combustion?",
+      "file": "module1.json"
+    },
+    {
+      "id": 2,
+      "title": "Conditions for Combustion",
+      "file": "module2.json"
+    },
+    {
+      "id": 3,
+      "title": "Controlling Fire",
+      "file": "module3.json"
+    },
+    {
+      "id": 4,
+      "title": "Types of Combustion",
+      "file": "module4.json"
+    },
+    {
+      "id": 5,
+      "title": "The Flame",
+      "file": "module5.json"
+    },
+    {
+      "id": 6,
+      "title": "What Makes a Good Fuel",
+      "file": "module6.json"
+    },
+    {
+      "id": 7,
+      "title": "Fuels Around Us",
+      "file": "module7.json"
+    },
+    {
+      "id": 8,
+      "title": "Burning & the Environment",
+      "file": "module8.json"
+    }
+  ],
+  "subject": "science"
+}

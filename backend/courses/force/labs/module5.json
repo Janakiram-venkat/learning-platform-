@@ -1,0 +1,182 @@
+{
+  "labId": "module5",
+  "title": "Liquid Pressure Lab",
+  "emoji": "🌊",
+  "tagline": "Pressure in Liquids",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Deep Diver",
+  "objectives": [
+    "Show liquids press in all directions",
+    "Explain pressure increasing with depth",
+    "Link liquid pressure to dams and straws"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "The Flooded Chamber",
+      "xp": 10,
+      "narration": "Shard 5 is sunk in water. Dive smart, Deep Diver — the deeper you go, the harder it pushes!",
+      "steps": [
+        {
+          "emoji": "🌊",
+          "text": "The Baron floods a chamber to hide shard 5."
+        },
+        {
+          "emoji": "👦",
+          "text": "Arjun: 'The water pushes harder near the bottom!'"
+        },
+        {
+          "emoji": "🤖",
+          "text": "Newton Bot loads your diving gear."
+        }
+      ],
+      "cta": "Dive In"
+    },
+    {
+      "type": "choose",
+      "title": "True or False: Liquid Pressure",
+      "xp": 20,
+      "prompt": "Decide whether each statement is true or false.",
+      "options": [
+        {
+          "id": "true",
+          "label": "True",
+          "emoji": "✅"
+        },
+        {
+          "id": "false",
+          "label": "False",
+          "emoji": "❌"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "depth",
+          "label": "Pressure increases as you go deeper",
+          "emoji": "🔽",
+          "answer": "true",
+          "explain": "More liquid above means more pressure."
+        },
+        {
+          "id": "dir",
+          "label": "Liquids press only downward",
+          "emoji": "⬇️",
+          "answer": "false",
+          "explain": "Liquids press in ALL directions."
+        },
+        {
+          "id": "dam",
+          "label": "Dams are thicker at the bottom",
+          "emoji": "🧱",
+          "answer": "true",
+          "explain": "Because pressure is greatest deep down."
+        },
+        {
+          "id": "same",
+          "label": "Pressure is the same at every depth",
+          "emoji": "📏",
+          "answer": "false",
+          "explain": "Pressure changes with depth — deeper is higher."
+        }
+      ]
+    },
+    {
+      "type": "explore",
+      "title": "Liquid Pressure Around Us",
+      "xp": 15,
+      "prompt": "Tap each place to see liquid pressure at work. Visit them all!",
+      "locations": [
+        {
+          "id": "dam",
+          "label": "Dam",
+          "emoji": "🏞️",
+          "info": "Built thick at the base to hold back the greatest water pressure deep down."
+        },
+        {
+          "id": "diver",
+          "label": "Deep-Sea Diver",
+          "emoji": "🤿",
+          "info": "Wears a strong suit because water pressure is huge far below the surface."
+        },
+        {
+          "id": "tower",
+          "label": "Water Tower",
+          "emoji": "🗼",
+          "info": "Height of stored water gives pressure to push water out of taps below."
+        },
+        {
+          "id": "straw",
+          "label": "Straw",
+          "emoji": "🥤",
+          "info": "Lowering pressure inside lets outside pressure push the drink up."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Reach the Sunken Shard",
+      "xp": 30,
+      "prompt": "Score 80% to dive to shard 5 and bring it up!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Deeper in water, pressure…",
+          "options": [
+            "increases",
+            "decreases"
+          ],
+          "answer": 0,
+          "explain": "Pressure increases with depth."
+        },
+        {
+          "q": "Liquids exert pressure…",
+          "options": [
+            "in all directions",
+            "only downward"
+          ],
+          "answer": 0,
+          "explain": "Liquids press in every direction."
+        },
+        {
+          "q": "Dams are thicker at the base because…",
+          "options": [
+            "pressure is greatest at the bottom",
+            "it looks nicer"
+          ],
+          "answer": 0,
+          "explain": "Greatest water pressure is deep down."
+        },
+        {
+          "q": "A drink rises up a straw because…",
+          "options": [
+            "outside pressure pushes it into the low-pressure straw",
+            "you magnetise it"
+          ],
+          "answer": 0,
+          "explain": "Pressure difference pushes the liquid up."
+        },
+        {
+          "q": "At the same depth, liquid pressure is…",
+          "options": [
+            "equal in all directions",
+            "strongest sideways"
+          ],
+          "answer": 0,
+          "explain": "Same depth = same pressure in every direction."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Momentum Shard 5 Charged!",
+      "xp": 20,
+      "badge": "Deep Diver",
+      "messages": [
+        "🏅 You earned the Deep Diver badge",
+        "⚡ Momentum Core: 5 of 8 shards charged",
+        "You surfaced with the shard held high!"
+      ]
+    }
+  ]
+}

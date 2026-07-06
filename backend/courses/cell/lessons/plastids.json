@@ -1,0 +1,77 @@
+{
+  "lessonId": "plastids",
+  "title": "Plastids & Chloroplasts",
+  "description": "The green magic of plants lives in a special organelle. Discover plastids to restore colour and life to piece 6.",
+  "difficulty": "Biology",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Organelles Found Only in Plants"
+    },
+    {
+      "type": "paragraph",
+      "value": "PLASTIDS are organelles found only in PLANT cells (not animal cells). The most important type is the CHLOROPLAST, which contains a green pigment called CHLOROPHYLL."
+    },
+    {
+      "type": "heading",
+      "value": "Chloroplasts Make Food"
+    },
+    {
+      "type": "paragraph",
+      "value": "Chloroplasts are where plants make their own food using sunlight, in the process called PHOTOSYNTHESIS. The green chlorophyll captures light energy and uses it to turn carbon dioxide and water into food. This is why leaves are green — they are full of chloroplasts!"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🌿 CHLOROPLAST (a type of plastid)\n   contains → CHLOROPHYLL (green pigment)\n   captures → sunlight ☀️\n   makes    → food (photosynthesis)\n\nFound in PLANT cells only — never animal cells."
+    },
+    {
+      "type": "heading",
+      "value": "Why It Matters"
+    },
+    {
+      "type": "paragraph",
+      "value": "Because animals cannot make their own food, they depend on plants (and the chloroplasts inside them) for the food and oxygen that all life needs. The tiny chloroplast quietly feeds almost the entire living world."
+    },
+    {
+      "type": "tip",
+      "value": "Green colour = chlorophyll = chloroplasts = plant cells. Animal cells have NO chloroplasts, which is why animals can't photosynthesise and must eat food."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Plastids are organelles found only in plant cells. The chloroplast, containing green chlorophyll, captures sunlight to make food by photosynthesis — which is why leaves are green."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Chloroplasts are found in…",
+      "options": [
+        "plant cells only",
+        "animal cells only",
+        "both equally"
+      ],
+      "answer": 0,
+      "explain": "Chloroplasts (a type of plastid) are found only in plant cells, never in animal cells."
+    },
+    {
+      "question": "The green pigment inside chloroplasts is called…",
+      "options": [
+        "chlorophyll",
+        "cytoplasm",
+        "melanin"
+      ],
+      "answer": 0,
+      "explain": "Chlorophyll is the green pigment that captures sunlight for photosynthesis."
+    },
+    {
+      "question": "Chloroplasts help a plant to…",
+      "options": [
+        "make its own food using sunlight",
+        "move around",
+        "hear sounds"
+      ],
+      "answer": 0,
+      "explain": "Chloroplasts carry out photosynthesis, making food from sunlight, water and carbon dioxide."
+    }
+  ]
+}

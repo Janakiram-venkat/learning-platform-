@@ -1,0 +1,77 @@
+{
+  "lessonId": "what_is_friction",
+  "title": "The Grip Between Surfaces",
+  "description": "Deep in the Baron's ice fortress nothing grips. To move at all, you must master friction — the force that lets us walk, write and hold on.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Friction Recap and Deep Dive"
+    },
+    {
+      "type": "paragraph",
+      "value": "Friction is the force that opposes motion between two surfaces in contact. It always acts opposite to the direction an object moves or tries to move. Now let's see exactly what makes it stronger or weaker."
+    },
+    {
+      "type": "heading",
+      "value": "What Friction Depends On"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "MORE friction when…                 LESS friction when…\n🪨  surfaces are rougher             🧊  surfaces are smoother\n🏋️  the object is heavier           🪶  the object is lighter\n     (presses surfaces harder)            (presses more gently)"
+    },
+    {
+      "type": "paragraph",
+      "value": "Friction depends on two main things: how rough the surfaces are, and how hard they are pressed together. Rougher surfaces have bigger interlocking bumps, and heavier objects press down harder — both increase friction."
+    },
+    {
+      "type": "heading",
+      "value": "Friction Lets Us Move"
+    },
+    {
+      "type": "paragraph",
+      "value": "Without friction we couldn't walk — our feet would slip like on wet ice. Friction between your shoes and the ground grips so you can push off. It also lets us hold a pencil, tie a knot, and stop a moving bicycle with brakes."
+    },
+    {
+      "type": "tip",
+      "value": "Interesting fact: friction produces HEAT. Rub your palms together quickly and they warm up. This is why fast-moving machine parts can get hot."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Friction opposes motion and depends on surface roughness and how hard surfaces press together. It lets us walk, grip and stop — and it produces heat."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Friction between two surfaces increases when the surfaces are…",
+      "options": [
+        "smoother",
+        "rougher",
+        "colder"
+      ],
+      "answer": 1,
+      "explain": "Rougher surfaces have larger interlocking bumps, producing more friction."
+    },
+    {
+      "question": "Why can we walk without slipping?",
+      "options": [
+        "Gravity holds our feet down",
+        "Friction between our shoes and the ground gives grip",
+        "Air pressure pushes us along"
+      ],
+      "answer": 1,
+      "explain": "Friction grips our shoes to the ground so we can push off and walk."
+    },
+    {
+      "question": "Rubbing your hands together makes them warm because friction…",
+      "options": [
+        "produces heat",
+        "produces light",
+        "produces electricity"
+      ],
+      "answer": 0,
+      "explain": "Friction converts motion into heat, which is why rubbing surfaces warm up."
+    }
+  ]
+}

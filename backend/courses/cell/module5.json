@@ -1,0 +1,10 @@
+{
+  "moduleId": 5,
+  "title": "The Control Centre",
+  "lessons": [
+    { "lessonId": "nucleus", "title": "The Nucleus", "duration": "11 min" },
+    { "lessonId": "genes_chromosomes", "title": "Chromosomes, Genes & DNA", "duration": "11 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Nucleus Lab"
+}

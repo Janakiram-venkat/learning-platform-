@@ -1,0 +1,77 @@
+{
+  "lessonId": "multiple_reflections",
+  "title": "Light That Bounces Again",
+  "description": "Umbra hides the shard in a dark vault with a single window. Arjun bounces a beam off mirror after mirror to reach it — proving reflected light can be reflected again.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Reflected Light Can Reflect Again"
+    },
+    {
+      "type": "paragraph",
+      "value": "A ray of light that has already been reflected can hit another mirror and reflect a second time — and a third, and a fourth. Each bounce still obeys the laws of reflection. This is how light can be 'steered' around corners."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "☀️ ─▶ 🪞 ─▶ 🪞 ─▶ 👁️\nlight bounces off mirror 1, then mirror 2, into the eye"
+    },
+    {
+      "type": "heading",
+      "value": "Steering Light Around Corners"
+    },
+    {
+      "type": "paragraph",
+      "value": "Because we can bounce light again and again, we can send it exactly where we want. Two mirrors set at the right angles can carry light up and over a wall — this is the idea behind a PERISCOPE used in submarines to see above the water."
+    },
+    {
+      "type": "heading",
+      "value": "A Real-Life Superpower"
+    },
+    {
+      "type": "paragraph",
+      "value": "Multiple reflection is used in dentists' mirrors (to see behind teeth), in kaleidoscopes (to multiply patterns), and in fibre-optic cables that carry internet signals as bouncing light. Repeated reflection is everywhere!"
+    },
+    {
+      "type": "tip",
+      "value": "Every bounce loses a little light, so after many reflections the image gets dimmer. That is why a very long mirror tunnel fades into darkness."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Light that has been reflected can be reflected again and again, each time obeying the laws of reflection — letting us steer light around corners."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Can a ray of light that has already reflected off one mirror reflect off a second mirror?",
+      "options": [
+        "No, light can only reflect once",
+        "Yes, and it still obeys the laws of reflection each time",
+        "Only if the mirrors are coloured"
+      ],
+      "answer": 1,
+      "explain": "Reflected light can be reflected again and again. Every bounce obeys i = r."
+    },
+    {
+      "question": "A submarine periscope lets sailors see above the water using…",
+      "options": [
+        "a single flat mirror",
+        "two mirrors that reflect light twice around a bend",
+        "a glowing luminous tube"
+      ],
+      "answer": 1,
+      "explain": "A periscope uses two mirrors so light reflects twice, carrying the view from above down to the viewer's eye."
+    },
+    {
+      "question": "After many reflections, an image usually becomes…",
+      "options": [
+        "brighter",
+        "dimmer, because a little light is lost each bounce",
+        "larger"
+      ],
+      "answer": 1,
+      "explain": "Each reflection loses a little light, so repeated bounces make the image gradually dimmer."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Fuel Quality Challenge",
+  "emoji": "⛽",
+  "rounds": [
+    { "type": "concept", "prompt": "Calorific value is the heat produced by burning…", "options": ["1 kg of fuel", "the whole tank"], "answer": 0, "explain": "It's the heat per kilogram of fuel." },
+    { "type": "concept", "prompt": "A higher calorific value means…", "options": ["more energy per kg", "less energy per kg"], "answer": 0, "explain": "Higher = more efficient fuel." },
+    { "type": "match", "prompt": "Rank calorific value.", "pairs": [ { "left": "Highest", "right": "Hydrogen" }, { "left": "Middle", "right": "LPG" }, { "left": "Lowest", "right": "Wood" } ], "explain": "Hydrogen > LPG > wood in energy per kg." },
+    { "type": "concept", "prompt": "An ideal fuel should be…", "options": ["cheap, clean and safe", "expensive and smoky"], "answer": 0, "explain": "Good fuels are cheap, clean and safe." },
+    { "type": "concept", "prompt": "Hydrogen is a clean fuel because it burns to form only…", "options": ["water", "smoke"], "answer": 0, "explain": "Hydrogen produces only water when burnt." }
+  ]
+}

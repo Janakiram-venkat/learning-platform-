@@ -1,0 +1,10 @@
+{
+  "moduleId": 2,
+  "title": "Contact Forces",
+  "lessons": [
+    { "lessonId": "muscular_force", "title": "Muscular Force", "duration": "10 min" },
+    { "lessonId": "friction_intro", "title": "Friction: A Contact Force", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Contact Force Lab"
+}

@@ -1,0 +1,77 @@
+{
+  "lessonId": "intro",
+  "title": "What Is Burning?",
+  "description": "Welcome to Ember Academy! Lord Cinder has unleashed wild, uncontrolled fire across the land. To relight the safe Guardian Flame, you must first understand what burning really is.",
+  "difficulty": "Chemistry",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Fire Runs Wild"
+    },
+    {
+      "type": "paragraph",
+      "value": "Professor Blaze 🔥 gathers you, Anaya 👧 and Arjun 👦. 'Lord Cinder has set uncontrolled fires everywhere,' she says. 'To tame fire and relight our Guardian Flame, you must master the science of combustion.'"
+    },
+    {
+      "type": "heading",
+      "value": "Combustion: Burning With Oxygen"
+    },
+    {
+      "type": "paragraph",
+      "value": "COMBUSTION is a chemical process in which a substance reacts with OXYGEN to produce HEAT (and usually light). In everyday words, combustion is burning. The substance that burns is called a FUEL."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "FUEL  +  OXYGEN  →  HEAT + LIGHT + products\n\nExample: wood + oxygen → heat + light + ash + gases\nAlways needs OXYGEN (from the air) to burn."
+    },
+    {
+      "type": "heading",
+      "value": "Heat and Sometimes Light"
+    },
+    {
+      "type": "paragraph",
+      "value": "All combustion releases heat. Many types also give out light — a burning candle glows, a bonfire lights up the night. The oxygen needed for burning usually comes from the AIR around us, which is about one-fifth oxygen."
+    },
+    {
+      "type": "tip",
+      "value": "Safety first! Everything in this course about fire is virtual and simulated. Never experiment with real fire, matches or fuels without an adult and proper safety."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Combustion (burning) is a chemical reaction in which a fuel reacts with oxygen to release heat, and usually light. The oxygen comes from the air."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Combustion is a chemical process in which a substance reacts with…",
+      "options": [
+        "water",
+        "oxygen",
+        "sound"
+      ],
+      "answer": 1,
+      "explain": "Combustion is burning — a fuel reacting with oxygen to release heat and usually light."
+    },
+    {
+      "question": "The substance that burns during combustion is called a…",
+      "options": [
+        "fuel",
+        "flame",
+        "spark"
+      ],
+      "answer": 0,
+      "explain": "A fuel is the substance that burns, such as wood, coal or LPG."
+    },
+    {
+      "question": "All combustion reactions release…",
+      "options": [
+        "cold",
+        "heat",
+        "electricity only"
+      ],
+      "answer": 1,
+      "explain": "Combustion always releases heat, and often light as well."
+    }
+  ]
+}

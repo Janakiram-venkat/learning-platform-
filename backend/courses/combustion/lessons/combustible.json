@@ -1,0 +1,77 @@
+{
+  "lessonId": "combustible",
+  "title": "Combustible or Not?",
+  "description": "Spark Bot 🤖 scans the academy for things that can burn. Sort combustible from non-combustible materials to earn the first ember.",
+  "difficulty": "Chemistry",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Some Things Burn, Some Don't"
+    },
+    {
+      "type": "paragraph",
+      "value": "Materials that CAN catch fire and burn are called COMBUSTIBLE. Materials that do NOT catch fire are called NON-COMBUSTIBLE. Knowing which is which is the first step to fire safety."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "COMBUSTIBLE (can burn)     NON-COMBUSTIBLE (cannot burn)\n🪵  wood                    🪨  stone\n📄  paper                   🔩  iron / metal\n⛽  petrol, kerosene        🧱  brick\n🧵  cloth                   🥃  glass"
+    },
+    {
+      "type": "heading",
+      "value": "Inflammable Substances"
+    },
+    {
+      "type": "paragraph",
+      "value": "Some combustible substances catch fire very easily and burn quickly. These are called INFLAMMABLE substances — for example petrol, alcohol, and LPG. They must be stored and handled with great care because even a tiny spark can set them alight."
+    },
+    {
+      "type": "heading",
+      "value": "A Confusing Word"
+    },
+    {
+      "type": "paragraph",
+      "value": "Watch out: 'inflammable' does NOT mean 'cannot burn'! Inflammable means 'catches fire very easily' — the same as flammable. It's a common source of confusion, so remember: inflammable = easily catches fire."
+    },
+    {
+      "type": "tip",
+      "value": "Inflammable = flammable = catches fire EASILY. The 'in-' here does not mean 'not'. Petrol tankers carry big warning signs because petrol is highly inflammable."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Combustible materials can burn; non-combustible ones cannot. Inflammable (flammable) substances like petrol catch fire very easily and must be handled with great care."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A material that can catch fire and burn is called…",
+      "options": [
+        "combustible",
+        "non-combustible",
+        "waterproof"
+      ],
+      "answer": 0,
+      "explain": "Combustible materials, like wood and paper, can catch fire and burn."
+    },
+    {
+      "question": "Which of these is NON-combustible?",
+      "options": [
+        "paper",
+        "iron",
+        "cloth"
+      ],
+      "answer": 1,
+      "explain": "Iron does not catch fire and burn easily, so it is non-combustible. Paper and cloth burn."
+    },
+    {
+      "question": "'Inflammable' substances such as petrol are ones that…",
+      "options": [
+        "cannot burn at all",
+        "catch fire very easily",
+        "only burn underwater"
+      ],
+      "answer": 1,
+      "explain": "Inflammable means catches fire very easily — the 'in-' does NOT mean 'not'."
+    }
+  ]
+}

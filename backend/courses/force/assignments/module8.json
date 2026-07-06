@@ -1,0 +1,11 @@
+{
+  "title": "Grand Force Challenge",
+  "emoji": "🏆",
+  "rounds": [
+    { "type": "concept", "prompt": "Which friction type is the WEAKEST?", "options": ["rolling", "static", "sliding"], "answer": 0, "explain": "Order: static > sliding > rolling. Rolling is weakest." },
+    { "type": "concept", "prompt": "A lubricant like oil is used to…", "options": ["reduce friction", "increase friction"], "answer": 0, "explain": "Oil fills the bumps so surfaces glide, reducing friction." },
+    { "type": "match", "prompt": "Match each chapter idea to its topic.", "pairs": [ { "left": "Force ÷ area", "right": "Pressure" }, { "left": "Like repels, unlike attracts", "right": "Magnetic force" }, { "left": "Streamlined shape", "right": "Reducing drag" } ], "explain": "A recap of the whole Forces chapter!" },
+    { "type": "concept", "prompt": "The friction on an object moving through air or water is called…", "options": ["drag", "gravity"], "answer": 0, "explain": "Fluids exert a frictional force called drag." },
+    { "type": "concept", "prompt": "Ball bearings reduce friction by…", "options": ["replacing sliding with rolling", "adding weight"], "answer": 0, "explain": "Rolling friction is much smaller than sliding friction." }
+  ]
+}

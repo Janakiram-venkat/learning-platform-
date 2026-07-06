@@ -1,0 +1,81 @@
+{
+  "lessonId": "friction_friend_foe",
+  "title": "Friction: Friend & Foe",
+  "description": "Friction helps AND harms. Learn both sides to outsmart the Baron's traps and claim shard 7.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Friction Is a 'Necessary Evil'"
+    },
+    {
+      "type": "paragraph",
+      "value": "Scientists call friction a 'necessary evil'. We NEED it to grip, walk and stop — but it also WASTES energy, wears things out, and makes machines hot. So sometimes we increase it, and sometimes we reduce it."
+    },
+    {
+      "type": "heading",
+      "value": "When Friction Helps"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "FRICTION AS A FRIEND\n🚶  walking without slipping\n✏️  writing (pencil grips the paper)\n🚲  brakes stopping a bicycle\n🔥  striking a matchstick\n🪢  tying knots and gripping tools"
+    },
+    {
+      "type": "heading",
+      "value": "When Friction Harms"
+    },
+    {
+      "type": "paragraph",
+      "value": "Friction also wears down shoe soles, tyres, and machine parts. It heats up engines and wastes fuel, because energy is lost overcoming friction instead of doing useful work. The soles of old shoes go smooth, and machine gears slowly grind away — all because of friction."
+    },
+    {
+      "type": "heading",
+      "value": "Grooves and Treads"
+    },
+    {
+      "type": "paragraph",
+      "value": "Tyres and shoe soles have grooves (treads) to INCREASE friction and grip the road, especially when wet. But over time these grooves wear smooth, reducing grip — which is why worn tyres are dangerous."
+    },
+    {
+      "type": "tip",
+      "value": "The same friction that grips your shoes also wears them out. That's the 'necessary evil' — we can't live without it, but it always costs us something."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Friction is a 'necessary evil' — it helps us walk, write, grip and brake, but it also wears things out, wastes energy and produces heat."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why is friction called a 'necessary evil'?",
+      "options": [
+        "It is always harmful",
+        "We need it to grip and move, but it also wastes energy and wears things out",
+        "It only exists in machines"
+      ],
+      "answer": 1,
+      "explain": "Friction is essential for walking, gripping and braking, yet it also causes wear, heat and wasted energy."
+    },
+    {
+      "question": "Which is an example of friction HELPING us?",
+      "options": [
+        "A bicycle brake stopping the wheel",
+        "An engine overheating",
+        "Shoe soles wearing out"
+      ],
+      "answer": 0,
+      "explain": "Brakes rely on friction to stop a moving wheel — friction being useful."
+    },
+    {
+      "question": "Tyres and shoe soles have grooves (treads) to…",
+      "options": [
+        "reduce friction and slide more",
+        "increase friction for better grip",
+        "look decorative"
+      ],
+      "answer": 1,
+      "explain": "Treads increase friction so tyres and soles grip the road, especially when it is wet."
+    }
+  ]
+}

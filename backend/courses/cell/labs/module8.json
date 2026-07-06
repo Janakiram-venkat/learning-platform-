@@ -1,0 +1,252 @@
+{
+  "labId": "module8",
+  "title": "Final Mission: Rebuild the Cell of Life",
+  "emoji": "🏆",
+  "tagline": "From Cells to You & the Grand Finale",
+  "difficulty": "Biology",
+  "duration": "20–25 min",
+  "badge": "Master of Cells",
+  "objectives": [
+    "Order cells → tissues → organs → organism",
+    "Know new cells come from cells",
+    "Recall every big idea from the chapter"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Lord Necrosis's Last Stand",
+      "xp": 10,
+      "narration": "One piece left. Assemble the levels of life and rebuild the Cell of Life to end the Decay!",
+      "steps": [
+        {
+          "emoji": "👹",
+          "text": "Lord Necrosis: 'Life will crumble to dust!'"
+        },
+        {
+          "emoji": "🧬",
+          "text": "The final piece pulses within the Decay."
+        },
+        {
+          "emoji": "🔬",
+          "text": "Dr. Cyto: 'Finish this, Master of Cells!'"
+        }
+      ],
+      "cta": "Begin the Final Mission"
+    },
+    {
+      "type": "choose",
+      "title": "Levels of Life",
+      "xp": 20,
+      "prompt": "Order these from smallest to largest.",
+      "options": [
+        {
+          "id": "1",
+          "label": "Smallest",
+          "emoji": "🔵"
+        },
+        {
+          "id": "2",
+          "label": "Middle",
+          "emoji": "🟢"
+        },
+        {
+          "id": "3",
+          "label": "Largest",
+          "emoji": "🟣"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "cell",
+          "label": "Cell",
+          "emoji": "🔵",
+          "answer": "1",
+          "explain": "The cell is the basic unit."
+        },
+        {
+          "id": "tissue",
+          "label": "Tissue",
+          "emoji": "🧵",
+          "answer": "2",
+          "explain": "Similar cells form a tissue."
+        },
+        {
+          "id": "organ",
+          "label": "Organ",
+          "emoji": "🫀",
+          "answer": "3",
+          "explain": "Tissues form organs."
+        }
+      ]
+    },
+    {
+      "type": "sort",
+      "title": "Plant Cell or Animal Cell?",
+      "xp": 15,
+      "prompt": "One last sort — place each feature with the right cell.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "plant",
+          "label": "Plant Cell",
+          "emoji": "🌿"
+        },
+        {
+          "id": "animal",
+          "label": "Animal Cell",
+          "emoji": "🐕"
+        }
+      ],
+      "cards": [
+        {
+          "id": "wall",
+          "label": "Has a cell wall",
+          "emoji": "🧱",
+          "column": "plant"
+        },
+        {
+          "id": "chloro",
+          "label": "Has chloroplasts",
+          "emoji": "🍃",
+          "column": "plant"
+        },
+        {
+          "id": "bigvac",
+          "label": "One large vacuole",
+          "emoji": "💧",
+          "column": "plant"
+        },
+        {
+          "id": "round",
+          "label": "Round, irregular shape",
+          "emoji": "⭕",
+          "column": "animal"
+        },
+        {
+          "id": "nowall",
+          "label": "No cell wall",
+          "emoji": "🚫",
+          "column": "animal"
+        },
+        {
+          "id": "smallvac",
+          "label": "Small vacuoles",
+          "emoji": "🫧",
+          "column": "animal"
+        }
+      ],
+      "note": "Plant: wall, chloroplasts, big vacuole. Animal: no wall, round, small vacuoles."
+    },
+    {
+      "type": "quiz",
+      "title": "FINAL BOSS: The Grand Cell Test",
+      "xp": 40,
+      "prompt": "Answer 80% of these questions from the WHOLE chapter to rebuild the Cell of Life and defeat Lord Necrosis!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Who discovered cells?",
+          "options": [
+            "Robert Hooke",
+            "Newton"
+          ],
+          "answer": 0,
+          "explain": "Module 1: Hooke, 1665."
+        },
+        {
+          "q": "An organism of one cell is…",
+          "options": [
+            "unicellular",
+            "multicellular"
+          ],
+          "answer": 0,
+          "explain": "Module 2: one cell = unicellular."
+        },
+        {
+          "q": "The largest single cell is the…",
+          "options": [
+            "ostrich egg",
+            "skin cell"
+          ],
+          "answer": 0,
+          "explain": "Module 3: ostrich egg."
+        },
+        {
+          "q": "The cell's gatekeeper is the…",
+          "options": [
+            "cell membrane",
+            "nucleus"
+          ],
+          "answer": 0,
+          "explain": "Module 4: the membrane."
+        },
+        {
+          "q": "The control centre of the cell is the…",
+          "options": [
+            "nucleus",
+            "vacuole"
+          ],
+          "answer": 0,
+          "explain": "Module 5: the nucleus."
+        },
+        {
+          "q": "The powerhouse of the cell is the…",
+          "options": [
+            "mitochondria",
+            "ribosome"
+          ],
+          "answer": 0,
+          "explain": "Module 6: mitochondria."
+        },
+        {
+          "q": "Chloroplasts are found in…",
+          "options": [
+            "plant cells only",
+            "animal cells only"
+          ],
+          "answer": 0,
+          "explain": "Module 6/7: plant cells only."
+        },
+        {
+          "q": "Similar cells doing one job form a…",
+          "options": [
+            "tissue",
+            "organ"
+          ],
+          "answer": 0,
+          "explain": "Module 8: a tissue."
+        },
+        {
+          "q": "New cells come from…",
+          "options": [
+            "existing cells dividing",
+            "thin air"
+          ],
+          "answer": 0,
+          "explain": "Module 8: cells come from cells."
+        },
+        {
+          "q": "Genes are made of…",
+          "options": [
+            "DNA",
+            "water"
+          ],
+          "answer": 0,
+          "explain": "Module 5: genes are DNA."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "🧬 THE CELL OF LIFE IS REBUILT! 🧬",
+      "xp": 50,
+      "badge": "Master of Cells",
+      "messages": [
+        "🏆 CERTIFICATE: Master of Cells — Science",
+        "🔬 Cell of Life: 8 of 8 pieces restored!",
+        "👹 Lord Necrosis is banished and life blooms again.",
+        "You mastered cells, organelles and the nucleus. Congratulations, Master of Cells!"
+      ]
+    }
+  ]
+}

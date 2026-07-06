@@ -1,0 +1,11 @@
+{
+  "title": "Light Basics Challenge",
+  "emoji": "🔦",
+  "rounds": [
+    { "type": "concept", "prompt": "Which one is a luminous object?", "options": ["A mirror", "A star", "A book"], "answer": 1, "explain": "A star makes its own light. Mirrors and books only reflect light." },
+    { "type": "concept", "prompt": "We see the Moon because it…", "options": ["makes its own light", "reflects sunlight to us", "is very close"], "answer": 1, "explain": "The Moon is non-luminous; it shines by reflecting sunlight." },
+    { "type": "match", "prompt": "Match each material to how it handles light.", "pairs": [ { "left": "Clear glass", "right": "Transparent" }, { "left": "Frosted glass", "right": "Translucent" }, { "left": "Wooden door", "right": "Opaque" } ], "explain": "Transparent = all light through, translucent = some/blurry, opaque = blocked." },
+    { "type": "concept", "prompt": "Shadows prove that light…", "options": ["bends around corners", "travels in straight lines", "is a liquid"], "answer": 1, "explain": "Straight-line light is blocked by opaque objects, forming shadows." },
+    { "type": "concept", "prompt": "Correct order for seeing a book:", "options": ["source → book → eye", "eye → book → source", "book → source → eye"], "answer": 0, "explain": "Light leaves a source, reflects off the book, and enters your eye." }
+  ]
+}

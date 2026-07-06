@@ -1,0 +1,77 @@
+{
+  "lessonId": "fuel_safety",
+  "title": "Using Fuels Safely",
+  "description": "Lord Cinder preys on careless fuel use. Learn to handle fuels safely to earn the final ember before the showdown.",
+  "difficulty": "Chemistry",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Fuels Are Powerful — and Risky"
+    },
+    {
+      "type": "paragraph",
+      "value": "Fuels store a lot of energy, which makes them useful but also potentially dangerous. Handling them safely prevents fires, burns and poisoning. A few simple rules keep everyone safe."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "FUEL SAFETY RULES\n🪟  keep cooking areas well ventilated (fresh air)\n🚫  never leave a flame or stove unattended\n👃  if you smell gas: turn off the supply, open windows, no flames/switches\n🧯  keep a fire extinguisher or sand nearby\n👨‍👩‍👧  children should use fuels only with an adult"
+    },
+    {
+      "type": "heading",
+      "value": "The Danger of Incomplete Burning"
+    },
+    {
+      "type": "paragraph",
+      "value": "If a fuel burns with too LITTLE oxygen, it burns incompletely and produces CARBON MONOXIDE (CO) — a poisonous gas that has no smell and can be deadly. This is why we must never burn coal or run a generator in a closed room. Good ventilation is essential."
+    },
+    {
+      "type": "heading",
+      "value": "Ventilation Saves Lives"
+    },
+    {
+      "type": "paragraph",
+      "value": "Burning any fuel uses up oxygen and can release harmful gases. Keeping the space well-ventilated ensures enough oxygen for complete burning and lets dangerous gases escape. This single habit prevents many accidents."
+    },
+    {
+      "type": "tip",
+      "value": "Carbon monoxide (CO) is called a 'silent killer' because it has no colour or smell. Always burn fuels in a well-ventilated space, and never in a closed room while sleeping."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Fuels must be handled safely — with good ventilation, never left unattended, and away from careless flames. Incomplete burning produces poisonous carbon monoxide, so fresh air is essential."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Burning a fuel with too little oxygen produces the poisonous gas…",
+      "options": [
+        "oxygen",
+        "carbon monoxide (CO)",
+        "water vapour"
+      ],
+      "answer": 1,
+      "explain": "Incomplete burning (too little oxygen) produces poisonous carbon monoxide."
+    },
+    {
+      "question": "Why is good ventilation important when burning fuels?",
+      "options": [
+        "It supplies oxygen for complete burning and lets harmful gases escape",
+        "It makes the fire colder",
+        "It uses more fuel"
+      ],
+      "answer": 0,
+      "explain": "Ventilation provides enough oxygen for complete combustion and removes dangerous gases."
+    },
+    {
+      "question": "Carbon monoxide is especially dangerous because it…",
+      "options": [
+        "has a strong warning smell",
+        "has no colour or smell (a 'silent killer')",
+        "is visible as black smoke"
+      ],
+      "answer": 1,
+      "explain": "CO is colourless and odourless, so you can't detect it — hence 'silent killer'."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Air Pressure Challenge",
+  "emoji": "🌬️",
+  "rounds": [
+    { "type": "concept", "prompt": "Atmospheric pressure exists because…", "options": ["air has weight", "the Earth spins"], "answer": 0, "explain": "The weight of the air above presses on everything." },
+    { "type": "concept", "prompt": "Higher up a mountain, air pressure…", "options": ["decreases", "increases"], "answer": 0, "explain": "Less air above means lower pressure." },
+    { "type": "match", "prompt": "Match each device to how it uses air pressure.", "pairs": [ { "left": "Rubber sucker", "right": "Outside pressure holds it on" }, { "left": "Syringe", "right": "Air pressure pushes liquid in" }, { "left": "Barometer", "right": "Measures air pressure" } ], "explain": "Atmospheric pressure powers suckers, syringes and forecasts." },
+    { "type": "concept", "prompt": "Wind is air moving from…", "options": ["high to low pressure", "low to high pressure"], "answer": 0, "explain": "Air flows from high-pressure to low-pressure regions." },
+    { "type": "concept", "prompt": "We are not crushed by air pressure because…", "options": ["pressure inside our body balances it", "air pressure is fake"], "answer": 0, "explain": "Internal pressure pushes out and balances the outside pressure." }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "lessonId": "organelles",
+  "title": "The Cell's Tiny Organs",
+  "description": "A cell is a bustling factory of tiny machines. Meet the organelles to power up piece 6 of the Cell of Life.",
+  "difficulty": "Biology",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Little Organs With Big Jobs"
+    },
+    {
+      "type": "paragraph",
+      "value": "Floating in the cytoplasm are tiny structures called ORGANELLES — 'little organs'. Just like your body's organs, each organelle does a special job that keeps the cell alive and working."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "ORGANELLE       JOB\n🔋  Mitochondria  release energy — the 'powerhouse'\n💧  Vacuole       store food, water and waste\n🏭  Ribosomes     build proteins for the cell\n🛤️  Endoplasmic reticulum  transport materials\n📦  Golgi body    pack and deliver substances"
+    },
+    {
+      "type": "heading",
+      "value": "The Powerhouse: Mitochondria"
+    },
+    {
+      "type": "paragraph",
+      "value": "The MITOCHONDRIA are called the 'powerhouse of the cell' because they release the ENERGY the cell needs to work, by breaking down food. Without them, the cell would have no power to do its jobs."
+    },
+    {
+      "type": "heading",
+      "value": "The Storage Tank: Vacuole"
+    },
+    {
+      "type": "paragraph",
+      "value": "A VACUOLE is a storage bubble that holds food, water, and waste. In PLANT cells there is usually one LARGE central vacuole that keeps the cell firm and swollen. In ANIMAL cells vacuoles are small and there may be several."
+    },
+    {
+      "type": "tip",
+      "value": "Nickname to remember: mitochondria = 'powerhouse of the cell'. It's a favourite exam question! And plant cells have one big vacuole; animal cells have small ones."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Organelles are the cell's tiny organs. Mitochondria (the 'powerhouse') release energy, vacuoles store food/water/waste, and other organelles build and transport materials."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which organelle is called the 'powerhouse of the cell'?",
+      "options": [
+        "the vacuole",
+        "the mitochondria",
+        "the nucleus"
+      ],
+      "answer": 1,
+      "explain": "Mitochondria release the energy the cell needs, so they are the 'powerhouse'."
+    },
+    {
+      "question": "The main job of a vacuole is to…",
+      "options": [
+        "store food, water and waste",
+        "control the cell",
+        "make the cell green"
+      ],
+      "answer": 0,
+      "explain": "Vacuoles are storage bubbles for food, water and waste."
+    },
+    {
+      "question": "Compared to animal cells, plant cells usually have…",
+      "options": [
+        "one large central vacuole",
+        "no vacuole at all",
+        "hundreds of nuclei"
+      ],
+      "answer": 0,
+      "explain": "Plant cells typically have a single large central vacuole; animal cells have small ones."
+    }
+  ]
+}

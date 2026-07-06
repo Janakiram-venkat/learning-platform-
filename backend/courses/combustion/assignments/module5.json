@@ -1,0 +1,11 @@
+{
+  "title": "Flame Challenge",
+  "emoji": "🕯️",
+  "rounds": [
+    { "type": "concept", "prompt": "A flame is produced only when the burning substance is…", "options": ["a gas (vapour)", "a heavy solid"], "answer": 0, "explain": "Only gases/vapours burn with a flame." },
+    { "type": "match", "prompt": "Match each zone of a candle flame.", "pairs": [ { "left": "Inner zone", "right": "Coolest, dark" }, { "left": "Middle zone", "right": "Bright yellow" }, { "left": "Outer zone", "right": "Hottest, blue" } ], "explain": "Three zones of a flame." },
+    { "type": "concept", "prompt": "The HOTTEST zone of a flame is the…", "options": ["outer blue zone", "dark inner zone"], "answer": 0, "explain": "Complete burning happens there." },
+    { "type": "concept", "prompt": "Coal mostly glows instead of flaming because it…", "options": ["does not produce vapour", "burns too fast"], "answer": 0, "explain": "No vapour means no flame." },
+    { "type": "concept", "prompt": "Goldsmiths melt metals using the flame's…", "options": ["outer zone (hottest)", "inner zone (coolest)"], "answer": 0, "explain": "The outer zone is hottest." }
+  ]
+}

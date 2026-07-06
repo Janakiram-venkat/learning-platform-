@@ -1,0 +1,196 @@
+{
+  "labId": "module1",
+  "title": "Vibration Lab",
+  "emoji": "🔊",
+  "tagline": "Sound Is a Vibration",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Vibration Voyager",
+  "objectives": [
+    "Show that sound comes from vibration",
+    "Find the vibrating part of instruments",
+    "Know stopping vibration stops sound"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "The Great Silence",
+      "xp": 10,
+      "narration": "Baron Mute has silenced the world. Find the secret of sound to reforge the Harmony Bell!",
+      "steps": [
+        {
+          "emoji": "🔕",
+          "text": "Baron Mute steals the Harmony Bell."
+        },
+        {
+          "emoji": "🤫",
+          "text": "All music and voices vanish into silence."
+        },
+        {
+          "emoji": "🎵",
+          "text": "Maestra Sonata: 'Sound begins with vibration!'"
+        }
+      ],
+      "cta": "Enter the Vibration Lab"
+    },
+    {
+      "type": "choose",
+      "title": "What Vibrates to Make the Sound?",
+      "xp": 20,
+      "prompt": "For each instrument, choose the part that actually vibrates.",
+      "options": [
+        {
+          "id": "string",
+          "label": "A string",
+          "emoji": "🎸"
+        },
+        {
+          "id": "air",
+          "label": "Air column",
+          "emoji": "🌬️"
+        },
+        {
+          "id": "skin",
+          "label": "Stretched skin",
+          "emoji": "🥁"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "guitar",
+          "label": "Guitar",
+          "emoji": "🎸",
+          "answer": "string",
+          "explain": "A plucked string vibrates."
+        },
+        {
+          "id": "flute",
+          "label": "Flute",
+          "emoji": "🎶",
+          "answer": "air",
+          "explain": "The air column inside vibrates."
+        },
+        {
+          "id": "drum",
+          "label": "Drum",
+          "emoji": "🥁",
+          "answer": "skin",
+          "explain": "The stretched membrane vibrates."
+        }
+      ]
+    },
+    {
+      "type": "pick",
+      "title": "Which of These Make Sound by Vibrating?",
+      "xp": 15,
+      "prompt": "Tap everything that makes sound by vibrating.",
+      "items": [
+        {
+          "id": "bell",
+          "label": "Ringing Bell",
+          "emoji": "🔔",
+          "isAI": true
+        },
+        {
+          "id": "voice",
+          "label": "Your Voice",
+          "emoji": "🗣️",
+          "isAI": true
+        },
+        {
+          "id": "string",
+          "label": "Plucked String",
+          "emoji": "🎸",
+          "isAI": true
+        },
+        {
+          "id": "speaker",
+          "label": "Speaker Cone",
+          "emoji": "📢",
+          "isAI": true
+        },
+        {
+          "id": "rock",
+          "label": "A Still Rock",
+          "emoji": "🪨",
+          "isAI": false
+        },
+        {
+          "id": "lamp",
+          "label": "A Glowing Lamp",
+          "emoji": "💡",
+          "isAI": false
+        }
+      ],
+      "feedback": {
+        "correct": "Yes! This vibrates to make sound.",
+        "incorrect": "This makes no sound — it isn't vibrating."
+      }
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Wake the Silence",
+      "xp": 30,
+      "prompt": "Score 80% to break the silence and win the first bell fragment!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Sound is produced by…",
+          "options": [
+            "vibration",
+            "light"
+          ],
+          "answer": 0,
+          "explain": "Every sound comes from vibration."
+        },
+        {
+          "q": "If you stop a bell shaking, the sound…",
+          "options": [
+            "stops",
+            "gets louder"
+          ],
+          "answer": 0,
+          "explain": "No vibration, no sound."
+        },
+        {
+          "q": "In a flute, what vibrates?",
+          "options": [
+            "the air inside",
+            "the metal keys"
+          ],
+          "answer": 0,
+          "explain": "The air column vibrates."
+        },
+        {
+          "q": "A vibration is a…",
+          "options": [
+            "rapid back-and-forth motion",
+            "steady glow"
+          ],
+          "answer": 0,
+          "explain": "Vibration = to-and-fro motion."
+        },
+        {
+          "q": "The vibrating part of an instrument is the…",
+          "options": [
+            "source of sound",
+            "echo"
+          ],
+          "answer": 0,
+          "explain": "It is the source of the sound."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Bell Fragment 1 Recovered!",
+      "xp": 20,
+      "badge": "Vibration Voyager",
+      "messages": [
+        "🏅 You earned the Vibration Voyager badge",
+        "🔔 Harmony Bell: 1 of 8 fragments recovered",
+        "A single faint chime returns to the world!"
+      ]
+    }
+  ]
+}

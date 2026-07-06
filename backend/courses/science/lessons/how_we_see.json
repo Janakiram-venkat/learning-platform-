@@ -1,0 +1,78 @@
+{
+  "lessonId": "how_we_see",
+  "title": "How We See Things",
+  "description": "Ray Bot 🤖 powers up a single beam of light. To fight the Shadow Fog you must learn the secret path light takes — and why it always travels in a perfectly straight line.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Journey of Light Into Your Eye"
+    },
+    {
+      "type": "paragraph",
+      "value": "We see a non-luminous object in three steps: (1) light from a luminous source falls on the object, (2) the object reflects some of that light, (3) the reflected light enters our eyes. Remove any step and the object vanishes from view."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "☀️  ──light──▶  🍎  ──reflected light──▶  👁️\nSource          Object                    Eye"
+    },
+    {
+      "type": "heading",
+      "value": "Light Travels in Straight Lines"
+    },
+    {
+      "type": "paragraph",
+      "value": "Light always travels in straight lines. We call these straight paths 'rays'. This is why you cannot see around a corner, and why a torch beam is straight. It is also why shadows form — an opaque object blocks the straight-line path of light, leaving a dark shadow behind it."
+    },
+    {
+      "type": "heading",
+      "value": "Transparent, Translucent, Opaque"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "TRANSPARENT   → lets almost all light through   (clear glass, water)\nTRANSLUCENT   → lets SOME light through, blurry   (frosted glass, tissue)\nOPAQUE        → blocks light, makes a shadow      (wood, metal, you!)"
+    },
+    {
+      "type": "tip",
+      "value": "You can prove light is straight: line up three cards with a hole in each. You only see the candle when all three holes are in a straight line. Bend one card and the light is blocked!"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: We see objects when reflected light reaches our eyes, and light always travels in straight lines — which is why opaque objects cast shadows."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is the correct path of light when you see a book?",
+      "options": [
+        "Eye → book → light source",
+        "Light source → book → eye",
+        "Book → eye → light source"
+      ],
+      "answer": 1,
+      "explain": "Light leaves a source, reflects off the book, and then enters your eye. Your eye does not send out rays to 'find' the book."
+    },
+    {
+      "question": "Shadows form because light…",
+      "options": [
+        "bends around objects",
+        "travels in straight lines and is blocked by opaque objects",
+        "gets tired and stops"
+      ],
+      "answer": 1,
+      "explain": "Because light travels straight, an opaque object blocks it and leaves a dark shadow shaped like the object."
+    },
+    {
+      "question": "Frosted (blurry) glass that lets only some light through is…",
+      "options": [
+        "Transparent",
+        "Translucent",
+        "Opaque"
+      ],
+      "answer": 1,
+      "explain": "Translucent materials let some light pass but scatter it, so you see only blurry shapes through them."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Pressure Challenge",
+  "emoji": "📌",
+  "rounds": [
+    { "type": "concept", "prompt": "Pressure is equal to…", "options": ["force ÷ area", "force × area", "area ÷ force"], "answer": 0, "explain": "Pressure = force divided by area." },
+    { "type": "concept", "prompt": "For the same force, a smaller area gives…", "options": ["more pressure", "less pressure"], "answer": 0, "explain": "Smaller area → higher pressure." },
+    { "type": "match", "prompt": "Match each design to why it works.", "pairs": [ { "left": "Sharp knife", "right": "Small area, high pressure" }, { "left": "Wide skis", "right": "Large area, low pressure" }, { "left": "Camel's feet", "right": "Large area, low pressure" } ], "explain": "Sharp = high pressure; wide = low pressure." },
+    { "type": "concept", "prompt": "The unit of pressure is the…", "options": ["pascal", "newton"], "answer": 0, "explain": "Pressure is measured in pascals (N/m²)." },
+    { "type": "concept", "prompt": "A wide building foundation is used to…", "options": ["lower the pressure on the ground", "raise the pressure"], "answer": 0, "explain": "Large area spreads weight, lowering pressure so it doesn't sink." }
+  ]
+}

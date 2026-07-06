@@ -1,0 +1,77 @@
+{
+  "lessonId": "spontaneous_explosion",
+  "title": "Spontaneous Combustion & Explosions",
+  "description": "Two dramatic kinds of burning power Lord Cinder's traps. Master spontaneous combustion and explosions to grab ember 7.",
+  "difficulty": "Chemistry",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Spontaneous Combustion"
+    },
+    {
+      "type": "paragraph",
+      "value": "In SPONTANEOUS COMBUSTION, a material suddenly bursts into flame ON ITS OWN — without any outside spark or flame. It happens because heat builds up inside the material until it reaches its ignition temperature by itself."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "SPONTANEOUS COMBUSTION\n🌾  heaps of dry hay/coal dust catching fire on their own\n🔥  white phosphorus burning in air at room temperature\n→ no external flame needed; heat builds up internally"
+    },
+    {
+      "type": "heading",
+      "value": "Real Examples"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sometimes coal mines and large heaps of dry grass or hay catch fire spontaneously, because heat builds up inside them until they ignite. White phosphorus is so reactive it undergoes spontaneous combustion in air at ordinary room temperature — which is why it's stored under water."
+    },
+    {
+      "type": "heading",
+      "value": "Explosion"
+    },
+    {
+      "type": "paragraph",
+      "value": "In an EXPLOSION, a substance burns extremely fast, releasing a huge amount of heat, light, sound, and gases ALL AT ONCE. The sudden release of gas creates a powerful pressure wave. Fireworks and crackers are examples of controlled explosions."
+    },
+    {
+      "type": "tip",
+      "value": "The three types in one line: RAPID needs a spark (candle), SPONTANEOUS starts by itself (phosphorus), EXPLOSION is instant with heat, light, sound and gas (crackers)."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: In spontaneous combustion a material catches fire on its own as internal heat builds up (e.g. white phosphorus). In an explosion, a substance burns instantly, releasing heat, light, sound and gases all at once (e.g. fireworks)."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Spontaneous combustion is when a material…",
+      "options": [
+        "catches fire on its own, without an external flame",
+        "is lit by a matchstick",
+        "cannot burn at all"
+      ],
+      "answer": 0,
+      "explain": "In spontaneous combustion, heat builds up internally until the material ignites by itself."
+    },
+    {
+      "question": "White phosphorus is stored under water because it…",
+      "options": [
+        "undergoes spontaneous combustion in air",
+        "dissolves in air",
+        "is a liquid"
+      ],
+      "answer": 0,
+      "explain": "White phosphorus catches fire spontaneously in air at room temperature, so it's kept under water."
+    },
+    {
+      "question": "A firework bursting is an example of…",
+      "options": [
+        "an explosion",
+        "spontaneous combustion",
+        "no combustion"
+      ],
+      "answer": 0,
+      "explain": "An explosion releases heat, light, sound and gases suddenly, all at once."
+    }
+  ]
+}

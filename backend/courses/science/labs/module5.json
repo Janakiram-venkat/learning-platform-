@@ -1,0 +1,180 @@
+{
+  "labId": "module5",
+  "title": "Kaleidoscope Lab",
+  "emoji": "🔭",
+  "tagline": "Multiple Images, Periscopes & Kaleidoscopes",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Prism Pathfinder",
+  "objectives": [
+    "Use the rule (360 ÷ angle) − 1 to count images",
+    "Explain how a periscope sees over walls",
+    "Explain how a kaleidoscope makes patterns"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "The Hall of Clones",
+      "xp": 10,
+      "narration": "Umbra has cloned himself with mirrors. Count the images to find the real villain!",
+      "steps": [
+        {
+          "emoji": "👹",
+          "text": "Dozens of Umbras appear in a hall of angled mirrors."
+        },
+        {
+          "emoji": "💎",
+          "text": "Shard 5 is held by the REAL one."
+        },
+        {
+          "emoji": "🤖",
+          "text": "Ray Bot: 'Count the images to expose him!'"
+        }
+      ],
+      "cta": "Count the Clones"
+    },
+    {
+      "type": "choose",
+      "title": "How Many Images?",
+      "xp": 20,
+      "prompt": "Use (360 ÷ angle) − 1 to pick the number of images for each mirror angle.",
+      "options": [
+        {
+          "id": "3",
+          "label": "3 images",
+          "emoji": "3️⃣"
+        },
+        {
+          "id": "5",
+          "label": "5 images",
+          "emoji": "5️⃣"
+        },
+        {
+          "id": "inf",
+          "label": "Infinite",
+          "emoji": "♾️"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "90",
+          "label": "Mirrors at 90°",
+          "emoji": "📐",
+          "answer": "3",
+          "explain": "360/90 − 1 = 3 images."
+        },
+        {
+          "id": "60",
+          "label": "Mirrors at 60°",
+          "emoji": "📐",
+          "answer": "5",
+          "explain": "360/60 − 1 = 5 images."
+        },
+        {
+          "id": "0",
+          "label": "Mirrors parallel (0°), facing each other",
+          "emoji": "🪞",
+          "answer": "inf",
+          "explain": "Parallel facing mirrors give an infinite tunnel of images."
+        }
+      ]
+    },
+    {
+      "type": "explore",
+      "title": "Inside the Light Tools",
+      "xp": 15,
+      "prompt": "Tap each tool to learn how it uses mirrors. Visit them all!",
+      "locations": [
+        {
+          "id": "periscope",
+          "label": "Periscope",
+          "emoji": "🔭",
+          "info": "Two mirrors at 45° carry light down a tube so you can see over a wall or above water."
+        },
+        {
+          "id": "kaleidoscope",
+          "label": "Kaleidoscope",
+          "emoji": "🌸",
+          "info": "Angled mirror strips reflect coloured beads many times, making symmetrical repeating patterns."
+        },
+        {
+          "id": "submarine",
+          "label": "Submarine",
+          "emoji": "🚢",
+          "info": "A submarine's periscope lets the hidden crew see above the sea's surface."
+        },
+        {
+          "id": "barber",
+          "label": "Barber Shop",
+          "emoji": "💈",
+          "info": "Two parallel facing mirrors create an endless tunnel of your reflection."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Expose the Real Umbra",
+      "xp": 30,
+      "prompt": "Score 80% to count past the clones and grab shard 5!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Two mirrors at 60° form how many images?",
+          "options": [
+            "5",
+            "3"
+          ],
+          "answer": 0,
+          "explain": "(360/60) − 1 = 5 images."
+        },
+        {
+          "q": "As the mirror angle gets smaller, the number of images…",
+          "options": [
+            "increases",
+            "decreases"
+          ],
+          "answer": 0,
+          "explain": "Smaller angle = more reflections = more images."
+        },
+        {
+          "q": "A periscope uses…",
+          "options": [
+            "two mirrors at 45°",
+            "one glowing lens"
+          ],
+          "answer": 0,
+          "explain": "Two 45° mirrors reflect light around the bend of the tube."
+        },
+        {
+          "q": "A kaleidoscope's patterns come from…",
+          "options": [
+            "multiple images in angled mirrors",
+            "coloured bulbs"
+          ],
+          "answer": 0,
+          "explain": "Angled mirrors multiply the beads into repeating symmetrical patterns."
+        },
+        {
+          "q": "Parallel facing mirrors produce…",
+          "options": [
+            "an infinite tunnel of images",
+            "exactly two images"
+          ],
+          "answer": 0,
+          "explain": "Light bounces back and forth endlessly, making infinite images."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Crystal Shard 5 Recovered!",
+      "xp": 20,
+      "badge": "Prism Pathfinder",
+      "messages": [
+        "🏅 You earned the Prism Pathfinder badge",
+        "💎 Rainbow Crystal: 5 of 8 shards restored",
+        "You counted the clones and unmasked the real Umbra!"
+      ]
+    }
+  ]
+}

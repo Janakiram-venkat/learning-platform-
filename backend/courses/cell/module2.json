@@ -1,0 +1,10 @@
+{
+  "moduleId": 2,
+  "title": "The Basic Unit of Life",
+  "lessons": [
+    { "lessonId": "building_blocks", "title": "Life's Building Blocks", "duration": "11 min" },
+    { "lessonId": "unicellular_multicellular", "title": "One Cell or Many", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Building Blocks Lab"
+}

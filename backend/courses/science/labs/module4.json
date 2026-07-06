@@ -1,0 +1,204 @@
+{
+  "labId": "module4",
+  "title": "Mirror Lab",
+  "emoji": "🪞",
+  "tagline": "Plane Mirrors & Lateral Inversion",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Mirror Mage",
+  "objectives": [
+    "List the properties of a plane mirror image",
+    "Understand virtual, erect and same-size images",
+    "Explain and use lateral inversion"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "The Mirror Room",
+      "xp": 10,
+      "narration": "Reach for shard 4 and you may grab only its image. Learn the mirror's rules, Mirror Mage!",
+      "steps": [
+        {
+          "emoji": "💎",
+          "text": "Shard 4 shimmers inside a room of plane mirrors."
+        },
+        {
+          "emoji": "👹",
+          "text": "Umbra scrawls a reversed secret word on the wall."
+        },
+        {
+          "emoji": "👦",
+          "text": "Arjun: 'It only reads right in a mirror!'"
+        }
+      ],
+      "cta": "Enter the Mirror Room"
+    },
+    {
+      "type": "choose",
+      "title": "True or False: Plane Mirror Image",
+      "xp": 20,
+      "prompt": "Decide whether each statement about a plane mirror image is true or false.",
+      "options": [
+        {
+          "id": "true",
+          "label": "True",
+          "emoji": "✅"
+        },
+        {
+          "id": "false",
+          "label": "False",
+          "emoji": "❌"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "size",
+          "label": "The image is the same size as the object",
+          "emoji": "📏",
+          "answer": "true",
+          "explain": "A plane mirror image is always the same size."
+        },
+        {
+          "id": "distance",
+          "label": "The image is closer to the mirror than the object",
+          "emoji": "📐",
+          "answer": "false",
+          "explain": "It is the SAME distance behind the mirror as the object is in front."
+        },
+        {
+          "id": "virtual",
+          "label": "The image can be caught on a screen",
+          "emoji": "🖥️",
+          "answer": "false",
+          "explain": "It is virtual — it cannot be formed on a screen."
+        },
+        {
+          "id": "erect",
+          "label": "The image is upright (erect)",
+          "emoji": "🧍",
+          "answer": "true",
+          "explain": "A plane mirror gives an erect, upright image."
+        }
+      ]
+    },
+    {
+      "type": "pick",
+      "title": "Which Letters Look the SAME in a Mirror?",
+      "xp": 15,
+      "prompt": "Tap the capital letters that look UNCHANGED in a plane mirror.",
+      "items": [
+        {
+          "id": "A",
+          "label": "A",
+          "emoji": "🅰️",
+          "isAI": true
+        },
+        {
+          "id": "H",
+          "label": "H",
+          "emoji": "🔠",
+          "isAI": true
+        },
+        {
+          "id": "M",
+          "label": "M",
+          "emoji": "🔡",
+          "isAI": true
+        },
+        {
+          "id": "T",
+          "label": "T",
+          "emoji": "🔤",
+          "isAI": true
+        },
+        {
+          "id": "B",
+          "label": "B",
+          "emoji": "🅱️",
+          "isAI": false
+        },
+        {
+          "id": "R",
+          "label": "R",
+          "emoji": "®️",
+          "isAI": false
+        },
+        {
+          "id": "P",
+          "label": "P",
+          "emoji": "🅿️",
+          "isAI": false
+        }
+      ],
+      "feedback": {
+        "correct": "Yes! This letter is symmetrical left-to-right, so the mirror doesn't change it.",
+        "incorrect": "This letter gets laterally inverted — it looks reversed in a mirror."
+      }
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Read Umbra's Secret",
+      "xp": 30,
+      "prompt": "Score 80% to decode the reversed message and seize shard 4!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "A plane mirror image is best described as…",
+          "options": [
+            "virtual, erect, same size",
+            "real, upside down, larger"
+          ],
+          "answer": 0,
+          "explain": "Plane mirror images are virtual, erect and the same size."
+        },
+        {
+          "q": "You stand 3 m from a mirror. Your image is…",
+          "options": [
+            "3 m behind it",
+            "1.5 m behind it"
+          ],
+          "answer": 0,
+          "explain": "The image is as far behind the mirror as you are in front — 3 m."
+        },
+        {
+          "q": "Lateral inversion swaps…",
+          "options": [
+            "left and right",
+            "top and bottom"
+          ],
+          "answer": 0,
+          "explain": "A plane mirror flips left and right, not top and bottom."
+        },
+        {
+          "q": "'AMBULANCE' is written reversed on the vehicle so that…",
+          "options": [
+            "drivers ahead read it correctly in their mirror",
+            "it looks decorative"
+          ],
+          "answer": 0,
+          "explain": "The rear-view mirror flips it back to normal for drivers ahead."
+        },
+        {
+          "q": "How far does your image move if you step 1 m toward the mirror?",
+          "options": [
+            "1 m closer too",
+            "it does not move"
+          ],
+          "answer": 0,
+          "explain": "The image always mirrors your distance, so it steps 1 m closer as well."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Crystal Shard 4 Recovered!",
+      "xp": 20,
+      "badge": "Mirror Mage",
+      "messages": [
+        "🏅 You earned the Mirror Mage badge",
+        "💎 Rainbow Crystal: 4 of 8 shards restored — halfway!",
+        "You read Umbra's reversed plan and outsmarted him."
+      ]
+    }
+  ]
+}

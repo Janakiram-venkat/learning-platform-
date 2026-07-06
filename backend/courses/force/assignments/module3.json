@@ -1,0 +1,11 @@
+{
+  "title": "Invisible Force Challenge",
+  "emoji": "🧲",
+  "rounds": [
+    { "type": "concept", "prompt": "A non-contact force can act…", "options": ["without touching", "only when touching"], "answer": 0, "explain": "Non-contact forces act across a gap." },
+    { "type": "match", "prompt": "Match each example to its non-contact force.", "pairs": [ { "left": "Apple falling", "right": "Gravity" }, { "left": "Pin jumping to a magnet", "right": "Magnetic" }, { "left": "Comb lifting paper", "right": "Electrostatic" } ], "explain": "The three non-contact forces: gravity, magnetic, electrostatic." },
+    { "type": "concept", "prompt": "Two north poles brought together will…", "options": ["repel", "attract"], "answer": 0, "explain": "Like poles repel." },
+    { "type": "concept", "prompt": "Weight is…", "options": ["the pull of gravity on an object", "the amount of matter"], "answer": 0, "explain": "Weight is the gravitational force; mass is the matter." },
+    { "type": "concept", "prompt": "On the Moon, your mass…", "options": ["stays the same", "becomes one-sixth"], "answer": 0, "explain": "Mass is unchanged; only weight drops to about 1/6." }
+  ]
+}

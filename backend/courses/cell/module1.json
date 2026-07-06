@@ -1,0 +1,10 @@
+{
+  "moduleId": 1,
+  "title": "Discovering the Cell",
+  "lessons": [
+    { "lessonId": "intro", "title": "The Discovery of Cells", "duration": "10 min" },
+    { "lessonId": "microscope", "title": "The Microscope", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Microscope Lab"
+}

@@ -1,0 +1,73 @@
+{
+  "lessonId": "intro",
+  "title": "What Is Light?",
+  "description": "Welcome to Lumina Academy! Lord Umbra has shattered the Rainbow Crystal and drowned the world in Shadow Fog. To restore it, you must first master the most powerful thing in the universe — light.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A World Without Light"
+    },
+    {
+      "type": "paragraph",
+      "value": "Professor Prism 🌈 gathers you, Anaya 👧 and Arjun 👦 in the darkened hall. 'Lord Umbra has stolen the light,' she says. 'Without it, we cannot see anything at all. Your first mission: understand what light really is.'"
+    },
+    {
+      "type": "paragraph",
+      "value": "Light is a form of energy that lets us see. When light enters our eyes, our brain turns it into the images we call 'seeing'. In complete darkness — with no light at all — even the sharpest eyes see nothing."
+    },
+    {
+      "type": "heading",
+      "value": "Luminous vs Non-Luminous"
+    },
+    {
+      "type": "paragraph",
+      "value": "Objects that give out their own light are called LUMINOUS objects. Objects that do NOT make their own light are called NON-LUMINOUS objects — we only see them because light from somewhere else bounces off them into our eyes."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "LUMINOUS (make light)      NON-LUMINOUS (borrow light)\n☀️  The Sun                🌙  The Moon\n🔥  A flame                📕  A book\n💡  A glowing bulb         🪑  A chair\n⭐  Stars                  🍎  An apple"
+    },
+    {
+      "type": "tip",
+      "value": "The Moon looks bright but it is NON-luminous! It does not make light — it only reflects sunlight to us. A common exam trap!"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Light is energy that lets us see. Luminous objects make their own light; non-luminous objects only reflect light from a luminous source."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which of these is a LUMINOUS object?",
+      "options": [
+        "The Moon",
+        "A burning candle flame",
+        "A mirror"
+      ],
+      "answer": 1,
+      "explain": "A candle flame makes its own light, so it is luminous. The Moon and a mirror only reflect light that falls on them."
+    },
+    {
+      "question": "Why can we NOT see objects in a completely dark room?",
+      "options": [
+        "Our eyes stop working in the dark",
+        "There is no light to bounce off objects into our eyes",
+        "All objects disappear in the dark"
+      ],
+      "answer": 1,
+      "explain": "Seeing needs light. With no light entering our eyes, non-luminous objects are invisible even though they are still there."
+    },
+    {
+      "question": "The Moon is best described as…",
+      "options": [
+        "Luminous, because it glows at night",
+        "Non-luminous, because it reflects the Sun's light",
+        "Neither luminous nor non-luminous"
+      ],
+      "answer": 1,
+      "explain": "The Moon makes no light of its own. It shines only by reflecting sunlight, so it is non-luminous."
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "labId": "module3",
+  "title": "Fire Control Lab",
+  "emoji": "🧯",
+  "tagline": "Controlling Fire",
+  "difficulty": "Chemistry",
+  "duration": "15–20 min",
+  "badge": "Fire Fighter",
+  "objectives": [
+    "Explain the three ways to stop a fire",
+    "Choose the right extinguisher",
+    "Know when NOT to use water"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Fight the Wildfire",
+      "xp": 10,
+      "narration": "Now use the fire triangle against Cinder! Put out his fires the right way to free ember 3.",
+      "steps": [
+        {
+          "emoji": "🔥",
+          "text": "Cinder's fires rage across the academy."
+        },
+        {
+          "emoji": "🧯",
+          "text": "Professor Blaze hands you the extinguishers."
+        },
+        {
+          "emoji": "🤖",
+          "text": "Spark Bot: 'Pick the right one for each fire!'"
+        }
+      ],
+      "cta": "Enter the Fire Control Lab"
+    },
+    {
+      "type": "choose",
+      "title": "Which Extinguisher?",
+      "xp": 20,
+      "prompt": "Choose the safest way to put out each fire.",
+      "options": [
+        {
+          "id": "water",
+          "label": "Water",
+          "emoji": "💧"
+        },
+        {
+          "id": "co2",
+          "label": "CO₂ / cut off air",
+          "emoji": "🧯"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "paper",
+          "label": "Burning paper and wood",
+          "emoji": "📄",
+          "answer": "water",
+          "explain": "Water cools wood/paper fires."
+        },
+        {
+          "id": "electric",
+          "label": "An electrical fire",
+          "emoji": "🔌",
+          "answer": "co2",
+          "explain": "Never water on electrical fires — use CO₂."
+        },
+        {
+          "id": "oil",
+          "label": "An oil / petrol fire",
+          "emoji": "🛢️",
+          "answer": "co2",
+          "explain": "Oil floats on water; use CO₂ to smother it."
+        }
+      ]
+    },
+    {
+      "type": "sort",
+      "title": "How Does Each Method Stop Fire?",
+      "xp": 15,
+      "prompt": "Sort each action by which side of the fire triangle it removes.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "oxygen",
+          "label": "Cuts off Oxygen",
+          "emoji": "🌬️"
+        },
+        {
+          "id": "heat",
+          "label": "Removes Heat",
+          "emoji": "❄️"
+        }
+      ],
+      "cards": [
+        {
+          "id": "blanket",
+          "label": "Smothering with a blanket",
+          "emoji": "🧣",
+          "column": "oxygen"
+        },
+        {
+          "id": "sand",
+          "label": "Throwing sand over it",
+          "emoji": "🏖️",
+          "column": "oxygen"
+        },
+        {
+          "id": "co2",
+          "label": "CO₂ blanketing the flames",
+          "emoji": "🧯",
+          "column": "oxygen"
+        },
+        {
+          "id": "water",
+          "label": "Pouring water to cool it",
+          "emoji": "💧",
+          "column": "heat"
+        },
+        {
+          "id": "cool",
+          "label": "Cooling below ignition temp",
+          "emoji": "🌡️",
+          "column": "heat"
+        }
+      ],
+      "note": "Remove any side of the fire triangle — fuel, oxygen or heat — to stop a fire."
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Extinguish the Blaze",
+      "xp": 30,
+      "prompt": "Score 80% to put out Cinder's fire and relight ember 3!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Water puts out fire mainly by…",
+          "options": [
+            "cooling below ignition temperature",
+            "adding fuel"
+          ],
+          "answer": 0,
+          "explain": "Water cools the fuel."
+        },
+        {
+          "q": "You should NOT use water on…",
+          "options": [
+            "electrical and oil fires",
+            "burning paper"
+          ],
+          "answer": 0,
+          "explain": "Water is dangerous on those fires."
+        },
+        {
+          "q": "CO₂ works by…",
+          "options": [
+            "cutting off oxygen",
+            "adding oxygen"
+          ],
+          "answer": 0,
+          "explain": "It blankets the fire, removing oxygen."
+        },
+        {
+          "q": "A blanket puts out fire by…",
+          "options": [
+            "cutting off oxygen",
+            "adding heat"
+          ],
+          "answer": 0,
+          "explain": "It smothers the flames."
+        },
+        {
+          "q": "To stop a fire you must remove…",
+          "options": [
+            "at least one side of the triangle",
+            "all fuel in the world"
+          ],
+          "answer": 0,
+          "explain": "Removing one condition stops it."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Guardian Flame: Ember 3 Lit!",
+      "xp": 20,
+      "badge": "Fire Fighter",
+      "messages": [
+        "🏅 You earned the Fire Fighter badge",
+        "🔥 Guardian Flame: 3 of 8 embers relit",
+        "You extinguished the wildfire and saved the ember!"
+      ]
+    }
+  ]
+}

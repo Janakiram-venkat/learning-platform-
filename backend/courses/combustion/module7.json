@@ -1,0 +1,10 @@
+{
+  "moduleId": 7,
+  "title": "Fuels Around Us",
+  "lessons": [
+    { "lessonId": "fuel_types", "title": "Solid, Liquid & Gas Fuels", "duration": "11 min" },
+    { "lessonId": "fuel_safety", "title": "Using Fuels Safely", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Fuel Explorer Lab"
+}

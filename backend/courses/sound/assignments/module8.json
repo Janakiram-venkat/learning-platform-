@@ -1,0 +1,11 @@
+{
+  "title": "Grand Sound Challenge",
+  "emoji": "🏆",
+  "rounds": [
+    { "type": "concept", "prompt": "Music differs from noise because music has…", "options": ["regular, pleasant vibrations", "irregular harsh vibrations"], "answer": 0, "explain": "Music = regular vibrations; noise = irregular." },
+    { "type": "concept", "prompt": "Noise pollution means…", "options": ["excessive unwanted sound", "pleasant background music"], "answer": 0, "explain": "Too much unwanted sound harms living things." },
+    { "type": "match", "prompt": "Match each chapter idea to its topic.", "pairs": [ { "left": "Needs a medium", "right": "How sound travels" }, { "left": "Amplitude", "right": "Loudness" }, { "left": "20–20,000 Hz", "right": "Hearing range" } ], "explain": "A recap of the whole Sound chapter!" },
+    { "type": "concept", "prompt": "Planting trees along roads helps because trees…", "options": ["absorb sound", "make more noise"], "answer": 0, "explain": "Trees absorb sound, reducing noise pollution." },
+    { "type": "concept", "prompt": "A harmful effect of long-term noise pollution is…", "options": ["hearing loss and stress", "better sleep"], "answer": 0, "explain": "Loud noise causes stress and hearing damage." }
+  ]
+}

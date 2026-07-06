@@ -1,0 +1,192 @@
+{
+  "labId": "module7",
+  "title": "Eye Explorer Lab",
+  "emoji": "👁️",
+  "tagline": "The Amazing Human Eye",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Vision Voyager",
+  "objectives": [
+    "Name the main parts of the eye and their jobs",
+    "Trace how the eye forms an image",
+    "Explain the iris, retina and blind spot"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Journey Into the Eye",
+      "xp": 10,
+      "narration": "Shrink down and explore the greatest light-detector ever made — your own eye!",
+      "steps": [
+        {
+          "emoji": "💎",
+          "text": "Shard 7 rests inside a giant model eye."
+        },
+        {
+          "emoji": "🤖",
+          "text": "Ray Bot shrinks you down to explore it."
+        },
+        {
+          "emoji": "👁️",
+          "text": "A beam of light enters the cornea beside you…"
+        }
+      ],
+      "cta": "Enter the Eye"
+    },
+    {
+      "type": "explore",
+      "title": "Meet the Parts of the Eye",
+      "xp": 15,
+      "prompt": "Tap each part to learn its job. Visit them all!",
+      "locations": [
+        {
+          "id": "cornea",
+          "label": "Cornea",
+          "emoji": "🪟",
+          "info": "The clear front window where light first enters the eye."
+        },
+        {
+          "id": "iris",
+          "label": "Iris",
+          "emoji": "🎨",
+          "info": "The coloured ring that changes the pupil's size to control light."
+        },
+        {
+          "id": "pupil",
+          "label": "Pupil",
+          "emoji": "⚫",
+          "info": "The black opening that lets light pass into the eye."
+        },
+        {
+          "id": "lens",
+          "label": "Lens",
+          "emoji": "🔎",
+          "info": "Focuses the light to form a sharp image on the retina."
+        },
+        {
+          "id": "retina",
+          "label": "Retina",
+          "emoji": "🎞️",
+          "info": "The light-sensitive screen at the back where the image forms."
+        },
+        {
+          "id": "nerve",
+          "label": "Optic Nerve",
+          "emoji": "🔌",
+          "info": "Carries the picture signal from the retina to the brain."
+        }
+      ]
+    },
+    {
+      "type": "choose",
+      "title": "Which Part Does the Job?",
+      "xp": 20,
+      "prompt": "Match each job to the correct part of the eye.",
+      "options": [
+        {
+          "id": "iris",
+          "label": "Iris",
+          "emoji": "🎨"
+        },
+        {
+          "id": "lens",
+          "label": "Lens",
+          "emoji": "🔎"
+        },
+        {
+          "id": "retina",
+          "label": "Retina",
+          "emoji": "🎞️"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "control",
+          "label": "Controls how much light enters",
+          "emoji": "🌗",
+          "answer": "iris",
+          "explain": "The iris changes the pupil size to control light."
+        },
+        {
+          "id": "focus",
+          "label": "Focuses light to a sharp image",
+          "emoji": "🎯",
+          "answer": "lens",
+          "explain": "The lens focuses light onto the retina."
+        },
+        {
+          "id": "screen",
+          "label": "The screen where the image forms",
+          "emoji": "🖼️",
+          "answer": "retina",
+          "explain": "The image forms on the retina, then travels to the brain."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Focus the Light",
+      "xp": 30,
+      "prompt": "Score 80% to focus a perfect image and claim shard 7!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "The image on the retina is…",
+          "options": [
+            "upside down, then fixed by the brain",
+            "always upright"
+          ],
+          "answer": 0,
+          "explain": "The lens forms an inverted image; the brain flips it upright."
+        },
+        {
+          "q": "In bright light the pupil…",
+          "options": [
+            "gets smaller",
+            "gets larger"
+          ],
+          "answer": 0,
+          "explain": "The iris shrinks the pupil to let in less light when it's bright."
+        },
+        {
+          "q": "The blind spot has…",
+          "options": [
+            "no light-sensitive cells",
+            "the most colour cells"
+          ],
+          "answer": 0,
+          "explain": "Where the optic nerve leaves, there are no light cells, so no image forms."
+        },
+        {
+          "q": "Colour is detected by which cells?",
+          "options": [
+            "Cones",
+            "Rods"
+          ],
+          "answer": 0,
+          "explain": "Cones detect colour in bright light; rods work in dim light."
+        },
+        {
+          "q": "Persistence of vision lets us enjoy…",
+          "options": [
+            "movies and cartoons",
+            "brighter sunlight"
+          ],
+          "answer": 0,
+          "explain": "The retina holds each frame briefly, so rapid stills look like motion."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Crystal Shard 7 Recovered!",
+      "xp": 20,
+      "badge": "Vision Voyager",
+      "messages": [
+        "🏅 You earned the Vision Voyager badge",
+        "💎 Rainbow Crystal: 7 of 8 shards restored",
+        "One shard left — Umbra makes his final stand!"
+      ]
+    }
+  ]
+}

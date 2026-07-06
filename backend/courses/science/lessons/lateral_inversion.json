@@ -1,0 +1,77 @@
+{
+  "lessonId": "lateral_inversion",
+  "title": "The Left-Right Flip",
+  "description": "Umbra scrawls a secret word that only reads correctly in a mirror. Crack lateral inversion to read his plan and grab the shard.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why Your Right Hand Looks Like a Left Hand"
+    },
+    {
+      "type": "paragraph",
+      "value": "In a plane mirror, left and right appear swapped. This left-to-right flip is called LATERAL INVERSION. Raise your right hand and your mirror image raises what looks like its left hand."
+    },
+    {
+      "type": "heading",
+      "value": "The Ambulance Trick"
+    },
+    {
+      "type": "paragraph",
+      "value": "The word AMBULANCE is often written reversed on the front of the vehicle. Why? So a driver ahead sees it the RIGHT way round in their rear-view mirror and quickly moves aside."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Written on ambulance:   ƎƆNA˩UᗺMA\nSeen in your mirror:    AMBULANCE   ✅ readable!"
+    },
+    {
+      "type": "heading",
+      "value": "Letters That Trick You"
+    },
+    {
+      "type": "paragraph",
+      "value": "Some capital letters look the SAME in a mirror because they are symmetrical left-to-right: A, H, I, M, O, T, U, V, W, X, Y. Letters like B, P, R, S and words like 'LIGHT' get flipped and look reversed."
+    },
+    {
+      "type": "tip",
+      "value": "Top and bottom are NOT swapped in a plane mirror — only left and right. Your image is still the right way up, just laterally inverted."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Lateral inversion is the left-right swap seen in a plane mirror. It flips most letters and words, which is why 'AMBULANCE' is written reversed on rescue vehicles."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Lateral inversion means a plane mirror swaps…",
+      "options": [
+        "top and bottom",
+        "left and right",
+        "near and far"
+      ],
+      "answer": 1,
+      "explain": "A plane mirror flips left and right (lateral inversion). Top and bottom stay the same."
+    },
+    {
+      "question": "Why is 'AMBULANCE' written reversed on the front of the vehicle?",
+      "options": [
+        "To look stylish",
+        "So drivers ahead read it correctly in their rear-view mirror",
+        "Because the paint dries backwards"
+      ],
+      "answer": 1,
+      "explain": "The rear-view mirror laterally inverts the reversed word back to normal, so drivers ahead can read 'AMBULANCE' instantly."
+    },
+    {
+      "question": "Which capital letter looks the SAME in a plane mirror?",
+      "options": [
+        "R",
+        "B",
+        "A"
+      ],
+      "answer": 2,
+      "explain": "'A' is symmetrical left-to-right, so it is unchanged. 'R' and 'B' look reversed."
+    }
+  ]
+}

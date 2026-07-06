@@ -1,0 +1,11 @@
+{
+  "title": "Plant vs Animal Challenge",
+  "emoji": "🌿",
+  "rounds": [
+    { "type": "concept", "prompt": "Which is found in plant cells but NOT animal cells?", "options": ["chloroplasts", "nucleus"], "answer": 0, "explain": "Chloroplasts and cell walls are plant-only." },
+    { "type": "match", "prompt": "Match each feature to where it is found.", "pairs": [ { "left": "Cell wall", "right": "Plant only" }, { "left": "Cell membrane", "right": "Both cells" }, { "left": "Large vacuole", "right": "Plant cells" } ], "explain": "Plant-only vs shared features." },
+    { "type": "concept", "prompt": "Animal cells are usually…", "options": ["round or irregular", "boxy and regular"], "answer": 0, "explain": "No rigid wall, so round/irregular." },
+    { "type": "concept", "prompt": "Both plant and animal cells have a…", "options": ["nucleus", "cell wall"], "answer": 0, "explain": "Both share membrane, cytoplasm and nucleus." },
+    { "type": "concept", "prompt": "A boxy, rigid shape suggests a…", "options": ["plant cell", "animal cell"], "answer": 0, "explain": "The cell wall gives plant cells a fixed shape." }
+  ]
+}

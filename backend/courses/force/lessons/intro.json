@@ -1,0 +1,81 @@
+{
+  "lessonId": "intro",
+  "title": "Pushes & Pulls",
+  "description": "Welcome to Kinetos Academy! Baron Standstill has drained the Momentum Core and frozen the world's motion. To restart it, you must first master the thing that makes everything move — force.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Day Motion Stopped"
+    },
+    {
+      "type": "paragraph",
+      "value": "Professor Mass ⚖️ gathers you, Anaya 👧 and Arjun 👦. 'Baron Standstill has frozen every push and pull on Earth,' she warns. 'Balls won't roll, doors won't open. Your first mission: understand what a force really is.'"
+    },
+    {
+      "type": "paragraph",
+      "value": "A FORCE is simply a push or a pull. Every time you open a door, kick a ball, or lift a bag, you apply a force. Nothing starts moving, stops, or changes on its own — a force is always behind it."
+    },
+    {
+      "type": "heading",
+      "value": "Forces Come From Interactions"
+    },
+    {
+      "type": "paragraph",
+      "value": "A force appears only when two objects interact. You push a trolley (you interact with it), a magnet pulls a pin, the Earth pulls a falling apple. No interaction, no force."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "PUSH (force away)        PULL (force toward)\n🚪  pushing a door        🧲  magnet pulling a pin\n⚽  kicking a ball         🎣  reeling in a fishing line\n🛒  pushing a trolley      🪢  tug-of-war rope"
+    },
+    {
+      "type": "heading",
+      "value": "Net Force: Adding Pushes and Pulls"
+    },
+    {
+      "type": "paragraph",
+      "value": "When two forces act in the SAME direction, they add up. When they act in OPPOSITE directions, we take the difference. In tug-of-war, the team that pulls harder wins because the NET (overall) force is in their direction. If both teams pull equally, the net force is zero and the rope doesn't move — the forces are balanced."
+    },
+    {
+      "type": "tip",
+      "value": "Balanced forces (equal and opposite) cancel out — no change in motion. Unbalanced forces do not cancel — they change how an object moves."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: A force is a push or a pull that arises from an interaction between two objects. Forces in the same direction add; opposite forces subtract, giving a net force."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A force is best described as…",
+      "options": [
+        "a type of energy stored in objects",
+        "a push or a pull",
+        "the speed of an object"
+      ],
+      "answer": 1,
+      "explain": "A force is simply a push or a pull that acts on an object."
+    },
+    {
+      "question": "In a tug-of-war, the rope does NOT move when…",
+      "options": [
+        "one team is much stronger",
+        "both teams pull with equal force (balanced forces)",
+        "nobody is holding the rope"
+      ],
+      "answer": 1,
+      "explain": "Equal and opposite pulls are balanced forces — they cancel out, so the net force is zero and the rope stays still."
+    },
+    {
+      "question": "Two forces act on a box in the SAME direction. The net force is…",
+      "options": [
+        "the two forces added together",
+        "always zero",
+        "the smaller of the two"
+      ],
+      "answer": 0,
+      "explain": "Forces in the same direction add up to give a larger net force."
+    }
+  ]
+}

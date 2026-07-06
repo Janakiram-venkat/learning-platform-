@@ -1,0 +1,73 @@
+{
+  "lessonId": "friction_intro",
+  "title": "Friction: A Contact Force",
+  "description": "Baron Standstill greases the floor so nothing grips. Meet friction — the hidden contact force that lets us walk, hold and stop.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Force That Opposes Motion"
+    },
+    {
+      "type": "paragraph",
+      "value": "When one surface moves (or tries to move) over another, a force acts to oppose that motion. This is FRICTION. It always acts in the direction OPPOSITE to the movement, and it needs the two surfaces to be in contact — so friction is a contact force."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "push a book →→→   🚚\nfriction    ←←←        (acts backward, opposing the push)\n\nThe book slows and stops because friction opposes its motion."
+    },
+    {
+      "type": "heading",
+      "value": "Where Friction Comes From"
+    },
+    {
+      "type": "paragraph",
+      "value": "No surface is perfectly smooth. Even a polished table has tiny bumps and dips you can't see. When two surfaces touch, these bumps interlock. To slide one surface over the other, you must push past all these bumps — and that resistance is friction."
+    },
+    {
+      "type": "paragraph",
+      "value": "Rougher surfaces have bigger bumps, so they grip more and produce MORE friction. Smoother surfaces produce LESS friction. That's why it's hard to slide a box on a carpet but easy on ice."
+    },
+    {
+      "type": "tip",
+      "value": "Friction also depends on how hard the surfaces are pressed together. A heavier object presses down harder, so it experiences more friction than a light one on the same surface."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Friction is a contact force that opposes motion between two touching surfaces. It comes from tiny bumps interlocking, and it is greater for rougher surfaces and heavier objects."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Friction always acts…",
+      "options": [
+        "in the same direction as motion",
+        "opposite to the direction of motion",
+        "straight upward"
+      ],
+      "answer": 1,
+      "explain": "Friction opposes motion, so it acts opposite to the direction the object moves or tries to move."
+    },
+    {
+      "question": "Friction is caused mainly by…",
+      "options": [
+        "tiny bumps on surfaces interlocking",
+        "magnets inside objects",
+        "gravity pulling down"
+      ],
+      "answer": 0,
+      "explain": "The irregularities (tiny bumps) on both surfaces catch on each other, producing friction."
+    },
+    {
+      "question": "Which produces the MOST friction?",
+      "options": [
+        "A box on smooth ice",
+        "A box on a rough carpet",
+        "A box floating in air"
+      ],
+      "answer": 1,
+      "explain": "A rough surface like carpet has bigger irregularities, so it produces more friction than smooth ice."
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "lessonId": "intro",
+  "title": "The Discovery of Cells",
+  "description": "Welcome to Micro Academy! Lord Necrosis is dissolving all living things into lifeless goo. To rebuild the Cell of Life, you must first discover the tiny building block of every living thing — the cell.",
+  "difficulty": "Biology",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Decay Begins"
+    },
+    {
+      "type": "paragraph",
+      "value": "Dr. Cyto 🔬 gathers you, Anaya 👧 and Arjun 👦. 'Lord Necrosis is breaking every living thing down to its smallest parts,' she warns. 'To fight back, you must understand life's hidden building block: the cell.'"
+    },
+    {
+      "type": "heading",
+      "value": "A 350-Year-Old Discovery"
+    },
+    {
+      "type": "paragraph",
+      "value": "In 1665, the English scientist ROBERT HOOKE looked at a thin slice of cork (tree bark) through an early microscope. He saw tiny box-like compartments that reminded him of the small rooms monks lived in, called 'cells'. So he named them CELLS — and the word stuck to this day."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🔬  1665: Robert Hooke examines cork bark\n📦  He sees tiny empty box-like rooms\n🏠  They look like monks' 'cells' (small rooms)\n➡️  He names them CELLS"
+    },
+    {
+      "type": "heading",
+      "value": "The Cell Theory"
+    },
+    {
+      "type": "paragraph",
+      "value": "Over time scientists discovered a huge truth: ALL living things are made of cells. The cell is the basic building block, or unit, of every living organism — from a blade of grass to a blue whale to you. Nothing living is made without cells."
+    },
+    {
+      "type": "tip",
+      "value": "Hooke actually saw the empty walls of dead cork cells, not living ones! But his discovery opened the door to all of biology — and the name 'cell' has been used ever since."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Robert Hooke discovered and named cells in 1665 while looking at cork. The cell is the basic building block of all living things."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Who discovered and named cells in 1665?",
+      "options": [
+        "Isaac Newton",
+        "Robert Hooke",
+        "Charles Darwin"
+      ],
+      "answer": 1,
+      "explain": "Robert Hooke observed cork under a microscope and named the box-like rooms 'cells'."
+    },
+    {
+      "question": "Hooke chose the word 'cell' because the compartments reminded him of…",
+      "options": [
+        "small rooms (like monks lived in)",
+        "prison bars",
+        "honeycombs full of honey"
+      ],
+      "answer": 0,
+      "explain": "The tiny boxes looked like the small rooms (cells) that monks lived in, so he called them cells."
+    },
+    {
+      "question": "The cell is best described as…",
+      "options": [
+        "the basic building block of all living things",
+        "found only in plants",
+        "a type of tiny animal"
+      ],
+      "answer": 0,
+      "explain": "All living things are made of cells — the cell is life's basic unit."
+    }
+  ]
+}

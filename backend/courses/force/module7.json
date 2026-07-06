@@ -1,0 +1,10 @@
+{
+  "moduleId": 7,
+  "title": "The Force of Friction",
+  "lessons": [
+    { "lessonId": "what_is_friction", "title": "The Grip Between Surfaces", "duration": "11 min" },
+    { "lessonId": "friction_friend_foe", "title": "Friction: Friend & Foe", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Friction Lab"
+}

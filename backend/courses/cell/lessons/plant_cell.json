@@ -1,0 +1,77 @@
+{
+  "lessonId": "plant_cell",
+  "title": "The Plant Cell",
+  "description": "Necrosis targets the green cells that feed the world. Master the plant cell's special features to reclaim piece 7.",
+  "difficulty": "Biology",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What Makes a Plant Cell Special"
+    },
+    {
+      "type": "paragraph",
+      "value": "A plant cell has everything an animal cell has — a membrane, cytoplasm, nucleus and organelles — PLUS three special features that animal cells lack: a cell wall, chloroplasts, and a large central vacuole."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "PLANT CELL'S SPECIAL PARTS (animal cells lack these)\n🧱  CELL WALL           → tough outer layer for support\n🌿  CHLOROPLASTS        → make food by photosynthesis\n💧  LARGE VACUOLE       → one big central storage bubble"
+    },
+    {
+      "type": "heading",
+      "value": "The Cell Wall"
+    },
+    {
+      "type": "paragraph",
+      "value": "Outside the cell membrane, a plant cell has a rigid CELL WALL. It gives the cell strength and a fixed, boxy shape, and protects it. This is why plant cells look so neat and rectangular under a microscope, and why plants can stand upright."
+    },
+    {
+      "type": "heading",
+      "value": "A Big Central Vacuole"
+    },
+    {
+      "type": "paragraph",
+      "value": "A plant cell usually has ONE large vacuole in the centre, filled mostly with water. When it is full, it keeps the cell firm and the plant standing tall. When plants lack water, these vacuoles shrink and the plant wilts (droops)."
+    },
+    {
+      "type": "tip",
+      "value": "Three plant-only features to memorise: cell WALL, CHLOROPLASTS, and a large central VACUOLE. If a cell has these, it's a plant cell!"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: A plant cell has all the basic cell parts plus three special features animal cells lack: a rigid cell wall, chloroplasts for making food, and a large central vacuole."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which three features are special to plant cells?",
+      "options": [
+        "cell wall, chloroplasts, large central vacuole",
+        "nucleus, cytoplasm, membrane",
+        "bones, muscles, skin"
+      ],
+      "answer": 0,
+      "explain": "Plant cells uniquely have a cell wall, chloroplasts and a large central vacuole."
+    },
+    {
+      "question": "The rigid cell wall gives a plant cell…",
+      "options": [
+        "strength and a fixed shape",
+        "the ability to swim",
+        "its ability to think"
+      ],
+      "answer": 0,
+      "explain": "The cell wall provides support, protection and a fixed, boxy shape."
+    },
+    {
+      "question": "When a plant lacks water, its large vacuoles shrink and the plant…",
+      "options": [
+        "wilts (droops)",
+        "grows taller",
+        "turns into an animal"
+      ],
+      "answer": 0,
+      "explain": "A full central vacuole keeps a plant firm; without water it shrinks and the plant wilts."
+    }
+  ]
+}

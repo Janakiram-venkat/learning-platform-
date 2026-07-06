@@ -1,0 +1,11 @@
+{
+  "title": "Force Basics Challenge",
+  "emoji": "💥",
+  "rounds": [
+    { "type": "concept", "prompt": "A force is…", "options": ["a push or a pull", "a type of light", "a colour"], "answer": 0, "explain": "A force is simply a push or a pull." },
+    { "type": "match", "prompt": "Match each action to its effect of a force.", "pairs": [ { "left": "Catching a ball", "right": "Stops motion" }, { "left": "Kicking a ball sideways", "right": "Changes direction" }, { "left": "Squeezing clay", "right": "Changes shape" } ], "explain": "Forces can stop motion, change direction, or change shape." },
+    { "type": "concept", "prompt": "Two teams pull a rope with equal force. The rope…", "options": ["stays still", "moves left", "snaps"], "answer": 0, "explain": "Balanced forces cancel, so the net force is zero." },
+    { "type": "concept", "prompt": "Forces acting in the same direction…", "options": ["add up", "cancel out"], "answer": 0, "explain": "Same-direction forces add to a larger net force." },
+    { "type": "concept", "prompt": "To describe a force fully, you state its…", "options": ["strength and direction", "colour and smell"], "answer": 0, "explain": "A force has both magnitude and direction." }
+  ]
+}

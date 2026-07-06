@@ -1,0 +1,11 @@
+{
+  "title": "Fire Triangle Challenge",
+  "emoji": "🔺",
+  "rounds": [
+    { "type": "concept", "prompt": "The three conditions for combustion are fuel, heat and…", "options": ["oxygen", "water"], "answer": 0, "explain": "Fuel, oxygen and heat form the fire triangle." },
+    { "type": "concept", "prompt": "Ignition temperature is the lowest temperature at which a fuel…", "options": ["catches fire", "melts"], "answer": 0, "explain": "It's the temperature needed to start burning." },
+    { "type": "match", "prompt": "Match each fuel to how easily it lights.", "pairs": [ { "left": "Paper", "right": "Lights easily" }, { "left": "Coal", "right": "Needs lots of heat" }, { "left": "Matchstick", "right": "Lights easily" } ], "explain": "Lower ignition temperature = easier to light." },
+    { "type": "concept", "prompt": "Remove one side of the fire triangle and the fire…", "options": ["goes out", "burns hotter"], "answer": 0, "explain": "All three sides are needed." },
+    { "type": "concept", "prompt": "Oxygen for most fires comes from…", "options": ["the air", "the fuel"], "answer": 0, "explain": "Air supplies the oxygen." }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "moduleId": 4,
+  "title": "The Cell's Outer Parts",
+  "lessons": [
+    { "lessonId": "cell_membrane", "title": "The Cell Membrane", "duration": "11 min" },
+    { "lessonId": "cytoplasm", "title": "Cytoplasm: The Cell's Jelly", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Cell Boundary Lab"
+}

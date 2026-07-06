@@ -1,0 +1,208 @@
+{
+  "labId": "module6",
+  "title": "Prism Lab",
+  "emoji": "🌈",
+  "tagline": "White Light, Dispersion & Rainbows",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Rainbow Weaver",
+  "objectives": [
+    "Order the seven colours as VIBGYOR",
+    "Explain dispersion through a prism",
+    "Describe how a rainbow forms"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Rebuild the Colours",
+      "xp": 10,
+      "narration": "The crystal's colours are gone. Split white light to weave them back, Rainbow Weaver!",
+      "steps": [
+        {
+          "emoji": "💎",
+          "text": "The crystal is now colourless and grey."
+        },
+        {
+          "emoji": "🌈",
+          "text": "Professor Prism raises a glass prism to the light."
+        },
+        {
+          "emoji": "✨",
+          "text": "Seven colours burst out across the wall!"
+        }
+      ],
+      "cta": "Split the Light"
+    },
+    {
+      "type": "sort",
+      "title": "Bends Most vs Bends Least",
+      "xp": 20,
+      "prompt": "Sort these colours by how much a prism bends them.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "most",
+          "label": "Bends the MOST",
+          "emoji": "🟣"
+        },
+        {
+          "id": "least",
+          "label": "Bends the LEAST",
+          "emoji": "🟥"
+        }
+      ],
+      "cards": [
+        {
+          "id": "violet",
+          "label": "Violet",
+          "emoji": "🟣",
+          "column": "most"
+        },
+        {
+          "id": "indigo",
+          "label": "Indigo",
+          "emoji": "🔵",
+          "column": "most"
+        },
+        {
+          "id": "blue",
+          "label": "Blue",
+          "emoji": "🟦",
+          "column": "most"
+        },
+        {
+          "id": "red",
+          "label": "Red",
+          "emoji": "🟥",
+          "column": "least"
+        },
+        {
+          "id": "orange",
+          "label": "Orange",
+          "emoji": "🟧",
+          "column": "least"
+        },
+        {
+          "id": "yellow",
+          "label": "Yellow",
+          "emoji": "🟨",
+          "column": "least"
+        }
+      ],
+      "note": "In VIBGYOR, violet bends most and red bends least — that is why they spread into a spectrum."
+    },
+    {
+      "type": "choose",
+      "title": "Rainbow Recipe",
+      "xp": 15,
+      "prompt": "Is each thing NEEDED to see a rainbow?",
+      "options": [
+        {
+          "id": "yes",
+          "label": "Needed",
+          "emoji": "✅"
+        },
+        {
+          "id": "no",
+          "label": "Not needed",
+          "emoji": "❌"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "sun",
+          "label": "Bright sunlight",
+          "emoji": "☀️",
+          "answer": "yes",
+          "explain": "Sunlight is the white light that gets dispersed."
+        },
+        {
+          "id": "drops",
+          "label": "Water droplets in the air",
+          "emoji": "💧",
+          "answer": "yes",
+          "explain": "Each droplet acts as a tiny prism."
+        },
+        {
+          "id": "behind",
+          "label": "The Sun behind you",
+          "emoji": "🧍",
+          "answer": "yes",
+          "explain": "You see a rainbow with the Sun behind and rain in front."
+        },
+        {
+          "id": "prism",
+          "label": "A glass prism in your hand",
+          "emoji": "🔺",
+          "answer": "no",
+          "explain": "The droplets are the prisms — you don't need a glass one for a sky rainbow."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Weave the Rainbow",
+      "xp": 30,
+      "prompt": "Score 80% to restore the crystal's colours and win shard 6!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Splitting white light into its colours is called…",
+          "options": [
+            "dispersion",
+            "reflection"
+          ],
+          "answer": 0,
+          "explain": "Dispersion spreads white light into VIBGYOR."
+        },
+        {
+          "q": "VIBGYOR lists…",
+          "options": [
+            "the seven colours in order",
+            "the parts of the eye"
+          ],
+          "answer": 0,
+          "explain": "Violet, Indigo, Blue, Green, Yellow, Orange, Red."
+        },
+        {
+          "q": "A spun Newton's disc of seven colours looks…",
+          "options": [
+            "almost white",
+            "black"
+          ],
+          "answer": 0,
+          "explain": "Combining the colours gives back white light."
+        },
+        {
+          "q": "In a rainbow, each raindrop acts like a…",
+          "options": [
+            "prism",
+            "mirror"
+          ],
+          "answer": 0,
+          "explain": "Droplets disperse sunlight into colours, like tiny prisms."
+        },
+        {
+          "q": "The outer edge of a rainbow is…",
+          "options": [
+            "red",
+            "violet"
+          ],
+          "answer": 0,
+          "explain": "Red is on the outside, violet on the inside."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Crystal Shard 6 Recovered!",
+      "xp": 20,
+      "badge": "Rainbow Weaver",
+      "messages": [
+        "🏅 You earned the Rainbow Weaver badge",
+        "💎 Rainbow Crystal: 6 of 8 shards restored",
+        "Colour floods back into the crystal — it's glowing again!"
+      ]
+    }
+  ]
+}

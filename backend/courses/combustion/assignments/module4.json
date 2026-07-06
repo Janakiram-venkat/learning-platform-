@@ -1,0 +1,11 @@
+{
+  "title": "Combustion Types Challenge",
+  "emoji": "💥",
+  "rounds": [
+    { "type": "concept", "prompt": "A candle burning steadily is…", "options": ["rapid combustion", "an explosion"], "answer": 0, "explain": "It burns fast once lit — rapid combustion." },
+    { "type": "match", "prompt": "Match each example to its type.", "pairs": [ { "left": "Gas stove lighting", "right": "Rapid" }, { "left": "White phosphorus in air", "right": "Spontaneous" }, { "left": "Firework bursting", "right": "Explosion" } ], "explain": "Three types of combustion." },
+    { "type": "concept", "prompt": "Spontaneous combustion happens…", "options": ["on its own, without a flame", "only with a match"], "answer": 0, "explain": "Heat builds up until it ignites by itself." },
+    { "type": "concept", "prompt": "An explosion releases heat, light, sound and…", "options": ["gases, all at once", "nothing"], "answer": 0, "explain": "Everything is released suddenly." },
+    { "type": "concept", "prompt": "Rapid combustion needs…", "options": ["an external spark or flame", "no heat"], "answer": 0, "explain": "A spark starts it." }
+  ]
+}

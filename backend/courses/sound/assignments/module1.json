@@ -1,0 +1,11 @@
+{
+  "title": "Vibration Challenge",
+  "emoji": "🔊",
+  "rounds": [
+    { "type": "concept", "prompt": "Sound is produced by…", "options": ["vibration", "heat", "light"], "answer": 0, "explain": "Every sound comes from a vibrating object." },
+    { "type": "match", "prompt": "Match each instrument to the part that vibrates.", "pairs": [ { "left": "Guitar", "right": "String" }, { "left": "Flute", "right": "Air column" }, { "left": "Drum", "right": "Stretched skin" } ], "explain": "Each instrument vibrates a different part to make sound." },
+    { "type": "concept", "prompt": "If you stop a bell from shaking, the sound…", "options": ["stops", "gets louder"], "answer": 0, "explain": "No vibration means no sound." },
+    { "type": "concept", "prompt": "A vibration is a…", "options": ["rapid back-and-forth motion", "steady glow"], "answer": 0, "explain": "Vibration is a to-and-fro motion." },
+    { "type": "concept", "prompt": "The vibrating part of an instrument is called the…", "options": ["source of sound", "echo"], "answer": 0, "explain": "It is the source of the sound." }
+  ]
+}

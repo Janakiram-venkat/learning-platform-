@@ -1,0 +1,180 @@
+{
+  "labId": "module5",
+  "title": "Flame Lab",
+  "emoji": "🕯️",
+  "tagline": "The Flame",
+  "difficulty": "Chemistry",
+  "duration": "15–20 min",
+  "badge": "Flame Analyst",
+  "objectives": [
+    "Explain why some fuels flame",
+    "Name the three zones of a flame",
+    "Know which zone is hottest"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Secrets of the Flame",
+      "xp": 10,
+      "narration": "The Guardian Flame's core ember hides inside a candle flame. Map its zones to reach it!",
+      "steps": [
+        {
+          "emoji": "🕯️",
+          "text": "A single candle flame flickers before you."
+        },
+        {
+          "emoji": "🔍",
+          "text": "Professor Blaze: 'It has three hidden zones.'"
+        },
+        {
+          "emoji": "🤖",
+          "text": "Spark Bot scans the flame's colours."
+        }
+      ],
+      "cta": "Enter the Flame Lab"
+    },
+    {
+      "type": "sort",
+      "title": "Does It Burn With a Flame?",
+      "xp": 20,
+      "prompt": "Sort each fuel by whether it burns WITH a flame.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "flame",
+          "label": "Burns With a Flame",
+          "emoji": "🔥"
+        },
+        {
+          "id": "glow",
+          "label": "Mostly Glows",
+          "emoji": "🟠"
+        }
+      ],
+      "cards": [
+        {
+          "id": "candle",
+          "label": "Candle wax",
+          "emoji": "🕯️",
+          "column": "flame"
+        },
+        {
+          "id": "lpg",
+          "label": "LPG gas",
+          "emoji": "🔵",
+          "column": "flame"
+        },
+        {
+          "id": "kerosene",
+          "label": "Kerosene",
+          "emoji": "🪔",
+          "column": "flame"
+        },
+        {
+          "id": "coal",
+          "label": "Coal",
+          "emoji": "🪨",
+          "column": "glow"
+        },
+        {
+          "id": "charcoal",
+          "label": "Charcoal",
+          "emoji": "⬛",
+          "column": "glow"
+        }
+      ],
+      "note": "Fuels that vaporise (wax, gas) burn with a flame; solids that don't vaporise just glow."
+    },
+    {
+      "type": "explore",
+      "title": "The Zones of a Candle Flame",
+      "xp": 15,
+      "prompt": "Tap each zone to learn about it. Visit them all!",
+      "locations": [
+        {
+          "id": "inner",
+          "label": "Inner Zone",
+          "emoji": "⚫",
+          "info": "Dark, coolest zone near the wick — unburnt wax vapour."
+        },
+        {
+          "id": "middle",
+          "label": "Middle Zone",
+          "emoji": "🟡",
+          "info": "Bright yellow luminous zone — gives most of the light."
+        },
+        {
+          "id": "outer",
+          "label": "Outer Zone",
+          "emoji": "🔵",
+          "info": "Pale blue, HOTTEST zone — complete burning with plenty of oxygen."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Reach the Core Ember",
+      "xp": 30,
+      "prompt": "Score 80% to reach the ember in the flame!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "A flame is produced only when the substance burning is…",
+          "options": [
+            "a gas (vapour)",
+            "a solid"
+          ],
+          "answer": 0,
+          "explain": "Only gases/vapours burn with a flame."
+        },
+        {
+          "q": "Which zone is the HOTTEST?",
+          "options": [
+            "the blue outer zone",
+            "the dark inner zone"
+          ],
+          "answer": 0,
+          "explain": "The outer zone has complete burning."
+        },
+        {
+          "q": "The dark inner zone is…",
+          "options": [
+            "the coolest, with unburnt vapour",
+            "the hottest"
+          ],
+          "answer": 0,
+          "explain": "It's coolest, near the wick."
+        },
+        {
+          "q": "Coal mostly glows because it…",
+          "options": [
+            "does not produce vapour",
+            "burns too fast"
+          ],
+          "answer": 0,
+          "explain": "No vapour means no flame."
+        },
+        {
+          "q": "The yellow middle zone gives mostly…",
+          "options": [
+            "light",
+            "the most heat"
+          ],
+          "answer": 0,
+          "explain": "It's the luminous (light-giving) zone."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Guardian Flame: Ember 5 Lit!",
+      "xp": 20,
+      "badge": "Flame Analyst",
+      "messages": [
+        "🏅 You earned the Flame Analyst badge",
+        "🔥 Guardian Flame: 5 of 8 embers relit",
+        "You mapped the flame and claimed its core ember!"
+      ]
+    }
+  ]
+}

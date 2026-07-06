@@ -1,0 +1,195 @@
+{
+  "labId": "module4",
+  "title": "Cell Boundary Lab",
+  "emoji": "🔲",
+  "tagline": "The Cell's Outer Parts",
+  "difficulty": "Biology",
+  "duration": "15–20 min",
+  "badge": "Gatekeeper",
+  "objectives": [
+    "Explain the cell membrane's gatekeeping",
+    "Know the cell wall is plant-only",
+    "Describe cytoplasm and organelles"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "The Dissolving Walls",
+      "xp": 10,
+      "narration": "Necrosis dissolves the boundaries that keep cells whole. Rebuild them to reclaim piece 4!",
+      "steps": [
+        {
+          "emoji": "💧",
+          "text": "Cell membranes leak and cells spill open."
+        },
+        {
+          "emoji": "🔬",
+          "text": "Dr. Cyto: 'The membrane is the gatekeeper!'"
+        },
+        {
+          "emoji": "🤖",
+          "text": "Nucleus Bot readies the boundary scanner."
+        }
+      ],
+      "cta": "Enter the Boundary Lab"
+    },
+    {
+      "type": "sort",
+      "title": "In, Out, or Blocked?",
+      "xp": 20,
+      "prompt": "The membrane is a gatekeeper. Sort what it lets pass vs blocks.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "pass",
+          "label": "Membrane Lets Pass",
+          "emoji": "✅"
+        },
+        {
+          "id": "block",
+          "label": "Membrane Blocks",
+          "emoji": "🚫"
+        }
+      ],
+      "cards": [
+        {
+          "id": "food",
+          "label": "Food entering",
+          "emoji": "🍎",
+          "column": "pass"
+        },
+        {
+          "id": "oxygen",
+          "label": "Oxygen entering",
+          "emoji": "🫧",
+          "column": "pass"
+        },
+        {
+          "id": "waste",
+          "label": "Waste leaving",
+          "emoji": "🗑️",
+          "column": "pass"
+        },
+        {
+          "id": "harm",
+          "label": "Harmful substances",
+          "emoji": "☠️",
+          "column": "block"
+        },
+        {
+          "id": "germs",
+          "label": "Unwanted materials",
+          "emoji": "🦠",
+          "column": "block"
+        }
+      ],
+      "note": "The cell membrane is selectively permeable — it chooses what enters and leaves."
+    },
+    {
+      "type": "choose",
+      "title": "Plant, Animal, or Both?",
+      "xp": 15,
+      "prompt": "Which cells have each structure?",
+      "options": [
+        {
+          "id": "both",
+          "label": "Both",
+          "emoji": "🤝"
+        },
+        {
+          "id": "plant",
+          "label": "Plant only",
+          "emoji": "🌿"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "membrane",
+          "label": "Cell membrane",
+          "emoji": "🔲",
+          "answer": "both",
+          "explain": "Both plant and animal cells have a membrane."
+        },
+        {
+          "id": "wall",
+          "label": "Cell wall",
+          "emoji": "🧱",
+          "answer": "plant",
+          "explain": "Only plant cells have a cell wall."
+        },
+        {
+          "id": "cytoplasm",
+          "label": "Cytoplasm",
+          "emoji": "🟡",
+          "answer": "both",
+          "explain": "Both have cytoplasm."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Seal the Cells",
+      "xp": 30,
+      "prompt": "Score 80% to rebuild the boundaries and win piece 4!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "The cell membrane is…",
+          "options": [
+            "a selective gatekeeper",
+            "completely sealed"
+          ],
+          "answer": 0,
+          "explain": "It controls what enters and leaves."
+        },
+        {
+          "q": "The cell wall is found in…",
+          "options": [
+            "plant cells only",
+            "animal cells only"
+          ],
+          "answer": 0,
+          "explain": "Only plant cells have a wall."
+        },
+        {
+          "q": "Cytoplasm is…",
+          "options": [
+            "jelly inside the cell",
+            "the outer boundary"
+          ],
+          "answer": 0,
+          "explain": "It's the jelly where organelles float."
+        },
+        {
+          "q": "Organelles float in the…",
+          "options": [
+            "cytoplasm",
+            "cell wall"
+          ],
+          "answer": 0,
+          "explain": "Organelles live in the cytoplasm."
+        },
+        {
+          "q": "The cell wall gives a plant cell…",
+          "options": [
+            "support and shape",
+            "the ability to move"
+          ],
+          "answer": 0,
+          "explain": "It provides strength and a fixed shape."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Cell of Life: Piece 4 Restored!",
+      "xp": 20,
+      "badge": "Gatekeeper",
+      "messages": [
+        "🏅 You earned the Gatekeeper badge",
+        "🧬 Cell of Life: 4 of 8 pieces restored — halfway!",
+        "The membranes hold firm — cells are whole again!"
+      ]
+    }
+  ]
+}

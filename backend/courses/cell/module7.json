@@ -1,0 +1,10 @@
+{
+  "moduleId": 7,
+  "title": "Plant vs Animal Cells",
+  "lessons": [
+    { "lessonId": "plant_cell", "title": "The Plant Cell", "duration": "11 min" },
+    { "lessonId": "plant_vs_animal", "title": "Spot the Differences", "duration": "11 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Plant vs Animal Lab"
+}

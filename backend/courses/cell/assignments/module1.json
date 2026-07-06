@@ -1,0 +1,11 @@
+{
+  "title": "Discovery Challenge",
+  "emoji": "🔬",
+  "rounds": [
+    { "type": "concept", "prompt": "Who discovered and named cells?", "options": ["Robert Hooke", "Isaac Newton", "Charles Darwin"], "answer": 0, "explain": "Hooke named cells in 1665." },
+    { "type": "concept", "prompt": "Hooke first observed cells in…", "options": ["cork bark", "pond water", "his own blood"], "answer": 0, "explain": "He looked at a slice of cork." },
+    { "type": "match", "prompt": "Match each microscope part to its job.", "pairs": [ { "left": "Eyepiece", "right": "You look through it" }, { "left": "Objective lens", "right": "Magnifies the sample" }, { "left": "Slide", "right": "Holds the sample" } ], "explain": "A microscope uses lenses and light to magnify cells." },
+    { "type": "concept", "prompt": "A sample must be thin so that…", "options": ["light can pass through it", "it weighs less"], "answer": 0, "explain": "Thin samples give a clear image." },
+    { "type": "concept", "prompt": "The cell is the basic building block of…", "options": ["all living things", "only rocks"], "answer": 0, "explain": "All living things are made of cells." }
+  ]
+}

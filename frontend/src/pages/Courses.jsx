@@ -15,7 +15,7 @@ const CARD_THEMES = [
 const COMING_SOON = [
   { icon: Cpu, title: 'Robotics', desc: 'Write code that moves robots in the real world.', accent: 'from-teal-400 to-cyan-500', bg: 'bg-teal-100 text-teal-600' },
   { icon: Calculator, title: 'Math', desc: 'Level up your number skills with fun challenges.', accent: 'from-purple-400 to-violet-500', bg: 'bg-purple-100 text-purple-600', to: '/subject/math' },
-  { icon: FlaskConical, title: 'Science', desc: 'Explore experiments and discover how the world works.', accent: 'from-emerald-400 to-green-500', bg: 'bg-emerald-100 text-emerald-600', to: '/subject/science' },
+  { icon: FlaskConical, title: 'Science', desc: '5 interactive chapters live — Light, Force, Sound, Cells & Combustion.', accent: 'from-emerald-400 to-green-500', bg: 'bg-emerald-100 text-emerald-600', to: '/subject/science' },
 ];
 
 export default function Courses() {
@@ -32,6 +32,10 @@ export default function Courses() {
       })
       .finally(() => setLoading(false));
   }, []);
+
+  // Science-subject courses live under the Science section (/subject/science),
+  // not in the main Quests grid — filter them out here.
+  const questCourses = courses.filter((c) => c.subject !== 'science');
 
   if (loading) {
     return (
@@ -56,7 +60,7 @@ export default function Courses() {
       </p>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {courses.map((course, i) => {
+        {questCourses.map((course, i) => {
           const theme = CARD_THEMES[i % CARD_THEMES.length];
           return (
             <div
@@ -88,7 +92,7 @@ export default function Courses() {
             </div>
           );
         })}
-        {courses.length === 0 && (
+        {questCourses.length === 0 && (
           <div className="col-span-full flex flex-col items-center gap-3 py-16 text-center">
             <span className="text-5xl">📭</span>
             <p className="font-display text-lg font-semibold text-[#6C63A6]">No quests available yet — check back soon!</p>

@@ -1,0 +1,10 @@
+{
+  "moduleId": 5,
+  "title": "Describing Sound Waves",
+  "lessons": [
+    { "lessonId": "amplitude_frequency", "title": "Amplitude & Frequency", "duration": "12 min" },
+    { "lessonId": "time_period", "title": "Time Period of a Wave", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Wave Lab"
+}

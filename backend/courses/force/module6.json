@@ -1,0 +1,10 @@
+{
+  "moduleId": 6,
+  "title": "Atmospheric Pressure",
+  "lessons": [
+    { "lessonId": "air_pressure", "title": "The Ocean of Air", "duration": "11 min" },
+    { "lessonId": "air_pressure_apps", "title": "Suckers, Straws & Storms", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Air Pressure Lab"
+}

@@ -1,0 +1,77 @@
+{
+  "lessonId": "effects_of_force",
+  "title": "What Forces Can Do",
+  "description": "Newton Bot 🤖 fires up a test chamber. To earn the first Momentum shard, learn the five things a force can change about an object.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Five Powers of a Force"
+    },
+    {
+      "type": "paragraph",
+      "value": "A force can do five things to an object. It can make a resting object move, stop a moving object, change its speed, change its direction, and change its shape or size."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "A FORCE CAN…\n▶️  make a still object MOVE        (push a stalled cart)\n⏹️  STOP a moving object            (catch a ball)\n⏩  change its SPEED                 (pedal faster / brake)\n↪️  change its DIRECTION            (hit a moving ball sideways)\n🫑  change its SHAPE or SIZE        (squeeze dough, stretch a spring)"
+    },
+    {
+      "type": "heading",
+      "value": "State of Motion"
+    },
+    {
+      "type": "paragraph",
+      "value": "An object's 'state of motion' is described by its speed and its direction of movement. A force can change either one. A cricket fielder changes a ball's direction and speed by applying force; a potter changes a lump of clay's shape by pressing it."
+    },
+    {
+      "type": "heading",
+      "value": "Force Has Size AND Direction"
+    },
+    {
+      "type": "paragraph",
+      "value": "To describe a force fully you must state how strong it is AND which way it acts. Pushing a swing gently forward is different from shoving it hard backward. This is why direction matters so much when adding forces."
+    },
+    {
+      "type": "tip",
+      "value": "A force does not always cause visible movement. Pushing hard against a wall applies a force, but the wall doesn't move — yet the force is still real (it may even change the wall's shape by a tiny, invisible amount)."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: A force can start motion, stop it, change speed, change direction, or change an object's shape. Every force has both a strength and a direction."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A goalkeeper catches a fast ball. The force mainly…",
+      "options": [
+        "changes the ball's shape permanently",
+        "stops the moving ball",
+        "makes the ball speed up"
+      ],
+      "answer": 1,
+      "explain": "The applied force brings the moving ball to a stop — one of the key effects of a force."
+    },
+    {
+      "question": "Squeezing a lump of clay into a pot is an example of a force changing an object's…",
+      "options": [
+        "direction",
+        "shape",
+        "colour"
+      ],
+      "answer": 1,
+      "explain": "A force can change the shape (and size) of an object, like moulding clay."
+    },
+    {
+      "question": "To describe a force completely, you must give its…",
+      "options": [
+        "strength only",
+        "strength and direction",
+        "colour and weight"
+      ],
+      "answer": 1,
+      "explain": "A force has both a magnitude (how strong) and a direction (which way)."
+    }
+  ]
+}

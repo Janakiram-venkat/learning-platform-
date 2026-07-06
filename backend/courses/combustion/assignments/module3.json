@@ -1,0 +1,11 @@
+{
+  "title": "Fire Control Challenge",
+  "emoji": "🧯",
+  "rounds": [
+    { "type": "concept", "prompt": "Water puts out fire mainly by…", "options": ["cooling below the ignition temperature", "adding fuel"], "answer": 0, "explain": "Water cools the burning material." },
+    { "type": "concept", "prompt": "You should NOT use water on…", "options": ["electrical and oil fires", "burning paper"], "answer": 0, "explain": "Water is dangerous on those fires." },
+    { "type": "match", "prompt": "Match each fire to its best extinguisher.", "pairs": [ { "left": "Burning paper", "right": "Water" }, { "left": "Electrical fire", "right": "CO₂" }, { "left": "Oil fire", "right": "CO₂ / sand" } ], "explain": "Match the extinguisher to the fire type." },
+    { "type": "concept", "prompt": "CO₂ can blanket a fire because it is…", "options": ["heavier than air", "lighter than air"], "answer": 0, "explain": "It settles over the fire, cutting off oxygen." },
+    { "type": "concept", "prompt": "A blanket puts out fire by…", "options": ["cutting off oxygen", "adding heat"], "answer": 0, "explain": "It smothers the flames." }
+  ]
+}

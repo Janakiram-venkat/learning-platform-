@@ -1,0 +1,77 @@
+{
+  "lessonId": "amplitude_frequency",
+  "title": "Amplitude & Frequency",
+  "description": "Echo Bot displays a sound as a wiggly wave. Learn to read its two key measurements — amplitude and frequency — to unlock fragment 5.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Drawing Sound as a Wave"
+    },
+    {
+      "type": "paragraph",
+      "value": "A vibration repeats over and over. One complete back-and-forth motion is called an OSCILLATION. We can picture a sound as a wave, and two measurements describe it: amplitude and frequency."
+    },
+    {
+      "type": "heading",
+      "value": "Amplitude"
+    },
+    {
+      "type": "paragraph",
+      "value": "AMPLITUDE is the size of the vibration — how far the object moves from its rest position. A big, wide vibration has a large amplitude; a small, gentle one has a small amplitude."
+    },
+    {
+      "type": "heading",
+      "value": "Frequency"
+    },
+    {
+      "type": "paragraph",
+      "value": "FREQUENCY is how many oscillations happen each second. It is measured in HERTZ (Hz). A frequency of 100 Hz means 100 complete vibrations every second. Faster vibration = higher frequency."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "AMPLITUDE → how BIG the vibration is (height of the wave)\nFREQUENCY → how FAST it vibrates, in hertz (Hz)\n\n1 Hz = 1 complete oscillation per second\n50 Hz = 50 oscillations every second"
+    },
+    {
+      "type": "tip",
+      "value": "Don't mix them up! Amplitude is about SIZE of the swing; frequency is about SPEED (how many per second). They control different things about the sound — you'll see how next module."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: A sound wave is described by its amplitude (size of the vibration) and its frequency (number of oscillations per second, measured in hertz, Hz)."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Frequency is measured in…",
+      "options": [
+        "metres",
+        "hertz (Hz)",
+        "seconds"
+      ],
+      "answer": 1,
+      "explain": "Frequency, the number of oscillations per second, is measured in hertz (Hz)."
+    },
+    {
+      "question": "The amplitude of a vibration is…",
+      "options": [
+        "how far it moves from its rest position (its size)",
+        "how many happen per second",
+        "its temperature"
+      ],
+      "answer": 0,
+      "explain": "Amplitude is the size of the vibration — how far the object swings from rest."
+    },
+    {
+      "question": "A vibration of 200 Hz completes…",
+      "options": [
+        "200 oscillations per second",
+        "200 oscillations per minute",
+        "200 metres per second"
+      ],
+      "answer": 0,
+      "explain": "200 Hz means 200 complete oscillations every second."
+    }
+  ]
+}

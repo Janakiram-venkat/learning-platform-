@@ -1,0 +1,254 @@
+{
+  "labId": "module8",
+  "title": "Final Mission: Restore the Rainbow Crystal",
+  "emoji": "🏆",
+  "tagline": "Eye Care, Braille & the Grand Finale",
+  "difficulty": "Physics",
+  "duration": "20–25 min",
+  "badge": "Master of Light",
+  "objectives": [
+    "Apply good eye-care habits",
+    "Understand Braille and vision aids",
+    "Recall every big idea from the whole chapter"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Umbra's Last Stand",
+      "xp": 10,
+      "narration": "One shard remains. Protect the gift of sight for everyone — then defeat Lord Umbra for good!",
+      "steps": [
+        {
+          "emoji": "👹",
+          "text": "Umbra: 'Without healthy eyes, your light is useless!'"
+        },
+        {
+          "emoji": "💎",
+          "text": "The final shard floats in a beam of pure white light."
+        },
+        {
+          "emoji": "🌈",
+          "text": "Professor Prism: 'Finish this, Master of Light!'"
+        }
+      ],
+      "cta": "Begin the Final Mission"
+    },
+    {
+      "type": "sort",
+      "title": "Good vs Bad Eye Habits",
+      "xp": 20,
+      "prompt": "Sort each habit as good or bad for your eyes.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "good",
+          "label": "Good for Eyes",
+          "emoji": "✅"
+        },
+        {
+          "id": "bad",
+          "label": "Bad for Eyes",
+          "emoji": "❌"
+        }
+      ],
+      "cards": [
+        {
+          "id": "light",
+          "label": "Read in good light",
+          "emoji": "💡",
+          "column": "good"
+        },
+        {
+          "id": "vitA",
+          "label": "Eat carrots & spinach",
+          "emoji": "🥕",
+          "column": "good"
+        },
+        {
+          "id": "checkup",
+          "label": "Regular eye check-ups",
+          "emoji": "🩺",
+          "column": "good"
+        },
+        {
+          "id": "sun",
+          "label": "Stare at the Sun",
+          "emoji": "🌞",
+          "column": "bad"
+        },
+        {
+          "id": "rub",
+          "label": "Rub eyes with dirty hands",
+          "emoji": "🖐️",
+          "column": "bad"
+        },
+        {
+          "id": "dim",
+          "label": "Read in very dim light",
+          "emoji": "🕯️",
+          "column": "bad"
+        }
+      ],
+      "note": "Healthy eyes need good light, safe habits and Vitamin-A foods."
+    },
+    {
+      "type": "pick",
+      "title": "Tools for Seeing Without Sight",
+      "xp": 15,
+      "prompt": "Tap every real aid that helps visually impaired people.",
+      "items": [
+        {
+          "id": "braille",
+          "label": "Braille Book",
+          "emoji": "📖",
+          "isAI": true
+        },
+        {
+          "id": "cane",
+          "label": "Walking Cane",
+          "emoji": "🦯",
+          "isAI": true
+        },
+        {
+          "id": "guidedog",
+          "label": "Guide Dog",
+          "emoji": "🦮",
+          "isAI": true
+        },
+        {
+          "id": "screenreader",
+          "label": "Screen Reader",
+          "emoji": "🔊",
+          "isAI": true
+        },
+        {
+          "id": "audiobook",
+          "label": "Audiobook",
+          "emoji": "🎧",
+          "isAI": true
+        },
+        {
+          "id": "sunglasses",
+          "label": "Fashion Sunglasses",
+          "emoji": "🕶️",
+          "isAI": false
+        }
+      ],
+      "feedback": {
+        "correct": "Yes! This helps a visually impaired person read, learn or move safely.",
+        "incorrect": "Nice item, but it isn't a vision aid for the blind."
+      }
+    },
+    {
+      "type": "quiz",
+      "title": "FINAL BOSS: The Grand Light Test",
+      "xp": 40,
+      "prompt": "Answer 80% of these questions from the WHOLE chapter to defeat Lord Umbra and restore the Rainbow Crystal!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Which object is luminous?",
+          "options": [
+            "The Sun",
+            "The Moon"
+          ],
+          "answer": 0,
+          "explain": "Module 1: the Sun makes its own light; the Moon reflects it."
+        },
+        {
+          "q": "Angle of incidence = 25°. Angle of reflection = ?",
+          "options": [
+            "25°",
+            "65°"
+          ],
+          "answer": 0,
+          "explain": "Module 2: i = r."
+        },
+        {
+          "q": "A rough wall gives which reflection?",
+          "options": [
+            "diffused",
+            "regular"
+          ],
+          "answer": 0,
+          "explain": "Module 3: rough surfaces scatter light (diffused)."
+        },
+        {
+          "q": "Lateral inversion swaps…",
+          "options": [
+            "left and right",
+            "top and bottom"
+          ],
+          "answer": 0,
+          "explain": "Module 4: plane mirrors flip left and right."
+        },
+        {
+          "q": "Two mirrors at 90° form how many images?",
+          "options": [
+            "3",
+            "5"
+          ],
+          "answer": 0,
+          "explain": "Module 5: (360/90) − 1 = 3."
+        },
+        {
+          "q": "Splitting white light into colours is…",
+          "options": [
+            "dispersion",
+            "reflection"
+          ],
+          "answer": 0,
+          "explain": "Module 6: dispersion gives VIBGYOR."
+        },
+        {
+          "q": "The image in the eye forms on the…",
+          "options": [
+            "retina",
+            "cornea"
+          ],
+          "answer": 0,
+          "explain": "Module 7: the lens focuses light on the retina."
+        },
+        {
+          "q": "Braille is read by…",
+          "options": [
+            "feeling raised dots",
+            "listening"
+          ],
+          "answer": 0,
+          "explain": "Module 8: Braille uses raised dots felt with the fingertips."
+        },
+        {
+          "q": "A rainbow's outer edge is…",
+          "options": [
+            "red",
+            "violet"
+          ],
+          "answer": 0,
+          "explain": "Module 6: red outside, violet inside."
+        },
+        {
+          "q": "Lack of which vitamin causes night blindness?",
+          "options": [
+            "Vitamin A",
+            "Vitamin C"
+          ],
+          "answer": 0,
+          "explain": "Module 8: Vitamin A keeps the retina's rod cells healthy."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "🌈 THE RAINBOW CRYSTAL IS RESTORED! 🌈",
+      "xp": 50,
+      "badge": "Master of Light",
+      "messages": [
+        "🏆 CERTIFICATE: Master of Light — Science",
+        "💎 Rainbow Crystal: 8 of 8 shards restored!",
+        "👹 Lord Umbra is banished and light floods Lumina Academy.",
+        "You mastered reflection, mirrors, dispersion and the human eye. Congratulations, Light Master!"
+      ]
+    }
+  ]
+}

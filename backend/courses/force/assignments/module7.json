@@ -1,0 +1,11 @@
+{
+  "title": "Friction Challenge",
+  "emoji": "🛑",
+  "rounds": [
+    { "type": "concept", "prompt": "Friction acts…", "options": ["opposite to motion", "along the motion"], "answer": 0, "explain": "Friction always opposes movement." },
+    { "type": "concept", "prompt": "Friction is greater when a surface is…", "options": ["rougher", "smoother"], "answer": 0, "explain": "Rough surfaces produce more friction." },
+    { "type": "match", "prompt": "Match each case to friction being a friend or foe.", "pairs": [ { "left": "Bicycle brakes", "right": "Friend" }, { "left": "Worn shoe soles", "right": "Foe" }, { "left": "Engine overheating", "right": "Foe" } ], "explain": "Friction helps us stop and grip, but wears things out." },
+    { "type": "concept", "prompt": "Rubbing hands together produces…", "options": ["heat", "light"], "answer": 0, "explain": "Friction converts motion into heat." },
+    { "type": "concept", "prompt": "Friction is called a…", "options": ["necessary evil", "useless force"], "answer": 0, "explain": "We need it, but it also causes wear and wasted energy." }
+  ]
+}

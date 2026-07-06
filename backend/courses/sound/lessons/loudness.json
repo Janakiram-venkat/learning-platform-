@@ -1,0 +1,77 @@
+{
+  "lessonId": "loudness",
+  "title": "Loudness & Amplitude",
+  "description": "Baron Mute muffles every sound to a whisper. Learn what makes a sound loud to blast fragment 6 free.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Loudness Depends on Amplitude"
+    },
+    {
+      "type": "paragraph",
+      "value": "How LOUD a sound is depends on its AMPLITUDE — the size of the vibration. A big vibration pushes the air harder, so the sound is louder. A small vibration makes a soft, quiet sound."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "BIG amplitude  → LOUD sound   🔊  (hit the drum hard)\nSMALL amplitude → SOFT sound  🔉  (tap the drum gently)"
+    },
+    {
+      "type": "heading",
+      "value": "Hit It Harder"
+    },
+    {
+      "type": "paragraph",
+      "value": "Strike a drum gently and it makes a soft sound; hit it hard and it booms. You gave the drum skin a bigger amplitude, so the sound is louder. Importantly, hitting harder does NOT change the note (pitch) — only how loud it is."
+    },
+    {
+      "type": "heading",
+      "value": "Measuring Loudness: Decibels"
+    },
+    {
+      "type": "paragraph",
+      "value": "Loudness is measured in DECIBELS (dB). A whisper is about 10–20 dB, normal talking about 60 dB, and busy traffic about 80 dB. Sounds above roughly 80 dB become uncomfortable, and very loud sounds can damage your hearing."
+    },
+    {
+      "type": "tip",
+      "value": "Loudness also fades with distance. The same sound seems quieter far away because the vibration spreads out and its amplitude reaching you is smaller."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Loudness depends on amplitude — bigger vibrations make louder sounds. Loudness is measured in decibels (dB), and very loud sounds can harm hearing."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "The loudness of a sound depends on its…",
+      "options": [
+        "amplitude",
+        "colour",
+        "temperature"
+      ],
+      "answer": 0,
+      "explain": "A larger amplitude (bigger vibration) makes a louder sound."
+    },
+    {
+      "question": "Hitting a drum harder makes the sound louder because it…",
+      "options": [
+        "increases the amplitude of the vibration",
+        "increases the frequency",
+        "changes the note"
+      ],
+      "answer": 0,
+      "explain": "A harder hit gives the drum skin a bigger amplitude, so it sounds louder (the pitch stays the same)."
+    },
+    {
+      "question": "Loudness is measured in…",
+      "options": [
+        "hertz",
+        "decibels (dB)",
+        "metres"
+      ],
+      "answer": 1,
+      "explain": "Loudness is measured in decibels (dB); hertz measures frequency instead."
+    }
+  ]
+}

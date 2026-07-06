@@ -1,0 +1,77 @@
+{
+  "lessonId": "cell_summary",
+  "title": "The Living World Runs on Cells",
+  "description": "The final showdown! Tie every idea together, rebuild the Cell of Life, and drive Lord Necrosis from the living world.",
+  "difficulty": "Biology",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Everything You've Learned"
+    },
+    {
+      "type": "paragraph",
+      "value": "You began by discovering cells with Robert Hooke, and you now understand the whole hidden machinery of life. Let's tie it all together for the final battle."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "THE BIG PICTURE OF THE CELL\n🔬  Discovered by Hooke; seen with a microscope\n🧱  Basic structural & functional unit of life\n🦠  Unicellular (one) or multicellular (many)\n🔲  Membrane · 🟡 Cytoplasm · ⚫ Nucleus\n🧬  Nucleus holds chromosomes → genes → DNA\n🔋  Mitochondria = powerhouse; 🌿 chloroplasts (plants) make food\n🌱  Plant cells: wall + chloroplasts + big vacuole"
+    },
+    {
+      "type": "heading",
+      "value": "Why Cells Matter"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every single thing a living organism does — breathing, growing, healing, thinking — happens because of cells doing their jobs. When cells work well, the organism is healthy. This is exactly why keeping cells alive defeats the Decay of Lord Necrosis."
+    },
+    {
+      "type": "heading",
+      "value": "One Last Idea: Cells Come From Cells"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here is a final wonder: new cells are made only when existing cells divide. Every cell in your body came from an earlier cell, tracing all the way back to a single cell. Life truly is an unbroken chain of cells."
+    },
+    {
+      "type": "tip",
+      "value": "The whole chapter in one line: all living things are made of cells, the cell is life's basic unit, and every cell comes from another cell."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: The cell is the basic unit of all life — every life process happens in cells, and new cells come only from existing cells. Understanding cells is understanding life itself."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "New cells are formed by…",
+      "options": [
+        "existing cells dividing",
+        "mixing water and air",
+        "sunlight alone"
+      ],
+      "answer": 0,
+      "explain": "All new cells come from the division of pre-existing cells."
+    },
+    {
+      "question": "Which statement best sums up the chapter?",
+      "options": [
+        "All living things are made of cells, the basic unit of life",
+        "Only plants have cells",
+        "Cells are found only in blood"
+      ],
+      "answer": 0,
+      "explain": "The core idea: all living things are made of cells, and the cell is life's basic unit."
+    },
+    {
+      "question": "Life processes like growing and healing happen because of…",
+      "options": [
+        "cells doing their jobs",
+        "the weather",
+        "gravity"
+      ],
+      "answer": 0,
+      "explain": "Every life process is carried out by cells working — that's why cells are so important."
+    }
+  ]
+}

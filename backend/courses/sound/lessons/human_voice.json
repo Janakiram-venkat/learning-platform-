@@ -1,0 +1,77 @@
+{
+  "lessonId": "human_voice",
+  "title": "The Voice Box",
+  "description": "Baron Mute has stolen everyone's voices! Rediscover how humans speak to claim bell fragment 4.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "How You Make Sound"
+    },
+    {
+      "type": "paragraph",
+      "value": "Your voice comes from the VOICE BOX, or LARYNX, at the top of your windpipe. You can feel it as the hard bump at the front of your throat. Across the voice box are two stretched bands called VOCAL CORDS."
+    },
+    {
+      "type": "heading",
+      "value": "Vocal Cords in Action"
+    },
+    {
+      "type": "paragraph",
+      "value": "When you speak or sing, air from your lungs rushes up and passes between the vocal cords, making them VIBRATE. Just like a plucked string, these vibrations produce sound. A small gap between the cords lets air through to set them buzzing."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🫁 lungs push air upward\n   ↓\n🎗️ air passes between the VOCAL CORDS → they vibrate\n   ↓\n🗣️ vibration becomes your voice"
+    },
+    {
+      "type": "heading",
+      "value": "Why Voices Sound Different"
+    },
+    {
+      "type": "paragraph",
+      "value": "Vocal cords differ from person to person. In men they are usually longer (about 20 mm), in women shorter (about 15 mm), and in children shorter still. Shorter, tighter cords vibrate faster and give a higher voice — which is why children's voices are higher-pitched than adults'."
+    },
+    {
+      "type": "tip",
+      "value": "Put your fingers gently on your throat and hum. That buzzing you feel is your vocal cords vibrating — proof your voice is just controlled vibration!"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: The voice comes from the voice box (larynx), where air from the lungs makes the vocal cords vibrate. The length of the vocal cords changes the pitch, so children, women and men sound different."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "The human voice is produced by the vibration of the…",
+      "options": [
+        "eardrum",
+        "vocal cords in the voice box",
+        "tongue only"
+      ],
+      "answer": 1,
+      "explain": "Air from the lungs makes the vocal cords in the larynx (voice box) vibrate, producing the voice."
+    },
+    {
+      "question": "What makes the vocal cords vibrate?",
+      "options": [
+        "air from the lungs passing between them",
+        "food in the stomach",
+        "blood flow"
+      ],
+      "answer": 0,
+      "explain": "Air pushed up from the lungs passes between the cords and sets them vibrating."
+    },
+    {
+      "question": "Children's voices are higher-pitched than adults' because their vocal cords are…",
+      "options": [
+        "longer",
+        "shorter",
+        "made of metal"
+      ],
+      "answer": 1,
+      "explain": "Shorter vocal cords vibrate faster, giving a higher pitch."
+    }
+  ]
+}

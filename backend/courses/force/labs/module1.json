@@ -1,0 +1,198 @@
+{
+  "labId": "module1",
+  "title": "Force Field Lab",
+  "emoji": "💥",
+  "tagline": "What Is a Force?",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Force Finder",
+  "objectives": [
+    "Identify pushes and pulls",
+    "Predict the effects of a force",
+    "Understand balanced vs unbalanced forces"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "The Great Standstill",
+      "xp": 10,
+      "narration": "Motion has frozen. Master force, Force Finder, and set the world moving again!",
+      "steps": [
+        {
+          "emoji": "🧊",
+          "text": "Baron Standstill freezes all motion on Earth."
+        },
+        {
+          "emoji": "⚖️",
+          "text": "Professor Mass: 'The Momentum Core is drained!'"
+        },
+        {
+          "emoji": "🤖",
+          "text": "Newton Bot: 'Learn what a force is to recharge it.'"
+        }
+      ],
+      "cta": "Enter the Force Field Lab"
+    },
+    {
+      "type": "choose",
+      "title": "Push or Pull?",
+      "xp": 20,
+      "prompt": "Decide whether each action is mainly a push or a pull.",
+      "options": [
+        {
+          "id": "push",
+          "label": "Push",
+          "emoji": "👋"
+        },
+        {
+          "id": "pull",
+          "label": "Pull",
+          "emoji": "🤏"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "door",
+          "label": "Closing a door away from you",
+          "emoji": "🚪",
+          "answer": "push",
+          "explain": "Pushing the door away is a push force."
+        },
+        {
+          "id": "drawer",
+          "label": "Opening a drawer toward you",
+          "emoji": "🗄️",
+          "answer": "pull",
+          "explain": "Pulling the drawer toward you is a pull force."
+        },
+        {
+          "id": "magnet",
+          "label": "A magnet drawing a pin closer",
+          "emoji": "🧲",
+          "answer": "pull",
+          "explain": "The magnet pulls the pin toward it."
+        },
+        {
+          "id": "trolley",
+          "label": "Moving a shopping trolley ahead",
+          "emoji": "🛒",
+          "answer": "push",
+          "explain": "You push the trolley forward, away from you."
+        }
+      ]
+    },
+    {
+      "type": "pick",
+      "title": "What Can a Force Do?",
+      "xp": 15,
+      "prompt": "Tap every result that a force CAN cause.",
+      "items": [
+        {
+          "id": "move",
+          "label": "Start motion",
+          "emoji": "▶️",
+          "isAI": true
+        },
+        {
+          "id": "stop",
+          "label": "Stop motion",
+          "emoji": "⏹️",
+          "isAI": true
+        },
+        {
+          "id": "speed",
+          "label": "Change speed",
+          "emoji": "⏩",
+          "isAI": true
+        },
+        {
+          "id": "dir",
+          "label": "Change direction",
+          "emoji": "↪️",
+          "isAI": true
+        },
+        {
+          "id": "shape",
+          "label": "Change shape",
+          "emoji": "🫑",
+          "isAI": true
+        },
+        {
+          "id": "colour",
+          "label": "Change an object's colour",
+          "emoji": "🎨",
+          "isAI": false
+        }
+      ],
+      "feedback": {
+        "correct": "Yes! A force can do this.",
+        "incorrect": "A force does not change an object's colour."
+      }
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Restart the Motion",
+      "xp": 30,
+      "prompt": "Score 80% to break the Standstill and win the first Momentum shard!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "A force is…",
+          "options": [
+            "a push or a pull",
+            "a kind of light"
+          ],
+          "answer": 0,
+          "explain": "A force is simply a push or a pull."
+        },
+        {
+          "q": "Two teams pull a rope equally. The rope…",
+          "options": [
+            "stays still (balanced forces)",
+            "moves fast"
+          ],
+          "answer": 0,
+          "explain": "Equal opposite forces are balanced and cancel out."
+        },
+        {
+          "q": "Catching a moving ball is a force that…",
+          "options": [
+            "stops motion",
+            "changes colour"
+          ],
+          "answer": 0,
+          "explain": "The force stops the moving ball."
+        },
+        {
+          "q": "Forces in the same direction…",
+          "options": [
+            "add up",
+            "always cancel"
+          ],
+          "answer": 0,
+          "explain": "Same-direction forces add to a bigger net force."
+        },
+        {
+          "q": "To describe a force fully you need…",
+          "options": [
+            "strength and direction",
+            "only its colour"
+          ],
+          "answer": 0,
+          "explain": "A force has both magnitude and direction."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Momentum Shard 1 Charged!",
+      "xp": 20,
+      "badge": "Force Finder",
+      "messages": [
+        "🏅 You earned the Force Finder badge",
+        "⚡ Momentum Core: 1 of 8 shards charged",
+        "The first gears begin to turn again!"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "lessonId": "calorific_value",
+  "title": "Fuel Efficiency & Calorific Value",
+  "description": "How do scientists measure which fuel gives the most energy? Master calorific value to power the Guardian Flame.",
+  "difficulty": "Chemistry",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Measuring a Fuel's Energy"
+    },
+    {
+      "type": "paragraph",
+      "value": "How do we compare fuels fairly? We use the CALORIFIC VALUE — the amount of heat energy produced when 1 kilogram of a fuel is completely burnt. A higher calorific value means the fuel gives more energy per kilogram."
+    },
+    {
+      "type": "heading",
+      "value": "The Unit"
+    },
+    {
+      "type": "paragraph",
+      "value": "Calorific value is measured in kilojoules per kilogram (kJ/kg). The bigger the number, the more heat you get from each kilogram of fuel — so it's a more efficient fuel."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "CALORIFIC VALUE (approx, kJ/kg) — higher = more energy\nCow dung cake   ~  6,000–8,000\nWood            ~ 17,000\nCoal            ~ 25,000–33,000\nPetrol          ~ 45,000\nLPG             ~ 55,000\nHydrogen        ~ 150,000  (the highest!)"
+    },
+    {
+      "type": "heading",
+      "value": "Why Hydrogen Is Special"
+    },
+    {
+      "type": "paragraph",
+      "value": "Hydrogen has the highest calorific value of all fuels, and it burns to form only water — no pollution! This makes it a very promising clean fuel for the future, though it is still tricky and expensive to store and handle safely."
+    },
+    {
+      "type": "tip",
+      "value": "Higher calorific value = more heat per kilogram = a more efficient fuel. LPG beats wood, and hydrogen beats everything — plus hydrogen is clean."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Calorific value is the heat produced by completely burning 1 kg of a fuel, measured in kJ/kg. A higher calorific value means a more efficient fuel. Hydrogen has the highest calorific value and burns cleanly."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "The calorific value of a fuel is the heat produced by completely burning…",
+      "options": [
+        "1 kilogram of the fuel",
+        "1 litre of water",
+        "the whole fuel tank"
+      ],
+      "answer": 0,
+      "explain": "Calorific value is the heat energy from burning 1 kg of a fuel, measured in kJ/kg."
+    },
+    {
+      "question": "A fuel with a HIGHER calorific value…",
+      "options": [
+        "gives more energy per kilogram",
+        "gives less energy per kilogram",
+        "cannot burn"
+      ],
+      "answer": 0,
+      "explain": "Higher calorific value means more heat per kilogram — a more efficient fuel."
+    },
+    {
+      "question": "Which fuel has the highest calorific value and burns to form only water?",
+      "options": [
+        "wood",
+        "coal",
+        "hydrogen"
+      ],
+      "answer": 2,
+      "explain": "Hydrogen has the highest calorific value and produces only water when burnt — a clean fuel."
+    }
+  ]
+}

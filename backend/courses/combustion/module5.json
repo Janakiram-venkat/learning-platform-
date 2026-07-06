@@ -1,0 +1,10 @@
+{
+  "moduleId": 5,
+  "title": "The Flame",
+  "lessons": [
+    { "lessonId": "flame_basics", "title": "Why Fuels Burn With a Flame", "duration": "10 min" },
+    { "lessonId": "flame_zones", "title": "The Three Zones of a Flame", "duration": "11 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Flame Lab"
+}

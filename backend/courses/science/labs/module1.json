@@ -1,0 +1,251 @@
+{
+  "labId": "module1",
+  "title": "The Photon Lab",
+  "emoji": "🔦",
+  "tagline": "Light & How We See",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Light Seeker",
+  "objectives": [
+    "Tell luminous objects from non-luminous ones",
+    "Explain how we see non-luminous objects",
+    "Know that light travels in straight lines",
+    "Sort materials as transparent, translucent or opaque"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "The World Has Gone Dark",
+      "xp": 10,
+      "narration": "To beat Lord Umbra, first understand light itself. Let's begin, Light Seeker!",
+      "steps": [
+        {
+          "emoji": "👹",
+          "text": "Lord Umbra shatters the Rainbow Crystal…"
+        },
+        {
+          "emoji": "🌫️",
+          "text": "Shadow Fog swallows Lumina Academy."
+        },
+        {
+          "emoji": "🌈",
+          "text": "Professor Prism lights a single candle."
+        },
+        {
+          "emoji": "🤖",
+          "text": "Ray Bot says: 'Master light to restore the crystal!'"
+        }
+      ],
+      "cta": "Enter the Photon Lab"
+    },
+    {
+      "type": "pick",
+      "title": "Find the Luminous Objects",
+      "xp": 15,
+      "prompt": "Tap every object that makes its OWN light (luminous).",
+      "items": [
+        {
+          "id": "sun",
+          "label": "The Sun",
+          "emoji": "☀️",
+          "isAI": true
+        },
+        {
+          "id": "flame",
+          "label": "Candle Flame",
+          "emoji": "🔥",
+          "isAI": true
+        },
+        {
+          "id": "bulb",
+          "label": "Glowing Bulb",
+          "emoji": "💡",
+          "isAI": true
+        },
+        {
+          "id": "star",
+          "label": "Star",
+          "emoji": "⭐",
+          "isAI": true
+        },
+        {
+          "id": "moon",
+          "label": "The Moon",
+          "emoji": "🌙",
+          "isAI": false
+        },
+        {
+          "id": "book",
+          "label": "A Book",
+          "emoji": "📕",
+          "isAI": false
+        },
+        {
+          "id": "mirror",
+          "label": "A Mirror",
+          "emoji": "🪞",
+          "isAI": false
+        }
+      ],
+      "feedback": {
+        "correct": "Yes! This object makes its own light.",
+        "incorrect": "This is non-luminous — it only reflects light from elsewhere."
+      }
+    },
+    {
+      "type": "sort",
+      "title": "Transparent, Translucent or Opaque?",
+      "xp": 20,
+      "prompt": "Sort each material by how much light it lets through.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "transparent",
+          "label": "Transparent",
+          "emoji": "🔍"
+        },
+        {
+          "id": "opaque",
+          "label": "Opaque",
+          "emoji": "🧱"
+        }
+      ],
+      "cards": [
+        {
+          "id": "glass",
+          "label": "Clear Glass",
+          "emoji": "🥃",
+          "column": "transparent"
+        },
+        {
+          "id": "water",
+          "label": "Clean Water",
+          "emoji": "💧",
+          "column": "transparent"
+        },
+        {
+          "id": "air",
+          "label": "Air",
+          "emoji": "🌬️",
+          "column": "transparent"
+        },
+        {
+          "id": "wood",
+          "label": "Wooden Door",
+          "emoji": "🚪",
+          "column": "opaque"
+        },
+        {
+          "id": "metal",
+          "label": "Metal Sheet",
+          "emoji": "🔩",
+          "column": "opaque"
+        },
+        {
+          "id": "book2",
+          "label": "Thick Book",
+          "emoji": "📚",
+          "column": "opaque"
+        }
+      ],
+      "note": "Transparent materials let almost all light through; opaque ones block it and cast a shadow."
+    },
+    {
+      "type": "explore",
+      "title": "Trace the Path of Light",
+      "xp": 15,
+      "prompt": "Tap each step to trace how you see a non-luminous apple. Visit them all!",
+      "locations": [
+        {
+          "id": "source",
+          "label": "The Sun",
+          "emoji": "☀️",
+          "info": "Light starts at a luminous source and travels outward in straight lines."
+        },
+        {
+          "id": "object",
+          "label": "The Apple",
+          "emoji": "🍎",
+          "info": "Light hits the apple and some of it reflects off the surface."
+        },
+        {
+          "id": "eye",
+          "label": "Your Eye",
+          "emoji": "👁️",
+          "info": "The reflected light enters your eye — and now you 'see' the apple!"
+        },
+        {
+          "id": "shadow",
+          "label": "The Shadow",
+          "emoji": "🌑",
+          "info": "Light blocked by the opaque apple leaves a dark shadow behind it."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Escape the Shadow Fog",
+      "xp": 30,
+      "prompt": "Answer at least 80% correctly to drive back the Shadow Fog and win the first crystal shard!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Which object is luminous?",
+          "options": [
+            "The Moon",
+            "A star"
+          ],
+          "answer": 1,
+          "explain": "A star makes its own light. The Moon only reflects sunlight."
+        },
+        {
+          "q": "We see a non-luminous book because light…",
+          "options": [
+            "reflects off it into our eyes",
+            "is made inside the book"
+          ],
+          "answer": 0,
+          "explain": "Reflected light from the book reaches our eyes so we can see it."
+        },
+        {
+          "q": "Light travels in…",
+          "options": [
+            "curvy paths",
+            "straight lines"
+          ],
+          "answer": 1,
+          "explain": "Light always travels in straight lines, which is why shadows form."
+        },
+        {
+          "q": "A shadow forms because an opaque object…",
+          "options": [
+            "blocks straight-line light",
+            "glows in the dark"
+          ],
+          "answer": 0,
+          "explain": "An opaque object blocks the straight path of light, leaving a shadow."
+        },
+        {
+          "q": "Frosted glass that blurs light is…",
+          "options": [
+            "translucent",
+            "transparent"
+          ],
+          "answer": 0,
+          "explain": "Translucent materials let only some light through, so the view is blurry."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Crystal Shard 1 Recovered!",
+      "xp": 20,
+      "badge": "Light Seeker",
+      "messages": [
+        "🏅 You earned the Light Seeker badge",
+        "💎 Rainbow Crystal: 1 of 8 shards restored",
+        "The Shadow Fog retreats a little… Umbra is watching."
+      ]
+    }
+  ]
+}

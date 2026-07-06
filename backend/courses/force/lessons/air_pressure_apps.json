@@ -1,0 +1,77 @@
+{
+  "lessonId": "air_pressure_apps",
+  "title": "Suckers, Straws & Storms",
+  "description": "Harness atmospheric pressure to reach shard 6. Rubber suckers, syringes and even the weather run on it.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Rubber Sucker"
+    },
+    {
+      "type": "paragraph",
+      "value": "Press a rubber sucker onto a smooth wall and it sticks. Pressing pushes the air out from under it, lowering the pressure inside. The higher atmospheric pressure outside then pushes the sucker firmly against the wall — holding it in place."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Rubber sucker on a wall:\n😗  press → air squeezed out → low pressure inside\n🌬️  atmospheric pressure outside pushes it flat to the wall\n📌  result: it 'sticks' until air leaks back in"
+    },
+    {
+      "type": "heading",
+      "value": "Filling a Syringe or Dropper"
+    },
+    {
+      "type": "paragraph",
+      "value": "Pull a syringe plunger back and you create low pressure inside the barrel. Atmospheric pressure then pushes liquid (or air) up into the syringe. Doctors, cooks and scientists all rely on this everyday trick."
+    },
+    {
+      "type": "heading",
+      "value": "Weather and Winds"
+    },
+    {
+      "type": "paragraph",
+      "value": "Air always moves from HIGH pressure to LOW pressure areas — and moving air is wind! Big differences in atmospheric pressure across regions cause strong winds and storms. Weather scientists measure air pressure with a barometer to help forecast the weather."
+    },
+    {
+      "type": "tip",
+      "value": "A sudden DROP in atmospheric pressure often warns that stormy weather is on the way — which is why barometers are useful weather-predicting tools."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Atmospheric pressure makes rubber suckers stick and fills syringes and droppers. Air flowing from high to low pressure creates winds and storms, tracked with a barometer."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A rubber sucker sticks to a wall because…",
+      "options": [
+        "it is coated in glue",
+        "atmospheric pressure outside pushes it against the wall after air is squeezed out",
+        "the wall is magnetic"
+      ],
+      "answer": 1,
+      "explain": "Pressing removes air and lowers the inside pressure; higher outside air pressure holds the sucker to the wall."
+    },
+    {
+      "question": "Wind is basically air moving from…",
+      "options": [
+        "low pressure to high pressure",
+        "high pressure to low pressure",
+        "cold places to the Sun"
+      ],
+      "answer": 1,
+      "explain": "Air flows from regions of high atmospheric pressure toward regions of low pressure, and this moving air is wind."
+    },
+    {
+      "question": "An instrument used to measure atmospheric pressure is a…",
+      "options": [
+        "barometer",
+        "thermometer",
+        "speedometer"
+      ],
+      "answer": 0,
+      "explain": "A barometer measures atmospheric pressure and helps predict the weather."
+    }
+  ]
+}

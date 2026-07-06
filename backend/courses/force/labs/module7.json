@@ -1,0 +1,208 @@
+{
+  "labId": "module7",
+  "title": "Friction Lab",
+  "emoji": "🛑",
+  "tagline": "The Force of Friction",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Friction Fighter",
+  "objectives": [
+    "Explain what friction depends on",
+    "See how friction helps and harms",
+    "Understand friction produces heat"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "The Ice Fortress",
+      "xp": 10,
+      "narration": "The Baron's floors are frictionless ice. Learn to grip and stop to reach shard 7!",
+      "steps": [
+        {
+          "emoji": "🧊",
+          "text": "You slip helplessly on the Baron's icy floor."
+        },
+        {
+          "emoji": "👟",
+          "text": "Newton Bot hands you grippy boots."
+        },
+        {
+          "emoji": "🤖",
+          "text": "'Friction is what you need, Fighter!'"
+        }
+      ],
+      "cta": "Grip Up"
+    },
+    {
+      "type": "sort",
+      "title": "More Friction or Less Friction?",
+      "xp": 20,
+      "prompt": "Sort each situation by whether it gives more or less friction.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "more",
+          "label": "More Friction",
+          "emoji": "🪨"
+        },
+        {
+          "id": "less",
+          "label": "Less Friction",
+          "emoji": "🧊"
+        }
+      ],
+      "cards": [
+        {
+          "id": "rough",
+          "label": "A rough gravel path",
+          "emoji": "🪨",
+          "column": "more"
+        },
+        {
+          "id": "heavy",
+          "label": "A heavy loaded box",
+          "emoji": "📦",
+          "column": "more"
+        },
+        {
+          "id": "tread",
+          "label": "Tyres with deep treads",
+          "emoji": "🛞",
+          "column": "more"
+        },
+        {
+          "id": "ice",
+          "label": "Smooth ice",
+          "emoji": "🧊",
+          "column": "less"
+        },
+        {
+          "id": "oil",
+          "label": "An oiled metal surface",
+          "emoji": "🛢️",
+          "column": "less"
+        },
+        {
+          "id": "light",
+          "label": "A very light feather",
+          "emoji": "🪶",
+          "column": "less"
+        }
+      ],
+      "note": "Friction is greater for rougher surfaces and heavier objects, and less for smooth or oiled surfaces."
+    },
+    {
+      "type": "choose",
+      "title": "Friend or Foe?",
+      "xp": 15,
+      "prompt": "Is friction HELPING or HARMING in each case?",
+      "options": [
+        {
+          "id": "help",
+          "label": "Helping",
+          "emoji": "😊"
+        },
+        {
+          "id": "harm",
+          "label": "Harming",
+          "emoji": "😣"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "walk",
+          "label": "Walking without slipping",
+          "emoji": "🚶",
+          "answer": "help",
+          "explain": "Friction grips your shoes so you can walk."
+        },
+        {
+          "id": "brake",
+          "label": "Bicycle brakes stopping you",
+          "emoji": "🚲",
+          "answer": "help",
+          "explain": "Brakes use friction to stop."
+        },
+        {
+          "id": "wear",
+          "label": "Shoe soles wearing out",
+          "emoji": "👞",
+          "answer": "harm",
+          "explain": "Friction slowly wears surfaces away."
+        },
+        {
+          "id": "heat",
+          "label": "An engine overheating",
+          "emoji": "🔥",
+          "answer": "harm",
+          "explain": "Friction wastes energy as unwanted heat."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Cross the Ice",
+      "xp": 30,
+      "prompt": "Score 80% to grip your way to shard 7!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Friction is greater on surfaces that are…",
+          "options": [
+            "rougher",
+            "smoother"
+          ],
+          "answer": 0,
+          "explain": "Rougher surfaces produce more friction."
+        },
+        {
+          "q": "We can walk because of…",
+          "options": [
+            "friction between shoes and ground",
+            "gravity alone"
+          ],
+          "answer": 0,
+          "explain": "Friction grips so we don't slip."
+        },
+        {
+          "q": "Friction is called a…",
+          "options": [
+            "necessary evil",
+            "useless force"
+          ],
+          "answer": 0,
+          "explain": "We need it, but it also wears things out."
+        },
+        {
+          "q": "Rubbing hands together produces…",
+          "options": [
+            "heat",
+            "light"
+          ],
+          "answer": 0,
+          "explain": "Friction produces heat."
+        },
+        {
+          "q": "Treads on tyres are there to…",
+          "options": [
+            "increase grip",
+            "reduce grip"
+          ],
+          "answer": 0,
+          "explain": "Treads increase friction for grip, especially when wet."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Momentum Shard 7 Charged!",
+      "xp": 20,
+      "badge": "Friction Fighter",
+      "messages": [
+        "🏅 You earned the Friction Fighter badge",
+        "⚡ Momentum Core: 7 of 8 shards charged",
+        "One shard left — the Baron makes his last stand!"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "labId": "module2",
+  "title": "Fire Triangle Lab",
+  "emoji": "🔺",
+  "tagline": "Conditions for Combustion",
+  "difficulty": "Chemistry",
+  "duration": "15–20 min",
+  "badge": "Triangle Tactician",
+  "objectives": [
+    "Name the three conditions for combustion",
+    "Understand ignition temperature",
+    "Use the fire triangle"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "The Three Sides of Fire",
+      "xp": 10,
+      "narration": "Cinder's fires need three things to burn. Learn them to control any flame — and free ember 2!",
+      "steps": [
+        {
+          "emoji": "🔺",
+          "text": "Professor Blaze draws a glowing triangle."
+        },
+        {
+          "emoji": "👦",
+          "text": "Arjun: 'Fuel, oxygen, heat — all three?'"
+        },
+        {
+          "emoji": "🤖",
+          "text": "Spark Bot: 'Master the fire triangle!'"
+        }
+      ],
+      "cta": "Enter the Fire Triangle Lab"
+    },
+    {
+      "type": "pick",
+      "title": "The Three Sides of the Fire Triangle",
+      "xp": 20,
+      "prompt": "Tap the THREE things a fire needs to burn.",
+      "items": [
+        {
+          "id": "fuel",
+          "label": "Fuel",
+          "emoji": "🪵",
+          "isAI": true
+        },
+        {
+          "id": "oxygen",
+          "label": "Oxygen",
+          "emoji": "🌬️",
+          "isAI": true
+        },
+        {
+          "id": "heat",
+          "label": "Heat",
+          "emoji": "🌡️",
+          "isAI": true
+        },
+        {
+          "id": "water",
+          "label": "Water",
+          "emoji": "💧",
+          "isAI": false
+        },
+        {
+          "id": "sound",
+          "label": "Sound",
+          "emoji": "🔊",
+          "isAI": false
+        },
+        {
+          "id": "light",
+          "label": "Moonlight",
+          "emoji": "🌙",
+          "isAI": false
+        }
+      ],
+      "feedback": {
+        "correct": "Yes! This is one side of the fire triangle.",
+        "incorrect": "This is not needed for combustion."
+      }
+    },
+    {
+      "type": "choose",
+      "title": "Easy or Hard to Ignite?",
+      "xp": 15,
+      "prompt": "Lower ignition temperature = easier to light. Predict each fuel.",
+      "options": [
+        {
+          "id": "easy",
+          "label": "Lights easily",
+          "emoji": "✅"
+        },
+        {
+          "id": "hard",
+          "label": "Needs lots of heat",
+          "emoji": "🔥"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "paper",
+          "label": "Paper (low ignition temp)",
+          "emoji": "📄",
+          "answer": "easy",
+          "explain": "Low ignition temperature → lights easily."
+        },
+        {
+          "id": "match",
+          "label": "Matchstick tip",
+          "emoji": "🔥",
+          "answer": "easy",
+          "explain": "Friction heat lights it easily."
+        },
+        {
+          "id": "coal",
+          "label": "Coal (high ignition temp)",
+          "emoji": "🪨",
+          "answer": "hard",
+          "explain": "High ignition temperature → needs much heat."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Complete the Triangle",
+      "xp": 30,
+      "prompt": "Score 80% to relight ember 2!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "The three conditions for combustion are fuel, heat and…",
+          "options": [
+            "oxygen",
+            "water"
+          ],
+          "answer": 0,
+          "explain": "Fuel, oxygen and heat form the fire triangle."
+        },
+        {
+          "q": "Remove ONE side of the fire triangle and the fire…",
+          "options": [
+            "goes out",
+            "burns hotter"
+          ],
+          "answer": 0,
+          "explain": "All three are needed together."
+        },
+        {
+          "q": "Ignition temperature is the lowest temperature at which a fuel…",
+          "options": [
+            "catches fire",
+            "melts"
+          ],
+          "answer": 0,
+          "explain": "It's the temperature needed to start burning."
+        },
+        {
+          "q": "Paper lights more easily than coal because it has a…",
+          "options": [
+            "lower ignition temperature",
+            "higher ignition temperature"
+          ],
+          "answer": 0,
+          "explain": "Lower ignition temp = easier to light."
+        },
+        {
+          "q": "Oxygen for most fires comes from…",
+          "options": [
+            "the air",
+            "the fuel"
+          ],
+          "answer": 0,
+          "explain": "Air supplies the oxygen."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Guardian Flame: Ember 2 Lit!",
+      "xp": 20,
+      "badge": "Triangle Tactician",
+      "messages": [
+        "🏅 You earned the Triangle Tactician badge",
+        "🔥 Guardian Flame: 2 of 8 embers relit",
+        "You completed the fire triangle perfectly!"
+      ]
+    }
+  ]
+}

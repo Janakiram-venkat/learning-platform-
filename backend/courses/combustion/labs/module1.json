@@ -1,0 +1,202 @@
+{
+  "labId": "module1",
+  "title": "Combustion Lab",
+  "emoji": "🔥",
+  "tagline": "What Is Combustion?",
+  "difficulty": "Chemistry",
+  "duration": "15–20 min",
+  "badge": "Fire Starter",
+  "objectives": [
+    "Define combustion",
+    "Tell combustible from non-combustible",
+    "Understand inflammable substances"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Wildfire Unleashed",
+      "xp": 10,
+      "narration": "Lord Cinder has set the land ablaze. Master combustion to relight the safe Guardian Flame!",
+      "steps": [
+        {
+          "emoji": "👹",
+          "text": "Lord Cinder unleashes uncontrolled fire."
+        },
+        {
+          "emoji": "🔥",
+          "text": "The Guardian Flame flickers out."
+        },
+        {
+          "emoji": "🧑‍🔬",
+          "text": "Professor Blaze: 'Learn to tame fire, hero!'"
+        }
+      ],
+      "cta": "Enter the Combustion Lab"
+    },
+    {
+      "type": "sort",
+      "title": "Combustible or Non-Combustible?",
+      "xp": 20,
+      "prompt": "Sort each material by whether it can burn.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "yes",
+          "label": "Combustible",
+          "emoji": "🔥"
+        },
+        {
+          "id": "no",
+          "label": "Non-Combustible",
+          "emoji": "🚫"
+        }
+      ],
+      "cards": [
+        {
+          "id": "wood",
+          "label": "Wood",
+          "emoji": "🪵",
+          "column": "yes"
+        },
+        {
+          "id": "paper",
+          "label": "Paper",
+          "emoji": "📄",
+          "column": "yes"
+        },
+        {
+          "id": "cloth",
+          "label": "Cloth",
+          "emoji": "🧵",
+          "column": "yes"
+        },
+        {
+          "id": "stone",
+          "label": "Stone",
+          "emoji": "🪨",
+          "column": "no"
+        },
+        {
+          "id": "iron",
+          "label": "Iron",
+          "emoji": "🔩",
+          "column": "no"
+        },
+        {
+          "id": "glass",
+          "label": "Glass",
+          "emoji": "🥃",
+          "column": "no"
+        }
+      ],
+      "note": "Combustible materials catch fire and burn; non-combustible ones do not."
+    },
+    {
+      "type": "pick",
+      "title": "Spot the Inflammable Substances",
+      "xp": 15,
+      "prompt": "Tap every substance that catches fire VERY easily (inflammable).",
+      "items": [
+        {
+          "id": "petrol",
+          "label": "Petrol",
+          "emoji": "⛽",
+          "isAI": true
+        },
+        {
+          "id": "alcohol",
+          "label": "Alcohol",
+          "emoji": "🧴",
+          "isAI": true
+        },
+        {
+          "id": "lpg",
+          "label": "LPG gas",
+          "emoji": "🔥",
+          "isAI": true
+        },
+        {
+          "id": "water",
+          "label": "Water",
+          "emoji": "💧",
+          "isAI": false
+        },
+        {
+          "id": "sand",
+          "label": "Sand",
+          "emoji": "🏖️",
+          "isAI": false
+        }
+      ],
+      "feedback": {
+        "correct": "Yes! This is inflammable — it catches fire very easily.",
+        "incorrect": "This does not catch fire easily at all."
+      }
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Light the First Ember",
+      "xp": 30,
+      "prompt": "Score 80% to relight the first ember of the Guardian Flame!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Combustion is a reaction of a fuel with…",
+          "options": [
+            "oxygen",
+            "sound"
+          ],
+          "answer": 0,
+          "explain": "Burning is a fuel reacting with oxygen."
+        },
+        {
+          "q": "All combustion releases…",
+          "options": [
+            "heat",
+            "cold"
+          ],
+          "answer": 0,
+          "explain": "Combustion always releases heat."
+        },
+        {
+          "q": "Iron is…",
+          "options": [
+            "non-combustible",
+            "combustible"
+          ],
+          "answer": 0,
+          "explain": "Iron does not burn easily."
+        },
+        {
+          "q": "'Inflammable' means…",
+          "options": [
+            "catches fire easily",
+            "cannot burn"
+          ],
+          "answer": 0,
+          "explain": "Inflammable = catches fire very easily."
+        },
+        {
+          "q": "The substance that burns is the…",
+          "options": [
+            "fuel",
+            "flame"
+          ],
+          "answer": 0,
+          "explain": "The fuel is what burns."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Guardian Flame: Ember 1 Lit!",
+      "xp": 20,
+      "badge": "Fire Starter",
+      "messages": [
+        "🏅 You earned the Fire Starter badge",
+        "🔥 Guardian Flame: 1 of 8 embers relit",
+        "The first ember glows safely once more!"
+      ]
+    }
+  ]
+}

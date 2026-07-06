@@ -1,0 +1,81 @@
+{
+  "lessonId": "eye_structure",
+  "title": "Inside Your Eye",
+  "description": "All this light is useless without something to see it. Professor Prism reveals the most amazing light-detector ever built: the human eye.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Your Living Camera"
+    },
+    {
+      "type": "paragraph",
+      "value": "The human eye is a natural camera that catches light and turns it into pictures your brain understands. It is roughly the size of a ping-pong ball. Let's meet its main parts."
+    },
+    {
+      "type": "heading",
+      "value": "The Main Parts"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "CORNEA   → clear front window; light enters here\nIRIS     → the coloured ring; controls light entering\nPUPIL    → the black hole in the iris; light passes through\nLENS     → focuses light onto the back of the eye\nRETINA   → light-sensitive screen at the back\nOPTIC NERVE → carries the signal to the brain"
+    },
+    {
+      "type": "heading",
+      "value": "The Iris and Pupil: Your Auto Light-Control"
+    },
+    {
+      "type": "paragraph",
+      "value": "The pupil is the black opening that lets light in. The iris automatically changes the pupil's size: in bright light the pupil shrinks to let in less light; in dim light it widens to let in more. That is why your pupils look big in a dark room."
+    },
+    {
+      "type": "heading",
+      "value": "The Retina and the Blind Spot"
+    },
+    {
+      "type": "paragraph",
+      "value": "The retina is covered with light-sensitive cells that send signals along the optic nerve to the brain. The exact spot where the optic nerve leaves the eye has no light cells — this is the BLIND SPOT, and no image forms there."
+    },
+    {
+      "type": "tip",
+      "value": "The black 'pupil' is not a part — it is simply a hole. It looks black because light going in mostly does not come back out."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Light enters through the cornea and pupil, the lens focuses it on the retina, and the optic nerve carries the signal to the brain. The iris controls how much light enters."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which part of the eye controls how much light enters?",
+      "options": [
+        "The retina",
+        "The iris (by changing the pupil's size)",
+        "The optic nerve"
+      ],
+      "answer": 1,
+      "explain": "The iris widens or narrows the pupil to let in more or less light."
+    },
+    {
+      "question": "Where is the image formed inside the eye?",
+      "options": [
+        "On the cornea",
+        "On the retina",
+        "On the iris"
+      ],
+      "answer": 1,
+      "explain": "The lens focuses light onto the retina, the light-sensitive screen at the back of the eye."
+    },
+    {
+      "question": "The 'blind spot' is the place where…",
+      "options": [
+        "the pupil is widest",
+        "the optic nerve leaves the eye and there are no light-sensitive cells",
+        "colours are detected"
+      ],
+      "answer": 1,
+      "explain": "The blind spot has no light-sensitive cells because that is where the optic nerve exits, so no image forms there."
+    }
+  ]
+}

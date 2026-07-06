@@ -1,0 +1,77 @@
+{
+  "lessonId": "harmful_effects",
+  "title": "The Cost of Burning",
+  "description": "Lord Cinder's real weapon is pollution. Learn the harmful effects of burning fuels to prepare for the final battle.",
+  "difficulty": "Chemistry",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Burning Has a Price"
+    },
+    {
+      "type": "paragraph",
+      "value": "Burning fuels gives us energy, but it also releases harmful substances into the air. These cause serious problems for our health and the environment. Let's meet the main culprits."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "HARMFUL PRODUCTS OF BURNING FUELS\n💨  Carbon dioxide (CO₂)     → causes global warming\n☠️  Carbon monoxide (CO)     → poisonous gas (incomplete burning)\n🌧️  Sulphur & nitrogen oxides → cause acid rain\n🖤  Unburnt carbon particles  → cause breathing problems"
+    },
+    {
+      "type": "heading",
+      "value": "Smoke and Breathing Problems"
+    },
+    {
+      "type": "paragraph",
+      "value": "Incomplete burning releases tiny unburnt CARBON PARTICLES (soot) into the air. Breathing these can cause coughing, asthma and other respiratory diseases. Poisonous carbon monoxide from incomplete burning is deadly."
+    },
+    {
+      "type": "heading",
+      "value": "Acid Rain"
+    },
+    {
+      "type": "paragraph",
+      "value": "Burning fuels like coal and diesel releases oxides of SULPHUR and NITROGEN. These gases dissolve in rain water to form acids, producing ACID RAIN. Acid rain damages crops, buildings, and monuments (like the Taj Mahal), and harms rivers and soil."
+    },
+    {
+      "type": "tip",
+      "value": "Two gases, two big problems: CO₂ drives global warming, while sulphur and nitrogen oxides cause acid rain. Both come from burning fuels."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Burning fuels releases harmful products — CO₂ (global warming), poisonous carbon monoxide, unburnt carbon particles (breathing problems), and sulphur/nitrogen oxides that cause acid rain."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Oxides of sulphur and nitrogen from burning fuels cause…",
+      "options": [
+        "acid rain",
+        "clean drinking water",
+        "louder sounds"
+      ],
+      "answer": 0,
+      "explain": "These oxides dissolve in rain to form acids, producing acid rain that damages crops and buildings."
+    },
+    {
+      "question": "Unburnt carbon particles (soot) in the air mainly cause…",
+      "options": [
+        "respiratory (breathing) problems",
+        "better eyesight",
+        "stronger bones"
+      ],
+      "answer": 0,
+      "explain": "Tiny soot particles harm the lungs and can cause coughing, asthma and other breathing problems."
+    },
+    {
+      "question": "Which gas from burning fuels is a major cause of global warming?",
+      "options": [
+        "oxygen",
+        "carbon dioxide (CO₂)",
+        "nitrogen"
+      ],
+      "answer": 1,
+      "explain": "Carbon dioxide traps heat in the atmosphere, driving global warming."
+    }
+  ]
+}

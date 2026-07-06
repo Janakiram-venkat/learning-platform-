@@ -1,0 +1,77 @@
+{
+  "lessonId": "ideal_fuel",
+  "title": "The Ideal Fuel",
+  "description": "To relight the Guardian Flame you need the perfect fuel. Learn what makes a fuel 'ideal' to reforge the next ember.",
+  "difficulty": "Chemistry",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What Makes a Fuel Good?"
+    },
+    {
+      "type": "paragraph",
+      "value": "A FUEL is any substance we burn to get energy. Different fuels are better or worse. An IDEAL fuel is one that ticks as many good boxes as possible — cheap, safe, and clean."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "AN IDEAL FUEL SHOULD…\n💰  be cheap and easily available\n🔥  produce a lot of heat per unit\n🧯  be safe to store, handle and transport\n🌱  burn cleanly, without much smoke or ash\n⚖️  have a suitable ignition temperature (not too low)\n♻️  leave little harmful residue"
+    },
+    {
+      "type": "heading",
+      "value": "No Fuel Is Perfect"
+    },
+    {
+      "type": "paragraph",
+      "value": "In reality, no single fuel is perfect for every use. Wood is cheap but smoky; petrol gives lots of energy but is expensive and highly inflammable; LPG is clean but must be handled with care. We choose the best fuel for each job."
+    },
+    {
+      "type": "heading",
+      "value": "Ignition Temperature Matters"
+    },
+    {
+      "type": "paragraph",
+      "value": "A good fuel should NOT have too low an ignition temperature, or it would catch fire far too easily and be dangerous to store. But it shouldn't be so high that it's hard to light. A suitable, moderate ignition temperature makes a fuel both usable and safe."
+    },
+    {
+      "type": "tip",
+      "value": "Think of an ideal fuel as cheap, high-energy, safe and clean. Real fuels are trade-offs — that's why homes, cars and factories use different fuels."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: An ideal fuel is cheap, readily available, produces plenty of heat, burns cleanly, is safe to handle, and has a suitable ignition temperature. No real fuel is perfect, so we pick the best for each use."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which is a quality of an IDEAL fuel?",
+      "options": [
+        "It is expensive and rare",
+        "It produces a lot of heat and burns cleanly",
+        "It catches fire far too easily"
+      ],
+      "answer": 1,
+      "explain": "An ideal fuel gives lots of heat, burns cleanly, and is cheap and safe."
+    },
+    {
+      "question": "A good fuel should have an ignition temperature that is…",
+      "options": [
+        "as low as possible",
+        "suitable — not too low (dangerous) nor too high (hard to light)",
+        "exactly zero"
+      ],
+      "answer": 1,
+      "explain": "Too low an ignition temperature is dangerous to store; too high is hard to light. A moderate one is best."
+    },
+    {
+      "question": "Why do we use different fuels for different jobs?",
+      "options": [
+        "No single fuel is perfect for everything",
+        "All fuels are identical",
+        "Only one fuel exists"
+      ],
+      "answer": 0,
+      "explain": "Every fuel is a trade-off, so we choose the most suitable one for each purpose."
+    }
+  ]
+}

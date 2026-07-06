@@ -1,0 +1,11 @@
+{
+  "title": "Medium Challenge",
+  "emoji": "🌫️",
+  "rounds": [
+    { "type": "concept", "prompt": "Sound CANNOT travel through…", "options": ["a vacuum", "water", "steel"], "answer": 0, "explain": "A vacuum has no medium to carry sound." },
+    { "type": "match", "prompt": "Match each medium to how fast sound travels in it.", "pairs": [ { "left": "Solid", "right": "Fastest" }, { "left": "Liquid", "right": "Medium" }, { "left": "Gas", "right": "Slowest" } ], "explain": "Tighter particles carry sound faster." },
+    { "type": "concept", "prompt": "Space is silent because…", "options": ["there is no medium", "it is too dark"], "answer": 0, "explain": "No air means no medium for sound." },
+    { "type": "concept", "prompt": "You see lightning before hearing thunder because…", "options": ["light is much faster than sound", "sound happens later"], "answer": 0, "explain": "Light travels far faster than sound." },
+    { "type": "concept", "prompt": "A reflected sound heard again is an…", "options": ["echo", "amplitude"], "answer": 0, "explain": "A reflected sound is an echo." }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "moduleId": 3,
+  "title": "How We Hear",
+  "lessons": [
+    { "lessonId": "human_ear", "title": "Inside Your Ear", "duration": "11 min" },
+    { "lessonId": "hearing_journey", "title": "The Journey of a Sound", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Ear Explorer Lab"
+}

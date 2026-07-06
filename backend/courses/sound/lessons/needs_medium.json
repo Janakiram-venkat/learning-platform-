@@ -1,0 +1,77 @@
+{
+  "lessonId": "needs_medium",
+  "title": "No Air, No Sound",
+  "description": "Baron Mute traps a ringing bell inside a vacuum jar and it falls silent! Discover why sound needs a medium to travel.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Sound Needs Something to Travel Through"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sound cannot travel through empty space (a vacuum). It needs a MEDIUM — a material such as a gas, liquid, or solid — to carry it from the source to your ears. Usually that medium is the air around us."
+    },
+    {
+      "type": "heading",
+      "value": "The Bell-in-a-Jar Experiment"
+    },
+    {
+      "type": "paragraph",
+      "value": "An electric bell is placed inside a sealed glass jar. As the air is slowly pumped out, the ringing gets fainter and fainter, until you can barely hear it — even though you can still SEE the bell hammering. With no air, there is nothing to carry the sound."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🔔 in a jar FULL of air   → LOUD ring\n🔔 in a jar with LESS air → faint ring\n🔔 in a VACUUM (no air)   → silence (but still visibly ringing!)"
+    },
+    {
+      "type": "heading",
+      "value": "Solids and Liquids Carry Sound Too"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sound travels through solids and liquids, often even better than through air. Put your ear to a table and tap the other end — you hear it clearly through the wood. Whales sing to each other across kilometres of ocean because sound travels well through water."
+    },
+    {
+      "type": "tip",
+      "value": "This is why space is silent! In outer space there is no air, so no matter how big an explosion is, there is no medium to carry the sound — real space has no 'boom'."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Sound needs a medium (solid, liquid, or gas) to travel and cannot pass through a vacuum. That's why a bell in an airless jar falls silent, and why space is completely quiet."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Sound CANNOT travel through…",
+      "options": [
+        "air",
+        "water",
+        "a vacuum (empty space)"
+      ],
+      "answer": 2,
+      "explain": "A vacuum has no medium, so there is nothing to carry the sound. Sound needs a solid, liquid or gas."
+    },
+    {
+      "question": "In the bell-in-a-jar experiment, as air is pumped out the ringing…",
+      "options": [
+        "gets louder",
+        "gets fainter until it can't be heard",
+        "stays exactly the same"
+      ],
+      "answer": 1,
+      "explain": "With less air there is less medium to carry the sound, so it fades to silence."
+    },
+    {
+      "question": "Why is outer space silent?",
+      "options": [
+        "Sounds are too high to hear",
+        "There is no air (medium) to carry sound",
+        "Space is too cold for sound"
+      ],
+      "answer": 1,
+      "explain": "Space is a vacuum with no medium, so sound cannot travel there."
+    }
+  ]
+}

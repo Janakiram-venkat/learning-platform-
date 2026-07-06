@@ -1,0 +1,53 @@
+{
+  "courseId": "sound",
+  "title": "The World of Sound",
+  "description": "Science: uncover vibrations, pitch and echoes to reforge the Harmony Bell and break Baron Mute's silence!",
+  "level": "Physics",
+  "estimatedHours": 8,
+  "emoji": "🔊",
+  "thumbnail": "/images/sound.png",
+  "hasEditor": false,
+  "modules": [
+    {
+      "id": 1,
+      "title": "Sound Is a Vibration",
+      "file": "module1.json"
+    },
+    {
+      "id": 2,
+      "title": "Sound Needs a Medium",
+      "file": "module2.json"
+    },
+    {
+      "id": 3,
+      "title": "How We Hear",
+      "file": "module3.json"
+    },
+    {
+      "id": 4,
+      "title": "Making Sound: Voice & Animals",
+      "file": "module4.json"
+    },
+    {
+      "id": 5,
+      "title": "Describing Sound Waves",
+      "file": "module5.json"
+    },
+    {
+      "id": 6,
+      "title": "Loudness & Pitch",
+      "file": "module6.json"
+    },
+    {
+      "id": 7,
+      "title": "Audible & Inaudible Sounds",
+      "file": "module7.json"
+    },
+    {
+      "id": 8,
+      "title": "Noise, Music & Noise Pollution",
+      "file": "module8.json"
+    }
+  ],
+  "subject": "science"
+}

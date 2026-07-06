@@ -1,0 +1,77 @@
+{
+  "lessonId": "time_period",
+  "title": "Time Period of a Wave",
+  "description": "Master the last wave measurement — time period — and see how it links to frequency.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What Is the Time Period?"
+    },
+    {
+      "type": "paragraph",
+      "value": "The TIME PERIOD is the time taken to complete ONE full oscillation. It is measured in seconds. If a pendulum takes 2 seconds to swing there and back once, its time period is 2 seconds."
+    },
+    {
+      "type": "heading",
+      "value": "Time Period and Frequency Are Linked"
+    },
+    {
+      "type": "paragraph",
+      "value": "Time period and frequency are opposites of each other. If something vibrates quickly (high frequency), each oscillation takes a very short time (small time period). If it vibrates slowly, each oscillation takes longer."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "                1                            1\nfrequency = ───────────      time period = ───────────\n            time period                     frequency\n\nExample: frequency 2 Hz  →  time period = 1/2 = 0.5 s\n         time period 0.25 s → frequency = 1/0.25 = 4 Hz"
+    },
+    {
+      "type": "heading",
+      "value": "A Quick Example"
+    },
+    {
+      "type": "paragraph",
+      "value": "Suppose an object makes 5 oscillations in one second. Its frequency is 5 Hz. Its time period is 1 ÷ 5 = 0.2 seconds — each single oscillation takes one-fifth of a second."
+    },
+    {
+      "type": "tip",
+      "value": "Remember: frequency = 1 ÷ time period. High frequency always means a small time period, and low frequency means a large time period."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: The time period is the time for one complete oscillation (in seconds), and it is the reciprocal of frequency: frequency = 1 ÷ time period."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "The time period of a vibration is…",
+      "options": [
+        "the time for one complete oscillation",
+        "the number of oscillations per second",
+        "the size of the wave"
+      ],
+      "answer": 0,
+      "explain": "The time period is the time taken to complete a single full oscillation, measured in seconds."
+    },
+    {
+      "question": "If the frequency of a vibration is 4 Hz, its time period is…",
+      "options": [
+        "4 seconds",
+        "0.25 seconds",
+        "40 seconds"
+      ],
+      "answer": 1,
+      "explain": "Time period = 1 ÷ frequency = 1 ÷ 4 = 0.25 seconds."
+    },
+    {
+      "question": "A high frequency always means the time period is…",
+      "options": [
+        "large",
+        "small",
+        "unchanged"
+      ],
+      "answer": 1,
+      "explain": "Frequency and time period are reciprocals, so high frequency means a small time period."
+    }
+  ]
+}

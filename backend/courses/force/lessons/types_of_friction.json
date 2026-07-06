@@ -1,0 +1,77 @@
+{
+  "lessonId": "types_of_friction",
+  "title": "Static, Sliding & Rolling",
+  "description": "The final shards need a moving cart. Discover why rolling beats sliding — the key to defeating Baron Standstill.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Three Kinds of Friction"
+    },
+    {
+      "type": "paragraph",
+      "value": "Friction comes in different strengths depending on how surfaces move over each other. The three main types are static, sliding and rolling friction."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "STATIC friction  → acts when an object is about to move (strongest)\nSLIDING friction → acts when an object slides over a surface\nROLLING friction → acts when an object rolls (weakest)\n\nStrength:   STATIC  >  SLIDING  >  ROLLING"
+    },
+    {
+      "type": "heading",
+      "value": "Static Friction: The Strongest"
+    },
+    {
+      "type": "paragraph",
+      "value": "STATIC friction acts on an object that is at rest but about to move. It's why a heavy box is hardest to get moving at the very start. Once it starts sliding, less force is needed to keep it going — because sliding friction is smaller than static friction."
+    },
+    {
+      "type": "heading",
+      "value": "Rolling Friction: The Weakest"
+    },
+    {
+      "type": "paragraph",
+      "value": "ROLLING friction is much smaller than sliding friction. That's the genius of the WHEEL — rolling a load is far easier than dragging it. This is also why machines use ball bearings: tiny balls let parts roll instead of slide, cutting friction dramatically."
+    },
+    {
+      "type": "tip",
+      "value": "Remember the order from strongest to weakest: STATIC > SLIDING > ROLLING. Turning sliding into rolling (with wheels or bearings) is one of humanity's greatest inventions."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Static friction (about to move) is strongest, sliding friction is smaller, and rolling friction is weakest. Wheels and ball bearings replace sliding with rolling to reduce friction."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which type of friction is the WEAKEST?",
+      "options": [
+        "Static friction",
+        "Sliding friction",
+        "Rolling friction"
+      ],
+      "answer": 2,
+      "explain": "Rolling friction is the smallest, which is why rolling a load is easier than dragging it."
+    },
+    {
+      "question": "Why is a heavy box hardest to move at the very START?",
+      "options": [
+        "Static friction is strongest just before it moves",
+        "Rolling friction is acting",
+        "There is no friction at first"
+      ],
+      "answer": 0,
+      "explain": "Static friction (before motion begins) is the strongest type, so the initial push is the hardest."
+    },
+    {
+      "question": "Ball bearings reduce friction in machines by…",
+      "options": [
+        "making parts heavier",
+        "replacing sliding with rolling",
+        "removing all contact"
+      ],
+      "answer": 1,
+      "explain": "Ball bearings let parts roll instead of slide, and rolling friction is much smaller than sliding friction."
+    }
+  ]
+}

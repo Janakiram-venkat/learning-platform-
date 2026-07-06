@@ -1,0 +1,77 @@
+{
+  "lessonId": "cell_shape",
+  "title": "The Shapes of Cells",
+  "description": "Necrosis melts cells into shapeless blobs. Learn how a cell's shape fits its job to restore piece 4.",
+  "difficulty": "Biology",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Cells Come in Many Shapes"
+    },
+    {
+      "type": "paragraph",
+      "value": "Cells are not all the same shape. Their shape usually matches the JOB they do. Most cells are round, oval, or box-like, but some have very special shapes suited to their work."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "CELL              SHAPE           WHY\n🧠  Nerve cell     long & branched  to carry signals far\n🩸  Red blood cell round disc       to flow easily & carry oxygen\n💪  Muscle cell    long & spindle   to contract and relax\n🧅  Onion cell     neat brick-like  to build plant tissue"
+    },
+    {
+      "type": "heading",
+      "value": "Shape Follows Function"
+    },
+    {
+      "type": "paragraph",
+      "value": "A nerve cell is long and thread-like so it can carry messages across long distances in the body. A red blood cell is a flexible round disc so it can squeeze through tiny blood vessels while carrying oxygen. The shape is designed for the task."
+    },
+    {
+      "type": "heading",
+      "value": "The Cell Membrane Gives Shape"
+    },
+    {
+      "type": "paragraph",
+      "value": "The outer CELL MEMBRANE gives a cell its shape and holds it together. In plant cells an extra tough CELL WALL outside the membrane gives them a fixed, boxy shape — which is why plant cells look so neat and regular."
+    },
+    {
+      "type": "tip",
+      "value": "A great rule in biology: 'form fits function'. If you know a cell's shape, you can often guess its job — and vice versa."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Cells have different shapes suited to their functions — nerve cells are long, red blood cells are round discs. The cell membrane (and cell wall in plants) gives a cell its shape."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A nerve cell is long and branched so that it can…",
+      "options": [
+        "carry signals over long distances",
+        "store lots of food",
+        "float in water"
+      ],
+      "answer": 0,
+      "explain": "The long, thread-like shape helps a nerve cell carry messages far across the body."
+    },
+    {
+      "question": "What gives a cell its shape?",
+      "options": [
+        "the nucleus",
+        "the cell membrane (and cell wall in plants)",
+        "the cytoplasm alone"
+      ],
+      "answer": 1,
+      "explain": "The cell membrane holds the cell together and gives it shape; plant cells also have a tough cell wall."
+    },
+    {
+      "question": "The idea that a cell's shape matches its job is summed up as…",
+      "options": [
+        "'form fits function'",
+        "'bigger is better'",
+        "'all cells are equal'"
+      ],
+      "answer": 0,
+      "explain": "A cell's form (shape) is suited to its function (job) — form fits function."
+    }
+  ]
+}

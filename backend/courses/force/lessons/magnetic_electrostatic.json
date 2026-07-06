@@ -1,0 +1,81 @@
+{
+  "lessonId": "magnetic_electrostatic",
+  "title": "Magnetic & Electrostatic Forces",
+  "description": "Two more invisible forces guard shard 3. Learn how magnets and static charge push and pull across empty space.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Magnetic Force"
+    },
+    {
+      "type": "paragraph",
+      "value": "A magnet can attract iron objects and can attract or repel another magnet — all without touching. This is MAGNETIC FORCE, a non-contact force. Every magnet has two poles: north and south."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "LIKE poles repel:      N ← → N   and   S ← → S   (push apart)\nUNLIKE poles attract:  N → ← S              (pull together)"
+    },
+    {
+      "type": "heading",
+      "value": "Electrostatic Force"
+    },
+    {
+      "type": "paragraph",
+      "value": "Rub a plastic comb on dry hair and it can pick up tiny bits of paper without touching them first. The comb has become electrically charged. The force between charged objects is called ELECTROSTATIC FORCE — another non-contact force."
+    },
+    {
+      "type": "paragraph",
+      "value": "Like magnets, charges follow a rule: like charges (both positive or both negative) repel, and unlike charges (one positive, one negative) attract."
+    },
+    {
+      "type": "heading",
+      "value": "Same Rule, Different Forces"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice the pattern: for both magnetism and static charge, 'like repels, unlike attracts'. Lightning is a giant, dramatic example of electrostatic force — charge built up in clouds jumps to the ground in a huge spark."
+    },
+    {
+      "type": "tip",
+      "value": "Gravity, magnetic force and electrostatic force are the three non-contact forces in your science syllabus. All act across a gap, with nothing needing to touch."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Magnetic force (between magnets/iron) and electrostatic force (between charged objects) are non-contact forces. For both, like poles/charges repel and unlike ones attract."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Two north poles of magnets brought close together will…",
+      "options": [
+        "attract",
+        "repel",
+        "do nothing"
+      ],
+      "answer": 1,
+      "explain": "Like poles (N–N or S–S) repel each other. Unlike poles attract."
+    },
+    {
+      "question": "A charged comb picking up bits of paper shows…",
+      "options": [
+        "gravitational force",
+        "electrostatic force",
+        "muscular force"
+      ],
+      "answer": 1,
+      "explain": "The charged comb attracts paper through electrostatic force, a non-contact force."
+    },
+    {
+      "question": "What rule do BOTH magnetic poles and electric charges follow?",
+      "options": [
+        "Like attracts like",
+        "Like repels, unlike attracts",
+        "Everything always attracts"
+      ],
+      "answer": 1,
+      "explain": "For magnets and charges alike: like repels, unlike attracts."
+    }
+  ]
+}

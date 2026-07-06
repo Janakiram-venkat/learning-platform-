@@ -1,0 +1,202 @@
+{
+  "labId": "module3",
+  "title": "Surface Scanner Lab",
+  "emoji": "🔬",
+  "tagline": "Regular vs Diffused Reflection",
+  "difficulty": "Physics",
+  "duration": "15–20 min",
+  "badge": "Surface Sleuth",
+  "objectives": [
+    "Tell regular reflection from diffused reflection",
+    "Match surfaces to the kind of reflection they give",
+    "Explain how reflected light can reflect again"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "The Vault of Surfaces",
+      "xp": 10,
+      "narration": "Scan each surface, Sleuth — the right reflection reveals shard 3.",
+      "steps": [
+        {
+          "emoji": "💎",
+          "text": "Shard 3 hides in a vault of strange surfaces."
+        },
+        {
+          "emoji": "👧",
+          "text": "Anaya: 'Why does the mirror show my face but the wall doesn't?'"
+        },
+        {
+          "emoji": "🤖",
+          "text": "Ray Bot hands you the Surface Scanner."
+        }
+      ],
+      "cta": "Start Scanning"
+    },
+    {
+      "type": "sort",
+      "title": "Which Reflection?",
+      "xp": 20,
+      "prompt": "Sort each surface by the kind of reflection it gives.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "regular",
+          "label": "Regular (clear image)",
+          "emoji": "🪞"
+        },
+        {
+          "id": "diffused",
+          "label": "Diffused (scattered)",
+          "emoji": "🧱"
+        }
+      ],
+      "cards": [
+        {
+          "id": "mirror",
+          "label": "Flat Mirror",
+          "emoji": "🪞",
+          "column": "regular"
+        },
+        {
+          "id": "water",
+          "label": "Still Pond",
+          "emoji": "🌊",
+          "column": "regular"
+        },
+        {
+          "id": "steel",
+          "label": "Polished Steel",
+          "emoji": "🥄",
+          "column": "regular"
+        },
+        {
+          "id": "wall",
+          "label": "Brick Wall",
+          "emoji": "🧱",
+          "column": "diffused"
+        },
+        {
+          "id": "paper",
+          "label": "Sheet of Paper",
+          "emoji": "📄",
+          "column": "diffused"
+        },
+        {
+          "id": "wood",
+          "label": "Rough Wood",
+          "emoji": "🪵",
+          "column": "diffused"
+        }
+      ],
+      "note": "Smooth surfaces keep rays parallel (regular); rough surfaces scatter them (diffused). Both obey i = r!"
+    },
+    {
+      "type": "pick",
+      "title": "Spot the Diffused Reflectors",
+      "xp": 15,
+      "prompt": "Tap every surface that gives DIFFUSED (scattered) reflection.",
+      "items": [
+        {
+          "id": "cloth",
+          "label": "Cotton Cloth",
+          "emoji": "👕",
+          "isAI": true
+        },
+        {
+          "id": "road",
+          "label": "Rough Road",
+          "emoji": "🛣️",
+          "isAI": true
+        },
+        {
+          "id": "cardboard",
+          "label": "Cardboard",
+          "emoji": "📦",
+          "isAI": true
+        },
+        {
+          "id": "mirror2",
+          "label": "Mirror",
+          "emoji": "🪞",
+          "isAI": false
+        },
+        {
+          "id": "glass",
+          "label": "Polished Glass",
+          "emoji": "🪟",
+          "isAI": false
+        }
+      ],
+      "feedback": {
+        "correct": "Right! This rough surface scatters light in all directions.",
+        "incorrect": "This is smooth — it gives regular reflection and a clear image."
+      }
+    },
+    {
+      "type": "quiz",
+      "title": "Mini-Boss: Bounce to the Shard",
+      "xp": 30,
+      "prompt": "Score 80% to steer light off two mirrors and grab shard 3!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "A wall does not show a reflection because it gives…",
+          "options": [
+            "diffused reflection",
+            "no reflection at all"
+          ],
+          "answer": 0,
+          "explain": "The rough wall scatters light (diffused), so no clear image forms."
+        },
+        {
+          "q": "On a smooth mirror, parallel rays reflect as…",
+          "options": [
+            "parallel rays",
+            "scattered rays"
+          ],
+          "answer": 0,
+          "explain": "Regular reflection keeps parallel rays parallel, forming a clear image."
+        },
+        {
+          "q": "In diffused reflection the laws of reflection are…",
+          "options": [
+            "still obeyed at each point",
+            "broken"
+          ],
+          "answer": 0,
+          "explain": "Each point still obeys i = r; the surface is just uneven."
+        },
+        {
+          "q": "Can reflected light be reflected again?",
+          "options": [
+            "Yes, many times",
+            "No, only once"
+          ],
+          "answer": 0,
+          "explain": "Light can bounce off mirror after mirror, each time obeying the laws."
+        },
+        {
+          "q": "We can see a non-luminous object from many angles because of…",
+          "options": [
+            "diffused reflection scattering light everywhere",
+            "the object glowing"
+          ],
+          "answer": 0,
+          "explain": "Scattered light reaches our eyes from any direction, so we see the object all around."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Crystal Shard 3 Recovered!",
+      "xp": 20,
+      "badge": "Surface Sleuth",
+      "messages": [
+        "🏅 You earned the Surface Sleuth badge",
+        "💎 Rainbow Crystal: 3 of 8 shards restored",
+        "You scanned every surface like a true detective!"
+      ]
+    }
+  ]
+}

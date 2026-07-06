@@ -1,0 +1,82 @@
+{
+  "lessonId": "speed_of_sound",
+  "title": "The Speed of Sound",
+  "description": "Thunder booms seconds after lightning flashes. Learn why — and use the speed of sound to reach bell fragment 2.",
+  "difficulty": "Physics",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Sound Travels Fast — But Light Is Faster"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sound travels quickly through air — about 340 metres every second. That's fast, but LIGHT is far faster. This is why, in a storm, you SEE the lightning first and HEAR the thunder a few seconds later, even though they happen at the same moment."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "⚡ Lightning flash  → reaches you almost instantly (light is super fast)\n🔊 Thunder boom     → arrives seconds later (sound ~340 m/s)\n\nCount the seconds between them to estimate how far the storm is!"
+    },
+    {
+      "type": "heading",
+      "value": "Sound Moves Best Through Solids"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sound travels at different speeds in different mediums. It moves FASTEST in solids, slower in liquids, and slowest in gases like air. That's because the particles in a solid are packed tightly and pass the vibration along quickly."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "SPEED OF SOUND (roughly):\n🧱  Solids  → fastest   (particles packed tight)\n💧  Liquids → medium\n🌬️  Gases   → slowest   (particles far apart)"
+    },
+    {
+      "type": "heading",
+      "value": "Echoes"
+    },
+    {
+      "type": "paragraph",
+      "value": "When sound hits a big hard surface like a cliff or wall, it bounces back. A reflected sound you hear again is an ECHO. Bats and ships use reflected sound to sense objects around them — you'll meet that idea again with ultrasound!"
+    },
+    {
+      "type": "tip",
+      "value": "Because sound needs particles to pass the vibration along, denser packing (solids) carries it fastest. No particles at all (vacuum) means no sound."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Sound travels about 340 m/s in air — fast, but much slower than light (so thunder lags lightning). It moves fastest in solids and slowest in gases, and it reflects off surfaces to make echoes."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "In a storm you see lightning before hearing thunder because…",
+      "options": [
+        "thunder happens later",
+        "light travels much faster than sound",
+        "sound is louder than light"
+      ],
+      "answer": 1,
+      "explain": "Light reaches you almost instantly, while sound travels far slower (~340 m/s), arriving seconds later."
+    },
+    {
+      "question": "Sound travels FASTEST through…",
+      "options": [
+        "solids",
+        "liquids",
+        "gases"
+      ],
+      "answer": 0,
+      "explain": "Tightly-packed particles in solids pass vibrations along fastest, so sound is fastest in solids."
+    },
+    {
+      "question": "A sound that reflects off a surface and is heard again is called…",
+      "options": [
+        "an echo",
+        "a vacuum",
+        "a vibration"
+      ],
+      "answer": 0,
+      "explain": "A reflected sound heard again is an echo."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "moduleId": 6,
+  "title": "What Makes a Good Fuel",
+  "lessons": [
+    { "lessonId": "ideal_fuel", "title": "The Ideal Fuel", "duration": "11 min" },
+    { "lessonId": "calorific_value", "title": "Fuel Efficiency & Calorific Value", "duration": "11 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Fuel Quality Lab"
+}

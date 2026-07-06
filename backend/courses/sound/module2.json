@@ -1,0 +1,10 @@
+{
+  "moduleId": 2,
+  "title": "Sound Needs a Medium",
+  "lessons": [
+    { "lessonId": "needs_medium", "title": "No Air, No Sound", "duration": "11 min" },
+    { "lessonId": "speed_of_sound", "title": "The Speed of Sound", "duration": "10 min" }
+  ],
+  "hasLab": true,
+  "labTitle": "Medium Lab"
+}

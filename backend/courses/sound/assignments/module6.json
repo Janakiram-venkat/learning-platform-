@@ -1,0 +1,11 @@
+{
+  "title": "Loudness & Pitch Challenge",
+  "emoji": "🎚️",
+  "rounds": [
+    { "type": "concept", "prompt": "Loudness depends on…", "options": ["amplitude", "frequency"], "answer": 0, "explain": "Bigger amplitude = louder." },
+    { "type": "concept", "prompt": "Pitch depends on…", "options": ["frequency", "amplitude"], "answer": 0, "explain": "Higher frequency = higher pitch." },
+    { "type": "match", "prompt": "Match each property to what sets it.", "pairs": [ { "left": "Loudness", "right": "Amplitude" }, { "left": "Pitch", "right": "Frequency" }, { "left": "Loudness unit", "right": "Decibel" } ], "explain": "Keep loudness and pitch separate!" },
+    { "type": "concept", "prompt": "Hitting a drum harder changes its…", "options": ["loudness", "pitch"], "answer": 0, "explain": "A harder hit gives more amplitude = louder." },
+    { "type": "concept", "prompt": "A mosquito's high whine has a…", "options": ["high frequency", "big amplitude"], "answer": 0, "explain": "High pitch = high frequency." }
+  ]
+}

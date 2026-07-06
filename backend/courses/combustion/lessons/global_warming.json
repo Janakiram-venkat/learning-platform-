@@ -1,0 +1,77 @@
+{
+  "lessonId": "global_warming",
+  "title": "Global Warming & Cleaner Fuels",
+  "description": "The final showdown! Choose cleaner fuels, cool the planet, and relight the Guardian Flame to defeat Lord Cinder for good.",
+  "difficulty": "Chemistry",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What Is Global Warming?"
+    },
+    {
+      "type": "paragraph",
+      "value": "When we burn fuels, we release carbon dioxide (CO₂). CO₂ traps heat from the Sun in the atmosphere, like a blanket around the Earth. As CO₂ levels rise, the whole planet slowly heats up — this is GLOBAL WARMING."
+    },
+    {
+      "type": "heading",
+      "value": "Why It Matters"
+    },
+    {
+      "type": "paragraph",
+      "value": "Global warming is causing serious changes: melting polar ice, rising sea levels, more extreme weather, and threats to plants, animals and people. Reducing how much fuel we burn helps slow it down."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "MORE CO₂  →  more heat trapped  →  Earth warms up\n🏭 burning fuels → 💨 CO₂ rises → 🌡️ temperatures climb\n→ 🧊 melting ice, 🌊 rising seas, ⛈️ extreme weather"
+    },
+    {
+      "type": "heading",
+      "value": "Cleaner Choices"
+    },
+    {
+      "type": "paragraph",
+      "value": "We can fight global warming by using cleaner fuels and less of them: switch to gaseous fuels like CNG and LPG, use hydrogen and renewable energy (solar, wind), plant more trees to absorb CO₂, and save energy by walking, cycling and sharing transport."
+    },
+    {
+      "type": "tip",
+      "value": "Every bit of fuel saved means less CO₂. Planting trees, using CNG/solar power, and saving electricity all help cool the planet — small actions add up."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Burning fuels releases CO₂, which traps heat and causes global warming — melting ice, rising seas and extreme weather. Using cleaner fuels, renewable energy and planting trees helps reduce it."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Global warming is mainly caused by rising levels of…",
+      "options": [
+        "oxygen",
+        "carbon dioxide trapping heat in the atmosphere",
+        "sound waves"
+      ],
+      "answer": 1,
+      "explain": "Extra CO₂ from burning fuels traps the Sun's heat, warming the whole planet."
+    },
+    {
+      "question": "Which is a way to reduce global warming?",
+      "options": [
+        "burning more coal",
+        "using cleaner fuels and planting trees",
+        "cutting down forests"
+      ],
+      "answer": 1,
+      "explain": "Cleaner fuels, renewable energy and more trees all reduce CO₂ and slow global warming."
+    },
+    {
+      "question": "One effect of global warming is…",
+      "options": [
+        "melting polar ice and rising sea levels",
+        "colder oceans everywhere forever",
+        "more oxygen in the air"
+      ],
+      "answer": 0,
+      "explain": "Global warming melts polar ice and raises sea levels, among other serious effects."
+    }
+  ]
+}

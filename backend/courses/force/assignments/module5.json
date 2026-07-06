@@ -1,0 +1,11 @@
+{
+  "title": "Liquid Pressure Challenge",
+  "emoji": "🌊",
+  "rounds": [
+    { "type": "concept", "prompt": "As you go deeper in a liquid, pressure…", "options": ["increases", "decreases", "vanishes"], "answer": 0, "explain": "More liquid above means more pressure." },
+    { "type": "concept", "prompt": "A liquid exerts pressure…", "options": ["in all directions", "only downward"], "answer": 0, "explain": "Liquids press in every direction." },
+    { "type": "match", "prompt": "Match each example to the idea it shows.", "pairs": [ { "left": "Thick dam base", "right": "Pressure greatest deep down" }, { "left": "Straw", "right": "Pressure difference lifts liquid" }, { "left": "Tall water tower", "right": "Height gives pressure" } ], "explain": "Liquid pressure powers dams, straws and water supplies." },
+    { "type": "concept", "prompt": "Deep-sea divers wear strong suits because…", "options": ["water pressure is huge deep down", "the water is cold"], "answer": 0, "explain": "Pressure increases greatly with depth." },
+    { "type": "concept", "prompt": "At the same depth, liquid pressure is…", "options": ["the same in all directions", "strongest downward"], "answer": 0, "explain": "Same depth = equal pressure in every direction." }
+  ]
+}

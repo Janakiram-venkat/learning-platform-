@@ -1,0 +1,254 @@
+{
+  "labId": "module8",
+  "title": "Final Mission: Reforge the Harmony Bell",
+  "emoji": "🏆",
+  "tagline": "Noise, Music & the Grand Finale",
+  "difficulty": "Physics",
+  "duration": "20–25 min",
+  "badge": "Master of Sound",
+  "objectives": [
+    "Tell noise from music",
+    "Explain noise pollution and its cures",
+    "Recall every big idea from the chapter"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Baron Mute's Last Stand",
+      "xp": 10,
+      "narration": "One fragment left. Silence the harmful noise and reforge the Harmony Bell to save the world's sound!",
+      "steps": [
+        {
+          "emoji": "👹",
+          "text": "Baron Mute floods the city with harsh noise."
+        },
+        {
+          "emoji": "🔔",
+          "text": "The final fragment glows within the din."
+        },
+        {
+          "emoji": "🎵",
+          "text": "Maestra Sonata: 'Finish this, Master of Sound!'"
+        }
+      ],
+      "cta": "Begin the Final Mission"
+    },
+    {
+      "type": "sort",
+      "title": "Noise or Music?",
+      "xp": 20,
+      "prompt": "Sort each sound as (usually) pleasant music or unpleasant noise.",
+      "pass": 0.8,
+      "columns": [
+        {
+          "id": "music",
+          "label": "Music",
+          "emoji": "🎶"
+        },
+        {
+          "id": "noise",
+          "label": "Noise",
+          "emoji": "📢"
+        }
+      ],
+      "cards": [
+        {
+          "id": "flute",
+          "label": "A flute melody",
+          "emoji": "🎵",
+          "column": "music"
+        },
+        {
+          "id": "song",
+          "label": "Someone singing",
+          "emoji": "🎤",
+          "column": "music"
+        },
+        {
+          "id": "piano",
+          "label": "A piano tune",
+          "emoji": "🎹",
+          "column": "music"
+        },
+        {
+          "id": "horn",
+          "label": "Blaring traffic horns",
+          "emoji": "🚗",
+          "column": "noise"
+        },
+        {
+          "id": "drill",
+          "label": "A construction drill",
+          "emoji": "🔨",
+          "column": "noise"
+        },
+        {
+          "id": "crackers",
+          "label": "Loud firecrackers",
+          "emoji": "🧨",
+          "column": "noise"
+        }
+      ],
+      "note": "Music = regular pleasant vibrations; noise = irregular, harsh, unwanted sound."
+    },
+    {
+      "type": "pick",
+      "title": "Ways to Cut Noise Pollution",
+      "xp": 15,
+      "prompt": "Tap every action that helps REDUCE noise pollution.",
+      "items": [
+        {
+          "id": "trees",
+          "label": "Plant trees along roads",
+          "emoji": "🌳",
+          "isAI": true
+        },
+        {
+          "id": "volume",
+          "label": "Keep volumes low",
+          "emoji": "🔉",
+          "isAI": true
+        },
+        {
+          "id": "factory",
+          "label": "Move factories away from homes",
+          "emoji": "🏭",
+          "isAI": true
+        },
+        {
+          "id": "silence",
+          "label": "Respect silence zones",
+          "emoji": "🤫",
+          "isAI": true
+        },
+        {
+          "id": "honk",
+          "label": "Honk horns constantly",
+          "emoji": "📣",
+          "isAI": false
+        },
+        {
+          "id": "loudspeaker",
+          "label": "Blast loudspeakers all night",
+          "emoji": "🔊",
+          "isAI": false
+        }
+      ],
+      "feedback": {
+        "correct": "Yes! This helps reduce noise pollution.",
+        "incorrect": "This makes noise pollution WORSE."
+      }
+    },
+    {
+      "type": "quiz",
+      "title": "FINAL BOSS: The Grand Sound Test",
+      "xp": 40,
+      "prompt": "Answer 80% of these questions from the WHOLE chapter to reforge the Harmony Bell and defeat Baron Mute!",
+      "pass": 0.8,
+      "questions": [
+        {
+          "q": "Sound is produced by…",
+          "options": [
+            "vibration",
+            "light"
+          ],
+          "answer": 0,
+          "explain": "Module 1: sound comes from vibration."
+        },
+        {
+          "q": "Sound cannot travel through…",
+          "options": [
+            "a vacuum",
+            "water"
+          ],
+          "answer": 0,
+          "explain": "Module 2: it needs a medium."
+        },
+        {
+          "q": "Which part of the ear vibrates?",
+          "options": [
+            "eardrum",
+            "pinna"
+          ],
+          "answer": 0,
+          "explain": "Module 3: the eardrum vibrates."
+        },
+        {
+          "q": "The human voice comes from the…",
+          "options": [
+            "vocal cords",
+            "eardrum"
+          ],
+          "answer": 0,
+          "explain": "Module 4: vocal cords vibrate."
+        },
+        {
+          "q": "Frequency is measured in…",
+          "options": [
+            "hertz",
+            "metres"
+          ],
+          "answer": 0,
+          "explain": "Module 5: hertz (Hz)."
+        },
+        {
+          "q": "Loudness depends on…",
+          "options": [
+            "amplitude",
+            "frequency"
+          ],
+          "answer": 0,
+          "explain": "Module 6: amplitude."
+        },
+        {
+          "q": "Pitch depends on…",
+          "options": [
+            "frequency",
+            "amplitude"
+          ],
+          "answer": 0,
+          "explain": "Module 6: frequency."
+        },
+        {
+          "q": "Human hearing range is about…",
+          "options": [
+            "20–20,000 Hz",
+            "0–10 Hz"
+          ],
+          "answer": 0,
+          "explain": "Module 7: 20 Hz to 20,000 Hz."
+        },
+        {
+          "q": "Bats navigate with…",
+          "options": [
+            "ultrasound",
+            "infrasound only"
+          ],
+          "answer": 0,
+          "explain": "Module 7: ultrasound echolocation."
+        },
+        {
+          "q": "Noise pollution can be reduced by…",
+          "options": [
+            "planting trees",
+            "honking more"
+          ],
+          "answer": 0,
+          "explain": "Module 8: trees absorb sound."
+        }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "🔔 THE HARMONY BELL IS REFORGED! 🔔",
+      "xp": 50,
+      "badge": "Master of Sound",
+      "messages": [
+        "🏆 CERTIFICATE: Master of Sound — Science",
+        "🎵 Harmony Bell: 8 of 8 fragments recovered!",
+        "👹 Baron Mute is defeated and sound returns to the world.",
+        "You mastered vibration, hearing, pitch and ultrasound. Congratulations, Master of Sound!"
+      ]
+    }
+  ]
+}

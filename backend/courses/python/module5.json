@@ -4,17 +4,17 @@
   "lessons": [
     {
       "lessonId": "lists",
-      "title": "Magic Backpacks",
+      "title": "Lists",
       "duration": "15 min"
     },
     {
       "lessonId": "tuples",
-      "title": "Unchangeable Scrolls",
+      "title": "Tuples",
       "duration": "10 min"
     },
     {
       "lessonId": "dictionaries",
-      "title": "The Phonebook",
+      "title": "Dictionaries",
       "duration": "20 min"
     }
   ]

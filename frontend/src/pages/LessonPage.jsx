@@ -124,7 +124,7 @@ export default function LessonPage() {
 
       // Block direct access to a locked lesson — bounce back to the course list.
       if (!getUnlockedLessonIds(courseData).has(lessonId)) {
-        navigate('/courses', { replace: true });
+        navigate('/', { replace: true });
         return;
       }
 
@@ -208,7 +208,7 @@ export default function LessonPage() {
     if (nextLesson) {
       navigate(`/course/${courseId}/lesson/${nextLesson.lessonId}`);
     } else {
-      navigate('/courses');
+      navigate('/');
     }
   };
 
@@ -305,8 +305,8 @@ export default function LessonPage() {
     }
   };
 
-  if (loading) return <div className="flex-1 flex items-center justify-center">Loading lesson...</div>;
-  if (!lesson) return <div className="flex-1 flex items-center justify-center">Lesson not found.</div>;
+  if (loading) return <div className="flex-1 flex items-center justify-center bg-paper font-lab font-bold text-ink/60">Loading lesson…</div>;
+  if (!lesson) return <div className="flex-1 flex items-center justify-center bg-paper font-lab font-bold text-ink/60">Lesson not found.</div>;
 
   // No-code courses (e.g. AI Fundamentals) opt out of the Python editor panel
   // via "hasEditor": false in course.json. Coding courses default to showing it.
@@ -343,14 +343,14 @@ export default function LessonPage() {
       <SignInModal open={signInOpen} onClose={handleSignInClose} />
 
       {/* Mobile-only top bar to open the lesson list */}
-      <div className="flex items-center gap-3 border-b border-gray-200 bg-white px-4 py-3 lg:hidden">
+      <div className="flex items-center gap-3 border-b-2 border-ink/15 bg-paper px-4 py-3 lg:hidden">
         <button
           onClick={() => setSidebarOpen(true)}
-          className="flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2 text-sm font-bold text-gray-700 active:scale-95"
+          className="flex items-center gap-2 rounded-lg border-2 border-ink px-3 py-2 text-sm font-bold text-ink active:scale-95"
         >
           <Menu className="h-4 w-4" /> Lessons
         </button>
-        <span className="truncate text-sm font-semibold text-gray-500">{course?.title}</span>
+        <span className="truncate text-sm font-semibold text-ink/55">{course?.title}</span>
       </div>
 
       {/* Backdrop for the mobile drawer */}
@@ -363,13 +363,13 @@ export default function LessonPage() {
 
       {/* Sidebar: slide-in drawer on mobile, static column on desktop */}
       <div
-        className={`fixed inset-y-0 left-0 z-40 w-72 transform bg-gray-50 shadow-xl transition-transform duration-300 lg:static lg:z-0 lg:w-64 lg:translate-x-0 lg:shadow-none ${
+        className={`fixed inset-y-0 left-0 z-40 w-72 transform bg-paper shadow-xl transition-transform duration-300 lg:static lg:z-0 lg:w-64 lg:translate-x-0 lg:shadow-none ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <button
           onClick={() => setSidebarOpen(false)}
-          className="absolute right-2 top-2 z-10 rounded-md p-1.5 text-gray-500 hover:bg-gray-200 lg:hidden"
+          className="absolute right-2 top-2 z-10 rounded-md p-1.5 text-ink/55 hover:bg-ink/10 lg:hidden"
           aria-label="Close lessons"
         >
           <X className="h-5 w-5" />
@@ -386,23 +386,23 @@ export default function LessonPage() {
       >
 
       {/* Main Content Area */}
-      <div style={lessonStyle} className="min-w-0 flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-8">
-        <div className="mx-auto max-w-3xl rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-10">
-          <h1 className="mb-4 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{lesson.title}</h1>
-          <p className="mb-6 border-b border-gray-100 pb-6 text-base text-gray-600 sm:mb-10 sm:text-lg">{lesson.description}</p>
-          
+      <div style={lessonStyle} className="bench-grid min-w-0 flex-1 overflow-y-auto p-4 sm:p-8">
+        <div className="mx-auto max-w-3xl rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(22,36,29,0.9)] sm:p-10">
+          <h1 className="font-lab mb-4 text-2xl font-extrabold tracking-tight text-ink sm:text-4xl">{lesson.title}</h1>
+          <p className="mb-6 border-b-2 border-ink/10 pb-6 text-base text-ink/65 sm:mb-10 sm:text-lg">{lesson.description}</p>
+
           <div className="space-y-8 mb-16">
             {lesson.content?.map((block, idx) => {
-              if (block.type === 'heading') return <h2 key={idx} className="text-2xl font-bold text-gray-900 mt-10 mb-4">{block.value}</h2>;
-              if (block.type === 'paragraph') return <p key={idx} className="text-gray-700 leading-relaxed text-lg">{block.value}</p>;
+              if (block.type === 'heading') return <h2 key={idx} className="font-lab text-2xl font-bold text-ink mt-10 mb-4">{block.value}</h2>;
+              if (block.type === 'paragraph') return <p key={idx} className="text-ink/75 leading-relaxed text-lg">{block.value}</p>;
               if (block.type === 'tip') return (
-                <div key={idx} className="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg text-indigo-900 shadow-sm">
-                  <strong className="font-bold flex items-center mb-2"><CheckCircle2 className="w-5 h-5 mr-2" />Tip</strong>
+                <div key={idx} className="bg-pcb/8 border-l-4 border-pcb p-6 rounded-r-lg text-ink">
+                  <strong className="font-lab flex items-center mb-2 text-pcb"><CheckCircle2 className="w-5 h-5 mr-2" />Tip</strong>
                   <span className="text-lg">{block.value}</span>
                 </div>
               );
               if (block.type === 'code') return (
-                <pre key={idx} className="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto text-sm font-mono shadow-inner">
+                <pre key={idx} className="bg-[#0B180F] text-white/90 p-6 rounded-xl overflow-x-auto text-sm font-mono-lab border-2 border-ink shadow-inner">
                   {block.value}
                 </pre>
               );
@@ -413,17 +413,17 @@ export default function LessonPage() {
 
           {/* Practice Section — coding exercises, only for courses with the editor */}
           {showEditor && lesson.practice && lesson.practice.length > 0 && (
-            <div className="mb-16 border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <div className="bg-blue-50 px-5 py-4 border-b border-blue-100 sm:px-8 sm:py-5">
-                <h3 className="font-bold text-blue-900 text-lg">Practice Exercises</h3>
+            <div className="mb-16 border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+              <div className="bg-pcb px-5 py-4 border-b-2 border-ink sm:px-8 sm:py-5">
+                <h3 className="font-lab font-bold text-white text-lg">Practice Exercises</h3>
               </div>
               <div className="p-5 bg-white sm:p-8">
                 {lesson.practice.map(p => (
                   <div key={p.id} className="mb-6 last:mb-0">
-                    <p className="font-medium text-gray-800 text-lg mb-4">Task: {p.question}</p>
-                    <button 
+                    <p className="font-medium text-ink text-lg mb-4">Task: {p.question}</p>
+                    <button
                       onClick={() => setCode(p.starterCode)}
-                      className="inline-flex items-center justify-center bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg font-bold transition-colors"
+                      className="inline-flex items-center justify-center border-2 border-ink text-ink hover:bg-pcb hover:text-white px-4 py-2 rounded-lg font-bold transition-colors"
                     >
                       Load Starter Code ➔
                     </button>
@@ -435,9 +435,9 @@ export default function LessonPage() {
 
           {/* Quiz Section */}
           {lesson.quiz && lesson.quiz.length > 0 && (
-            <div className="mb-16 border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <div className="bg-green-50 px-5 py-4 border-b border-green-100 sm:px-8 sm:py-5">
-                <h3 className="font-bold text-green-900 text-lg">Knowledge Check</h3>
+            <div className="mb-16 border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+              <div className="bg-signal px-5 py-4 border-b-2 border-ink sm:px-8 sm:py-5">
+                <h3 className="font-lab font-bold text-ink text-lg">Knowledge Check</h3>
               </div>
               <div className="p-5 bg-white space-y-8 sm:p-8 sm:space-y-10">
                 {lesson.quiz.map((q, qIdx) => {
@@ -445,24 +445,24 @@ export default function LessonPage() {
                   const graded = !!result;
                   return (
                     <div key={qIdx}>
-                      <p className="font-bold text-gray-900 text-lg mb-5">{q.question}</p>
+                      <p className="font-bold text-ink text-lg mb-5">{q.question}</p>
                       <div className="space-y-3">
                         {q.options.map((opt, oIdx) => {
                           const chosen = quizAnswers[qIdx] === oIdx;
                           // After grading, paint the correct option green and a
                           // wrongly-chosen option red; otherwise normal selection.
-                          let cls = chosen ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:bg-gray-50';
+                          let cls = chosen ? 'border-pcb bg-pcb/8' : 'border-ink/15 hover:bg-ink/5';
                           if (graded) {
-                            if (oIdx === result.correctIndex) cls = 'border-green-500 bg-green-50';
-                            else if (chosen) cls = 'border-rose-400 bg-rose-50';
-                            else cls = 'border-gray-200 opacity-70';
+                            if (oIdx === result.correctIndex) cls = 'border-pcb bg-pcb/10';
+                            else if (chosen) cls = 'border-wire bg-wire/8';
+                            else cls = 'border-ink/15 opacity-70';
                           }
                           return (
-                            <label key={oIdx} className={`flex items-center space-x-4 p-4 border rounded-xl transition-colors cursor-pointer ${cls}`}>
+                            <label key={oIdx} className={`flex items-center space-x-4 p-4 border-2 rounded-xl transition-colors cursor-pointer ${cls}`}>
                               <input
                                 type="radio"
                                 name={`quiz-${qIdx}`}
-                                className="w-5 h-5 text-green-600"
+                                className="w-5 h-5 accent-pcb"
                                 checked={chosen}
                                 onChange={() => {
                                   setQuizAnswers(prev => ({ ...prev, [qIdx]: oIdx }));
@@ -471,9 +471,9 @@ export default function LessonPage() {
                                   if (quizResult) setQuizResult(null);
                                 }}
                               />
-                              <span className="text-gray-800 font-medium flex-1">{opt}</span>
-                              {graded && oIdx === result.correctIndex && <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />}
-                              {graded && chosen && oIdx !== result.correctIndex && <XCircle className="w-5 h-5 text-rose-500 shrink-0" />}
+                              <span className="text-ink font-medium flex-1">{opt}</span>
+                              {graded && oIdx === result.correctIndex && <CheckCircle2 className="w-5 h-5 text-pcb shrink-0" />}
+                              {graded && chosen && oIdx !== result.correctIndex && <XCircle className="w-5 h-5 text-wire shrink-0" />}
                             </label>
                           );
                         })}
@@ -481,7 +481,7 @@ export default function LessonPage() {
 
                       {/* Why-it's-wrong / why-it's-right explanation */}
                       {graded && (
-                        <div className={`mt-4 flex items-start gap-3 rounded-xl p-4 ring-1 animate-slide-up ${result.correct ? 'bg-green-50 ring-green-100 text-green-900' : 'bg-amber-50 ring-amber-100 text-amber-900'}`}>
+                        <div className={`mt-4 flex items-start gap-3 rounded-xl p-4 border-2 animate-slide-up ${result.correct ? 'bg-pcb/8 border-pcb/30 text-ink' : 'bg-signal/15 border-signal text-ink'}`}>
                           <Lightbulb className="mt-0.5 h-5 w-5 shrink-0" />
                           <p className="text-sm font-medium leading-relaxed">
                             <span className="font-bold">{result.correct ? 'Correct! ' : 'Not quite. '}</span>
@@ -495,15 +495,15 @@ export default function LessonPage() {
                   );
                 })}
 
-                <div className="flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-t-2 border-ink/10 pt-6">
                   <button
                     onClick={handleQuizSubmit}
-                    className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-bold transition-colors shadow-sm"
+                    className="lab-btn bg-pcb text-white border-2 border-ink px-8 py-3 rounded-xl font-extrabold"
                   >
                     {quizResult ? 'Submit Again' : 'Submit Quiz'}
                   </button>
                   {quizResult && (
-                    <span className={`font-extrabold flex items-center text-xl px-4 py-2 rounded-lg ${quizResult.score === quizResult.total ? 'text-green-600 bg-green-100' : 'text-amber-600 bg-amber-100'}`}>
+                    <span className={`font-lab font-extrabold flex items-center text-xl px-4 py-2 rounded-lg border-2 border-ink ${quizResult.score === quizResult.total ? 'text-ink bg-pcb/20' : 'text-ink bg-signal/25'}`}>
                       <CheckCircle2 className="w-6 h-6 mr-2" />
                       Score: {quizResult.score} / {quizResult.total}
                     </span>
@@ -513,9 +513,9 @@ export default function LessonPage() {
             </div>
           )}
 
-          <div className="border-t border-gray-200 pt-10 flex flex-col items-end gap-3">
+          <div className="border-t-2 border-ink/10 pt-10 flex flex-col items-end gap-3">
             {!quizPassed && (
-              <p className="flex items-center gap-2 text-sm font-semibold text-amber-600">
+              <p className="flex items-center gap-2 text-sm font-semibold text-wire">
                 <Lock className="h-4 w-4 shrink-0" />
                 Answer every Knowledge Check question correctly to finish this chapter.
               </p>
@@ -523,7 +523,7 @@ export default function LessonPage() {
             <button
               onClick={handleMarkComplete}
               disabled={!quizPassed}
-              className="flex items-center gap-2 bg-gray-900 hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-300 disabled:hover:bg-gray-300 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors shadow-md"
+              className="lab-btn flex items-center gap-2 border-2 border-ink bg-signal text-ink disabled:cursor-not-allowed disabled:border-ink/20 disabled:bg-ink/10 disabled:text-ink/40 px-8 py-4 rounded-xl font-extrabold text-lg"
             >
               {!quizPassed && <Lock className="h-5 w-5" />}
               Complete &amp; Continue
@@ -540,38 +540,38 @@ export default function LessonPage() {
           onPointerDown={startResize}
           onDoubleClick={() => setSplitPct(defaultSplit)}
           title="Drag to resize · double-click to reset"
-          className="z-20 hidden w-1.5 shrink-0 cursor-col-resize bg-gray-200 transition-colors hover:bg-indigo-400 lg:block"
+          className="z-20 hidden w-1.5 shrink-0 cursor-col-resize bg-ink/15 transition-colors hover:bg-pcb lg:block"
         />
       )}
 
       {/* Compiler Panel — hidden for no-code courses (course.hasEditor === false) */}
       {showEditor && (
-      <div style={panelStyle} className="z-10 flex w-full min-w-0 flex-col border-t border-gray-200 bg-white shadow-2xl lg:h-full lg:w-[600px] lg:border-l lg:border-l-gray-300 lg:border-t-0">
+      <div style={panelStyle} className="z-10 flex w-full min-w-0 flex-col border-t-2 border-ink bg-paper shadow-2xl lg:h-full lg:w-[600px] lg:border-l-2 lg:border-l-ink lg:border-t-0">
 
         {/* Editor Area */}
-        <div className="flex h-[55vh] flex-col border-b border-gray-200 bg-gray-50 p-4 sm:p-5 lg:h-[65%]">
+        <div className="flex h-[55vh] flex-col border-b-2 border-ink/15 bg-paper p-4 sm:p-5 lg:h-[65%]">
           <div className="flex justify-between items-center mb-4 shrink-0">
-            <h3 className="font-extrabold text-gray-900 text-lg flex items-center">
-              <span className="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
+            <h3 className="font-lab font-extrabold text-ink text-lg flex items-center">
+              <span className="w-3 h-3 bg-pcb rounded-full mr-2 ring-2 ring-ink/20"></span>
               Python Editor
             </h3>
-            <button 
+            <button
               onClick={handleRunCode}
               disabled={isRunning}
-              className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white px-6 py-2.5 rounded-lg font-bold flex items-center shadow-md transition-all active:scale-95"
+              className="lab-btn bg-pcb text-white border-2 border-ink px-6 py-2.5 rounded-lg font-extrabold flex items-center disabled:opacity-60"
             >
               <Play className="w-5 h-5 mr-2" />
-              {isRunning ? 'Running...' : 'Run Code'}
+              {isRunning ? 'Running…' : 'Run Code'}
             </button>
           </div>
-          <div className="flex-1 min-h-0 rounded-xl overflow-hidden border border-gray-300 shadow-sm bg-white">
+          <div className="flex-1 min-h-0 rounded-xl overflow-hidden border-2 border-ink/15 bg-white">
             <CodeEditor code={code} onChange={setCode} />
           </div>
         </div>
-        
+
         {/* Output Area */}
-        <div className="flex h-[40vh] flex-col bg-gray-50 p-4 sm:p-5 lg:h-[35%]">
-          <div className="flex-1 min-h-0 rounded-xl overflow-hidden shadow-inner border border-gray-300">
+        <div className="flex h-[40vh] flex-col bg-paper p-4 sm:p-5 lg:h-[35%]">
+          <div className="flex-1 min-h-0 rounded-xl overflow-hidden border-2 border-ink">
             <OutputPanel output={output} isRunning={isRunning} error={runError} />
           </div>
         </div>
@@ -581,7 +581,7 @@ export default function LessonPage() {
 
       {/* Interactive Lab Panel — for no-code courses whose module ships a lab */}
       {!showEditor && lab && (
-        <div style={panelStyle} className="z-10 flex w-full min-w-0 flex-col border-t border-gray-200 bg-gradient-to-b from-purple-50/40 to-white shadow-2xl lg:h-full lg:w-[600px] lg:overflow-y-auto lg:border-l lg:border-t-0">
+        <div style={panelStyle} className="z-10 flex w-full min-w-0 flex-col border-t-2 border-ink bg-paper shadow-2xl lg:h-full lg:w-[600px] lg:overflow-y-auto lg:border-l-2 lg:border-l-ink lg:border-t-0">
           <div className="p-4 sm:p-6">
             <LabRunner lab={lab.data} course={course} courseId={courseId} moduleId={lab.moduleKey} />
           </div>

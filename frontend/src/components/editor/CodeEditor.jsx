@@ -2,7 +2,7 @@ import Editor from '@monaco-editor/react';
 
 export default function CodeEditor({ code, onChange }) {
   return (
-    <div className="h-full w-full border border-gray-200 rounded-md overflow-hidden">
+    <div className="h-full w-full overflow-hidden rounded-md border-2 border-ink/15">
       <Editor
         height="100%"
         defaultLanguage="python"

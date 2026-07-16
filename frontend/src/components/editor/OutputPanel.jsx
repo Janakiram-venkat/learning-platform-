@@ -1,15 +1,15 @@
 export default function OutputPanel({ output, isRunning, error }) {
   return (
-    <div className="bg-[#111827] text-white p-4 rounded-md h-full flex flex-col font-mono text-sm overflow-y-auto">
-      <div className="text-gray-400 mb-2 border-b border-gray-700 pb-2 flex justify-between">
-        <span>Output Console</span>
-        {isRunning && <span className="text-blue-400 animate-pulse">Running...</span>}
+    <div className="flex h-full flex-col overflow-y-auto rounded-md bg-[#0B180F] p-4 font-mono-lab text-sm text-white">
+      <div className="mb-2 flex justify-between border-b border-white/10 pb-2 text-white/45">
+        <span>▸ Output</span>
+        {isRunning && <span className="animate-pulse text-led">Running…</span>}
       </div>
       <div className="flex-1 whitespace-pre-wrap">
         {error ? (
-          <span className="text-red-400">{error}</span>
+          <span className="text-wire">{error}</span>
         ) : (
-          <span>{output || 'Output will appear here...'}</span>
+          <span className={output ? 'text-emerald-400' : 'text-white/40'}>{output || 'Output will appear here…'}</span>
         )}
       </div>
     </div>

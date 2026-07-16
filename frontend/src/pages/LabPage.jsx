@@ -28,7 +28,7 @@ export default function LabPage() {
         const numericId = moduleId.replace('module', '');
         const mod = courseData.modules?.find((m) => String(m.moduleId ?? m.id) === numericId);
         if (!mod || !isAssignmentUnlocked(mod)) {
-          navigate('/courses', { replace: true });
+          navigate('/', { replace: true });
           return;
         }
         setCourse(courseData);
@@ -53,7 +53,7 @@ export default function LabPage() {
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24 text-center">
         <span className="text-5xl">🚧</span>
         <p className="font-display text-lg font-semibold text-[#6C63A6]">This lab isn't ready yet.</p>
-        <Link to="/courses" className="rounded-xl bg-purple-600 px-5 py-2.5 font-bold text-white">Back to Quests</Link>
+        <Link to="/" className="rounded-xl bg-purple-600 px-5 py-2.5 font-bold text-white">Back to Quests</Link>
       </div>
     );
   }

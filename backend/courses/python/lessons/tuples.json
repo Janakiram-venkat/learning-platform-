@@ -1,24 +1,24 @@
 {
   "lessonId": "tuples",
-  "title": "Unchangeable Scrolls",
-  "description": "Learn about Tuples: the magical unchangeable scrolls that look like lists but lock their values forever!",
+  "title": "Tuples",
+  "description": "A tuple is like a list, but its values can't be changed after you make it.",
   "difficulty": "Intermediate",
   "content": [
     {
       "type": "heading",
-      "value": "The Magical Scrolls"
+      "value": "Lists That Can't Change"
     },
     {
       "type": "paragraph",
-      "value": "Lists are great because we can change them, append items, or delete items. But what if we want to store a list of things that should NEVER change? Like the coordinates of a treasure chest or the months of the year? For that, we use Tuples! Tuples are like ancient, magical scrolls: once you write something on them, it is locked forever."
+      "value": "A list can be changed: you can add, remove, or replace items. But sometimes you have values that should never change, like the days of the week or a fixed pair of coordinates. For that, you use a tuple. Once you make a tuple, its values are locked."
     },
     {
       "type": "heading",
-      "value": "Creating a Tuple"
+      "value": "Making a Tuple"
     },
     {
       "type": "paragraph",
-      "value": "We write tuples using regular parentheses `( )` instead of square brackets `[ ]`."
+      "value": "You make a tuple with regular parentheses `( )` instead of square brackets. You read items from it by index, just like a list."
     },
     {
       "type": "code",
@@ -27,46 +27,46 @@
     },
     {
       "type": "heading",
-      "value": "Locked in Stone"
+      "value": "Locked After Creation"
     },
     {
       "type": "paragraph",
-      "value": "If you try to change a tuple after creating it, Python will protect it and raise an error. This is a super useful feature to make sure your important data doesn't get messed up by accident!"
+      "value": "If you try to change a tuple after making it, Python gives an error. This is actually helpful: it protects important values from being changed by accident."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "coords = (10, 20)\n# coords[0] = 5   # If you run this, Python will crash with a TypeError!"
+      "value": "coords = (10, 20)\n# coords[0] = 5   # This line would cause an error, because tuples can't change"
     }
   ],
   "editorCode": "months = (\"January\", \"February\", \"March\")\nprint(months[0])\nprint(\"Length of tuple:\", len(months))",
   "practice": [
     {
       "id": 1,
-      "question": "Create a tuple called 'rgb_colors' with three numbers representing Red, Green, and Blue values (like 255, 120, 0) and print the tuple!",
-      "starterCode": "# Create the rgb_colors tuple below\n\n# Print it"
+      "question": "Make a tuple called 'rgb_colors' with three numbers for Red, Green, and Blue (like 255, 120, 0) and print it.",
+      "starterCode": "# Make the rgb_colors tuple below\n\n# Print it"
     }
   ],
   "quiz": [
     {
-      "question": "What punctuation marks are used to create a Tuple?",
+      "question": "Which brackets make a tuple?",
       "options": [
         "Square brackets [ ]",
         "Parentheses ( )",
         "Curly brackets { }"
       ],
       "answer": 1,
-      "explain": "Tuples are made with parentheses `( )`. Square brackets make lists and curly brackets make dictionaries/sets."
+      "explain": "Tuples use parentheses `( )`. Square brackets make lists and curly brackets make dictionaries."
     },
     {
-      "question": "Can you add or modify items in a Tuple after creating it?",
+      "question": "Can you change the items in a tuple after making it?",
       "options": [
         "Yes, using append()",
-        "No, tuples are unchangeable (immutable).",
-        "Yes, but only with strings."
+        "No, a tuple's items can't be changed.",
+        "Yes, but only if they are strings."
       ],
       "answer": 1,
-      "explain": "Tuples are immutable -- once created they can't be changed, so there's no append() for them."
+      "explain": "A tuple can't be changed after it's made, so there's no append() for it. That's the main difference from a list."
     }
   ]
 }

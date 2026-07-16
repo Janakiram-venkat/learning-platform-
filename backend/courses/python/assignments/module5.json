@@ -1,7 +1,7 @@
 {
   "moduleId": 5,
   "title": "Collection Keeper Arcade",
-  "intro": "Backpacks (lists), scrolls (tuples) and phonebooks (dicts) hold your treasures! Grab the right items and store them well. First-try wins earn ⭐⭐⭐!",
+  "intro": "Lists, tuples, and dictionaries all hold many values at once! Grab the right items and store them well. First-try wins earn ⭐⭐⭐!",
   "emoji": "🎒",
   "rounds": [
     {
@@ -17,7 +17,7 @@
       "prompt": "Which collection CANNOT be changed after you make it?",
       "options": ["A tuple", "A list", "A dictionary"],
       "answer": 0,
-      "explain": "Tuples are like unchangeable scrolls, once written, they stay the same."
+      "explain": "A tuple can't be changed after you make it, its values stay the same."
     },
     {
       "type": "predict",

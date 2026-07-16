@@ -1,16 +1,16 @@
 {
   "lessonId": "booleans",
   "title": "True or False?",
-  "description": "Meet Booleans, the binary wizards who only speak in absolute truths and falsehoods!",
+  "description": "Meet Booleans, values that are either True or False, and how to compare things.",
   "difficulty": "Beginner",
   "content": [
     {
       "type": "heading",
-      "value": "The Wizards of Truth"
+      "value": "True and False"
     },
     {
       "type": "paragraph",
-      "value": "In Python, there is a special data type called a Boolean. Booleans are named after a mathematician named George Boole. The best part? Booleans are extremely simple: they can only ever be True or False!"
+      "value": "A Boolean is a special data type that can only be one of two values: True or False. It's a simple way to answer yes-or-no questions. (Booleans are named after a mathematician, George Boole.)"
     },
     {
       "type": "heading",
@@ -18,15 +18,15 @@
     },
     {
       "type": "paragraph",
-      "value": "We can use special comparison operators to ask the computer questions. The computer will always answer with True or False!"
+      "value": "You can ask the computer to compare two values using comparison operators. The answer is always a Boolean: either True or False."
     },
     {
       "type": "heading",
-      "value": "Comparison Spells"
+      "value": "The Comparison Operators"
     },
     {
       "type": "paragraph",
-      "value": "- `>`: Is it greater than?\n- `<`: Is it less than?\n- `==`: Are they EXACTLY equal? (Notice we use two equals signs `==` to compare, and one equals sign `=` to put things in a variable box!)\n- `!=`: Are they NOT equal?"
+      "value": "- `>`: Is the left side greater than the right?\n- `<`: Is the left side less than the right?\n- `==`: Are the two sides exactly equal? (Use two equals signs `==` to compare. A single `=` is for storing a value in a variable.)\n- `!=`: Are the two sides not equal?"
     },
     {
       "type": "code",
@@ -35,37 +35,37 @@
     },
     {
       "type": "tip",
-      "value": "In Python, the first letters of True and False must ALWAYS be capitalized. Writing 'true' or 'false' in lowercase will make the computer throw a tantrum!"
+      "value": "In Python, True and False must start with a capital letter. Writing 'true' or 'false' in all lowercase will cause an error."
     }
   ],
   "editorCode": "print(12 > 15)\nprint(7 == 7)\nprint(4 != 5)",
   "practice": [
     {
       "id": 1,
-      "question": "Create a variable called 'my_guess' and check if 8 is equal to 8. Print your variable!",
+      "question": "Make a variable called 'my_guess' that checks whether 8 is equal to 8. Then print it.",
       "starterCode": "my_guess = 8 == 8\nprint(my_guess)"
     }
   ],
   "quiz": [
     {
-      "question": "Which symbol do we use to check if two values are equal?",
+      "question": "Which symbol checks if two values are equal?",
       "options": [
         "=",
         "==",
         "!="
       ],
       "answer": 1,
-      "explain": "We use a double equals sign `==` to compare two values. A single `=` puts a value into a variable, and `!=` means 'not equal'."
+      "explain": "Use a double equals sign `==` to compare two values. A single `=` stores a value in a variable, and `!=` means 'not equal'."
     },
     {
-      "question": "What does '5 != 5' print?",
+      "question": "What does '5 != 5' give you?",
       "options": [
         "True",
         "False",
         "Error"
       ],
       "answer": 1,
-      "explain": "`!=` means 'not equal'. Since 5 IS equal to 5, the statement '5 != 5' is False."
+      "explain": "`!=` means 'not equal'. Since 5 IS equal to 5, '5 != 5' is False."
     }
   ]
 }

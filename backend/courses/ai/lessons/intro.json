@@ -18,6 +18,18 @@
     },
     {
       "type": "heading",
+      "value": "A Simple Way to Think About It"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here's an easy way to picture AI. A normal program follows fixed rules a person wrote: press this button, get that result, every single time. AI is different, it looks at lots of examples, spots patterns, and then makes smart guesses about things it has never seen before."
+    },
+    {
+      "type": "paragraph",
+      "value": "Think of a friend who has watched hundreds of cricket matches. They can't see the future, but they've seen so many games that they can guess what a player might do next. AI works in a similar way: it learns from mountains of examples, then makes its best guess."
+    },
+    {
+      "type": "heading",
       "value": "AI is Already All Around You"
     },
     {
@@ -27,7 +39,19 @@
     {
       "type": "code",
       "language": "text",
-      "value": "📺  YouTube & Netflix  → recommend what to watch next\n🗺️  Google Maps        → find the fastest route\n🔓  Face Unlock        → recognize your face\n🎙️  Voice Assistants   → understand what you say\n💬  ChatGPT & Claude    → chat and answer questions"
+      "value": "📺  YouTube & Netflix  → recommend what to watch next\n🗺️  Google Maps        → find the fastest route\n🔓  Face Unlock        → recognize your face\n🎙️  Voice Assistants   → understand what you say\n💬  ChatGPT & Claude    → chat and answer questions\n📧  Email spam filter   → hide junk mail automatically\n⌨️  Autocorrect         → fix your typos as you type"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice what these have in common: each one improves by learning from data. Maps gets better at predicting traffic the more trips it sees. Your keyboard gets better at guessing your next word the more you type."
+    },
+    {
+      "type": "heading",
+      "value": "What AI is NOT"
+    },
+    {
+      "type": "paragraph",
+      "value": "AI does not mean a walking, talking robot. Most AI has no body at all, it's just software running on a computer. And today's AI is not alive, does not have feelings, and does not truly 'understand' the world the way you do. It is very good at spotting patterns and making predictions, but it doesn't know what those patterns mean."
     },
     {
       "type": "heading",
@@ -35,7 +59,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Humans learn from experience, feelings, and the world around them. AI learns from data, huge amounts of examples. A human child learns what a cat is after seeing a few. An AI might need thousands of cat photos. But once it learns, AI can work super fast and never gets tired!"
+      "value": "Humans learn from experience, feelings, and the world around them. AI learns from data, huge amounts of examples. A human child learns what a cat is after seeing a few. An AI might need thousands of cat photos. But once it learns, AI can work super fast, handle millions of tasks at once, and never gets tired!"
     },
     {
       "type": "heading",
@@ -43,15 +67,15 @@
     },
     {
       "type": "paragraph",
-      "value": "The idea of 'thinking machines' began in the 1950s. For many years AI was slow and limited. But thanks to faster computers and oceans of data, AI has exploded over the last decade, leading to self-driving cars, smart assistants, and tools that can create art and stories."
+      "value": "The idea of 'thinking machines' began in the 1950s. For many years AI was slow and limited, computers weren't powerful enough and there wasn't much data to learn from. But thanks to faster computers and oceans of data from the internet, AI has exploded over the last decade, leading to self-driving cars, smart assistants, and tools that can create art and stories."
     },
     {
       "type": "tip",
-      "value": "Activity: 'Find AI Around You': Look around your day and list at least five AI-powered technologies you use. Hint: think about your phone, apps, games, and TV!"
+      "value": "Activity: 'Find AI Around You': Look around your day and list at least five AI-powered technologies you use. For each one, ask: what data did it learn from? Hint: think about your phone, apps, games, and TV!"
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: AI is the ability of machines to perform tasks that normally require human intelligence."
+      "value": "Key Takeaway: AI is the ability of machines to perform tasks that normally require human intelligence, by learning patterns from data instead of following only fixed rules."
     }
   ],
   "quiz": [
@@ -84,6 +108,16 @@
       ],
       "answer": 0,
       "explain": "Modern AI learns patterns from large amounts of data, the same way you get better at something with lots of practice."
+    },
+    {
+      "question": "Which statement about today's AI is TRUE?",
+      "options": [
+        "All AI is a walking, talking robot",
+        "Most AI is software that has no body and no feelings",
+        "AI is alive and understands the world like a human"
+      ],
+      "answer": 1,
+      "explain": "Most AI is just software running on a computer. It's great at spotting patterns, but it isn't alive and doesn't truly understand things the way people do."
     }
   ]
 }

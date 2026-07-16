@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Award, X, RotateCcw, PartyPopper } from 'lucide-react';
 
 // A small confetti burst rendered with pure CSS — no extra dependencies.
-const CONFETTI_COLORS = ['#34d399', '#60a5fa', '#fbbf24', '#f472b6', '#a78bfa', '#f87171'];
+const CONFETTI_COLORS = ['#FFC93C', '#1F7A5C', '#E8503A', '#23B5D3', '#16241D', '#3FBF7F'];
 const CONFETTI_PIECES = Array.from({ length: 40 }, (_, i) => i);
 
 export default function Celebration({ open, title, message, badge, onClose, variant = 'success' }) {
@@ -43,12 +43,12 @@ export default function Celebration({ open, title, message, badge, onClose, vari
 
       {/* Modal card */}
       <div
-        className="relative mx-4 w-full max-w-sm rounded-3xl bg-white p-8 text-center shadow-2xl animate-[popIn_0.45s_cubic-bezier(0.34,1.56,0.64,1)]"
+        className="lab-panel relative mx-4 w-full max-w-sm p-8 text-center animate-[popIn_0.45s_cubic-bezier(0.34,1.56,0.64,1)]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 text-gray-400 transition-colors hover:text-gray-700"
+          className="absolute right-4 top-4 text-ink/40 transition-colors hover:text-ink"
           aria-label="Close"
         >
           <X className="h-5 w-5" />
@@ -56,12 +56,8 @@ export default function Celebration({ open, title, message, badge, onClose, vari
 
         {/* Icon disc */}
         <div
-          className={`mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full shadow-lg animate-[badgePop_0.6s_cubic-bezier(0.34,1.56,0.64,1)_0.15s_both] ${
-            isRetry
-              ? 'bg-gradient-to-br from-orange-400 to-rose-500'
-              : isLesson
-              ? 'bg-gradient-to-br from-teal-400 to-emerald-500'
-              : 'bg-gradient-to-br from-amber-400 to-yellow-500'
+          className={`mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-2xl border-2 border-ink shadow-lg animate-[badgePop_0.6s_cubic-bezier(0.34,1.56,0.64,1)_0.15s_both] ${
+            isRetry ? 'bg-wire' : isLesson ? 'bg-pcb' : 'bg-signal'
           }`}
         >
           {isRetry ? (
@@ -69,15 +65,15 @@ export default function Celebration({ open, title, message, badge, onClose, vari
           ) : isLesson ? (
             <PartyPopper className="h-12 w-12 text-white drop-shadow" strokeWidth={2.5} />
           ) : (
-            <Award className="h-12 w-12 text-white drop-shadow" strokeWidth={2.5} />
+            <Award className="h-12 w-12 text-ink drop-shadow" strokeWidth={2.5} />
           )}
         </div>
 
-        <h2 className="mb-2 text-2xl font-extrabold text-gray-900">{title}</h2>
-        <p className="mb-5 text-gray-600">{message}</p>
+        <h2 className="font-lab mb-2 text-2xl font-extrabold text-ink">{title}</h2>
+        <p className="mb-5 text-ink/65">{message}</p>
 
         {badge && !isRetry && (
-          <div className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-4 py-2 text-sm font-bold text-amber-700 ring-1 ring-amber-200">
+          <div className="inline-flex items-center gap-2 rounded-lg border-2 border-ink bg-signal/25 px-4 py-2 text-sm font-bold text-ink">
             <Award className="h-4 w-4" />
             Badge earned: {badge}
           </div>
@@ -86,7 +82,7 @@ export default function Celebration({ open, title, message, badge, onClose, vari
         {isRetry && (
           <button
             onClick={onClose}
-            className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-6 py-2.5 font-bold text-white transition-colors hover:bg-orange-600"
+            className="lab-btn inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-2.5 font-extrabold text-ink"
           >
             <RotateCcw className="h-4 w-4" />
             Try Again

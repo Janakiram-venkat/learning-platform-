@@ -1,24 +1,24 @@
 {
   "lessonId": "imports",
-  "title": "Importing Spells",
-  "description": "Learn how to borrow code libraries written by other wizards using the import statement!",
+  "title": "Using Modules",
+  "description": "Bring in ready-made code from Python's built-in modules using import.",
   "difficulty": "Advanced",
   "content": [
     {
       "type": "heading",
-      "value": "Borrowing Pre-made Spells"
+      "value": "Using Code Others Wrote"
     },
     {
       "type": "paragraph",
-      "value": "You don't need to write every single code function yourself. Python has a huge library of pre-written code (called Modules) that other programmers wrote! You can borrow their work using the `import` statement."
+      "value": "You don't have to write everything yourself. Python comes with lots of ready-made code, grouped into modules. You bring a module into your program with the `import` keyword, and then you can use the tools inside it."
     },
     {
       "type": "heading",
-      "value": "1. The 'random' Spell"
+      "value": "1. The random Module"
     },
     {
       "type": "paragraph",
-      "value": "If you want to roll a dice, pick a random card, or select a random option in a game, you can import the `random` module!"
+      "value": "The `random` module helps when you need something unpredictable, like rolling a dice or picking a random option in a game."
     },
     {
       "type": "code",
@@ -27,11 +27,11 @@
     },
     {
       "type": "heading",
-      "value": "2. The 'math' Spell"
+      "value": "2. The math Module"
     },
     {
       "type": "paragraph",
-      "value": "The `math` module gives you access to advanced math operations like calculating square roots (`math.sqrt`) or getting the exact value of Pi!"
+      "value": "The `math` module gives you extra math tools, like square roots (`math.sqrt`) and the value of Pi."
     },
     {
       "type": "code",
@@ -40,11 +40,11 @@
     },
     {
       "type": "heading",
-      "value": "3. The 'time' Spell"
+      "value": "3. The time Module"
     },
     {
       "type": "paragraph",
-      "value": "The `time` module can make the computer pause and wait before running the next lines of code using `time.sleep()`."
+      "value": "The `time` module can make the program pause before running the next line, using `time.sleep()`."
     },
     {
       "type": "code",
@@ -56,13 +56,13 @@
   "practice": [
     {
       "id": 1,
-      "question": "Import the 'random' module and print a random integer between 1 and 100!",
+      "question": "Import the 'random' module and print a random whole number between 1 and 100.",
       "starterCode": "# Import random and print a random number between 1 and 100 below"
     }
   ],
   "quiz": [
     {
-      "question": "Which keyword is used to load a pre-written library module in Python?",
+      "question": "Which keyword brings a module into your program?",
       "options": [
         "load",
         "import",
@@ -72,7 +72,7 @@
       "explain": "`import` loads a ready-made module so you can use its tools without writing them yourself."
     },
     {
-      "question": "Which module would you import to generate a random number?",
+      "question": "Which module would you use to make a random number?",
       "options": [
         "math",
         "random",

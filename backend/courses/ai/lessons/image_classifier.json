@@ -10,11 +10,19 @@
     },
     {
       "type": "paragraph",
-      "value": "Google Teachable Machine is a free, friendly website that lets you train an image classifier using just your webcam, no code at all. You'll teach the AI to tell apart different hand signs and faces!"
+      "value": "Google Teachable Machine is a free, friendly website that lets you train an image classifier using just your webcam, no code at all. You'll teach the AI to tell apart different hand signs and faces, and it's the same kind of training real AI teams do."
     },
     {
       "type": "tip",
       "value": "Open teachablemachine.withgoogle.com in your browser and click 'Get Started', then 'Image Project' → 'Standard image model'."
+    },
+    {
+      "type": "heading",
+      "value": "First, What is a 'Class'?"
+    },
+    {
+      "type": "paragraph",
+      "value": "A class is simply one of the groups you want the AI to tell apart. If you're sorting fruit, your classes might be 'apple' and 'banana'. The AI's whole job is to look at a new image and decide which class it belongs to."
     },
     {
       "type": "heading",
@@ -43,8 +51,24 @@
       "value": "Step 1: COLLECT  → record ~30 webcam samples per class\nStep 2: TRAIN    → click 'Train Model' and wait a few seconds\nStep 3: TEST     → show a gesture, watch the confidence bars move"
     },
     {
+      "type": "heading",
+      "value": "Reading the Confidence Bars"
+    },
+    {
+      "type": "paragraph",
+      "value": "When you test it, the AI doesn't just say one answer, it shows a confidence bar for each class, like 'Thumbs Up: 92%, Happy Face: 6%'. That percentage is how sure it is. AI rarely says 100%; it makes its best guess and tells you how confident it feels, just like you might say 'I'm pretty sure that's a dog'."
+    },
+    {
+      "type": "heading",
+      "value": "When It Gets Confused"
+    },
+    {
+      "type": "paragraph",
+      "value": "If the AI keeps mixing up two classes, that's a clue! Usually it means the examples looked too similar, or there weren't enough of them. This is the exact same problem professionals face, and the fix is the same: collect more, clearer, more varied examples."
+    },
+    {
       "type": "tip",
-      "value": "More examples = a smarter model! Try collecting samples from different angles and lighting so your AI works in lots of situations."
+      "value": "More examples = a smarter model! Try collecting samples from different angles and lighting so your AI works in lots of situations. Then test it in a spot it never saw during training and see how it does."
     },
     {
       "type": "paragraph",
@@ -81,6 +105,16 @@
       ],
       "answer": 0,
       "explain": "More examples, from different angles and lighting, help the model recognize each class more reliably."
+    },
+    {
+      "question": "The 'confidence bar' showing 'Thumbs Up: 92%' tells you...",
+      "options": [
+        "How sure the AI is about its guess",
+        "How many pixels the photo has",
+        "How much battery is left"
+      ],
+      "answer": 0,
+      "explain": "The percentage is the model's confidence, how sure it is that the image belongs to that class."
     }
   ]
 }

@@ -1,24 +1,24 @@
 {
   "lessonId": "dictionaries",
-  "title": "The Phonebook",
-  "description": "Learn how to link keys and values together inside Python Dictionaries!",
+  "title": "Dictionaries",
+  "description": "Store pairs of keys and values, so you can look up a value by its key.",
   "difficulty": "Intermediate",
   "content": [
     {
       "type": "heading",
-      "value": "The Magical Phonebook"
+      "value": "Looking Things Up by Name"
     },
     {
       "type": "paragraph",
-      "value": "Lists are great, but what if you want to find a phone number for your friend? In a list, you'd have to search item by item. It would be much better if you could just lookup 'Alex' and immediately get their number! In Python, we do this using a Dictionary (or dict). Dictionaries connect a Key (like a name) to a Value (like a phone number)."
+      "value": "In a list, you find items by their position number. But often you want to look something up by name instead, like finding a friend's phone number. A dictionary does this: it links a key (like a name) to a value (like a phone number), so you can look up the value using its key."
     },
     {
       "type": "heading",
-      "value": "Creating a Dictionary"
+      "value": "Making a Dictionary"
     },
     {
       "type": "paragraph",
-      "value": "We write dictionaries using curly braces `{ }`. Inside, we write a key, a colon `:`, and then its value. We separate different pairs with commas."
+      "value": "You make a dictionary with curly braces `{ }`. Inside, you write each key, a colon `:`, then its value. Separate the pairs with commas."
     },
     {
       "type": "code",
@@ -27,29 +27,29 @@
     },
     {
       "type": "heading",
-      "value": "Updating and Adding Pairs"
+      "value": "Adding and Updating"
     },
     {
       "type": "paragraph",
-      "value": "To add a new key-value pair or update an existing one, you just use the square brackets with the key name!"
+      "value": "To add a new pair or change an existing one, use square brackets with the key. If the key already exists, its value is updated. If it's new, the pair is added."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "hero = {\n    \"name\": \"Peter Parker\",\n    \"power\": \"Spider webs\"\n}\nhero[\"power\"] = \"Shooting spider webs\"  # Update power\nhero[\"city\"] = \"New York\"                # Add a new pair\nprint(hero)"
+      "value": "hero = {\n    \"name\": \"Peter Parker\",\n    \"power\": \"Spider webs\"\n}\nhero[\"power\"] = \"Shooting spider webs\"  # Update an existing key\nhero[\"city\"] = \"New York\"                # Add a new key\nprint(hero)"
     }
   ],
-  "editorCode": "wizard = {\n    \"name\": \"Dumbledore\",\n    \"house\": \"Gryffindor\",\n    \"wand\": \"Elder Wand\"\n}\nprint(wizard[\"name\"])\nprint(wizard[\"wand\"])",
+  "editorCode": "hero = {\n    \"name\": \"Spider-Man\",\n    \"city\": \"New York\",\n    \"power\": \"Web-slinging\"\n}\nprint(hero[\"name\"])\nprint(hero[\"power\"])",
   "practice": [
     {
       "id": 1,
-      "question": "Create a dictionary called 'pet' containing keys 'name' (e.g. 'Buddy') and 'animal' (e.g. 'Dog'). Then add a new key 'age' with the value 3 and print the dictionary!",
-      "starterCode": "# Create the 'pet' dictionary\n\n# Add the key 'age' with value 3\n\n# Print the dictionary"
+      "question": "Make a dictionary called 'pet' with keys 'name' (e.g. 'Buddy') and 'animal' (e.g. 'Dog'). Then add a key 'age' with the value 3 and print the dictionary.",
+      "starterCode": "# Make the 'pet' dictionary\n\n# Add the key 'age' with value 3\n\n# Print the dictionary"
     }
   ],
   "quiz": [
     {
-      "question": "Which brackets are used to create a Python Dictionary?",
+      "question": "Which brackets make a dictionary?",
       "options": [
         "[ ]",
         "( )",
@@ -59,11 +59,11 @@
       "explain": "Dictionaries use curly brackets `{ }`. Square brackets `[ ]` make lists and parentheses `( )` make tuples."
     },
     {
-      "question": "In a dictionary pair 'name': 'Batman', what is 'name'?",
+      "question": "In the pair 'name': 'Batman', what is 'name'?",
       "options": [
-        "The Value",
-        "The Key",
-        "The Index"
+        "The value",
+        "The key",
+        "The index"
       ],
       "answer": 1,
       "explain": "In a key:value pair, the part before the colon ('name') is the key you look things up with. 'Batman' is the value."

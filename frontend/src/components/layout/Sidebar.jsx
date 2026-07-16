@@ -11,22 +11,22 @@ import {
 } from '../../utils/progress';
 
 export default function Sidebar({ course, currentLessonId, onNavigate }) {
-  if (!course) return <div className="w-full bg-gray-50 border-r border-gray-200 h-full p-4">Loading...</div>;
+  if (!course) return <div className="w-full bg-paper border-r-2 border-ink/15 h-full p-4 text-ink/60">Loading…</div>;
 
   const completedLessons = getCompletedLessons();
   const unlocked = getUnlockedLessonIds(course);
 
   return (
-    <div className="w-full bg-gray-50 border-r border-gray-200 h-full flex flex-col overflow-y-auto">
-      <div className="p-4 border-b border-gray-200">
-        <h2 className="font-bold text-gray-900">{course.title}</h2>
+    <div className="w-full bg-paper border-r-2 border-ink/15 h-full flex flex-col overflow-y-auto text-ink">
+      <div className="p-4 border-b-2 border-ink/15">
+        <h2 className="font-lab font-bold text-ink">{course.title}</h2>
       </div>
 
       <div className="p-4 flex flex-col space-y-4">
         {course.modules?.map((module, idx) => (
           <div key={module.moduleId || idx} className="mb-2">
-            <div className="flex items-center text-sm font-semibold text-gray-900 mb-2">
-              <ChevronDown className="w-4 h-4 mr-1 text-gray-500 shrink-0" />
+            <div className="flex items-center text-sm font-semibold text-ink mb-2">
+              <ChevronDown className="w-4 h-4 mr-1 text-ink/45 shrink-0" />
               Module {idx + 1}: {module.title}
             </div>
             <div className="pl-5 flex flex-col space-y-1">
@@ -36,11 +36,11 @@ export default function Sidebar({ course, currentLessonId, onNavigate }) {
                 const isCurrent = currentLessonId === lesson.lessonId;
 
                 const icon = isCompleted ? (
-                  <CheckCircle2 className="w-4 h-4 mr-2 text-green-500 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 mr-2 text-pcb shrink-0" />
                 ) : isLocked ? (
-                  <Lock className="w-4 h-4 mr-2 text-gray-400 shrink-0" />
+                  <Lock className="w-4 h-4 mr-2 text-ink/35 shrink-0" />
                 ) : (
-                  <Circle className="w-4 h-4 mr-2 text-gray-400 shrink-0" />
+                  <Circle className="w-4 h-4 mr-2 text-ink/35 shrink-0" />
                 );
 
                 if (isLocked) {
@@ -48,7 +48,7 @@ export default function Sidebar({ course, currentLessonId, onNavigate }) {
                     <div
                       key={lesson.lessonId}
                       title="Complete the previous lessons to unlock"
-                      className="flex items-center text-sm p-2 rounded-md text-gray-400 cursor-not-allowed select-none"
+                      className="flex items-center text-sm p-2 rounded-md text-ink/35 cursor-not-allowed select-none"
                     >
                       {icon}
                       <span className="truncate">{lesson.title}</span>
@@ -61,7 +61,7 @@ export default function Sidebar({ course, currentLessonId, onNavigate }) {
                     key={lesson.lessonId}
                     to={`/course/${course.courseId}/lesson/${lesson.lessonId}`}
                     onClick={onNavigate}
-                    className={`flex items-center text-sm p-2 rounded-md ${isCurrent ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-600 hover:bg-gray-100'}`}
+                    className={`flex items-center text-sm p-2 rounded-md transition-colors ${isCurrent ? 'bg-pcb/12 text-pcb font-bold' : 'text-ink/65 hover:bg-ink/5'}`}
                   >
                     {icon}
                     <span className="truncate" title={lesson.title}>{lesson.title}</span>
@@ -90,11 +90,11 @@ export default function Sidebar({ course, currentLessonId, onNavigate }) {
                   <Link
                     to={`/course/${course.courseId}/module/module${getModuleNumericId(module)}/assignment`}
                     onClick={onNavigate}
-                    className={`flex items-center text-sm font-semibold p-2 rounded-md ${aDone ? 'text-green-600 hover:bg-green-50' : 'text-purple-600 hover:bg-purple-50'}`}
+                    className={`flex items-center text-sm font-semibold p-2 rounded-md transition-colors ${aDone ? 'text-pcb hover:bg-pcb/10' : 'text-ink hover:bg-signal/20'}`}
                   >
                     {aDone
-                      ? <CheckCircle2 className="w-4 h-4 mr-2 text-green-500 shrink-0" />
-                      : <Gamepad2 className="w-4 h-4 mr-2 text-purple-500 shrink-0" />}
+                      ? <CheckCircle2 className="w-4 h-4 mr-2 text-pcb shrink-0" />
+                      : <Gamepad2 className="w-4 h-4 mr-2 text-ink shrink-0" />}
                     <span className="truncate">Module Challenge 🎮</span>
                   </Link>
                 );
@@ -121,11 +121,11 @@ export default function Sidebar({ course, currentLessonId, onNavigate }) {
                   <Link
                     to={`/course/${course.courseId}/module/${pKey}/project`}
                     onClick={onNavigate}
-                    className={`flex items-center text-sm font-semibold p-2 rounded-md ${pDone ? 'text-green-600 hover:bg-green-50' : 'text-orange-600 hover:bg-orange-50'}`}
+                    className={`flex items-center text-sm font-semibold p-2 rounded-md transition-colors ${pDone ? 'text-pcb hover:bg-pcb/10' : 'text-wire hover:bg-wire/10'}`}
                   >
                     {pDone
-                      ? <CheckCircle2 className="w-4 h-4 mr-2 text-green-500 shrink-0" />
-                      : <Hammer className="w-4 h-4 mr-2 text-orange-500 shrink-0" />}
+                      ? <CheckCircle2 className="w-4 h-4 mr-2 text-pcb shrink-0" />
+                      : <Hammer className="w-4 h-4 mr-2 text-wire shrink-0" />}
                     <span className="truncate">Mini Project 🛠️</span>
                   </Link>
                 );

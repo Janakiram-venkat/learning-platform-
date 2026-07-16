@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { INTERESTS } from '../../constants/interests';
 
 const FIELD =
-  'w-full rounded-2xl border-2 border-purple-100 bg-purple-50/40 px-4 py-3 font-semibold text-primary outline-none transition-colors placeholder:text-secondary/50 focus:border-purple-400 focus:bg-white focus:ring-4 focus:ring-purple-100';
+  'w-full rounded-xl border-2 border-ink/20 bg-paper px-4 py-3 font-semibold text-ink outline-none transition-colors placeholder:text-ink/40 focus:border-pcb focus:bg-white focus:ring-4 focus:ring-pcb/15';
 
 const TABS = [
   { key: 'profile', label: 'Profile', icon: User },
@@ -89,8 +89,9 @@ export default function SettingsModal({ open, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="relative overflow-hidden bg-linear-to-br from-purple-600 via-violet-600 to-purple-700 px-8 pb-6 pt-7 text-center">
-          <div className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full bg-white/10 blur-2xl" />
+        <div className="relative overflow-hidden border-b-2 border-ink bg-pcb px-8 pb-6 pt-7 text-center">
+          <div className="pointer-events-none absolute inset-0 opacity-15"
+            style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)', backgroundSize: '26px 26px' }} />
           <button
             onClick={close}
             className="absolute right-4 top-4 rounded-full p-1.5 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
@@ -98,20 +99,20 @@ export default function SettingsModal({ open, onClose }) {
           >
             <X className="h-5 w-5" />
           </button>
-          <h2 className="font-display text-2xl font-bold text-white">Settings</h2>
-          <p className="mt-1 text-sm font-semibold text-purple-100">Manage your account</p>
+          <h2 className="font-lab relative text-2xl font-bold text-white">Settings</h2>
+          <p className="relative mt-1 text-sm font-semibold text-white/80">Manage your account</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 border-b border-gray-100 px-6 pt-4">
+        <div className="flex gap-2 border-b-2 border-ink/12 px-6 pt-4">
           {TABS.map(({ key, label, icon: Icon }) => (
             <button
               key={key}
               onClick={() => setTab(key)}
               className={`flex items-center gap-1.5 rounded-t-xl px-4 py-2.5 text-sm font-extrabold transition-colors ${
                 tab === key
-                  ? 'border-b-2 border-purple-600 text-purple-700'
-                  : 'text-secondary hover:text-purple-600'
+                  ? 'border-b-2 border-pcb text-pcb'
+                  : 'text-ink/55 hover:text-pcb'
               }`}
             >
               <Icon className="h-4 w-4" /> {label}
@@ -124,15 +125,15 @@ export default function SettingsModal({ open, onClose }) {
           {tab === 'profile' ? (
             <>
               <div className="mb-5">
-                <label className="mb-1 block text-sm font-extrabold text-primary">Your Name</label>
+                <label className="mb-1 block text-sm font-extrabold text-ink">Your Name</label>
                 <input
                   type="text" value={name} onChange={(e) => setName(e.target.value)}
                   placeholder="Ada the Coder" autoComplete="name" className={FIELD}
                 />
               </div>
 
-              <p className="mb-2 flex items-center gap-1 text-sm font-extrabold text-primary">
-                <Heart className="h-4 w-4 text-purple-500" /> Interests
+              <p className="mb-2 flex items-center gap-1 text-sm font-extrabold text-ink">
+                <Heart className="h-4 w-4 text-pcb" /> Interests
               </p>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {INTERESTS.map(({ key, label, emoji, gradient }) => {
@@ -146,7 +147,7 @@ export default function SettingsModal({ open, onClose }) {
                       className={`group relative flex flex-col items-center gap-1.5 rounded-2xl border-2 p-3 text-center transition-all active:scale-95 ${
                         selected
                           ? 'border-transparent bg-linear-to-br text-white shadow-lg ' + gradient
-                          : 'border-purple-100 bg-white text-primary hover:-translate-y-0.5 hover:border-purple-200 hover:shadow-md'
+                          : 'border-ink/15 bg-white text-ink hover:-translate-y-0.5 hover:border-pcb/40 hover:shadow-md'
                       }`}
                     >
                       {selected && (
@@ -161,14 +162,14 @@ export default function SettingsModal({ open, onClose }) {
                 })}
               </div>
 
-              {profileErr && <p className="mt-4 text-center text-sm font-bold text-red-500">{profileErr}</p>}
-              {profileMsg && <p className="mt-4 text-center text-sm font-bold text-green-600">{profileMsg}</p>}
+              {profileErr && <p className="mt-4 text-center text-sm font-bold text-wire">{profileErr}</p>}
+              {profileMsg && <p className="mt-4 text-center text-sm font-bold text-pcb">{profileMsg}</p>}
 
               <button
                 type="button"
                 onClick={handleSaveProfile}
                 disabled={savingProfile}
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-purple-600 to-violet-600 py-3.5 font-extrabold text-white shadow-lg shadow-purple-200 transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-60"
+                className="lab-btn mt-5 flex w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal py-3.5 font-extrabold text-ink disabled:opacity-60"
               >
                 <Save className="h-5 w-5" /> {savingProfile ? 'Saving…' : 'Save Changes'}
               </button>
@@ -177,14 +178,14 @@ export default function SettingsModal({ open, onClose }) {
             /* ===================== SECURITY TAB ===================== */
             <>
               {!hasPassword && (
-                <p className="mb-4 rounded-2xl bg-purple-50 px-4 py-3 text-sm font-semibold text-purple-700 ring-1 ring-purple-100">
+                <p className="mb-4 rounded-xl border-2 border-ink/15 bg-pcb/8 px-4 py-3 text-sm font-semibold text-ink">
                   You signed up with Google. Set a password to also sign in with your email.
                 </p>
               )}
               <div className="space-y-4">
                 {hasPassword && (
                   <div>
-                    <label className="mb-1 block text-sm font-extrabold text-primary">Current Password</label>
+                    <label className="mb-1 block text-sm font-extrabold text-ink">Current Password</label>
                     <input
                       type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)}
                       placeholder="••••••••" autoComplete="current-password" className={FIELD}
@@ -192,14 +193,14 @@ export default function SettingsModal({ open, onClose }) {
                   </div>
                 )}
                 <div>
-                  <label className="mb-1 block text-sm font-extrabold text-primary">New Password</label>
+                  <label className="mb-1 block text-sm font-extrabold text-ink">New Password</label>
                   <input
                     type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="At least 8 characters" autoComplete="new-password" className={FIELD}
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-extrabold text-primary">Confirm New Password</label>
+                  <label className="mb-1 block text-sm font-extrabold text-ink">Confirm New Password</label>
                   <input
                     type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Re-enter your new password" autoComplete="new-password" className={FIELD}
@@ -207,14 +208,14 @@ export default function SettingsModal({ open, onClose }) {
                 </div>
               </div>
 
-              {pwErr && <p className="mt-4 text-center text-sm font-bold text-red-500">{pwErr}</p>}
-              {pwMsg && <p className="mt-4 text-center text-sm font-bold text-green-600">{pwMsg}</p>}
+              {pwErr && <p className="mt-4 text-center text-sm font-bold text-wire">{pwErr}</p>}
+              {pwMsg && <p className="mt-4 text-center text-sm font-bold text-pcb">{pwMsg}</p>}
 
               <button
                 type="button"
                 onClick={handleChangePassword}
                 disabled={savingPw}
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-purple-600 to-violet-600 py-3.5 font-extrabold text-white shadow-lg shadow-purple-200 transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-60"
+                className="lab-btn mt-5 flex w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal py-3.5 font-extrabold text-ink disabled:opacity-60"
               >
                 <Lock className="h-5 w-5" /> {savingPw ? 'Saving…' : hasPassword ? 'Update Password' : 'Set Password'}
               </button>

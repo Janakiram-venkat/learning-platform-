@@ -1,28 +1,28 @@
 {
   "lessonId": "loops",
-  "title": "Loops and Repetition",
-  "description": "Learn how to make the computer do things over and over again without getting tired!",
+  "title": "The For Loop",
+  "description": "Repeat an action many times without writing it out again and again.",
   "difficulty": "Beginner",
   "content": [
     {
       "type": "heading",
-      "value": "The Tired Programmer"
+      "value": "Repeating Without Retyping"
     },
     {
       "type": "paragraph",
-      "value": "Imagine your teacher asks you to write 'I will not throw paper airplanes' 100 times on the chalkboard. That would make your hand very tired! But computers are super-fast and they never get tired. We can tell a computer to do something 100 times in just two lines of code!"
+      "value": "Imagine you had to write 'I will not throw paper airplanes' 100 times. That would take a long time by hand. A computer can do it instantly. A loop lets you repeat an action as many times as you want, using just a couple of lines."
     },
     {
       "type": "heading",
-      "value": "The 'For' Loop"
+      "value": "The for Loop"
     },
     {
       "type": "paragraph",
-      "value": "A 'loop' is a way to repeat an action. The most common loop is called the `for` loop. It's like a magical spinning wheel. We use it with a special spell called `range()`. Range tells the wheel how many times to spin."
+      "value": "The most common loop is the `for` loop. You use it together with `range()`, which tells the loop how many times to repeat."
     },
     {
       "type": "paragraph",
-      "value": "Let's see it in action. If we want to say 'Hello' 3 times, we do this:"
+      "value": "For example, to print 'Hello!' three times:"
     },
     {
       "type": "code",
@@ -31,24 +31,24 @@
     },
     {
       "type": "heading",
-      "value": "Wait, what is that space?"
+      "value": "The Space in Front (Indentation)"
     },
     {
       "type": "paragraph",
-      "value": "Did you notice the space before the `print` spell? That's called an INDENT. In Python, you have to press the 'Tab' key or spacebar to push the code inward. This tells the computer: 'Hey, everything that is pushed in belongs inside the loop!'"
+      "value": "Notice the space before `print`. That's called indentation. In Python, you press Tab (or a few spaces) to push a line inward. The indented lines are the ones that get repeated. Indentation is how Python knows which lines belong inside the loop."
     },
     {
       "type": "tip",
-      "value": "If you forget to push the code in (indent it), Python will give you an error because it won't know what you want to repeat!"
+      "value": "If you forget to indent the line inside the loop, Python gives an error, because it can't tell what you want to repeat."
     },
     {
       "type": "paragraph",
-      "value": "You can also use the loop to count numbers! The magical `i` inside the loop actually keeps track of what spin we are on, starting from 0."
+      "value": "The `i` in the loop keeps track of which repeat you're on. It starts counting at 0, so the values go 0, 1, 2, and so on."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "for i in range(5):\n    print(\"Spin number:\", i)"
+      "value": "for i in range(5):\n    print(\"Repeat number:\", i)"
     },
     {
       "type": "simulation",
@@ -61,8 +61,8 @@
   "practice": [
     {
       "id": 1,
-      "question": "Use a for loop to print your favorite food 4 times!",
-      "starterCode": "for i in range(4):\n    # Put your print spell below this line (don't forget to indent!)"
+      "question": "Use a for loop to print your favorite food 4 times.",
+      "starterCode": "for i in range(4):\n    # Add your print line below (don't forget to indent it)"
     }
   ],
   "quiz": [
@@ -70,21 +70,21 @@
       "question": "What does a loop do?",
       "options": [
         "It deletes all your code.",
-        "It repeats an action over and over again.",
+        "It repeats an action over and over.",
         "It makes the computer shut down."
       ],
       "answer": 1,
-      "explain": "A loop repeats the same action again and again so you don't have to copy-paste the code."
+      "explain": "A loop repeats the same action again and again, so you don't have to copy and paste the code."
     },
     {
-      "question": "Why do we need an indent (space) inside a loop?",
+      "question": "Why do we indent the line inside a loop?",
       "options": [
         "To make the code look pretty.",
-        "To tell Python which code should be repeated.",
+        "To tell Python which line should be repeated.",
         "To slow down the computer."
       ],
       "answer": 1,
-      "explain": "The indent tells Python exactly which lines belong inside the loop and should be repeated."
+      "explain": "The indentation tells Python exactly which lines belong inside the loop and should be repeated."
     }
   ]
 }

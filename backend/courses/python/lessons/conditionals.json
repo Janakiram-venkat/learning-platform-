@@ -1,24 +1,24 @@
 {
   "lessonId": "conditionals",
   "title": "If, Elif, and Else",
-  "description": "Choose your own adventure! Learn how to make Python execute different code blocks depending on different paths.",
+  "description": "Make your program do different things depending on whether a condition is True.",
   "difficulty": "Beginner",
   "content": [
     {
       "type": "heading",
-      "value": "Choose Your Own Adventure"
+      "value": "Making Decisions"
     },
     {
       "type": "paragraph",
-      "value": "Imagine you are a brave knight in a forest. If you see a green path, you walk left. If you see a red path, you walk right. Otherwise (else), you wait. We do the exact same thing in Python using `if`, `elif` (else if), and `else`!"
+      "value": "Programs often need to make decisions. For example: if it's raining, take an umbrella; otherwise, leave it at home. Python does this with `if`, `elif` (short for 'else if'), and `else`."
     },
     {
       "type": "heading",
-      "value": "1. The 'if' Spell"
+      "value": "1. if"
     },
     {
       "type": "paragraph",
-      "value": "We use the `if` spell followed by a comparison. If the comparison is True, the indented code underneath gets executed!"
+      "value": "You write `if` followed by a condition and a colon `:`. If the condition is True, the indented lines below it run. If it's False, they are skipped."
     },
     {
       "type": "code",
@@ -27,11 +27,11 @@
     },
     {
       "type": "heading",
-      "value": "2. The 'else' Spell"
+      "value": "2. else"
     },
     {
       "type": "paragraph",
-      "value": "What if your score is less than 10? The `else` spell handles everything that doesn't fit the `if` condition."
+      "value": "Use `else` to say what should happen when the `if` condition is False. The `else` block runs only when the `if` did not."
     },
     {
       "type": "code",
@@ -40,11 +40,11 @@
     },
     {
       "type": "heading",
-      "value": "3. The 'elif' Spell (Else If)"
+      "value": "3. elif"
     },
     {
       "type": "paragraph",
-      "value": "If you have more than two paths, you can use `elif`. It stands for 'else if' and lets you check another specific condition."
+      "value": "When there are more than two options, use `elif` to check another condition. Python checks each one in order and runs the first one that is True."
     },
     {
       "type": "code",
@@ -53,14 +53,14 @@
     },
     {
       "type": "tip",
-      "value": "Just like with loops, remember to indent the code under `if`, `elif`, and `else`! Also, don't forget the colon `:` at the end of each path statement!"
+      "value": "Two things to remember: end each `if`, `elif`, and `else` line with a colon `:`, and indent the lines below it so Python knows they belong to that condition."
     }
   ],
   "editorCode": "temp = 25\nif temp > 30:\n    print(\"It's hot!\")\nelif temp > 20:\n    print(\"It's warm!\")\nelse:\n    print(\"It's cold!\")",
   "practice": [
     {
       "id": 1,
-      "question": "Change the score variable below to 3. What does it print? Then modify the code to add an elif path to print 'Silver!' if the score is greater than or equal to 5.",
+      "question": "The score below is 3, so it prints 'Bronze!'. Add an elif that prints 'Silver!' when the score is 5 or more.",
       "starterCode": "score = 3\nif score >= 10:\n    print(\"Gold!\")\nelse:\n    print(\"Bronze!\")"
     }
   ],
@@ -73,10 +73,10 @@
         "Elves logic"
       ],
       "answer": 1,
-      "explain": "`elif` is short for 'else if'. It lets you check another condition when the first `if` turned out False."
+      "explain": "`elif` is short for 'else if'. It checks another condition when the first `if` turned out False."
     },
     {
-      "question": "What punctuation mark must you put at the end of an 'if' line?",
+      "question": "What must you put at the end of an 'if' line?",
       "options": [
         "A period (.)",
         "A colon (:)",

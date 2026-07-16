@@ -1,24 +1,24 @@
 {
   "lessonId": "lists",
-  "title": "Magic Backpacks",
-  "description": "Learn how to store multiple items in order inside a single variable using Lists!",
+  "title": "Lists",
+  "description": "Store many values in order inside a single variable using a list.",
   "difficulty": "Intermediate",
   "content": [
     {
       "type": "heading",
-      "value": "The Magic Backpack"
+      "value": "Storing Many Values"
     },
     {
       "type": "paragraph",
-      "value": "So far, our variables (magic boxes) could only hold one thing at a time. What if we want to store all of our favorite toys? We can use a Magic Backpack (called a List)! Lists can store lots of items in a specific order."
+      "value": "So far, a variable held one value at a time. A list lets you store many values in one variable, kept in order. Think of it like a numbered row of slots, each holding one item."
     },
     {
       "type": "heading",
-      "value": "Creating a List"
+      "value": "Making a List"
     },
     {
       "type": "paragraph",
-      "value": "We create a list by wrapping our items in square brackets `[ ]` and separating them with commas."
+      "value": "You make a list by putting the items inside square brackets `[ ]`, separated by commas."
     },
     {
       "type": "code",
@@ -27,11 +27,11 @@
     },
     {
       "type": "heading",
-      "value": "Grabbing Items (Indexing)"
+      "value": "Getting an Item (Indexing)"
     },
     {
       "type": "paragraph",
-      "value": "To grab an item from the backpack, we use its Index (its slot number). BUT BE CAREFUL! Computers are quirky and they start counting slots from 0! Slot 0 is the first item, Slot 1 is the second item, and so on."
+      "value": "To get one item, you use its position number, called its index. Important: Python starts counting at 0. So index 0 is the first item, index 1 is the second, and so on."
     },
     {
       "type": "code",
@@ -40,11 +40,11 @@
     },
     {
       "type": "heading",
-      "value": "Adding Items (.append)"
+      "value": "Adding an Item (.append)"
     },
     {
       "type": "paragraph",
-      "value": "If you get a new toy, you can put it in your backpack using the `.append()` command!"
+      "value": "To add a new item to the end of a list, use `.append()`."
     },
     {
       "type": "code",
@@ -56,13 +56,13 @@
   "practice": [
     {
       "id": 1,
-      "question": "Create a list called 'colors' containing 'red', 'green', and 'blue'. Then append 'yellow' to the list and print the full list!",
-      "starterCode": "# Create list, append 'yellow', and print below"
+      "question": "Make a list called 'colors' with 'red', 'green', and 'blue'. Then append 'yellow' and print the full list.",
+      "starterCode": "# Make the list, append 'yellow', and print it below"
     }
   ],
   "quiz": [
     {
-      "question": "What index does the first item in a Python list start at?",
+      "question": "What index does the first item in a list have?",
       "options": [
         "1",
         "0",
@@ -72,14 +72,14 @@
       "explain": "Python counts from 0, so the first item is at index 0, the second at index 1, and so on."
     },
     {
-      "question": "Which method is used to add an item to the end of a list?",
+      "question": "Which method adds an item to the end of a list?",
       "options": [
         "add()",
         "append()",
         "insert()"
       ],
       "answer": 1,
-      "explain": "`append()` adds an item to the end of a list. `insert()` adds at a chosen spot, and `add()` isn't a list method."
+      "explain": "`append()` adds an item to the end of a list. `insert()` adds at a chosen position, and `add()` isn't a list method."
     }
   ]
 }

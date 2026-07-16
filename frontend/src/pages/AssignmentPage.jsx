@@ -100,7 +100,7 @@ export default function AssignmentPage() {
         );
         // Don't let students jump into the arcade before finishing the module.
         if (!mod || !isAssignmentUnlocked(mod)) {
-          navigate('/courses', { replace: true });
+          navigate('/', { replace: true });
           return;
         }
         setCourse(course);
@@ -351,7 +351,7 @@ export default function AssignmentPage() {
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24 text-center">
         <span className="text-5xl">🚧</span>
         <p className="font-display text-lg font-semibold text-[#6C63A6]">This challenge isn't ready yet.</p>
-        <Link to="/courses" className="rounded-xl bg-purple-600 px-5 py-2.5 font-bold text-white">Back to Quests</Link>
+        <Link to="/" className="rounded-xl bg-purple-600 px-5 py-2.5 font-bold text-white">Back to Quests</Link>
       </div>
     );
   }
@@ -418,7 +418,7 @@ export default function AssignmentPage() {
               </Link>
             ) : (
               <Link
-                to="/courses"
+                to="/"
                 className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-3 font-extrabold text-white shadow-md transition-transform hover:scale-105 active:scale-95"
               >
                 Back to Quests <ArrowRight className="h-5 w-5" />

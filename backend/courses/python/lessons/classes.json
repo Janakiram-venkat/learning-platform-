@@ -1,7 +1,7 @@
 {
   "lessonId": "classes",
-  "title": "Blueprints and Objects",
-  "description": "Learn Object-Oriented Programming (OOP) by building your own magical creatures using Blueprints (Classes)!",
+  "title": "Classes and Objects",
+  "description": "Create your own kind of thing with a class, then make objects from it.",
   "difficulty": "Advanced",
   "content": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Imagine you are a toy manufacturer. You don't design every toy car from scratch with unique molds. Instead, you design a single Blueprint, and then stamp out thousands of toy cars from it! In programming, this Blueprint is called a Class, and the stamped-out items are called Objects."
+      "value": "A class is a blueprint for making things. Think of a cookie cutter: you make the cutter once, then use it to stamp out many cookies that all share the same shape. In Python, the blueprint is a class, and each thing you make from it is an object."
     },
     {
       "type": "heading",
@@ -18,20 +18,20 @@
     },
     {
       "type": "paragraph",
-      "value": "We use the `class` keyword to create our blueprint. Inside, we can set traits (Variables, which we call Attributes) and actions (Functions, which we call Methods)."
+      "value": "You create a class with the `class` keyword. Inside, you can store data (called attributes) and define actions (called methods, which are just functions that belong to the class)."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "class Dog:\n    # A special method to set up our traits:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n    \n    # An action the dog can perform:\n    def bark(self):\n        print(self.name + \" says Woof!\")"
+      "value": "class Dog:\n    # This special method sets up the data for each new dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n    \n    # An action the dog can do:\n    def bark(self):\n        print(self.name + \" says Woof!\")"
     },
     {
       "type": "heading",
-      "value": "Creating Objects (Instantiation)"
+      "value": "Making Objects"
     },
     {
       "type": "paragraph",
-      "value": "To create an object from your blueprint class, you write the class name with parentheses and pass the traits!"
+      "value": "To make an object from a class, write the class name with parentheses and pass in the data. Each object is separate and keeps its own values."
     },
     {
       "type": "code",
@@ -40,37 +40,37 @@
     },
     {
       "type": "tip",
-      "value": "Notice the word `self` in the function parameters? It is a special word Python uses to refer to the current object being created or manipulated!"
+      "value": "Notice the word `self` in the methods. Python uses `self` to mean 'this particular object', so each dog can use its own name and breed."
     }
   ],
   "editorCode": "class Cat:\n    def __init__(self, name, color):\n        self.name = name\n        self.color = color\n    def meow(self):\n        print(self.name + \" says Meow!\")\n\nmy_cat = Cat(\"Luna\", \"Black\")\nmy_cat.meow()",
   "practice": [
     {
       "id": 1,
-      "question": "Create a Dog object named 'rover' of breed 'Labrador' (using the Dog class defined above), then call rover.bark()!",
-      "starterCode": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n    def bark(self):\n        print(self.name + \" says Woof!\")\n\n# Create 'rover' and make him bark below"
+      "question": "Using the Dog class below, make a Dog object named 'rover' with breed 'Labrador', then call rover.bark().",
+      "starterCode": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n    def bark(self):\n        print(self.name + \" says Woof!\")\n\n# Make 'rover' and call bark() below"
     }
   ],
   "quiz": [
     {
-      "question": "What is a Class in Python?",
+      "question": "What is a class in Python?",
       "options": [
         "A type of school room.",
-        "A blueprint for creating objects.",
-        "A secret math calculator."
+        "A blueprint for making objects.",
+        "A math calculator."
       ],
       "answer": 1,
-      "explain": "A class is a blueprint or plan. From one blueprint you can build many objects, like one cookie-cutter makes many cookies."
+      "explain": "A class is a blueprint. From one blueprint you can make many objects, like one cookie cutter makes many cookies."
     },
     {
-      "question": "In object-oriented programming, what are actions inside a class called?",
+      "question": "What do we call the actions defined inside a class?",
       "options": [
         "Attributes",
         "Methods",
         "Lessons"
       ],
       "answer": 1,
-      "explain": "Actions a class can do are called methods. The data it stores (like a name or colour) are called attributes."
+      "explain": "Actions inside a class are called methods. The data it stores (like a name or color) are called attributes."
     }
   ]
 }

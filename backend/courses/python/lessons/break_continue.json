@@ -1,72 +1,72 @@
 {
   "lessonId": "break_continue",
   "title": "Break and Continue",
-  "description": "Learn how to control loops dynamically using the emergency eject button (break) and the skip button (continue)!",
+  "description": "Stop a loop early with break, or skip one turn with continue.",
   "difficulty": "Intermediate",
   "content": [
     {
       "type": "heading",
-      "value": "Controlling Your Loops"
+      "value": "Controlling a Loop"
     },
     {
       "type": "paragraph",
-      "value": "Sometimes, you want to stop a loop early or skip a specific turn. Python gives us two magic spells to do this: `break` and `continue`."
+      "value": "Sometimes you want to stop a loop early, or skip just one turn. Python gives you two keywords for this: `break` and `continue`."
     },
     {
       "type": "heading",
-      "value": "1. The 'break' Spell (Emergency Eject)"
+      "value": "1. break (stop the loop)"
     },
     {
       "type": "paragraph",
-      "value": "The `break` spell immediately ends the loop, even if the loop condition is still True! It is like pulling the emergency eject handle on a ride."
+      "value": "`break` stops the loop right away, even if there were more turns to go. As soon as Python reaches `break`, it leaves the loop completely."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "for cookie in range(1, 6):\n    if cookie == 4:\n        print(\"Oh no, a spider is on cookie 4! Stop eating!\")\n        break\n    print(\"Eating cookie\", cookie)"
+      "value": "for cookie in range(1, 6):\n    if cookie == 4:\n        print(\"Stop! Something's wrong with cookie 4.\")\n        break\n    print(\"Eating cookie\", cookie)"
     },
     {
       "type": "heading",
-      "value": "2. The 'continue' Spell (Skip Turn)"
+      "value": "2. continue (skip one turn)"
     },
     {
       "type": "paragraph",
-      "value": "The `continue` spell doesn't stop the loop. It just skips the rest of the current turn and jumps straight to the next spin!"
+      "value": "`continue` doesn't stop the loop. It skips the rest of the current turn and jumps straight to the next one."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "for floor in range(1, 6):\n    if floor == 3:\n        print(\"Skipping floor 3 (it is haunted!)\")\n        continue\n    print(\"Visiting floor\", floor)"
+      "value": "for floor in range(1, 6):\n    if floor == 3:\n        print(\"Skipping floor 3\")\n        continue\n    print(\"Visiting floor\", floor)"
     }
   ],
   "editorCode": "for i in range(1, 6):\n    if i == 3:\n        break\n    print(i)",
   "practice": [
     {
       "id": 1,
-      "question": "Modify the code to print numbers from 1 to 5, but skip the number 3 using the continue keyword.",
-      "starterCode": "for i in range(1, 6):\n    if i == 3:\n        # Write the skip spell here\n    print(i)"
+      "question": "Change the code to print the numbers 1 to 5, but skip the number 3 using continue.",
+      "starterCode": "for i in range(1, 6):\n    if i == 3:\n        # Write continue here\n    print(i)"
     }
   ],
   "quiz": [
     {
-      "question": "Which keyword immediately exits the entire loop?",
+      "question": "Which keyword stops the whole loop right away?",
       "options": [
         "continue",
         "break",
         "pass"
       ],
       "answer": 1,
-      "explain": "`break` jumps straight out of the loop and stops it completely. `continue` only skips one turn, and `pass` does nothing."
+      "explain": "`break` leaves the loop completely and stops it. `continue` only skips one turn, and `pass` does nothing."
     },
     {
       "question": "What does 'continue' do inside a loop?",
       "options": [
         "Stops the loop forever.",
-        "Skips the rest of the current turn and starts the next one.",
+        "Skips the rest of this turn and starts the next one.",
         "Speeds up the loop."
       ],
       "answer": 1,
-      "explain": "`continue` skips whatever is left in the current turn and jumps back to the top to start the next one."
+      "explain": "`continue` skips whatever is left in the current turn and jumps to the next one."
     }
   ]
 }

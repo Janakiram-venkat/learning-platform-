@@ -1,28 +1,28 @@
 {
   "lessonId": "intro",
   "title": "Introduction to Python",
-  "description": "Welcome to the magical world of Python programming! Let's start our coding journey.",
+  "description": "What Python is and how to make the computer show a message on the screen.",
   "difficulty": "Beginner",
   "content": [
     {
       "type": "heading",
-      "value": "Welcome to the World of Python!"
+      "value": "What is Python?"
     },
     {
       "type": "paragraph",
-      "value": "Imagine you have a magical robot that can do anything you ask it to do. But there's a catch! The robot only understands a special secret language. In our world, that robot is the computer, and the secret language is called Python!"
+      "value": "Python is a programming language. A programming language is just a way to give a computer instructions, one step at a time. The computer follows those steps exactly, in order, from top to bottom."
     },
     {
       "type": "paragraph",
-      "value": "Python is a very friendly and popular programming language. People all over the world use it to make games, build websites, and even send rockets into space. It's like learning how to cast magic spells, but instead of a wand, we use a keyboard!"
+      "value": "Python is popular because it is easy to read. Many of the instructions look almost like plain English. People use Python to build websites, make games, work with data, and much more."
     },
     {
       "type": "heading",
-      "value": "Our First Magic Spell"
+      "value": "Your First Instruction: print"
     },
     {
       "type": "paragraph",
-      "value": "Let's learn our very first spell. It's called the `print` spell. When you cast this spell, you can make the computer talk to you! You just say `print()`, and whatever you put inside the parentheses with quotation marks will show up on the screen."
+      "value": "The most common first instruction is `print`. It tells the computer to show something on the screen. You write `print`, then a pair of parentheses `()`, and put your message inside quotation marks."
     },
     {
       "type": "code",
@@ -30,14 +30,18 @@
       "value": "print(\"Hello, World!\")\nprint(\"I am learning Python!\")"
     },
     {
+      "type": "paragraph",
+      "value": "Each `print` line shows one message. The two lines above show two lines of text, one after the other."
+    },
+    {
       "type": "tip",
-      "value": "Always remember the quotation marks (\" \") around your words. Without them, the computer gets very confused!"
+      "value": "Text that you want shown on screen always needs quotation marks around it (\" \"). Without them, Python doesn't know it's text and gives an error."
     },
     {
       "type": "simulation",
       "kind": "print",
       "lines": [
-        "Hello, wizard!",
+        "Hello, World!",
         "Python is fun!"
       ]
     }
@@ -46,20 +50,20 @@
   "practice": [
     {
       "id": 1,
-      "question": "Make the computer say your name using the print spell!",
+      "question": "Use print to make the computer show your name.",
       "starterCode": "print(\"My name is ...\")"
     }
   ],
   "quiz": [
     {
-      "question": "What does the `print` spell do?",
+      "question": "What does `print` do?",
       "options": [
         "It prints paper from a printer.",
-        "It makes the computer show words on the screen.",
+        "It shows text on the screen.",
         "It turns the computer off."
       ],
       "answer": 1,
-      "explain": "`print` shows words or numbers on the screen, it has nothing to do with a paper printer."
+      "explain": "`print` shows text or numbers on the screen. It has nothing to do with a paper printer."
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "moduleId": 4,
-  "title": "Recipe Maker Arcade",
-  "intro": "Functions are reusable magic recipes! Define them, feed them inputs, and read their outputs. First-try wins earn ⭐⭐⭐!",
+  "title": "Function Maker Arcade",
+  "intro": "Functions are reusable blocks of code! Define them, feed them inputs, and read their outputs. First-try wins earn ⭐⭐⭐!",
   "emoji": "🪄",
   "rounds": [
     {
@@ -58,7 +58,7 @@
         "    return n * n",
         "print(square(5))"
       ],
-      "explain": "Define the recipe first, then call it inside print to show the result."
+      "explain": "Define the function first, then call it inside print to show the result."
     }
   ]
 }

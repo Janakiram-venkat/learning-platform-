@@ -1,16 +1,16 @@
 {
   "lessonId": "inheritance",
-  "title": "Family Traits",
-  "description": "Learn how child classes inherit magical traits and superpowers from parent classes!",
+  "title": "Inheritance",
+  "description": "Let one class reuse the attributes and methods of another class.",
   "difficulty": "Advanced",
   "content": [
     {
       "type": "heading",
-      "value": "Passing Down Superpowers"
+      "value": "Reusing Another Class"
     },
     {
       "type": "paragraph",
-      "value": "Imagine you are designing a superhero video game. You have a general `Hero` class with traits like `name` and actions like `run()`. Now you want to create a `FlyingHero` class. Instead of re-writing `name` and `run()`, you can make `FlyingHero` INHERIT (or adopt) them from `Hero`!"
+      "value": "Suppose you have an `Animal` class with a `name` and an `eat()` method. Now you want a `Dog` class that has all of that, plus a `bark()` method. Instead of copying the shared code, you can have `Dog` inherit from `Animal`. Inheriting means the new class automatically gets everything the other class has."
     },
     {
       "type": "heading",
@@ -18,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "value": "We specify the Parent class in parentheses when defining the Child class."
+      "value": "You put the parent class name in parentheses when you define the child class. The child gets the parent's attributes and methods, and can add its own on top."
     },
     {
       "type": "code",
@@ -27,11 +27,11 @@
     },
     {
       "type": "heading",
-      "value": "Calling Inherited Methods"
+      "value": "Using Inherited Methods"
     },
     {
       "type": "paragraph",
-      "value": "Even though `Dog` does not have an `eat` method written inside it, it inherits it from `Animal`! You can call `dog.eat()` and it works perfectly."
+      "value": "Even though `Dog` has no `eat` method of its own, it inherited one from `Animal`. So you can call `eat()` on a dog and it just works, alongside its own `bark()`."
     },
     {
       "type": "code",
@@ -43,17 +43,17 @@
   "practice": [
     {
       "id": 1,
-      "question": "Create a Dog object named 'rover' (which inherits from Animal) and call its rover.eat() method!",
-      "starterCode": "class Animal:\n    def __init__(self, name):\n        self.name = name\n    def eat(self):\n        print(self.name + \" is eating!\")\n\nclass Dog(Animal):\n    def bark(self):\n        print(self.name + \" barks!\")\n\n# Create 'rover' and make him eat below"
+      "question": "Make a Dog object named 'rover' (Dog inherits from Animal) and call its eat() method.",
+      "starterCode": "class Animal:\n    def __init__(self, name):\n        self.name = name\n    def eat(self):\n        print(self.name + \" is eating!\")\n\nclass Dog(Animal):\n    def bark(self):\n        print(self.name + \" barks!\")\n\n# Make 'rover' and call eat() below"
     }
   ],
   "quiz": [
     {
-      "question": "What does a child class do in inheritance?",
+      "question": "What does a child class get through inheritance?",
       "options": [
-        "Deletes the parent class.",
-        "Adopts all attributes and methods from the parent class.",
-        "Hides the parent class."
+        "It deletes the parent class.",
+        "It gets the parent class's attributes and methods.",
+        "It hides the parent class."
       ],
       "answer": 1,
       "explain": "A child class automatically gets (inherits) all the attributes and methods of its parent, then can add its own."

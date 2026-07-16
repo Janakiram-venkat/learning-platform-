@@ -9,7 +9,7 @@ export default function App() {
     <AuthProvider>
       <ProgressSync />
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col bg-[#F4F1FF]">
+        <div className="min-h-screen flex flex-col bg-paper">
           <Navbar />
           <main className="flex-1 flex flex-col">
             <AppRoutes />

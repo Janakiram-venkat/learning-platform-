@@ -1,24 +1,24 @@
 {
   "lessonId": "logical_operators",
   "title": "Combining Conditions",
-  "description": "Supercharge your decision-making by combining multiple check conditions using logical operators!",
+  "description": "Combine several conditions in one check using and, or, and not.",
   "difficulty": "Beginner",
   "content": [
     {
       "type": "heading",
-      "value": "Logical Operators"
+      "value": "Checking More Than One Thing"
     },
     {
       "type": "paragraph",
-      "value": "What if you want to go to the park, but ONLY if it is sunny AND you have finished your homework? In Python, we can combine multiple checks using three magical keywords: `and`, `or`, and `not`."
+      "value": "Sometimes a decision depends on more than one thing. For example, you can go to the park only if it is sunny AND your homework is done. Python lets you combine conditions with three keywords: `and`, `or`, and `not`."
     },
     {
       "type": "heading",
-      "value": "1. The 'and' Operator"
+      "value": "1. and"
     },
     {
       "type": "paragraph",
-      "value": "The `and` spell is strict. It requires BOTH sides to be True to output True. If even one side is False, the whole thing is False!"
+      "value": "`and` is True only when BOTH sides are True. If even one side is False, the whole thing is False."
     },
     {
       "type": "code",
@@ -27,11 +27,11 @@
     },
     {
       "type": "heading",
-      "value": "2. The 'or' Operator"
+      "value": "2. or"
     },
     {
       "type": "paragraph",
-      "value": "The `or` spell is more relaxed. It only requires ONE of the sides to be True to output True. If both sides are False, only then does it output False!"
+      "value": "`or` is True when AT LEAST ONE side is True. It is False only when both sides are False."
     },
     {
       "type": "code",
@@ -40,11 +40,11 @@
     },
     {
       "type": "heading",
-      "value": "3. The 'not' Operator"
+      "value": "3. not"
     },
     {
       "type": "paragraph",
-      "value": "The `not` spell is like a mirror that flips everything upside down! It turns True into False, and False into True."
+      "value": "`not` flips a value to its opposite. It turns True into False, and False into True."
     },
     {
       "type": "code",
@@ -56,23 +56,23 @@
   "practice": [
     {
       "id": 1,
-      "question": "Complete the condition below so it prints 'Access Granted!' only if both 'has_key' is True and 'knows_password' is True.",
+      "question": "Fill in the condition so it prints 'Access Granted!' only when both 'has_key' is True and 'knows_password' is True.",
       "starterCode": "has_key = True\nknows_password = True\nif :\n    print(\"Access Granted!\")\nelse:\n    print(\"Access Denied!\")"
     }
   ],
   "quiz": [
     {
-      "question": "Which operator needs BOTH sides to be True for the whole statement to be True?",
+      "question": "Which operator needs BOTH sides to be True?",
       "options": [
         "or",
         "and",
         "not"
       ],
       "answer": 1,
-      "explain": "`and` needs BOTH sides to be True. `or` only needs one side, and `not` flips a single value."
+      "explain": "`and` needs both sides to be True. `or` needs only one side, and `not` flips a single value."
     },
     {
-      "question": "If raining = True, what does 'not raining' equal?",
+      "question": "If raining = True, what does 'not raining' give you?",
       "options": [
         "True",
         "False",

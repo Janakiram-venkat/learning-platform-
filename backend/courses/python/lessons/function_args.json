@@ -1,16 +1,16 @@
 {
   "lessonId": "function_args",
   "title": "Inputs and Outputs",
-  "description": "Learn how to feed ingredients into your recipes (arguments) and get results back (return values)!",
+  "description": "Pass information into a function with arguments, and get a result back with return.",
   "difficulty": "Intermediate",
   "content": [
     {
       "type": "heading",
-      "value": "Adding Ingredients"
+      "value": "Giving a Function Information"
     },
     {
       "type": "paragraph",
-      "value": "Our recipe `bake_cake` is cool, but what if we want to change the flavor? We can pass INGREDIENTS (parameters) into our functions inside the parentheses. Let's see how!"
+      "value": "Functions become much more useful when you can give them information to work with. You pass this information inside the parentheses. The names in the parentheses are called parameters, and the values you pass in are called arguments."
     },
     {
       "type": "code",
@@ -19,50 +19,50 @@
     },
     {
       "type": "heading",
-      "value": "Returning Treasures"
+      "value": "Getting a Result Back"
     },
     {
       "type": "paragraph",
-      "value": "Sometimes, we don't want the function to print the result immediately. We want the function to give it BACK to us so we can put it in a box (variable) or use it later. For this, we use the `return` spell!"
+      "value": "Sometimes you don't want the function to print the result. You want it to hand the result back so you can store it in a variable or use it later. For that, you use the `return` keyword."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "def double_number(number):\n    return number * 2\n\n# Put the result in a variable box:\nmagic_result = double_number(10)\nprint(magic_result)  # Prints 20"
+      "value": "def double_number(number):\n    return number * 2\n\n# Store the result in a variable:\nresult = double_number(10)\nprint(result)  # Prints 20"
     },
     {
       "type": "tip",
-      "value": "Once a function executes a `return` statement, it exits immediately. Any code written after `return` inside the function will be ignored by Python!"
+      "value": "As soon as a function reaches `return`, it stops. Any lines written after `return` inside the function will not run."
     }
   ],
   "editorCode": "def make_full_name(first, last):\n    return first + \" \" + last\n\nfull_name = make_full_name(\"Harry\", \"Potter\")\nprint(full_name)",
   "practice": [
     {
       "id": 1,
-      "question": "Create a function called 'double' that takes a number, multiplies it by 2, and RETURNS the result. Then call it with 5 and print the output!",
-      "starterCode": "# Define 'double(number)' function here\n\nresult = double(5)\nprint(result)"
+      "question": "Create a function called 'double' that takes a number, multiplies it by 2, and returns the result. Then call it with 5 and print the output.",
+      "starterCode": "# Define 'double(number)' here\n\nresult = double(5)\nprint(result)"
     }
   ],
   "quiz": [
     {
-      "question": "What do we call the inputs inside the function's parentheses?",
+      "question": "What do we call the values you pass into a function's parentheses?",
       "options": [
         "Keypads",
-        "Parameters or Arguments",
-        "Spells"
+        "Arguments",
+        "Buttons"
       ],
       "answer": 1,
-      "explain": "The inputs in the parentheses are called parameters (when defining) or arguments (when calling). They feed information into the function."
+      "explain": "The values you pass in are called arguments. The matching names inside the function definition are called parameters."
     },
     {
-      "question": "Which keyword do you use to send a result back from a function?",
+      "question": "Which keyword sends a result back from a function?",
       "options": [
         "send",
         "return",
         "output"
       ],
       "answer": 1,
-      "explain": "`return` sends a value back out of the function so the rest of your program can use the result."
+      "explain": "`return` sends a value back out of the function so the rest of your program can use it."
     }
   ]
 }

@@ -1,16 +1,16 @@
 {
   "lessonId": "exceptions",
-  "title": "Catching Bugs",
-  "description": "Learn how to use safety nets (try and except) to catch errors and prevent your game from crashing!",
+  "title": "Handling Errors",
+  "description": "Use try and except to catch errors so your program doesn't crash.",
   "difficulty": "Advanced",
   "content": [
     {
       "type": "heading",
-      "value": "Magical Safety Nets"
+      "value": "When Things Go Wrong"
     },
     {
       "type": "paragraph",
-      "value": "No matter how good a wizard you are, sometimes your spells go wrong. In coding, if a user inputs something bad, or if you try to divide a number by 0, the program crashes immediately! To prevent this, Python gives us a safety net: the `try` and `except` block."
+      "value": "Sometimes code hits a problem it can't handle, like dividing a number by zero, or turning the word 'hello' into a number. When that happens, the program stops with an error. To keep it running, Python gives you `try` and `except`."
     },
     {
       "type": "heading",
@@ -18,50 +18,50 @@
     },
     {
       "type": "paragraph",
-      "value": "We put code that might crash inside a `try` block. Below it, we write an `except` block. If the `try` code throws an error, instead of crashing, Python immediately jumps to the `except` block and runs the safety code!"
+      "value": "You put the risky code inside a `try` block. Right below it, you write an `except` block. If the code in `try` causes an error, Python doesn't crash. Instead, it jumps to the `except` block and runs that code."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "try:\n    # Trying to divide by zero (impossible!):\n    result = 10 / 0\n    print(result)\nexcept:\n    print(\"Oops! You cannot divide by zero. Please try again!\")"
+      "value": "try:\n    # Dividing by zero causes an error:\n    result = 10 / 0\n    print(result)\nexcept:\n    print(\"Oops! You can't divide by zero. Please try again.\")"
     },
     {
       "type": "heading",
-      "value": "Why Use Safety Nets?"
+      "value": "Why This Is Useful"
     },
     {
       "type": "paragraph",
-      "value": "Without `try`/`except`, your game or app would close immediately and show an ugly computer error screen to players. With it, you can print a friendly helper message and keep the application running smoothly!"
+      "value": "Without `try` and `except`, one bad input could stop your whole program and show a confusing error. With them, you can show a friendly message instead and keep the program running."
     }
   ],
   "editorCode": "try:\n    number = int(\"not_a_number\")\n    print(number)\nexcept:\n    print(\"That is not a valid number!\")",
   "practice": [
     {
       "id": 1,
-      "question": "Wrap the division code below in a try/except block. If it succeeds, it should print the result. If it fails, print 'Division failed!'",
-      "starterCode": "numerator = 10\ndenominator = 0\n\n# Add try/except block to handle division safely\nresult = numerator / denominator\nprint(result)"
+      "question": "Wrap the division below in a try/except block. If it works, print the result. If it fails, print 'Division failed!'",
+      "starterCode": "numerator = 10\ndenominator = 0\n\n# Add a try/except block to handle the division safely\nresult = numerator / denominator\nprint(result)"
     }
   ],
   "quiz": [
     {
-      "question": "Which block contains code that might fail or cause a crash?",
+      "question": "Which block holds the code that might cause an error?",
       "options": [
         "except",
         "try",
         "catch"
       ],
       "answer": 1,
-      "explain": "The `try` block holds the risky code that might fail. If it crashes, the `except` block catches the error."
+      "explain": "The `try` block holds the risky code. If it causes an error, the `except` block catches it."
     },
     {
-      "question": "What happens if code inside a 'try' block succeeds without any errors?",
+      "question": "What happens if the code in a 'try' block works with no errors?",
       "options": [
         "The 'except' block runs anyway.",
         "The 'except' block is skipped.",
         "The program restarts."
       ],
       "answer": 1,
-      "explain": "If the `try` code works fine, there's no error to catch, so Python skips the `except` block entirely."
+      "explain": "If the `try` code works fine, there's no error to catch, so Python skips the `except` block."
     }
   ]
 }

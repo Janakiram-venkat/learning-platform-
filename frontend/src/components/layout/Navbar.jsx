@@ -15,7 +15,7 @@ export default function Navbar() {
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 flex h-[64px] items-center border-b-2 border-purple-100 bg-white/80 px-6 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 flex h-[64px] items-center border-b-2 border-ink bg-paper/85 px-6 backdrop-blur-md">
       <Link to="/" className="mr-4 flex shrink-0 items-center sm:mr-8">
         <img
           src={logo}
@@ -25,8 +25,8 @@ export default function Navbar() {
       </Link>
       <div className="flex gap-2">
         <Link
-          to="/courses"
-          className="flex items-center gap-1.5 rounded-xl px-3 py-2 font-bold text-[#6C63A6] transition-colors hover:bg-purple-50 hover:text-purple-700"
+          to="/#tracks"
+          className="flex items-center gap-1.5 rounded-lg px-3 py-2 font-bold text-ink/70 transition-colors hover:bg-pcb/10 hover:text-pcb"
         >
           <BookOpen className="h-4 w-4" /> Courses
         </Link>
@@ -40,8 +40,8 @@ export default function Navbar() {
               onClick={() => setProfileOpen((o) => !o)}
               className="group flex items-center gap-2"
             >
-              <span className="hidden font-bold text-[#6C63A6] group-hover:text-purple-700 sm:block">{user.name}</span>
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-violet-600 text-sm font-extrabold text-white ring-2 ring-transparent transition-all group-hover:ring-purple-200">
+              <span className="hidden font-bold text-ink/70 group-hover:text-pcb sm:block">{user.name}</span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-ink bg-pcb font-lab text-sm font-extrabold text-white transition-transform group-hover:-translate-y-0.5">
                 {user.name?.[0]?.toUpperCase() || '?'}
               </span>
             </button>
@@ -54,7 +54,7 @@ export default function Navbar() {
         ) : (
           <button
             onClick={() => setSignInOpen(true)}
-            className="rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 px-5 py-2.5 font-extrabold text-white shadow-md shadow-purple-200 transition-transform hover:scale-105 active:scale-95"
+            className="lab-btn rounded-xl border-2 border-ink bg-signal px-5 py-2.5 font-extrabold text-ink"
           >
             Sign in
           </button>

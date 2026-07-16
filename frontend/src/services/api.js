@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+// The backend serves every route under an `/api` prefix. Normalise whatever is
+// configured so the base URL always ends with `/api`, even if the deploy env var
+// (e.g. Vercel's VITE_API_URL) was set to the bare host without the suffix.
+const RAW_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_URL = /\/api\/?$/.test(RAW_API_URL)
+  ? RAW_API_URL.replace(/\/$/, '')
+  : `${RAW_API_URL.replace(/\/$/, '')}/api`;
 
 export const api = axios.create({
   baseURL: API_URL,

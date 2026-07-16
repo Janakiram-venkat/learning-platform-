@@ -1,23 +1,23 @@
 {
   "moduleId": 1,
   "title": "Python Basics Arcade",
-  "intro": "Time to test your first spells! Predict outputs, fix broken magic, and build code blocks. Get them right on the first try to earn ⭐⭐⭐!",
+  "intro": "Time to test what you've learned! Predict outputs, fix broken code, and build code blocks. Get them right on the first try to earn ⭐⭐⭐!",
   "emoji": "🐍",
   "rounds": [
     {
       "type": "predict",
-      "prompt": "Cast this spell. What shows up on the screen?",
-      "code": "print(\"Hello, wizard!\")",
-      "options": ["Hello, wizard!", "print(Hello, wizard!)", "Nothing happens"],
+      "prompt": "Run this line. What shows up on the screen?",
+      "code": "print(\"Hello there!\")",
+      "options": ["Hello there!", "print(Hello there!)", "Nothing happens"],
       "answer": 0,
-      "explain": "The print spell shows whatever is inside the quotation marks."
+      "explain": "print shows whatever is inside the quotation marks."
     },
     {
       "type": "bug",
-      "prompt": "This spell is broken! Pick the fix.",
-      "code": "print(\"Magic is fun)",
+      "prompt": "This line is broken! Pick the fix.",
+      "code": "print(\"Coding is fun)",
       "options": [
-        "Add the missing closing quote: print(\"Magic is fun\")",
+        "Add the missing closing quote: print(\"Coding is fun\")",
         "Remove the word print",
         "Add a number at the end"
       ],

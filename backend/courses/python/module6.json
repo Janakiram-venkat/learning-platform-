@@ -1,15 +1,15 @@
 {
   "moduleId": 6,
-  "title": "Text Magic (Strings)",
+  "title": "Working with Text (Strings)",
   "lessons": [
     {
       "lessonId": "string_methods",
-      "title": "String Secrets",
+      "title": "String Methods",
       "duration": "15 min"
     },
     {
       "lessonId": "slicing",
-      "title": "Slicing and Dicing",
+      "title": "Slicing Strings",
       "duration": "15 min"
     }
   ]

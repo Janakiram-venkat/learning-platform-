@@ -1,15 +1,15 @@
 {
   "moduleId": 7,
-  "title": "Classes and Object-Oriented Magic",
+  "title": "Classes and Objects",
   "lessons": [
     {
       "lessonId": "classes",
-      "title": "Blueprints and Objects",
+      "title": "Classes and Objects",
       "duration": "20 min"
     },
     {
       "lessonId": "inheritance",
-      "title": "Family Traits",
+      "title": "Inheritance",
       "duration": "15 min"
     }
   ]

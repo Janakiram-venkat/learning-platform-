@@ -14,6 +14,23 @@
     },
     {
       "type": "heading",
+      "value": "Two Kinds of Chatbots"
+    },
+    {
+      "type": "paragraph",
+      "value": "It helps to know the difference between the two main types, because they work very differently under the hood:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "📏  Rule-based chatbot\n     Follows a fixed list of 'if this, say that' rules.\n     Predictable, but only handles what it was told.\n     Example: a pizza-ordering menu bot.\n\n🧠  AI-powered chatbot\n     Uses an NLP language model trained on huge text.\n     Flexible, can handle questions it never saw before.\n     Example: ChatGPT, Claude."
+    },
+    {
+      "type": "paragraph",
+      "value": "A rule-based bot is like a vending machine: press B4, get exactly the snack in slot B4. An AI-powered bot is more like a helpful librarian who understands your question even if you phrase it in a new way."
+    },
+    {
+      "type": "heading",
       "value": "Your Project: A Study Buddy Bot"
     },
     {
@@ -39,12 +56,16 @@
       "value": "IF the message contains 'hello'  → say 'Hi there! 👋'\nIF the message contains 'hint'   → give a small clue\nIF the message contains 'tip'    → share a study tip\nOTHERWISE                         → say 'Can you ask that another way?'"
     },
     {
+      "type": "paragraph",
+      "value": "See that last line? The 'otherwise' reply is important. A good chatbot always has a friendly fallback for when it doesn't understand, so the conversation never hits a dead end."
+    },
+    {
       "type": "tip",
-      "value": "Build it yourself! Free tools like Scratch, MIT App Inventor, and web-based chatbot builders let you create a working chatbot by dragging blocks together, no typing code required."
+      "value": "Build it yourself! Free tools like Scratch, MIT App Inventor, and web-based chatbot builders let you create a working chatbot by dragging blocks together, no typing code required. Start with 3 rules and a fallback, then add more."
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: Chatbots are conversational AI systems that understand a message and choose a helpful reply."
+      "value": "Key Takeaway: Chatbots are conversational AI systems that understand a message and choose a helpful reply, rule-based ones follow fixed patterns, while AI-powered ones use language models to handle almost anything."
     }
   ],
   "quiz": [
@@ -77,6 +98,16 @@
       ],
       "answer": 0,
       "explain": "Block-based tools like Scratch and MIT App Inventor let you build chatbots by dragging blocks together."
+    },
+    {
+      "question": "What is the main difference between a rule-based bot and an AI-powered bot?",
+      "options": [
+        "A rule-based bot follows fixed rules; an AI-powered bot uses a language model to handle new questions",
+        "There is no difference",
+        "AI-powered bots can only say 'hello'"
+      ],
+      "answer": 0,
+      "explain": "Rule-based bots only handle what they were told, while AI-powered bots use NLP models to respond flexibly to questions they've never seen."
     }
   ]
 }

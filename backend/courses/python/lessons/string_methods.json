@@ -1,24 +1,24 @@
 {
   "lessonId": "string_methods",
-  "title": "String Secrets",
-  "description": "Learn how to use Python's text commands to find lengths, capitalize, lower case, or change parts of your text strings!",
+  "title": "String Methods",
+  "description": "Handy built-in tools for measuring and changing text.",
   "difficulty": "Intermediate",
   "content": [
     {
       "type": "heading",
-      "value": "Manipulating Text"
+      "value": "Working with Text"
     },
     {
       "type": "paragraph",
-      "value": "Strings aren't just for reading. Python gives us built-in functions to modify and inspect text! Let's look at some cool built-in spells."
+      "value": "Strings aren't just for showing on screen. Python has built-in tools that let you measure and change text. These tools are called string methods. Let's look at a few useful ones."
     },
     {
       "type": "heading",
-      "value": "1. Finding Length (len)"
+      "value": "1. Length (len)"
     },
     {
       "type": "paragraph",
-      "value": "To find out how many characters (letters, numbers, and even spaces!) are in a string, we use the `len()` spell."
+      "value": "To count how many characters are in a string (letters, numbers, and even spaces), use `len()`."
     },
     {
       "type": "code",
@@ -27,11 +27,11 @@
     },
     {
       "type": "heading",
-      "value": "2. Upper and Lower Case (.upper() and .lower())"
+      "value": "2. Upper and Lower Case (.upper and .lower)"
     },
     {
       "type": "paragraph",
-      "value": "Want to make your text shout? Use `.upper()`! Want to whisper it? Use `.lower()`!"
+      "value": "Use `.upper()` to make every letter a capital, and `.lower()` to make every letter small."
     },
     {
       "type": "code",
@@ -40,11 +40,11 @@
     },
     {
       "type": "heading",
-      "value": "3. Replacing Words (.replace())"
+      "value": "3. Replacing Text (.replace)"
     },
     {
       "type": "paragraph",
-      "value": "If you want to swap a word inside your string, you can use `.replace()`! It takes two arguments: the old word you want to replace, and the new word you want instead."
+      "value": "Use `.replace()` to swap one piece of text for another. You give it two things: the text to find, and the text to put in its place."
     },
     {
       "type": "code",
@@ -56,13 +56,13 @@
   "practice": [
     {
       "id": 1,
-      "question": "Find the length of the string 'Supercalifragilistic' and print it!",
+      "question": "Find the length of the string 'Supercalifragilistic' and print it.",
       "starterCode": "word = \"Supercalifragilistic\"\n# Print the length of 'word' below"
     }
   ],
   "quiz": [
     {
-      "question": "Which function gives you the number of characters in a string?",
+      "question": "Which tool gives the number of characters in a string?",
       "options": [
         "length()",
         "len()",
@@ -72,14 +72,14 @@
       "explain": "`len()` counts the characters in a string. (`length()` isn't a Python function.)"
     },
     {
-      "question": "What does 'hello'.upper() return?",
+      "question": "What does 'hello'.upper() give you?",
       "options": [
         "HELLO",
         "hello",
         "Hello"
       ],
       "answer": 0,
-      "explain": "`.upper()` turns every letter UPPERCASE, so 'hello' becomes 'HELLO'."
+      "explain": "`.upper()` makes every letter a capital, so 'hello' becomes 'HELLO'."
     }
   ]
 }

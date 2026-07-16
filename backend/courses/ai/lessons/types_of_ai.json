@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Scientists describe AI in three levels based on how smart and flexible it is: Narrow AI, General AI, and Super AI."
+      "value": "Scientists describe AI in three levels based on how smart and flexible it is: Narrow AI, General AI, and Super AI. Think of it like a ladder, we are standing firmly on the first rung, and the top rungs are still out of reach."
     },
     {
       "type": "heading",
@@ -18,12 +18,16 @@
     },
     {
       "type": "paragraph",
-      "value": "Narrow AI is really good at ONE specific job. A chess program can beat champions at chess, but it can't drive a car or cook dinner. Almost every AI you use today is Narrow AI."
+      "value": "Narrow AI is really good at ONE specific job. A chess program can beat world champions at chess, but ask it to drive a car or cook dinner and it has no idea what to do. It only knows its one task. Almost every AI you use today is Narrow AI."
+    },
+    {
+      "type": "paragraph",
+      "value": "A helpful comparison: a Narrow AI is like a superstar chess player who has never done anything except play chess. Amazing at that one thing, helpless at everything else. Even a powerful chatbot like ChatGPT is Narrow AI, its one job is working with language."
     },
     {
       "type": "code",
       "language": "text",
-      "value": "Narrow AI examples:\n♟️  Chess & game-playing programs\n💬  ChatGPT and chatbots\n🎯  Recommendation systems (YouTube, Spotify)\n📧  Spam email filters"
+      "value": "Narrow AI examples:\n♟️  Chess & game-playing programs\n💬  ChatGPT and chatbots\n🎯  Recommendation systems (YouTube, Spotify)\n📧  Spam email filters\n🚗  Self-driving car software\n🩺  Tools that read medical scans"
     },
     {
       "type": "heading",
@@ -31,7 +35,7 @@
     },
     {
       "type": "paragraph",
-      "value": "General AI would be as flexible as a human, able to learn and do ANY task across many different areas, from writing a poem to fixing a bike. This kind of AI does not exist yet. It's still a goal that researchers are working toward."
+      "value": "General AI would be as flexible as a human, able to learn and do ANY task across many different areas, from writing a poem to fixing a bike to planning a birthday party. A single system could switch between totally different problems, just like you do every day. This kind of AI does not exist yet. It's still a goal that researchers are working toward."
     },
     {
       "type": "heading",
@@ -39,15 +43,24 @@
     },
     {
       "type": "paragraph",
-      "value": "Super AI is a conceptual idea of a machine that is smarter than humans at almost everything. It only exists in movies and imagination for now, but thinking about it helps us plan how to build AI safely."
+      "value": "Super AI is a conceptual idea of a machine that is smarter than humans at almost everything, from science to art to making decisions. It only exists in movies and imagination for now. Thinking about it isn't just for fun, it helps researchers plan how to build AI safely, long before anything like it could ever exist."
+    },
+    {
+      "type": "heading",
+      "value": "How to Tell Them Apart"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Narrow AI   → great at ONE task        → exists today ✅\nGeneral AI  → flexible like a human     → not built yet ⏳\nSuper AI    → smarter than all humans   → just an idea 💭"
     },
     {
       "type": "tip",
-      "value": "Activity: 'AI or Not?': Look at examples like a smart thermostat, a wind-up toy, a self-driving car, and a regular calculator. Which ones use AI, and which just follow fixed rules?"
+      "value": "Activity: 'AI or Not?': Look at examples like a smart thermostat, a wind-up toy, a self-driving car, and a regular calculator. Which ones use AI, and which just follow fixed rules? For the AI ones, notice they each do just one narrow job."
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: Most AI systems today are Narrow AI, brilliant at one task, but not flexible like a human."
+      "value": "Key Takeaway: Most AI systems today are Narrow AI, brilliant at one task, but not flexible like a human. General and Super AI don't exist yet."
     }
   ],
   "quiz": [
@@ -80,6 +93,16 @@
       ],
       "answer": 2,
       "explain": "It does one job, recommending songs, which makes it Narrow AI."
+    },
+    {
+      "question": "Why do researchers think about Super AI even though it doesn't exist?",
+      "options": [
+        "To help plan how to build AI safely in the future",
+        "Because it already runs on every phone",
+        "To make video games load faster"
+      ],
+      "answer": 0,
+      "explain": "Super AI is just an idea for now, but imagining it helps researchers think ahead about safety and responsible design."
     }
   ]
 }

@@ -13,6 +13,23 @@
       "value": "Data is information a computer can learn from, photos, text, sounds, numbers, and more. To teach an AI to recognize cats, we feed it lots of cat pictures. Those pictures are the data."
     },
     {
+      "type": "paragraph",
+      "value": "A good way to think about it: data is the food that AI eats. Just like your body is built from the food you eat, an AI's 'knowledge' is built from the data it learns from. Feed it healthy, varied data and it grows strong. Feed it junk and it gets confused."
+    },
+    {
+      "type": "heading",
+      "value": "Data Comes in Many Shapes"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🖼️  Images  → photos, drawings, medical scans\n📝  Text    → messages, books, reviews, web pages\n🔊  Audio   → speech, music, animal sounds\n🔢  Numbers → temperatures, prices, scores\n🎬  Video   → clips, camera footage"
+    },
+    {
+      "type": "paragraph",
+      "value": "Whatever the task, an AI needs the right kind of data for it. A model that spots diseases in X-rays must learn from X-ray images. A model that suggests songs must learn from listening history. The data has to match the job."
+    },
+    {
       "type": "heading",
       "value": "Training Data vs Testing Data"
     },
@@ -26,6 +43,10 @@
       "value": "🐱🐶  Lots of labeled images\n        │\n        ├── 80%  ➜  TRAINING DATA  (teach the model)\n        └── 20%  ➜  TESTING DATA   (check the model)"
     },
     {
+      "type": "paragraph",
+      "value": "Why keep testing data secret? If you let the model 'study the exam' first, it could just memorize the answers instead of truly learning. Testing on fresh examples is the only fair way to see if it really understands."
+    },
+    {
       "type": "heading",
       "value": "Data Quality Matters"
     },
@@ -34,12 +55,16 @@
       "value": "If you teach an AI using blurry, wrong, or unfair examples, it will make poor predictions, 'garbage in, garbage out.' Good, clean, and varied data produces a much smarter and fairer AI."
     },
     {
+      "type": "paragraph",
+      "value": "Variety matters too. If you only show a cat-detector photos of orange cats, it might decide black cats aren't cats at all! Showing many kinds of cats, in different colors, angles, and lighting, helps the AI handle the real world."
+    },
+    {
       "type": "tip",
-      "value": "Activity: 'Build a Mini Dataset': Collect and label 10 small images into two groups (for example, 'apple' and 'banana'). Notice how clear labels make the dataset more useful!"
+      "value": "Activity: 'Build a Mini Dataset': Collect and label 10 small images into two groups (for example, 'apple' and 'banana'). Then try adding one tricky photo, like an apple in the dark, and notice how variety makes the dataset stronger."
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: Good data produces better AI models. The quality of an AI depends on the quality of its data."
+      "value": "Key Takeaway: Good data produces better AI models. The quality, quantity, and variety of the data decide how smart and fair an AI can be."
     }
   ],
   "quiz": [
@@ -72,6 +97,16 @@
       ],
       "answer": 2,
       "explain": "Low-quality data leads to a low-quality model. Clean, fair, varied data is essential."
+    },
+    {
+      "question": "Why does variety in the training data matter?",
+      "options": [
+        "It helps the AI handle many real-world situations, not just one narrow case",
+        "It makes the files smaller",
+        "It has no effect at all"
+      ],
+      "answer": 0,
+      "explain": "Varied examples (different colors, angles, lighting) help the model recognize things correctly in the messy real world."
     }
   ]
 }

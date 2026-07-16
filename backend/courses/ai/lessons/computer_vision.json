@@ -14,6 +14,23 @@
     },
     {
       "type": "heading",
+      "value": "A Picture is Really Just Numbers"
+    },
+    {
+      "type": "paragraph",
+      "value": "Look closely at any screen and you'll see it's made of tiny dots called pixels. Each pixel is stored as numbers for how much red, green, and blue it has. So a photo the computer 'sees' is really a huge spreadsheet of numbers, nothing more."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "What you see:   🐱  (a cat photo)\n\nWhat the computer sees:\n   [ 34, 34, 35, 90, 120, ... ]\n   [ 33, 36, 40, 88, 121, ... ]\n   [ ...thousands of numbers... ]\n\nComputer Vision finds patterns in those numbers."
+    },
+    {
+      "type": "paragraph",
+      "value": "The AI learns that certain patterns of numbers, like the shape of pointy ears or whiskers, usually mean 'cat'. It never really 'sees' a cat the way you do; it just gets very good at recognizing the number patterns."
+    },
+    {
+      "type": "heading",
       "value": "Three Common Vision Tasks"
     },
     {
@@ -23,23 +40,28 @@
     },
     {
       "type": "paragraph",
-      "value": "Image classification labels a whole picture. Object detection finds and boxes individual things. Facial recognition matches a face to a specific person."
+      "value": "Image classification labels a whole picture. Object detection finds and boxes individual things (and there can be many in one photo). Facial recognition matches a face to a specific person."
     },
     {
       "type": "heading",
       "value": "Where We Use Computer Vision"
     },
     {
+      "type": "code",
+      "language": "text",
+      "value": "🔓  Face unlock          → recognize your face to open the phone\n🚗  Self-driving cars    → 'see' pedestrians, signs, and lanes\n🩺  Medical scans        → help doctors spot problems early\n🏭  Factories            → check products for defects\n🌾  Farming              → spot sick crops from drone photos\n📸  Photo apps           → auto-tag friends and pets"
+    },
+    {
       "type": "paragraph",
-      "value": "Computer Vision is everywhere: unlocking phones with your face, helping doctors spot problems in medical scans, watching traffic to keep roads safe, and helping self-driving cars 'see' pedestrians and stop signs."
+      "value": "Computer Vision can also make mistakes. Bad lighting, odd angles, or something it never saw in training can fool it, which is exactly why it needs lots of varied data to learn from."
     },
     {
       "type": "tip",
-      "value": "Activity: 'What Do You See?': Look at a busy photo and list every object in it. Then think about how an AI would need to learn each shape, color, and pattern to do the same."
+      "value": "Activity: 'What Do You See?': Look at a busy photo and list every object in it. Then think about how an AI would need to learn each shape, color, and pattern, as numbers, to do the same thing."
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: Computer Vision enables machines to understand visual information from images and videos."
+      "value": "Key Takeaway: Computer Vision enables machines to understand visual information from images and videos, by finding patterns in the numbers that make up each pixel."
     }
   ],
   "quiz": [
@@ -72,6 +94,16 @@
       ],
       "answer": 1,
       "explain": "Object detection locates and boxes individual objects, while classification just labels the whole image."
+    },
+    {
+      "question": "Why might a Computer Vision system make a mistake?",
+      "options": [
+        "Bad lighting, odd angles, or something it never saw during training",
+        "It always gets everything perfectly right",
+        "Because photos have no numbers in them"
+      ],
+      "answer": 0,
+      "explain": "Vision AI can be fooled by unfamiliar situations, which is why varied, high-quality training data matters so much."
     }
   ]
 }

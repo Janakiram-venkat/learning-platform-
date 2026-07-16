@@ -1,24 +1,24 @@
 {
   "lessonId": "math_magic",
-  "title": "Math Magic",
-  "description": "Learn how to use Python's built-in calculators to perform magical number tricks!",
+  "title": "Doing Math",
+  "description": "Use Python's math symbols to add, subtract, multiply, divide, and more.",
   "difficulty": "Beginner",
   "content": [
     {
       "type": "heading",
-      "value": "The Magical Calculators"
+      "value": "Python as a Calculator"
     },
     {
       "type": "paragraph",
-      "value": "Did you know that computers are incredibly good at math? Python has built-in symbols (we call them Operators) that act like mini calculator spells. Let's learn them!"
+      "value": "Computers are very good at math. Python has symbols, called operators, that let you do calculations. Let's go through them."
     },
     {
       "type": "heading",
-      "value": "1. The Basic Spells (+, -, *, /)"
+      "value": "1. The Basic Operators (+, -, *, /)"
     },
     {
       "type": "paragraph",
-      "value": "Addition `+` and subtraction `-` work exactly like in school. For multiplication, we use the star key `*` (asterisk), and for division, we use the forward slash `/`."
+      "value": "Addition `+` and subtraction `-` work just like in school. For multiplication you use a star `*`, and for division you use a forward slash `/`."
     },
     {
       "type": "code",
@@ -27,24 +27,24 @@
     },
     {
       "type": "heading",
-      "value": "2. The Secret Modulo Spell (%)"
+      "value": "2. The Remainder Operator (%)"
     },
     {
       "type": "paragraph",
-      "value": "This is one of the coolest operators: the Modulo `%` spell. It doesn't give you the division answer, it only gives you the REMAINDER left over! If you share 7 cookies between 3 friends, each friend gets 2 whole cookies and there is 1 cookie left over. Modulo tells you exactly that remainder!"
+      "value": "The `%` operator (called modulo) gives you the remainder after dividing. For example, if you share 7 cookies among 3 friends, each friend gets 2 cookies and 1 is left over. `7 % 3` gives you that leftover 1."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "print(7 % 3)  # Prints 1 because 7 / 3 has a remainder of 1"
+      "value": "print(7 % 3)  # Prints 1, because 7 divided by 3 leaves a remainder of 1"
     },
     {
       "type": "heading",
-      "value": "3. Power Up (**)"
+      "value": "3. Powers (**)"
     },
     {
       "type": "paragraph",
-      "value": "To multiply a number by itself multiple times, we use the Double Star `**` (exponentiation). For example, `2 ** 3` means 2 multiplied by itself 3 times (2 * 2 * 2 = 8)."
+      "value": "The `**` operator raises a number to a power (multiplies it by itself). For example, `2 ** 3` means 2 times 2 times 2, which is 8."
     },
     {
       "type": "code",
@@ -53,7 +53,7 @@
     },
     {
       "type": "tip",
-      "value": "Python also has a Floor Division `//` spell which does division but throws away any decimal remainder, returning only a whole number. Try `7 // 3` in the compiler!"
+      "value": "There is also `//`, called floor division. It divides and throws away the decimal part, giving a whole number. Try `7 // 3` in the editor."
     },
     {
       "type": "simulation",
@@ -68,20 +68,20 @@
   "practice": [
     {
       "id": 1,
-      "question": "Find the remainder when you divide 15 by 4 using the modulo spell, and print it!",
-      "starterCode": "# Use the modulo operator (%) to find 15 divided by 4\nprint()"
+      "question": "Find the remainder when 15 is divided by 4 using the % operator, and print it.",
+      "starterCode": "# Use the modulo operator (%) to find the remainder of 15 divided by 4\nprint()"
     }
   ],
   "quiz": [
     {
-      "question": "Which operator is used to find the remainder of a division?",
+      "question": "Which operator gives the remainder of a division?",
       "options": [
         "/",
         "%",
         "*"
       ],
       "answer": 1,
-      "explain": "`%` (called modulo) gives the remainder left over after dividing. `/` divides and `*` multiplies."
+      "explain": "`%` (modulo) gives the remainder left over after dividing. `/` divides and `*` multiplies."
     },
     {
       "question": "What is the result of 3 ** 2 in Python?",
@@ -91,7 +91,7 @@
         "5"
       ],
       "answer": 1,
-      "explain": "`**` means 'to the power of'. So 3 ** 2 is 3 squared = 3 x 3 = 9."
+      "explain": "`**` means 'to the power of'. So 3 ** 2 is 3 times 3, which is 9."
     }
   ]
 }

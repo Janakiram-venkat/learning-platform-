@@ -1,7 +1,7 @@
 {
   "moduleId": 8,
   "title": "Bug Catcher Arcade",
-  "intro": "Catch errors before they crash your spells, and import powerful toolkits! First-try wins earn ⭐⭐⭐!",
+  "intro": "Catch errors before they crash your program, and import powerful modules! First-try wins earn ⭐⭐⭐!",
   "emoji": "🐞",
   "rounds": [
     {

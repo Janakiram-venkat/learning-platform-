@@ -883,7 +883,7 @@ function RewardsStage({ stage, courseId, moduleId, course }) {
           </Link>
         ) : (
           <Link
-            to="/courses"
+            to="/"
             className="mt-7 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-7 py-3.5 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
           >
             Back to Quests <ArrowRight className="h-5 w-5" />

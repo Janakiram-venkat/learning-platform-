@@ -26,12 +26,12 @@ export default function XPBadge() {
 
   return (
     <div
-      className={`hidden items-center gap-1.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 px-3 py-1.5 text-sm font-extrabold text-white shadow-sm sm:flex ${pop ? 'animate-pop' : ''}`}
+      className={`hidden items-center gap-1.5 rounded-lg border-2 border-ink bg-signal px-3 py-1.5 text-sm font-extrabold text-ink sm:flex ${pop ? 'animate-pop' : ''}`}
       title={`Level ${level} · ${xp} XP`}
     >
-      <Zap className="h-4 w-4 fill-white" />
+      <Zap className="h-4 w-4 fill-ink" />
       <span>Lv {level}</span>
-      <span className="text-amber-100">·</span>
+      <span className="text-ink/40">·</span>
       <span>{xp} XP</span>
     </div>
   );

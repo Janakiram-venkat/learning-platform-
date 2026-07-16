@@ -1,24 +1,24 @@
 {
   "lessonId": "while_loops",
   "title": "The While Loop",
-  "description": "Loops that keep spinning as long as a magic condition remains True!",
+  "description": "A loop that keeps going as long as a condition stays True.",
   "difficulty": "Intermediate",
   "content": [
     {
       "type": "heading",
-      "value": "Running on a Condition"
+      "value": "Looping Until Something Changes"
     },
     {
       "type": "paragraph",
-      "value": "We learned about the `for` loop, which repeats a set number of times. But what if we don't know how many times we need to repeat? For example, how many times do you chew your food? You keep chewing WHILE you still have food in your mouth! In Python, we do this using a `while` loop."
+      "value": "A `for` loop repeats a set number of times. But sometimes you don't know how many times you'll need. For example, you keep chewing while there is still food in your mouth. A `while` loop repeats as long as a condition is True."
     },
     {
       "type": "heading",
-      "value": "How it Works"
+      "value": "How It Works"
     },
     {
       "type": "paragraph",
-      "value": "A `while` loop checks a condition first. If the condition is True, it runs the indented code. Then it checks the condition again, and again, and again, until the condition becomes False!"
+      "value": "A `while` loop checks its condition first. If the condition is True, it runs the indented lines, then checks the condition again. It keeps doing this until the condition becomes False."
     },
     {
       "type": "code",
@@ -27,30 +27,30 @@
     },
     {
       "type": "heading",
-      "value": "Watch out for Infinite Loops!"
+      "value": "Watch Out for Infinite Loops"
     },
     {
       "type": "paragraph",
-      "value": "If the condition NEVER becomes False, the loop will spin forever! We call this an Infinite Loop. If you forget to decrease the energy (`energy = energy - 1`), the computer will jump forever until it gets exhausted! Always make sure your loop has a way to stop."
+      "value": "If the condition never becomes False, the loop runs forever. This is called an infinite loop. In the example above, if you forget the line `energy = energy - 1`, energy stays at 3 and the loop never stops. Always make sure something inside the loop moves it toward stopping."
     },
     {
       "type": "tip",
-      "value": "You can also write `energy -= 1` instead of `energy = energy - 1`. It is a cool shortcut programmers use to save typing time!"
+      "value": "You can write `energy -= 1` as a shortcut for `energy = energy - 1`. It does the same thing with less typing."
     }
   ],
   "editorCode": "count = 1\nwhile count <= 5:\n    print(\"Count is:\", count)\n    count += 1",
   "practice": [
     {
       "id": 1,
-      "question": "Write a while loop that prints a countdown from 5 down to 1. Inside the loop, make sure to subtract 1 from the count variable!",
-      "starterCode": "count = 5\nwhile count > 0:\n    print(count)\n    # Subtract 1 from count below this line"
+      "question": "Write a while loop that counts down from 5 to 1. Remember to subtract 1 from count each time, or it will loop forever.",
+      "starterCode": "count = 5\nwhile count > 0:\n    print(count)\n    # Subtract 1 from count below"
     }
   ],
   "quiz": [
     {
-      "question": "When does a while loop stop running?",
+      "question": "When does a while loop stop?",
       "options": [
-        "After exactly 10 spins.",
+        "After exactly 10 repeats.",
         "When its condition becomes False.",
         "When the computer is shut down."
       ],
@@ -58,14 +58,14 @@
       "explain": "A while loop keeps going as long as its condition is True, and stops the moment the condition becomes False."
     },
     {
-      "question": "What happens if a while loop's condition is ALWAYS True?",
+      "question": "What happens if a while loop's condition is always True?",
       "options": [
         "It stops immediately.",
-        "It runs forever (Infinite Loop).",
+        "It runs forever (an infinite loop).",
         "It changes itself to False."
       ],
       "answer": 1,
-      "explain": "If the condition never becomes False, the loop never stops -- that's called an infinite loop."
+      "explain": "If the condition never becomes False, the loop never stops. That's called an infinite loop."
     }
   ]
 }

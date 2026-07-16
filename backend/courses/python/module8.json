@@ -4,12 +4,12 @@
   "lessons": [
     {
       "lessonId": "exceptions",
-      "title": "Catching Bugs",
+      "title": "Handling Errors",
       "duration": "15 min"
     },
     {
       "lessonId": "imports",
-      "title": "Importing Spells",
+      "title": "Using Modules",
       "duration": "20 min"
     }
   ]

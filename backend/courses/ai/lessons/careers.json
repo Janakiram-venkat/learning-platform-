@@ -15,7 +15,20 @@
     {
       "type": "code",
       "language": "text",
-      "value": "🤖  AI Engineer            → builds AI systems\n📊  Data Scientist         → finds patterns in data\n🦾  Robotics Engineer      → makes intelligent robots\n🧠  Machine Learning Eng.  → trains smart models\n🔬  AI Researcher          → invents new AI ideas"
+      "value": "🤖  AI Engineer            → builds AI systems\n📊  Data Scientist         → finds patterns in data\n🦾  Robotics Engineer      → makes intelligent robots\n🧠  Machine Learning Eng.  → trains smart models\n🔬  AI Researcher          → invents new AI ideas\n🎨  Prompt Designer        → writes prompts that get great results\n🛡️  AI Ethics Specialist   → keeps AI fair and safe"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice that not every AI job is about heavy math or coding. Some are about creativity, fairness, or explaining AI to others. There's likely a role that fits what you already enjoy."
+    },
+    {
+      "type": "heading",
+      "value": "Skills That Help (and You Can Start Now)"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🧩  Curiosity & problem-solving  → the #1 skill\n🐍  A bit of coding (like Python) → helps a lot\n🔢  Comfort with data & numbers  → useful everywhere\n💬  Clear communication          → explain your ideas\n⚖️  Thinking about fairness      → build responsible AI"
     },
     {
       "type": "heading",
@@ -23,7 +36,7 @@
     },
     {
       "type": "paragraph",
-      "value": "AI isn't just for tech companies. It's transforming healthcare (spotting diseases early), space exploration (guiding rovers on Mars), education (personal tutors), agriculture (helping farmers grow more food), and environmental protection (tracking climate and wildlife)."
+      "value": "AI isn't just for tech companies. It's transforming healthcare (spotting diseases early), space exploration (guiding rovers on Mars), education (personal tutors), agriculture (helping farmers grow more food), sports (analyzing player performance), and environmental protection (tracking climate and wildlife)."
     },
     {
       "type": "heading",
@@ -40,11 +53,11 @@
     },
     {
       "type": "tip",
-      "value": "Activity: 'Design an AI Solution': Pick a real problem in your school or town (like reducing waste or helping students study) and sketch an AI that could help solve it. What data would it need?"
+      "value": "Activity: 'Design an AI Solution': Pick a real problem in your school or town (like reducing waste or helping students study) and sketch an AI that could help. Ask the three key questions: What is the task? What data would it need? How would you check if it's fair and accurate?"
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: AI will create new opportunities and transform many industries, and you can be part of building that future."
+      "value": "Key Takeaway: AI will create new opportunities and transform many industries, and with curiosity and a few skills, you can be part of building that future, no matter what you enjoy."
     }
   ],
   "quiz": [
@@ -77,6 +90,16 @@
       ],
       "answer": 0,
       "explain": "Great AI projects start with a real problem and the right data to learn from."
+    },
+    {
+      "question": "Do all AI careers require heavy math and coding?",
+      "options": [
+        "No, some focus on creativity, fairness, or communication",
+        "Yes, every single one",
+        "No, none of them use any skills"
+      ],
+      "answer": 0,
+      "explain": "AI needs many kinds of people, roles like prompt designer or AI ethics specialist rely on creativity, writing, and fairness, not just math."
     }
   ]
 }

@@ -24,7 +24,7 @@
     },
     {
       "id": 4,
-      "title": "Functions & Magical Recipes",
+      "title": "Functions",
       "file": "module4.json"
     },
     {
@@ -34,12 +34,12 @@
     },
     {
       "id": 6,
-      "title": "Text Magic (Strings)",
+      "title": "Working with Text (Strings)",
       "file": "module6.json"
     },
     {
       "id": 7,
-      "title": "Classes and Object-Oriented Magic",
+      "title": "Classes and Objects",
       "file": "module7.json"
     },
     {

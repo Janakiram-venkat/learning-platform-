@@ -13,13 +13,17 @@
       "value": "AI can do amazing things, but it can also cause harm if used carelessly. Ethics means thinking about what is fair, honest, and safe. Responsible AI users understand the risks and try to avoid them."
     },
     {
+      "type": "paragraph",
+      "value": "Here's a useful way to think about it: AI is a powerful tool, like a sharp kitchen knife. In careful hands it's incredibly helpful, but used carelessly it can hurt someone. The tool isn't 'good' or 'bad', how we use it is what matters."
+    },
+    {
       "type": "heading",
       "value": "Things to Watch Out For"
     },
     {
       "type": "code",
       "language": "text",
-      "value": "⚖️  Bias          → unfair AI that favors some groups\n🔒  Privacy       → protecting people's personal data\n📰  Misinformation → AI can sound confident but be WRONG\n🎭  Deepfakes     → fake images/videos that look real"
+      "value": "⚖️  Bias          → unfair AI that favors some groups\n🔒  Privacy       → protecting people's personal data\n📰  Misinformation → AI can sound confident but be WRONG\n🎭  Deepfakes     → fake images/videos that look real\n📋  Copying       → passing off AI's work as your own"
     },
     {
       "type": "heading",
@@ -27,23 +31,32 @@
     },
     {
       "type": "paragraph",
-      "value": "AI learns from data made by humans, and if that data is unfair or one-sided, the AI becomes unfair too. For example, if a face system only trained on certain faces, it may work poorly for others. That's why fair, varied data matters so much."
+      "value": "AI learns from data made by humans, and if that data is unfair or one-sided, the AI becomes unfair too. For example, if a face system only trained on certain faces, it may work poorly for others. Remember 'garbage in, garbage out', unfair data leads to an unfair AI. That's why fair, varied data matters so much."
     },
     {
-      "type": "tip",
-      "value": "Activity: 'Real or AI-Generated?': Look at some images and messages and guess which were made by AI. It's getting harder to tell, which is exactly why we must think critically!"
+      "type": "heading",
+      "value": "AI Can Be Confidently Wrong"
+    },
+    {
+      "type": "paragraph",
+      "value": "One of the biggest surprises about AI is that it can give a completely wrong answer while sounding totally sure of itself. It doesn't 'know' facts, it predicts what sounds right. So a chatbot might invent a fake book title or a wrong date and state it confidently. Always double-check important information from another trusted source."
     },
     {
       "type": "heading",
       "value": "Be a Responsible AI User"
     },
     {
-      "type": "paragraph",
-      "value": "Always double-check AI answers, never share private information, give credit when AI helps you, and never use AI to trick or harm others. Discussion: Can AI make mistakes? Should AI replace teachers? How can we use AI responsibly?"
+      "type": "code",
+      "language": "text",
+      "value": "✅  Double-check AI answers before trusting them\n✅  Never share private info (passwords, addresses)\n✅  Give credit when AI helps you with your work\n✅  Use AI to learn, not to cheat\n🚫  Never use AI to trick, bully, or harm others"
+    },
+    {
+      "type": "tip",
+      "value": "Activity: 'Real or AI-Generated?': Look at some images and messages and guess which were made by AI. It's getting harder to tell, which is exactly why we must think critically. Discuss: Should AI-made images have to be labeled?"
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: AI should be used responsibly, ethically, and safely."
+      "value": "Key Takeaway: AI should be used responsibly, ethically, and safely, check its answers, protect privacy, be fair, and never use it to harm others."
     }
   ],
   "quiz": [
@@ -76,6 +89,16 @@
       ],
       "answer": 0,
       "explain": "Responsible users verify AI answers, protect privacy, give credit, and never use AI to harm others."
+    },
+    {
+      "question": "Why can it be risky to trust an AI answer without checking?",
+      "options": [
+        "AI can sound confident but still be completely wrong",
+        "AI answers are always 100% correct",
+        "AI never gives any answer at all"
+      ],
+      "answer": 0,
+      "explain": "AI predicts what sounds right, not what is guaranteed true, so it can state wrong facts confidently. Always verify important info."
     }
   ]
 }

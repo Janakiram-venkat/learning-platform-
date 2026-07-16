@@ -1,24 +1,24 @@
 {
   "lessonId": "intro_functions",
-  "title": "Creating Magic Recipes",
-  "description": "Learn how to write reusable cooking recipes (functions) that you can perform whenever you want by calling their name!",
+  "title": "Creating Functions",
+  "description": "Group steps together with a name so you can reuse them whenever you want.",
   "difficulty": "Intermediate",
   "content": [
     {
       "type": "heading",
-      "value": "Magical Recipes"
+      "value": "What is a Function?"
     },
     {
       "type": "paragraph",
-      "value": "Imagine you love baking chocolate cakes. Instead of writing down the 10 steps every time you want a cake, you write them once in a recipe book and name it: 'bake_cake'. Now, whenever you want cake, you just say 'bake_cake()'! In programming, this named recipe is called a Function."
+      "value": "A function is a group of steps with a name. It's like a recipe: you write the steps once, give the recipe a name, and then whenever you want those steps done, you just use the name. This saves you from writing the same code over and over."
     },
     {
       "type": "heading",
-      "value": "How to Define a Function"
+      "value": "Defining a Function"
     },
     {
       "type": "paragraph",
-      "value": "In Python, we define a function using the keyword `def` (which stands for 'define'). We give our function a name, add parentheses `()`, a colon `:`, and then indent the recipe steps underneath."
+      "value": "You create a function with the keyword `def` (short for 'define'). After `def`, you write the function's name, a pair of parentheses `()`, and a colon `:`. Then you indent the steps underneath."
     },
     {
       "type": "code",
@@ -27,29 +27,29 @@
     },
     {
       "type": "heading",
-      "value": "Calling the Spell"
+      "value": "Calling a Function"
     },
     {
       "type": "paragraph",
-      "value": "Defining a function does NOT run it. It just teaches the computer how to do it. To actually perform the function, you have to CALL it by writing its name with parentheses!"
+      "value": "Defining a function does not run it. It only tells Python what the function does. To actually run it, you 'call' it by writing its name followed by parentheses. You can call it as many times as you like."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "def sing_song():\n    print(\"Happy birthday to you!\")\n\n# Let's call it twice!\nsing_song()\nsing_song()"
+      "value": "def sing_song():\n    print(\"Happy birthday to you!\")\n\n# Call it twice:\nsing_song()\nsing_song()"
     }
   ],
-  "editorCode": "def greet():\n    print(\"Welcome, wizard!\")\n    print(\"Let's write some code!\")\n\ngreet()",
+  "editorCode": "def greet():\n    print(\"Welcome!\")\n    print(\"Let's write some code!\")\n\ngreet()",
   "practice": [
     {
       "id": 1,
-      "question": "Create a function named 'greet' that prints 'Hello, Explorer!'. Then, call it twice below the definition.",
+      "question": "Create a function named 'greet' that prints 'Hello, Explorer!'. Then call it twice below the definition.",
       "starterCode": "# Define the function 'greet' here\n\n# Call greet() twice below"
     }
   ],
   "quiz": [
     {
-      "question": "Which keyword is used to define a new function in Python?",
+      "question": "Which keyword defines a new function in Python?",
       "options": [
         "function",
         "def",
@@ -62,11 +62,11 @@
       "question": "What does calling a function mean?",
       "options": [
         "Renaming the function.",
-        "Telling Python to execute the function's code.",
+        "Telling Python to run the function's code.",
         "Deleting the function."
       ],
       "answer": 1,
-      "explain": "Calling a function means telling Python to run the code inside it, by writing the function's name with `()`."
+      "explain": "Calling a function means telling Python to run the code inside it, by writing its name followed by `()`."
     }
   ]
 }

@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Sparkles, Lock, GraduationCap, Clock, Play } from 'lucide-react';
 import { courseService } from '../services/api';
 
-// Placeholder subjects — math & science both offer class 8, 9, 10.
+// Placeholder subjects — currently just Math, offering class 8, 9, 10.
 const SUBJECTS = {
   math: {
     title: 'Math',
@@ -12,14 +12,6 @@ const SUBJECTS = {
     accent: 'from-purple-500 to-violet-600',
     soft: 'bg-purple-100 text-purple-700',
     glow: 'bg-purple-200/50',
-  },
-  science: {
-    title: 'Science',
-    emoji: '🔬',
-    tagline: 'Explore experiments and discover how the world works.',
-    accent: 'from-emerald-500 to-green-600',
-    soft: 'bg-emerald-100 text-emerald-700',
-    glow: 'bg-emerald-200/50',
   },
 };
 
@@ -36,9 +28,8 @@ export default function SubjectPage() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Load the courses that belong to this subject (tagged with `subject` in
-  // their course.json). Science courses live here rather than on the main
-  // Quests page.
+  // Load any courses that belong to this subject (tagged with `subject` in
+  // their course.json). Subjects without courses fall back to the class picker.
   useEffect(() => {
     let active = true;
     setLoading(true);
@@ -61,7 +52,7 @@ export default function SubjectPage() {
           Hmm, we couldn't find that subject.
         </p>
         <Link
-          to="/courses"
+          to="/"
           className="rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-5 py-2.5 font-extrabold text-white shadow-md transition-transform hover:scale-105 active:scale-95"
         >
           Back to Quests
@@ -75,7 +66,7 @@ export default function SubjectPage() {
   return (
     <div className="mx-auto w-full max-w-5xl px-6 py-14">
       <Link
-        to="/courses"
+        to="/"
         className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-[#6C63A6] transition-colors hover:text-purple-600"
       >
         <ArrowLeft className="h-4 w-4" /> Back to Quests
@@ -100,7 +91,7 @@ export default function SubjectPage() {
         </div>
       )}
 
-      {/* Real courses for this subject (e.g. Science chapters) */}
+      {/* Real courses for this subject, if any are tagged to it */}
       {!loading && hasCourses && (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {courses.map((course, i) => (

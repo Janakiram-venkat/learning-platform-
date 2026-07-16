@@ -14,12 +14,33 @@
     },
     {
       "type": "heading",
+      "value": "Why Human Language is Hard for Computers"
+    },
+    {
+      "type": "paragraph",
+      "value": "Computers love clear, exact instructions, but human language is full of tricky bits. The same word can mean different things ('bat' the animal vs 'bat' for cricket). We use slang, make typos, and rely on context. NLP is all about helping computers deal with this messiness."
+    },
+    {
+      "type": "heading",
+      "value": "How AI Turns Words into Numbers"
+    },
+    {
+      "type": "paragraph",
+      "value": "Just like images become numbers, so do words. NLP first breaks a sentence into small pieces called tokens (usually words or parts of words), then turns each piece into numbers the computer can compare. Words with similar meanings end up with similar numbers, so 'happy' and 'glad' land close together."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "\"I love pizza\"\n      │\n      ▼  split into tokens\n[ \"I\", \"love\", \"pizza\" ]\n      │\n      ▼  turn each token into numbers\n[ 12, 843, 559 ]   ← now the AI can work with it"
+    },
+    {
+      "type": "heading",
       "value": "What NLP Can Do"
     },
     {
       "type": "code",
       "language": "text",
-      "value": "✍️  Text Generation     → write stories, answers, and emails\n🌐  Translation         → change English into French instantly\n🎙️  Speech Recognition  → turn your voice into text\n😀  Sentiment Analysis  → tell if a review is happy or angry"
+      "value": "✍️  Text Generation     → write stories, answers, and emails\n🌐  Translation         → change English into French instantly\n🎙️  Speech Recognition  → turn your voice into text\n😀  Sentiment Analysis  → tell if a review is happy or angry\n📄  Summarizing         → shrink a long article into key points\n🔎  Answering questions → find the answer inside a document"
     },
     {
       "type": "heading",
@@ -27,15 +48,15 @@
     },
     {
       "type": "paragraph",
-      "value": "You already use NLP all the time! ChatGPT and Claude answer questions, Siri and Alexa understand your voice, and Google Translate switches between languages. Autocorrect and predictive text on your phone are NLP too."
+      "value": "You already use NLP all the time! ChatGPT and Claude answer questions, Siri and Alexa understand your voice, and Google Translate switches between languages. Autocorrect and predictive text on your phone are NLP too, every time your keyboard guesses your next word, that's NLP at work."
     },
     {
       "type": "tip",
-      "value": "Activity: 'Explain It Simply': Ask an AI assistant to explain a tricky school topic 'like I'm 10 years old.' Notice how it reshapes the language to be easy to understand."
+      "value": "Activity: 'Explain It Simply': Ask an AI assistant to explain a tricky school topic 'like I'm 10 years old.' Then ask it to translate the same explanation into another language. Notice how it reshapes the language both times."
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: NLP enables machines to understand and generate human language."
+      "value": "Key Takeaway: NLP enables machines to understand and generate human language, by turning messy words into numbers they can work with."
     }
   ],
   "quiz": [
@@ -68,6 +89,16 @@
       ],
       "answer": 0,
       "explain": "Voice assistants use NLP to understand your spoken words and reply in language you understand."
+    },
+    {
+      "question": "Before an AI can work with a sentence, it first...",
+      "options": [
+        "Breaks it into small pieces (tokens) and turns them into numbers",
+        "Prints it on paper",
+        "Deletes all the vowels"
+      ],
+      "answer": 0,
+      "explain": "NLP splits text into tokens and converts them into numbers, so words with similar meanings get similar numbers."
     }
   ]
 }

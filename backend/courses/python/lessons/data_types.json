@@ -1,20 +1,16 @@
 {
   "lessonId": "data_types",
   "title": "Data Types",
-  "description": "Discover the different shapes and sizes of treasures you can store in your magic boxes.",
+  "description": "The three basic kinds of values in Python: whole numbers, decimal numbers, and text.",
   "difficulty": "Beginner",
   "content": [
     {
       "type": "heading",
-      "value": "Different Kinds of Treasures"
+      "value": "Different Kinds of Values"
     },
     {
       "type": "paragraph",
-      "value": "Remember our magic boxes (variables) from the last lesson? Well, you can't just put anything in them the exact same way. Think about your toy box: you have soft teddy bears, hard building blocks, and watery slime. They are all different kinds of toys!"
-    },
-    {
-      "type": "paragraph",
-      "value": "In Python, we have different kinds of data too. Let's learn about the three most important ones: Integers, Floats, and Strings."
+      "value": "Values in Python come in different kinds, called data types. The kind of a value tells Python what it is and what you can do with it. Let's look at the three most common ones: integers, floats, and strings."
     },
     {
       "type": "heading",
@@ -22,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Integers are just normal, whole numbers. Like the number of apples you have, or your age. No dots or fractions allowed!"
+      "value": "An integer is a whole number, with no decimal point. Like the number of apples you have, or your age."
     },
     {
       "type": "code",
@@ -31,11 +27,11 @@
     },
     {
       "type": "heading",
-      "value": "2. Floats (Numbers with Dots)"
+      "value": "2. Floats (Decimal Numbers)"
     },
     {
       "type": "paragraph",
-      "value": "What if you have half a cookie? Or what if you are measuring your height? For that, we use 'Floats'. A Float is a number with a decimal point (a dot) in it."
+      "value": "A float is a number with a decimal point. You use it when a value isn't a whole number, like half a cookie (2.5) or a height (4.2)."
     },
     {
       "type": "code",
@@ -44,11 +40,11 @@
     },
     {
       "type": "heading",
-      "value": "3. Strings (Words and Text)"
+      "value": "3. Strings (Text)"
     },
     {
       "type": "paragraph",
-      "value": "Strings are used for words, names, and sentences. To make a string, you MUST wrap your words in quotation marks like a cozy blanket. If you forget the blanket, the computer will shiver and get confused!"
+      "value": "A string is text: words, names, or sentences. To make a string, you wrap the text in quotation marks. If you forget the quotation marks, Python won't know it's text and will give an error."
     },
     {
       "type": "code",
@@ -57,37 +53,37 @@
     },
     {
       "type": "tip",
-      "value": "You can use double quotes (\") or single quotes ('). Both work perfectly fine as long as you use the same one at the beginning and the end."
+      "value": "You can use double quotes (\") or single quotes ('). Both work, as long as you use the same one at the start and the end."
     }
   ],
   "editorCode": "apples = 5\ncookies = 2.5\nhero = \"Spiderman\"\n\nprint(apples)\nprint(cookies)\nprint(hero)",
   "practice": [
     {
       "id": 1,
-      "question": "Create a string variable called 'pet_name' and put the name of your pet (or a dream pet) inside it, then print it!",
+      "question": "Make a string variable called 'pet_name' with the name of a pet (real or imaginary), then print it.",
       "starterCode": "pet_name = \nprint(pet_name)"
     }
   ],
   "quiz": [
     {
-      "question": "Which of these is a Float?",
+      "question": "Which of these is a float?",
       "options": [
         "10",
         "3.14",
         "\"Hello\""
       ],
       "answer": 1,
-      "explain": "A float is a number with a decimal point, like 3.14. `10` is a whole number (int) and \"Hello\" is text (a string)."
+      "explain": "A float is a number with a decimal point, like 3.14. `10` is a whole number (integer) and \"Hello\" is text (a string)."
     },
     {
-      "question": "What is wrong with this string: name = Batman",
+      "question": "What is wrong with this line: name = Batman",
       "options": [
         "Batman is not a real name.",
         "It is missing quotation marks.",
         "Nothing is wrong."
       ],
       "answer": 1,
-      "explain": "Text must always be wrapped in quotation marks. Without them, Python thinks `Batman` is a variable name and gets confused."
+      "explain": "Text must be wrapped in quotation marks. Without them, Python thinks `Batman` is a variable name and gives an error."
     }
   ]
 }

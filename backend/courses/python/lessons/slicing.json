@@ -1,16 +1,16 @@
 {
   "lessonId": "slicing",
-  "title": "Slicing and Dicing",
-  "description": "Learn how to cut and crop your strings using indices and slicing!",
+  "title": "Slicing Strings",
+  "description": "Grab a single letter or a whole section out of a string.",
   "difficulty": "Intermediate",
   "content": [
     {
       "type": "heading",
-      "value": "Dicing Your Strings"
+      "value": "Getting One Letter"
     },
     {
       "type": "paragraph",
-      "value": "Remember how lists have slots starting at index 0? Strings do too! You can grab a single letter from a string just like you grab a toy from a list."
+      "value": "Just like a list, a string has positions that start at index 0. You can grab a single letter by its index, the same way you grab an item from a list."
     },
     {
       "type": "code",
@@ -19,24 +19,24 @@
     },
     {
       "type": "heading",
-      "value": "Slicing a Range"
+      "value": "Getting a Section (Slicing)"
     },
     {
       "type": "paragraph",
-      "value": "What if you want to grab a chunk of the string instead of just one letter? We use Slicing! We specify the start index, a colon `:`, and the end index. Python will slice the string, starting at the start index, and stopping JUST BEFORE the end index!"
+      "value": "To grab a section of a string instead of a single letter, use slicing. You write the start index, a colon `:`, and the end index. Python gives you the letters from the start index up to (but not including) the end index."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "word = \"Python\"\n# Slice from slot 0 up to (but not including) slot 2:\nprint(word[0:2])  # Prints Py"
+      "value": "word = \"Python\"\n# From index 0 up to (but not including) index 2:\nprint(word[0:2])  # Prints Py"
     },
     {
       "type": "heading",
-      "value": "Shortcut Slices"
+      "value": "Shortcuts"
     },
     {
       "type": "paragraph",
-      "value": "If you leave out the first number, Python starts at the very beginning: `[:3]` slices from slot 0 to 3. If you leave out the second number, Python slices all the way to the end: `[2:]` slices from slot 2 to the end!"
+      "value": "If you leave out the first number, Python starts at the beginning: `[:3]` goes from the start to index 3. If you leave out the second number, Python goes all the way to the end: `[2:]` goes from index 2 to the end."
     },
     {
       "type": "code",
@@ -48,7 +48,7 @@
   "practice": [
     {
       "id": 1,
-      "question": "Slice the word 'Minecraft' to print only the first four letters ('Mine')!",
+      "question": "Slice the word 'Minecraft' to print only the first four letters ('Mine').",
       "starterCode": "game = \"Minecraft\"\n# Slice and print the first four letters below"
     }
   ],
@@ -61,7 +61,7 @@
         "c"
       ],
       "answer": 0,
-      "explain": "Counting starts at 0, so word[0] is the very first letter -- 'M' in 'Magic'."
+      "explain": "Counting starts at 0, so word[0] is the very first letter, 'M' in 'Magic'."
     },
     {
       "question": "For word = 'Python', what does word[:2] print?",

@@ -14,12 +14,33 @@
     },
     {
       "type": "heading",
+      "value": "Analyzing vs Generating"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here's the key difference in one line. Analyzing AI looks at something that already exists and labels it ('this photo is a cat'). Generating AI makes something new from scratch ('here is a brand-new drawing of a cat wearing a hat'). One reads, the other writes."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Analyzing AI   → 'This review sounds angry.'   (labels what exists)\nGenerating AI  → 'Here's a new poem about rain.' (makes something new)"
+    },
+    {
+      "type": "heading",
       "value": "What Generative AI Can Make"
     },
     {
       "type": "code",
       "language": "text",
-      "value": "✍️  Text   → stories, poems, essays, code\n🎨  Images → art and pictures from a description\n🎵  Music  → original melodies and beats\n🎬  Video  → short animated clips"
+      "value": "✍️  Text   → stories, poems, essays, code\n🎨  Images → art and pictures from a description\n🎵  Music  → original melodies and beats\n🎬  Video  → short animated clips\n🗣️  Voice  → realistic speech in any voice"
+    },
+    {
+      "type": "heading",
+      "value": "How Does It Create? (The Simple Idea)"
+    },
+    {
+      "type": "paragraph",
+      "value": "A text generator works a bit like the world's best 'guess the next word' game. It studied so much writing that it learned which words usually follow others. Give it a start, and it predicts the next word, then the next, then the next, until a whole story appears. It's not copying, it's building something new one piece at a time."
     },
     {
       "type": "heading",
@@ -27,15 +48,19 @@
     },
     {
       "type": "paragraph",
-      "value": "You may have heard of some of these: ChatGPT and Claude generate text and answer questions, DALL·E creates images from words, and Gemini works with text and pictures together. They learned to create by studying enormous amounts of human-made text, art, and sound."
-    },
-    {
-      "type": "tip",
-      "value": "Activity: 'Create Something New': Ask a generative AI to write a short funny story about a robot who loves cricket, or describe an image you'd like it to draw. Notice that it makes something original each time!"
+      "value": "You may have heard of some of these: ChatGPT and Claude generate text and answer questions, DALL·E and Midjourney create images from words, and Gemini works with text and pictures together. They learned to create by studying enormous amounts of human-made text, art, and sound."
     },
     {
       "type": "paragraph",
-      "value": "Key Takeaway: Generative AI creates new content rather than simply analyzing information."
+      "value": "One important caution: generative AI can sound confident but still be wrong, or 'make things up'. It's a creative helper, not a source of guaranteed facts, so always double-check anything important."
+    },
+    {
+      "type": "tip",
+      "value": "Activity: 'Create Something New': Ask a generative AI to write a short funny story about a robot who loves cricket, then ask it to rewrite the same story as a poem. Notice it makes something original each time, and check whether any 'facts' it adds are actually true."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key Takeaway: Generative AI creates new content rather than simply analyzing information, by predicting one piece at a time from patterns it learned."
     }
   ],
   "quiz": [
@@ -68,6 +93,16 @@
       ],
       "answer": 0,
       "explain": "They learned patterns from enormous datasets of human-created content, then use those patterns to make new things."
+    },
+    {
+      "question": "Why should you double-check what a generative AI tells you?",
+      "options": [
+        "It can sound confident but still be wrong or make things up",
+        "It is never wrong about anything",
+        "It refuses to answer questions"
+      ],
+      "answer": 0,
+      "explain": "Generative AI predicts what sounds right, which isn't always true, so verify anything important."
     }
   ]
 }

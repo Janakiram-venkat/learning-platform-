@@ -19,7 +19,7 @@ import {
 // page (LabPage) and inside the AI course lesson's right panel. No code editor.
 // ---------------------------------------------------------------------------
 
-const CONFETTI_COLORS = ['#34d399', '#60a5fa', '#fbbf24', '#f472b6', '#a78bfa', '#f87171'];
+const CONFETTI_COLORS = ['#FFC93C', '#1F7A5C', '#E8503A', '#23B5D3', '#16241D', '#3FBF7F'];
 
 function ConfettiBurst() {
   const pieces = Array.from({ length: 48 }, (_, i) => i);
@@ -44,13 +44,13 @@ function ConfettiBurst() {
 // Shared "Continue" footer button shown once a stage is solved.
 function ContinueBar({ onClick, xp, last }) {
   return (
-    <div className="mt-8 flex items-center justify-between gap-3 border-t border-gray-100 pt-5 animate-slide-up">
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1.5 text-sm font-extrabold text-amber-700 ring-1 ring-amber-200">
+    <div className="mt-8 flex items-center justify-between gap-3 border-t border-ink/12 pt-5 animate-slide-up">
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-signal/15 px-3 py-1.5 text-sm font-extrabold text-ink ring-1 ring-ink/15">
         <Sparkles className="h-4 w-4" /> +{xp} XP
       </span>
       <button
         onClick={onClick}
-        className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-3 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
+        className="inline-flex items-center gap-2 rounded-2xl border-2 border-ink bg-pcb px-6 py-3 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
       >
         {last ? 'Finish Lab' : 'Continue'} <ArrowRight className="h-5 w-5" />
       </button>
@@ -74,21 +74,21 @@ function WelcomeStage({ stage, onComplete }) {
         {stage.steps.slice(0, shown).map((s, i) => (
           <li
             key={i}
-            className="flex items-center gap-4 rounded-2xl border border-purple-100 bg-white p-4 shadow-sm animate-bounce-in"
+            className="flex items-center gap-4 rounded-2xl border border-ink/15 bg-white p-4 shadow-sm animate-bounce-in"
           >
             <span className="text-3xl">{s.emoji}</span>
-            <span className="text-lg font-semibold text-gray-700">{s.text}</span>
+            <span className="text-lg font-semibold text-ink/75">{s.text}</span>
           </li>
         ))}
       </ul>
       {ready && (
         <div className="mt-6 animate-slide-up">
-          <p className="rounded-2xl bg-indigo-50 p-5 text-center text-lg font-bold text-indigo-900 ring-1 ring-indigo-100">
+          <p className="rounded-2xl bg-pcb/8 p-5 text-center text-lg font-bold text-ink ring-1 ring-pcb/20">
             “{stage.narration}”
           </p>
           <button
             onClick={() => onComplete(true)}
-            className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-4 text-lg font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
+            className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-pcb px-6 py-4 text-lg font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
           >
             {stage.cta || 'Start Exploring'} <ArrowRight className="h-5 w-5" />
           </button>
@@ -115,12 +115,12 @@ function PickStage({ stage, onComplete }) {
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {stage.items.map((it) => {
           const isSel = !!selected[it.id];
-          let ring = isSel ? 'border-purple-400 bg-purple-50 ring-2 ring-purple-200' : 'border-gray-200 bg-white hover:border-purple-200';
+          let ring = isSel ? 'border-pcb bg-pcb/8 ring-2 ring-pcb/30' : 'border-ink/15 bg-white hover:border-ink/15';
           if (checked) {
             const right = isSel === it.isAI;
             ring = right
-              ? 'border-green-300 bg-green-50'
-              : 'border-rose-300 bg-rose-50';
+              ? 'border-pcb/40 bg-pcb/10'
+              : 'border-wire/50 bg-wire/8';
           }
           return (
             <button
@@ -129,12 +129,12 @@ function PickStage({ stage, onComplete }) {
               className={`relative flex flex-col items-center gap-2 rounded-2xl border-2 p-4 text-center transition-all active:scale-95 ${ring}`}
             >
               <span className="text-4xl">{it.emoji}</span>
-              <span className="text-sm font-bold text-gray-700">{it.label}</span>
+              <span className="text-sm font-bold text-ink/75">{it.label}</span>
               {checked && (
                 <span className="absolute right-1.5 top-1.5">
                   {isSel === it.isAI
-                    ? <CheckCircle2 className="h-5 w-5 text-green-500" />
-                    : <XCircle className="h-5 w-5 text-rose-400" />}
+                    ? <CheckCircle2 className="h-5 w-5 text-pcb" />
+                    : <XCircle className="h-5 w-5 text-wire" />}
                 </span>
               )}
             </button>
@@ -145,7 +145,7 @@ function PickStage({ stage, onComplete }) {
       {checked && (
         <ul className="mt-5 space-y-2 animate-slide-up">
           {stage.items.filter((it) => it.isAI !== !!selected[it.id]).length === 0 ? (
-            <li className="rounded-xl bg-green-50 p-3 text-sm font-bold text-green-700 ring-1 ring-green-100">
+            <li className="rounded-xl bg-pcb/10 p-3 text-sm font-bold text-pcb ring-1 ring-pcb/20">
               Perfect! You spotted every AI-powered device. 🎉
             </li>
           ) : (
@@ -153,7 +153,7 @@ function PickStage({ stage, onComplete }) {
               const right = !!selected[it.id] === it.isAI;
               if (right) return null;
               return (
-                <li key={it.id} className="rounded-xl bg-amber-50 p-3 text-sm text-amber-800 ring-1 ring-amber-100">
+                <li key={it.id} className="rounded-xl bg-signal/15 p-3 text-sm text-ink ring-1 ring-ink/15">
                   <b>{it.emoji} {it.label}:</b> {it.isAI ? stage.feedback.correct : stage.feedback.incorrect}
                 </li>
               );
@@ -165,7 +165,7 @@ function PickStage({ stage, onComplete }) {
       {!checked ? (
         <button
           onClick={() => setChecked(true)}
-          className="mt-6 w-full rounded-2xl bg-gray-900 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform hover:bg-black active:scale-95"
+          className="mt-6 w-full rounded-2xl bg-ink px-6 py-3.5 font-extrabold text-white shadow-md transition-transform hover:bg-pcb active:scale-95"
         >
           Check My Picks
         </button>
@@ -174,7 +174,7 @@ function PickStage({ stage, onComplete }) {
       ) : (
         <button
           onClick={() => { setChecked(false); setSelected({}); }}
-          className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-orange-500 px-6 py-3 font-bold text-white transition-colors hover:bg-orange-600"
+          className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-wire px-6 py-3 font-bold text-white transition-colors hover:bg-wire/85"
         >
           <RotateCcw className="h-5 w-5" /> Try Again
         </button>
@@ -238,12 +238,12 @@ function SortStage({ stage, onComplete }) {
         onDragLeave={() => setDragOverTray(false)}
         onDrop={dropOnTray}
         className={`mb-4 min-h-[64px] rounded-2xl border-2 border-dashed p-3 transition-colors ${
-          dragOverTray ? 'border-purple-400 bg-purple-50' : 'border-gray-200 bg-gray-50'
+          dragOverTray ? 'border-pcb bg-pcb/8' : 'border-ink/15 bg-paper'
         }`}
       >
-        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">Drag a card into a bucket — or tap a card, then tap a bucket</p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-ink/40">Drag a card into a bucket — or tap a card, then tap a bucket</p>
         <div className="flex flex-wrap gap-2">
-          {unplaced.length === 0 && <span className="text-sm text-gray-400">All cards placed!</span>}
+          {unplaced.length === 0 && <span className="text-sm text-ink/40">All cards placed!</span>}
           {unplaced.map((c) => (
             <button
               key={c.id}
@@ -254,7 +254,7 @@ function SortStage({ stage, onComplete }) {
               className={`flex cursor-grab items-center gap-2 rounded-xl border-2 px-3 py-2 text-sm font-bold transition-all active:scale-95 active:cursor-grabbing ${
                 dragId === c.id ? 'opacity-40' : ''
               } ${
-                picked === c.id ? 'border-purple-500 bg-purple-100 text-purple-800 ring-2 ring-purple-200' : 'border-gray-200 bg-white text-gray-700 hover:border-purple-300'
+                picked === c.id ? 'border-pcb bg-pcb/15 text-pcb ring-2 ring-pcb/30' : 'border-ink/15 bg-white text-ink/75 hover:border-pcb/40'
               }`}
             >
               <span className="text-lg">{c.emoji}</span> {c.label}
@@ -277,18 +277,18 @@ function SortStage({ stage, onComplete }) {
               onDrop={dropOnColumn(col.id)}
               disabled={checked || (!picked && !dragId)}
               className={`flex min-h-[140px] flex-col rounded-2xl border-2 p-3 text-left transition-colors ${
-                highlight ? 'border-purple-500 bg-purple-100/70 ring-2 ring-purple-200'
-                : active ? 'border-purple-400 bg-purple-50/60' : 'border-gray-200 bg-white'
+                highlight ? 'border-pcb bg-pcb/15 ring-2 ring-pcb/30'
+                : active ? 'border-pcb bg-pcb/8' : 'border-ink/15 bg-white'
               }`}
             >
-              <span className="mb-2 flex items-center gap-1.5 font-extrabold text-gray-800">
+              <span className="mb-2 flex items-center gap-1.5 font-extrabold text-ink">
                 <span className="text-xl">{col.emoji}</span> {col.label}
               </span>
               <div className="flex flex-1 flex-col gap-1.5">
                 {stage.cards.filter((c) => placements[c.id] === col.id).map((c) => {
                   const right = c.column === col.id;
-                  let cls = 'border-gray-200 bg-gray-50 text-gray-700';
-                  if (checked) cls = right ? 'border-green-300 bg-green-50 text-green-800' : 'border-rose-300 bg-rose-50 text-rose-700';
+                  let cls = 'border-ink/15 bg-paper text-ink/75';
+                  if (checked) cls = right ? 'border-pcb/40 bg-pcb/10 text-pcb' : 'border-wire/50 bg-wire/8 text-wire';
                   return (
                     <span
                       key={c.id}
@@ -299,7 +299,7 @@ function SortStage({ stage, onComplete }) {
                       className={`flex cursor-grab items-center justify-between gap-1 rounded-lg border px-2 py-1.5 text-xs font-bold active:cursor-grabbing ${dragId === c.id ? 'opacity-40' : ''} ${cls}`}
                     >
                       <span>{c.emoji} {c.label}</span>
-                      {checked && (right ? <CheckCircle2 className="h-4 w-4 shrink-0 text-green-500" /> : <XCircle className="h-4 w-4 shrink-0 text-rose-400" />)}
+                      {checked && (right ? <CheckCircle2 className="h-4 w-4 shrink-0 text-pcb" /> : <XCircle className="h-4 w-4 shrink-0 text-wire" />)}
                     </span>
                   );
                 })}
@@ -310,7 +310,7 @@ function SortStage({ stage, onComplete }) {
       </div>
 
       {stage.note && checked && passed && (
-        <p className="mt-4 flex items-start gap-2 rounded-xl bg-indigo-50 p-3 text-sm font-medium text-indigo-900 ring-1 ring-indigo-100 animate-slide-up">
+        <p className="mt-4 flex items-start gap-2 rounded-xl bg-pcb/8 p-3 text-sm font-medium text-ink ring-1 ring-pcb/20 animate-slide-up">
           <Lightbulb className="mt-0.5 h-5 w-5 shrink-0" /> {stage.note}
         </p>
       )}
@@ -319,7 +319,7 @@ function SortStage({ stage, onComplete }) {
         <button
           onClick={() => setChecked(true)}
           disabled={unplaced.length > 0}
-          className="mt-6 w-full rounded-2xl bg-gray-900 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:bg-black active:scale-95 disabled:opacity-40"
+          className="mt-6 w-full rounded-2xl bg-ink px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:bg-pcb active:scale-95 disabled:opacity-40"
         >
           {unplaced.length > 0 ? `Place all cards (${unplaced.length} left)` : 'Check My Sorting'}
         </button>
@@ -327,12 +327,12 @@ function SortStage({ stage, onComplete }) {
         <ContinueBar xp={stage.xp} onClick={() => onComplete(true)} />
       ) : (
         <div className="mt-6 animate-slide-up">
-          <p className="mb-3 rounded-xl bg-amber-50 p-3 text-sm font-bold text-amber-800 ring-1 ring-amber-100">
+          <p className="mb-3 rounded-xl bg-signal/15 p-3 text-sm font-bold text-ink ring-1 ring-ink/15">
             You got {correctCount}/{stage.cards.length}. Fix the red ones and try again! 💪
           </p>
           <button
             onClick={() => setChecked(false)}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-orange-500 px-6 py-3 font-bold text-white transition-colors hover:bg-orange-600"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-wire px-6 py-3 font-bold text-white transition-colors hover:bg-wire/85"
           >
             <RotateCcw className="h-5 w-5" /> Try Again
           </button>
@@ -356,19 +356,19 @@ function ChooseStage({ stage, onComplete }) {
           const chosen = answers[t.id];
           const right = chosen === t.answer;
           return (
-            <li key={t.id} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+            <li key={t.id} className="rounded-2xl border border-ink/15 bg-white p-4 shadow-sm">
               <div className="mb-3 flex items-center gap-3">
                 <span className="text-2xl">{t.emoji}</span>
-                <span className="font-bold text-gray-800">{t.label}</span>
+                <span className="font-bold text-ink">{t.label}</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {stage.options.map((o) => {
                   const sel = chosen === o.id;
-                  let cls = sel ? 'border-purple-500 bg-purple-100 text-purple-800' : 'border-gray-200 bg-white text-gray-600 hover:border-purple-300';
+                  let cls = sel ? 'border-pcb bg-pcb/15 text-pcb' : 'border-ink/15 bg-white text-ink/65 hover:border-pcb/40';
                   if (checked) {
-                    if (o.id === t.answer) cls = 'border-green-400 bg-green-50 text-green-800';
-                    else if (sel) cls = 'border-rose-400 bg-rose-50 text-rose-700';
-                    else cls = 'border-gray-200 bg-white text-gray-400';
+                    if (o.id === t.answer) cls = 'border-pcb bg-pcb/10 text-pcb';
+                    else if (sel) cls = 'border-wire bg-wire/8 text-wire';
+                    else cls = 'border-ink/15 bg-white text-ink/40';
                   }
                   return (
                     <button
@@ -383,7 +383,7 @@ function ChooseStage({ stage, onComplete }) {
                 })}
               </div>
               {checked && (
-                <p className={`mt-3 flex items-start gap-2 rounded-xl p-3 text-sm font-medium animate-slide-up ${right ? 'bg-green-50 text-green-900 ring-1 ring-green-100' : 'bg-amber-50 text-amber-900 ring-1 ring-amber-100'}`}>
+                <p className={`mt-3 flex items-start gap-2 rounded-xl p-3 text-sm font-medium animate-slide-up ${right ? 'bg-pcb/10 text-pcb ring-1 ring-pcb/20' : 'bg-signal/15 text-ink ring-1 ring-ink/15'}`}>
                   <Lightbulb className="mt-0.5 h-4 w-4 shrink-0" />
                   <span><b>{right ? 'Nice! ' : 'Good thinking. '}</b>{t.explain}</span>
                 </p>
@@ -397,13 +397,13 @@ function ChooseStage({ stage, onComplete }) {
         <button
           onClick={() => setChecked(true)}
           disabled={!allAnswered}
-          className="mt-6 w-full rounded-2xl bg-gray-900 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:bg-black active:scale-95 disabled:opacity-40"
+          className="mt-6 w-full rounded-2xl bg-ink px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:bg-pcb active:scale-95 disabled:opacity-40"
         >
           {allAnswered ? 'Reveal Answers' : 'Answer every task to continue'}
         </button>
       ) : (
         <>
-          <p className="mt-6 rounded-xl bg-purple-50 p-3 text-center text-sm font-bold text-purple-800 ring-1 ring-purple-100">
+          <p className="mt-6 rounded-xl bg-pcb/8 p-3 text-center text-sm font-bold text-pcb ring-1 ring-pcb/20">
             You matched {correctCount}/{stage.tasks.length}. Every answer teaches you something! 🧠
           </p>
           <ContinueBar xp={stage.xp} onClick={() => onComplete(true)} />
@@ -428,18 +428,18 @@ function ExploreStage({ stage, onComplete }) {
             key={l.id}
             onClick={() => { setOpen(l.id); setVisited((p) => ({ ...p, [l.id]: true })); }}
             className={`relative flex flex-col items-center gap-2 rounded-2xl border-2 p-4 transition-all active:scale-95 ${
-              open === l.id ? 'border-purple-400 bg-purple-50' : visited[l.id] ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-white hover:border-purple-200'
+              open === l.id ? 'border-pcb bg-pcb/8' : visited[l.id] ? 'border-pcb/30 bg-pcb/10' : 'border-ink/15 bg-white hover:border-ink/15'
             }`}
           >
             <span className="text-4xl">{l.emoji}</span>
-            <span className="text-sm font-bold text-gray-700">{l.label}</span>
-            {visited[l.id] && <CheckCircle2 className="absolute right-1.5 top-1.5 h-4 w-4 text-green-500" />}
+            <span className="text-sm font-bold text-ink/75">{l.label}</span>
+            {visited[l.id] && <CheckCircle2 className="absolute right-1.5 top-1.5 h-4 w-4 text-pcb" />}
           </button>
         ))}
       </div>
 
       {current && (
-        <div className="mt-5 flex items-start gap-3 rounded-2xl bg-indigo-50 p-5 text-indigo-900 ring-1 ring-indigo-100 animate-slide-up">
+        <div className="mt-5 flex items-start gap-3 rounded-2xl bg-pcb/8 p-5 text-ink ring-1 ring-pcb/20 animate-slide-up">
           <span className="text-3xl">{current.emoji}</span>
           <div>
             <p className="font-extrabold">{current.label}</p>
@@ -451,7 +451,7 @@ function ExploreStage({ stage, onComplete }) {
       {allVisited ? (
         <ContinueBar xp={stage.xp} onClick={() => onComplete(true)} />
       ) : (
-        <p className="mt-6 text-center text-sm font-semibold text-gray-500">
+        <p className="mt-6 text-center text-sm font-semibold text-ink/55">
           Visited {Object.keys(visited).length}/{stage.locations.length} places — tap them all to continue.
         </p>
       )}
@@ -473,17 +473,17 @@ function DesignStage({ stage, onComplete }) {
   if (done) {
     return (
       <div>
-        <div className="relative overflow-hidden rounded-3xl border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-white p-6 shadow-lg animate-bounce-in">
-          <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-purple-200/50 blur-2xl" />
-          <p className="mb-1 text-xs font-bold uppercase tracking-wide text-purple-500">AI Concept Card</p>
-          <h3 className="mb-4 font-display text-2xl font-extrabold text-[#2D2A4A]">🤖 {form.name}</h3>
+        <div className="relative overflow-hidden rounded-3xl border-2 border-ink/15 bg-pcb/8 p-6 shadow-lg animate-bounce-in">
+          <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-pcb/20 blur-2xl" />
+          <p className="mb-1 text-xs font-bold uppercase tracking-wide text-pcb">AI Concept Card</p>
+          <h3 className="mb-4 font-lab text-2xl font-extrabold text-[#16241D]">🤖 {form.name}</h3>
           {stage.fields.filter((f) => f.key !== 'name').map((f) => (
             <div key={f.key} className="mb-3">
-              <p className="text-xs font-bold uppercase tracking-wide text-purple-400">{f.label}</p>
-              <p className="font-semibold text-gray-700">{form[f.key]}</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-pcb">{f.label}</p>
+              <p className="font-semibold text-ink/75">{form[f.key]}</p>
             </div>
           ))}
-          <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700">
+          <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-pcb/15 px-3 py-1 text-xs font-bold text-pcb">
             <CheckCircle2 className="h-4 w-4" /> Saved to your profile
           </p>
         </div>
@@ -497,12 +497,12 @@ function DesignStage({ stage, onComplete }) {
       <div className="space-y-4">
         {stage.fields.map((f) => (
           <div key={f.key}>
-            <label className="mb-1 block text-sm font-bold text-gray-700">{f.label}</label>
+            <label className="mb-1 block text-sm font-bold text-ink/75">{f.label}</label>
             <input
               value={form[f.key] || ''}
               onChange={(e) => setForm((p) => ({ ...p, [f.key]: e.target.value }))}
               placeholder={f.placeholder}
-              className="w-full rounded-xl border border-gray-300 bg-white p-3 text-gray-800 shadow-inner focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
+              className="w-full rounded-xl border border-ink/20 bg-white p-3 text-ink shadow-inner focus:border-pcb focus:outline-none focus:ring-2 focus:ring-pcb/30"
             />
           </div>
         ))}
@@ -510,7 +510,7 @@ function DesignStage({ stage, onComplete }) {
       {stage.example && (
         <button
           onClick={() => setForm(stage.example)}
-          className="mt-3 text-sm font-bold text-purple-600 hover:underline"
+          className="mt-3 text-sm font-bold text-pcb hover:underline"
         >
           Need ideas? Load an example ➔
         </button>
@@ -518,7 +518,7 @@ function DesignStage({ stage, onComplete }) {
       <button
         onClick={submit}
         disabled={!filled}
-        className="mt-6 w-full rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:scale-[1.02] active:scale-95 disabled:opacity-40"
+        className="mt-6 w-full rounded-2xl border-2 border-ink bg-pcb px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:scale-[1.02] active:scale-95 disabled:opacity-40"
       >
         Create My Concept Card ✨
       </button>
@@ -561,8 +561,8 @@ function TrainStage({ stage, onComplete }) {
   return (
     <div>
       {/* The model brain + live accuracy gauge */}
-      <div className="relative flex flex-col items-center rounded-3xl bg-gradient-to-b from-indigo-50 to-purple-50 p-6 ring-1 ring-purple-100">
-        <p className="mb-1 text-xs font-bold uppercase tracking-wide text-purple-500">{stage.modelName || 'Your Model'}</p>
+      <div className="relative flex flex-col items-center rounded-3xl bg-pcb/8 p-6 ring-1 ring-pcb/20">
+        <p className="mb-1 text-xs font-bold uppercase tracking-wide text-pcb">{stage.modelName || 'Your Model'}</p>
         <div className="relative">
           <div className={`flex h-24 w-24 items-center justify-center rounded-full bg-white text-5xl shadow-md ${flying ? 'animate-pop' : trained ? 'animate-glow' : 'animate-float-slow'}`}>
             🧠
@@ -575,17 +575,17 @@ function TrainStage({ stage, onComplete }) {
         </div>
 
         <div className="mt-5 w-full max-w-xs">
-          <div className="mb-1 flex items-center justify-between text-xs font-bold text-gray-500">
+          <div className="mb-1 flex items-center justify-between text-xs font-bold text-ink/55">
             <span>Accuracy</span>
-            <span className={trained ? 'text-green-600' : 'text-purple-600'}>{accuracy}%</span>
+            <span className={trained ? 'text-pcb' : 'text-pcb'}>{accuracy}%</span>
           </div>
-          <div className="h-3 w-full overflow-hidden rounded-full bg-white ring-1 ring-purple-100">
+          <div className="h-3 w-full overflow-hidden rounded-full bg-white ring-1 ring-pcb/20">
             <div
-              className={`h-full rounded-full transition-all duration-500 ${trained ? 'bg-gradient-to-r from-green-400 to-emerald-500' : 'bg-gradient-to-r from-purple-500 to-violet-500'}`}
+              className={`h-full rounded-full transition-all duration-500 ${trained ? 'bg-pcb' : 'bg-pcb'}`}
               style={{ width: `${accuracy}%` }}
             />
           </div>
-          <p className="mt-2 text-center text-xs font-semibold text-gray-500">
+          <p className="mt-2 text-center text-xs font-semibold text-ink/55">
             {fed}/{needed} examples learned
           </p>
         </div>
@@ -599,18 +599,18 @@ function TrainStage({ stage, onComplete }) {
               <span
                 key={i}
                 className={`flex items-center gap-1 rounded-xl border-2 px-2.5 py-1.5 text-xs font-bold transition-all ${
-                  i < fed ? 'border-green-200 bg-green-50 text-green-700 opacity-60' : 'border-gray-200 bg-white text-gray-700'
+                  i < fed ? 'border-pcb/30 bg-pcb/10 text-pcb opacity-60' : 'border-ink/15 bg-white text-ink/75'
                 }`}
               >
                 <span className="text-base">{ex.emoji}</span> {ex.label}
-                {i < fed && <CheckCircle2 className="h-3.5 w-3.5 text-green-500" />}
+                {i < fed && <CheckCircle2 className="h-3.5 w-3.5 text-pcb" />}
               </span>
             ))}
           </div>
           <button
             onClick={feed}
             disabled={!!flying}
-            className="mt-6 w-full rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:scale-[1.02] active:scale-95 disabled:opacity-60"
+            className="mt-6 w-full rounded-2xl border-2 border-ink bg-pcb px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:scale-[1.02] active:scale-95 disabled:opacity-60"
           >
             Feed a Labeled Photo 📸
           </button>
@@ -619,12 +619,12 @@ function TrainStage({ stage, onComplete }) {
 
       {phase === 'ready' && (
         <div className="mt-5 animate-slide-up text-center">
-          <p className="rounded-2xl bg-green-50 p-4 text-lg font-extrabold text-green-700 ring-1 ring-green-100">
+          <p className="rounded-2xl bg-pcb/10 p-4 text-lg font-extrabold text-pcb ring-1 ring-pcb/20">
             🎉 Model trained! It reached {accuracy}% accuracy.
           </p>
           <button
             onClick={() => setPhase('test')}
-            className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-7 py-3.5 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
+            className="mt-5 inline-flex items-center gap-2 rounded-2xl border-2 border-ink bg-pcb px-7 py-3.5 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
           >
             Test the Model <ArrowRight className="h-5 w-5" />
           </button>
@@ -633,17 +633,17 @@ function TrainStage({ stage, onComplete }) {
 
       {phase === 'test' && test && (
         <div className="mt-5">
-          <div className="rounded-2xl border-2 border-purple-100 bg-white p-5 text-center shadow-sm">
-            <p className="text-sm font-semibold text-gray-600">{test.prompt}</p>
+          <div className="rounded-2xl border-2 border-ink/15 bg-white p-5 text-center shadow-sm">
+            <p className="text-sm font-semibold text-ink/65">{test.prompt}</p>
             <div className="my-3 text-6xl animate-bounce-in">{revealed ? test.emoji : '❓'}</div>
             <div className="flex justify-center gap-3">
               {test.options.map((opt, oi) => {
                 const sel = guess === oi;
-                let cls = sel ? 'border-purple-500 bg-purple-100 text-purple-800' : 'border-gray-200 bg-white text-gray-700 hover:border-purple-300';
+                let cls = sel ? 'border-pcb bg-pcb/15 text-pcb' : 'border-ink/15 bg-white text-ink/75 hover:border-pcb/40';
                 if (revealed) {
-                  if (oi === test.answer) cls = 'border-green-400 bg-green-50 text-green-800';
-                  else if (sel) cls = 'border-rose-400 bg-rose-50 text-rose-700';
-                  else cls = 'border-gray-200 bg-white text-gray-400';
+                  if (oi === test.answer) cls = 'border-pcb bg-pcb/10 text-pcb';
+                  else if (sel) cls = 'border-wire bg-wire/8 text-wire';
+                  else cls = 'border-ink/15 bg-white text-ink/40';
                 }
                 return (
                   <button
@@ -660,7 +660,7 @@ function TrainStage({ stage, onComplete }) {
           </div>
 
           {revealed && (
-            <p className="mt-4 flex items-start gap-2 rounded-xl bg-indigo-50 p-3 text-sm font-medium text-indigo-900 ring-1 ring-indigo-100 animate-slide-up">
+            <p className="mt-4 flex items-start gap-2 rounded-xl bg-pcb/8 p-3 text-sm font-medium text-ink ring-1 ring-pcb/20 animate-slide-up">
               <Lightbulb className="mt-0.5 h-4 w-4 shrink-0" />
               <span>
                 <b>{correct ? 'Spot on! ' : 'Good try! '}</b>
@@ -673,7 +673,7 @@ function TrainStage({ stage, onComplete }) {
             <button
               onClick={() => setRevealed(true)}
               disabled={guess == null}
-              className="mt-6 w-full rounded-2xl bg-gray-900 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:bg-black active:scale-95 disabled:opacity-40"
+              className="mt-6 w-full rounded-2xl bg-ink px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:bg-pcb active:scale-95 disabled:opacity-40"
             >
               {guess == null ? 'Pick a prediction first' : 'Run the Model'}
             </button>
@@ -706,14 +706,14 @@ function DataQualityStage({ stage, onComplete }) {
   return (
     <div>
       {/* Live accuracy meter */}
-      <div className="mb-5 rounded-2xl bg-gradient-to-b from-indigo-50 to-purple-50 p-4 ring-1 ring-purple-100">
-        <div className="mb-1 flex items-center justify-between text-xs font-bold text-gray-500">
+      <div className="mb-5 rounded-2xl bg-pcb/8 p-4 ring-1 ring-pcb/20">
+        <div className="mb-1 flex items-center justify-between text-xs font-bold text-ink/55">
           <span>{stage.meterLabel || 'Model Accuracy'}</span>
-          <span className={passed ? 'text-green-600' : 'text-purple-600'}>{accuracy}%</span>
+          <span className={passed ? 'text-pcb' : 'text-pcb'}>{accuracy}%</span>
         </div>
-        <div className="h-3 w-full overflow-hidden rounded-full bg-white ring-1 ring-purple-100">
+        <div className="h-3 w-full overflow-hidden rounded-full bg-white ring-1 ring-pcb/20">
           <div
-            className={`h-full rounded-full transition-all duration-500 ${passed ? 'bg-gradient-to-r from-green-400 to-emerald-500' : 'bg-gradient-to-r from-amber-400 to-orange-500'}`}
+            className={`h-full rounded-full transition-all duration-500 ${passed ? 'bg-pcb' : 'bg-signal'}`}
             style={{ width: `${accuracy}%` }}
           />
         </div>
@@ -728,12 +728,12 @@ function DataQualityStage({ stage, onComplete }) {
               key={c.id}
               onClick={() => toggle(c.id)}
               className={`relative flex flex-col items-center gap-1 rounded-2xl border-2 p-3 text-center transition-all active:scale-95 ${
-                gone ? 'border-gray-200 bg-gray-50 opacity-40' : 'border-gray-200 bg-white hover:border-rose-300'
+                gone ? 'border-ink/15 bg-paper opacity-40' : 'border-ink/15 bg-white hover:border-wire/50'
               }`}
             >
               <span className={`text-4xl ${gone ? 'grayscale' : ''}`}>{c.emoji}</span>
-              <span className="text-xs font-bold text-gray-600">labeled “{c.label}”</span>
-              <span className={`mt-1 rounded-full px-2 py-0.5 text-[10px] font-extrabold ${gone ? 'bg-gray-200 text-gray-500' : 'bg-rose-50 text-rose-500'}`}>
+              <span className="text-xs font-bold text-ink/65">labeled “{c.label}”</span>
+              <span className={`mt-1 rounded-full px-2 py-0.5 text-[10px] font-extrabold ${gone ? 'bg-ink/15 text-ink/55' : 'bg-wire/8 text-wire'}`}>
                 {gone ? 'removed · tap to undo' : 'tap to remove'}
               </span>
             </button>
@@ -742,7 +742,7 @@ function DataQualityStage({ stage, onComplete }) {
       </div>
 
       {stage.note && passed && (
-        <p className="mt-4 flex items-start gap-2 rounded-xl bg-indigo-50 p-3 text-sm font-medium text-indigo-900 ring-1 ring-indigo-100 animate-slide-up">
+        <p className="mt-4 flex items-start gap-2 rounded-xl bg-pcb/8 p-3 text-sm font-medium text-ink ring-1 ring-pcb/20 animate-slide-up">
           <Lightbulb className="mt-0.5 h-5 w-5 shrink-0" /> {stage.note}
         </p>
       )}
@@ -750,7 +750,7 @@ function DataQualityStage({ stage, onComplete }) {
       {passed ? (
         <ContinueBar xp={stage.xp} onClick={() => onComplete(true)} />
       ) : (
-        <p className="mt-6 text-center text-sm font-semibold text-gray-500">
+        <p className="mt-6 text-center text-sm font-semibold text-ink/55">
           Get the accuracy to 100% by removing every wrong label and keeping the good ones.
         </p>
       )}
@@ -779,36 +779,36 @@ function QuizStage({ stage, onComplete }) {
     <div ref={quizTopRef} className="scroll-mt-24">
       <ul className="space-y-6">
         {stage.questions.map((q, qi) => (
-          <li key={qi} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-            <p className="mb-3 font-bold text-gray-900">{qi + 1}. {q.q}</p>
+          <li key={qi} className="rounded-2xl border border-ink/15 bg-white p-4 shadow-sm">
+            <p className="mb-3 font-bold text-ink">{qi + 1}. {q.q}</p>
             <div className="space-y-2">
               {q.options.map((opt, oi) => {
                 const chosen = answers[qi] === oi;
-                let cls = chosen ? 'border-purple-500 bg-purple-50' : 'border-gray-200 hover:bg-gray-50';
+                let cls = chosen ? 'border-pcb bg-pcb/8' : 'border-ink/15 hover:bg-paper';
                 if (graded) {
-                  if (oi === q.answer) cls = 'border-green-500 bg-green-50';
-                  else if (chosen) cls = 'border-rose-400 bg-rose-50';
-                  else cls = 'border-gray-200 opacity-70';
+                  if (oi === q.answer) cls = 'border-pcb bg-pcb/10';
+                  else if (chosen) cls = 'border-wire bg-wire/8';
+                  else cls = 'border-ink/15 opacity-70';
                 }
                 return (
                   <label key={oi} className={`flex items-center gap-3 rounded-xl border-2 p-3 transition-colors ${graded ? 'cursor-default' : 'cursor-pointer'} ${cls}`}>
                     <input
                       type="radio"
                       name={`q${qi}`}
-                      className="h-4 w-4 text-purple-600"
+                      className="h-4 w-4 text-pcb"
                       checked={chosen}
                       disabled={graded}
                       onChange={() => setAnswers((p) => ({ ...p, [qi]: oi }))}
                     />
-                    <span className="flex-1 font-medium text-gray-800">{opt}</span>
-                    {graded && oi === q.answer && <CheckCircle2 className="h-5 w-5 shrink-0 text-green-600" />}
-                    {graded && chosen && oi !== q.answer && <XCircle className="h-5 w-5 shrink-0 text-rose-500" />}
+                    <span className="flex-1 font-medium text-ink">{opt}</span>
+                    {graded && oi === q.answer && <CheckCircle2 className="h-5 w-5 shrink-0 text-pcb" />}
+                    {graded && chosen && oi !== q.answer && <XCircle className="h-5 w-5 shrink-0 text-wire" />}
                   </label>
                 );
               })}
             </div>
             {graded && q.explain && (
-              <p className="mt-3 flex items-start gap-2 rounded-xl bg-indigo-50 p-3 text-sm font-medium text-indigo-900 ring-1 ring-indigo-100">
+              <p className="mt-3 flex items-start gap-2 rounded-xl bg-pcb/8 p-3 text-sm font-medium text-ink ring-1 ring-pcb/20">
                 <Lightbulb className="mt-0.5 h-4 w-4 shrink-0" /> {q.explain}
               </p>
             )}
@@ -820,19 +820,19 @@ function QuizStage({ stage, onComplete }) {
         <button
           onClick={() => setGraded(true)}
           disabled={!allAnswered}
-          className="mt-6 w-full rounded-2xl bg-gray-900 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:bg-black active:scale-95 disabled:opacity-40"
+          className="mt-6 w-full rounded-2xl bg-ink px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:bg-pcb active:scale-95 disabled:opacity-40"
         >
           {allAnswered ? 'Submit Assessment' : 'Answer every question to submit'}
         </button>
       ) : passed ? (
         <>
-          <p className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-green-50 p-3 text-lg font-extrabold text-green-700 ring-1 ring-green-100">
+          <p className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-pcb/10 p-3 text-lg font-extrabold text-pcb ring-1 ring-pcb/20">
             <Trophy className="h-5 w-5" /> Score: {score}/{stage.questions.length} — you passed!
           </p>
           {!allCorrect && (
             <button
               onClick={retry}
-              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-orange-300 bg-orange-50 px-6 py-3 font-bold text-orange-700 transition-colors hover:bg-orange-100"
+              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-wire/10 px-6 py-3 font-bold text-ink transition-colors hover:bg-wire/15"
             >
               <RotateCcw className="h-5 w-5" /> Try Again for a Perfect Score
             </button>
@@ -841,12 +841,12 @@ function QuizStage({ stage, onComplete }) {
         </>
       ) : (
         <div className="mt-6 animate-slide-up">
-          <p className="mb-3 rounded-xl bg-amber-50 p-3 text-center text-sm font-bold text-amber-800 ring-1 ring-amber-100">
+          <p className="mb-3 rounded-xl bg-signal/15 p-3 text-center text-sm font-bold text-ink ring-1 ring-ink/15">
             You scored {score}/{stage.questions.length}. You need {Math.ceil((stage.pass ?? 0.8) * stage.questions.length)} to pass — read the notes and retry!
           </p>
           <button
             onClick={retry}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-orange-500 px-6 py-3 font-bold text-white transition-colors hover:bg-orange-600"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-wire px-6 py-3 font-bold text-white transition-colors hover:bg-wire/85"
           >
             <RotateCcw className="h-5 w-5" /> Try Again
           </button>
@@ -863,13 +863,13 @@ function RewardsStage({ stage, courseId, moduleId, course }) {
     <div className="relative text-center">
       <ConfettiBurst />
       <div className="relative">
-        <div className="mx-auto mb-6 flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 shadow-lg animate-[badgePop_0.6s_cubic-bezier(0.34,1.56,0.64,1)_0.1s_both]">
+        <div className="mx-auto mb-6 flex h-28 w-28 items-center justify-center rounded-full border-2 border-ink bg-pcb shadow-lg animate-[badgePop_0.6s_cubic-bezier(0.34,1.56,0.64,1)_0.1s_both]">
           <Award className="h-14 w-14 text-white drop-shadow" strokeWidth={2.5} />
         </div>
-        <h2 className="font-display text-3xl font-extrabold text-[#2D2A4A]">{stage.title}</h2>
+        <h2 className="font-lab text-3xl font-extrabold text-[#16241D]">{stage.title}</h2>
         <div className="mx-auto mt-5 max-w-sm space-y-2">
           {stage.messages.map((m, i) => (
-            <p key={i} className="rounded-xl bg-white p-3 font-bold text-gray-700 shadow-sm ring-1 ring-gray-100 animate-slide-up" style={{ animationDelay: `${i * 0.12}s` }}>
+            <p key={i} className="rounded-xl bg-white p-3 font-bold text-ink/75 shadow-sm ring-1 ring-ink/12 animate-slide-up" style={{ animationDelay: `${i * 0.12}s` }}>
               {m}
             </p>
           ))}
@@ -877,14 +877,14 @@ function RewardsStage({ stage, courseId, moduleId, course }) {
         {nextLessonId ? (
           <Link
             to={`/course/${courseId}/lesson/${nextLessonId}`}
-            className="mt-7 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-7 py-3.5 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
+            className="mt-7 inline-flex items-center gap-2 rounded-2xl border-2 border-ink bg-pcb px-7 py-3.5 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
           >
             Continue Learning <ArrowRight className="h-5 w-5" />
           </Link>
         ) : (
           <Link
             to="/"
-            className="mt-7 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-7 py-3.5 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
+            className="mt-7 inline-flex items-center gap-2 rounded-2xl border-2 border-ink bg-pcb px-7 py-3.5 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
           >
             Back to Quests <ArrowRight className="h-5 w-5" />
           </Link>
@@ -945,7 +945,7 @@ export default function LabRunner({ lab, course, courseId, moduleId }) {
       case 'design': return <DesignStage stage={stage} onComplete={onComplete} />;
       case 'quiz': return <QuizStage stage={stage} onComplete={onComplete} />;
       case 'rewards': return <RewardsStage stage={stage} courseId={courseId} moduleId={moduleId} course={course} />;
-      default: return <p className="text-gray-500">Unknown stage.</p>;
+      default: return <p className="text-ink/55">Unknown stage.</p>;
     }
   };
 
@@ -955,20 +955,20 @@ export default function LabRunner({ lab, course, courseId, moduleId }) {
       <div className="mb-2 flex items-center gap-3">
         <span className="text-4xl">{lab.emoji || '🧪'}</span>
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-purple-500">Interactive Lab · {lab.difficulty} · {lab.duration}</p>
-          <h1 className="font-display text-2xl font-extrabold text-[#2D2A4A] sm:text-3xl">{lab.title}</h1>
+          <p className="text-xs font-bold uppercase tracking-wide text-pcb">Interactive Lab · {lab.difficulty} · {lab.duration}</p>
+          <h1 className="font-lab text-2xl font-extrabold text-[#16241D] sm:text-3xl">{lab.title}</h1>
         </div>
       </div>
 
       {/* Progress */}
       <div className="mb-6 mt-4">
-        <div className="mb-1 flex items-center justify-between gap-3 text-xs font-bold text-gray-500">
+        <div className="mb-1 flex items-center justify-between gap-3 text-xs font-bold text-ink/55">
           <div className="flex items-center gap-3">
             <span>Stage {stageIdx + 1} of {total}</span>
             {canGoBack && (
               <button
                 onClick={handleBack}
-                className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-bold text-gray-400 transition-colors hover:bg-gray-100 hover:text-purple-600"
+                className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-bold text-ink/40 transition-colors hover:bg-ink/5 hover:text-pcb"
                 title="Go back to the previous stage"
               >
                 <ChevronLeft className="h-3.5 w-3.5" /> Back
@@ -980,7 +980,7 @@ export default function LabRunner({ lab, course, courseId, moduleId }) {
             {canSkip && (
               <button
                 onClick={handleSkip}
-                className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-bold text-gray-400 transition-colors hover:bg-gray-100 hover:text-purple-600"
+                className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-bold text-ink/40 transition-colors hover:bg-ink/5 hover:text-pcb"
                 title="Skip to the next stage (no XP awarded)"
               >
                 Skip <SkipForward className="h-3.5 w-3.5" />
@@ -988,17 +988,17 @@ export default function LabRunner({ lab, course, courseId, moduleId }) {
             )}
           </div>
         </div>
-        <div className="h-2.5 w-full overflow-hidden rounded-full bg-gray-200">
-          <div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-violet-500 transition-all duration-500" style={{ width: `${pct}%` }} />
+        <div className="h-2.5 w-full overflow-hidden rounded-full bg-ink/15">
+          <div className="h-full rounded-full bg-pcb transition-all duration-500" style={{ width: `${pct}%` }} />
         </div>
       </div>
 
       {/* Stage card */}
-      <div className="rounded-3xl border border-gray-100 bg-white p-5 shadow-sm sm:p-7" key={stageIdx}>
+      <div className="rounded-3xl border border-ink/12 bg-white p-5 shadow-sm sm:p-7" key={stageIdx}>
         {stage.type !== 'rewards' && (
           <>
-            <h2 className="font-display text-xl font-extrabold text-[#2D2A4A] sm:text-2xl">{stage.title}</h2>
-            {stage.prompt && <p className="mb-5 mt-1 text-gray-600">{stage.prompt}</p>}
+            <h2 className="font-lab text-xl font-extrabold text-[#16241D] sm:text-2xl">{stage.title}</h2>
+            {stage.prompt && <p className="mb-5 mt-1 text-ink/65">{stage.prompt}</p>}
           </>
         )}
         {renderStage()}

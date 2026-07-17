@@ -39,10 +39,10 @@ function Scene() {
     <>
       <ambientLight intensity={0.7} />
       <directionalLight position={[5, 5, 5]} intensity={1.4} color="#ffffff" />
-      <pointLight position={[-6, -3, 2]} intensity={2.2} color="#F472B6" />
+      <pointLight position={[-6, -3, 2]} intensity={2.2} color="#E8503A" />
       <pointLight position={[6, 4, -2]} intensity={2} color="#2DD4BF" />
 
-      <Shape position={[-3.2, 1.1, 0]} color="#7C3AED" speed={1.1}>
+      <Shape position={[-3.2, 1.1, 0]} color="#1F7A5C" speed={1.1}>
         <icosahedronGeometry args={[1, 0]} />
       </Shape>
       <Shape position={[3.4, 0.6, -1]} color="#FF8A3D" speed={0.9} rotationSpeed={0.5}>
@@ -51,7 +51,7 @@ function Scene() {
       <Shape position={[-2.2, -1.6, -1]} color="#2DD4BF" speed={1.3}>
         <octahedronGeometry args={[0.95, 0]} />
       </Shape>
-      <Shape position={[2.4, -1.4, 0.5]} color="#F472B6" speed={1} rotationSpeed={0.25}>
+      <Shape position={[2.4, -1.4, 0.5]} color="#E8503A" speed={1} rotationSpeed={0.25}>
         <dodecahedronGeometry args={[0.85, 0]} />
       </Shape>
       <Shape position={[4.2, 2.2, -2.5]} color="#FBBF24" speed={1.2}>

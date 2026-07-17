@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   ArrowRight, Terminal, Bot, Rocket, Zap, Code2, Trophy,
-  MousePointerClick, CheckCircle2, Wrench, Cpu, Power,
+  MousePointerClick, CheckCircle2, Wrench, Cpu, Power, Play, RotateCcw,
 } from 'lucide-react';
 import logo from '../assets/pocketlab.png';
 
@@ -99,7 +99,7 @@ function PocketLabDevice() {
 
       {/* The switch bank — flip one to run it */}
       <div className="mt-4 rounded-lg border-2 border-ink bg-ink/90 p-3">
-        <div className="mb-2.5 ref-tag text-white/45">Mode select — flip a switch</div>
+        <div className="mb-2.5 ref-tag text-white/45">Mode select: flip a switch</div>
         <div className="grid grid-cols-3 gap-2">
           {MODE_ORDER.map((key) => {
             const m = MODES[key];
@@ -119,8 +119,8 @@ function PocketLabDevice() {
                   style={{ background: on ? m.led : '#2b3a31' }}
                 >
                   <span
-                    className="switch-knob absolute top-0.5 h-4 w-4 rounded-full bg-ink"
-                    style={{ transform: on ? 'translateX(20px)' : 'translateX(2px)' }}
+                    className="switch-knob absolute left-0 top-1/2 h-4 w-4 rounded-full bg-ink"
+                    style={{ transform: on ? 'translate(22px, -50%)' : 'translate(2px, -50%)' }}
                   />
                 </span>
               </button>
@@ -139,38 +139,233 @@ const READOUTS = [
   { k: 'BUILT FOR AGES', v: '8–14' },
 ];
 
+/* Small hook: collect timeout ids and clear them all (on re-run + unmount) so
+   the card sims never leak timers or update after the section unmounts. */
+function useTimers() {
+  const ids = useRef([]);
+  const clear = useCallback(() => {
+    ids.current.forEach(clearTimeout);
+    ids.current = [];
+  }, []);
+  const after = useCallback((ms, fn) => {
+    ids.current.push(setTimeout(fn, ms));
+  }, []);
+  useEffect(() => clear, [clear]);
+  return { after, clear };
+}
+
+// A little dark "screen" like the hero device, shared by the three sims.
+function SimScreen({ file, tag, accent, children }) {
+  return (
+    <div className="rounded-lg border-2 border-ink bg-[#0B180F] p-3.5 shadow-inner">
+      <div className="mb-2 flex items-center justify-between border-b border-white/10 pb-2">
+        <span className="font-mono-lab text-[0.68rem] text-white/45">{file}</span>
+        <span className={`font-mono-lab text-[0.68rem] ${accent}`}>● {tag}</span>
+      </div>
+      <div className="min-h-[104px] font-mono-lab text-[0.78rem] leading-relaxed">{children}</div>
+    </div>
+  );
+}
+
+// The run/reset control shared by the sims.
+function SimButton({ running, done, onRun, label }) {
+  return (
+    <button
+      onClick={onRun}
+      disabled={running}
+      className="lab-btn inline-flex items-center gap-2 rounded-lg border-2 border-ink bg-signal px-4 py-2 text-sm font-extrabold text-ink disabled:opacity-60"
+    >
+      {done ? <RotateCcw className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+      {running ? 'Running…' : done ? 'Run again' : label}
+    </button>
+  );
+}
+
+// MOD-01 — press RUN and a real loop lights up 5 LEDs one by one. Output stays
+// a single fixed-height row, so the card never grows as it runs.
+const LED_COUNT = 5;
+function CodeSim() {
+  const { after, clear } = useTimers();
+  const [lit, setLit] = useState(0); // how many LEDs are on
+  const [running, setRunning] = useState(false);
+  const [done, setDone] = useState(false);
+
+  const run = () => {
+    clear();
+    setLit(0);
+    setDone(false);
+    setRunning(true);
+    for (let i = 1; i <= LED_COUNT; i++) {
+      after(240 * i, () => setLit(i));
+    }
+    after(240 * (LED_COUNT + 1), () => { setRunning(false); setDone(true); });
+  };
+
+  return (
+    <>
+      <SimScreen file="blink.py" tag="CODE" accent="text-signal">
+        <div className="text-white/80">
+          <span className="text-[#FF9EC4]">for</span> i <span className="text-[#FF9EC4]">in</span> range(<span className="text-signal">5</span>):
+        </div>
+        <div className="pl-4 text-white/80">
+          led[i].<span className="text-led">on</span>()
+        </div>
+        <div className="mt-3 flex items-center gap-2">
+          {Array.from({ length: LED_COUNT }).map((_, i) => (
+            <span
+              key={i}
+              className="led transition-colors duration-150"
+              style={{ color: i < lit ? '#FFC93C' : '#3a4a41' }}
+            />
+          ))}
+          <span className="ml-auto text-emerald-400">
+            {done ? 'all lit ✨' : running ? `i = ${Math.max(lit - 1, 0)}` : ''}
+          </span>
+        </div>
+      </SimScreen>
+      <div className="mt-3"><SimButton running={running} done={done} onRun={run} label="Run it" /></div>
+    </>
+  );
+}
+
+// MOD-02 — press TRAIN: examples fly into the model, confidence fills, it predicts.
+const AI_SAMPLES = ['🐱', '🐱', '🐶', '🐱'];
+function AiSim() {
+  const { after, clear } = useTimers();
+  const [phase, setPhase] = useState('idle'); // idle | training | done
+  const [conf, setConf] = useState(0);
+  const [fed, setFed] = useState(-1); // index of last fed sample
+
+  const train = () => {
+    clear();
+    setPhase('training');
+    setConf(0);
+    setFed(-1);
+    AI_SAMPLES.forEach((_, i) => after(160 * (i + 1), () => setFed(i)));
+    for (let p = 1; p <= 49; p++) {
+      after(20 * p + 300, () => setConf(p * 2));
+    }
+    after(20 * 49 + 500, () => setPhase('done'));
+  };
+
+  return (
+    <>
+      <SimScreen file="vision.py" tag="AI" accent="text-led">
+        <div className="mb-2 flex items-center gap-1.5">
+          {AI_SAMPLES.map((s, i) => (
+            <span
+              key={i}
+              className={`text-lg ${phase === 'training' && fed >= i ? 'animate-feed-fly' : ''}`}
+              style={{ opacity: phase === 'training' && fed >= i ? undefined : phase === 'done' ? 0.35 : 1 }}
+            >
+              {s}
+            </span>
+          ))}
+          <span className="ml-auto ref-tag text-white/40">samples</span>
+        </div>
+        <div className="mb-1 flex items-center justify-between text-white/70">
+          <span>confidence</span>
+          <span className="text-led">{conf}%</span>
+        </div>
+        <div className="h-2 overflow-hidden rounded-full bg-white/10">
+          <div className="h-full rounded-full bg-led transition-[width] duration-100" style={{ width: `${conf}%` }} />
+        </div>
+        {phase === 'done' && (
+          <div className="mt-2.5 animate-slide-up text-emerald-400">→ it's a CAT 🐱 <span className="text-white/50">(0.98 sure)</span></div>
+        )}
+      </SimScreen>
+      <div className="mt-3">
+        <SimButton running={phase === 'training'} done={phase === 'done'} onRun={train} label="Train it" />
+      </div>
+    </>
+  );
+}
+
+// MOD-03 — press BUILD: the code → test → ship pipeline lights up, then ships.
+const BUILD_STEPS = [
+  { k: 'code', label: 'writing code' },
+  { k: 'test', label: 'running tests' },
+  { k: 'ship', label: 'shipping build' },
+];
+function BuildSim() {
+  const { after, clear } = useTimers();
+  const [step, setStep] = useState(-1); // last completed step index
+  const [running, setRunning] = useState(false);
+  const [done, setDone] = useState(false);
+
+  const build = () => {
+    clear();
+    setStep(-1);
+    setDone(false);
+    setRunning(true);
+    BUILD_STEPS.forEach((_, i) => after(520 * (i + 1), () => setStep(i)));
+    after(520 * (BUILD_STEPS.length + 1), () => { setRunning(false); setDone(true); });
+  };
+
+  return (
+    <>
+      <SimScreen file="game.py" tag="BUILD" accent="text-wire">
+        <div className="space-y-1.5">
+          {BUILD_STEPS.map((s, i) => {
+            const on = step >= i;
+            return (
+              <div key={s.k} className="flex items-center gap-2">
+                <span
+                  className={`led transition-colors ${on ? '' : 'opacity-30'}`}
+                  style={{ color: on ? '#3FBF7F' : '#4b5a51' }}
+                />
+                <span className={on ? 'text-white/85' : 'text-white/40'}>{s.label}</span>
+                {on && <CheckCircle2 className="ml-auto h-3.5 w-3.5 text-emerald-400 animate-slide-up" />}
+              </div>
+            );
+          })}
+        </div>
+        {done && (
+          <div className="mt-2.5 animate-slide-up text-emerald-400">→ game.py shipped 🎮</div>
+        )}
+      </SimScreen>
+      <div className="mt-3"><SimButton running={running} done={done} onRun={build} label="Build it" /></div>
+    </>
+  );
+}
+
 const KIT = [
   {
     ref: 'MOD-01',
     Icon: Terminal,
     title: 'Code & play',
-    desc: 'Write real code in a real editor and run it in one click — no installs, instant results.',
+    desc: 'Write real code in a real editor and run it in one click. No installs, instant results.',
+    Sim: CodeSim,
   },
   {
     ref: 'MOD-02',
     Icon: Bot,
     title: 'Train AI & robots',
     desc: 'Teach a model to recognize things, then send commands that drive a friendly robot.',
+    Sim: AiSim,
   },
   {
     ref: 'MOD-03',
     Icon: Wrench,
     title: 'Build real projects',
     desc: 'Go from your first line to games, mini-AIs, and robotics builds you can actually show off.',
+    Sim: BuildSim,
   },
 ];
 
+// Accents reuse the hero device's three LED colors so the sequence reads as
+// the same machine booting: signal yellow → LED cyan → wire red.
 const STEPS = [
-  { n: '01', Icon: MousePointerClick, title: 'Pick a track', desc: 'Choose Python, AI, or Robotics and open your first level. No setup.' },
-  { n: '02', Icon: Code2, title: 'Write real code', desc: 'Solve playful challenges in the editor and run your code live.' },
-  { n: '03', Icon: Trophy, title: 'Earn XP & badges', desc: 'Level up, collect badges, and unlock new powers as you master each skill.' },
+  { n: '01', Icon: MousePointerClick, led: '#FFC93C', title: 'Pick a track', desc: 'Choose Python, AI, or Robotics and open your first level. No setup.' },
+  { n: '02', Icon: Code2, led: '#23B5D3', title: 'Write real code', desc: 'Solve playful challenges in the editor and run your code live.' },
+  { n: '03', Icon: Trophy, led: '#E8503A', title: 'Earn XP & badges', desc: 'Level up, collect badges, and unlock new powers as you master each skill.' },
 ];
 
 // Learning tracks, framed as bench modules. `status` drives the LED state.
 const TRACKS = [
   {
     ref: 'TRK-PY', emoji: '🐍', title: 'Python', line: 'Beginner friendly',
-    desc: 'Master the language behind games, AI, and the web — one puzzle at a time.',
+    desc: 'Master the language behind games, AI, and the web, one puzzle at a time.',
     status: 'READY', led: '#3FBF7F', to: '/course/python/lesson/intro',
   },
   {
@@ -220,7 +415,7 @@ export default function Home() {
             </h1>
             <p className="mt-6 max-w-xl text-lg font-semibold text-ink/70">
               Pocket Lab is a maker's bench for coding, AI, and robotics. Write real
-              programs, train real models, and drive real robots — right in your
+              programs, train real models, and drive real robots, right in your
               browser. No installs. No lectures. Just build.
             </p>
 
@@ -230,7 +425,7 @@ export default function Home() {
                 className="lab-btn group inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-7 py-3.5 text-lg font-extrabold text-ink"
               >
                 <Power className="h-5 w-5" />
-                Start building
+                Start Learning 
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </a>
               <a
@@ -269,8 +464,8 @@ export default function Home() {
           </p>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {KIT.map(({ ref, Icon, title, desc }) => (
-              <div key={ref} className="lab-panel lab-lift p-6">
+            {KIT.map(({ ref, Icon, title, desc, Sim }) => (
+              <div key={ref} className="lab-panel flex flex-col p-6">
                 <div className="mb-5 flex items-center justify-between">
                   <span className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-ink bg-pcb text-white">
                     <Icon className="h-6 w-6" />
@@ -278,7 +473,11 @@ export default function Home() {
                   <span className="ref-tag text-ink/45">{ref}</span>
                 </div>
                 <h3 className="font-lab mb-2 text-xl font-bold">{title}</h3>
-                <p className="font-semibold text-ink/65">{desc}</p>
+                <p className="mb-5 font-semibold text-ink/65">{desc}</p>
+                {/* Live mini-simulation — press the button to run it. */}
+                <div className="mt-auto">
+                  <Sim />
+                </div>
               </div>
             ))}
           </div>
@@ -295,18 +494,26 @@ export default function Home() {
           </p>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {STEPS.map(({ n, Icon, title, desc }, i) => (
-              <div key={n} className="relative">
+            {STEPS.map(({ n, Icon, title, desc, led }, i) => (
+              <div key={n} className="group relative">
                 {i < STEPS.length - 1 && (
-                  <span className="pointer-events-none absolute right-[-18px] top-1/2 hidden -translate-y-1/2 text-ink/25 md:block">
+                  <span className="pointer-events-none absolute top-1/2 hidden -translate-y-1/2 text-ink/30 transition-transform duration-200 group-hover:translate-x-1 md:block"
+                    style={{ right: '-24px' }}>
                     <ArrowRight className="h-6 w-6" />
                   </span>
                 )}
-                <div className="lab-panel h-full p-6">
+                <div className="lab-panel lab-lift h-full p-6">
                   <div className="mb-4 flex items-center gap-3">
-                    <span className="font-lab text-3xl font-extrabold text-pcb">{n}</span>
-                    <span className="h-px flex-1 bg-ink/15" />
-                    <Icon className="h-5 w-5 text-ink/55" />
+                    <span
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border-2 border-ink font-lab text-lg font-extrabold text-ink"
+                      style={{ background: led }}
+                    >
+                      {n}
+                    </span>
+                    <span className="ref-tag inline-flex items-center gap-1.5 text-ink/45">
+                      <span className="led" style={{ color: led }} /> Step {n}
+                    </span>
+                    <Icon className="ml-auto h-5 w-5 text-ink/55 transition-colors group-hover:text-ink" />
                   </div>
                   <h3 className="font-lab mb-2 text-xl font-bold">{title}</h3>
                   <p className="font-semibold text-ink/65">{desc}</p>
@@ -456,7 +663,7 @@ export default function Home() {
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-12 sm:flex-row sm:justify-between">
           <div className="flex flex-col items-center gap-3 sm:items-start">
             <img src={logo} alt="Pocket Lab" className="h-9 w-auto" />
-            <p className="font-semibold text-ink/60">Learn to code, train AI & build robots — by building.</p>
+            <p className="font-semibold text-ink/60">Learn to code, train AI & build robots, by building.</p>
           </div>
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 ref-tag">
             <a href="#tracks" className="text-ink/60 transition-colors hover:text-pcb">Tracks</a>

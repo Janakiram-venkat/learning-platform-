@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, User, Lock, Check, Heart, Save } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -32,6 +32,21 @@ export default function SettingsModal({ open, onClose }) {
   const [pwMsg, setPwMsg] = useState('');
   const [pwErr, setPwErr] = useState('');
   const [savingPw, setSavingPw] = useState(false);
+
+  // Lock the background from scrolling while the modal is open, and pad for the
+  // now-missing scrollbar so the page underneath doesn't shift sideways.
+  useEffect(() => {
+    if (!open) return;
+    const scrollbarW = window.innerWidth - document.documentElement.clientWidth;
+    const prevOverflow = document.body.style.overflow;
+    const prevPad = document.body.style.paddingRight;
+    document.body.style.overflow = 'hidden';
+    if (scrollbarW > 0) document.body.style.paddingRight = `${scrollbarW}px`;
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.body.style.paddingRight = prevPad;
+    };
+  }, [open]);
 
   if (!open || !user) return null;
 
@@ -136,7 +151,7 @@ export default function SettingsModal({ open, onClose }) {
                 <Heart className="h-4 w-4 text-pcb" /> Interests
               </p>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {INTERESTS.map(({ key, label, emoji, gradient }) => {
+                {INTERESTS.map(({ key, label, emoji }) => {
                   const selected = interests.includes(key);
                   return (
                     <button
@@ -146,7 +161,7 @@ export default function SettingsModal({ open, onClose }) {
                       aria-pressed={selected}
                       className={`group relative flex flex-col items-center gap-1.5 rounded-2xl border-2 p-3 text-center transition-all active:scale-95 ${
                         selected
-                          ? 'border-transparent bg-linear-to-br text-white shadow-lg ' + gradient
+                          ? 'border-ink bg-pcb text-white shadow-md'
                           : 'border-ink/15 bg-white text-ink hover:-translate-y-0.5 hover:border-pcb/40 hover:shadow-md'
                       }`}
                     >

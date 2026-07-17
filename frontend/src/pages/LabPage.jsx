@@ -43,7 +43,7 @@ export default function LabPage() {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24">
         <div className="animate-float text-5xl">🤖</div>
-        <p className="font-display text-lg font-semibold text-[#6C63A6]">Booting up the lab...</p>
+        <p className="font-lab text-lg font-semibold text-ink/65">Booting up the lab...</p>
       </div>
     );
   }
@@ -52,8 +52,8 @@ export default function LabPage() {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24 text-center">
         <span className="text-5xl">🚧</span>
-        <p className="font-display text-lg font-semibold text-[#6C63A6]">This lab isn't ready yet.</p>
-        <Link to="/" className="rounded-xl bg-purple-600 px-5 py-2.5 font-bold text-white">Back to Quests</Link>
+        <p className="font-lab text-lg font-semibold text-ink/65">This lab isn't ready yet.</p>
+        <Link to="/" className="lab-btn rounded-xl border-2 border-ink bg-signal px-5 py-2.5 font-extrabold text-ink">Back to Quests</Link>
       </div>
     );
   }

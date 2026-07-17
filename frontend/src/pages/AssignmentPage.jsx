@@ -16,11 +16,11 @@ import {
 
 // Visual identity for each round type — drives the chip label and icon.
 const ROUND_META = {
-  predict: { label: 'Predict the Output', icon: Wand2, accent: 'from-violet-500 to-purple-600', chip: 'bg-violet-100 text-violet-700' },
-  bug:     { label: 'Fix the Bug',         icon: Bug,   accent: 'from-rose-500 to-pink-600',     chip: 'bg-rose-100 text-rose-700' },
-  concept: { label: 'Quick Thinking',      icon: Brain, accent: 'from-teal-500 to-cyan-600',     chip: 'bg-teal-100 text-teal-700' },
-  order:   { label: 'Build the Code',      icon: Blocks, accent: 'from-orange-500 to-amber-500', chip: 'bg-orange-100 text-orange-700' },
-  match:   { label: 'Match the Pairs',     icon: Link2, accent: 'from-sky-500 to-blue-600',      chip: 'bg-sky-100 text-sky-700' },
+  predict: { label: 'Predict the Output', icon: Wand2, chip: 'bg-pcb/10 text-pcb' },
+  bug:     { label: 'Fix the Bug',         icon: Bug,   chip: 'bg-rose-100 text-rose-700' },
+  concept: { label: 'Quick Thinking',      icon: Brain, chip: 'bg-teal-100 text-teal-700' },
+  order:   { label: 'Build the Code',      icon: Blocks, chip: 'bg-orange-100 text-orange-700' },
+  match:   { label: 'Match the Pairs',     icon: Link2, chip: 'bg-sky-100 text-sky-700' },
 };
 
 const CONFETTI_COLORS = ['#34d399', '#60a5fa', '#fbbf24', '#f472b6', '#a78bfa', '#f87171'];
@@ -341,7 +341,7 @@ export default function AssignmentPage() {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24">
         <div className="animate-float text-5xl">🎮</div>
-        <p className="font-display text-lg font-semibold text-[#6C63A6]">Loading the arcade...</p>
+        <p className="font-lab text-lg font-semibold text-ink/65">Loading the arcade...</p>
       </div>
     );
   }
@@ -350,8 +350,8 @@ export default function AssignmentPage() {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24 text-center">
         <span className="text-5xl">🚧</span>
-        <p className="font-display text-lg font-semibold text-[#6C63A6]">This challenge isn't ready yet.</p>
-        <Link to="/" className="rounded-xl bg-purple-600 px-5 py-2.5 font-bold text-white">Back to Quests</Link>
+        <p className="font-lab text-lg font-semibold text-ink/65">This challenge isn't ready yet.</p>
+        <Link to="/" className="lab-btn rounded-xl border-2 border-ink bg-signal px-5 py-2.5 font-extrabold text-ink">Back to Quests</Link>
       </div>
     );
   }
@@ -376,8 +376,8 @@ export default function AssignmentPage() {
 
         <div className="relative">
           <div className="mb-4 animate-bounce-in text-6xl">{assignment.emoji || '🏆'}</div>
-          <h1 className="font-display mb-2 text-3xl font-bold text-[#2D2A4A]">Challenge Complete!</h1>
-          <p className="mb-6 font-semibold text-[#6C63A6]">{assignment.title}</p>
+          <h1 className="font-lab mb-2 text-3xl font-extrabold text-ink">Challenge Complete!</h1>
+          <p className="mb-6 font-semibold text-ink/65">{assignment.title}</p>
 
           {/* Stars */}
           <div className="mb-6 flex items-center justify-center gap-3">
@@ -391,7 +391,7 @@ export default function AssignmentPage() {
           </div>
 
           <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-bold text-[#2D2A4A] shadow ring-1 ring-purple-100">
+            <span className="inline-flex items-center gap-2 rounded-md border-2 border-ink bg-white px-5 py-2.5 font-bold text-ink">
               <Trophy className="h-5 w-5 text-amber-500" />
               {firstTryCorrect} / {total} nailed on the first try
             </span>
@@ -405,21 +405,21 @@ export default function AssignmentPage() {
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <button
               onClick={playAgain}
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-purple-300 bg-white px-6 py-3 font-extrabold text-purple-700 transition-transform hover:scale-105 active:scale-95"
+              className="lab-btn inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-white px-6 py-3 font-extrabold text-ink"
             >
               <RotateCcw className="h-5 w-5" /> Play Again
             </button>
             {nextLessonId ? (
               <Link
                 to={`/course/${courseId}/lesson/${nextLessonId}`}
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-3 font-extrabold text-white shadow-md transition-transform hover:scale-105 active:scale-95"
+                className="lab-btn inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-3 font-extrabold text-ink"
               >
                 Continue Learning <ArrowRight className="h-5 w-5" />
               </Link>
             ) : (
               <Link
                 to="/"
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-3 font-extrabold text-white shadow-md transition-transform hover:scale-105 active:scale-95"
+                className="lab-btn inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-3 font-extrabold text-ink"
               >
                 Back to Quests <ArrowRight className="h-5 w-5" />
               </Link>
@@ -443,7 +443,7 @@ export default function AssignmentPage() {
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <span className="text-2xl">{assignment.emoji || '🎮'}</span>
-          <h1 className="font-display text-lg font-bold text-[#2D2A4A] sm:text-xl">{assignment.title}</h1>
+          <h1 className="font-lab text-lg font-bold text-ink sm:text-xl">{assignment.title}</h1>
         </div>
         {streak >= 2 && (
           <span className="inline-flex animate-correct items-center gap-1.5 rounded-full bg-orange-100 px-3 py-1.5 text-sm font-extrabold text-orange-600">
@@ -454,25 +454,25 @@ export default function AssignmentPage() {
 
       {/* Progress bar + dots */}
       <div className="mb-6">
-        <div className="mb-2 flex items-center justify-between text-xs font-bold text-[#6C63A6]">
+        <div className="mb-2 flex items-center justify-between text-xs font-bold text-ink/65">
           <span>Round {index + 1} of {total}</span>
           <span>{Math.round((index / total) * 100)}% done</span>
         </div>
-        <div className="h-3 w-full overflow-hidden rounded-full bg-purple-100">
+        <div className="h-3 w-full overflow-hidden rounded-full border-2 border-ink bg-ink/10">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-purple-500 to-violet-500 transition-all duration-500"
+            className="h-full rounded-full bg-pcb transition-all duration-500"
             style={{ width: `${(index / total) * 100}%` }}
           />
         </div>
       </div>
 
       {/* Round card */}
-      <div key={index} className="animate-slide-up rounded-3xl border-2 border-purple-100 bg-white p-5 shadow-lg sm:p-8">
+      <div key={index} className="lab-panel animate-slide-up p-5 sm:p-8">
         <span className={`mb-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-extrabold ${meta.chip}`}>
           <RoundIcon className="h-3.5 w-3.5" /> {meta.label}
         </span>
 
-        <h2 className="mb-5 text-xl font-bold text-[#2D2A4A] sm:text-2xl">{round.prompt}</h2>
+        <h2 className="mb-5 font-lab text-xl font-bold text-ink sm:text-2xl">{round.prompt}</h2>
 
         {round.code && (
           <pre className="mb-6 overflow-x-auto rounded-2xl bg-gray-900 p-5 font-mono text-sm text-gray-100 shadow-inner">
@@ -486,7 +486,7 @@ export default function AssignmentPage() {
             {round.options.map((opt, i) => {
               const isChosen = selected === i;
               const isAnswer = i === round.answer;
-              let style = 'border-gray-200 bg-white hover:border-purple-300 hover:bg-purple-50';
+              let style = 'border-ink/15 bg-white hover:border-pcb hover:bg-pcb/5';
               let anim = '';
               if (locked) {
                 if (isAnswer) { style = 'border-green-500 bg-green-50 text-green-800'; anim = 'animate-correct'; }
@@ -512,10 +512,10 @@ export default function AssignmentPage() {
         {/* --- Ordering puzzle (drag blocks into numbered slots) --- */}
         {isOrder && (
           <div className="space-y-5">
-            <p className="text-sm font-semibold text-[#6C63A6]">Drag the blocks into the right order — or tap a block to drop it in the next slot.</p>
+            <p className="text-sm font-semibold text-ink/65">Drag the blocks into the right order — or tap a block to drop it in the next slot.</p>
 
             {/* The program: numbered slots */}
-            <div className={`space-y-2 rounded-2xl border-2 border-dashed p-3 transition-colors ${orderShake ? 'animate-shake border-rose-400 bg-rose-50' : orderSolved ? 'border-green-400 bg-green-50' : 'border-purple-200 bg-purple-50/40'}`}>
+            <div className={`space-y-2 rounded-2xl border-2 border-dashed p-3 transition-colors ${orderShake ? 'animate-shake border-rose-400 bg-rose-50' : orderSolved ? 'border-green-400 bg-green-50' : 'border-ink/20 bg-ink/[0.03]'}`}>
               {orderSlots.map((block, slotIndex) => {
                 const isOver = dragOver?.kind === 'order' && dragOver.idx === slotIndex;
                 return (
@@ -525,10 +525,10 @@ export default function AssignmentPage() {
                     onDragLeave={() => setDragOver(null)}
                     onDrop={handleDrop((p) => placeOrderBlock(p.id, slotIndex))}
                     className={`flex items-center gap-3 rounded-xl border-2 px-3 py-2 transition-all ${
-                      block ? 'border-purple-200 bg-white' : isOver ? 'border-orange-400 bg-orange-50' : 'border-dashed border-purple-200 bg-white/50'
+                      block ? 'border-ink/20 bg-white' : isOver ? 'border-orange-400 bg-orange-50' : 'border-dashed border-ink/20 bg-white/50'
                     }`}
                   >
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-100 text-xs font-extrabold text-purple-600">{slotIndex + 1}</span>
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 border-ink bg-signal text-xs font-extrabold text-ink">{slotIndex + 1}</span>
                     {block ? (
                       <button
                         draggable={!locked}
@@ -536,7 +536,7 @@ export default function AssignmentPage() {
                         onDragEnd={onDragEnd}
                         onClick={() => returnOrderBlock(slotIndex)}
                         disabled={locked}
-                        className="flex-1 cursor-grab rounded-lg bg-purple-50 px-3 py-1.5 text-left font-mono text-sm text-[#2D2A4A] transition-transform active:cursor-grabbing active:scale-[0.98] disabled:cursor-default"
+                        className="flex-1 cursor-grab rounded-lg bg-ink/5 px-3 py-1.5 text-left font-mono text-sm text-ink transition-transform active:cursor-grabbing active:scale-[0.98] disabled:cursor-default"
                       >
                         <span className="whitespace-pre">{block.text}</span>
                       </button>
@@ -575,7 +575,7 @@ export default function AssignmentPage() {
               <button
                 onClick={checkOrder}
                 disabled={orderSlots.some(s => s === null)}
-                className="w-full rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:scale-[1.02] enabled:active:scale-95 disabled:opacity-40"
+                className="lab-btn w-full rounded-xl border-2 border-ink bg-signal px-6 py-3.5 font-extrabold text-ink disabled:opacity-40"
               >
                 Check My Code
               </button>
@@ -586,7 +586,7 @@ export default function AssignmentPage() {
         {/* --- Match the following (drag answers into each box) --- */}
         {isMatch && (
           <div className="space-y-5">
-            <p className="text-sm font-semibold text-[#6C63A6]">Drag each answer into its box — or tap an answer, then tap a box.</p>
+            <p className="text-sm font-semibold text-ink/65">Drag each answer into its box — or tap an answer, then tap a box.</p>
 
             {/* Prompt + placeholder slot rows */}
             <div className={`space-y-3 ${matchShake ? 'animate-shake' : ''}`}>
@@ -606,7 +606,7 @@ export default function AssignmentPage() {
                 else if (assigned) slotStyle = 'border-sky-300 bg-white';
                 return (
                   <div key={i} className="flex items-center gap-2 sm:gap-3">
-                    <div className="w-2/5 shrink-0 rounded-2xl border-2 border-gray-200 bg-white px-3 py-3 font-mono text-sm font-bold text-[#2D2A4A]">
+                    <div className="w-2/5 shrink-0 rounded-2xl border-2 border-ink/15 bg-white px-3 py-3 font-mono text-sm font-bold text-ink">
                       {p.left}
                     </div>
                     <Link2 className="h-4 w-4 shrink-0 text-sky-300" />
@@ -687,7 +687,7 @@ export default function AssignmentPage() {
               <button
                 onClick={checkMatch}
                 disabled={round.pairs.some((_, i) => matchAssign[i] === undefined)}
-                className="w-full rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform enabled:hover:scale-[1.02] enabled:active:scale-95 disabled:opacity-40"
+                className="lab-btn w-full rounded-xl border-2 border-ink bg-signal px-6 py-3.5 font-extrabold text-ink disabled:opacity-40"
               >
                 Check My Matches
               </button>
@@ -698,13 +698,13 @@ export default function AssignmentPage() {
         {/* Explanation + Next */}
         {locked && (
           <div className="mt-6 animate-slide-up">
-            <div className="flex items-start gap-3 rounded-2xl bg-indigo-50 p-4 text-indigo-900 ring-1 ring-indigo-100">
-              <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-indigo-500" />
+            <div className="flex items-start gap-3 rounded-2xl border-2 border-led/30 bg-led/10 p-4 text-ink">
+              <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-led" />
               <p className="text-sm font-medium leading-relaxed">{round.explain}</p>
             </div>
             <button
               onClick={next}
-              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-3.5 font-extrabold text-white shadow-md transition-transform hover:scale-[1.02] active:scale-95"
+              className="lab-btn mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-3.5 font-extrabold text-ink"
             >
               {index + 1 >= total ? 'See My Results' : 'Next Round'}
               {index + 1 >= total ? <Sparkles className="h-5 w-5" /> : <ArrowRight className="h-5 w-5" />}

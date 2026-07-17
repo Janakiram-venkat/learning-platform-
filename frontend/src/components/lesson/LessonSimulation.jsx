@@ -21,13 +21,13 @@ export default function LessonSimulation({ sim }) {
 
 function Shell({ title, code, onPlay, playing, onReset, children }) {
   return (
-    <div className="my-8 overflow-hidden rounded-2xl border-2 border-purple-100 bg-white shadow-sm">
-      <div className="flex items-center justify-between gap-3 border-b border-purple-100 bg-purple-50 px-4 py-3">
-        <span className="font-display text-sm font-bold text-[#6C4Fd0]">🎬 {title}</span>
+    <div className="my-8 overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+      <div className="flex items-center justify-between gap-3 border-b-2 border-ink bg-signal px-4 py-3">
+        <span className="font-lab text-sm font-bold text-ink">🎬 {title}</span>
         <div className="flex items-center gap-2">
           <button
             onClick={onReset}
-            className="rounded-lg p-1.5 text-purple-400 transition-colors hover:bg-purple-100 hover:text-purple-600"
+            className="rounded-lg border-2 border-ink/20 p-1.5 text-ink/60 transition-colors hover:border-ink hover:bg-ink/10 hover:text-ink"
             title="Reset"
           >
             <RotateCcw className="h-4 w-4" />
@@ -35,14 +35,14 @@ function Shell({ title, code, onPlay, playing, onReset, children }) {
           <button
             onClick={onPlay}
             disabled={playing}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-purple-600 px-4 py-1.5 text-sm font-bold text-white shadow-sm transition-transform enabled:hover:scale-105 enabled:active:scale-95 disabled:opacity-50"
+            className="lab-btn inline-flex items-center gap-1.5 rounded-lg border-2 border-ink bg-pcb px-4 py-1.5 text-sm font-bold text-white disabled:opacity-50"
           >
             <Play className="h-4 w-4" /> {playing ? 'Running...' : 'Run it!'}
           </button>
         </div>
       </div>
       {code && (
-        <pre className="overflow-x-auto bg-gray-900 px-4 py-3 font-mono text-sm text-gray-100">{code}</pre>
+        <pre className="overflow-x-auto border-b-2 border-ink bg-[#0B180F] px-4 py-3 font-mono-lab text-sm text-white/90">{code}</pre>
       )}
       <div className="p-5">{children}</div>
     </div>
@@ -74,23 +74,23 @@ function VariableSim({ sim }) {
       <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
         {/* The labelled box */}
         <div className="flex flex-col items-center">
-          <div className={`flex h-24 w-28 items-center justify-center rounded-xl border-4 transition-all duration-500 ${stage >= 1 ? 'border-teal-400 bg-teal-50' : 'border-dashed border-gray-300 bg-gray-50'}`}>
-            <span className={`font-mono text-2xl font-extrabold text-teal-600 transition-all duration-500 ${stage >= 1 ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
+          <div className={`flex h-24 w-28 items-center justify-center rounded-xl border-4 transition-all duration-500 ${stage >= 1 ? 'border-pcb bg-pcb/10' : 'border-dashed border-ink/25 bg-ink/5'}`}>
+            <span className={`font-mono-lab text-2xl font-extrabold text-pcb transition-all duration-500 ${stage >= 1 ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
               {value}
             </span>
           </div>
-          <span className="mt-2 rounded-md bg-gray-800 px-3 py-1 font-mono text-sm font-bold text-white">{name}</span>
+          <span className="mt-2 rounded-md border-2 border-ink bg-ink px-3 py-1 font-mono-lab text-sm font-bold text-white">{name}</span>
         </div>
 
         {/* The screen / print output */}
         <div className="flex flex-col items-center">
-          <div className="flex h-24 w-44 items-center justify-center rounded-xl bg-gray-900 px-3 font-mono text-xl text-green-400 shadow-inner">
-            {stage >= 2 ? <span className="animate-bounce-in">{value}</span> : <span className="text-gray-600">screen…</span>}
+          <div className="flex h-24 w-44 items-center justify-center rounded-xl border-2 border-ink bg-[#0B180F] px-3 font-mono-lab text-xl text-emerald-400 shadow-inner">
+            {stage >= 2 ? <span className="animate-bounce-in">{value}</span> : <span className="text-white/35">screen…</span>}
           </div>
-          <span className="mt-2 text-xs font-semibold text-gray-400">print output</span>
+          <span className="mt-2 text-xs font-semibold text-ink/50">print output</span>
         </div>
       </div>
-      <p className="mt-5 text-center text-sm font-medium text-[#6C63A6]">
+      <p className="mt-5 text-center text-sm font-medium text-ink/70">
         {stage === 0 && 'Press “Run it!” to watch the value go into the box.'}
         {stage === 1 && `We put ${value} into the box labelled ${name} 📦`}
         {stage === 2 && `print(${name}) opens the box and shows ${value} on the screen! ✨`}
@@ -132,21 +132,21 @@ function LoopSim({ sim }) {
       <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:justify-center sm:gap-10">
         {/* Spinning counter */}
         <div className="flex flex-col items-center">
-          <div className={`flex h-24 w-24 items-center justify-center rounded-full border-4 border-orange-300 bg-orange-50 text-3xl font-extrabold text-orange-600 ${running ? 'animate-pop' : ''}`}>
+          <div className={`flex h-24 w-24 items-center justify-center rounded-full border-4 border-ink bg-signal text-3xl font-extrabold text-ink ${running ? 'animate-pop' : ''}`}>
             {count}
           </div>
-          <span className="mt-2 text-xs font-semibold text-gray-400">times looped</span>
+          <span className="mt-2 text-xs font-semibold text-ink/50">times looped</span>
         </div>
         {/* Output stack */}
-        <div className="min-h-[6rem] w-52 rounded-xl bg-gray-900 p-3 font-mono text-sm text-green-400 shadow-inner">
+        <div className="min-h-24 w-52 rounded-xl border-2 border-ink bg-[#0B180F] p-3 font-mono-lab text-sm text-emerald-400 shadow-inner">
           {outputs.length === 0 ? (
-            <span className="text-gray-600">screen…</span>
+            <span className="text-white/35">screen…</span>
           ) : (
             outputs.map((line, i) => <div key={i} className="animate-slide-up">{line}</div>)
           )}
         </div>
       </div>
-      <p className="mt-5 text-center text-sm font-medium text-[#6C63A6]">
+      <p className="mt-5 text-center text-sm font-medium text-ink/70">
         The loop runs the indented line {times} times — so “{say}” is printed {times} times!
       </p>
     </Shell>
@@ -178,14 +178,14 @@ function PrintSim({ sim }) {
 
   return (
     <Shell title="Showing output" code={code} onPlay={play} playing={running} onReset={reset}>
-      <div className="min-h-[5rem] rounded-xl bg-gray-900 p-4 font-mono text-base text-green-400 shadow-inner">
+      <div className="min-h-20 rounded-xl border-2 border-ink bg-[#0B180F] p-4 font-mono-lab text-base text-emerald-400 shadow-inner">
         {shown === 0 ? (
-          <span className="text-gray-600">screen…</span>
+          <span className="text-white/35">screen…</span>
         ) : (
           lines.slice(0, shown).map((line, i) => <div key={i} className="animate-slide-up">{line}</div>)
         )}
       </div>
-      <p className="mt-4 text-center text-sm font-medium text-[#6C63A6]">
+      <p className="mt-4 text-center text-sm font-medium text-ink/70">
         Each print line shows up on the screen, one after another.
       </p>
     </Shell>

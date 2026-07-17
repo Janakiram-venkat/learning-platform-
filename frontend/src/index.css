@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  /* Playful, kid-friendly palette */
-  --color-primary: #2D2A4A;     /* deep friendly indigo for text */
-  --color-secondary: #6C63A6;
-  --color-accent: #7C3AED;      /* vibrant purple */
-  --color-accent2: #FF8A3D;     /* warm orange */
-  --color-accent3: #2DD4BF;     /* teal */
-  --color-accent4: #F472B6;     /* pink */
-  --color-background: #F4F1FF;  /* soft lavender */
-  --color-sidebar: #EFEafe;
-  --color-border: #E2DBFF;
+  /* Legacy tokens, repointed to the workbench palette so any older component
+     still using them (text-primary, text-secondary, bg-accent, …) inherits the
+     electronics-kit look automatically instead of the old lavender/purple. */
+  --color-primary: #16241D;     /* ink — near-black circuit green (text) */
+  --color-secondary: #55655C;   /* muted ink-green for secondary text */
+  --color-accent: #1F7A5C;      /* printed-circuit green */
+  --color-accent2: #FFC93C;     /* signal yellow */
+  --color-accent3: #23B5D3;     /* LED cyan */
+  --color-accent4: #E8503A;     /* wire red */
+  --color-background: #EDF3EE;  /* PCB-tinted paper */
+  --color-sidebar: #E3EDE5;
+  --color-border: #D3E0D6;
 
   /* --- Pocket Lab "Workbench" identity (Home page) --------------------- */
   /* An electronics-kit palette: printed-circuit green, signal yellow,     */
@@ -30,12 +32,15 @@
 
 html {
   scroll-behavior: smooth;
+  /* Match the workbench paper so overscroll / rubber-band never flashes the
+     old lavender behind the app shell. */
+  background-color: var(--color-paper);
 }
 
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background-color: var(--color-background);
+  background-color: var(--color-paper);
   color: var(--color-primary);
   overflow-x: hidden;
 }
@@ -127,7 +132,7 @@ body {
 
 /* Rainbow gradient text */
 .gradient-text {
-  background: linear-gradient(90deg, #7C3AED, #F472B6, #FF8A3D, #2DD4BF, #7C3AED);
+  background: linear-gradient(90deg, #1F7A5C, #23B5D3, #FFC93C, #E8503A, #1F7A5C);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;

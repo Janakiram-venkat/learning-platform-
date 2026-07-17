@@ -1,0 +1,29 @@
+{
+  "moduleId": 3,
+  "title": "Countdown Machine",
+  "emoji": "🚀",
+  "brief": "Time to make the computer do the boring, repetitive work! Your Countdown Machine asks for a starting number, then uses a loop to count all the way down to 1 and shout \"Blast off!\". A while loop repeats as long as its condition is True, so it's perfect for counting down. Fill in the two print lines, then press Check Project to launch!",
+  "steps": [
+    "The first line is done for you: int(input(...)) asks for a starting number.",
+    "The while loop is set up to keep going while count is above 0 (it subtracts 1 each time so it always stops).",
+    "Inside the loop, add print(count) to show each number as it counts down.",
+    "After the loop, add print(\"Blast off!\").",
+    "Run it and try a few numbers, then press Check Project."
+  ],
+  "starterCode": "# 🚀 Countdown Machine, it counts down and then blasts off!\n\nstart = int(input(\"Count down from what number? \"))\n\n# We count down using a while loop. It keeps going while count is above 0.\ncount = start\nwhile count > 0:\n    # 1) Print the current number:\n    # print(count)\n    count = count - 1   # step down by 1 (this is what stops the loop!)\n\n# 2) After the loop finishes, print the blast off message:\n# print(\"Blast off!\")\n",
+  "inputPlaceholder": "5",
+  "inputHint": "Type one number: the number to start counting down from.",
+  "tests": [
+    {
+      "name": "Count down from 5",
+      "input": ["5"],
+      "expect": ["5", "4", "3", "2", "1", "blast off"]
+    },
+    {
+      "name": "Count down from 3",
+      "input": ["3"],
+      "expect": ["3", "2", "1", "blast off"]
+    }
+  ],
+  "successMessage": "Blast off! 🚀 Your Countdown Machine loops all the way down and launches, that's the power of loops: you write the steps once and let Python do the repeating!"
+}

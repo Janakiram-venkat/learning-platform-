@@ -1,0 +1,34 @@
+{
+  "moduleId": 8,
+  "title": "Safe Calculator",
+  "emoji": "🛟",
+  "brief": "Real programs don't crash when something goes wrong, they handle it! Your Safe Calculator divides two numbers, but wraps the risky part in try/except so a bad input (like dividing by zero, or typing a word) shows a friendly message instead of an ugly error. Finish the two lines, then press Check Project!",
+  "steps": [
+    "The try block already asks for two numbers with int(input(...)).",
+    "Inside try, print the division result, like: print(\"Answer:\", a / b).",
+    "Inside except, print a friendly message so the program never crashes.",
+    "Run it and try normal numbers, then try dividing by 0 to see except catch it.",
+    "Press Check Project to test all the cases."
+  ],
+  "starterCode": "# 🛟 Safe Calculator, it divides two numbers without ever crashing!\n\ntry:\n    a = int(input(\"First number: \"))\n    b = int(input(\"Second number: \"))\n    # 1) Divide a by b and print it, like:  Answer: 5.0\n    # print(\"Answer:\", a / b)\nexcept:\n    # 2) If anything goes wrong, print a friendly message instead of crashing:\n    # print(\"Oops! Please use numbers, and don't divide by zero.\")\n    pass\n",
+  "inputPlaceholder": "10\n2",
+  "inputHint": "Type two numbers, one on each line.",
+  "tests": [
+    {
+      "name": "10 divided by 2",
+      "input": ["10", "2"],
+      "expect": ["answer", "5"]
+    },
+    {
+      "name": "Dividing by 0 is caught",
+      "input": ["10", "0"],
+      "expect": ["oops"]
+    },
+    {
+      "name": "A word instead of a number is caught",
+      "input": ["hello", "5"],
+      "expect": ["oops"]
+    }
+  ],
+  "successMessage": "Rock solid! 🛟 Your calculator handles divide-by-zero and bad input without ever crashing. That's exactly what try and except are for, keeping your programs friendly and safe!"
+}

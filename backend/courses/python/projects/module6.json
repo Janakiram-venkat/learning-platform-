@@ -1,0 +1,29 @@
+{
+  "moduleId": 6,
+  "title": "Word Wizard",
+  "emoji": "🪄",
+  "brief": "Python has handy tools for playing with text! Your Word Wizard takes any word and transforms it: it measures the length, grabs the first few letters with slicing, and swaps letters with .replace(). The length spell is done for you as an example, finish the other two and press Check Project!",
+  "steps": [
+    "The program asks the user for a word and stores it in word.",
+    "The length is done for you as an example: print(len(word)).",
+    "Print just the first THREE letters using slicing: word[:3].",
+    "Print the word with every \"a\" swapped for \"o\" using word.replace(\"a\", \"o\").",
+    "Run it, type a word, then press Check Project."
+  ],
+  "starterCode": "# 🪄 Word Wizard, it transforms any word you give it!\n\nword = input(\"Give me a word: \")\n\n# The length spell is done for you as an example:\nprint(\"Length:\", len(word))\n\n# 1) Print just the first THREE letters using slicing (word[:3]):\n# print(\"First 3 letters:\", word[:3])\n\n# 2) Print the word with every \"a\" replaced by \"o\" (use .replace):\n# print(\"Magic word:\", word.replace(\"a\", \"o\"))\n",
+  "inputPlaceholder": "magic",
+  "inputHint": "Type one word for the wizard to transform.",
+  "tests": [
+    {
+      "name": "The word 'magic'",
+      "input": ["magic"],
+      "expect": ["5", "mag", "mogic"]
+    },
+    {
+      "name": "The word 'dragon'",
+      "input": ["dragon"],
+      "expect": ["6", "dra", "drogon"]
+    }
+  ],
+  "successMessage": "Magical! 🪄 You measured, sliced, and transformed text like a true Word Wizard. len(), slicing, and .replace() are super handy string tools!"
+}

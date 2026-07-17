@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { runPythonInBrowser } from './pyodide';
 
 // The backend serves every route under an `/api` prefix. Normalise whatever is
 // configured so the base URL always ends with `/api`, even if the deploy env var
@@ -41,7 +42,13 @@ export const courseService = {
 };
 
 export const compilerService = {
-  runPython: (code, stdin = '') => api.post('/run-python', { code, stdin }),
+  // Python now runs entirely in the browser (Pyodide in a Web Worker). The
+  // result is wrapped as { data } so existing callers (res.data.output) are
+  // unchanged. The backend /run-python endpoint is kept but no longer used.
+  runPython: async (code, stdin = '') => {
+    const result = await runPythonInBrowser(code, stdin);
+    return { data: result };
+  },
 };
 
 export const quizService = {

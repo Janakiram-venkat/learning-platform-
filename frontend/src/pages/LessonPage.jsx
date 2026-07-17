@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { courseService, compilerService, quizService } from '../services/api';
+import { courseService, quizService } from '../services/api';
 import Sidebar from '../components/layout/Sidebar';
 import CodeEditor from '../components/editor/CodeEditor';
-import OutputPanel from '../components/editor/OutputPanel';
+import Terminal from '../components/editor/Terminal';
+import { useCodeRunner } from '../hooks/useCodeRunner';
 import Celebration from '../components/feedback/Celebration';
 import FeedbackModal from '../components/feedback/FeedbackModal';
 import { getUnlockedLessonIds, awardXPOnce, shouldAskFeedback, markFeedbackAsked, notifyProgressChange } from '../utils/progress';
@@ -23,10 +24,9 @@ export default function LessonPage() {
   const [loading, setLoading] = useState(true);
   
   const [code, setCode] = useState('');
-  const [output, setOutput] = useState('');
-  const [isRunning, setIsRunning] = useState(false);
-  const [runError, setRunError] = useState('');
-  
+  const [starterCode, setStarterCode] = useState('');
+  const runner = useCodeRunner();
+
   const [quizAnswers, setQuizAnswers] = useState({});
   const [quizResult, setQuizResult] = useState(null);
   const [celebration, setCelebration] = useState(null);
@@ -67,8 +67,9 @@ export default function LessonPage() {
   useEffect(() => {
     if (!course) return;
     const saved = parseFloat(localStorage.getItem(splitKey));
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- load the saved split once the course/panel type is known
     setSplitPct(Number.isFinite(saved) ? clampSplit(saved) : defaultSplit);
-  }, [course, splitKey, defaultSplit]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [course, splitKey, defaultSplit]);
 
   useEffect(() => {
     if (course) localStorage.setItem(splitKey, String(splitPct));
@@ -104,6 +105,7 @@ export default function LessonPage() {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the view state when the lesson changes and we refetch
     setLoading(true);
     setQuizResult(null);
     setQuizAnswers({});
@@ -111,8 +113,7 @@ export default function LessonPage() {
     setFeedbackOpen(false);
     setPendingAdvance(false);
     setSignInOpen(false);
-    setOutput('');
-    setRunError('');
+    runner.reset();
 
     // Fetch Course & Lesson
     Promise.all([
@@ -131,6 +132,7 @@ export default function LessonPage() {
       const lessonData = lessonRes.data.data;
       setLesson(lessonData);
       setCode(lessonData.editorCode || '');
+      setStarterCode(lessonData.editorCode || '');
     }).catch(err => {
       console.error("Failed to load lesson data", err);
     }).finally(() => {
@@ -142,6 +144,7 @@ export default function LessonPage() {
   // module's Interactive Lab instead of a Python editor. Fetch it once we know
   // the course + which lesson we're on.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- clear/refetch the lab when the course or lesson changes
     if (!course || !lesson) { setLab(null); return; }
     if (course.hasEditor !== false) { setLab(null); return; }
     const parent = course.modules?.find(m => m.lessons?.some(l => l.lessonId === lessonId));
@@ -154,18 +157,7 @@ export default function LessonPage() {
     return () => { active = false; };
   }, [course, lesson, courseId, lessonId]);
 
-  const handleRunCode = async () => {
-    setIsRunning(true);
-    setRunError('');
-    try {
-      const res = await compilerService.runPython(code);
-      setOutput(res.data.output);
-    } catch (err) {
-      setRunError('Failed to execute code. Please try again.');
-    } finally {
-      setIsRunning(false);
-    }
-  };
+  const handleRunCode = () => runner.run(code);
 
   const handleQuizSubmit = async () => {
     if (!lesson.quiz) return;
@@ -557,22 +549,28 @@ export default function LessonPage() {
             </h3>
             <button
               onClick={handleRunCode}
-              disabled={isRunning}
+              disabled={runner.running}
+              title="Run (Ctrl/Cmd + Enter)"
               className="lab-btn bg-pcb text-white border-2 border-ink px-6 py-2.5 rounded-lg font-extrabold flex items-center disabled:opacity-60"
             >
               <Play className="w-5 h-5 mr-2" />
-              {isRunning ? 'Running…' : 'Run Code'}
+              {runner.running ? 'Running…' : 'Run Code'}
             </button>
           </div>
-          <div className="flex-1 min-h-0 rounded-xl overflow-hidden border-2 border-ink/15 bg-white">
-            <CodeEditor code={code} onChange={setCode} />
+          <div className="flex-1 min-h-0">
+            <CodeEditor code={code} onChange={setCode} onRun={handleRunCode} starterCode={starterCode} />
           </div>
         </div>
 
         {/* Output Area */}
         <div className="flex h-[40vh] flex-col bg-paper p-4 sm:p-5 lg:h-[35%]">
           <div className="flex-1 min-h-0 rounded-xl overflow-hidden border-2 border-ink">
-            <OutputPanel output={output} isRunning={isRunning} error={runError} />
+            <Terminal
+              lines={runner.lines}
+              running={runner.running}
+              waiting={runner.waiting}
+              onSubmit={runner.submitInput}
+            />
           </div>
         </div>
 

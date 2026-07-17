@@ -1,0 +1,29 @@
+{
+  "moduleId": 5,
+  "title": "Treasure Bag",
+  "emoji": "🎒",
+  "brief": "A list lets you keep many things in one variable, all in order. Your Treasure Bag starts with two items, then you'll add a new one with .append(), count everything with len(), and show the whole bag. Fill in the three lines, then press Check Project!",
+  "steps": [
+    "The bag already holds \"sword\" and \"shield\", and the program asks the user for a new treasure.",
+    "Add the new item to the end of the list using bag.append(new_item).",
+    "Print how many items are in the bag now using len(bag).",
+    "Print the whole bag with print(bag).",
+    "Run it, add a treasure, then press Check Project."
+  ],
+  "starterCode": "# 🎒 Treasure Bag, collect items in a list!\n\nbag = [\"sword\", \"shield\"]\n\nnew_item = input(\"What treasure do you want to add? \")\n\n# 1) Add new_item to the end of the bag using .append()\n# bag.append(new_item)\n\n# 2) Print how many items are in the bag now (use len):\n# print(\"Items in bag:\", len(bag))\n\n# 3) Print the whole bag:\n# print(bag)\n",
+  "inputPlaceholder": "potion",
+  "inputHint": "Type one treasure to add to the bag.",
+  "tests": [
+    {
+      "name": "Add a potion",
+      "input": ["potion"],
+      "expect": ["3", "sword", "shield", "potion"]
+    },
+    {
+      "name": "Add a map",
+      "input": ["map"],
+      "expect": ["3", "sword", "shield", "map"]
+    }
+  ],
+  "successMessage": "Nice haul! 🎒 Your list grows with .append(), counts itself with len(), and keeps everything in order. That's exactly what lists are made for!"
+}

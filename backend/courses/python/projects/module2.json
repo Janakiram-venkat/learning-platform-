@@ -2,18 +2,33 @@
   "moduleId": 2,
   "title": "Age Checker",
   "emoji": "🚦",
-  "brief": "Build a smart program that checks an age and decides what to say. You'll use if, elif, and else, the decision-making tools from Module 2!",
+  "brief": "Build a smart program that asks for an age and decides what to say back! You'll use if, elif, and else, the decision-making tools from Module 2. Your checker gives THREE different answers: adult, teenager, or kid, depending on the age. The first case is written for you as an example, then you add the other two. Run it to try it yourself, then press Check Project to test all three ages!",
   "steps": [
-    "Make a variable called age with any number you like.",
-    "If the age is 13 or more, print \"You are a teenager!\".",
-    "Otherwise (else), print \"You are a kid!\".",
-    "Run it, then try changing the age to test both messages."
+    "The first line is done for you: age = int(input(\"...\")) asks for an age and int() turns the typed text into a real number.",
+    "The first case is also done as an example: if age >= 18: print(\"You are an adult!\").",
+    "Add an elif age >= 13: line that prints \"You are a teenager!\" for teenagers.",
+    "Add an else: line that prints \"You are a kid!\" for everyone younger.",
+    "Run it and type different ages, then press Check Project to test all three."
   ],
-  "starterCode": "age=\nif :\n    print(\"You are a !\")\nelse:\n    print(\"You are a !\")",
-  "checks": [
-    { "label": "You used an 'if' statement", "codeContains": "if " },
-    { "label": "You used 'else'", "codeContains": "else" },
-    { "label": "It prints one of the two messages", "outputContains": "You are a" }
+  "starterCode": "# 🚦 Age Checker, it decides what to say based on an age!\n\n# Ask for an age. int() turns the typed text into a number so we can compare it.\nage = int(input(\"How old are you? \"))\n\n# We check the age and print a different message for each case.\n# The FIRST case is done for you as an example:\nif age >= 18:\n    print(\"You are an adult!\")\n\n# 👇 Your turn! Add the other two cases:\n\n# 1) If age is 13 or more (but less than 18), print:  You are a teenager!\n# elif age >= 13:\n#     print(\"You are a teenager!\")\n\n# 2) Otherwise (else), print:  You are a kid!\n# else:\n#     print(\"You are a kid!\")\n",
+  "inputPlaceholder": "10",
+  "inputHint": "Your checker asks 1 question, so type 1 answer: an age (a number).",
+  "tests": [
+    {
+      "name": "20 is an adult",
+      "input": ["20"],
+      "expect": ["adult"]
+    },
+    {
+      "name": "15 is a teenager",
+      "input": ["15"],
+      "expect": ["teenager"]
+    },
+    {
+      "name": "8 is a kid",
+      "input": ["8"],
+      "expect": ["kid"]
+    }
   ],
-  "successMessage": "Nice! Your program makes its own decisions now. 🚦 That's the power of if/else!"
+  "successMessage": "Nice work! Your Age Checker makes its own decisions now. 🚦 It looks at any age and picks the right message using if, elif, and else, that's the real power of decision-making in Python!"
 }

@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { courseService, compilerService } from '../services/api';
 import CodeEditor from '../components/editor/CodeEditor';
-import OutputPanel from '../components/editor/OutputPanel';
+import Terminal from '../components/editor/Terminal';
+import { useCodeRunner } from '../hooks/useCodeRunner';
 import Celebration from '../components/feedback/Celebration';
 import {
   isAssignmentUnlocked,
@@ -12,7 +13,7 @@ import {
   getNextLessonAfterModule,
   notifyProgressChange,
 } from '../utils/progress';
-import { Play, CheckCircle2, Circle, ListChecks, Hammer, Loader2, Trophy, ArrowRight, XCircle, Terminal } from 'lucide-react';
+import { Play, CheckCircle2, Circle, ListChecks, Hammer, Loader2, Trophy, ArrowRight, XCircle } from 'lucide-react';
 
 const PROJECT_XP = 80;
 
@@ -58,10 +59,8 @@ export default function ProjectPage() {
   const [notFound, setNotFound] = useState(false);
 
   const [code, setCode] = useState('');
-  const [stdinInput, setStdinInput] = useState('');
-  const [output, setOutput] = useState('');
-  const [isRunning, setIsRunning] = useState(false);
-  const [runError, setRunError] = useState('');
+  const [starterCode, setStarterCode] = useState('');
+  const runner = useCodeRunner();
 
   const [checkResults, setCheckResults] = useState(null); // legacy checks: array of bool | null
   const [testResults, setTestResults] = useState(null);   // test cases: array of bool | null
@@ -70,6 +69,7 @@ export default function ProjectPage() {
 
   useEffect(() => {
     let active = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the loading flag when the route params change and we refetch
     setLoading(true);
     Promise.all([
       courseService.getCourse(courseId),
@@ -89,27 +89,27 @@ export default function ProjectPage() {
         const data = projectRes.data.data;
         setProject(data);
         setCode(data.starterCode || '');
-        setStdinInput(data.inputPlaceholder || '');
+        setStarterCode(data.starterCode || '');
       })
       .catch(() => { if (active) setNotFound(true); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, [courseId, moduleId, navigate]);
 
-  const runCode = useCallback(async () => {
-    setIsRunning(true);
-    setRunError('');
+  // The green "Run" button drives the interactive terminal (input() prompts
+  // pause and ask the learner for a line).
+  const runCode = useCallback(() => runner.run(code), [runner, code]);
+
+  // Run once, non-interactively, feeding a fixed stdin — used by "Check Project"
+  // to grade each test case against its own input.
+  const runOnce = useCallback(async (stdin) => {
     try {
-      const res = await compilerService.runPython(code, stdinInput);
-      setOutput(res.data.output);
+      const res = await compilerService.runPython(code, stdin);
       return res.data.output;
     } catch {
-      setRunError('Failed to run your code. Please try again.');
       return null;
-    } finally {
-      setIsRunning(false);
     }
-  }, [code, stdinInput]);
+  }, [code]);
 
   const handleCheck = async () => {
     setChecking(true);
@@ -120,24 +120,15 @@ export default function ProjectPage() {
     if (tests.length > 0) {
       // Run the student's code once per test case, feeding each its own input.
       const results = [];
-      let lastOutput = '';
       for (const t of tests) {
-        let out = null;
-        try {
-          const res = await compilerService.runPython(code, toStdin(t.input));
-          out = res.data.output;
-          lastOutput = out;
-        } catch {
-          setRunError('Failed to run your code. Please try again.');
-        }
+        const out = await runOnce(toStdin(t.input));
         results.push(testPasses(t, out));
       }
       setTestResults(results);
-      setOutput(lastOutput); // show the output of the final test case
       allGoalsPassed = results.length > 0 && results.every(Boolean);
     } else {
       // Legacy projects: substring checks against a single run.
-      const out = await runCode();
+      const out = await runOnce('');
       const checks = project.checks || [];
       const results = checks.map(c => checkPasses(c, code, out ?? ''));
       setCheckResults(results);
@@ -358,14 +349,15 @@ export default function ProjectPage() {
             <div className="flex gap-2">
               <button
                 onClick={runCode}
-                disabled={isRunning}
+                disabled={runner.running}
+                title="Run (Ctrl/Cmd + Enter)"
                 className="lab-btn flex items-center rounded-lg border-2 border-ink bg-white px-4 py-2.5 font-extrabold text-ink disabled:opacity-60"
               >
-                <Play className="mr-2 h-5 w-5" /> {isRunning ? 'Running...' : 'Run'}
+                <Play className="mr-2 h-5 w-5" /> {runner.running ? 'Running...' : 'Run'}
               </button>
               <button
                 onClick={handleCheck}
-                disabled={isRunning || checking}
+                disabled={runner.running || checking}
                 className="lab-btn flex items-center rounded-lg border-2 border-ink bg-signal px-4 py-2.5 font-extrabold text-ink disabled:opacity-60"
               >
                 {checking ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <CheckCircle2 className="mr-2 h-5 w-5" />}
@@ -373,32 +365,22 @@ export default function ProjectPage() {
               </button>
             </div>
           </div>
-          <div className="min-h-0 flex-1 overflow-hidden rounded-xl border border-gray-300 bg-white shadow-sm">
-            <CodeEditor code={code} onChange={setCode} />
+          <div className="min-h-0 flex-1">
+            <CodeEditor code={code} onChange={setCode} onRun={runCode} starterCode={starterCode} filename="project.py" />
           </div>
         </div>
 
         <div className="flex h-[40vh] flex-col gap-3 bg-gray-50 p-4 sm:p-5 lg:h-[40%]">
-          {usesInput && (
-            <div className="shrink-0">
-              <label className="mb-1 flex items-center gap-1.5 text-sm font-bold text-ink/70">
-                <Terminal className="h-4 w-4 text-pcb" /> What you say to the bot
-              </label>
-              <textarea
-                value={stdinInput}
-                onChange={(e) => setStdinInput(e.target.value)}
-                rows={2}
-                spellCheck={false}
-                placeholder={project.inputPlaceholder || 'Type one answer per line...'}
-                className="w-full resize-none rounded-xl border-2 border-ink/20 bg-white p-2.5 font-mono text-sm text-ink shadow-inner focus:border-pcb focus:outline-none focus:ring-2 focus:ring-pcb/30"
-              />
-              {project.inputHint && (
-                <p className="mt-1 text-xs text-gray-500">{project.inputHint}</p>
-              )}
-            </div>
-          )}
           <div className="min-h-0 flex-1 overflow-hidden rounded-xl border border-gray-300 shadow-inner">
-            <OutputPanel output={output} isRunning={isRunning} error={runError} />
+            <Terminal
+              lines={runner.lines}
+              running={runner.running}
+              waiting={runner.waiting}
+              onSubmit={runner.submitInput}
+              emptyHint={usesInput
+                ? 'Run your code — when the bot asks a question, type your answer right here.'
+                : 'Run your code to see the output here…'}
+            />
           </div>
         </div>
       </div>

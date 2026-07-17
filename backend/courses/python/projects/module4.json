@@ -1,0 +1,33 @@
+{
+  "moduleId": 4,
+  "title": "Doubling Machine",
+  "emoji": "🔢",
+  "brief": "Let's build your very own function, a reusable machine you can call again and again! Your Doubling Machine takes a number, doubles it, and hands the answer back with return. Finish the double() function so it returns the number times 2, run it, then press Check Project to test a few numbers.",
+  "steps": [
+    "Look at the function double(number). Right now it just says pass, so it hands nothing back.",
+    "Replace the pass line with return number * 2 so the function returns the doubled value.",
+    "The bottom part already asks for a number, calls your function, and prints the answer.",
+    "Run it and try a number, then press Check Project."
+  ],
+  "starterCode": "# 🔢 Doubling Machine, give it a number and it hands back double!\n\n# 1) Finish this function so it RETURNS the number times 2:\ndef double(number):\n    # return number * 2\n    pass\n\n# This part asks for a number and uses your function:\nn = int(input(\"Give me a number to double: \"))\nanswer = double(n)\nprint(\"Doubled:\", answer)\n",
+  "inputPlaceholder": "5",
+  "inputHint": "Type one number for the machine to double.",
+  "tests": [
+    {
+      "name": "Double 5 is 10",
+      "input": ["5"],
+      "expect": ["10"]
+    },
+    {
+      "name": "Double 20 is 40",
+      "input": ["20"],
+      "expect": ["40"]
+    },
+    {
+      "name": "Double 7 is 14",
+      "input": ["7"],
+      "expect": ["14"]
+    }
+  ],
+  "successMessage": "Boom! 🔢 You built a real function that takes a number in and returns an answer, then reused it on any number. That's exactly how programmers avoid writing the same code over and over!"
+}

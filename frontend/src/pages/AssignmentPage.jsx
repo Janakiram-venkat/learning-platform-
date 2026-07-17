@@ -86,6 +86,7 @@ export default function AssignmentPage() {
 
   useEffect(() => {
     let active = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the loading flag when the route params change and we refetch
     setLoading(true);
     Promise.all([
       courseService.getCourse(courseId),
@@ -118,6 +119,7 @@ export default function AssignmentPage() {
   // Reset per-round state whenever we move to a new round.
   useEffect(() => {
     if (!round) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentionally reset per-round UI state when we advance to a new round
     setSelected(null);
     setLocked(false);
     setWrongThisRound(false);
@@ -289,6 +291,7 @@ export default function AssignmentPage() {
   };
   const handleDrop = (handler) => (e) => {
     e.preventDefault();
+    // eslint-disable-next-line react-hooks/refs -- this runs inside the drop event handler, not during render
     const payload = dragRef.current;
     setDragOver(null);
     dragRef.current = null;

@@ -1,0 +1,29 @@
+{
+  "moduleId": 7,
+  "title": "Build-A-Pet",
+  "emoji": "🐾",
+  "brief": "Time to design your own kind of thing with a class! A class is a blueprint, and each pet you make from it is an object. The __init__ is done for you, so finish the speak() method, then create a Pet object and make it talk. Run it, then press Check Project!",
+  "steps": [
+    "The Pet class already stores a name and a sound in __init__ (done for you).",
+    "Finish the speak() method so it prints, for example: Buddy says Woof!",
+    "The program asks the user to name their pet.",
+    "Make a Pet called my_pet with that name and the sound \"Woof\", then call my_pet.speak().",
+    "Run it, name your pet, then press Check Project."
+  ],
+  "starterCode": "# 🐾 Build-A-Pet, make your own pet that can talk!\n\nclass Pet:\n    # __init__ stores each pet's name and sound (done for you):\n    def __init__(self, name, sound):\n        self.name = name\n        self.sound = sound\n\n    # 1) Finish this method so it prints, for example:  Buddy says Woof!\n    def speak(self):\n        # print(self.name + \" says \" + self.sound + \"!\")\n        pass\n\nname = input(\"Name your pet: \")\n\n# 2) Make a Pet called my_pet with your name and the sound \"Woof\",\n#    then make it speak:\n# my_pet = Pet(name, \"Woof\")\n# my_pet.speak()\n",
+  "inputPlaceholder": "Buddy",
+  "inputHint": "Type a name for your pet.",
+  "tests": [
+    {
+      "name": "A pet named Buddy",
+      "input": ["Buddy"],
+      "expect": ["buddy says woof"]
+    },
+    {
+      "name": "A pet named Rex",
+      "input": ["Rex"],
+      "expect": ["rex says woof"]
+    }
+  ],
+  "successMessage": "It's alive! 🐾 You wrote a class, gave it a speak() method, and made a real object from your blueprint. That's object-oriented programming, one of Python's superpowers!"
+}

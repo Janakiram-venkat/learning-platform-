@@ -17,6 +17,7 @@ export default function LabPage() {
 
   useEffect(() => {
     let active = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the loading flag when the route params change and we refetch
     setLoading(true);
     Promise.all([
       courseService.getCourse(courseId),

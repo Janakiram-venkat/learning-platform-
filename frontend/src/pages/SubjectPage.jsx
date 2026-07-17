@@ -29,6 +29,7 @@ export default function SubjectPage() {
   // their course.json). Subjects without courses fall back to the class picker.
   useEffect(() => {
     let active = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the loading flag when `subject` changes and we refetch
     setLoading(true);
     courseService.getCourses()
       .then((res) => {

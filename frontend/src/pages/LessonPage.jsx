@@ -5,9 +5,11 @@ import Sidebar from '../components/layout/Sidebar';
 import CodeEditor from '../components/editor/CodeEditor';
 import Terminal from '../components/editor/Terminal';
 import { useCodeRunner } from '../hooks/useCodeRunner';
+import { useCourseContent } from '../hooks/useCourseContent';
+import { useCompletionFlow } from '../hooks/useCompletionFlow';
 import Celebration from '../components/feedback/Celebration';
 import FeedbackModal from '../components/feedback/FeedbackModal';
-import { getUnlockedLessonIds, awardXPOnce, shouldAskFeedback, markFeedbackAsked, notifyProgressChange } from '../utils/progress';
+import { getUnlockedLessonIds, awardXPOnce, lessons as completedLessons } from '../lib/progress';
 import LessonSimulation from '../components/lesson/LessonSimulation';
 import LabRunner from '../components/lab/LabRunner';
 import SignInModal from '../components/auth/SignInModal';
@@ -19,10 +21,12 @@ export default function LessonPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  const [course, setCourse] = useState(null);
-  const [lesson, setLesson] = useState(null);
-  const [loading, setLoading] = useState(true);
-  
+  const { course, item: lesson, loading } = useCourseContent(courseId, 'lesson', lessonId);
+  const {
+    celebration, setCelebration, closeCelebration,
+    feedbackOpen, closeFeedback, complete, reset: resetCompletion,
+  } = useCompletionFlow();
+
   const [code, setCode] = useState('');
   const [starterCode, setStarterCode] = useState('');
   const runner = useCodeRunner();
@@ -32,9 +36,6 @@ export default function LessonPage() {
 
   const [quizAnswers, setQuizAnswers] = useState({});
   const [quizResult, setQuizResult] = useState(null);
-  const [celebration, setCelebration] = useState(null);
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
-  const [pendingAdvance, setPendingAdvance] = useState(false);
   const [signInOpen, setSignInOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [lab, setLab] = useState(null); // { data, moduleKey } — embedded in the right panel for no-code courses
@@ -107,41 +108,29 @@ export default function LessonPage() {
     };
   }, []);
 
+  // Moving to a new lesson is a clean slate for everything the student was
+  // part-way through on the previous one.
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the view state when the lesson changes and we refetch
-    setLoading(true);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the view state when the lesson changes
     setQuizResult(null);
     setQuizAnswers({});
-    setCelebration(null);
-    setFeedbackOpen(false);
-    setPendingAdvance(false);
     setSignInOpen(false);
+    resetCompletion();
     resetRunner();
+  }, [courseId, lessonId, resetRunner, resetCompletion]);
 
-    // Fetch Course & Lesson
-    Promise.all([
-      courseService.getCourse(courseId),
-      courseService.getLesson(courseId, lessonId)
-    ]).then(([courseRes, lessonRes]) => {
-      const courseData = courseRes.data.data;
-      setCourse(courseData);
+  // Seed the editor from the lesson once it arrives.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- seed the editor from the lesson we just fetched
+    setCode(lesson?.editorCode || '');
+    setStarterCode(lesson?.editorCode || '');
+  }, [lesson]);
 
-      // Block direct access to a locked lesson — bounce back to the course list.
-      if (!getUnlockedLessonIds(courseData).has(lessonId)) {
-        navigate('/', { replace: true });
-        return;
-      }
-
-      const lessonData = lessonRes.data.data;
-      setLesson(lessonData);
-      setCode(lessonData.editorCode || '');
-      setStarterCode(lessonData.editorCode || '');
-    }).catch(err => {
-      console.error("Failed to load lesson data", err);
-    }).finally(() => {
-      setLoading(false);
-    });
-  }, [courseId, lessonId, resetRunner, navigate]);
+  // Block direct access to a locked lesson — bounce back to the course list.
+  useEffect(() => {
+    if (!course) return;
+    if (!getUnlockedLessonIds(course).has(lessonId)) navigate('/', { replace: true });
+  }, [course, lessonId, navigate]);
 
   // For no-code courses (course.hasEditor === false), the right panel hosts the
   // module's Interactive Lab instead of a Python editor. Fetch it once we know
@@ -234,70 +223,45 @@ export default function LessonPage() {
 
   const handleMarkComplete = () => {
     if (!quizPassed) return;
-    const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-    if (!completed.includes(lessonId)) {
-      completed.push(lessonId);
-      localStorage.setItem('completedLessons', JSON.stringify(completed));
-      notifyProgressChange();
-    }
+    completedLessons.mark(lessonId);
 
-    // Did finishing this lesson complete its whole module? If so, award a badge.
+    // Did finishing this lesson complete its whole module? If so, that earns
+    // the module badge — otherwise it's a plain lesson celebration.
     const parentModule = course?.modules?.find(m =>
       m.lessons?.some(l => l.lessonId === lessonId)
     );
-    if (parentModule) {
-      const moduleDone = parentModule.lessons.every(l => completed.includes(l.lessonId));
-      const badgeId = `module-${parentModule.moduleId ?? parentModule.id}`;
-      const badges = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
-      if (moduleDone && !badges.some(b => b.id === badgeId)) {
-        badges.push({
-          id: badgeId,
+    const done = new Set(completedLessons.all());
+    const moduleDone = !!parentModule && parentModule.lessons.every(l => done.has(l.lessonId));
+
+    complete({
+      badge: moduleDone
+        ? {
+          id: `module-${parentModule.moduleId ?? parentModule.id}`,
           name: `${parentModule.title} Complete`,
           type: 'module',
-          earnedAt: new Date().toISOString(),
-        });
-        localStorage.setItem('earnedBadges', JSON.stringify(badges));
-        notifyProgressChange();
-        // Show the celebration; navigate to the next lesson once it closes.
-        setCelebration({
+        }
+        : undefined,
+      celebration: ({ badgeAwarded }) => (badgeAwarded
+        ? {
           title: 'Module Complete! 🏆',
           message: `You finished "${parentModule.title}". A new badge is waiting in your profile.`,
           badge: `${parentModule.title} Complete`,
           next: true,
-        });
-        return;
-      }
-    }
-
-    // Regular lesson finished — celebrate with an animation (no badge), then advance.
-    setCelebration({
-      variant: 'lesson',
-      title: 'Lesson Complete! ✅',
-      message: 'Nice progress! Keep going to finish the module and earn its badge.',
-      next: true,
+        }
+        : {
+          variant: 'lesson',
+          title: 'Lesson Complete! ✅',
+          message: 'Nice progress! Keep going to finish the module and earn its badge.',
+          next: true,
+        }),
     });
   };
 
+  // The celebration knows whether finishing this lesson should move the student
+  // on; the feedback prompt (when one is due) slots in before that happens.
   const handleCelebrationClose = () => {
     const advance = celebration?.next;
-    setCelebration(null);
-    // After finishing a module, occasionally ask for feedback before moving
-    // on. Hold off navigating until the feedback modal is dismissed.
-    if (shouldAskFeedback()) {
-      setPendingAdvance(advance);
-      setFeedbackOpen(true);
-      return;
-    }
-    if (advance) advanceToNext();
-  };
-
-  const handleFeedbackClose = () => {
-    markFeedbackAsked();
-    setFeedbackOpen(false);
-    if (pendingAdvance) {
-      setPendingAdvance(false);
-      advanceToNext();
-    }
+    closeCelebration(advance ? advanceToNext : undefined);
   };
 
   if (loading) return <div className="flex-1 flex items-center justify-center bg-paper font-lab font-bold text-ink/60">Loading lesson…</div>;
@@ -331,7 +295,7 @@ export default function LessonPage() {
       <FeedbackModal
         open={feedbackOpen}
         courseId={courseId}
-        onClose={handleFeedbackClose}
+        onClose={closeFeedback}
       />
 
       {/* Chapter gate: students must be signed in to move on to the next lesson. */}

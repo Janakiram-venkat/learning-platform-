@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Star, X } from 'lucide-react';
 import { feedbackService } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
-import { getCompletedModuleCount } from '../../utils/progress';
+import { getCompletedModuleCount } from '../../lib/progress';
 
 // Asked after every few modules: a 5-star rating for content + animations
 // plus an optional comment box for improvement ideas. Saved to the backend.

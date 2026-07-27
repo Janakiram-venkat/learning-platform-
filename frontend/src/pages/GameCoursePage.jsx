@@ -4,7 +4,7 @@ import { courseService } from '../services/api';
 import { Lock, Gamepad2, CheckCircle2, ArrowRight, BookOpen } from 'lucide-react';
 import {
   countGameStepsDone, isGameModuleUnlocked,
-} from '../utils/progress';
+} from '../lib/progress';
 
 // The game course's front door: one card per module, each one a whole game.
 export default function GameCoursePage() {

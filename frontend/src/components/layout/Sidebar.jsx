@@ -8,7 +8,7 @@ import {
   getAssignmentKey,
   getModuleNumericId,
   isProjectCompleted,
-} from '../../utils/progress';
+} from '../../lib/progress';
 
 export default function Sidebar({ course, currentLessonId, currentProjectKey, onNavigate }) {
   if (!course) return <div className="w-full bg-paper border-r-2 border-ink/15 h-full p-4 text-ink/60">Loading…</div>;

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { progressService } from '../services/api';
-import { snapshotProgress, applyProgress, clearProgress } from '../utils/progress';
+import { snapshotProgress, applyProgress, clearProgress } from '../lib/progress';
 
 /**
  * Keeps each signed-in student's progress in sync with the backend.

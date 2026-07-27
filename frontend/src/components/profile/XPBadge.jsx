@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Zap } from 'lucide-react';
-import { getXP, getLevelInfo } from '../../utils/progress';
+import { getXP, getLevelInfo } from '../../lib/progress';
 
 /**
  * Live XP + level pill for the navbar. Updates instantly whenever XP is

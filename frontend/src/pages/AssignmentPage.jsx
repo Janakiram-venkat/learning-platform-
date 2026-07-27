@@ -1,14 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { courseService } from '../services/api';
+import { useCourseContent } from '../hooks/useCourseContent';
+import { useCompletionFlow } from '../hooks/useCompletionFlow';
 import {
   isAssignmentUnlocked,
-  markAssignmentComplete,
   getAssignmentKey,
-  awardXPOnce,
+  markAssignmentComplete,
   getNextLessonAfterModule,
-  notifyProgressChange,
-} from '../utils/progress';
+} from '../lib/progress';
 import {
   Sparkles, Bug, Wand2, Brain, Blocks, Flame, Check, X,
   ArrowRight, RotateCcw, Star, Trophy, Lightbulb, Link2,
@@ -44,10 +43,10 @@ export default function AssignmentPage() {
   const { courseId, moduleId } = useParams(); // moduleId e.g. "module1"
   const navigate = useNavigate();
 
-  const [assignment, setAssignment] = useState(null);
-  const [course, setCourse] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  const { course, item: assignment, loading } = useCourseContent(courseId, 'assignment', moduleId);
+  // The arcade renders its own results screen, so only the recording half of
+  // the completion flow is used here.
+  const { complete } = useCompletionFlow();
 
   // --- Game state ---
   const [index, setIndex] = useState(0);
@@ -84,37 +83,13 @@ export default function AssignmentPage() {
   // first lesson, so they continue with content instead of the course list.
   const nextLessonId = getNextLessonAfterModule(course, moduleId.replace('module', ''));
 
+  // Don't let students jump into the arcade before finishing the module.
   useEffect(() => {
-    let active = true;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the loading flag when the route params change and we refetch
-    setLoading(true);
-    Promise.all([
-      courseService.getCourse(courseId),
-      courseService.getAssignment(courseId, moduleId),
-    ])
-      .then(([courseRes, assignmentRes]) => {
-        if (!active) return;
-        const course = courseRes.data.data;
-        const numericId = moduleId.replace('module', '');
-        const mod = course.modules?.find(
-          m => String(m.moduleId ?? m.id) === numericId
-        );
-        // Don't let students jump into the arcade before finishing the module.
-        if (!mod || !isAssignmentUnlocked(mod)) {
-          navigate('/', { replace: true });
-          return;
-        }
-        setCourse(course);
-        setAssignment(assignmentRes.data.data);
-      })
-      .catch(() => {
-        if (active) setNotFound(true);
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-    return () => { active = false; };
-  }, [courseId, moduleId, navigate]);
+    if (!course) return;
+    const numericId = moduleId.replace('module', '');
+    const mod = course.modules?.find(m => String(m.moduleId ?? m.id) === numericId);
+    if (!mod || !isAssignmentUnlocked(mod)) navigate('/', { replace: true });
+  }, [course, moduleId, navigate]);
 
   // Reset per-round state whenever we move to a new round.
   useEffect(() => {
@@ -302,30 +277,30 @@ export default function AssignmentPage() {
     const ratio = total > 0 ? firstTryCorrect / total : 0;
     const earnedStars = ratio === 1 ? 3 : ratio >= 0.6 ? 2 : 1;
     setStars(earnedStars);
-    markAssignmentComplete(getAssignmentKey({ moduleId: moduleId.replace('module', '') }), earnedStars);
 
-    // XP: 20 per first-try-correct round + a star bonus. Once per module.
-    const gained = awardXPOnce(`arcade-${moduleId}`, firstTryCorrect * 20 + earnedStars * 10);
+    // Completion is recorded with the star score attached (best score wins), so
+    // it goes through markAssignmentComplete rather than the generic path.
+    markAssignmentComplete(
+      getAssignmentKey({ moduleId: moduleId.replace('module', '') }),
+      earnedStars,
+    );
+
+    // The arcade shows its own results screen instead of the shared celebration
+    // modal, so this just awards the XP + badge and hands back the XP figure.
+    const { xpGained: gained } = complete({
+      // XP: 20 per first-try-correct round + a star bonus. Once per module.
+      xpKey: `arcade-${moduleId}`,
+      xp: firstTryCorrect * 20 + earnedStars * 10,
+      badge: {
+        id: `arcade-${moduleId}`,
+        name: `${assignment.title} Champion`,
+        type: 'arcade',
+      },
+    });
     setXpGained(gained);
 
-    // Drop an arcade badge into the profile (once).
-    try {
-      const badges = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
-      const badgeId = `arcade-${moduleId}`;
-      if (!badges.some(b => b.id === badgeId)) {
-        badges.push({
-          id: badgeId,
-          name: `${assignment.title} Champion`,
-          type: 'arcade',
-          earnedAt: new Date().toISOString(),
-        });
-        localStorage.setItem('earnedBadges', JSON.stringify(badges));
-        notifyProgressChange();
-      }
-    } catch { /* ignore storage errors */ }
-
     setFinished(true);
-  }, [total, firstTryCorrect, moduleId, assignment]);
+  }, [total, firstTryCorrect, moduleId, assignment, complete]);
 
   const next = () => {
     if (index + 1 >= total) finish();
@@ -349,7 +324,7 @@ export default function AssignmentPage() {
     );
   }
 
-  if (notFound || !assignment) {
+  if (!assignment) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24 text-center">
         <span className="text-5xl">🚧</span>

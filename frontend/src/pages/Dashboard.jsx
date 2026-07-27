@@ -9,7 +9,7 @@ import { INTERESTS } from '../constants/interests';
 import {
   getXP, getLevelInfo, getCompletedLessons, getCompletedAssignments,
   getCompletedProjects, getCompletedLabs,
-} from '../utils/progress';
+} from '../lib/progress';
 
 const prefersReduced = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

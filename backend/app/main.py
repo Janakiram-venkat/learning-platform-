@@ -1,7 +1,7 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import courses, lessons, compiler, quiz, users, feedback
+from app.api import courses, lessons, quiz, users, feedback
 from app.db import Base, engine
 from app.models import user as _user_model  # noqa: F401  (register model with Base)
 from app.models import feedback as _feedback_model  # noqa: F401  (register model with Base)
@@ -26,7 +26,10 @@ app.add_middleware(
 
 app.include_router(courses.router, prefix="/api", tags=["Courses"])
 app.include_router(lessons.router, prefix="/api", tags=["Lessons"])
-app.include_router(compiler.router, prefix="/api", tags=["Compiler"])
+# NOTE: the old /run-python endpoint is gone. Python now runs entirely in the
+# browser (Pyodide in a Web Worker) — see frontend/src/services/pyodide.js.
+# The server-side runner shelled out to `python -c <user code>` with no sandbox,
+# so it was removed rather than left mounted.
 app.include_router(quiz.router, prefix="/api", tags=["Quiz"])
 app.include_router(users.router, prefix="/api", tags=["Users"])
 app.include_router(feedback.router, prefix="/api", tags=["Feedback"])

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { getXP, getLevelInfo } from '../../utils/progress';
+import { getXP, getLevelInfo } from '../../lib/progress';
 import { INTERESTS } from '../../constants/interests';
 import { Award, LogOut, Mail, CalendarDays, Layers, Zap, Heart, Settings, LayoutDashboard } from 'lucide-react';
 

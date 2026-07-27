@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { courseService } from '../services/api';
 import CodeEditor from '../components/editor/CodeEditor';
 import GameCanvas from '../components/game/GameCanvas';
 import SeeIt from '../components/game/SeeIt';
@@ -9,10 +8,13 @@ import Explain from '../components/game/Explain';
 import PicturePack from '../components/game/PicturePack';
 import Solution from '../components/game/Solution';
 import Celebration from '../components/feedback/Celebration';
+import FeedbackModal from '../components/feedback/FeedbackModal';
 import { useGameRunner } from '../hooks/useGameRunner';
+import { useCourseContent } from '../hooks/useCourseContent';
+import { useCompletionFlow } from '../hooks/useCompletionFlow';
 import {
-  isGameStepCompleted, markGameStepComplete, isGameStepUnlocked, awardXPOnce, notifyProgressChange,
-} from '../utils/progress';
+  gameStepKey, isGameStepCompleted, isGameStepUnlocked, awardXPOnce,
+} from '../lib/progress';
 import {
   Play, Square, CheckCircle2, Circle, XCircle, Loader2, Lightbulb, ArrowRight, ArrowLeft,
   ListChecks, Trophy, LayoutGrid, BookOpen,
@@ -26,45 +28,39 @@ export default function GamePage() {
   const idx = Number(stepIndex) || 0;
   const navigate = useNavigate();
 
-  const [module, setModule] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  // The game course has no lesson sidebar here, so the course document isn't needed.
+  const { item: module, loading } = useCourseContent(courseId, 'module', moduleId, {
+    includeCourse: false,
+  });
+  const { celebration, closeCelebration, feedbackOpen, closeFeedback, complete } = useCompletionFlow();
+
   const [code, setCode] = useState('');
   const [starterCode, setStarterCode] = useState('');
   const [hintsShown, setHintsShown] = useState(0);
-  const [celebration, setCelebration] = useState(null);
   const runner = useGameRunner();
   const resetResults = runner.resetResults;
   const editorPanelRef = useRef(null);
 
-  useEffect(() => {
-    let active = true;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- refetching because the route changed
-    setLoading(true);
-    courseService.getModule(courseId, moduleId)
-      .then((res) => {
-        if (!active) return;
-        const data = res.data.data;
-        const step = data.steps?.[idx];
-        if (!step) { setNotFound(true); return; }
-        // Don't let a URL skip ahead past work that hasn't been done.
-        if (!isGameStepUnlocked(moduleId, idx)) {
-          navigate(`/course/${courseId}/module/${moduleId}/step/0`, { replace: true });
-          return;
-        }
-        setModule(data);
-        setCode(step.starterCode || '');
-        setStarterCode(step.starterCode || '');
-        // Every step is a clean slate: re-lock hints, clear stale pass/fail ticks.
-        setHintsShown(0);
-        resetResults();
-      })
-      .catch(() => { if (active) setNotFound(true); })
-      .finally(() => { if (active) setLoading(false); });
-    return () => { active = false; };
-  }, [courseId, moduleId, idx, navigate, resetResults]);
-
   const step = module?.steps?.[idx];
+
+  // Every step is a clean slate: seed the editor, re-lock hints, and clear the
+  // pass/fail ticks left over from the previous step's code.
+  useEffect(() => {
+    if (!step) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- seed the editor from the step we just fetched
+    setCode(step.starterCode || '');
+    setStarterCode(step.starterCode || '');
+    setHintsShown(0);
+    resetResults();
+  }, [step, resetResults]);
+
+  // Don't let a URL skip ahead past work that hasn't been done.
+  useEffect(() => {
+    if (!module) return;
+    if (!isGameStepUnlocked(moduleId, idx)) {
+      navigate(`/course/${courseId}/module/${moduleId}/step/0`, { replace: true });
+    }
+  }, [module, moduleId, idx, courseId, navigate]);
   const totalSteps = module?.steps?.length || 0;
   const isLast = idx === totalSteps - 1;
 
@@ -82,40 +78,33 @@ export default function GamePage() {
     const results = await runner.check(code, step.check);
     if (!results || !results.every((r) => r.passed)) return;
 
-    const firstTime = !isGameStepCompleted(moduleId, idx);
-    markGameStepComplete(moduleId, idx);
-    const gained = awardXPOnce(`gamestep-${courseId}-${moduleId}-${idx}`, STEP_XP);
+    // Finishing the last step ships the whole game: bonus XP and a badge.
+    if (isLast) awardXPOnce(`gamemodule-${courseId}-${moduleId}`, MODULE_BONUS_XP);
 
-    if (isLast) {
-      awardXPOnce(`gamemodule-${courseId}-${moduleId}`, MODULE_BONUS_XP);
-      try {
-        const badges = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
-        const badgeId = `game-${moduleId}`;
-        if (!badges.some((b) => b.id === badgeId)) {
-          badges.push({
-            id: badgeId,
-            name: `${module.title} — Shipped`,
-            type: 'project',
-            earnedAt: new Date().toISOString(),
-          });
-          localStorage.setItem('earnedBadges', JSON.stringify(badges));
-          notifyProgressChange();
+    complete({
+      kind: 'gameSteps',
+      id: gameStepKey(moduleId, idx),
+      xpKey: `gamestep-${courseId}-${moduleId}-${idx}`,
+      xp: STEP_XP,
+      badge: isLast
+        ? { id: `game-${moduleId}`, name: `${module.title} — Shipped`, type: 'project' }
+        : undefined,
+      celebration: ({ firstTime, xpGained }) => (isLast
+        ? {
+          title: 'Game complete! 🎮',
+          message: module.successMessage
+            || `You built ${module.title} from an empty screen. That's a real game — go show someone.`,
+          badge: `${module.title} — Shipped`,
         }
-      } catch { /* ignore storage errors */ }
-      setCelebration({
-        title: 'Game complete! 🎮',
-        message: module.successMessage || `You built ${module.title} from an empty screen. That's a real game — go show someone.`,
-        badge: `${module.title} — Shipped`,
-      });
-    } else {
-      setCelebration({
-        title: 'Step complete! ✅',
-        message: step.successMessage || `Nice — your game does something new.${gained && firstTime ? ` +${gained} XP` : ''}`,
-      });
-    }
-  }, [runner, code, step, moduleId, idx, isLast, module, courseId]);
+        : {
+          title: 'Step complete! ✅',
+          message: step.successMessage
+            || `Nice — your game does something new.${xpGained && firstTime ? ` +${xpGained} XP` : ''}`,
+        }),
+    });
+  }, [runner, code, step, moduleId, idx, isLast, module, courseId, complete]);
 
-  if (notFound || (!loading && !step)) {
+  if (!loading && !step) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24 text-center">
         <span className="text-5xl">🕹️</span>
@@ -139,12 +128,13 @@ export default function GamePage() {
         title={celebration?.title}
         message={celebration?.message}
         badge={celebration?.badge}
-        onClose={() => {
-          setCelebration(null);
+        onClose={() => closeCelebration(() => {
           if (isLast) navigate(`/course/${courseId}/games`);
           else navigate(`/course/${courseId}/module/${moduleId}/step/${idx + 1}`);
-        }}
+        })}
       />
+
+      <FeedbackModal open={feedbackOpen} courseId={courseId} onClose={closeFeedback} />
 
       {/* Teaching column. Only THIS side swaps out while a step loads — the
           stage below keeps its canvas, and with it the loaded Python runtime. */}

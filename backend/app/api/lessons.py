@@ -1,11 +1,14 @@
-from fastapi import APIRouter, HTTPException
-from app.services import course_service
+from fastapi import APIRouter
+from app.api.courses import _content_or_404
 
 router = APIRouter()
 
+
 @router.get("/courses/{course_id}/lessons/{lesson_id}")
 def get_lesson(course_id: str, lesson_id: str):
-    lesson = course_service.get_lesson_by_id(course_id, lesson_id)
-    if not lesson:
-        raise HTTPException(status_code=404, detail="Lesson not found")
-    return {"success": True, "data": lesson}
+    """Legacy alias for `/courses/{course_id}/content/lesson/{lesson_id}`.
+
+    Goes through the same handler, so the quiz answer keys are stripped here
+    too (see `course_service.public_view`).
+    """
+    return _content_or_404(course_id, "lesson", lesson_id)

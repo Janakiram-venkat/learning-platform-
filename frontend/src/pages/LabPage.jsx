@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { courseService } from '../services/api';
-import { isAssignmentUnlocked } from '../utils/progress';
+import { isAssignmentUnlocked } from '../lib/progress';
+import { useCourseContent } from '../hooks/useCourseContent';
 import LabRunner from '../components/lab/LabRunner';
 
 // Full-page host for an Interactive Lab. Gates the lab behind finishing the
@@ -10,35 +10,16 @@ export default function LabPage() {
   const { courseId, moduleId } = useParams(); // moduleId e.g. "module1"
   const navigate = useNavigate();
 
-  const [course, setCourse] = useState(null);
-  const [lab, setLab] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  const { course, item: lab, loading } = useCourseContent(courseId, 'lab', moduleId);
 
+  // A student who deep-links to a lab they haven't unlocked goes back to the
+  // course list rather than seeing content they haven't earned.
   useEffect(() => {
-    let active = true;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the loading flag when the route params change and we refetch
-    setLoading(true);
-    Promise.all([
-      courseService.getCourse(courseId),
-      courseService.getLab(courseId, moduleId),
-    ])
-      .then(([courseRes, labRes]) => {
-        if (!active) return;
-        const courseData = courseRes.data.data;
-        const numericId = moduleId.replace('module', '');
-        const mod = courseData.modules?.find((m) => String(m.moduleId ?? m.id) === numericId);
-        if (!mod || !isAssignmentUnlocked(mod)) {
-          navigate('/', { replace: true });
-          return;
-        }
-        setCourse(courseData);
-        setLab(labRes.data.data);
-      })
-      .catch(() => { if (active) setNotFound(true); })
-      .finally(() => { if (active) setLoading(false); });
-    return () => { active = false; };
-  }, [courseId, moduleId, navigate]);
+    if (!course) return;
+    const numericId = moduleId.replace('module', '');
+    const mod = course.modules?.find((m) => String(m.moduleId ?? m.id) === numericId);
+    if (!mod || !isAssignmentUnlocked(mod)) navigate('/', { replace: true });
+  }, [course, moduleId, navigate]);
 
   if (loading) {
     return (
@@ -49,7 +30,7 @@ export default function LabPage() {
     );
   }
 
-  if (notFound || !lab) {
+  if (!lab) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24 text-center">
         <span className="text-5xl">🚧</span>

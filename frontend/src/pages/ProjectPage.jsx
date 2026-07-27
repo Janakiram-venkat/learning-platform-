@@ -1,19 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { courseService, compilerService } from '../services/api';
+import { compilerService } from '../services/api';
 import CodeEditor from '../components/editor/CodeEditor';
 import Terminal from '../components/editor/Terminal';
 import { useCodeRunner } from '../hooks/useCodeRunner';
+import { useCourseContent } from '../hooks/useCourseContent';
+import { useCompletionFlow } from '../hooks/useCompletionFlow';
 import Celebration from '../components/feedback/Celebration';
+import FeedbackModal from '../components/feedback/FeedbackModal';
 import Sidebar from '../components/layout/Sidebar';
 import {
   isAssignmentUnlocked,
-  isProjectCompleted,
-  markProjectComplete,
-  awardXPOnce,
   getNextLessonAfterModule,
-  notifyProgressChange,
-} from '../utils/progress';
+} from '../lib/progress';
 import { Play, CheckCircle2, Circle, ListChecks, Hammer, Loader2, Trophy, ArrowRight, XCircle, Target, Lightbulb, Menu, X } from 'lucide-react';
 
 const PROJECT_XP = 80;
@@ -54,10 +53,8 @@ export default function ProjectPage() {
   const { courseId, moduleId } = useParams(); // moduleId e.g. "module1"
   const navigate = useNavigate();
 
-  const [project, setProject] = useState(null);
-  const [course, setCourse] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  const { course, item: project, loading } = useCourseContent(courseId, 'project', moduleId);
+  const { celebration, closeCelebration, feedbackOpen, closeFeedback, complete } = useCompletionFlow();
 
   const [code, setCode] = useState('');
   const [starterCode, setStarterCode] = useState('');
@@ -66,39 +63,26 @@ export default function ProjectPage() {
   const [checkResults, setCheckResults] = useState(null); // legacy checks: array of bool | null
   const [testResults, setTestResults] = useState(null);   // test cases: array of bool | null
   const [checking, setChecking] = useState(false);
-  const [celebration, setCelebration] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [hintsShown, setHintsShown] = useState(0); // how many hints the learner has unlocked
 
+  // Load the starter code once the project arrives, and re-lock the hints
+  // whenever we move to a different project.
   useEffect(() => {
-    let active = true;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the loading flag when the route params change and we refetch
-    setLoading(true);
-    setHintsShown(0); // hints are per-project — re-lock them when the route changes
-    Promise.all([
-      courseService.getCourse(courseId),
-      courseService.getProject(courseId, moduleId),
-    ])
-      .then(([courseRes, projectRes]) => {
-        if (!active) return;
-        const course = courseRes.data.data;
-        const numericId = moduleId.replace('module', '');
-        const mod = course.modules?.find(m => String(m.moduleId ?? m.id) === numericId);
-        // Gate the project behind finishing the module's lessons.
-        if (!mod || !isAssignmentUnlocked(mod)) {
-          navigate('/', { replace: true });
-          return;
-        }
-        setCourse(course);
-        const data = projectRes.data.data;
-        setProject(data);
-        setCode(data.starterCode || '');
-        setStarterCode(data.starterCode || '');
-      })
-      .catch(() => { if (active) setNotFound(true); })
-      .finally(() => { if (active) setLoading(false); });
-    return () => { active = false; };
-  }, [courseId, moduleId, navigate]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- seed the editor from the project we just fetched
+    setCode(project?.starterCode || '');
+    setStarterCode(project?.starterCode || '');
+    setHintsShown(0);
+  }, [project]);
+
+  // Gate the project behind finishing the module's lessons — a student who
+  // deep-links to a locked project goes back to the course list.
+  useEffect(() => {
+    if (!course) return;
+    const numericId = moduleId.replace('module', '');
+    const mod = course.modules?.find(m => String(m.moduleId ?? m.id) === numericId);
+    if (!mod || !isAssignmentUnlocked(mod)) navigate('/', { replace: true });
+  }, [course, moduleId, navigate]);
 
   // The green "Run" button drives the interactive terminal (input() prompts
   // pause and ask the learner for a line).
@@ -143,31 +127,22 @@ export default function ProjectPage() {
 
     if (allGoalsPassed) {
       const projectKey = moduleId; // e.g. "module1"
-      const firstTime = !isProjectCompleted(projectKey);
-      markProjectComplete(projectKey);
-      const gained = awardXPOnce(`project-${projectKey}`, PROJECT_XP);
-
-      // Drop a project badge into the profile (once).
-      try {
-        const badges = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
-        const badgeId = `project-${projectKey}`;
-        if (!badges.some(b => b.id === badgeId)) {
-          badges.push({
-            id: badgeId,
-            name: `${project.title} Builder`,
-            type: 'project',
-            earnedAt: new Date().toISOString(),
-          });
-          localStorage.setItem('earnedBadges', JSON.stringify(badges));
-          notifyProgressChange();
-        }
-      } catch { /* ignore storage errors */ }
-
-      setCelebration({
-        title: 'Project Complete! 🛠️',
-        message: project.successMessage
-          || `Amazing! You built "${project.title}".${gained ? ` +${gained} XP!` : firstTime ? '' : ''}`,
-        badge: `${project.title} Builder`,
+      complete({
+        kind: 'projects',
+        id: projectKey,
+        xpKey: `project-${projectKey}`,
+        xp: PROJECT_XP,
+        badge: {
+          id: `project-${projectKey}`,
+          name: `${project.title} Builder`,
+          type: 'project',
+        },
+        celebration: ({ xpGained }) => ({
+          title: 'Project Complete! 🛠️',
+          message: project.successMessage
+            || `Amazing! You built "${project.title}".${xpGained ? ` +${xpGained} XP!` : ''}`,
+          badge: `${project.title} Builder`,
+        }),
       });
     }
   };
@@ -181,7 +156,7 @@ export default function ProjectPage() {
     );
   }
 
-  if (notFound || !project) {
+  if (!project) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24 text-center">
         <span className="text-5xl">🚧</span>
@@ -206,8 +181,10 @@ export default function ProjectPage() {
         title={celebration?.title}
         message={celebration?.message}
         badge={celebration?.badge}
-        onClose={() => setCelebration(null)}
+        onClose={() => closeCelebration()}
       />
+
+      <FeedbackModal open={feedbackOpen} courseId={courseId} onClose={closeFeedback} />
 
       {/* Mobile-only top bar to open the lesson list */}
       <div className="flex items-center gap-3 border-b-2 border-ink/15 bg-paper px-4 py-3 lg:hidden">

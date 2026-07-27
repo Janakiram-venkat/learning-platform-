@@ -25,7 +25,7 @@ export default function ProfileMenu({ open, onClose, onOpenSettings }) {
     } catch {
       return [];
     }
-  }, [open]); // re-read each time the popup opens
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps -- re-read each time the popup opens
 
   // Modules done = module badges earned (one badge is awarded per finished module).
   const moduleCount = useMemo(

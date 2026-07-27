@@ -26,6 +26,9 @@ export default function LessonPage() {
   const [code, setCode] = useState('');
   const [starterCode, setStarterCode] = useState('');
   const runner = useCodeRunner();
+  // `runner` is a fresh object every render; `reset` is the stable callback
+  // effects can safely depend on.
+  const resetRunner = runner.reset;
 
   const [quizAnswers, setQuizAnswers] = useState({});
   const [quizResult, setQuizResult] = useState(null);
@@ -113,7 +116,7 @@ export default function LessonPage() {
     setFeedbackOpen(false);
     setPendingAdvance(false);
     setSignInOpen(false);
-    runner.reset();
+    resetRunner();
 
     // Fetch Course & Lesson
     Promise.all([
@@ -138,7 +141,7 @@ export default function LessonPage() {
     }).finally(() => {
       setLoading(false);
     });
-  }, [courseId, lessonId]);
+  }, [courseId, lessonId, resetRunner, navigate]);
 
   // For no-code courses (course.hasEditor === false), the right panel hosts the
   // module's Interactive Lab instead of a Python editor. Fetch it once we know

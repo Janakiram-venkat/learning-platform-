@@ -5,6 +5,7 @@ import CodeEditor from '../components/editor/CodeEditor';
 import Terminal from '../components/editor/Terminal';
 import { useCodeRunner } from '../hooks/useCodeRunner';
 import Celebration from '../components/feedback/Celebration';
+import Sidebar from '../components/layout/Sidebar';
 import {
   isAssignmentUnlocked,
   isProjectCompleted,
@@ -13,7 +14,7 @@ import {
   getNextLessonAfterModule,
   notifyProgressChange,
 } from '../utils/progress';
-import { Play, CheckCircle2, Circle, ListChecks, Hammer, Loader2, Trophy, ArrowRight, XCircle } from 'lucide-react';
+import { Play, CheckCircle2, Circle, ListChecks, Hammer, Loader2, Trophy, ArrowRight, XCircle, Target, Lightbulb, Menu, X } from 'lucide-react';
 
 const PROJECT_XP = 80;
 
@@ -66,11 +67,14 @@ export default function ProjectPage() {
   const [testResults, setTestResults] = useState(null);   // test cases: array of bool | null
   const [checking, setChecking] = useState(false);
   const [celebration, setCelebration] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [hintsShown, setHintsShown] = useState(0); // how many hints the learner has unlocked
 
   useEffect(() => {
     let active = true;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the loading flag when the route params change and we refetch
     setLoading(true);
+    setHintsShown(0); // hints are per-project — re-lock them when the route changes
     Promise.all([
       courseService.getCourse(courseId),
       courseService.getProject(courseId, moduleId),
@@ -192,6 +196,8 @@ export default function ProjectPage() {
   const goalResults = hasTests ? testResults : checkResults;
   const allPassed = goalResults && goalResults.length > 0 && goalResults.every(Boolean);
   const nextLessonId = getNextLessonAfterModule(course, moduleId.replace('module', ''));
+  const hints = project.hints || [];
+  const problem = project.problem;
 
   return (
     <div className="flex w-full flex-col lg:h-[calc(100vh-64px)] lg:flex-row lg:overflow-hidden">
@@ -203,8 +209,44 @@ export default function ProjectPage() {
         onClose={() => setCelebration(null)}
       />
 
+      {/* Mobile-only top bar to open the lesson list */}
+      <div className="flex items-center gap-3 border-b-2 border-ink/15 bg-paper px-4 py-3 lg:hidden">
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="flex items-center gap-2 rounded-lg border-2 border-ink px-3 py-2 text-sm font-bold text-ink active:scale-95"
+        >
+          <Menu className="h-4 w-4" /> Lessons
+        </button>
+        <span className="truncate text-sm font-semibold text-ink/55">{course?.title}</span>
+      </div>
+
+      {/* Backdrop for the mobile drawer */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar: slide-in drawer on mobile, static column on desktop — the
+          course navigation stays put while the project is open. */}
+      <div
+        className={`fixed inset-y-0 left-0 z-40 w-72 transform bg-paper shadow-xl transition-transform duration-300 lg:static lg:z-0 lg:w-64 lg:translate-x-0 lg:shadow-none ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <button
+          onClick={() => setSidebarOpen(false)}
+          className="absolute right-2 top-2 z-10 rounded-md p-1.5 text-ink/55 hover:bg-ink/10 lg:hidden"
+          aria-label="Close lessons"
+        >
+          <X className="h-5 w-5" />
+        </button>
+        <Sidebar course={course} currentProjectKey={moduleId} onNavigate={() => setSidebarOpen(false)} />
+      </div>
+
       {/* Brief + checklist */}
-      <div className="flex-1 overflow-y-auto bg-paper p-4 sm:p-8">
+      <div className="min-w-0 flex-1 overflow-y-auto bg-paper p-4 sm:p-8">
         <div className="mx-auto max-w-2xl">
           <div className="mb-6 flex items-center gap-3">
             <span className="text-4xl">{project.emoji || '🛠️'}</span>
@@ -217,6 +259,50 @@ export default function ProjectPage() {
           <p className="mb-8 lab-panel p-5 text-lg leading-relaxed text-ink/75">
             {project.brief}
           </p>
+
+          {/* The problem statement: what to build, one worked example, and the
+              exact wording rules — so nothing about "done" is a guess. */}
+          {problem && (
+            <div className="mb-8 lab-panel p-5 sm:p-6">
+              <h3 className="mb-3 flex items-center gap-2 font-lab font-bold text-ink">
+                <Target className="h-5 w-5 text-wire" /> The problem
+              </h3>
+              <p className="text-lg leading-relaxed text-ink/80">{problem.goal}</p>
+
+              {problem.example && (
+                <div className="mt-4 rounded-xl border-2 border-ink/15 bg-white p-4">
+                  <p className="mb-2 text-xs font-extrabold uppercase tracking-wide text-ink/45">Example</p>
+                  <div className="space-y-2 font-mono text-sm">
+                    <div>
+                      <span className="mr-2 font-sans text-xs font-bold text-ink/50">Person types</span>
+                      {(problem.example.typed || []).map((t, i) => (
+                        <code key={i} className="mr-1 rounded bg-paper px-1.5 py-0.5 text-pcb ring-1 ring-ink/15">{t}</code>
+                      ))}
+                    </div>
+                    <div>
+                      <span className="mr-2 font-sans text-xs font-bold text-ink/50">Bot prints</span>
+                      <div className="mt-1 space-y-1">
+                        {(problem.example.output || []).map((o, i) => (
+                          <div key={i} className="rounded bg-paper px-2 py-1 text-emerald-700 ring-1 ring-ink/10">{o}</div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {problem.rules?.length > 0 && (
+                <ul className="mt-4 space-y-2">
+                  {problem.rules.map((r, i) => (
+                    <li key={i} className="flex items-start gap-2 text-ink/75">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-wire" />
+                      <span>{r}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
 
           {/* Steps */}
           {project.steps?.length > 0 && (
@@ -232,6 +318,43 @@ export default function ProjectPage() {
                   </li>
                 ))}
               </ol>
+            </div>
+          )}
+
+          {/* Hints: opt-in and revealed one at a time, so a stuck learner gets
+              the smallest nudge that unblocks them instead of the answer. */}
+          {hints.length > 0 && (
+            <div className="mb-8 lab-panel p-5 sm:p-6">
+              <h3 className="mb-1 flex items-center gap-2 font-lab font-bold text-ink">
+                <Lightbulb className="h-5 w-5 fill-signal text-ink" /> Stuck? Take a hint
+              </h3>
+              <p className="mb-4 text-sm text-ink/55">
+                Try it on your own first — hints are here whenever you want one.
+              </p>
+
+              <ol className="space-y-3">
+                {hints.slice(0, hintsShown).map((h, i) => (
+                  <li key={i} className="flex items-start gap-3 rounded-xl border-2 border-ink/15 bg-white p-3">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 border-ink bg-signal text-xs font-extrabold text-ink">
+                      {i + 1}
+                    </span>
+                    <span className="text-ink/80">{h}</span>
+                  </li>
+                ))}
+              </ol>
+
+              {hintsShown < hints.length ? (
+                <button
+                  onClick={() => setHintsShown(n => n + 1)}
+                  className={`lab-btn flex items-center gap-2 rounded-xl border-2 border-ink bg-white px-4 py-2.5 font-extrabold text-ink ${hintsShown > 0 ? 'mt-3' : ''}`}
+                >
+                  <Lightbulb className="h-4 w-4" />
+                  {hintsShown === 0 ? 'Show a hint' : 'Show another hint'}
+                  <span className="text-ink/45">({hints.length - hintsShown} left)</span>
+                </button>
+              ) : (
+                <p className="mt-3 text-sm font-semibold text-ink/50">That's every hint — you've got this! 💪</p>
+              )}
             </div>
           )}
 

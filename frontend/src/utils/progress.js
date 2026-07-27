@@ -20,6 +20,7 @@ const PROGRESS_KEYS = [
   'assignmentStars',
   'completedProjects',
   'completedLabs',
+  'completedGameSteps',
   'aiIdeas',
 ];
 
@@ -280,6 +281,60 @@ export function markLabComplete(labKey) {
     localStorage.setItem('completedLabs', JSON.stringify(completed));
     notifyProgressChange();
   }
+}
+
+// --- Game-dev course: per-step progress ---
+//
+// The game course isn't lesson-shaped — a module is one game built over several
+// steps, so progress is tracked per step. Keys look like "module1:2".
+
+export function getCompletedGameSteps() {
+  try {
+    return JSON.parse(localStorage.getItem('completedGameSteps') || '[]');
+  } catch {
+    return [];
+  }
+}
+
+export function gameStepKey(moduleId, stepIndex) {
+  return `${moduleId}:${stepIndex}`;
+}
+
+export function isGameStepCompleted(moduleId, stepIndex) {
+  return getCompletedGameSteps().includes(gameStepKey(moduleId, stepIndex));
+}
+
+export function markGameStepComplete(moduleId, stepIndex) {
+  const key = gameStepKey(moduleId, stepIndex);
+  const done = getCompletedGameSteps();
+  if (!done.includes(key)) {
+    done.push(key);
+    localStorage.setItem('completedGameSteps', JSON.stringify(done));
+    notifyProgressChange();
+  }
+}
+
+// A step opens once the step before it is done; step 0 is always open.
+export function isGameStepUnlocked(moduleId, stepIndex) {
+  return stepIndex === 0 || isGameStepCompleted(moduleId, stepIndex - 1);
+}
+
+// How many steps of a module are finished (used for the module map's progress bar).
+export function countGameStepsDone(moduleId, totalSteps) {
+  const done = getCompletedGameSteps();
+  let n = 0;
+  for (let i = 0; i < totalSteps; i++) if (done.includes(gameStepKey(moduleId, i))) n++;
+  return n;
+}
+
+// A module opens once every step of the previous module is done.
+export function isGameModuleUnlocked(course, moduleIndex) {
+  if (moduleIndex === 0) return true;
+  const prev = course?.modules?.[moduleIndex - 1];
+  if (!prev) return false;
+  const total = prev.stepCount ?? prev.steps?.length ?? 0;
+  if (!total) return false;
+  return countGameStepsDone(`module${prev.moduleId ?? prev.id}`, total) >= total;
 }
 
 // Saves a student's "Design Your Own AI" concept card to their profile.

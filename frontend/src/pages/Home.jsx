@@ -373,6 +373,11 @@ const TRACKS = [
     desc: 'Train smart models, teach a computer to see, and build your own mini-AI.',
     status: 'READY', led: '#23B5D3', to: '/course/ai/lesson/intro',
   },
+  {
+    ref: 'TRK-GAME', emoji: '🎮', title: 'Game Development', line: 'After Python 1–5',
+    desc: 'Build real playable games — bouncing balls, falling fruit, and a score to beat.',
+    status: 'READY', led: '#E8503A', to: '/course/gamedev/games',
+  },
 ];
 
 // Testimonials as lab-notebook field notes.

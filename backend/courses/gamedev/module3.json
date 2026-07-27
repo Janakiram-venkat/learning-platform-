@@ -1,0 +1,619 @@
+{
+  "moduleId": 3,
+  "title": "Catch the Fruit",
+  "emoji": "🧺",
+  "tagline": "Take control with the arrow keys, catch falling fruit, and keep score.",
+  "successMessage": "That's a complete game: a player who's in control, something to chase, and a score that says how well you did. Everything from here is a variation on this. 🧺",
+  "steps": [
+    {
+      "title": "Take control",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#0E1726",
+          "ground": "#3A2E1F",
+          "motion": "still",
+          "actors": [
+            {
+              "look": "🧺",
+              "size": 32,
+              "fixed": {
+                "x": 0.5,
+                "y": 0.72
+              }
+            }
+          ]
+        },
+        "after": {
+          "background": "#0E1726",
+          "ground": "#3A2E1F",
+          "motion": "drive",
+          "seconds": 3,
+          "actors": [
+            {
+              "look": "🧺",
+              "size": 32
+            }
+          ]
+        },
+        "note": "Up to now your games played themselves. This one waits for YOU."
+      },
+      "getIt": {
+        "widget": "velocity",
+        "title": "A key press is just a yes-or-no question",
+        "beats": [
+          "game.key_down(\"left\") is True while the left arrow is held, and False the rest of the time.",
+          "So \"move when a key is held\" is an if inside your every-frame function.",
+          "No key held means no movement — the basket simply stays put."
+        ],
+        "config": {
+          "look": "🧺"
+        }
+      },
+      "explain": {
+        "title": "How a game listens to your hands",
+        "intro": "This is the step where a program stops performing at you and starts answering to you.",
+        "lines": [
+          {
+            "code": "game.key_down(\"left\")",
+            "what": "Hands back True while the left arrow is held down, and False the rest of the time.",
+            "why": "Notice what it does NOT do: it never waits. It answers instantly with whatever is true at this exact instant, and your update() asks again next frame. That's called polling, and it's why holding a key gives smooth continuous movement — the answer is simply True on sixty frames in a row. Waiting for a key, the way a quiz program waits for input(), would freeze the game solid."
+          },
+          {
+            "code": "if game.key_down(\"left\"):\n    basket.x = basket.x - 6",
+            "what": "Only move when the answer is True.",
+            "why": "Everything indented under the if happens only when the question is true. No key held means neither if fires and nothing runs, so the basket simply stays exactly where it is — you don't need to write code for standing still. The indentation IS the grouping in Python; it's not decoration."
+          },
+          {
+            "code": "- 6  moves left,  + 6  moves right",
+            "what": "Six pixels per frame, which works out at about 360 pixels a second.",
+            "why": "Smaller x is further left, so moving left means subtracting. That 6 is the single number controlling how your game feels — try 2 for something sluggish and heavy, or 15 for something twitchy and hard to control. Game designers spend an astonishing amount of time on numbers exactly like this one."
+          },
+          {
+            "code": "two ifs, not if/else",
+            "what": "Left and right are asked as separate questions.",
+            "why": "With if/else, one key would rule out the other. As two independent ifs, holding both arrows at once cancels out — the basket moves -6 then +6 and lands right back where it started. That's realistic behaviour that you got for free by asking two honest questions."
+          }
+        ]
+      },
+      "brief": "Make the basket follow your arrow keys. Inside update(), ask whether a key is being held, and if it is, move the basket that way.",
+      "todo": [
+        "If the left arrow is down, move the basket 6 to the left (that's subtracting).",
+        "If the right arrow is down, move it 6 to the right.",
+        "Press Play, click the page, then hold your arrow keys."
+      ],
+      "starterCode": "from stage import Game, Sprite\n\ngame = Game(width=480, height=360, background=\"#0E1726\")\n\nbasket = Sprite(\"basket\", x=240, y=300, size=54)\n\n\n@game.every_frame\ndef update():\n    # TODO 1: if the left arrow is held, move the basket left\n\n\n    # TODO 2: if the right arrow is held, move the basket right\n\n    pass\n\n\ngame.start()\n",
+      "hints": [
+        "Asking about a key looks like this: if game.key_down(\"left\"):",
+        "Moving LEFT means x gets smaller, so you subtract. Moving right means you add.",
+        "Whatever you want to happen when the key is held has to be indented underneath the if."
+      ],
+      "solution": "from stage import Game, Sprite\n\ngame = Game(width=480, height=360, background=\"#0E1726\")\n\nbasket = Sprite(\"basket\", x=240, y=300, size=54)\n\n\n@game.every_frame\ndef update():\n    # Left arrow held? Then x gets smaller.\n    if game.key_down(\"left\"):\n        basket.x = basket.x - 6\n\n    # Right arrow held? Then x gets bigger.\n    if game.key_down(\"right\"):\n        basket.x = basket.x + 6\n\n\ngame.start()\n",
+      "check": {
+        "scenarios": [
+          {
+            "name": "hands off",
+            "frames": 40,
+            "keys": {}
+          },
+          {
+            "name": "holding left",
+            "frames": 40,
+            "keys": {
+              "*": [
+                "left"
+              ]
+            }
+          },
+          {
+            "name": "holding right",
+            "frames": 40,
+            "keys": {
+              "*": [
+                "right"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "what": "still",
+            "in": "hands off",
+            "axis": "x",
+            "label": "The basket sits still when no key is held"
+          },
+          {
+            "what": "differs",
+            "between": [
+              "hands off",
+              "holding left"
+            ],
+            "label": "Holding LEFT moves the basket"
+          },
+          {
+            "what": "differs",
+            "between": [
+              "holding left",
+              "holding right"
+            ],
+            "label": "LEFT and RIGHT move it opposite ways"
+          }
+        ]
+      },
+      "successMessage": "You're driving! That's the moment a program becomes a game."
+    },
+    {
+      "title": "Stay on the screen",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#0E1726",
+          "motion": "slide",
+          "seconds": 2,
+          "actors": [
+            {
+              "look": "🧺",
+              "size": 32
+            }
+          ]
+        },
+        "after": {
+          "background": "#0E1726",
+          "motion": "drive",
+          "seconds": 2.6,
+          "actors": [
+            {
+              "look": "🧺",
+              "size": 32
+            }
+          ]
+        },
+        "note": "Hold an arrow long enough right now and your basket wanders off forever. Let's put walls up."
+      },
+      "getIt": {
+        "widget": "collision",
+        "title": "Edges are just numbers to compare",
+        "beats": [
+          "\"Off the screen\" means the basket's x got smaller than 0, or bigger than the stage width.",
+          "You can test for that with an if — and if it happened, put it straight back.",
+          "game.clamp_inside(basket) does the same job in one line, once you've seen how it works."
+        ]
+      },
+      "explain": {
+        "title": "Move first, then fix — the pattern behind all collision",
+        "intro": "Invisible walls look like a special feature. They're two ifs, in the right order.",
+        "lines": [
+          {
+            "code": "if basket.x < 30:\n    basket.x = 30",
+            "what": "If the basket has gone past the left wall, drop it exactly onto the wall.",
+            "why": "This is NOT adding or subtracting — it's setting x to one exact number, no matter how far past the line it went. Programmers call it clamping: squashing a value back into an allowed range. It shows up everywhere, from volume sliders to camera angles."
+          },
+          {
+            "code": "order: move, THEN correct",
+            "what": "The two wall checks sit below the two movement lines, not above them.",
+            "why": "Each frame the basket is allowed to make its mistake and then immediately has it undone, all before anything is drawn. Nobody ever sees the wrong position, because the screen only repaints once update() has finished. Put the checks first and you'd be correcting where the basket WAS, which is a frame too late — a bug that shows up as a character jittering into walls. Move-then-fix is how virtually every 2D game handles solid ground."
+          },
+          {
+            "code": "game.clamp_inside(basket)",
+            "what": "One line that does the same job on all four edges at once.",
+            "why": "Now that you've written it the long way, you're allowed the shortcut — and you know precisely what it's doing for you, which is the only safe way to use somebody else's function. It's also cleverer than your version: it works from the basket's actual edges rather than a number you guessed, so it stays correct even if you change the basket's size."
+          }
+        ]
+      },
+      "brief": "Stop the basket escaping. Check whether it has gone past either edge and, if it has, snap it back to the edge.",
+      "todo": [
+        "If the basket's x is less than 30, set it back to 30.",
+        "If the basket's x is more than 450, set it back to 450.",
+        "Play, then hold one arrow key down for a long time — you should hit an invisible wall."
+      ],
+      "starterCode": "from stage import Game, Sprite\n\ngame = Game(width=480, height=360, background=\"#0E1726\")\n\nbasket = Sprite(\"basket\", x=240, y=300, size=54)\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        basket.x = basket.x - 6\n    if game.key_down(\"right\"):\n        basket.x = basket.x + 6\n\n    # TODO 1: if the basket went off the left edge, put it back\n\n\n    # TODO 2: if the basket went off the right edge, put it back\n\n\ngame.start()\n",
+      "hints": [
+        "This is two more ifs, right below the ones that move the basket. Order matters: move first, then correct.",
+        "\"Put it back\" isn't adding or subtracting — it's setting x to an exact number: basket.x = 30",
+        "Once both work, try replacing your two ifs with the single line game.clamp_inside(basket) — same result, less typing."
+      ],
+      "solution": "from stage import Game, Sprite\n\ngame = Game(width=480, height=360, background=\"#0E1726\")\n\nbasket = Sprite(\"basket\", x=240, y=300, size=54)\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        basket.x = basket.x - 6\n    if game.key_down(\"right\"):\n        basket.x = basket.x + 6\n\n    # Went too far left? Put it straight back on the wall.\n    if basket.x < 30:\n        basket.x = 30\n\n    # Same on the right.\n    if basket.x > 450:\n        basket.x = 450\n\n    # Once you've seen how it works, this single line does the same job:\n    # game.clamp_inside(basket)\n\n\ngame.start()\n",
+      "check": {
+        "scenarios": [
+          {
+            "name": "mash left",
+            "frames": 200,
+            "keys": {
+              "*": [
+                "left"
+              ]
+            }
+          },
+          {
+            "name": "mash right",
+            "frames": 200,
+            "keys": {
+              "*": [
+                "right"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "what": "stays_inside",
+            "in": "mash left",
+            "slack": 40,
+            "label": "Holding LEFT forever can't push it off the screen"
+          },
+          {
+            "what": "stays_inside",
+            "in": "mash right",
+            "slack": 40,
+            "label": "Holding RIGHT forever can't push it off either"
+          }
+        ]
+      },
+      "successMessage": "Invisible walls in place. Your player can't get lost any more."
+    },
+    {
+      "title": "Drop the fruit",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#0E1726",
+          "motion": "drive",
+          "seconds": 2.6,
+          "actors": [
+            {
+              "look": "🧺",
+              "size": 32
+            }
+          ]
+        },
+        "after": {
+          "background": "#0E1726",
+          "motion": "fall",
+          "seconds": 2,
+          "actors": [
+            {
+              "look": "🍎",
+              "size": 26
+            },
+            {
+              "look": "🧺",
+              "size": 32,
+              "fixed": {
+                "x": 0.5,
+                "y": 0.8
+              }
+            }
+          ]
+        },
+        "note": "A game needs something to chase. Here comes an apple."
+      },
+      "getIt": {
+        "widget": "frames",
+        "title": "Falling is just moving down",
+        "beats": [
+          "There's no special \"falling\" command. Falling is adding to y every frame — that's it.",
+          "You already did this with the bouncing ball. Same line, different feeling.",
+          "Bigger number, faster fall. That one number decides how hard your game is."
+        ],
+        "config": {
+          "start": 20,
+          "step": 5
+        }
+      },
+      "explain": {
+        "title": "Falling, and the trick of reusing one apple forever",
+        "intro": "There's no falling command anywhere in this library. Falling is a line you already know how to write.",
+        "lines": [
+          {
+            "code": "apple.y = apple.y + 4",
+            "what": "Adds 4 to the apple's y every frame, so it heads down the screen.",
+            "why": "Identical to the bouncing ball's movement line — same code, entirely different feeling, purely because of which direction the number pushes. That 4 is your difficulty dial: 2 is a gentle game for a five-year-old, 12 is nearly impossible."
+          },
+          {
+            "code": "random_number(30, 450)",
+            "what": "Picks a whole number between 30 and 450, both ends included, fresh every time.",
+            "why": "30 and 450 aren't arbitrary — they keep the apple clear of the edges so it never lands half off-screen. Computers can't actually be random; they run a formula so tangled that the output is unpredictable to us. Good enough for a falling apple, and the same principle shuffles every deck of cards in every online card game."
+          },
+          {
+            "code": "if apple.y > 360:\n    apple.y = 0",
+            "what": "Teleports the apple back to the top instead of letting it disappear forever.",
+            "why": "Here's the important bit: this is the SAME apple, not a new one. A game that created a fresh apple every second would pile up thousands of forgotten apples and slowly grind to a halt. Recycling one object over and over is called pooling, and real games do it for every bullet, every enemy and every explosion."
+          },
+          {
+            "code": "name=\"apple\"",
+            "what": "Gives the sprite a name tag the game itself can read.",
+            "why": "You already have a Python label (apple = ...) for your own use. This one goes INSIDE the sprite, so the checker watching your game can follow that particular apple across every frame and tell you honestly whether it fell and came back."
+          }
+        ]
+      },
+      "brief": "Add an apple that falls from the top of the screen. When it drops past the bottom, send it back up to the top at a new random spot so there's always another one coming.",
+      "todo": [
+        "Inside update(), move the apple down by 4 each frame.",
+        "When the apple's y goes past 360, set its y back to 0.",
+        "Also give it a new random x so it doesn't always fall in the same place."
+      ],
+      "starterCode": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#0E1726\")\n\nbasket = Sprite(\"basket\", x=240, y=300, size=54, name=\"basket\")\napple = Sprite(\"apple\", x=240, y=0, size=36, name=\"apple\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        basket.x = basket.x - 6\n    if game.key_down(\"right\"):\n        basket.x = basket.x + 6\n    game.clamp_inside(basket)\n\n    # TODO 1: make the apple fall — move it down a little every frame\n\n\n    # TODO 2: when it drops past the bottom (y > 360), send it back to the top\n    #         and give it a new random x with random_number(30, 450)\n\n\ngame.start()\n",
+      "hints": [
+        "Falling is the same line you wrote for the bouncing ball: add to apple.y every frame.",
+        "TODO 2 needs an if. The apple is past the bottom when apple.y is greater than 360.",
+        "Inside that if you set TWO things: apple.y back to 0, and apple.x to random_number(30, 450)."
+      ],
+      "solution": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#0E1726\")\n\nbasket = Sprite(\"basket\", x=240, y=300, size=54, name=\"basket\")\napple = Sprite(\"apple\", x=240, y=0, size=36, name=\"apple\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        basket.x = basket.x - 6\n    if game.key_down(\"right\"):\n        basket.x = basket.x + 6\n    game.clamp_inside(basket)\n\n    # Falling is nothing more than adding to y, every frame.\n    apple.y = apple.y + 4\n\n    # Off the bottom? Send the same apple back to the top, somewhere new.\n    if apple.y > 360:\n        apple.y = 0\n        apple.x = random_number(30, 450)\n\n\ngame.start()\n",
+      "check": {
+        "frames": 200,
+        "rules": [
+          {
+            "what": "moves",
+            "name": "apple",
+            "axis": "y",
+            "distance": 100,
+            "label": "The apple falls down the screen"
+          },
+          {
+            "what": "bounces",
+            "name": "apple",
+            "axis": "y",
+            "times": 1,
+            "label": "It comes back to the top instead of vanishing forever"
+          }
+        ]
+      },
+      "successMessage": "Endless apples. Now go catch one."
+    },
+    {
+      "title": "Catch it!",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#0E1726",
+          "motion": "fall",
+          "seconds": 2,
+          "actors": [
+            {
+              "look": "🍎",
+              "size": 26
+            },
+            {
+              "look": "🧺",
+              "size": 32,
+              "fixed": {
+                "x": 0.5,
+                "y": 0.8
+              }
+            }
+          ]
+        },
+        "after": {
+          "background": "#0E1726",
+          "motion": "fall_many",
+          "seconds": 2.4,
+          "actors": [
+            {
+              "look": "🍎",
+              "size": 24
+            },
+            {
+              "look": "🍌",
+              "size": 24
+            },
+            {
+              "look": "🍇",
+              "size": 24
+            }
+          ]
+        },
+        "note": "Right now the apple falls straight through your basket. Time to make them notice each other."
+      },
+      "getIt": {
+        "widget": "collision",
+        "title": "How a computer knows two things touched",
+        "beats": [
+          "The computer never sees your pictures. It compares two invisible rectangles called hitboxes.",
+          "If the boxes overlap, they're touching. If they don't, they aren't.",
+          "Drag the basket onto the apple and watch touching() flip from False to True."
+        ]
+      },
+      "explain": {
+        "title": "How a computer knows two things touched",
+        "intro": "The computer has never seen your basket or your apple. It compares four numbers against four numbers.",
+        "lines": [
+          {
+            "code": "basket.touching(apple)",
+            "what": "True when the two sprites overlap, False when they don't.",
+            "why": "Every sprite has an invisible rectangle around it called a hitbox. touching() asks one question: do these two rectangles overlap across AND overlap down? Both must be true — overlapping on only one axis means they're lined up but nowhere near each other. It's four quick comparisons, which sounds crude until you remember a real game may run this check thousands of times per frame."
+          },
+          {
+            "code": "def drop_again():",
+            "what": "Your own function, holding the two lines that reset the apple.",
+            "why": "Two different situations need identical work: a miss and a catch both send the apple back up. Writing it once and calling it twice means a change to how apples respawn is a change in exactly one place. Programmers call this DRY — Don't Repeat Yourself — and it's less about saving typing than about having one single place where the truth lives."
+          },
+          {
+            "code": "drop_again()  with the brackets",
+            "what": "The brackets are what actually RUNS the function.",
+            "why": "drop_again on its own just refers to the recipe card; drop_again() takes it out of the drawer and follows it. Forgetting the brackets is a beautifully silent bug — Python happily does nothing at all and never complains."
+          },
+          {
+            "code": "hitboxes are rectangles, not shapes",
+            "what": "Your apple is round-ish; its hitbox is a square.",
+            "why": "This is a deliberate trade every game makes. Testing rectangles is fast and simple; testing true shapes is slow and fiddly. It's why you occasionally die in a game to a spike you'd swear you missed — you touched its box, not its point."
+          }
+        ]
+      },
+      "brief": "Make the catch count. Ask whether the basket is touching the apple, and when it is, send the apple straight back to the top — just like when it hits the floor.",
+      "todo": [
+        "Add an if that asks whether the basket is touching the apple.",
+        "When it is, send the apple back to the top at a new random x.",
+        "Play it — actually catch a few. This is a real game now."
+      ],
+      "starterCode": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#0E1726\")\n\nbasket = Sprite(\"basket\", x=240, y=300, size=54, name=\"basket\")\napple = Sprite(\"apple\", x=240, y=0, size=36, name=\"apple\")\n\n\ndef drop_again():\n    \"\"\"Send the apple back to the top at a random spot.\"\"\"\n    apple.y = 0\n    apple.x = random_number(30, 450)\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        basket.x = basket.x - 6\n    if game.key_down(\"right\"):\n        basket.x = basket.x + 6\n    game.clamp_inside(basket)\n\n    apple.y = apple.y + 4\n\n    if apple.y > 360:\n        drop_again()\n\n    # TODO: if the basket is touching the apple, drop it again\n\n\ngame.start()\n",
+      "hints": [
+        "Asking about a touch looks like this: if basket.touching(apple):",
+        "You don't need to repeat the two lines that reset the apple — drop_again() already does both.",
+        "Notice the if you need is the same shape as the one just above it. Only the question changes."
+      ],
+      "solution": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#0E1726\")\n\nbasket = Sprite(\"basket\", x=240, y=300, size=54, name=\"basket\")\napple = Sprite(\"apple\", x=240, y=0, size=36, name=\"apple\")\n\n\ndef drop_again():\n    \"\"\"Send the apple back to the top at a random spot.\"\"\"\n    apple.y = 0\n    apple.x = random_number(30, 450)\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        basket.x = basket.x - 6\n    if game.key_down(\"right\"):\n        basket.x = basket.x + 6\n    game.clamp_inside(basket)\n\n    apple.y = apple.y + 4\n\n    # Missed it — it fell past the bottom.\n    if apple.y > 360:\n        drop_again()\n\n    # Caught it! Same result, much happier reason.\n    if basket.touching(apple):\n        drop_again()\n\n\ngame.start()\n",
+      "check": {
+        "frames": 200,
+        "rules": [
+          {
+            "what": "moves",
+            "name": "apple",
+            "axis": "y",
+            "distance": 100,
+            "label": "The apple still falls"
+          },
+          {
+            "what": "reset_above",
+            "name": "apple",
+            "axis": "y",
+            "y": 300,
+            "jump": 50,
+            "label": "Landing in the basket sends the apple back up — the catch works"
+          }
+        ]
+      },
+      "successMessage": "Caught! Your basket and your apple can finally see each other."
+    },
+    {
+      "title": "Keep score",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#0E1726",
+          "motion": "fall",
+          "seconds": 2,
+          "actors": [
+            {
+              "look": "🍎",
+              "size": 26
+            },
+            {
+              "look": "🧺",
+              "size": 32,
+              "fixed": {
+                "x": 0.5,
+                "y": 0.8
+              }
+            }
+          ]
+        },
+        "after": {
+          "background": "#0E1726",
+          "motion": "fall",
+          "seconds": 2,
+          "caption": "Score: 7",
+          "actors": [
+            {
+              "look": "🍎",
+              "size": 26
+            },
+            {
+              "look": "🧺",
+              "size": 32,
+              "fixed": {
+                "x": 0.5,
+                "y": 0.8
+              }
+            }
+          ]
+        },
+        "note": "A number on the screen is what turns \"a thing that moves\" into \"a game you want to beat\"."
+      },
+      "getIt": {
+        "widget": "collision",
+        "title": "One catch, one point",
+        "beats": [
+          "You already know the exact moment a catch happens — it's inside your touching() if.",
+          "So that's where the score goes up by one.",
+          "Then you rewrite the words on screen so the player can see the new number."
+        ]
+      },
+      "explain": {
+        "title": "Turning a toy into a game",
+        "intro": "A thing that moves becomes a game you want to beat the moment there's a number on screen.",
+        "lines": [
+          {
+            "code": "game.score = 0",
+            "what": "Starts a counter at zero, parked on the game object.",
+            "why": "It could have been a plain score = 0, but then update() would need the word global to change it — because assigning to a name inside a function normally creates a fresh local one that vanishes the instant the function ends. Hanging it on game sidesteps that entirely: you're not creating a name, you're changing something inside an object that already exists. Same reason the ball carried its own dx."
+          },
+          {
+            "code": "game.score = game.score + 1",
+            "what": "Reads the score, adds one, stores it back.",
+            "why": "Exactly the shape of ball.x = ball.x + 3 from Module 2. Every counter you will ever write in any language is this line. And its position matters: it sits inside the touching if, so it fires once per catch rather than sixty times a second."
+          },
+          {
+            "code": "str(game.score)",
+            "what": "Turns the number 7 into the two-character text \"7\".",
+            "why": "Python refuses to add text to a number — \"Score: \" + 7 is an error, on purpose, because it genuinely can't guess whether you meant to join them or do arithmetic. str() states which one you meant. Sloppier languages guess, and quietly produce nonsense."
+          },
+          {
+            "code": "label.words = \"Score: \" + str(game.score)",
+            "what": "Rewrites what the on-screen label says.",
+            "why": "The stage re-reads .words on every repaint, so the new number is visible within about a sixtieth of a second. Change the number without this line and your score is perfectly correct and completely invisible — which is worth remembering, because 'the value is right but the screen is stale' is a bug you'll hit for the rest of your programming life."
+          }
+        ]
+      },
+      "brief": "Add a score. Start it at zero, add one every time the basket catches the apple, and show it in the corner so the player can see how they're doing.",
+      "todo": [
+        "Inside the touching if, add 1 to game.score.",
+        "Then update the words on the label so they show the new score.",
+        "Play and try to beat 10."
+      ],
+      "starterCode": "from stage import Game, Sprite, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#0E1726\")\n\nbasket = Sprite(\"basket\", x=240, y=300, size=54, name=\"basket\")\napple = Sprite(\"apple\", x=240, y=0, size=36, name=\"apple\")\n\n# The score lives on the game, so any function can reach it.\ngame.score = 0\nlabel = Text(\"Score: 0\", x=16, y=16, size=22, color=\"#FFC93C\")\n\n\ndef drop_again():\n    apple.y = 0\n    apple.x = random_number(30, 450)\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        basket.x = basket.x - 6\n    if game.key_down(\"right\"):\n        basket.x = basket.x + 6\n    game.clamp_inside(basket)\n\n    apple.y = apple.y + 4\n\n    if apple.y > 360:\n        drop_again()\n\n    if basket.touching(apple):\n        drop_again()\n        # TODO 1: add one to game.score\n\n\n        # TODO 2: show the new score\n        #         label.words = \"Score: \" + str(game.score)\n\n\ngame.start()\n",
+      "hints": [
+        "Adding one to a score is the same shape as moving a sprite: game.score = game.score + 1",
+        "Both new lines go INSIDE the touching if, indented to line up with drop_again().",
+        "str() turns the number into text so it can be joined to words — the same trick you used in the Greeting Bot."
+      ],
+      "solution": "from stage import Game, Sprite, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#0E1726\")\n\nbasket = Sprite(\"basket\", x=240, y=300, size=54, name=\"basket\")\napple = Sprite(\"apple\", x=240, y=0, size=36, name=\"apple\")\n\n# The score lives on the game, so any function can reach it.\ngame.score = 0\nlabel = Text(\"Score: 0\", x=16, y=16, size=22, color=\"#FFC93C\")\n\n\ndef drop_again():\n    apple.y = 0\n    apple.x = random_number(30, 450)\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        basket.x = basket.x - 6\n    if game.key_down(\"right\"):\n        basket.x = basket.x + 6\n    game.clamp_inside(basket)\n\n    apple.y = apple.y + 4\n\n    if apple.y > 360:\n        drop_again()\n\n    if basket.touching(apple):\n        drop_again()\n        # One catch, one point.\n        game.score = game.score + 1\n        # Rewrite the words so the player can see the new number.\n        label.words = \"Score: \" + str(game.score)\n\n\ngame.start()\n",
+      "check": {
+        "frames": 200,
+        "rules": [
+          {
+            "what": "exists",
+            "kind": "Text",
+            "label": "There's a score showing on the stage"
+          },
+          {
+            "what": "in_area",
+            "kind": "Text",
+            "x1": 0,
+            "y1": 0,
+            "x2": 480,
+            "y2": 120,
+            "label": "The score is somewhere the player can see it"
+          },
+          {
+            "what": "reset_above",
+            "name": "apple",
+            "axis": "y",
+            "y": 300,
+            "jump": 50,
+            "label": "Catching still works"
+          },
+          {
+            "what": "text_changes",
+            "label": "The number on screen actually goes up when you catch one"
+          }
+        ]
+      },
+      "successMessage": "A player, a goal, and a score. That's a game — go make someone else play it."
+    }
+  ]
+}

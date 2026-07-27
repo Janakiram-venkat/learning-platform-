@@ -2,32 +2,51 @@
   "moduleId": 1,
   "title": "Greeting Bot",
   "emoji": "🤖",
-  "brief": "Time to build a REAL interactive bot! Your Greeting Bot will ask the person for their name and age, then greet them and tell them how old they'll be next year. The key tool is input(), it lets your program ask questions and read the answer the person types. Try it yourself in the input box, then run the Test Cases to make sure your bot works for everyone!",
+  "brief": "Build a friendly robot that talks to people! Your Greeting Bot asks two questions — a name and an age — and then says two things back.",
+  "problem": {
+    "goal": "Write a program that asks for a person's name and age, greets them by name, and tells them how old they will be next year.",
+    "example": {
+      "typed": ["Alex", "10"],
+      "output": ["Hello, Alex!", "Next year you will be 11"]
+    },
+    "rules": [
+      "The greeting must be exactly: Hello, followed by the name, followed by !",
+      "The second line must be exactly: Next year you will be, followed by the new age.",
+      "Next year's age is the age they typed plus 1."
+    ]
+  },
   "steps": [
-    "Use input() to ask for the person's name and store it in a variable called name.",
-    "Use age = int(input(\"...\")) to ask for their age. The int() turns the typed text into a real number so you can do math with it.",
-    "Use print() to say hello using their name, for example: Hello, Alex!",
-    "Calculate next year's age with age + 1 and print a message about it, like: Next year you will be 11"
+    "Lines 1 and 2 are already written for you: they ask the two questions and store the answers in name and age.",
+    "Print a greeting that uses name. For Alex it must read: Hello, Alex!",
+    "Print how old they will be next year. For a 10 year old it must read: Next year you will be 11",
+    "Press Run to try your bot yourself, then press Check Project to test it with 3 different people."
   ],
-  "starterCode": "# 🤖 Greeting Bot, now it asks YOU questions!\n\n# These two lines ask the user for info. input() reads what they type.\nname = input(\"What is your name? \")\nage = int(input(\"How old are you? \"))\n\n# 👇 Your turn! Finish the bot:\n\n# 1) Say hello using their name, like:  Hello, Alex!\nprint(\"Hello, \" + name + \"!\")\n\n# 2) Tell them how old they'll be next year (use age + 1)\n# print(...)\n",
+  "starterCode": "# 🤖 Greeting Bot\n\n# ---- Already done for you ----\n# input() shows a question and gives back whatever the person types.\nname = input(\"What is your name? \")\n\n# int() turns the typed text into a real number, so we can do math with it.\nage = int(input(\"How old are you? \"))\n\n\n# ---- Your turn! ----\n\n# TODO 1: print a greeting that uses name.\n#         For Alex it must read:  Hello, Alex!\n\n\n# TODO 2: print how old they will be next year.\n#         For a 10 year old it must read:  Next year you will be 11\n\n",
+  "hints": [
+    "Start small. Add the line print(\"Hello!\") and press Run — you will see it appear in the terminal. That is all print() does: it shows a message.",
+    "To stick words together, use + between them. Example: greeting = \"Hi, \" + \"Sam\"  →  Hi, Sam. Watch the space inside the quotes — without it you get Hi,Sam.",
+    "For TODO 1 you need three pieces glued together: the words \"Hello, \", then the variable name, then the \"!\".",
+    "Numbers can't be glued to words directly — Python complains. Wrap the number in str() first. Example: print(\"I have \" + str(3 + 2) + \" apples\")  →  I have 5 apples",
+    "For TODO 2, next year's age is age + 1. So you need the words \"Next year you will be \" glued to str(age + 1)."
+  ],
   "inputPlaceholder": "Alex\n10",
-  "inputHint": "Your bot asks 2 questions, so type 2 answers, a name on the first line and an age on the second.",
+  "inputHint": "Your bot asks 2 questions, so type 2 answers: a name on the first line and an age on the second.",
   "tests": [
     {
       "name": "Alex is 10",
       "input": ["Alex", "10"],
-      "expect": ["Hello, Alex", "11"]
+      "expect": ["Hello, Alex!", "Next year you will be 11"]
     },
     {
       "name": "Mia is 7",
       "input": ["Mia", "7"],
-      "expect": ["Hello, Mia", "8"]
+      "expect": ["Hello, Mia!", "Next year you will be 8"]
     },
     {
       "name": "Sam is 12",
       "input": ["Sam", "12"],
-      "expect": ["Hello, Sam", "13"]
+      "expect": ["Hello, Sam!", "Next year you will be 13"]
     }
   ],
-  "successMessage": "Your Greeting Bot is ALIVE and talking! 🤖 It asks questions, listens, does math, and greets everyone correctly. That's a real interactive program, awesome work!"
+  "successMessage": "Your Greeting Bot is ALIVE! 🤖 It asks questions, listens to the answer, does math, and greets everyone correctly. That's a real interactive program — awesome work!"
 }

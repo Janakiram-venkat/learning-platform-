@@ -10,7 +10,7 @@ import {
   isProjectCompleted,
 } from '../../utils/progress';
 
-export default function Sidebar({ course, currentLessonId, onNavigate }) {
+export default function Sidebar({ course, currentLessonId, currentProjectKey, onNavigate }) {
   if (!course) return <div className="w-full bg-paper border-r-2 border-ink/15 h-full p-4 text-ink/60">Loading…</div>;
 
   const completedLessons = getCompletedLessons();
@@ -121,7 +121,11 @@ export default function Sidebar({ course, currentLessonId, onNavigate }) {
                   <Link
                     to={`/course/${course.courseId}/module/${pKey}/project`}
                     onClick={onNavigate}
-                    className={`flex items-center text-sm font-semibold p-2 rounded-md transition-colors ${pDone ? 'text-pcb hover:bg-pcb/10' : 'text-wire hover:bg-wire/10'}`}
+                    className={`flex items-center text-sm font-semibold p-2 rounded-md transition-colors ${
+                      currentProjectKey === pKey
+                        ? 'bg-wire/12 text-wire font-bold'
+                        : pDone ? 'text-pcb hover:bg-pcb/10' : 'text-wire hover:bg-wire/10'
+                    }`}
                   >
                     {pDone
                       ? <CheckCircle2 className="w-4 h-4 mr-2 text-pcb shrink-0" />

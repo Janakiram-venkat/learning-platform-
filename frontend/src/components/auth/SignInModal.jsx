@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { X, ArrowLeft, ArrowRight, Sparkles, Check, Rocket } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { INTERESTS } from '../../constants/interests';
@@ -11,6 +12,7 @@ const FIELD =
 
 export default function SignInModal({ open, onClose }) {
   const { signUp, login, signInWithGoogle, updateProfile } = useAuth();
+  const navigate = useNavigate();
 
   const [mode, setMode] = useState('login');   // 'login' | 'signup'
   const [step, setStep] = useState('account'); // signup only: 'account' | 'interests'
@@ -34,6 +36,12 @@ export default function SignInModal({ open, onClose }) {
 
   const close = () => { reset(); onClose(); };
 
+  // Admins land straight on their dashboard instead of the student home page.
+  const closeAndRoute = (profile) => {
+    close();
+    if (profile?.is_admin) navigate('/admin');
+  };
+
   const switchMode = (next) => {
     setMode(next);
     setStep('account');
@@ -46,14 +54,14 @@ export default function SignInModal({ open, onClose }) {
   const handleGoogle = useCallback(async (credential) => {
     setError('');
     try {
-      const { isNew } = await signInWithGoogle(credential);
+      const { user: profile, isNew } = await signInWithGoogle(credential);
       // First-time Google users pick their interests before we let them in.
       if (isNew) {
         setGoogleOnboarding(true);
         setStep('interests');
         return;
       }
-      close();
+      closeAndRoute(profile);
     } catch (err) {
       setError(err?.response?.data?.detail || 'Google sign-in failed. Please try again.');
     }
@@ -79,8 +87,8 @@ export default function SignInModal({ open, onClose }) {
     if (!email.trim() || !password) return setError('Please enter your email and password.');
     setSubmitting(true);
     try {
-      await login(email.trim(), password);
-      close();
+      const profile = await login(email.trim(), password);
+      closeAndRoute(profile);
     } catch (err) {
       setError(err?.response?.data?.detail || 'Could not sign in. Check your details and try again.');
     } finally {

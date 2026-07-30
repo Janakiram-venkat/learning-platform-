@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime, JSON
+from sqlalchemy import Column, Integer, String, DateTime, JSON, Boolean
 from app.db import Base
 
 
@@ -19,6 +19,9 @@ class User(Base):
     # stored as a single JSON document. The frontend owns the shape; the
     # backend just persists it per-user so progress follows them across devices.
     progress = Column(JSON, nullable=False, default=dict)
+    # Staff flag. Admins get the /admin dashboard; everyone else is a student.
+    # Only ever set server-side (seed script / another admin) — never by signup.
+    is_admin = Column(Boolean, nullable=False, default=False, server_default="false")
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
     @property

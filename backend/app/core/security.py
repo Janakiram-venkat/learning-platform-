@@ -88,3 +88,17 @@ def get_current_user(
     if user is None:
         raise unauthorized
     return user
+
+
+def get_current_admin(current_user: User = Depends(get_current_user)) -> User:
+    """Like get_current_user, but rejects non-staff accounts with 403.
+
+    Every /admin route depends on this — the frontend guard is only cosmetic,
+    the real check happens here.
+    """
+    if not current_user.is_admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admins only.",
+        )
+    return current_user

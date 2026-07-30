@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import SignInModal from '../auth/SignInModal';
 import ProfileMenu from '../profile/ProfileMenu';
@@ -30,10 +30,18 @@ export default function Navbar() {
         >
           <BookOpen className="h-4 w-4" /> Courses
         </Link>
+        {user?.is_admin && (
+          <Link
+            to="/admin"
+            className="flex items-center gap-1.5 rounded-lg px-3 py-2 font-bold text-ink/70 transition-colors hover:bg-pcb/10 hover:text-pcb"
+          >
+            <ShieldCheck className="h-4 w-4" /> Admin
+          </Link>
+        )}
       </div>
 
       <div className="relative ml-auto flex items-center gap-3">
-        {user && <XPBadge />}
+        {user && !user.is_admin && <XPBadge />}
         {user ? (
           <>
             <button

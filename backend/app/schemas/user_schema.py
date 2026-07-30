@@ -47,6 +47,9 @@ class UserResponse(BaseModel):
     created_at: datetime
     # True if the account has a local password (vs. Google-only sign-in).
     has_password: bool = False
+    # Staff flag — the frontend uses it to route admins to /admin. It is only
+    # ever read here; nothing in the auth API can set it.
+    is_admin: bool = False
 
 
 class AuthResponse(BaseModel):

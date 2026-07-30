@@ -69,6 +69,16 @@ export const authService = {
   changePassword: (payload) => api.post('/auth/password', payload),
 };
 
+// Admin dashboard. Every call 403s unless the signed-in account is staff, so
+// the UI guard in AppRoutes is convenience, not security.
+export const adminService = {
+  getStats: () => api.get('/admin/stats'),
+  getUsers: (params = {}) => api.get('/admin/users', { params }),
+  getCourseUsage: () => api.get('/admin/courses'),
+  getFeedback: (limit = 100) => api.get('/admin/feedback', { params: { limit } }),
+  deleteUser: (userId) => api.delete(`/admin/users/${userId}`),
+};
+
 export const progressService = {
   get: () => api.get('/progress'),
   save: (progress) => api.put('/progress', { progress }),

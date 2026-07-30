@@ -1,13 +1,23 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import courses, lessons, quiz, users, feedback
+from sqlalchemy import text
+from app.api import admin, courses, lessons, quiz, users, feedback
 from app.db import Base, engine
 from app.models import user as _user_model  # noqa: F401  (register model with Base)
 from app.models import feedback as _feedback_model  # noqa: F401  (register model with Base)
 
 # Create tables on startup if they don't already exist.
 Base.metadata.create_all(bind=engine)
+
+# create_all only creates missing *tables*, never missing columns, so columns
+# added after a table already exists need a nudge. There's no migration tool in
+# this project yet; when a second one of these shows up, that's the signal to
+# add Alembic rather than extend this list.
+with engine.begin() as conn:
+    conn.execute(
+        text("ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN NOT NULL DEFAULT FALSE")
+    )
 
 app = FastAPI(title="Student Coding Platform API")
 
@@ -33,6 +43,7 @@ app.include_router(lessons.router, prefix="/api", tags=["Lessons"])
 app.include_router(quiz.router, prefix="/api", tags=["Quiz"])
 app.include_router(users.router, prefix="/api", tags=["Users"])
 app.include_router(feedback.router, prefix="/api", tags=["Feedback"])
+app.include_router(admin.router, prefix="/api", tags=["Admin"])
 
 @app.get("/")
 def read_root():

@@ -11,6 +11,8 @@ import Celebration from '../components/feedback/Celebration';
 import FeedbackModal from '../components/feedback/FeedbackModal';
 import { getUnlockedLessonIds, awardXPOnce, lessons as completedLessons } from '../lib/progress';
 import LessonSimulation from '../components/lesson/LessonSimulation';
+import LessonWidget from '../components/lesson/LessonWidget';
+import LessonImage from '../components/lesson/LessonImage';
 import LabRunner from '../components/lab/LabRunner';
 import SignInModal from '../components/auth/SignInModal';
 import { useAuth } from '../context/AuthContext';
@@ -344,14 +346,34 @@ export default function LessonPage() {
         className="flex w-full min-w-0 flex-1 flex-col lg:h-full lg:flex-row lg:gap-1 lg:overflow-hidden"
       >
 
-      {/* Main Content Area */}
-      <div style={lessonStyle} className="bench-grid min-w-0 flex-1 overflow-y-auto p-4 sm:p-8">
-        <div className="mx-auto max-w-3xl rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(22,36,29,0.9)] sm:p-10">
-          <h1 className="font-lab mb-4 text-2xl font-extrabold tracking-tight text-ink sm:text-4xl">{lesson.title}</h1>
-          <p className="mb-6 border-b-2 border-ink/10 pb-6 text-base text-ink/65 sm:mb-10 sm:text-lg">{lesson.description}</p>
+      {/* Main Content Area.
+          The sheet fills the pane, and every block inside it uses the sheet's
+          full width: prose, quiz, 3D bench, photo grid alike. No block is
+          centred in a narrower column of its own, so there is no empty margin
+          down either side.
+
+          The sheet, not the pane, carries `container-type`, so the
+          `@min-[68rem]` queries inside it measure the width a block actually
+          gets rather than the width before the sheet's own padding and cap come
+          off. Container rather than viewport because some lessons carry a 600px
+          editor panel beside this one, so window width answers the wrong
+          question entirely. */}
+      <div
+        style={lessonStyle}
+        className="bench-grid min-w-0 flex-1 overflow-y-auto p-4 sm:p-8"
+      >
+        <div className="mx-auto w-full max-w-[86rem] rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(22,36,29,0.9)] [container-type:inline-size] sm:p-10">
+          <header className="mb-6 border-b-2 border-ink/10 pb-6 sm:mb-10">
+            <h1 className="font-lab mb-4 text-2xl font-extrabold tracking-tight text-ink sm:text-4xl">{lesson.title}</h1>
+            <p className="text-base text-ink/65 sm:text-lg">{lesson.description}</p>
+          </header>
 
           <div className="space-y-8 mb-16">
             {lesson.content?.map((block, idx) => {
+              // Prose runs the full width of the sheet. Long lines are the
+              // trade for filling the page, so the type stays large and
+              // leading-relaxed keeps the rows apart enough to track back to
+              // the start of the next one.
               if (block.type === 'heading') return <h2 key={idx} className="font-lab text-2xl font-bold text-ink mt-10 mb-4">{block.value}</h2>;
               if (block.type === 'paragraph') return <p key={idx} className="text-ink/75 leading-relaxed text-lg">{block.value}</p>;
               if (block.type === 'tip') return (
@@ -365,7 +387,12 @@ export default function LessonPage() {
                   {block.value}
                 </pre>
               );
+              // The visual blocks take the whole sheet. A 3D bench or an
+              // eight-photo grid is the one thing on the page that a wide
+              // window actually helps.
               if (block.type === 'simulation') return <LessonSimulation key={idx} sim={block} />;
+              if (block.type === 'widget') return <LessonWidget key={idx} block={block} />;
+              if (block.type === 'image') return <LessonImage key={idx} block={block} />;
               return null;
             })}
           </div>
@@ -405,7 +432,11 @@ export default function LessonPage() {
                   return (
                     <div key={qIdx}>
                       <p className="font-bold text-ink text-lg mb-5">{q.question}</p>
-                      <div className="space-y-3">
+                      {/* Two up once there's room. `items-start` is deliberate:
+                          a grid would otherwise stretch every option in a row to
+                          the height of the wordiest one, which reads as though
+                          the short answers are somehow bigger targets. */}
+                      <div className="grid grid-cols-1 items-start gap-3 @min-[68rem]:grid-cols-2">
                         {q.options.map((opt, oIdx) => {
                           const chosen = quizAnswers[qIdx] === oIdx;
                           // After grading, paint the correct option green and a

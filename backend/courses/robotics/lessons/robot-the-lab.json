@@ -1,0 +1,126 @@
+{
+  "lessonId": "robot-the-lab",
+  "title": "Meet ARIA",
+  "description": "There is a robot on the bench, and she is yours. By the end of this course you will have built every part of her yourself.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "This Is the Robot You're Building"
+    },
+    {
+      "type": "paragraph",
+      "value": "Her name is ARIA. Right now she is finished and sitting on the bench, so you can look at her properly before you build anything. From Module 3 you start assembling her yourself, one part at a time."
+    },
+    {
+      "type": "paragraph",
+      "value": "She is fourteen parts in total. Two driven wheels, a distance sensor, a battery and a brain. This is the classic starting robot you met at the end of Module 1."
+    },
+    {
+      "type": "heading",
+      "value": "Three things to try"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "drag        spin her round and look from any side\nscroll      zoom in close, or pull back out\nclick       open any part and find out what it does"
+    },
+    {
+      "type": "paragraph",
+      "value": "Nothing here can break, so explore freely. If you get lost, the little house button puts the camera back where it started."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-bench",
+      "title": "🤖 ARIA on the bench",
+      "hint": "Try looking underneath. Two of her parts only make sense once you see them from below."
+    },
+    {
+      "type": "image",
+      "src": "/course-images/robotics/robot-the-lab/aria-assembled.jpg",
+      "ratio": "16 / 9",
+      "want": "The finished ARIA robot on a desk, three-quarter view, roughly the angle the 3D model opens at. Shoot this once you have built one",
+      "alt": "A small two-wheeled robot with a distance sensor, assembled on a desk",
+      "caption": "The same robot, actually built. About ₹3,500 of parts.",
+      "credit": ""
+    },
+    {
+      "type": "heading",
+      "value": "Why she looks like that"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every shape on this robot is an answer to a question. Nothing on her is decoration."
+    },
+    {
+      "type": "paragraph",
+      "value": "The wheels sit at her widest point, because a wide base is hard to tip over. The distance sensor faces forward, because forward is where she is about to go. The battery sits low and in the middle, so she stays balanced when she turns."
+    },
+    {
+      "type": "paragraph",
+      "value": "The ball at the front looks like an afterthought, but it is not. Two wheels can drive her and steer her, but two points cannot hold anything upright on their own. The ball is the third point of the triangle."
+    },
+    {
+      "type": "tip",
+      "value": "A real ARIA costs about ₹3,500 to build. That is ₹450 for the controller, ₹120 for the distance sensor, and the rest on motors, wheels, battery and the chassis. Every part you are looking at is one you can actually buy."
+    },
+    {
+      "type": "heading",
+      "value": "Fourteen parts, six systems"
+    },
+    {
+      "type": "paragraph",
+      "value": "Fourteen separate things is too many to hold in your head at once, so nobody tries. Engineers group parts into systems, then think about one system at a time."
+    },
+    {
+      "type": "paragraph",
+      "value": "That is the next lesson. For now, just get comfortable spinning her round and clicking on things."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: ARIA is a real robot you can build, made of fourteen parts, and every bit of her shape exists for a reason."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why does ARIA have a ball at the front instead of a third wheel?",
+      "options": [
+        "It rolls in any direction, so it never fights the two driven wheels",
+        "It makes her heavier at the front",
+        "It's a spare part in case a wheel breaks"
+      ],
+      "answer": 0,
+      "explain": "A fixed third wheel would always have to point somewhere. A ball rolls whichever way it is pushed, so the two driven wheels are free to decide where she goes."
+    },
+    {
+      "question": "Why is the battery mounted low and near the middle of the chassis?",
+      "options": [
+        "So it's easy to reach",
+        "It is the heaviest part, and keeping weight low and central stops her tipping",
+        "Because wires are shortest there"
+      ],
+      "answer": 1,
+      "explain": "Weight high up makes anything easier to tip over. So the heaviest part goes low and central. It is the same reason a racing car sits close to the ground."
+    },
+    {
+      "question": "You have zoomed in and lost track of where you are. What is the quickest fix?",
+      "options": [
+        "Reload the whole page",
+        "Press the home button to put the camera back",
+        "Nothing, you have to drag your way back"
+      ],
+      "answer": 1,
+      "explain": "Every bench in this course has a reset button. Getting lost while exploring is expected, so recovering is one click."
+    },
+    {
+      "question": "What does it mean that ARIA's distance sensor faces forward?",
+      "options": [
+        "It is the only direction a sensor can point",
+        "It looks where she is about to drive, which is the only place an obstacle would matter",
+        "It makes the robot look like it has a face"
+      ],
+      "answer": 1,
+      "explain": "A sensor is only useful when it points where the answer matters. She drives forwards, so forwards is where she needs to see."
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "lessonId": "robot-exploded",
+  "title": "Taking Her Apart",
+  "description": "Pull one slider and the whole robot separates in mid-air. Nothing shows you where a part sits like watching it move away from everything else.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Exploded View"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every instruction manual you have ever opened uses the same trick. Draw the machine with its parts floating slightly apart, so you can see how they fit together."
+    },
+    {
+      "type": "paragraph",
+      "value": "Drag the slider slowly rather than all at once, and watch which parts leave together. Parts that travel as a group usually work as a group."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-bench",
+      "title": "💥 Pull her apart",
+      "hint": "Explode her halfway, then try X-ray and Wire as well. Every part stays clickable in every mode.",
+      "controls": [
+        "explode",
+        "views",
+        "systems"
+      ]
+    },
+    {
+      "type": "image",
+      "src": "/course-images/robotics/robot-exploded/parts-laid-out.jpg",
+      "ratio": "16 / 9",
+      "want": "All fourteen parts laid out flat on a table, shot from directly above, grouped in build order",
+      "alt": "The fourteen parts of the robot laid out on a table, seen from above",
+      "caption": "The real version of the slider above. Every part separated, laid out in the order it goes together.",
+      "credit": ""
+    },
+    {
+      "type": "heading",
+      "value": "Three ways of looking"
+    },
+    {
+      "type": "paragraph",
+      "value": "Solid shows the robot the way your eyes would see it on a table."
+    },
+    {
+      "type": "paragraph",
+      "value": "X-ray makes the chassis see-through, so you can look at what is mounted above and below it without moving anything. Engineers use exactly this view on real machines."
+    },
+    {
+      "type": "paragraph",
+      "value": "Wire strips everything back to the lines the computer actually stores. This is a good moment to notice something. The robot on your screen is not a picture. It is a list of shapes, positions and colours, and the computer redraws it from that list about sixty times a second."
+    },
+    {
+      "type": "heading",
+      "value": "What the explosion tells you"
+    },
+    {
+      "type": "paragraph",
+      "value": "Watch the wheels. They move straight out sideways, because sideways is the only direction they can come off. Each one slides onto a motor shaft."
+    },
+    {
+      "type": "paragraph",
+      "value": "Watch the parts on the deck. The battery, controller, driver, LED and buzzer all lift upwards, because every one of them is mounted on top of the chassis."
+    },
+    {
+      "type": "paragraph",
+      "value": "Watch the line sensors. They drop downwards, because they live underneath, facing the floor. Pointing any other way would make them useless."
+    },
+    {
+      "type": "tip",
+      "value": "The direction a part moves in an exploded view is a real fact about the machine. It is the direction you would actually remove it in. Get that wrong on a real build and you will end up undoing three other parts first."
+    },
+    {
+      "type": "heading",
+      "value": "Assembly order, for free"
+    },
+    {
+      "type": "paragraph",
+      "value": "Run the explosion backwards in your head and you have the build order. Chassis first, then the parts that bolt to the chassis, then the parts that bolt to those."
+    },
+    {
+      "type": "paragraph",
+      "value": "That is exactly the order you will build her in. Chassis and battery in Module 3, the brain in Module 4, motors and wheels in Module 5, sensors in Module 7."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: an exploded view shows how a machine comes apart, and that is the same thing as showing how it goes together."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "In the exploded view the wheels move straight out sideways. What does that tell you about the real robot?",
+      "options": [
+        "The wheels are the heaviest parts",
+        "The wheels slide off sideways along the motor shafts, which is the only way they come off",
+        "The wheels are not attached to anything"
+      ],
+      "answer": 1,
+      "explain": "An exploded view moves each part in the direction you would really remove it. Sideways means it slides off a shaft."
+    },
+    {
+      "question": "The line sensors drop downwards when the robot comes apart. Why are they mounted under the chassis in the first place?",
+      "options": [
+        "There was no room on top",
+        "They read the floor, so they have to point at it",
+        "To protect them from being knocked"
+      ],
+      "answer": 1,
+      "explain": "They ask one question: is the floor under me light or dark? To answer it they have to face the floor. Mounted anywhere else they would be useless."
+    },
+    {
+      "question": "What does Wire mode show you about what is really on your screen?",
+      "options": [
+        "That the robot is a photograph",
+        "That the robot is stored as a list of shapes and positions, and redrawn by the computer many times a second",
+        "That some parts are missing"
+      ],
+      "answer": 1,
+      "explain": "Nothing here is a picture. It is shapes plus instructions, drawn fresh every frame, which is exactly why you can spin it."
+    },
+    {
+      "question": "Why is the exploded view also an assembly guide?",
+      "options": [
+        "Because run backwards, it shows what to attach to what, and in what order",
+        "Because it lists the prices",
+        "It is not, it is only for looking at"
+      ],
+      "answer": 0,
+      "explain": "Coming apart and going together are the same sequence in opposite directions. Chassis first, then whatever bolts to it."
+    }
+  ]
+}

@@ -1,0 +1,305 @@
+{
+  "lessonId": "robot-machine-vs-robot",
+  "title": "Machine or Robot?",
+  "description": "A washing machine has motors, sensors and a computer inside. So why is it not a robot? One question settles it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Test"
+    },
+    {
+      "type": "paragraph",
+      "value": "One question sorts almost every machine correctly. Does it change what it does, based on what it senses?"
+    },
+    {
+      "type": "paragraph",
+      "value": "If the answer is no, and it repeats the same steps no matter what, it is a machine. If the answer is yes, it is a robot."
+    },
+    {
+      "type": "heading",
+      "value": "The washing machine"
+    },
+    {
+      "type": "paragraph",
+      "value": "Press \"Cotton\" and it fills, spins, drains, then spins again. The same steps, in the same order, every single time."
+    },
+    {
+      "type": "paragraph",
+      "value": "It does have a water sensor and a timer. But they only tell it when to move on to the next fixed step. The plan itself never changes, so it is a machine."
+    },
+    {
+      "type": "image",
+      "src": "/course-images/robotics/robot-machine-vs-robot/washing-machine-dial.jpg",
+      "ratio": "4 / 3",
+      "want": "A washing machine program dial or control panel, close enough to read the cycle names",
+      "alt": "The program selector dial on a washing machine",
+      "caption": "Every setting is a fixed list of steps. The dial picks which list runs, and that is all.",
+      "credit": ""
+    },
+    {
+      "type": "heading",
+      "value": "The robot vacuum"
+    },
+    {
+      "type": "paragraph",
+      "value": "Put it in a different room and it cleans a different path. Move a chair and tomorrow's route changes. It builds the plan from what it senses, so it is a robot."
+    },
+    {
+      "type": "image",
+      "src": "/course-images/robotics/robot-machine-vs-robot/robot-vacuum-working.jpg",
+      "ratio": "4 / 3",
+      "want": "A robot vacuum mid-clean in a real room, ideally showing its bumper and top sensor turret",
+      "alt": "A robot vacuum cleaner navigating a living room floor",
+      "caption": "Same program, different room, different path, because it looks first.",
+      "credit": ""
+    },
+    {
+      "type": "paragraph",
+      "value": "Try it yourself. Same room, same starting point, one box in the way. Run the fixed program, then run the robot. Then move the box and run both again."
+    },
+    {
+      "type": "widget",
+      "kind": "machine-vs-robot"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "                  Same steps      Changes its plan\n                  every time?     from sensors?\n\nWashing machine       yes              no      → machine\nToaster               yes              no      → machine\nRobot vacuum          no               yes     → ROBOT\nSelf-driving car      no               yes     → ROBOT"
+    },
+    {
+      "type": "heading",
+      "value": "The tricky ones"
+    },
+    {
+      "type": "paragraph",
+      "value": "Some machines sit right on the line. Arguing about those is the fastest way to really understand the test. Here are three worth arguing about."
+    },
+    {
+      "type": "paragraph",
+      "value": "A thermostat senses the temperature and switches the heater on or off. So it senses, decides and acts. Most people still call it a machine, because it has exactly one rule. If you called it the world's simplest robot, you would not really be wrong."
+    },
+    {
+      "type": "paragraph",
+      "value": "A factory arm welding car doors repeats one memorised movement forever, with no sensors at all. Most people call it a robot because it looks like one. By our test it is a machine in a robot costume."
+    },
+    {
+      "type": "paragraph",
+      "value": "A drone flying a route you typed in never looks around. Same answer: it is a very expensive machine. Give it a camera that makes it dodge a bird and it becomes a robot."
+    },
+    {
+      "type": "image",
+      "value": "All three of these are machines",
+      "columns": 3,
+      "ratio": "4 / 3",
+      "items": [
+        {
+          "src": "/course-images/robotics/robot-machine-vs-robot/tricky-thermostat.jpg",
+          "want": "A wall thermostat, dial or digital, close enough to read the temperature",
+          "alt": "A wall-mounted room thermostat",
+          "caption": "It senses, then it switches. One rule, one output.",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-machine-vs-robot/tricky-welding-arm.jpg",
+          "want": "An industrial welding arm on a car production line, sparks visible if possible",
+          "alt": "An industrial robot arm welding a car body on a production line",
+          "caption": "Repeats one memorised movement, whatever is in front of it.",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-machine-vs-robot/tricky-drone.jpg",
+          "want": "A consumer quadcopter drone in flight against open sky",
+          "alt": "A four-rotor drone in flight",
+          "caption": "Flies the route you typed. Never looks around.",
+          "credit": ""
+        }
+      ]
+    },
+    {
+      "type": "tip",
+      "value": "Shape is not the test. A machine can look like a person, and a robot can look like a hockey puck. Always ask the same question instead: does it change its plan from what it senses?"
+    },
+    {
+      "type": "heading",
+      "value": "So what about remote control?"
+    },
+    {
+      "type": "paragraph",
+      "value": "A remote-control car is not a robot, because you are its brain. The sensing happens in your eyes and the thinking happens in your head, both outside the machine."
+    },
+    {
+      "type": "paragraph",
+      "value": "That is worth noticing rather than treating as a failure. Plenty of real robots start out remote-controlled, and the brain gets moved inside them later. You will do exactly that in this course."
+    },
+    {
+      "type": "heading",
+      "value": "Your turn: twelve machines, two bins"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sort all twelve before you press check. Four of them are genuinely arguable. If you can explain why you put one where you did, you have understood the test."
+    },
+    {
+      "type": "widget",
+      "kind": "sort-bins",
+      "prompt": "The test: does it change what it does based on what it senses?",
+      "pass": 0.75,
+      "xp": 25,
+      "xpKey": "robotics-m1-sort",
+      "note": "The hard ones: a factory arm with no sensors repeats a fixed movement forever, so it is a machine. A thermostat really does sense, decide and act, so calling it the world's simplest robot is fair.",
+      "columns": [
+        {
+          "id": "robot",
+          "label": "Robot",
+          "emoji": "🤖"
+        },
+        {
+          "id": "not",
+          "label": "Just a Machine",
+          "emoji": "⚙️"
+        }
+      ],
+      "cards": [
+        {
+          "id": "vacuum",
+          "label": "Robot vacuum",
+          "emoji": "🧹",
+          "column": "robot"
+        },
+        {
+          "id": "car",
+          "label": "Self-driving car",
+          "emoji": "🚗",
+          "column": "robot"
+        },
+        {
+          "id": "rover",
+          "label": "Mars rover",
+          "emoji": "🔴",
+          "column": "robot"
+        },
+        {
+          "id": "delivery",
+          "label": "Pavement delivery bot",
+          "emoji": "📦",
+          "column": "robot"
+        },
+        {
+          "id": "dronecam",
+          "label": "Drone that dodges birds it spots",
+          "emoji": "🚁",
+          "column": "robot"
+        },
+        {
+          "id": "washing",
+          "label": "Washing machine",
+          "emoji": "🧺",
+          "column": "not"
+        },
+        {
+          "id": "toaster",
+          "label": "Toaster",
+          "emoji": "🍞",
+          "column": "not"
+        },
+        {
+          "id": "vending",
+          "label": "Vending machine",
+          "emoji": "🥤",
+          "column": "not"
+        },
+        {
+          "id": "rc",
+          "label": "RC car you steer",
+          "emoji": "🎮",
+          "column": "not"
+        },
+        {
+          "id": "puppet",
+          "label": "Puppet on strings",
+          "emoji": "🎭",
+          "column": "not"
+        },
+        {
+          "id": "arm",
+          "label": "Factory arm with no sensors",
+          "emoji": "🦾",
+          "column": "not"
+        },
+        {
+          "id": "dronefixed",
+          "label": "Drone flying a typed-in route",
+          "emoji": "📍",
+          "column": "not"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a robot decides for itself, using what it senses. If it runs the same steps no matter what, or if a human is doing the deciding, it is not a robot."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A drone flies a route you typed in and never changes it. Robot?",
+      "options": [
+        "Yes, because it flies by itself",
+        "No, because it never changes its plan from what it senses",
+        "Yes, because anything that flies is a robot"
+      ],
+      "answer": 1,
+      "explain": "Flying by itself is not enough. It follows a fixed list of points, the same way a washing machine follows a fixed wash cycle."
+    },
+    {
+      "question": "A vending machine takes your money, checks the coin, and drops the snack you chose. Robot?",
+      "options": [
+        "No, because the same steps run every time, whatever it senses",
+        "Yes, because it has a coin sensor",
+        "Yes, because it moves things around"
+      ],
+      "answer": 0,
+      "explain": "Having a sensor is not the test. Its coin sensor only confirms a fixed step. The plan never changes."
+    },
+    {
+      "question": "Your friend says a robot vacuum can't be a robot because it doesn't have arms or a face. What's the best reply?",
+      "options": [
+        "They are right, robots need arms",
+        "Shape does not matter. Deciding for itself from sensors does",
+        "They are right, it is a vacuum and not a robot"
+      ],
+      "answer": 1,
+      "explain": "Plenty of real robots are boxes, discs or drones. What counts is whether it changes its plan from what it senses."
+    },
+    {
+      "question": "You drive an RC car around your room with a controller. Which box of the loop is happening OUTSIDE the car?",
+      "options": [
+        "ACT",
+        "SENSE and THINK",
+        "Neither, because it is a full robot"
+      ],
+      "answer": 1,
+      "explain": "Your eyes do the sensing and your brain does the thinking. The car only acts. Move those two jobs inside the car and it becomes a robot."
+    },
+    {
+      "question": "A factory arm welds the same spot on every car with no sensors at all. By our test, what is it?",
+      "options": [
+        "A robot, because it is in a factory and looks like one",
+        "A machine, because it repeats fixed steps and senses nothing",
+        "Neither, because it is just a tool"
+      ],
+      "answer": 1,
+      "explain": "Everyone calls it a robot arm, and that is fine in everyday speech. But by the sense, think, act test, no sensing means no deciding."
+    },
+    {
+      "question": "Which change would turn a fixed-route delivery drone into a robot?",
+      "options": [
+        "Painting it a brighter colour",
+        "Making it fly faster",
+        "Adding a camera that makes it fly around obstacles it spots"
+      ],
+      "answer": 2,
+      "explain": "That completes the loop. It senses something new, decides, and changes what it does. Speed and paint change nothing."
+    }
+  ]
+}

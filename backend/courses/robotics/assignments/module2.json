@@ -1,0 +1,86 @@
+{
+  "moduleId": 2,
+  "title": "Know Your Robot Arcade",
+  "intro": "Six rounds on ARIA's parts and systems. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "🤖",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "Which system does the controller board belong to?",
+      "options": [
+        "Brain",
+        "Signals",
+        "Frame"
+      ],
+      "answer": 0,
+      "explain": "The controller reads the sensors and decides what to do. That is the THINK step, built out of hardware."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each system to the job only it does.",
+      "pairs": [
+        {
+          "left": "⚡ Power",
+          "right": "Stores and supplies the energy"
+        },
+        {
+          "left": "👁️ Senses",
+          "right": "Turns the world into numbers"
+        },
+        {
+          "left": "⚙️ Movement",
+          "right": "Turns decisions into motion"
+        },
+        {
+          "left": "🔩 Frame",
+          "right": "Holds every other part in place"
+        }
+      ],
+      "explain": "Six systems, one job each. Senses, Brain and Movement are the loop itself. Power and Frame are what make the loop possible."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why are ARIA's line sensors mounted underneath the chassis?",
+      "options": [
+        "They have to see the floor to tell a dark line from a light surface",
+        "There was not room on the deck",
+        "To keep them safe from knocks"
+      ],
+      "answer": 0,
+      "explain": "Position follows job. Their only question is about the floor beneath the robot, so that is where they point."
+    },
+    {
+      "type": "concept",
+      "prompt": "In an exploded view, ARIA's wheels move straight out sideways. Why?",
+      "options": [
+        "Sideways is the direction you would really slide them off the motor shafts",
+        "Because they are round",
+        "It just looks better that way"
+      ],
+      "answer": 0,
+      "explain": "An exploded view moves each part the way it really comes off, which means it doubles as an assembly guide."
+    },
+    {
+      "type": "concept",
+      "prompt": "Your robot is completely dead, with no LED and no movement. Which system do you check first?",
+      "options": [
+        "Power",
+        "Senses",
+        "Signals"
+      ],
+      "answer": 0,
+      "explain": "A flat battery looks exactly like a broken brain from the outside. Power is the quickest thing to rule out."
+    },
+    {
+      "type": "concept",
+      "prompt": "ARIA has a ball at the front instead of a third wheel. What is it for?",
+      "options": [
+        "It rolls in any direction, so it holds the front up without fighting the driven wheels",
+        "It is a spare wheel",
+        "It is a sensor"
+      ],
+      "answer": 0,
+      "explain": "Two wheels can drive and steer, but they cannot balance the robot on their own. The caster ball is the third point of the triangle."
+    }
+  ]
+}

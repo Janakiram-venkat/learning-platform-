@@ -1,0 +1,22 @@
+{
+  "courseId": "robotics",
+  "title": "Robotics",
+  "description": "Meet the machines that sense, think and act, then design one of your own. No electronics knowledge needed.",
+  "level": "Beginner",
+  "estimatedHours": 40,
+  "emoji": "🦾",
+  "thumbnail": "/images/robotics.png",
+  "hasEditor": false,
+  "modules": [
+    {
+      "id": 1,
+      "title": "What Is a Robot?",
+      "file": "module1.json"
+    },
+    {
+      "id": 2,
+      "title": "Meet Your Robot",
+      "file": "module2.json"
+    }
+  ]
+}

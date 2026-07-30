@@ -1,0 +1,291 @@
+{
+  "lessonId": "robot-zoo",
+  "title": "The Robot Zoo",
+  "description": "Eight families of robot, one job each. Spin them round, play their signature move, and find the same loop inside every one.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "One Loop, Eight Shapes"
+    },
+    {
+      "type": "paragraph",
+      "value": "Robots look completely different from each other because they do completely different jobs. A rover needs wheels that cope with rocks. A surgical robot needs fingers steadier than any human hand."
+    },
+    {
+      "type": "paragraph",
+      "value": "Pick a robot below and it steps onto the turntable. Press play and it performs the one move that explains its whole job. The arm welds, the rover climbs, the drone lifts off."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-zoo",
+      "items": [
+        {
+          "id": "industrial-arm",
+          "name": "Industrial Arm",
+          "emoji": "🦾",
+          "tagline": "Bolted to a factory floor, welding and lifting all day.",
+          "does": "It senses the angle of each of its own joints, then drives every joint to an exact position.",
+          "where": "Car plants and packing lines. Anywhere the same movement repeats forever.",
+          "why": "It lifts 200 kg, never gets tired, and repeats a movement to within half a millimetre."
+        },
+        {
+          "id": "surgical",
+          "name": "Surgical Robot",
+          "emoji": "🩺",
+          "tagline": "A surgeon drives it, and it takes the shake out of their hands.",
+          "does": "It senses force and position, then shrinks every movement down before it acts.",
+          "where": "Operating theatres, doing keyhole surgery through a cut the width of a pencil.",
+          "why": "The surgeon's hand moves 1 cm and the tool moves 1 mm. Steadier, smaller, safer."
+        },
+        {
+          "id": "humanoid",
+          "name": "Humanoid",
+          "emoji": "🤖",
+          "tagline": "Built in a human shape so it fits a world built for humans.",
+          "does": "It senses its own balance and looks around, then decides where to put a foot, dozens of times a second.",
+          "where": "Warehouses, disaster sites and research labs. Our doors, our stairs, our tools.",
+          "why": "It can walk into places too dangerous for us. Two legs is the hardest way to move, though."
+        },
+        {
+          "id": "rover",
+          "name": "Mars Rover",
+          "emoji": "🔴",
+          "tagline": "Six wheels, a rocking suspension, and no help within 225 million km.",
+          "does": "It senses the ground with cameras, then picks its own route over the rocks.",
+          "where": "Mars. No air, no help, and a radio message that takes minutes each way.",
+          "why": "Nobody can drive it live. By the time the command \"stop\" arrives, it is already in the crater."
+        },
+        {
+          "id": "bomb-disposal",
+          "name": "Bomb Disposal",
+          "emoji": "💣",
+          "tagline": "Tracks like a tiny tank, a gripper arm, and a camera for the person driving it.",
+          "does": "Mostly driven by a person, which makes it closer to a machine. That is deliberate.",
+          "where": "Anywhere a suspicious package needs opening.",
+          "why": "The person decides, and the robot takes the risk. Sometimes less independence is the right design."
+        },
+        {
+          "id": "vacuum",
+          "name": "Vacuum Robot",
+          "emoji": "🧹",
+          "tagline": "The robot that most people actually own.",
+          "does": "It senses bumps, drops and dirt, then plans a path around your furniture.",
+          "where": "Living-room floors, every single day, without being asked.",
+          "why": "Nobody wants to vacuum every day, and it will happily do the boring version of the job."
+        },
+        {
+          "id": "delivery",
+          "name": "Delivery Bot",
+          "emoji": "📦",
+          "tagline": "An insulated box on six wheels, crossing the pavement at walking speed.",
+          "does": "It senses with cameras and distance sensors, then works out how to get around a dog or a pram.",
+          "where": "College campuses and city pavements, carrying food and parcels.",
+          "why": "Short trips, all day, in the rain, and it never needs a lunch break."
+        },
+        {
+          "id": "quadcopter",
+          "name": "Quadcopter",
+          "emoji": "🚁",
+          "tagline": "Four rotors, no wheels, and a very fast sense, think, act loop.",
+          "does": "It senses its own tilt hundreds of times a second and corrects each rotor separately.",
+          "where": "Above fields, fires, floods and film sets.",
+          "why": "It can see a whole area from above, for a tiny fraction of the cost of a helicopter."
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "value": "The same eight families, for real",
+      "columns": 4,
+      "ratio": "1 / 1",
+      "items": [
+        {
+          "src": "/course-images/robotics/robot-zoo/industrial-arm.jpg",
+          "want": "A factory robot arm at work, welding, painting or handling parts",
+          "alt": "An industrial robot arm working on a factory line",
+          "caption": "Industrial arm",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-zoo/surgical.jpg",
+          "want": "A surgical robot such as a da Vinci system in an operating theatre",
+          "alt": "A multi-armed surgical robot in an operating theatre",
+          "caption": "Surgical robot",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-zoo/humanoid.jpg",
+          "want": "A humanoid robot standing upright, such as Atlas, ASIMO or Optimus",
+          "alt": "A two-legged humanoid robot standing upright",
+          "caption": "Humanoid",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-zoo/rover.jpg",
+          "want": "A Mars rover on the surface, or a full-size engineering model. NASA/JPL imagery is public domain",
+          "alt": "A six-wheeled Mars rover on rocky terrain",
+          "caption": "Planetary rover",
+          "credit": "NASA/JPL"
+        },
+        {
+          "src": "/course-images/robotics/robot-zoo/bomb-disposal.jpg",
+          "want": "A tracked bomb-disposal robot with its manipulator arm raised",
+          "alt": "A tracked bomb disposal robot with an extended gripper arm",
+          "caption": "Bomb disposal",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-zoo/vacuum.jpg",
+          "want": "A robot vacuum on a floor, seen from a low angle",
+          "alt": "A disc-shaped robot vacuum cleaner on a floor",
+          "caption": "Vacuum bot",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-zoo/delivery.jpg",
+          "want": "A pavement delivery robot, a Starship-style box on wheels, ideally with its flag up",
+          "alt": "A six-wheeled pavement delivery robot with a raised flag",
+          "caption": "Delivery bot",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-zoo/quadcopter.jpg",
+          "want": "A quadcopter in flight, close enough to see the four rotors",
+          "alt": "A four-rotor drone hovering",
+          "caption": "Quadcopter",
+          "credit": ""
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "value": "The pattern hiding in all eight"
+    },
+    {
+      "type": "paragraph",
+      "value": "Look past the shapes and all eight families are doing the same three things. Only the hardware changes."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "family            senses              acts with\n-----------------------------------------------------\nindustrial arm    joint angles        big motors\nsurgical          force, position     tiny instruments\nhumanoid          balance, vision     legs and arms\nMars rover        cameras, wheels     six slow wheels\nbomb disposal     camera (operator)   tracks + gripper\nvacuum            bump, drop, dirt    two wheels + brush\ndelivery          cameras, distance   six small wheels\nquadcopter        tilt, height        four rotors"
+    },
+    {
+      "type": "paragraph",
+      "value": "The shape of a robot is an answer to two questions. What job does it do, and in what kind of place? Change the answers and the shape changes with them."
+    },
+    {
+      "type": "tip",
+      "value": "The robot you build in this course is closest to the vacuum and the delivery bot. Two driven wheels, a distance sensor and a brain. That family is where nearly every roboticist starts."
+    },
+    {
+      "type": "heading",
+      "value": "Now design your own"
+    },
+    {
+      "type": "paragraph",
+      "value": "You have met eight families and the loop they all share. Now add a ninth. Pick a boring or difficult job at your school, and invent the robot that does it."
+    },
+    {
+      "type": "widget",
+      "kind": "design-card",
+      "title": "🛠️ Design a robot for your school",
+      "prompt": "Fill in all three steps of the loop. There is no single right answer. If your sense, think and act fit together, your robot works.",
+      "cardLabel": "Robot Concept Card",
+      "cardEmoji": "🦾",
+      "xp": 40,
+      "xpKey": "robotics-m1-design",
+      "fields": [
+        {
+          "key": "name",
+          "label": "Name your robot",
+          "placeholder": "e.g. BinBot 3000"
+        },
+        {
+          "key": "job",
+          "label": "What boring or hard job does it do?",
+          "placeholder": "e.g. collects litter from the playground after lunch"
+        },
+        {
+          "key": "sense",
+          "label": "SENSE: what does it need to notice?",
+          "placeholder": "e.g. a camera to spot litter, a distance sensor to avoid people"
+        },
+        {
+          "key": "think",
+          "label": "THINK: what is its main rule?",
+          "placeholder": "e.g. if I see litter and nobody is close, drive to it and pick it up"
+        },
+        {
+          "key": "act",
+          "label": "ACT: what does it move or change?",
+          "placeholder": "e.g. two wheels to drive, a small arm and a bin"
+        }
+      ],
+      "example": {
+        "name": "BinBot 3000",
+        "job": "Collects litter from the playground after lunch break",
+        "sense": "A camera to spot litter on the ground and a distance sensor so it never bumps into a student",
+        "think": "If I see litter and nobody is within one metre, drive to it, pick it up, and go back to looking",
+        "act": "Two wheels to drive around, a small grabber arm, and a bin on its back"
+      }
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: the shape of a robot is decided by its job, not by fashion. Underneath, all eight families run the same sense, think, act loop."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A robot has to work somewhere a radio message takes minutes to arrive. Which family is it, and what does that force it to do?",
+      "options": [
+        "A Mars rover, and it must make its own decisions, because nobody can drive it live",
+        "A surgical robot, and it must be extremely steady",
+        "An industrial arm, and it must be very strong"
+      ],
+      "answer": 0,
+      "explain": "Distance is the reason rovers are independent. By the time a command arrives, the moment it was meant for has passed."
+    },
+    {
+      "question": "Why is a humanoid built in a human shape?",
+      "options": [
+        "Two legs are the most stable way to move",
+        "So it fits our doors, stairs and tools without us changing anything",
+        "Because it makes it think better"
+      ],
+      "answer": 1,
+      "explain": "Our buildings are built around our bodies. Two legs is actually one of the hardest ways to move. Wheels are far easier."
+    },
+    {
+      "question": "A surgical robot shrinks a surgeon's 1 cm hand movement down to 1 mm. Which step of the loop is that?",
+      "options": [
+        "SENSE",
+        "THINK",
+        "ACT"
+      ],
+      "answer": 1,
+      "explain": "It is a decision made between sensing the hand and moving the tool. Take the number that came in and shrink it."
+    },
+    {
+      "question": "A bomb-disposal robot is mostly driven by a human operator. Why is that a deliberate design choice rather than a weakness?",
+      "options": [
+        "Because a person accepts the risk of deciding, while the machine takes the physical risk",
+        "Because it is too cheap to have a computer",
+        "Because bomb disposal robots cannot have sensors"
+      ],
+      "answer": 0,
+      "explain": "The point is to keep a person out of the blast, not to make the machine independent. Sometimes less independence is the right answer."
+    },
+    {
+      "question": "Which two families is the robot you will build in this course most like?",
+      "options": [
+        "The humanoid and the surgical robot",
+        "The vacuum and the delivery bot: two wheels, a distance sensor and a brain",
+        "The quadcopter and the industrial arm"
+      ],
+      "answer": 1,
+      "explain": "Two driven wheels plus a distance sensor is the classic starting robot, and it is exactly what you will be assembling from Module 3 onwards."
+    }
+  ]
+}

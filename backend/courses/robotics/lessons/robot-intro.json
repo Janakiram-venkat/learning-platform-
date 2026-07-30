@@ -1,0 +1,280 @@
+{
+  "lessonId": "robot-intro",
+  "title": "Sense, Think, Act",
+  "description": "A washing machine follows the same steps every time. A robot looks first, then decides. That one difference is what this whole course is about.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Loop Every Robot Runs"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every robot ever built runs the same three steps, over and over. A ₹2,000 toy robot does it. So does a Mars rover. The robot senses the world, thinks about what it found, then acts."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "   +---------+      +---------+      +---------+\n   |  SENSE  | ---> |  THINK  | ---> |   ACT   |\n   +---------+      +---------+      +---------+\n        ^                                  |\n        +----------------------------------+\n            and then it does it all again"
+    },
+    {
+      "type": "paragraph",
+      "value": "You are running that loop right now. Your eyes sense these words. Your brain thinks about what they mean. Your hand acts by scrolling down. Then it all starts again."
+    },
+    {
+      "type": "paragraph",
+      "value": "Here is a real one. Watch it measure the wall, decide, then move. Now drag the wall closer and watch it change its mind."
+    },
+    {
+      "type": "widget",
+      "kind": "sense-think-act"
+    },
+    {
+      "type": "image",
+      "value": "The three boxes, as real parts",
+      "columns": 3,
+      "ratio": "4 / 3",
+      "items": [
+        {
+          "src": "/course-images/robotics/robot-intro/sense-ultrasonic-sensor.jpg",
+          "want": "Close-up of an HC-SR04 ultrasonic distance sensor, its two round \"eyes\" facing the camera",
+          "alt": "An ultrasonic distance sensor module with two cylindrical transducers",
+          "caption": "SENSE: an ultrasonic distance sensor. About ₹120.",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-intro/think-controller-board.jpg",
+          "want": "Close-up of an ESP32 development board, ideally with a coin or fingertip beside it for scale",
+          "alt": "An ESP32 microcontroller development board",
+          "caption": "THINK: the controller board that runs the rule. About ₹450.",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-intro/act-geared-motor.jpg",
+          "want": "Close-up of a small yellow TT geared DC motor with a wheel fitted",
+          "alt": "A small geared DC motor with a rubber wheel attached",
+          "caption": "ACT: a geared motor with a wheel on it.",
+          "credit": ""
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "value": "Sense: how a robot notices"
+    },
+    {
+      "type": "paragraph",
+      "value": "A robot has no eyes or ears. It has sensors. A sensor is a small part that turns something in the world into a number, because a number is the only thing a computer can work with."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "👁  camera        → what is in front of me?\n📏  distance      → how far away is that wall?\n🌡️  temperature   → is it hot in here?\n〰️  line sensor   → is the floor black or white?\n🎙️  microphone    → did someone say something?"
+    },
+    {
+      "type": "paragraph",
+      "value": "A distance sensor never says \"a wall!\". It says 23, meaning 23 centimetres. Deciding that 23 is close enough to worry about is a separate job, and it happens in the next step."
+    },
+    {
+      "type": "heading",
+      "value": "Think: how a robot decides"
+    },
+    {
+      "type": "paragraph",
+      "value": "For a robot, thinking means following a rule. A rule looks like this: if the distance is under 20, turn instead of driving forward."
+    },
+    {
+      "type": "paragraph",
+      "value": "Later in this course you will write these rules yourself, first as blocks you drag, then as real Python. For now you only need the shape of it: a number goes in, a decision comes out."
+    },
+    {
+      "type": "heading",
+      "value": "Act: how a robot changes the world"
+    },
+    {
+      "type": "paragraph",
+      "value": "Acting means changing something in the real world. The parts that do it are called actuators. A motor spins a wheel. A servo swings an arm. A speaker makes a sound. An LED lights up."
+    },
+    {
+      "type": "paragraph",
+      "value": "A machine that only senses is a thermometer. A machine that only acts is a fan. A robot does all three, in a loop, without anyone telling it what to do each time."
+    },
+    {
+      "type": "heading",
+      "value": "Watch the loop run"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here is a floor-cleaning robot meeting a chair leg. Read it as two full turns of the loop:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "SENSE   distance sensor reads 12 cm\nTHINK   12 is less than 20 → something is in the way\nACT     stop, turn right, drive on\n\nSENSE   distance sensor reads 140 cm\nTHINK   140 is plenty → the way is clear\nACT     keep driving"
+    },
+    {
+      "type": "paragraph",
+      "value": "Nobody told the robot the chair was there. It found out by itself. That is what makes it a robot."
+    },
+    {
+      "type": "image",
+      "src": "/course-images/robotics/robot-intro/vacuum-meets-chair-leg.jpg",
+      "ratio": "16 / 9",
+      "want": "A robot vacuum photographed at floor level as it meets a chair leg, close enough to see its bumper",
+      "alt": "A robot vacuum cleaner approaching the leg of a chair",
+      "caption": "Nobody told it the chair was there. It worked it out with the loop above.",
+      "credit": ""
+    },
+    {
+      "type": "tip",
+      "value": "Try this on yourself. Close your eyes and pick up a pen from your desk. Hard, isn't it? You just switched off SENSE, so THINK and ACT had nothing to work with."
+    },
+    {
+      "type": "heading",
+      "value": "Your turn: which box?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here are eight parts from a real robot. Drop each one into the step it belongs to."
+    },
+    {
+      "type": "widget",
+      "kind": "classify",
+      "title": "🧭 Sense, Think or Act?",
+      "prompt": "Every robot part belongs to one of the three steps. Which step does each one belong to?",
+      "xp": 20,
+      "xpKey": "robotics-m1-classify",
+      "options": [
+        {
+          "id": "sense",
+          "label": "Sense",
+          "emoji": "👁️"
+        },
+        {
+          "id": "think",
+          "label": "Think",
+          "emoji": "🧠"
+        },
+        {
+          "id": "act",
+          "label": "Act",
+          "emoji": "⚙️"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "camera",
+          "label": "Camera",
+          "emoji": "📷",
+          "answer": "sense",
+          "explain": "It turns light into numbers the computer can read. That is sensing."
+        },
+        {
+          "id": "motor",
+          "label": "Motor spinning a wheel",
+          "emoji": "🛞",
+          "answer": "act",
+          "explain": "It pushes on the world and makes something move. Parts that do that are called actuators."
+        },
+        {
+          "id": "rule",
+          "label": "The rule 'if distance < 20, turn'",
+          "emoji": "📏",
+          "answer": "think",
+          "explain": "A number goes in and a decision comes out. That is exactly what THINK means."
+        },
+        {
+          "id": "mic",
+          "label": "Microphone",
+          "emoji": "🎙️",
+          "answer": "sense",
+          "explain": "Sound comes in and becomes numbers. Nothing has been decided yet, so it is still sensing."
+        },
+        {
+          "id": "speaker",
+          "label": "Speaker saying 'hello'",
+          "emoji": "🔊",
+          "answer": "act",
+          "explain": "Acting is not only movement. Making a sound changes the world too."
+        },
+        {
+          "id": "brain",
+          "label": "The controller board choosing a route",
+          "emoji": "🧠",
+          "answer": "think",
+          "explain": "The controller board is where sensor numbers turn into decisions."
+        },
+        {
+          "id": "distance",
+          "label": "Distance sensor reading 23",
+          "emoji": "📡",
+          "answer": "sense",
+          "explain": "It reports the number 23. It has no idea that means \"a wall\". Working that out happens in THINK."
+        },
+        {
+          "id": "led",
+          "label": "LED lighting up red",
+          "emoji": "🔴",
+          "answer": "act",
+          "explain": "Something the world can see. A small act, but still an act."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a robot senses the world, thinks about what it found, acts, then starts again. These three steps come back in every module of this course."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Your robot's distance sensor reads 8. Which step of the loop has just happened?",
+      "options": [
+        "It has SENSED: a number arrived from the world",
+        "It has THOUGHT: it decided something",
+        "It has ACTED: it moved"
+      ],
+      "answer": 0,
+      "explain": "A sensor only reports a number. Deciding what 8 means, and then doing something about it, are the two steps that come after."
+    },
+    {
+      "question": "A toy car drives forward whenever you hold the button, and stops when you let go. Which box is missing?",
+      "options": [
+        "SENSE",
+        "THINK",
+        "ACT"
+      ],
+      "answer": 1,
+      "explain": "It acts, and your finger does the sensing. But it never decides anything for itself, so THINK is what is missing. Your thumb is the brain."
+    },
+    {
+      "question": "Which of these is an actuator (an ACT part) rather than a sensor?",
+      "options": [
+        "A camera",
+        "A motor that spins a wheel",
+        "A microphone"
+      ],
+      "answer": 1,
+      "explain": "Cameras and microphones bring information in. A motor pushes back out on the world, and that is acting."
+    },
+    {
+      "question": "Why does the loop go round and round instead of running once?",
+      "options": [
+        "Because the world keeps changing, so the robot must keep checking",
+        "Because computers can only count to three",
+        "Because it makes the robot go faster"
+      ],
+      "answer": 0,
+      "explain": "The world does not hold still. Sensing once at the start would leave the robot blind for the rest of the trip."
+    },
+    {
+      "question": "A robot vacuum reads 15 cm from the wall ahead. Which line is its THINK step?",
+      "options": [
+        "The wheels stop turning",
+        "The number 15 arrives from the sensor",
+        "15 is under 20, so something is in the way"
+      ],
+      "answer": 2,
+      "explain": "Thinking is the rule that turns a number into a decision. The number arriving is sensing. The wheels stopping is acting."
+    }
+  ]
+}

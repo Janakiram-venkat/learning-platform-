@@ -23,7 +23,7 @@ from app.core.security import hash_password  # noqa: E402
 EMAIL = "tester@pocketlab.dev"
 NAME = "Test Account (QA)"
 PASSWORD = "Test@1234"
-INTERESTS = ["ai", "game-dev", "math", "science"]
+INTERESTS = ["ai", "game-dev", "robotics", "math", "science"]
 
 COURSES = Path(__file__).resolve().parent / "courses"
 
@@ -33,9 +33,34 @@ def load(path: Path) -> dict:
         return json.load(fh)
 
 
+def gather_game_steps(course_dir: Path) -> list:
+    """Every "module<N>:<stepIndex>" key for a game-format course.
+
+    A module's real step list lives in module<N>.json, but course.json also
+    carries a stepCount the module map uses for its progress bar — unlock the
+    larger of the two so a module never shows as half-done.
+    """
+    course_file = course_dir / "course.json"
+    if not course_file.exists():
+        return []
+    course = load(course_file)
+    if course.get("format") != "game":
+        return []
+
+    keys = []
+    for module in course.get("modules", []):
+        module_id = module.get("moduleId") or module.get("id")
+        mod_file = course_dir / f"module{module_id}.json"
+        actual = len(load(mod_file).get("steps", [])) if mod_file.exists() else 0
+        total = max(actual, module.get("stepCount") or 0)
+        keys.extend(f"module{module_id}:{i}" for i in range(total))
+    return keys
+
+
 def gather_progress() -> dict:
     completed_lessons, completed_assignments = [], []
     completed_labs, completed_projects = [], []
+    completed_game_steps = []
     assignment_stars = {}
 
     for course_dir in sorted(COURSES.iterdir()):
@@ -43,10 +68,14 @@ def gather_progress() -> dict:
             continue
         course_id = course_dir.name
 
-        # Lessons come from each module<N>.json in course order.
+        # Lessons come from each module<N>.json in course order. Game-course
+        # modules hold "steps" instead, so this is a no-op for them.
         for mod_file in sorted(course_dir.glob("module*.json")):
             for lesson in load(mod_file).get("lessons", []):
                 completed_lessons.append(lesson["lessonId"])
+
+        # Game courses track progress per step, keyed "module<N>:<stepIndex>".
+        completed_game_steps.extend(gather_game_steps(course_dir))
 
         # Assignments / labs / projects live in their own sub-folders.
         for a in sorted((course_dir / "assignments").glob("module*.json")):
@@ -68,6 +97,7 @@ def gather_progress() -> dict:
         "assignmentStars": assignment_stars,
         "completedProjects": sorted(set(completed_projects)),
         "completedLabs": sorted(set(completed_labs)),
+        "completedGameSteps": sorted(set(completed_game_steps)),
         "aiIdeas": [],
     }
 
@@ -104,6 +134,7 @@ def main() -> None:
         print(f"  Assignments done: {len(progress['completedAssignments'])}")
         print(f"  Labs done:        {len(progress['completedLabs'])}")
         print(f"  Projects done:    {len(progress['completedProjects'])}")
+        print(f"  Game steps done:  {len(progress['completedGameSteps'])}")
         print("-" * 44)
         print("To remove later, run in a Python shell (backend venv):")
         print("  from app.db import SessionLocal; from app.models.user import User")

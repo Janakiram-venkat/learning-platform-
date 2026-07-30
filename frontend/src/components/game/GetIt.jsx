@@ -311,12 +311,104 @@ function Gravity() {
   );
 }
 
+// --- lists: one loop body, however many things are in the list -------------
+
+function ListLoop({ mode = 'move', look = '🪨' }) {
+  const [count, setCount] = useState(6);
+  const [i, setI] = useState(0);
+
+  // One visit every 600ms. This is deliberately slow enough to follow — the
+  // whole point is seeing the loop arrive at each item in turn, which is
+  // invisible at the speed a real game runs it.
+  useEffect(() => {
+    const timer = setInterval(() => setI((n) => (n + 1) % (count + 1)), 600);
+    return () => clearInterval(timer);
+  }, [count]);
+
+  // i === count is the pause after the last item, so the restart is visible.
+  const active = i < count ? i : -1;
+  const building = mode === 'build';
+
+  const code = building
+    ? ['rocks = []', '', 'for i in range(' + count + '):', '    rock = Sprite("rock", ...)', '    rocks.append(rock)']
+    : ['for rock in rocks:', '    rock.y = rock.y + 3'];
+
+  const spread = W - 60;
+  const rocks = Array.from({ length: count }, (_, n) => ({
+    x: 30 + (count === 1 ? spread / 2 : (spread * n) / (count - 1)),
+    y: 70 + (n % 2) * 46,
+  }));
+
+  return (
+    <div>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <Stage>
+          <Grid />
+          {rocks.map((r, n) => {
+            const done = building ? n < i : false;
+            const on = n === active;
+            const shown = building ? n <= active || done : true;
+            return (
+              <g key={n} opacity={shown ? 1 : 0.12}>
+                {on && <circle cx={r.x} cy={r.y + (building ? 0 : 12)} r="22" fill="#FFC93C22" stroke="#FFC93C" strokeWidth="2" />}
+                <text
+                  x={r.x}
+                  y={r.y + (on && !building ? 12 : 0)}
+                  fontSize="24"
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                >
+                  {look}
+                </text>
+              </g>
+            );
+          })}
+          <text x="6" y="16" fill="#ffffff80" fontSize="11" fontFamily="monospace">
+            {active === -1 ? 'loop finished' : `rocks[${active}]`}
+          </text>
+        </Stage>
+        <div className="rounded-xl border-2 border-ink bg-ink p-3 font-mono text-xs leading-relaxed text-white/85">
+          {code.map((l, n) => (
+            <div key={n} className={n === code.length - 1 && active !== -1 ? 'rounded bg-signal/25 px-1 text-signal' : 'px-1'}>
+              {l || ' '}
+            </div>
+          ))}
+          <div className="mt-3 border-t border-white/15 pt-2">
+            <div>len(rocks) <span className="text-signal">{count}</span></div>
+            <div>{building ? 'i' : 'rock'} <span className="text-signal">{active === -1 ? '—' : building ? active : `rocks[${active}]`}</span></div>
+          </div>
+        </div>
+      </div>
+
+      <label className="mt-3 flex items-center gap-3 text-sm font-bold text-ink">
+        <span className="w-28 shrink-0">how many rocks</span>
+        <input
+          type="range" min="1" max="10" step="1" value={count}
+          onChange={(e) => { setCount(Number(e.target.value)); setI(0); }}
+          className="h-2 flex-1 cursor-pointer appearance-none rounded-full bg-ink/15 accent-pcb"
+        />
+        <span className="w-8 text-right font-mono text-pcb">{count}</span>
+      </label>
+
+      <Readout items={[
+        { label: 'rocks on screen', value: count },
+        { label: 'lines you wrote', value: code.filter(Boolean).length },
+      ]} />
+      <p className="mt-2 text-sm text-ink/60">
+        Drag the slider all the way up. The number of rocks changes; the{' '}
+        <strong>code does not</strong>. That is the entire reason lists exist.
+      </p>
+    </div>
+  );
+}
+
 const WIDGETS = {
   coordinates: Coordinates,
   velocity: Velocity,
   frames: FrameStepper,
   collision: Collision,
   gravity: Gravity,
+  list_loop: ListLoop,
 };
 
 export default function GetIt({ widget, title, beats, config }) {

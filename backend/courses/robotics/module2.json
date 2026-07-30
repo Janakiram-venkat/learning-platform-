@@ -1,0 +1,30 @@
+{
+  "moduleId": 2,
+  "title": "Meet Your Robot",
+  "emoji": "🤖",
+  "tagline": "Spin her round, pull her apart, and learn where every part lives.",
+  "lessons": [
+    {
+      "lessonId": "robot-the-lab",
+      "title": "Meet ARIA",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-body-systems",
+      "title": "Six Body Systems",
+      "duration": "12 min"
+    },
+    {
+      "lessonId": "robot-exploded",
+      "title": "Taking Her Apart",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-part-hunt",
+      "title": "Part Hunt",
+      "duration": "12 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

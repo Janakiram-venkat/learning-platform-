@@ -378,6 +378,11 @@ const TRACKS = [
     desc: 'Build real playable games — bouncing balls, falling fruit, and a score to beat.',
     status: 'READY', led: '#E8503A', to: '/course/gamedev/games',
   },
+  {
+    ref: 'TRK-BOT', emoji: '🦾', title: 'Robotics', line: 'No electronics needed',
+    desc: 'Meet the machines that sense, think and act — then design one of your own.',
+    status: 'READY', led: '#FFC93C', to: '/course/robotics/lesson/robot-intro',
+  },
 ];
 
 // Testimonials as lab-notebook field notes.

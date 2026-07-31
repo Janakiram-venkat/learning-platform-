@@ -2,8 +2,8 @@
   "moduleId": 2,
   "title": "Bouncing Ball",
   "emoji": "🏀",
-  "tagline": "Make something move — and discover the game loop that powers every game ever made.",
-  "successMessage": "You've built the engine at the heart of every video game ever made: change a little, draw, repeat. Mario, Minecraft and Fortnite all do exactly what your ball does. 🏀",
+  "tagline": "Make something move, and meet the game loop that powers every game ever made.",
+  "successMessage": "You just built the engine at the heart of every video game ever made: change a little, draw, repeat. Mario, Minecraft and Fortnite all do exactly what your ball does. 🏀",
   "steps": [
     {
       "title": "Make it move",
@@ -39,9 +39,9 @@
         "widget": "frames",
         "title": "The game loop, in slow motion",
         "beats": [
-          "A game doesn't really move anything. It redraws the screen about 60 times a second.",
-          "Each redraw is called a frame, and each frame the ball shifts a tiny bit.",
-          "Press \"One frame\" over and over. That's the whole trick — it only looks smooth because it's fast."
+          "A game does not really move anything. It redraws the screen about 60 times a second.",
+          "Each redraw is called a frame, and on each frame the ball shifts a tiny bit.",
+          "Press \"One frame\" over and over. That is the whole trick. It only looks smooth because it is fast."
         ],
         "config": {
           "start": 40,
@@ -50,39 +50,39 @@
       },
       "explain": {
         "title": "The game loop, and the strange @ line",
-        "intro": "This is the most important idea in the whole course. Everything after this step is a variation on it.",
+        "intro": "This is the most important idea in the whole course. Everything after this step is a version of it.",
         "lines": [
           {
             "code": "def update():",
-            "what": "Defines a function — a named parcel of instructions, saved for later.",
-            "why": "Defining a function does NOT run it. It's writing a recipe card and putting it in a drawer. Something else has to take it out and follow it, and that something is the game."
+            "what": "Makes a function, which is a named parcel of instructions saved for later.",
+            "why": "Making a function does NOT run it. It is like writing a recipe card and putting it in a drawer. Something else has to take it out and follow it, and that something is the game."
           },
           {
             "code": "@game.every_frame",
             "what": "Hands the function written underneath it to the game, to be run once per frame.",
-            "why": "A line starting with @ is called a decorator. It takes the function defined below and passes it to whatever comes after the @. So the game stores your update() in its pocket, and from then on calls it roughly 60 times a second. This is why your game needs no while True: loop of its own — and it's the reason a mistake in your code can never freeze the whole page. Your program runs, finishes, and hands over."
+            "why": "A line starting with @ is called a decorator. It takes the function written below and passes it to whatever comes after the @. So the game puts your update() in its pocket, and from then on runs it about 60 times a second. This is why your game needs no while True: loop of its own, and it is why a mistake in your code can never freeze the whole page. Your program runs, finishes, and hands over."
           },
           {
             "code": "ball.x = ball.x + 3",
             "what": "Reads the ball's current x, adds 3, and stores the answer back.",
-            "why": "Read the right-hand side first, always: work out ball.x + 3, THEN put the result into ball.x. It looks like a lie in maths class (x can't equal x + 3) but = here means 'put this in there', not 'these are equal'. Python has a shortcut for exactly this: ball.x += 3."
+            "why": "Always read the right hand side first: work out ball.x + 3, THEN put the answer into ball.x. It looks wrong in maths class (x cannot equal x + 3) but here = means \"put this in there\", not \"these are equal\". Python has a shortcut for exactly this: ball.x += 3."
           },
           {
             "code": "60 frames a second",
-            "what": "3 pixels a frame is 180 pixels a second.",
-            "why": "Nothing on your screen truly moves. The stage wipes itself and repaints everything about sixty times a second, and each repaint the ball is drawn a little further along. Films do the same at 24 pictures a second. Your eye fills in the rest."
+            "what": "3 pixels a frame works out at 180 pixels a second.",
+            "why": "Nothing on your screen truly moves. The stage wipes itself and repaints everything about sixty times a second, and each time the ball is drawn a little further along. Films do the same with 24 pictures a second. Your eye fills in the rest."
           }
         ]
       },
-      "brief": "Make the ball drift across the screen. The @game.every_frame line marks a function that the game runs once per frame, about 60 times a second — so a small change inside it becomes smooth movement.",
+      "brief": "Make the ball drift across the screen. The @game.every_frame line marks a function that the game runs once per frame, about 60 times a second, so a small change inside it turns into smooth movement.",
       "todo": [
         "Inside update(), add 3 to the ball's x so it moves a little to the right each frame.",
-        "Press Play and watch it drift off the edge — that's fine for now, we'll catch it next step."
+        "Press Play and watch it drift off the edge. That is fine for now, we will catch it next step."
       ],
       "starterCode": "from stage import Game, Ball\n\ngame = Game(width=480, height=360, background=\"#101828\")\n\nball = Ball(x=60, y=180, radius=22, color=\"#E8503A\")\n\n\n# The line below marks update() as the function the game runs EVERY frame,\n# about 60 times a second.\n@game.every_frame\ndef update():\n    # TODO: move the ball 3 to the right\n    pass\n\n\ngame.start()\n",
       "hints": [
-        "\"Move right by 3\" means: take the x it already has, add 3, and store it back. In Python that's a single line.",
-        "You can delete the word `pass` — it's just a placeholder that means \"do nothing here\".",
+        "\"Move right by 3\" means: take the x it already has, add 3, and store it back. In Python that is a single line.",
+        "You can delete the word `pass`. It is just a placeholder that means \"do nothing here\".",
         "The line you need looks like: ball.x = ball.x + 3   (or the shortcut: ball.x += 3)"
       ],
       "solution": "from stage import Game, Ball\n\ngame = Game(width=480, height=360, background=\"#101828\")\n\nball = Ball(x=60, y=180, radius=22, color=\"#E8503A\")\n\n\n# The line below marks update() as the function the game runs EVERY frame,\n# about 60 times a second.\n@game.every_frame\ndef update():\n    # Nudge the ball 3 pixels to the right. Sixty small nudges a second\n    # is what your eye reads as smooth movement.\n    ball.x = ball.x + 3\n\n\ngame.start()\n",
@@ -140,7 +140,7 @@
         "title": "Speed is just a number you can flip",
         "beats": [
           "Instead of always adding 3, we keep the amount in ball.dx and add THAT.",
-          "Slide dx to a negative number — the sprite goes backwards. That's all \"turning around\" means.",
+          "Slide dx to a negative number and the sprite goes backwards. That is all \"turning around\" means.",
           "So to bounce: when the ball hits an edge, flip dx from positive to negative."
         ],
         "config": {
@@ -148,32 +148,32 @@
         }
       },
       "explain": {
-        "title": "Speed is just a number — and you're allowed to flip it",
-        "intro": "Storing the speed instead of hard-coding it is the single change that turns a drifting ball into a bouncing one.",
+        "title": "Speed is just a number, and you are allowed to flip it",
+        "intro": "Storing the speed instead of typing it into the line is the single change that turns a drifting ball into a bouncing one.",
         "lines": [
           {
             "code": "ball.dx = 4",
-            "what": "Sticks a brand-new label called dx onto the ball, holding the value 4.",
-            "why": "dx isn't a magic word — it's shorthand programmers have used for centuries of maths for 'the difference in x', meaning how much x changes each step. Python lets you attach your own values to an object like this, which is handy: the ball now carries its own speed around with it, so update() can find it without being told."
+            "what": "Sticks a brand new label called dx onto the ball, holding the value 4.",
+            "why": "dx is not a magic word. It is short for \"the difference in x\", meaning how much x changes each step, and maths has used it for centuries. Python lets you attach your own values to a thing like this, which is handy: the ball now carries its own speed around with it, so update() can find it without being told."
           },
           {
             "code": "ball.x = ball.x + ball.dx",
             "what": "The same movement line as last step, with the fixed 3 swapped for a value you can change.",
-            "why": "This is the whole trick. Because the amount lives in a variable rather than being typed into the line, changing direction no longer means rewriting your code — it means changing one number while the game runs."
+            "why": "This is the whole trick. Because the amount lives in a variable instead of being typed into the line, changing direction no longer means rewriting your code. It means changing one number while the game runs."
           },
           {
             "code": "if ball.x > 458 or ball.x < 22:",
-            "what": "Asks a yes-or-no question: has the ball reached EITHER edge?",
-            "why": "or is true when at least one side is true, so a single if catches both walls. The numbers come from the ball's radius: its centre is at ball.x, and its edge sticks out 22 further, so the centre reaching 458 means the edge is touching 480."
+            "what": "Asks a yes or no question: has the ball reached EITHER edge?",
+            "why": "or is true when at least one side is true, so a single if catches both walls. The numbers come from the ball's radius: its middle is at ball.x, and its edge sticks out 22 further, so the middle reaching 458 means the edge is touching 480."
           },
           {
             "code": "ball.dx = -ball.dx",
             "what": "Replaces dx with its opposite: 4 becomes -4, and -4 becomes 4.",
-            "why": "That's the entire physics of a bounce. Adding a negative number is the same as subtracting, so the very next frame the ball starts travelling the other way. Real bouncing works the same: the speed across the wall is unchanged, the speed into the wall is reversed."
+            "why": "That is the whole physics of a bounce. Adding a negative number is the same as taking away, so on the very next frame the ball starts going the other way. Real bouncing works the same way: the speed along the wall stays the same, the speed into the wall is reversed."
           }
         ]
       },
-      "brief": "Keep the ball on screen by making it bounce. We store how fast it's going in ball.dx, and when the ball reaches an edge we flip that number to its opposite.",
+      "brief": "Keep the ball on screen by making it bounce. We store how fast it is going in ball.dx, and when the ball reaches an edge we flip that number to its opposite.",
       "todo": [
         "Inside update(), move the ball by ball.dx instead of by a fixed 3.",
         "Then check whether the ball has reached the left or right edge.",
@@ -186,7 +186,7 @@
         "\"Flip it\" means make it the negative of itself. If a number is in n, then n = -n turns 4 into -4, and -4 back into 4.",
         "Your if needs to catch BOTH edges. Two comparisons joined with `or` does it: if ball.x > 458 or ball.x < 22:"
       ],
-      "solution": "from stage import Game, Ball\n\ngame = Game(width=480, height=360, background=\"#101828\")\n\nball = Ball(x=60, y=180, radius=22, color=\"#E8503A\")\n\n# How far the ball moves each frame. We keep it ON the ball so we can change it\n# later from inside update().\nball.dx = 4\n\n\n@game.every_frame\ndef update():\n    # Move by however fast we're currently going.\n    ball.x = ball.x + ball.dx\n\n    # The ball's radius is 22, so its edge touches the right wall at\n    # 480 - 22 = 458, and the left wall at 0 + 22 = 22.\n    if ball.x > 458 or ball.x < 22:\n        ball.dx = -ball.dx\n\n\ngame.start()\n",
+      "solution": "from stage import Game, Ball\n\ngame = Game(width=480, height=360, background=\"#101828\")\n\nball = Ball(x=60, y=180, radius=22, color=\"#E8503A\")\n\n# How far the ball moves each frame. We keep it ON the ball so we can change it\n# later from inside update().\nball.dx = 4\n\n\n@game.every_frame\ndef update():\n    # Move by however fast we are currently going.\n    ball.x = ball.x + ball.dx\n\n    # The ball's radius is 22, so its edge touches the right wall at\n    # 480 - 22 = 458, and the left wall at 0 + 22 = 22.\n    if ball.x > 458 or ball.x < 22:\n        ball.dx = -ball.dx\n\n\ngame.start()\n",
       "check": {
         "frames": 600,
         "rules": [
@@ -246,7 +246,7 @@
         "title": "Two numbers, any direction",
         "beats": [
           "dx moves it across. dy moves it down.",
-          "Set both to something and the sprite travels diagonally — you never told it \"diagonal\", it just happens.",
+          "Set both to something and the sprite travels diagonally. You never said \"diagonal\", it just happens.",
           "Try dx = 3 and dy = -2. Which way does it head, and why?"
         ],
         "config": {
@@ -255,22 +255,22 @@
       },
       "explain": {
         "title": "Two numbers, and suddenly every direction",
-        "intro": "You never write a line that says 'go diagonally'. Diagonal is what happens when two straight movements run at once.",
+        "intro": "You never write a line that says \"go diagonally\". Diagonal is what happens when two straight movements run at the same time.",
         "lines": [
           {
             "code": "ball.dy = 3",
             "what": "A second speed, this one for up and down.",
-            "why": "Positive dy sends the ball DOWN the screen, because y counts downwards (Module 1's big surprise, back again). Want it drifting upwards instead? ball.dy = -3."
+            "why": "A positive dy sends the ball DOWN the screen, because y counts downwards (the big surprise from Module 1, back again). Want it drifting upwards instead? Use ball.dy = -3."
           },
           {
             "code": "ball.y = ball.y + ball.dy",
             "what": "The x line with every x swapped for a y.",
-            "why": "Across and down are handled completely separately, and they never talk to each other. That independence is what makes games manageable: you can debug sideways movement without thinking about vertical movement at all."
+            "why": "Across and down are handled completely separately, and they never talk to each other. That is what keeps games manageable: you can fix sideways movement without thinking about up and down movement at all."
           },
           {
             "code": "dx = 4  and  dy = 3",
             "what": "Together these two numbers point the ball down and to the right.",
-            "why": "You gave it a rightwards nudge and a downwards nudge; the diagonal is what your eye reads when both happen every frame. This pair has a name in maths — a vector — and it's how every game on earth stores which way something is heading. Change the two numbers and you get any angle you like, for free."
+            "why": "You gave it a nudge to the right and a nudge downwards. The diagonal is what your eye sees when both happen every frame. This pair of numbers has a name in maths, a vector, and it is how every game on earth stores which way something is heading. Change the two numbers and you get any angle you like, for free."
           }
         ]
       },
@@ -283,7 +283,7 @@
       "hints": [
         "TODO 1 is one line and looks just like the ball.dx line above it.",
         "Remember from Module 1: bigger y means further DOWN the screen. So a positive dy sends the ball downwards.",
-        "TODO 2 mirrors the ball.x line exactly — swap every x for a y."
+        "TODO 2 copies the ball.x line exactly. Just swap every x for a y."
       ],
       "solution": "from stage import Game, Ball\n\ngame = Game(width=480, height=360, background=\"#101828\")\n\nball = Ball(x=60, y=100, radius=22, color=\"#E8503A\")\n\nball.dx = 4\n# A downward speed too. Positive dy means DOWN, because y counts downwards.\nball.dy = 3\n\n\n@game.every_frame\ndef update():\n    ball.x = ball.x + ball.dx\n    ball.y = ball.y + ball.dy\n\n    if ball.x > 458 or ball.x < 22:\n        ball.dx = -ball.dx\n\n\ngame.start()\n",
       "check": {
@@ -342,15 +342,15 @@
             }
           ]
         },
-        "note": "Finish the bounce, then throw in extra balls — each one needs nothing but its own dx and dy."
+        "note": "Finish the bounce, then throw in extra balls. Each one needs nothing but its own dx and dy."
       },
       "getIt": {
         "widget": "frames",
         "title": "Every rule you add runs 60 times a second",
         "beats": [
           "Your update() is getting longer, and every line of it runs on every single frame.",
-          "That's why one wrong sign (+ instead of -) makes a ball vibrate or fly away.",
-          "Step through a frame at a time whenever something looks wrong — the bug is always in one frame."
+          "That is why one wrong sign (+ instead of -) makes a ball shake or fly away.",
+          "Step through one frame at a time whenever something looks wrong. The bug is always inside one frame."
         ],
         "config": {
           "start": 40,
@@ -359,36 +359,36 @@
       },
       "explain": {
         "title": "Why the walls need two separate ifs",
-        "intro": "You could be forgiven for trying to squeeze all four walls into one if. Here's why it has to be two.",
+        "intro": "It is tempting to squeeze all four walls into one if. Here is why it has to be two.",
         "lines": [
           {
             "code": "if ball.y > 338 or ball.y < 22:\n    ball.dy = -ball.dy",
-            "what": "The floor-and-ceiling twin of the left-and-right check.",
-            "why": "338 is 360 - 22: the stage height minus the ball's radius, the moment its bottom edge kisses the floor. Same shape as the line above it, every x swapped for a y — and crucially it flips dy, not dx. Flipping the wrong one is the single most common bug at this step, and it looks hilarious: the ball skids along the floor instead of bouncing off it."
+            "what": "The floor and ceiling twin of the left and right check.",
+            "why": "338 is 360 - 22: the stage height minus the ball's radius, the moment its bottom edge touches the floor. Same shape as the line above it, with every x swapped for a y, and it flips dy, not dx. Flipping the wrong one is the most common bug at this step, and it looks funny: the ball skids along the floor instead of bouncing off it."
           },
           {
             "code": "two ifs, not one",
-            "what": "Sideways bounces and vertical bounces are decided independently.",
-            "why": "Hit the floor and only your vertical direction should reverse — you keep sailing sideways at the same speed. Joining both checks with an or would flip both speeds at once and send the ball back the way it came, like a boomerang. Corner hits prove the design works: both ifs fire on the same frame, both speeds flip, and the ball rebounds diagonally, exactly as it should."
+            "what": "Sideways bounces and up and down bounces are decided separately.",
+            "why": "Hit the floor and only your up and down direction should reverse. You keep sailing sideways at the same speed. Joining both checks with an or would flip both speeds at once and send the ball straight back the way it came, like a boomerang. Corner hits show the design works: both ifs fire on the same frame, both speeds flip, and the ball bounces off diagonally, exactly as it should."
           },
           {
             "code": "every line runs 60 times a second",
             "what": "update() is getting longer, and all of it runs every single frame.",
-            "why": "That's why one wrong sign makes a ball vibrate on the spot: if it lands slightly past the wall, the check stays true, the direction flips again next frame, and it flickers there forever. When something looks wrong, step through ONE frame in your head — the bug is always inside a single frame."
+            "why": "That is why one wrong sign makes a ball shake on the spot. If it lands slightly past the wall, the check stays true, the direction flips again next frame, and it flickers there forever. When something looks wrong, walk through ONE frame in your head. The bug is always inside a single frame."
           }
         ]
       },
       "brief": "Finish the job: make the ball bounce off the top and bottom as well, so it rattles around the whole screen forever.",
       "todo": [
-        "Add a second if that checks the top and bottom edges (that's the y ones).",
+        "Add a second if that checks the top and bottom edges (those are the y ones).",
         "When the ball hits either of them, flip ball.dy.",
         "Bonus: add a second ball with different speeds and watch them both go."
       ],
-      "starterCode": "from stage import Game, Ball\n\ngame = Game(width=480, height=360, background=\"#101828\")\n\nball = Ball(x=60, y=100, radius=22, color=\"#E8503A\")\nball.dx = 4\nball.dy = 3\n\n\n@game.every_frame\ndef update():\n    ball.x = ball.x + ball.dx\n    ball.y = ball.y + ball.dy\n\n    # Left and right walls — already done for you.\n    if ball.x > 458 or ball.x < 22:\n        ball.dx = -ball.dx\n\n    # TODO: top and bottom walls\n\n\ngame.start()\n",
+      "starterCode": "from stage import Game, Ball\n\ngame = Game(width=480, height=360, background=\"#101828\")\n\nball = Ball(x=60, y=100, radius=22, color=\"#E8503A\")\nball.dx = 4\nball.dy = 3\n\n\n@game.every_frame\ndef update():\n    ball.x = ball.x + ball.dx\n    ball.y = ball.y + ball.dy\n\n    # Left and right walls, already done for you.\n    if ball.x > 458 or ball.x < 22:\n        ball.dx = -ball.dx\n\n    # TODO: top and bottom walls\n\n\ngame.start()\n",
       "hints": [
         "Your new if is the same shape as the one above it. Copy it, then change what needs changing.",
-        "The stage is 360 tall, and the ball's radius is 22 — so the bottom edge is 360 - 22 and the top edge is 22.",
-        "Don't forget to flip ball.dy in the new if, not ball.dx. Flipping the wrong one is the classic bug here."
+        "The stage is 360 tall, and the ball's radius is 22, so the bottom edge is 360 - 22 and the top edge is 22.",
+        "Do not forget to flip ball.dy in the new if, not ball.dx. Flipping the wrong one is the classic bug here."
       ],
       "solution": "from stage import Game, Ball\n\ngame = Game(width=480, height=360, background=\"#101828\")\n\nball = Ball(x=60, y=100, radius=22, color=\"#E8503A\")\nball.dx = 4\nball.dy = 3\n\n\n@game.every_frame\ndef update():\n    ball.x = ball.x + ball.dx\n    ball.y = ball.y + ball.dy\n\n    # Left and right walls.\n    if ball.x > 458 or ball.x < 22:\n        ball.dx = -ball.dx\n\n    # Top and bottom walls. The stage is 360 tall, so: 360 - 22 = 338.\n    if ball.y > 338 or ball.y < 22:\n        ball.dy = -ball.dy\n\n\ngame.start()\n",
       "check": {
@@ -412,7 +412,7 @@
           }
         ]
       },
-      "successMessage": "A ball that rattles around forever — built entirely by you."
+      "successMessage": "A ball that rattles around forever, built entirely by you."
     }
   ]
 }

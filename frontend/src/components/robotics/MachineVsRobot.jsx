@@ -1,9 +1,11 @@
 import { useRef, useState, useCallback } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { RoundedBox } from '@react-three/drei';
 import { Play, RotateCcw } from 'lucide-react';
 import Stage3D from './shared/Stage3D';
 import RobotBot from './shared/RobotBot';
 import WidgetShell from './shared/WidgetShell';
+import { benchMat, brushedAlu, sawnTimber } from './shared/labTextures';
 
 /**
  * The same machine, twice — once running a fixed program, once actually
@@ -20,16 +22,22 @@ const STEER = 0.95;          // the heading it holds while going round the crate
 const SEE_RANGE = 1.15;      // how far ahead the sensor notices something
 const CM_PER_UNIT = 50;
 
-// Contact is geometry, not a fudge factor: the crate is a 0.55 cube and ARIA's
-// chassis is 0.62 × 0.46, so the two touch when their centres are this close.
-// Anything smaller and the robot visibly parks inside the crate before the hit
-// registers; anything larger and it stops in mid-air.
+// Contact is geometry, not a fudge factor: the crate is a 0.55 cube and the two
+// touch when their centres are this close. Anything smaller and the robot
+// visibly parks inside the crate before the hit registers; anything larger and
+// it stops in mid-air.
+//
+// These are ARIA's *widest* points, not her chassis plate. The plate is
+// 0.62 × 0.46, but the ultrasonic transducers stand out to x = 0.35 and the
+// wheels out to |z| = 0.289, so measuring the plate let the sensor head push
+// 4 cm into the crate before anything registered. Both numbers are asserted
+// against the model's own constants — see the note on RobotBot's DECK_TOP.
 const BOX_HALF = 0.275;
-const ROBOT_HALF_LEN = 0.31;
-const ROBOT_HALF_W = 0.23;
+const ROBOT_HALF_LEN = 0.35;   // transducer face, the foremost point
+const ROBOT_HALF_W = 0.29;     // outer tyre wall, the widest point
 const NOSE = 0.35;                            // where the ultrasonic sits
-const TOUCH_X = BOX_HALF + ROBOT_HALF_LEN;    // 0.585
-const TOUCH_Z = BOX_HALF + ROBOT_HALF_W;      // 0.505
+const TOUCH_X = BOX_HALF + ROBOT_HALF_LEN;    // 0.625
+const TOUCH_Z = BOX_HALF + ROBOT_HALF_W;      // 0.565
 const CLEAR_Z = TOUCH_Z + 0.08;               // an offset that really does pass it
 
 const TRACE_POINTS = 96;     // enough to cover the whole crossing
@@ -179,32 +187,131 @@ function Run({ mode, obstacleX, runToken, onFinish }) {
   );
 }
 
+/**
+ * The packing crate, and its reaction to being hit.
+ *
+ * The recoil is the payoff of the whole widget: a machine that runs into
+ * something and leaves it perfectly still has not really run into it, and the
+ * student is being asked to notice exactly that collision. It rocks back and
+ * settles as a damped oscillation rather than snapping, so the weight of the
+ * thing is legible.
+ */
+function Crate({ x, impactRef }) {
+  const group = useRef();
+  const boards = sawnTimber('#8C6239')(1, 3);   // three vertical boards a side
+  const batten = sawnTimber('#6E4A2A')(1, 1);
+  const shock = useRef(0);
+
+  useFrame((_, rawDelta) => {
+    const delta = Math.min(rawDelta, 0.05);
+    if (impactRef.current) {
+      shock.current = 1;
+      impactRef.current = 0;
+    }
+    shock.current = Math.max(0, shock.current - delta * 1.6);
+    const g = group.current;
+    if (!g) return;
+    // Ring down at about 9 rad/s under an envelope that fades in under a second.
+    const k = shock.current * shock.current;
+    const ring = Math.sin(shock.current * 9) * k;
+    g.position.x = x + ring * 0.035;
+    g.rotation.z = -ring * 0.05;
+  });
+
+  return (
+    <group ref={group} position={[x, 0, 0]}>
+      <RoundedBox
+        args={[BOX_HALF * 2, 0.56, BOX_HALF * 2]}
+        radius={0.012}
+        smoothness={2}
+        position={[0, 0.28, 0]}
+        castShadow
+        receiveShadow
+      >
+        <meshStandardMaterial {...boards} roughness={0.9} metalness={0.02} />
+      </RoundedBox>
+
+      {/* Corner battens: the frame the boards are nailed to. */}
+      {[[-1, -1], [-1, 1], [1, -1], [1, 1]].map(([sx, sz]) => (
+        <mesh
+          key={`${sx}${sz}`}
+          position={[sx * BOX_HALF, 0.28, sz * BOX_HALF]}
+          castShadow
+        >
+          <boxGeometry args={[0.05, 0.57, 0.05]} />
+          <meshStandardMaterial {...batten} roughness={0.92} metalness={0.02} />
+        </mesh>
+      ))}
+
+      {/* Top and bottom rails, so the crate reads as built rather than carved. */}
+      {[0.015, 0.545].map((y) => (
+        <mesh key={y} position={[0, y, 0]} castShadow>
+          <boxGeometry args={[BOX_HALF * 2.08, 0.045, BOX_HALF * 2.08]} />
+          <meshStandardMaterial {...batten} roughness={0.92} metalness={0.02} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+/** The target pad, breathing so the eye knows where the run is headed. */
+function Goal() {
+  const ring = useRef();
+  const chevron = useRef();
+
+  useFrame((state) => {
+    const t = state.clock.elapsedTime;
+    if (ring.current) ring.current.material.opacity = 0.28 + Math.sin(t * 2) * 0.12;
+    if (chevron.current) chevron.current.position.y = 0.3 + Math.sin(t * 2) * 0.035;
+  });
+
+  return (
+    <group position={[GOAL_X + 0.15, 0, 0]}>
+      <mesh ref={ring} position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.22, 0.34, 40]} />
+        <meshBasicMaterial color="#FFC93C" transparent opacity={0.35} depthWrite={false} toneMapped={false} />
+      </mesh>
+      <mesh ref={chevron} position={[0, 0.3, 0]}>
+        <coneGeometry args={[0.1, 0.24, 4]} />
+        <meshStandardMaterial color="#FFC93C" emissive="#FFC93C" emissiveIntensity={0.6} />
+      </mesh>
+    </group>
+  );
+}
+
 function Room({ obstacleX, mode, runToken, onFinish }) {
+  const mat = benchMat(14, 14);
+  const rail = brushedAlu(6, 1);
+  // Set by Run at the instant of contact, consumed by Crate on the next frame.
+  const impactRef = useRef(0);
+
+  const finish = useCallback((r) => {
+    if (r.crashed) impactRef.current = 1;
+    onFinish(r);
+  }, [onFinish]);
+
   return (
     <>
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[14, 14]} />
-        <meshStandardMaterial color="#12271D" roughness={1} />
+        <meshStandardMaterial {...mat} roughness={0.95} metalness={0.04} />
       </mesh>
-      <gridHelper args={[14, 28, '#1F7A5C', '#16352A']} position={[0, 0.001, 0]} />
+      <gridHelper args={[14, 28, '#1F7A5C', '#16352A']} position={[0, 0.002, 0]}>
+        <lineBasicMaterial attach="material" vertexColors transparent opacity={0.32} />
+      </gridHelper>
 
-      {/* The goal */}
-      <mesh position={[GOAL_X + 0.15, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <circleGeometry args={[0.34, 32]} />
-        <meshBasicMaterial color="#FFC93C" transparent opacity={0.35} toneMapped={false} />
-      </mesh>
-      <mesh position={[GOAL_X + 0.15, 0.3, 0]}>
-        <coneGeometry args={[0.1, 0.24, 4]} />
-        <meshStandardMaterial color="#FFC93C" emissive="#FFC93C" emissiveIntensity={0.5} />
-      </mesh>
+      {/* A machined rail marking the lane the fixed program blindly follows. */}
+      {[-0.62, 0.62].map((z) => (
+        <mesh key={z} position={[0.05, 0.008, z]} receiveShadow>
+          <boxGeometry args={[5.2, 0.016, 0.03]} />
+          <meshStandardMaterial {...rail} metalness={0.85} roughness={0.4} envMapIntensity={1.1} />
+        </mesh>
+      ))}
 
-      {/* The thing in the way */}
-      <mesh position={[obstacleX, 0.28, 0]} castShadow receiveShadow>
-        <boxGeometry args={[BOX_HALF * 2, 0.56, BOX_HALF * 2]} />
-        <meshStandardMaterial color="#8C6239" roughness={0.85} />
-      </mesh>
+      <Goal />
+      <Crate x={obstacleX} impactRef={impactRef} />
 
-      <Run key={mode} mode={mode} obstacleX={obstacleX} runToken={runToken} onFinish={onFinish} />
+      <Run key={mode} mode={mode} obstacleX={obstacleX} runToken={runToken} onFinish={finish} />
     </>
   );
 }

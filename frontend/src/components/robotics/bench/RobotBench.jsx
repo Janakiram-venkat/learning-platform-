@@ -1,6 +1,14 @@
 import { useRef, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
+import {
+  benchMat,
+  brushedAlu,
+  circuitBoard,
+  mouldedPlastic,
+  paintedShell,
+  rubberTread,
+} from '../shared/labTextures';
 import { ARIA_PARTS, SYSTEMS } from './ariaParts';
 
 /**
@@ -20,6 +28,34 @@ const GEOMETRY = {
   sphere: (size) => <sphereGeometry args={[size[0], 24, 24]} />,
   cylinder: (size) => <cylinderGeometry args={[size[0], size[1], size[2], 24]} />,
 };
+
+/**
+ * A piece's `tex` name resolved into material props.
+ *
+ * The maps carry their own colour, so a textured piece is drawn white and lets
+ * the map do the tinting — multiplying `pc.color` on top would apply the hue
+ * twice and turn every part muddy. Pieces with no `tex` fall through to the
+ * plain colour they always had, which is right for the polished caster ball and
+ * for anything that is really just a glowing LED.
+ *
+ * The underlying textures are cached in labTextures, so this is a couple of Map
+ * lookups per piece per render — and RobotBench only re-renders on a mode or
+ * selection change, never while the explode slider is being dragged.
+ */
+const SURFACES = {
+  paint: (pc) => paintedShell(pc.color)(1, 1),
+  abs: (pc) => mouldedPlastic(pc.color)(1, 1),
+  alu: () => brushedAlu(2, 1),
+  pcb: (pc) => circuitBoard(pc.color),
+  // Tiled around the circumference, so the tread blocks come out roughly square.
+  rubber: () => rubberTread(9, 1),
+};
+
+function surfaceOf(pc) {
+  const build = SURFACES[pc.tex];
+  if (!build) return { color: pc.color };
+  return { ...build(pc), color: '#ffffff' };
+}
 
 /** Average of a part's pieces — used to scale a hovered part about itself. */
 function centroidOf(part) {
@@ -88,7 +124,7 @@ function Part({ part, state, onSelect, onHover }) {
               per frame, so nothing here is rebuilt during interaction. */}
           <meshStandardMaterial
             key={opacity < 1 ? 'see-through' : 'opaque'}
-            color={pc.color}
+            {...surfaceOf(pc)}
             roughness={pc.rough ?? 0.55}
             metalness={pc.metal ?? 0.15}
             emissive={lit ? systemColor : (pc.glow ? pc.color : '#000000')}
@@ -158,10 +194,11 @@ export default function RobotBench({
 
   return (
     <>
-      {/* Bench top */}
+      {/* Bench top: the same matting as the driving scenes, so the robot reads
+          as standing on one continuous workbench across the whole course. */}
       <mesh position={[0, -0.002, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <circleGeometry args={[0.78, 56]} />
-        <meshStandardMaterial color="#14291E" roughness={0.95} />
+        <meshStandardMaterial {...benchMat(4, 4)} roughness={0.94} metalness={0.05} />
       </mesh>
       <mesh position={[0, 0.001, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.71, 0.77, 56]} />

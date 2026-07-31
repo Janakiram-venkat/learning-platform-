@@ -2,8 +2,8 @@
   "moduleId": 4,
   "title": "Space Dodger",
   "emoji": "🚀",
-  "tagline": "Dodge a whole asteroid field using lists — many enemies from just a few lines.",
-  "successMessage": "Six rocks, sixty rocks, six hundred rocks — your code doesn't care any more. That's the moment your games stop being limited by how much you're willing to type. 🚀",
+  "tagline": "Dodge a whole asteroid field using lists, so you get many enemies from just a few lines.",
+  "successMessage": "Six rocks, sixty rocks, six hundred rocks: your code does not care any more. That is the moment your games stop being limited by how much you are willing to type. 🚀",
   "steps": [
     {
       "title": "A whole field of rocks",
@@ -88,13 +88,13 @@
             }
           ]
         },
-        "note": "One apple was enough for Module 3. A dodging game needs a crowd — and you are not going to type it out six times."
+        "note": "One apple was enough for Module 3. A dodging game needs a crowd, and you are not going to type it out six times."
       },
       "getIt": {
         "widget": "list_loop",
         "title": "A list is one name for many things",
         "beats": [
-          "rocks = [] makes an empty list — a box you can keep putting things into.",
+          "rocks = [] makes an empty list, which is a box you can keep putting things into.",
           "rocks.append(rock) drops one more thing in the box.",
           "A for loop runs the same lines over and over, so six rocks cost you the same typing as one."
         ],
@@ -104,32 +104,32 @@
       },
       "explain": {
         "title": "Six sprites, written once",
-        "intro": "You could copy-paste your sprite line six times. Do that, and changing the rocks later means six edits and one you'll forget.",
+        "intro": "You could copy and paste your sprite line six times. Do that, and changing the rocks later means six edits, and one you will forget.",
         "lines": [
           {
             "code": "rocks = []",
-            "what": "Makes an empty list — one name that will hold many sprites.",
-            "why": "Up to now every sprite needed its own name: basket, apple, ball. That works right up until you want twenty of something. A list is a single name with room for as many things as you like, and it remembers the order you put them in, so rocks[0] is always the first one you made."
+            "what": "Makes an empty list: one name that will hold many sprites.",
+            "why": "Up to now every sprite needed its own name: basket, apple, ball. That works fine right up until you want twenty of something. A list is a single name with room for as many things as you like, and it remembers the order you put them in, so rocks[0] is always the first one you made."
           },
           {
             "code": "for i in range(6):",
             "what": "Runs everything indented below it six times, with i counting 0, 1, 2, 3, 4, 5.",
-            "why": "range(6) stops BEFORE 6, which looks like an off-by-one bug until you notice it means the counter starts at 0 and you get exactly six turns. That's the same 0-based counting as rocks[0] being the first rock — the two habits agree with each other on purpose."
+            "why": "range(6) stops BEFORE 6, which looks like a mistake until you notice that the counter starts at 0, so you still get exactly six turns. That is the same counting-from-zero habit as rocks[0] being the first rock. The two agree with each other on purpose."
           },
           {
             "code": "rocks.append(rock)",
             "what": "Puts the rock you just made into the list.",
-            "why": "Creating the sprite already put it on the SCREEN — the stage grabs every sprite the moment it's born. The list is for YOU: it's how, next step, you get hold of all six again in order to move them. Screen and list are two different jobs."
+            "why": "Making the sprite already put it on the SCREEN, because the stage grabs every sprite the moment it is born. The list is for YOU. It is how, next step, you get hold of all six again so you can move them. Screen and list are two different jobs."
           },
           {
             "code": "name=\"rock\" + str(i)",
             "what": "Gives each rock its own name tag: rock0, rock1, rock2 and so on.",
-            "why": "Every rock comes out of the same line of code, so without this they'd be six identical strangers. Sticking the loop counter on the end makes each one uniquely identifiable — which is how the checker can follow one particular rock across the whole run and tell you honestly what it did."
+            "why": "Every rock comes out of the same line of code, so without this they would be six identical strangers. Sticking the loop counter on the end makes each one easy to tell apart, which is how the checker can follow one rock across the whole run and tell you honestly what it did."
           },
           {
             "code": "random_number(30, 450)",
             "what": "A different spot for every rock, because the loop asks again each time round.",
-            "why": "This is the bit people find spooky: one line of code, six different answers. The loop body isn't a copy of a result, it's a set of instructions rerun from scratch — and instructions that include \"pick a random number\" give a fresh answer every single time they run."
+            "why": "This is the bit people find spooky: one line of code, six different answers. The inside of a loop is not a copy of a result, it is a set of instructions run again from scratch, and instructions that include \"pick a random number\" give a fresh answer every single time they run."
           }
         ]
       },
@@ -141,8 +141,8 @@
       ],
       "starterCode": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\n# Every rock will live in here. Right now the list is empty.\nrocks = []\n\n# This runs six times, with i counting 0, 1, 2, 3, 4, 5.\nfor i in range(6):\n    # TODO 1: make one rock at a random x (30 to 450) and random y (20 to 240),\n    #         size 34, with name=\"rock\" + str(i)\n\n\n    # TODO 2: put it in the list with rocks.append(rock)\n\n    pass\n\n\ngame.start()\n",
       "hints": [
-        "Both TODO lines are indented INSIDE the for loop — that's what makes them happen six times.",
-        "Making a rock looks like the sprites you've made before: rock = Sprite(\"rock\", x=..., y=..., size=34, name=...)",
+        "Both TODO lines are indented INSIDE the for loop. That is what makes them happen six times.",
+        "Making a rock looks like the sprites you have made before: rock = Sprite(\"rock\", x=..., y=..., size=34, name=...)",
         "Random spot means using the function twice: x=random_number(30, 450) and y=random_number(20, 240). Delete the pass once your two lines are in."
       ],
       "solution": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\n# Every rock will live in here. Right now the list is empty.\nrocks = []\n\n# This runs six times, with i counting 0, 1, 2, 3, 4, 5.\nfor i in range(6):\n    # One rock, somewhere random, wearing its own name tag.\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n\n    # Making it put it on the screen. This puts it in YOUR list.\n    rocks.append(rock)\n\n\ngame.start()\n",
@@ -153,7 +153,7 @@
             "what": "exists",
             "kind": "Sprite",
             "count": 7,
-            "label": "Seven sprites on the stage — your ship and six rocks"
+            "label": "Seven sprites on the stage: your ship and six rocks"
           },
           {
             "what": "exists",
@@ -239,8 +239,8 @@
         "widget": "list_loop",
         "title": "The loop visits every rock, one at a time",
         "beats": [
-          "for rock in rocks: hands you each thing in the list in turn, calling it rock while it's that one's go.",
-          "Whatever you write inside happens once per rock — the same lines, applied to a different rock each time.",
+          "for rock in rocks: hands you each thing in the list in turn, calling it rock while it is that one's go.",
+          "Whatever you write inside happens once per rock: the same lines, on a different rock each time.",
           "Slide the count up. The code stays exactly two lines long."
         ],
         "config": {
@@ -253,23 +253,23 @@
         "lines": [
           {
             "code": "for rock in rocks:",
-            "what": "Hands you the rocks one at a time. Inside the loop, rock means whichever one it's currently holding.",
-            "why": "This is different from range(6). range counts numbers; this walks the actual list and gives you the real sprites, so you never need rocks[0], rocks[1] by hand — and it keeps working untouched if you later change 6 to 60. Notice rock is a name you invented; call it r or asteroid and it behaves identically."
+            "what": "Hands you the rocks one at a time. Inside the loop, rock means whichever one it is holding right now.",
+            "why": "This is different from range(6). range counts numbers, but this walks the real list and gives you the real sprites, so you never need rocks[0], rocks[1] by hand. It also keeps working untouched if you later change 6 to 60. Notice that rock is a name you made up. Call it r or asteroid and it behaves exactly the same."
           },
           {
             "code": "rock.y = rock.y + 3",
-            "what": "The falling line you already know — except now it lands on all six rocks.",
-            "why": "One line, six rocks, sixty times a second: that's 360 position changes a second from twelve characters. The outer loop (every_frame) is time passing; the inner loop (for rock in rocks) is everything on stage taking its turn within one moment. Every game engine ever written is those two loops nested exactly this way."
+            "what": "The falling line you already know, except now it lands on all six rocks.",
+            "why": "One line, six rocks, sixty times a second: that is 360 position changes a second from twelve characters. The outer loop (every_frame) is time passing. The inner loop (for rock in rocks) is everything on stage taking its turn inside one moment. Every game engine ever written is those two loops, nested exactly this way."
           },
           {
             "code": "if rock.y > 380:",
-            "what": "Asked once per rock, inside the loop — so each rock gets its own answer.",
-            "why": "Put this if OUTSIDE the for loop and it would only ever ask about the last rock, quietly letting the other five fall away forever. Indentation is what decides who a question is about, which is why Python's insistence on it stops being annoying and starts being useful right about here."
+            "what": "Asked once per rock, inside the loop, so each rock gets its own answer.",
+            "why": "Put this if OUTSIDE the for loop and it would only ever ask about the last rock, quietly letting the other five fall away forever. Indentation is what decides who a question is about, which is why Python being fussy about it stops being annoying and starts being useful right about here."
           },
           {
             "code": "rock.y = -20  (not 0)",
             "what": "Sends the rock back to just ABOVE the top edge.",
-            "why": "Reset it to 0 and it pops into existence at the top edge, visibly, like a glitch. Starting it a little off-screen means it slides in from nowhere the way a real falling rock would. Tiny detail, and it's the difference between a game that feels cheap and one that doesn't."
+            "why": "Reset it to 0 and it pops into existence at the top edge where you can see it, like a glitch. Starting it a little off screen means it slides in from nowhere, the way a real falling rock would. Tiny detail, and it is the difference between a game that feels cheap and one that does not."
           }
         ]
       },
@@ -281,11 +281,11 @@
       ],
       "starterCode": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\nrocks = []\nfor i in range(6):\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n    rocks.append(rock)\n\n\n@game.every_frame\ndef update():\n    # TODO 1: go through every rock in the list...\n\n\n        # TODO 2: ...move it down a little...\n\n\n        # TODO 3: ...and if it has gone past 380, send it back to y = -20\n        #         with a new random x\n\n    pass\n\n\ngame.start()\n",
       "hints": [
-        "The loop line is for rock in rocks: — everything you want done to each rock goes indented underneath it.",
+        "The loop line is for rock in rocks: and everything you want done to each rock goes indented underneath it.",
         "Falling is the line you already know, just with rock instead of apple: rock.y = rock.y + 3",
         "The if goes INSIDE the for loop, indented one more level, so every rock gets asked about itself. Delete the pass once your lines are in."
       ],
-      "solution": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\nrocks = []\nfor i in range(6):\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n    rocks.append(rock)\n\n\n@game.every_frame\ndef update():\n    # Every rock, every frame.\n    for rock in rocks:\n        rock.y = rock.y + 3\n\n        # This rock is off the bottom — send it round again, somewhere new.\n        if rock.y > 380:\n            rock.y = -20\n            rock.x = random_number(30, 450)\n\n\ngame.start()\n",
+      "solution": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\nrocks = []\nfor i in range(6):\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n    rocks.append(rock)\n\n\n@game.every_frame\ndef update():\n    # Every rock, every frame.\n    for rock in rocks:\n        rock.y = rock.y + 3\n\n        # This rock is off the bottom. Send it round again, somewhere new.\n        if rock.y > 380:\n            rock.y = -20\n            rock.x = random_number(30, 450)\n\n\ngame.start()\n",
       "check": {
         "frames": 220,
         "rules": [
@@ -374,7 +374,7 @@
         "title": "Four keys, four questions",
         "beats": [
           "Left and right change x. Up and down change y.",
-          "Remember y grows DOWNWARDS, so \"up\" means subtracting.",
+          "Remember that y grows DOWNWARDS, so \"up\" means taking away.",
           "Four separate ifs, so pressing two keys at once flies you diagonally for free."
         ],
         "config": {
@@ -383,27 +383,27 @@
       },
       "explain": {
         "title": "Diagonal movement you never actually wrote",
-        "intro": "You wrote two ifs for the basket. Four ifs give you eight directions — and that's not a coincidence, it's arithmetic.",
+        "intro": "You wrote two ifs for the basket. Four ifs give you eight directions, and that is not luck, it is arithmetic.",
         "lines": [
           {
             "code": "if game.key_down(\"up\"):\n    ship.y = ship.y - 6",
             "what": "Up the screen means y gets SMALLER.",
-            "why": "y counts downwards from the top-left corner, so flying up is subtraction. Nearly everyone writes + 6 here the first time and watches their ship dive into the floor. Do it once and you'll remember it forever, which is why it's worth doing rather than being told."
+            "why": "y counts downwards from the top left corner, so flying up means taking away. Nearly everyone writes + 6 here the first time and watches their ship dive into the floor. Do it once and you will remember it forever, which is why it is worth doing instead of just being told."
           },
           {
             "code": "four separate ifs",
-            "what": "Left, right, up and down are four independent questions.",
-            "why": "Hold up and left together and BOTH ifs fire in the same frame: y goes down by 6 and x goes down by 6, and your ship slides diagonally. You never wrote a diagonal — it fell out of asking two honest questions instead of one either/or. This is what people mean when they say simple rules combine into rich behaviour."
+            "what": "Left, right, up and down are four separate questions.",
+            "why": "Hold up and left together and BOTH ifs fire in the same frame: y goes down by 6 and x goes down by 6, and your ship slides diagonally. You never wrote a diagonal. It fell out of asking two honest questions instead of one either/or. This is what people mean when they say simple rules add up to rich behaviour."
           },
           {
             "code": "game.clamp_inside(ship)",
             "what": "One line, after all four ifs, keeping the ship on the stage.",
-            "why": "It sits at the bottom for the same reason as in Module 3: let the move happen, then correct it, all before anything is drawn. And it goes outside the ifs, not inside each one — the ship might have moved for any of four reasons, but the fixing-up is identical in all four cases, so it's written once."
+            "why": "It sits at the bottom for the same reason as in Module 3: let the move happen, then correct it, all before anything is drawn. And it goes outside the ifs, not inside each one, because the ship might have moved for any of four reasons but the fixing up is the same in all four cases, so it is written once."
           },
           {
             "code": "the number 6",
             "what": "Your ship's speed, and the only difficulty dial you have so far.",
-            "why": "It's worth actually playing with. At 3 the ship feels heavy and the rocks feel fast; at 12 it feels twitchy and the field feels empty. Game designers call this tuning, and it's the difference between a game people finish and one they put down."
+            "why": "It is worth actually playing with. At 3 the ship feels heavy and the rocks feel fast. At 12 it feels twitchy and the field feels empty. Game designers call this tuning, and it is the difference between a game people finish and one they put down."
           }
         ]
       },
@@ -411,7 +411,7 @@
       "todo": [
         "Left and right arrows: change ship.x by 6.",
         "Up and down arrows: change ship.y by 6 (careful which way is up!).",
-        "Add game.clamp_inside(ship) underneath so it can't escape."
+        "Add game.clamp_inside(ship) underneath so it cannot escape."
       ],
       "starterCode": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\nrocks = []\nfor i in range(6):\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n    rocks.append(rock)\n\n\n@game.every_frame\ndef update():\n    # TODO 1: left and right arrows move the ship across\n\n\n    # TODO 2: up and down arrows move it up and down\n    #         (remember: up the screen means y gets SMALLER)\n\n\n    # TODO 3: keep it on the stage with game.clamp_inside(ship)\n\n\n    for rock in rocks:\n        rock.y = rock.y + 3\n        if rock.y > 380:\n            rock.y = -20\n            rock.x = random_number(30, 450)\n\n\ngame.start()\n",
       "hints": [
@@ -419,7 +419,7 @@
         "The four key names you need are \"left\", \"right\", \"up\" and \"down\".",
         "Up is ship.y = ship.y - 6, because y counts downwards from the top of the screen."
       ],
-      "solution": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\nrocks = []\nfor i in range(6):\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n    rocks.append(rock)\n\n\n@game.every_frame\ndef update():\n    # Across.\n    if game.key_down(\"left\"):\n        ship.x = ship.x - 6\n    if game.key_down(\"right\"):\n        ship.x = ship.x + 6\n\n    # Up and down. Smaller y is higher up the screen.\n    if game.key_down(\"up\"):\n        ship.y = ship.y - 6\n    if game.key_down(\"down\"):\n        ship.y = ship.y + 6\n\n    # Move first, then fix — one line for all four edges.\n    game.clamp_inside(ship)\n\n    for rock in rocks:\n        rock.y = rock.y + 3\n        if rock.y > 380:\n            rock.y = -20\n            rock.x = random_number(30, 450)\n\n\ngame.start()\n",
+      "solution": "from stage import Game, Sprite, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\nrocks = []\nfor i in range(6):\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n    rocks.append(rock)\n\n\n@game.every_frame\ndef update():\n    # Across.\n    if game.key_down(\"left\"):\n        ship.x = ship.x - 6\n    if game.key_down(\"right\"):\n        ship.x = ship.x + 6\n\n    # Up and down. Smaller y is higher up the screen.\n    if game.key_down(\"up\"):\n        ship.y = ship.y - 6\n    if game.key_down(\"down\"):\n        ship.y = ship.y + 6\n\n    # Move first, then fix. One line for all four edges.\n    game.clamp_inside(ship)\n\n    for rock in rocks:\n        rock.y = rock.y + 3\n        if rock.y > 380:\n            rock.y = -20\n            rock.x = random_number(30, 450)\n\n\ngame.start()\n",
       "check": {
         "scenarios": [
           {
@@ -543,7 +543,7 @@
         "title": "The exact moment a rock is dodged",
         "beats": [
           "You already spotted it: a rock is past you the instant it drops below the bottom.",
-          "That's the same if you wrote for recycling the rock — so the point goes in there.",
+          "That is the same if you wrote for sending the rock back round, so the point goes in there.",
           "One rock past the bottom, one point. Six rocks means six chances every trip down the screen."
         ],
         "config": {
@@ -556,37 +556,37 @@
         "lines": [
           {
             "code": "game.score = game.score + 1",
-            "what": "Reads the score, adds one, puts it back — inside the \"past the bottom\" if.",
-            "why": "That if fires exactly once per rock per trip down the screen, so the score counts trips. Move the same line one level out, into the for loop, and you'd score six points every single frame — about 360 a second. Same line, nonsense result. Position IS the logic."
+            "what": "Reads the score, adds one, puts it back, inside the \"past the bottom\" if.",
+            "why": "That if fires exactly once per rock per trip down the screen, so the score counts trips. Move the same line one level out, into the for loop, and you would score six points every single frame, which is about 360 a second. Same line, nonsense result. Position IS the logic."
           },
           {
             "code": "label.words = \"Dodged: \" + str(game.score)",
             "what": "Rewrites the words on screen so the player sees the new number.",
-            "why": "The number and the picture of the number are two different things. Change one without the other and you get a score that's perfectly correct and completely invisible — a bug that will follow you into every app you ever build."
+            "why": "The number and the picture of the number are two different things. Change one without the other and you get a score that is perfectly correct and completely invisible, a bug that will follow you into every app you ever build."
           },
           {
             "code": "game.score, not score",
             "what": "The counter is parked on the game object.",
-            "why": "A plain score = score + 1 inside update() gets you an error, because assigning to a bare name inside a function makes a new local one that dies when the function ends. Hanging it on game means you're changing something that already exists and outlives the frame — same trick as the ball's dx and the basket's score."
+            "why": "A plain score = score + 1 inside update() gets you an error, because setting a plain name inside a function makes a new local one that dies when the function ends. Hanging it on game means you are changing something that already exists and outlives the frame. Same trick as the ball's dx and the basket's score."
           },
           {
             "code": "one counter, six rocks",
-            "what": "There's a single score, even though six rocks can each add to it.",
-            "why": "The rocks are many; the score is one. Deciding which things in your game are per-object and which are shared is a real design decision, and getting it backwards — a score living on each rock — is exactly how a game ends up showing six different scores at once."
+            "what": "There is a single score, even though six rocks can each add to it.",
+            "why": "The rocks are many, the score is one. Deciding which things in your game belong to each object and which are shared is a real design choice, and getting it backwards, like a score living on each rock, is exactly how a game ends up showing six different scores at once."
           }
         ]
       },
-      "brief": "Keep score. Every time a rock makes it past the bottom of the screen you've dodged it, so add one to the score there and show the new number.",
+      "brief": "Keep score. Every time a rock makes it past the bottom of the screen you have dodged it, so add one to the score there and show the new number.",
       "todo": [
-        "Find the if that sends a rock back to the top — that's the moment you dodged it.",
+        "Find the if that sends a rock back to the top. That is the moment you dodged it.",
         "Inside it, add 1 to game.score.",
         "Then rewrite label.words so the player can see the new number."
       ],
-      "starterCode": "from stage import Game, Sprite, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\nrocks = []\nfor i in range(6):\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n    rocks.append(rock)\n\n# One score for the whole game, and a label to show it.\ngame.score = 0\nlabel = Text(\"Dodged: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        ship.x = ship.x - 6\n    if game.key_down(\"right\"):\n        ship.x = ship.x + 6\n    if game.key_down(\"up\"):\n        ship.y = ship.y - 6\n    if game.key_down(\"down\"):\n        ship.y = ship.y + 6\n    game.clamp_inside(ship)\n\n    for rock in rocks:\n        rock.y = rock.y + 3\n        if rock.y > 380:\n            rock.y = -20\n            rock.x = random_number(30, 450)\n            # TODO 1: that rock got past you — add one to game.score\n\n\n            # TODO 2: show the new number\n            #         label.words = \"Dodged: \" + str(game.score)\n\n\ngame.start()\n",
+      "starterCode": "from stage import Game, Sprite, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\nrocks = []\nfor i in range(6):\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n    rocks.append(rock)\n\n# One score for the whole game, and a label to show it.\ngame.score = 0\nlabel = Text(\"Dodged: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        ship.x = ship.x - 6\n    if game.key_down(\"right\"):\n        ship.x = ship.x + 6\n    if game.key_down(\"up\"):\n        ship.y = ship.y - 6\n    if game.key_down(\"down\"):\n        ship.y = ship.y + 6\n    game.clamp_inside(ship)\n\n    for rock in rocks:\n        rock.y = rock.y + 3\n        if rock.y > 380:\n            rock.y = -20\n            rock.x = random_number(30, 450)\n            # TODO 1: that rock got past you, so add one to game.score\n\n\n            # TODO 2: show the new number\n            #         label.words = \"Dodged: \" + str(game.score)\n\n\ngame.start()\n",
       "hints": [
         "Both new lines go inside the if rock.y > 380: block, lined up with the two lines already in there.",
         "Adding one is the same shape as moving a sprite: game.score = game.score + 1",
-        "str() turns the number into text so it can be joined onto \"Dodged: \" — Python won't add words to a number for you."
+        "str() turns the number into text so it can be joined onto \"Dodged: \". Python will not add words to a number for you."
       ],
       "solution": "from stage import Game, Sprite, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\nrocks = []\nfor i in range(6):\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n    rocks.append(rock)\n\n# One score for the whole game, and a label to show it.\ngame.score = 0\nlabel = Text(\"Dodged: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        ship.x = ship.x - 6\n    if game.key_down(\"right\"):\n        ship.x = ship.x + 6\n    if game.key_down(\"up\"):\n        ship.y = ship.y - 6\n    if game.key_down(\"down\"):\n        ship.y = ship.y + 6\n    game.clamp_inside(ship)\n\n    for rock in rocks:\n        rock.y = rock.y + 3\n\n        if rock.y > 380:\n            rock.y = -20\n            rock.x = random_number(30, 450)\n\n            # It got past you. That's a dodge.\n            game.score = game.score + 1\n            label.words = \"Dodged: \" + str(game.score)\n\n\ngame.start()\n",
       "check": {
@@ -680,52 +680,52 @@
             }
           ]
         },
-        "note": "Right now the rocks pass straight through you. A score you can't lose isn't really a score."
+        "note": "Right now the rocks pass straight through you. A score you cannot lose is not really a score."
       },
       "getIt": {
         "widget": "collision",
         "title": "Six chances to crash, checked one at a time",
         "beats": [
-          "touching() compares two hitboxes — but you have six rocks, not one.",
+          "touching() compares two hitboxes, but you have six rocks, not one.",
           "So the question goes inside the for loop, and gets asked about each rock in turn.",
           "Any single yes ends the game. Six rocks, six chances, every frame."
         ]
       },
       "explain": {
         "title": "Asking six questions with one line of code",
-        "intro": "In Catch the Fruit there was one apple and one question. Here there are six rocks — and still one line, because it lives inside the loop.",
+        "intro": "In Catch the Fruit there was one apple and one question. Here there are six rocks, and still one line, because it lives inside the loop.",
         "lines": [
           {
             "code": "if ship.touching(rock):",
-            "what": "Written once, asked six times a frame — once for each rock the loop hands over.",
-            "why": "This is the payoff for everything in this module. Change 6 to 60 at the top of your program and this line silently starts doing sixty collision checks a frame, with no edit. Code that doesn't need changing when the numbers change is the whole game."
+            "what": "Written once, asked six times a frame, once for each rock the loop hands over.",
+            "why": "This is the payoff for everything in this module. Change 6 to 60 at the top of your program and this line quietly starts doing sixty checks a frame, with no edit at all. Code that does not need changing when the numbers change is the whole point."
           },
           {
             "code": "game.stop()",
-            "what": "Ends the game — your update function is never called again.",
-            "why": "The rocks freeze exactly where they were, because nothing is moving them any more. Nothing is destroyed and nothing is hidden; time simply stops. That's a surprisingly common way to build a game-over screen, and it's why the last frame stays on screen instead of going black."
+            "what": "Ends the game, so your update function is never run again.",
+            "why": "The rocks freeze exactly where they were, because nothing is moving them any more. Nothing is deleted and nothing is hidden. Time simply stops. That is a surprisingly common way to build a game over screen, and it is why the last frame stays on screen instead of going black."
           },
           {
             "code": "label.words = ... str(game.score)",
             "what": "The final message, written the instant before everything stops.",
-            "why": "Order matters here: set the words first, then call game.stop(). Do it the other way round and the line still runs — stop() isn't a return — but it's worth being deliberate about, because in most languages the equivalent really would end things on the spot."
+            "why": "Order matters here: set the words first, then call game.stop(). The other way round still works, because stop() is not a return, but it is worth being careful about, since in most languages the same-looking line really would end things on the spot."
           },
           {
             "code": "the shape of a game",
             "what": "Player control, obstacles, a score, and a way to lose.",
-            "why": "That's the complete set. Everything else — levels, lives, power-ups, bosses — is a variation on these four. You now have all of them, in about thirty lines, and you built them out of ifs, loops, lists and arithmetic. That's genuinely all games are."
+            "why": "That is the complete set. Everything else, like levels, lives, power-ups and bosses, is a version of these four. You now have all of them, in about thirty lines, and you built them out of ifs, loops, lists and simple sums. That really is all games are."
           }
         ]
       },
-      "brief": "Make the rocks dangerous. Inside the loop, ask whether the ship is touching that rock — and if it is, say how well the player did and stop the game.",
+      "brief": "Make the rocks dangerous. Inside the loop, ask whether the ship is touching that rock, and if it is, say how well the player did and stop the game.",
       "todo": [
         "Inside the for loop, add an if that asks ship.touching(rock).",
-        "When it's true, set label.words to a crash message with the score in it.",
-        "Then call game.stop() — and go and play it properly."
+        "When it is true, set label.words to a crash message with the score in it.",
+        "Then call game.stop(), and go and play it properly."
       ],
       "starterCode": "from stage import Game, Sprite, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#080B18\")\n\nship = Sprite(\"rocket\", x=240, y=310, size=44, name=\"ship\")\n\nrocks = []\nfor i in range(6):\n    rock = Sprite(\"rock\", x=random_number(30, 450), y=random_number(20, 240),\n                  size=34, name=\"rock\" + str(i))\n    rocks.append(rock)\n\ngame.score = 0\nlabel = Text(\"Dodged: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        ship.x = ship.x - 6\n    if game.key_down(\"right\"):\n        ship.x = ship.x + 6\n    if game.key_down(\"up\"):\n        ship.y = ship.y - 6\n    if game.key_down(\"down\"):\n        ship.y = ship.y + 6\n    game.clamp_inside(ship)\n\n    for rock in rocks:\n        rock.y = rock.y + 3\n\n        if rock.y > 380:\n            rock.y = -20\n            rock.x = random_number(30, 450)\n            game.score = game.score + 1\n            label.words = \"Dodged: \" + str(game.score)\n\n        # TODO: is the ship touching THIS rock? Then show a crash message\n        #       and stop the game.\n\n\ngame.start()\n",
       "hints": [
-        "The if goes inside the for loop, lined up with the if rock.y > 380: above it — so it gets asked about every rock.",
+        "The if goes inside the for loop, lined up with the if rock.y > 380: above it, so it gets asked about every rock.",
         "Asking about a touch looks like this: if ship.touching(rock):",
         "Two lines inside it: label.words = \"CRASH! You dodged \" + str(game.score), then game.stop()"
       ],
@@ -749,7 +749,7 @@
           }
         ]
       },
-      "successMessage": "That's Space Dodger — a real arcade game, built from a list and two loops. Go and make someone beat your score."
+      "successMessage": "That's Space Dodger, a real arcade game built from a list and two loops. Go and make someone beat your score."
     }
   ]
 }

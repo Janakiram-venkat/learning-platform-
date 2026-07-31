@@ -4,6 +4,7 @@ import { Play, Pause, RotateCcw, CheckCircle2 } from 'lucide-react';
 import Stage3D from './shared/Stage3D';
 import WidgetShell from './shared/WidgetShell';
 import useReducedMotion from './shared/useReducedMotion';
+import { benchMat, brushedAlu } from './shared/labTextures';
 import { ZOO } from './zoo/registry';
 
 /**
@@ -35,10 +36,15 @@ function ZooScene({ id, playing, spin, replayToken }) {
 
   return (
     <>
-      {/* Turntable plinth */}
-      <mesh position={[0, y - 0.03, 0]} receiveShadow>
+      {/* Turntable plinth: a matted deck inside a machined rim, so the robot
+          standing on it has a surface with a finish rather than a flat disc. */}
+      <mesh position={[0, y - 0.03, 0]} receiveShadow castShadow>
         <cylinderGeometry args={[0.95, 1, 0.06, 48]} />
-        <meshStandardMaterial color="#14291E" roughness={0.9} />
+        <meshStandardMaterial {...benchMat(5, 5)} roughness={0.92} metalness={0.05} />
+      </mesh>
+      <mesh position={[0, y - 0.028, 0]} receiveShadow>
+        <cylinderGeometry args={[0.99, 0.99, 0.02, 48]} />
+        <meshStandardMaterial {...brushedAlu(12, 1)} metalness={0.88} roughness={0.38} envMapIntensity={1.2} />
       </mesh>
       <mesh position={[0, y + 0.002, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.84, 0.93, 48]} />

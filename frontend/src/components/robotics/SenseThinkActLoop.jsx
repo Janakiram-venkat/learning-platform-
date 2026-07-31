@@ -1,10 +1,13 @@
 import { useRef, useState, useCallback } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { RoundedBox } from '@react-three/drei';
+import * as THREE from 'three';
 import { Play, Pause, RotateCcw, StepForward } from 'lucide-react';
 import Stage3D from './shared/Stage3D';
 import RobotBot from './shared/RobotBot';
 import WidgetShell from './shared/WidgetShell';
 import useReducedMotion from './shared/useReducedMotion';
+import { benchMat, paintedBlock } from './shared/labTextures';
 
 // One scene unit is 50 cm, so the numbers on screen are real distances rather
 // than decoration — the readout is measured off the geometry, not scripted.
@@ -21,6 +24,17 @@ const WALL_HALF = 0.09;       // half the slab's thickness — see readSensor
 // sooner than a far one. Tuned so even the longest shot completes inside the
 // sense phase: 2 × 2.4 units at 6.4 u/s is 0.75 s, under DURATION.sense.
 const PING_SPEED = 6.4;
+
+// A real ultrasonic module does not sense in every direction — it hears inside a
+// cone of roughly 30°. Drawing the pulse as an arc rather than a full circle is
+// both truer and useful later, when Module 7 asks why the robot missed a chair
+// leg that was plainly there.
+const BEAM_HALF = 0.26; // radians, half the cone
+
+// How hard the body pitches under acceleration, in radians per unit of accel.
+// Nothing on this robot has suspension, so the tilt is small on purpose: just
+// enough that starting and stopping have weight instead of being a slide.
+const PITCH_PER_ACCEL = 0.012;
 
 const PHASES = ['sense', 'think', 'act'];
 const DURATION = { sense: 0.9, think: 0.6, act: 0.9 };
@@ -45,9 +59,13 @@ function readSensor(x, z, rot, wallX) {
 
 function Scene({ wallX, playing, stepRef, onPhase }) {
   const robot = useRef();
+  const body = useRef();   // tilts under acceleration; see PITCH_PER_ACCEL
   const ping = useRef();
   const pingMat = useRef();
+  const hit = useRef();    // the bright patch where the pulse strikes the wall
+  const hitMat = useRef();
   const lastStep = useRef(0);
+  const pitch = useRef(0);
   // Handed to RobotBot so the wheels roll at the speed the body is actually
   // moving — measured off the drawn position below, never guessed.
   const speedRef = useRef(0);
@@ -137,6 +155,16 @@ function Scene({ wallX, playing, stepRef, onPhase }) {
       const dist = Math.hypot(s.toX - s.fromX, s.toZ - s.fromZ);
       speedRef.current = dist * dEase;
       turnRef.current = (s.toRot - s.fromRot) * dEase;
+
+      // The body's inertia. The ease accelerates for the first half of the move
+      // and decelerates for the second, so the nose lifts as it pulls away and
+      // dips as it settles — the same thing that happens to a shopping trolley,
+      // and the reason a robot that just slides between two points looks wrong
+      // even to someone who cannot say why.
+      // The drive wheels are behind the caster, so weight shifts backwards and
+      // the nose lifts under power — the same way it does on a rear-drive car.
+      const accel = dist * ((p < 0.5 ? 4 : -4) / (DURATION.act * DURATION.act));
+      pitch.current += (accel * PITCH_PER_ACCEL - pitch.current) * Math.min(1, delta * 9);
     } else {
       if (g) {
         g.position.x = s.x;
@@ -146,7 +174,11 @@ function Scene({ wallX, playing, stepRef, onPhase }) {
       // Standing still while it senses and thinks — so must the wheels.
       speedRef.current = 0;
       turnRef.current = 0;
+      // Settle back to level, with a little overshoot left in the spring.
+      pitch.current += (0 - pitch.current) * Math.min(1, delta * 7);
     }
+
+    if (body.current) body.current.rotation.z = pitch.current;
 
     // The ping: a ring of sound leaving the sensor at a fixed speed, then the
     // echo coming back. Because the speed is fixed and the distance is not, a
@@ -165,30 +197,89 @@ function Scene({ wallX, playing, stepRef, onPhase }) {
         // A returning echo is weaker than the pulse that left.
         pingMat.current.opacity = (outbound ? 0.85 : 0.5) * (1 - 0.4 * (travelled / reach));
       }
+
+      // The moment of reflection: the wall lights up where the pulse lands, and
+      // the glow fades as the echo makes its way back. This is the one frame
+      // that explains the whole sensor — the number in the readout is the time
+      // between the flash leaving and the flash returning.
+      if (hit.current && hitMat.current) {
+        const bounced = s.phase === 'sense' && flown >= reach && flown < reach * 2 && reach < MAX_PING_REACH;
+        hit.current.visible = bounced;
+        if (bounced) {
+          const age = (flown - reach) / Math.max(reach, 0.001);
+          hit.current.position.set(wallX - WALL_HALF - 0.01, 0.3, s.z);
+          hit.current.scale.setScalar(0.5 + age * 0.9);
+          hitMat.current.opacity = 0.75 * (1 - age);
+        }
+      }
     }
   });
 
+  const mat = benchMat(14, 14);   // one tile per scene unit — 50 cm of matting
+  const block = paintedBlock('#E8503A')(3, 1.4);
+  // Same stone, a darker coat of paint. The noise fields behind it are cached,
+  // so the second variant is close to free.
+  const kick = paintedBlock('#8C3527')(3, 0.4);
+
   return (
     <>
-      {/* Bench floor */}
+      {/* Bench floor: rubber matting, the kind every school lab bench has on it. */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[14, 14]} />
-        <meshStandardMaterial color="#12271D" roughness={1} />
+        <meshStandardMaterial {...mat} roughness={0.95} metalness={0.04} />
       </mesh>
-      <gridHelper args={[14, 28, '#1F7A5C', '#16352A']} position={[0, 0.002, 0]} />
+      {/* The measuring grid stays, but quieter now that the mat carries texture
+          of its own — two competing patterns just read as noise. */}
+      <gridHelper args={[14, 28, '#1F7A5C', '#16352A']} position={[0, 0.003, 0]}>
+        <lineBasicMaterial attach="material" vertexColors transparent opacity={0.32} />
+      </gridHelper>
 
-      {/* The wall it will meet */}
-      <mesh position={[wallX, 0.35, 0]} castShadow receiveShadow>
-        <boxGeometry args={[WALL_HALF * 2, 0.7, 3]} />
-        <meshStandardMaterial color="#E8503A" roughness={0.8} />
+      {/* The wall it will meet: a painted breeze block with a scuffed kickplate
+          along the bottom, where things have been bumping into it for years. */}
+      <group position={[wallX, 0, 0]}>
+        <RoundedBox
+          args={[WALL_HALF * 2, 0.7, 3]}
+          radius={0.012}
+          smoothness={2}
+          position={[0, 0.35, 0]}
+          castShadow
+          receiveShadow
+        >
+          <meshStandardMaterial {...block} roughness={0.88} metalness={0.02} />
+        </RoundedBox>
+        <mesh position={[0, 0.05, 0]} castShadow receiveShadow>
+          <boxGeometry args={[WALL_HALF * 2.15, 0.1, 3]} />
+          <meshStandardMaterial {...kick} roughness={0.94} metalness={0.02} />
+        </mesh>
+      </group>
+
+      {/* Where the pulse strikes the wall. World space, not on the robot. */}
+      <mesh ref={hit} rotation={[0, -Math.PI / 2, 0]} visible={false}>
+        <circleGeometry args={[0.22, 24]} />
+        <meshBasicMaterial ref={hitMat} color="#FFC93C" transparent opacity={0} depthWrite={false} toneMapped={false} />
       </mesh>
 
       <group ref={robot} position={[START.x, 0, START.z]}>
-        <RobotBot speedRef={speedRef} turnRef={turnRef} led="#23B5D3" />
-        {/* Sonar ring, drawn flat on the floor from the sensor outward */}
+        {/* Pivots about the wheel axle, so the body can pitch without the tyres
+            lifting off the floor. */}
+        <group ref={body} position={[0, 0.13, 0]}>
+          <group position={[0, -0.13, 0]}>
+            <RobotBot speedRef={speedRef} turnRef={turnRef} led="#23B5D3" />
+          </group>
+        </group>
+        {/* Sonar pulse: an arc, not a circle, because the sensor only hears
+            inside a cone. Drawn flat on the floor from the sensor outward. */}
         <mesh ref={ping} position={[SENSOR_OFFSET, 0.06, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[0.92, 1, 48]} />
-          <meshBasicMaterial ref={pingMat} color="#23B5D3" transparent opacity={0.7} toneMapped={false} />
+          <ringGeometry args={[0.88, 1, 40, 1, -BEAM_HALF, BEAM_HALF * 2]} />
+          <meshBasicMaterial
+            ref={pingMat}
+            color="#23B5D3"
+            transparent
+            opacity={0.7}
+            depthWrite={false}
+            side={THREE.DoubleSide}
+            toneMapped={false}
+          />
         </mesh>
       </group>
     </>

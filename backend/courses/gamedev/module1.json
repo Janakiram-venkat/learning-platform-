@@ -2,8 +2,8 @@
   "moduleId": 1,
   "title": "Scene Builder",
   "emoji": "🎨",
-  "tagline": "Get your first picture on the screen and learn how the computer finds any spot on it.",
-  "successMessage": "You just built a whole scene out of nothing but numbers and emoji. Every game you'll ever make starts exactly here. 🎨",
+  "tagline": "Get your first picture on the screen, and learn how the computer finds any spot on it.",
+  "successMessage": "You just made a whole scene out of nothing but numbers and emoji. Every game you ever make starts right here. 🎨",
   "steps": [
     {
       "title": "Put something on the screen",
@@ -28,14 +28,14 @@
             }
           ]
         },
-        "note": "Right now your screen is empty. By the end of this step there's a cat on it."
+        "note": "Right now your screen is empty. By the end of this step there is a cat on it."
       },
       "getIt": {
         "widget": "coordinates",
         "title": "How the computer finds a spot",
         "beats": [
           "Every spot on the screen has two numbers: x (how far across) and y (how far down).",
-          "The corner at the very top-left is 0, 0.",
+          "The corner at the very top left is 0, 0.",
           "Drag the cat around and watch the two numbers change."
         ],
         "config": {
@@ -44,48 +44,48 @@
       },
       "explain": {
         "title": "Every line, in plain English",
-        "intro": "Four lines, four completely different jobs. Once you know these, you can read the top of every game in this course.",
+        "intro": "Four lines, and each one has a different job. Once you know these four, you can read the start of every game in this course.",
         "lines": [
           {
             "code": "from stage import Game, Sprite",
-            "what": "Fetches two tools — Game and Sprite — out of a library called stage.",
-            "why": "Python starts out knowing almost nothing about graphics. Anything beyond adding numbers and printing text has to be imported by name. stage is the little game library built for this course, and this line unpacks exactly the two tools you need from it. Ask for a tool you didn't import and Python replies NameError — it genuinely has never heard of it."
+            "what": "Brings in two tools, Game and Sprite, from a toolbox called stage.",
+            "why": "On its own, Python knows almost nothing about pictures. Anything past adding numbers and printing text has to be brought in by name. stage is the little game toolbox built for this course, and this line takes out the two tools you need. Use a tool you never brought in and Python says NameError, which just means it has never heard that word before."
           },
           {
             "code": "game = Game(width=480, height=360, background=\"#0B1020\")",
-            "what": "Builds the stage: a screen 480 across, 360 down, painted midnight blue.",
-            "why": "The words inside the brackets (width=, height=, background=) are named arguments. Naming them means order doesn't matter and you can read the line back later without guessing what 480 was for. This line has to come first, because every sprite you make afterwards quietly attaches itself to the stage that already exists."
+            "what": "Builds the stage: a screen 480 across, 360 down, painted dark blue.",
+            "why": "The words inside the brackets (width=, height=, background=) are named settings. Because each one has a name, the order does not matter, and you can read the line back later without guessing what 480 was for. This line has to come first, because every sprite you make after it quietly joins the stage that already exists."
           },
           {
             "code": "cat = Sprite(\"cat\", x=240, y=180, size=60)",
             "what": "Makes a cat 60 pixels tall, standing 240 across and 180 down.",
-            "why": "Notice what's missing: you never tell the cat to draw itself. Creating a Sprite adds it to the stage's list of things, and the stage repaints that whole list for you. This is the big idea behind almost every game engine — you describe what exists, the engine worries about pixels."
+            "why": "Look at what is missing: you never tell the cat to draw itself. Making a Sprite adds it to the stage's list of things, and the stage repaints that whole list for you. This is the big idea behind almost every game engine. You say what exists, and the engine worries about the pixels."
           },
           {
             "code": "Sprite(\"cat\")   ==   Sprite(CAT)   ==   Sprite(\"🐱\")",
             "what": "Three ways of asking for the same cat. Use whichever you like.",
-            "why": "There is no key on a laptop that types an emoji, so every picture in the library also answers to a plain name you can type. \"cat\" is looked up the moment the sprite is built and swapped for the real picture. Anything the library does not recognise is handed straight back and drawn as-is, which is why Sprite(\"1UP\") puts the letters 1UP on the stage — handy for scoreboards."
+            "why": "There is no key on a laptop that types an emoji, so every picture in the toolbox also answers to a plain name you can type. \"cat\" is looked up the moment the sprite is made, then swapped for the real picture. Anything the toolbox does not know is handed straight back and drawn as it is, which is why Sprite(\"1UP\") puts the letters 1UP on the stage. Handy for scoreboards."
           },
           {
             "code": "game.start()",
             "what": "Hands your finished scene over to the screen.",
-            "why": "Everything above only describes the game; nothing appears until this runs. It goes last, always — like pressing Send on a message you've finished writing."
+            "why": "Everything above only describes the game. Nothing shows up until this runs. It goes last, always, like pressing Send on a message you have finished writing."
           }
         ]
       },
-      "brief": "Make a cat appear on the stage. A Sprite is any character drawn from a picture — you tell it which picture, where to stand, and how big to be. Your keyboard can't type an emoji, so every picture has a name you CAN type: \"cat\", \"dog\", \"rocket\". The full list is in \"Pictures you can use\" further down this page.",
+      "brief": "Make a cat appear on the stage. A Sprite is any character drawn from a picture. You tell it which picture, where to stand, and how big to be. Your keyboard cannot type an emoji, so every picture also has a name you CAN type: \"cat\", \"dog\", \"rocket\". The full list is in \"Pictures you can use\" further down this page.",
       "todo": [
         "Below the comment, make a Sprite using the picture name \"cat\".",
         "Give it x=240 and y=180 so it lands in the middle, and size=60.",
         "Press Play to see it, then press Check."
       ],
-      "starterCode": "from stage import Game, Sprite\n\n# The stage: how big the screen is, and what colour the background is.\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\n# TODO: put a cat on the stage.\n#       A sprite looks like:  Sprite(\"name\", x=..., y=..., size=...)\n\n\n# Always the last line — it hands your game over to the screen.\ngame.start()\n",
+      "starterCode": "from stage import Game, Sprite\n\n# The stage: how big the screen is, and what colour the background is.\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\n# TODO: put a cat on the stage.\n#       A sprite looks like:  Sprite(\"name\", x=..., y=..., size=...)\n\n\n# Always the last line. It hands your game over to the screen.\ngame.start()\n",
       "hints": [
         "A sprite is made like this, with the picture name in quotes first: Sprite(\"star\", x=100, y=100, size=40)",
         "Put your line AFTER the game = Game(...) line. The stage has to exist before anything can stand on it.",
-        "x=240 is halfway across a 480-wide stage, and y=180 is halfway down a 360-tall one. That's the middle."
+        "x=240 is halfway across a 480-wide stage, and y=180 is halfway down a 360-tall one. That is the middle."
       ],
-      "solution": "from stage import Game, Sprite\n\n# The stage: how big the screen is, and what colour the background is.\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\n# A cat, right in the middle of a 480 x 360 stage.\ncat = Sprite(\"cat\", x=240, y=180, size=60)\n\n# Always the last line — it hands your game over to the screen.\ngame.start()\n",
+      "solution": "from stage import Game, Sprite\n\n# The stage: how big the screen is, and what colour the background is.\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\n# A cat, right in the middle of a 480 x 360 stage.\ncat = Sprite(\"cat\", x=240, y=180, size=60)\n\n# Always the last line. It hands your game over to the screen.\ngame.start()\n",
       "check": {
         "frames": 10,
         "rules": [
@@ -168,48 +168,48 @@
         "widget": "coordinates",
         "title": "Small y is high up, big y is low down",
         "beats": [
-          "This trips up nearly everyone: y counts DOWNWARDS, not up.",
+          "This catches out nearly everyone: y counts DOWNWARDS, not up.",
           "y=0 is the very top of the screen. y=360 is the very bottom.",
-          "Drag the moon to the top-right corner and look at the numbers you get."
+          "Drag the moon to the top right corner and look at the numbers you get."
         ],
         "config": {
           "look": "🌙"
         }
       },
       "explain": {
-        "title": "Naming things, and why y is upside-down",
-        "intro": "Three new sprites, three new lines. The only genuinely new idea here is the label on the left of the = sign.",
+        "title": "Naming things, and why y is upside down",
+        "intro": "Three new sprites, three new lines. The only new idea here is the label on the left of the = sign.",
         "lines": [
           {
             "code": "moon = Sprite(\"moon\", x=400, y=60, size=44)",
             "what": "Makes a moon AND gives it the name moon.",
-            "why": "The moon = part is a label you're sticking on the sprite so you can talk about it later — moon.x = 300 to slide it, moon.hide() to make it vanish. A sprite with no label still appears on screen perfectly well; you just have no way to ever change it again. Name the things you'll want to move; don't bother naming scenery."
+            "why": "The moon = part is a label you stick on the sprite so you can talk about it later, like moon.x = 300 to slide it, or moon.hide() to make it vanish. A sprite with no label still shows up perfectly well. You just have no way to change it ever again. So name the things you will want to move, and do not bother naming scenery."
           },
           {
-            "code": "x=400, y=60   # top-right",
+            "code": "x=400, y=60   # top right",
             "what": "Big x is far across. Small y is near the TOP.",
-            "why": "Screen coordinates are inherited from how the very first computer displays painted: an electron beam swept left-to-right, then dropped down a line and swept again — so counting y downwards was simply counting how many lines had been drawn already. Fifty years later every screen on earth still numbers pixels that way. Maths class puts y going up; screens put y going down, and that mismatch trips up absolutely everyone once."
+            "why": "Screen counting comes from the very first computer screens. A beam of light swept across from left to right, then dropped down one line and swept again, so counting y downwards was really just counting how many lines had been drawn so far. Fifty years later, every screen on earth still numbers pixels that way. Maths class puts y going up, screens put y going down, and that difference trips up absolutely everyone once."
           },
           {
             "code": "star1 = ...\nstar2 = ...",
             "what": "Two stars means two separate lines and two separate names.",
-            "why": "Each Sprite(...) call builds one object. Reusing the same name twice would just relabel — the first star would still be on screen, but nameless and unreachable. In Module 4 you'll meet lists, which are how you handle fifty stars without writing fifty lines."
+            "why": "Each Sprite(...) makes one thing. Using the same name twice would only move the label across. The first star would still be on screen, but with no name, so you could never touch it again. In Module 4 you will meet lists, which are how you handle fifty stars without writing fifty lines."
           }
         ]
       },
-      "brief": "Add a moon high up in the top-right, and two stars somewhere in the top half of the sky. Remember: to put something high up, y needs to be SMALL.",
+      "brief": "Add a moon high up in the top right, and two stars somewhere in the top half of the sky. Remember: to put something high up, y needs to be SMALL.",
       "todo": [
-        "Add a moon sprite — Sprite(\"moon\", ...) — in the top-right area, which means a big x and a small y.",
-        "Add two star sprites — Sprite(\"star\", ...) — anywhere in the top half (y less than 180).",
+        "Add a moon sprite, Sprite(\"moon\", ...), in the top right area, which means a big x and a small y.",
+        "Add two star sprites, Sprite(\"star\", ...), anywhere in the top half (y less than 180).",
         "Press Play, then Check."
       ],
-      "starterCode": "from stage import Game, Sprite\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\n# Our cat, already on the grass.\ncat = Sprite(\"cat\", x=240, y=220, size=60)\n\n# TODO 1: a moon high up in the top-right (big x, small y)\n\n\n# TODO 2: two stars in the top half of the sky (y smaller than 180)\n\n\ngame.start()\n",
+      "starterCode": "from stage import Game, Sprite\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\n# Our cat, already on the grass.\ncat = Sprite(\"cat\", x=240, y=220, size=60)\n\n# TODO 1: a moon high up in the top right (big x, small y)\n\n\n# TODO 2: two stars in the top half of the sky (y smaller than 180)\n\n\ngame.start()\n",
       "hints": [
-        "Top-right means x is large (close to 480) and y is small (close to 0). Something like x=400, y=60.",
+        "Top right means x is large (close to 480) and y is small (close to 0). Something like x=400, y=60.",
         "Each sprite needs its own line. Three new sprites means three new lines.",
-        "Stars look better small — try size=20 or size=24 for those."
+        "Stars look better small. Try size=20 or size=24 for those."
       ],
-      "solution": "from stage import Game, Sprite\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\n# Our cat, already on the grass.\ncat = Sprite(\"cat\", x=240, y=220, size=60)\n\n# A moon in the top-right: big x (far across), small y (near the top).\nmoon = Sprite(\"moon\", x=400, y=60, size=44)\n\n# Two stars in the top half — both with a y smaller than 180.\nstar1 = Sprite(\"star\", x=120, y=90, size=20)\nstar2 = Sprite(\"star\", x=240, y=50, size=20)\n\ngame.start()\n",
+      "solution": "from stage import Game, Sprite\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\n# Our cat, already on the grass.\ncat = Sprite(\"cat\", x=240, y=220, size=60)\n\n# A moon in the top right: big x (far across), small y (near the top).\nmoon = Sprite(\"moon\", x=400, y=60, size=44)\n\n# Two stars in the top half. Both have a y smaller than 180.\nstar1 = Sprite(\"star\", x=120, y=90, size=20)\nstar2 = Sprite(\"star\", x=240, y=50, size=20)\n\ngame.start()\n",
       "check": {
         "frames": 10,
         "rules": [
@@ -226,7 +226,7 @@
             "y1": 0,
             "x2": 480,
             "y2": 140,
-            "label": "Something is up in the top-right corner"
+            "label": "Something is up in the top right corner"
           }
         ]
       },
@@ -292,13 +292,13 @@
             }
           ]
         },
-        "note": "Your cat is floating in space. It needs ground to stand on — and ground is just a big rectangle."
+        "note": "Your cat is floating in space. It needs ground to stand on, and ground is just a big rectangle."
       },
       "getIt": {
         "widget": "coordinates",
-        "title": "A rectangle is measured from its top-left corner",
+        "title": "A rectangle is measured from its top left corner",
         "beats": [
-          "A Box needs four numbers: x and y for its top-left corner, then width and height.",
+          "A Box needs four numbers: x and y for its top left corner, then width and height.",
           "Ground across the whole bottom = x=0, y=300, width=480, height=60.",
           "Drag around and imagine where the corner of your ground should sit."
         ],
@@ -308,43 +308,43 @@
       },
       "explain": {
         "title": "Rectangles, corners, and what a colour code means",
-        "intro": "A Box is your ground, your walls and your platforms for the rest of the course. It's positioned differently from a Sprite, and that catches people out.",
+        "intro": "A Box will be your ground, your walls and your platforms for the rest of the course. It is placed differently from a Sprite, and that catches people out.",
         "lines": [
           {
             "code": "from stage import Game, Sprite, Box",
             "what": "The same import line as before, with one more name on the end.",
-            "why": "An import list is just that — a list, separated by commas. Adding Box costs nothing and doesn't slow anything down; you simply couldn't use a word you never asked for."
+            "why": "An import line is just a list of names with commas between them. Adding Box costs nothing and slows nothing down. You simply cannot use a word you never asked for."
           },
           {
             "code": "ground = Box(x=0, y=300, width=480, height=60, color=\"#1F7A5C\")",
-            "what": "A green rectangle whose TOP-LEFT corner sits at (0, 300), stretching 480 across and 60 down.",
-            "why": "Here's the trap: a Sprite is positioned by its middle, but a Box is positioned by its top-left corner. That's not the library being inconsistent — it's how graphics systems everywhere store a rectangle, as one corner plus a width and height, because that's the cheapest thing to draw and the cheapest thing to test for overlaps. So x=0, y=300, height=60 fills exactly the bottom strip of a 360-tall stage: 300 + 60 = 360."
+            "what": "A green rectangle whose TOP LEFT corner sits at (0, 300), stretching 480 across and 60 down.",
+            "why": "Here is the trap: a Sprite is placed by its middle, but a Box is placed by its top left corner. That is not the toolbox being messy. It is how graphics systems everywhere store a rectangle: one corner plus a width and a height, because that is the cheapest thing to draw and the cheapest thing to test for overlaps. So x=0, y=300, height=60 fills exactly the bottom strip of a 360-tall stage, because 300 + 60 = 360."
           },
           {
             "code": "color=\"#1F7A5C\"",
             "what": "A colour written as three pairs of characters: red, green, blue.",
-            "why": "1F red, 7A green, 5C blue. Each pair runs from 00 (none at all) to FF (as much as possible), so #FF0000 is pure red, #FFFFFF is white and #000000 is black. Every colour your screen can show is just a recipe mixing those three lights."
+            "why": "1F red, 7A green, 5C blue. Each pair runs from 00 (none at all) to FF (as much as possible), so #FF0000 is pure red, #FFFFFF is white and #000000 is black. Every colour your screen can show is just a mix of those three lights."
           },
           {
             "code": "tree = Sprite(\"tree\", x=90, y=270, size=56)",
             "what": "A tree whose middle is at y=270, so its feet land near the top of the grass.",
-            "why": "Because a sprite is positioned by its middle, a 56-tall tree centred at 270 reaches down to about 298 — just touching ground that starts at 300. Half the size, added or subtracted, is the arithmetic you'll do constantly once things start colliding."
+            "why": "Because a sprite is placed by its middle, a 56-tall tree centred at 270 reaches down to about 298, just touching ground that starts at 300. Half the size, added or taken away, is the sum you will do again and again once things start bumping into each other."
           }
         ]
       },
-      "brief": "Add grassy ground along the bottom of your scene using a Box, then stand a tree on it. A Box is a plain coloured rectangle — perfect for ground, walls, and platforms.",
+      "brief": "Add grassy ground along the bottom of your scene using a Box, then stand a tree on it. A Box is a plain coloured rectangle, which is perfect for ground, walls and platforms.",
       "todo": [
         "Import Box by adding it to the first line.",
         "Add a Box for the ground: x=0, y=300, width=480, height=60, colour \"#1F7A5C\".",
-        "Add a tree sprite — Sprite(\"tree\", ...) — standing on the grass."
+        "Add a tree sprite, Sprite(\"tree\", ...), standing on the grass."
       ],
       "starterCode": "from stage import Game, Sprite\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nmoon = Sprite(\"moon\", x=400, y=60, size=44)\ncat = Sprite(\"cat\", x=240, y=270, size=60)\n\n# TODO 1: add Box to the import line at the top\n\n# TODO 2: grassy ground along the bottom\n#         Box(x=..., y=..., width=..., height=..., color=\"#1F7A5C\")\n\n\n# TODO 3: a tree standing on the grass\n\n\ngame.start()\n",
       "hints": [
-        "The import line takes a list of names separated by commas: from stage import Game, Sprite, Box",
-        "A Box is positioned by its TOP-LEFT corner, not its middle. For ground at the bottom of a 360-tall stage, y=300 with height=60 fills the last 60 pixels.",
-        "To stand the tree ON the grass, its y should be a bit above 300 — try y=270."
+        "The import line takes a list of names with commas between them: from stage import Game, Sprite, Box",
+        "A Box is placed by its TOP LEFT corner, not its middle. For ground at the bottom of a 360-tall stage, y=300 with height=60 fills the last 60 pixels.",
+        "To stand the tree ON the grass, its y should be a bit above 300. Try y=270."
       ],
-      "solution": "from stage import Game, Sprite, Box\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nmoon = Sprite(\"moon\", x=400, y=60, size=44)\ncat = Sprite(\"cat\", x=240, y=270, size=60)\n\n# Grassy ground: starts at the top-left corner (0, 300) and fills\n# the last 60 pixels of a 360-tall stage.\nground = Box(x=0, y=300, width=480, height=60, color=\"#1F7A5C\")\n\n# A tree standing ON the grass — its feet are just above y=300.\ntree = Sprite(\"tree\", x=90, y=270, size=56)\n\ngame.start()\n",
+      "solution": "from stage import Game, Sprite, Box\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nmoon = Sprite(\"moon\", x=400, y=60, size=44)\ncat = Sprite(\"cat\", x=240, y=270, size=60)\n\n# Grassy ground: starts at the top left corner (0, 300) and fills\n# the last 60 pixels of a 360-tall stage.\nground = Box(x=0, y=300, width=480, height=60, color=\"#1F7A5C\")\n\n# A tree standing ON the grass. Its feet are just above y=300.\ntree = Sprite(\"tree\", x=90, y=270, size=56)\n\ngame.start()\n",
       "check": {
         "frames": 10,
         "rules": [
@@ -418,15 +418,15 @@
             }
           ]
         },
-        "note": "Real games put words on the screen — titles, scores, lives. Same tool for all of them."
+        "note": "Real games put words on the screen: titles, scores, lives. Same tool for all of them."
       },
       "getIt": {
         "widget": "coordinates",
         "title": "Words are things too",
         "beats": [
           "Text goes on the stage just like a sprite, with an x and a y.",
-          "Text is measured from its top-left corner, so x=16, y=16 tucks it neatly into the corner.",
-          "In Module 3 you'll use exactly this to show a live score."
+          "Text is measured from its top left corner, so x=16, y=16 tucks it neatly into the corner.",
+          "In Module 3 you will use exactly this to show a live score."
         ],
         "config": {
           "look": "🔤"
@@ -434,38 +434,38 @@
       },
       "explain": {
         "title": "Words are things too",
-        "intro": "Titles, scores, lives, GAME OVER — every one of them is this single tool.",
+        "intro": "Titles, scores, lives, GAME OVER. Every one of them is this one tool.",
         "lines": [
           {
             "code": "title = Text(\"Cat Under The Moon\", x=16, y=16, size=22, color=\"#FFFFFF\")",
             "what": "Puts words on the stage at 16 across, 16 down, in white, 22 pixels tall.",
-            "why": "The words come first, before any of the named arguments, because they're the one thing a Text can't do without. Like a Box, Text is measured from its top-left corner — which is why 16, 16 tucks it neatly into the corner instead of hanging half off the edge."
+            "why": "The words come first, before any of the named settings, because they are the one thing a Text cannot do without. Like a Box, Text is measured from its top left corner, which is why 16, 16 tucks it neatly into the corner instead of hanging half off the edge."
           },
           {
             "code": "title.words = \"Something else\"",
             "what": "Changes what a Text says, at any moment, even while the game is running.",
-            "why": "This is the whole secret of a live score. A Text isn't a picture that got painted once — it's an object sitting on the stage's list, and the stage re-reads its .words every single frame. Change the value, and the screen catches up 1/60th of a second later. You'll use exactly this in Catch the Fruit."
+            "why": "This is the whole secret of a live score. A Text is not a picture that got painted once. It is a thing sitting on the stage's list, and the stage reads its .words again on every single frame. Change the value and the screen catches up about a sixtieth of a second later. You will use exactly this in Catch the Fruit."
           },
           {
             "code": "\"#FFFFFF\"  vs  \"#0B1020\"",
-            "what": "White text on a near-black background.",
-            "why": "If your title never appears, colour is the first thing to check — white words on a white background are technically drawn and completely invisible. Designers call this contrast, and it's the difference between a readable game and an unplayable one."
+            "what": "White text on a nearly black background.",
+            "why": "If your title never shows up, colour is the first thing to check. White words on a white background really are drawn, and completely invisible. Designers call this contrast, and it is the difference between a game you can read and one nobody can play."
           }
         ]
       },
-      "brief": "Give your scene a title across the top. Text works like any other thing on the stage — it just happens to be made of words instead of pictures.",
+      "brief": "Give your scene a title across the top. Text works like any other thing on the stage. It just happens to be made of words instead of pictures.",
       "todo": [
         "Add Text to the import line.",
-        "Add a title near the top-left: Text(\"Cat Under The Moon\", x=16, y=16, size=22, color=\"#FFFFFF\").",
+        "Add a title near the top left: Text(\"Cat Under The Moon\", x=16, y=16, size=22, color=\"#FFFFFF\").",
         "Change the words to whatever you want to call your scene!"
       ],
       "starterCode": "from stage import Game, Sprite, Box\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nmoon = Sprite(\"moon\", x=400, y=60, size=44)\nground = Box(x=0, y=300, width=480, height=60, color=\"#1F7A5C\")\ncat = Sprite(\"cat\", x=240, y=270, size=60)\ntree = Sprite(\"tree\", x=90, y=265, size=56)\n\n# TODO 1: add Text to the import line at the top\n\n# TODO 2: a title across the top of your scene\n\n\ngame.start()\n",
       "hints": [
         "The import line becomes: from stage import Game, Sprite, Box, Text",
         "Text takes the words first, in quotes: Text(\"My Scene\", x=16, y=16, size=22, color=\"#FFFFFF\")",
-        "If your words don't show up, check the colour — white text on a white background is invisible!"
+        "If your words do not show up, check the colour. White text on a white background is invisible!"
       ],
-      "solution": "from stage import Game, Sprite, Box, Text\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nmoon = Sprite(\"moon\", x=400, y=60, size=44)\nground = Box(x=0, y=300, width=480, height=60, color=\"#1F7A5C\")\ncat = Sprite(\"cat\", x=240, y=270, size=60)\ntree = Sprite(\"tree\", x=90, y=265, size=56)\n\n# Words on the stage, tucked into the top-left corner.\ntitle = Text(\"Cat Under The Moon\", x=16, y=16, size=22, color=\"#FFFFFF\")\n\ngame.start()\n",
+      "solution": "from stage import Game, Sprite, Box, Text\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nmoon = Sprite(\"moon\", x=400, y=60, size=44)\nground = Box(x=0, y=300, width=480, height=60, color=\"#1F7A5C\")\ncat = Sprite(\"cat\", x=240, y=270, size=60)\ntree = Sprite(\"tree\", x=90, y=265, size=56)\n\n# Words on the stage, tucked into the top left corner.\ntitle = Text(\"Cat Under The Moon\", x=16, y=16, size=22, color=\"#FFFFFF\")\n\ngame.start()\n",
       "check": {
         "frames": 10,
         "rules": [

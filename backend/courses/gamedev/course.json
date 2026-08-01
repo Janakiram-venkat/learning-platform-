@@ -9,7 +9,10 @@
   "format": "game",
   "prerequisite": {
     "courseId": "python",
-    "throughModule": 5,
+    "courseTitle": "Python",
+    "courseEmoji": "🐍",
+    "startPath": "/course/python/lesson/intro",
+    "modulesRequired": 5,
     "note": "You'll need variables, if/else, loops, functions and lists, which is Python Modules 1 to 5."
   },
   "modules": [

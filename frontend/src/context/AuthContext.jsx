@@ -15,6 +15,11 @@ export function AuthProvider({ children }) {
     }
   });
 
+  // True while we're confirming a stored token on boot. Route guards wait on
+  // this so a signed-in student reloading a lesson never flashes the sign-in
+  // gate before /auth/me comes back.
+  const [loading, setLoading] = useState(() => !!getAuthToken());
+
   const persist = useCallback((profile) => {
     setUser(profile);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
@@ -39,8 +44,17 @@ export function AuthProvider({ children }) {
     if (!getAuthToken()) return;
     authService.me()
       .then((res) => persist(res.data))
-      .catch(() => clear());
+      .catch(() => clear())
+      .finally(() => setLoading(false));
   }, [persist, clear]);
+
+  // The API layer fires this when any request comes back 401 — i.e. the session
+  // expired mid-visit. Drop the stale profile so the guards take over.
+  useEffect(() => {
+    const onExpired = () => { setLoading(false); clear(); };
+    window.addEventListener('auth:expired', onExpired);
+    return () => window.removeEventListener('auth:expired', onExpired);
+  }, [clear]);
 
   const signUp = useCallback(async (email, name, password, interests = []) => {
     const res = await authService.signUp(email, name, password, interests);
@@ -75,7 +89,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, signUp, login, signInWithGoogle, updateProfile, changePassword, signOut }}
+      value={{ user, loading, signUp, login, signInWithGoogle, updateProfile, changePassword, signOut }}
     >
       {children}
     </AuthContext.Provider>

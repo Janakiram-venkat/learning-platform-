@@ -31,6 +31,25 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Sign-in endpoints answer 401 for "wrong password" / "bad Google token" — that
+// is a failed attempt, not an expired session, so they're excluded below.
+const SIGN_IN_PATHS = ['/auth/login', '/auth/google', '/auth/signup'];
+
+// A 401 anywhere else means the stored token is gone, expired, or rejected.
+// Drop it and let AuthContext (which listens for this event) sign the user out
+// so the route guards send them back to the sign-in gate.
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const url = error?.config?.url || '';
+    if (error?.response?.status === 401 && !SIGN_IN_PATHS.some((p) => url.includes(p))) {
+      setAuthToken(null);
+      window.dispatchEvent(new Event('auth:expired'));
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const courseService = {
   getCourses: () => api.get('/courses'),
   getCourse: (courseId) => api.get(`/courses/${courseId}`),

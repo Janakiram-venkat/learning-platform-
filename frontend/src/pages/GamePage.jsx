@@ -12,6 +12,7 @@ import FeedbackModal from '../components/feedback/FeedbackModal';
 import { useGameRunner } from '../hooks/useGameRunner';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useCompletionFlow } from '../hooks/useCompletionFlow';
+import { useCourseLock } from '../hooks/useCoursePrerequisite';
 import {
   gameStepKey, isGameStepCompleted, isGameStepUnlocked, awardXPOnce,
 } from '../lib/progress';
@@ -33,6 +34,7 @@ export default function GamePage() {
     includeCourse: false,
   });
   const { celebration, closeCelebration, feedbackOpen, closeFeedback, complete } = useCompletionFlow();
+  const gate = useCourseLock(courseId);
 
   const [code, setCode] = useState('');
   const [starterCode, setStarterCode] = useState('');
@@ -53,6 +55,12 @@ export default function GamePage() {
     setHintsShown(0);
     resetResults();
   }, [step, resetResults]);
+
+  // A typed URL shouldn't get past the course's prerequisite either — bounce
+  // back to the course front door, which explains what's still missing.
+  useEffect(() => {
+    if (gate.locked) navigate(`/course/${courseId}/games`, { replace: true });
+  }, [gate.locked, courseId, navigate]);
 
   // Don't let a URL skip ahead past work that hasn't been done.
   useEffect(() => {

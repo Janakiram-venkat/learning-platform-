@@ -47,6 +47,8 @@ export {
   isGameModuleUnlocked,
 } from './gameSteps';
 
+export { isModuleComplete, countCompletedModules, evaluatePrerequisite } from './prereq';
+
 export { shouldAskFeedback, markFeedbackAsked } from './feedback';
 export { getAiIdeas, saveAiIdea } from './ideas';
 export { snapshotProgress, applyProgress, clearProgress } from './sync';

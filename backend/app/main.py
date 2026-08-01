@@ -1,8 +1,9 @@
 import os
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from app.api import admin, courses, lessons, quiz, users, feedback
+from app.core.security import get_current_user
 from app.db import Base, engine
 from app.models import user as _user_model  # noqa: F401  (register model with Base)
 from app.models import feedback as _feedback_model  # noqa: F401  (register model with Base)
@@ -34,13 +35,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(courses.router, prefix="/api", tags=["Courses"])
-app.include_router(lessons.router, prefix="/api", tags=["Lessons"])
+# Course content is for signed-in students only. The dependency sits on the
+# router mount rather than on each route so a new content endpoint is gated by
+# default — the frontend guard in RequireAuth is convenience, this is the real
+# check. Anonymous callers get a 401 from HTTPBearer.
+_signed_in = [Depends(get_current_user)]
+
+app.include_router(courses.router, prefix="/api", tags=["Courses"], dependencies=_signed_in)
+app.include_router(lessons.router, prefix="/api", tags=["Lessons"], dependencies=_signed_in)
 # NOTE: the old /run-python endpoint is gone. Python now runs entirely in the
 # browser (Pyodide in a Web Worker) — see frontend/src/services/pyodide.js.
 # The server-side runner shelled out to `python -c <user code>` with no sandbox,
 # so it was removed rather than left mounted.
-app.include_router(quiz.router, prefix="/api", tags=["Quiz"])
+app.include_router(quiz.router, prefix="/api", tags=["Quiz"], dependencies=_signed_in)
 app.include_router(users.router, prefix="/api", tags=["Users"])
 app.include_router(feedback.router, prefix="/api", tags=["Feedback"])
 app.include_router(admin.router, prefix="/api", tags=["Admin"])

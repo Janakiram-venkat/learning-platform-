@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Home from '../pages/Home';
+import RequireAuth from '../components/auth/RequireAuth';
 import { useAuth } from '../context/AuthContext';
 
 // Home is the landing page, so it stays in the main bundle. Everything else is
@@ -25,9 +26,10 @@ function RouteFallback() {
   );
 }
 
-// Keeps the admin dashboard out of a student's way. This is a convenience
-// guard only — every /admin endpoint checks the staff flag server-side, so a
-// student who forces the route sees an empty page, not data.
+// Keeps the admin dashboard out of a student's way. Nested inside RequireAuth,
+// so by the time this runs the session is already resolved. Convenience guard
+// only — every /admin endpoint checks the staff flag server-side, so a student
+// who forces the route sees an empty page, not data.
 function AdminRoute({ children }) {
   const { user } = useAuth();
   if (!user?.is_admin) return <Navigate to="/" replace />;
@@ -38,20 +40,23 @@ export default function AppRoutes() {
   return (
     <Suspense fallback={<RouteFallback />}>
       <Routes>
+        {/* Public: the landing page is the only thing a signed-out visitor sees. */}
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/subject/:subject" element={<SubjectPage />} />
-        <Route path="/course/:courseId/lesson/:lessonId" element={<LessonPage />} />
-        <Route path="/course/:courseId/module/:moduleId/assignment" element={<AssignmentPage />} />
-        <Route path="/course/:courseId/module/:moduleId/project" element={<ProjectPage />} />
-        <Route path="/course/:courseId/module/:moduleId/lab" element={<LabPage />} />
-        <Route path="/course/:courseId/games" element={<GameCoursePage />} />
-        <Route path="/course/:courseId/reference" element={<GameReference />} />
-        <Route path="/course/:courseId/module/:moduleId/step/:stepIndex" element={<GamePage />} />
-        <Route
-          path="/admin"
-          element={<AdminRoute><AdminPage /></AdminRoute>}
-        />
+
+        {/* Everything course-related needs an account. Grouping them under one
+            pathless route means a new course page is gated by default. */}
+        <Route element={<RequireAuth><Outlet /></RequireAuth>}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/subject/:subject" element={<SubjectPage />} />
+          <Route path="/course/:courseId/lesson/:lessonId" element={<LessonPage />} />
+          <Route path="/course/:courseId/module/:moduleId/assignment" element={<AssignmentPage />} />
+          <Route path="/course/:courseId/module/:moduleId/project" element={<ProjectPage />} />
+          <Route path="/course/:courseId/module/:moduleId/lab" element={<LabPage />} />
+          <Route path="/course/:courseId/games" element={<GameCoursePage />} />
+          <Route path="/course/:courseId/reference" element={<GameReference />} />
+          <Route path="/course/:courseId/module/:moduleId/step/:stepIndex" element={<GamePage />} />
+          <Route path="/admin" element={<AdminRoute><AdminPage /></AdminRoute>} />
+        </Route>
       </Routes>
     </Suspense>
   );

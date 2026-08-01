@@ -5,12 +5,15 @@ import { Lock, Gamepad2, CheckCircle2, ArrowRight, BookOpen } from 'lucide-react
 import {
   countGameStepsDone, isGameModuleUnlocked,
 } from '../lib/progress';
+import { usePrerequisite } from '../hooks/useCoursePrerequisite';
+import CourseLocked from '../components/course/CourseLocked';
 
 // The game course's front door: one card per module, each one a whole game.
 export default function GameCoursePage() {
   const { courseId } = useParams();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
+  const gate = usePrerequisite(course?.prerequisite);
 
   useEffect(() => {
     let active = true;
@@ -21,7 +24,7 @@ export default function GameCoursePage() {
     return () => { active = false; };
   }, [courseId]);
 
-  if (loading) {
+  if (loading || gate.checking) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24">
         <div className="animate-float text-5xl">🎮</div>
@@ -37,6 +40,20 @@ export default function GameCoursePage() {
         <p className="font-lab text-lg font-semibold text-ink/65">This course isn't ready yet.</p>
         <Link to="/" className="lab-btn rounded-xl border-2 border-ink bg-signal px-5 py-2.5 font-extrabold text-ink">Back to Quests</Link>
       </div>
+    );
+  }
+
+  // The whole course sits behind the prerequisite, so the module map isn't even
+  // rendered until it's met — there's nothing here to tease.
+  if (gate.locked) {
+    return (
+      <CourseLocked
+        title={course.title}
+        emoji={course.emoji}
+        done={gate.done}
+        required={gate.required}
+        prerequisite={gate.prerequisite}
+      />
     );
   }
 

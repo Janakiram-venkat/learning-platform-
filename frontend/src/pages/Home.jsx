@@ -2,9 +2,10 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   ArrowRight, Terminal, Bot, Rocket, Zap, Code2, Trophy,
-  MousePointerClick, CheckCircle2, Wrench, Cpu, Power, Play, RotateCcw,
+  MousePointerClick, CheckCircle2, Wrench, Cpu, Power, Play, RotateCcw, Lock,
 } from 'lucide-react';
 import logo from '../assets/pocketlab.png';
+import { useCourseLock } from '../hooks/useCoursePrerequisite';
 
 /* ---------------------------------------------------------------------------
    Pocket Lab — "Workbench" home page.
@@ -377,6 +378,8 @@ const TRACKS = [
     ref: 'TRK-GAME', emoji: '🎮', title: 'Game Development', line: 'After Python 1–5',
     desc: 'Build real playable games — bouncing balls, falling fruit, and a score to beat.',
     status: 'READY', led: '#E8503A', to: '/course/gamedev/games',
+    // Gated: the card reads its own lock state from gamedev/course.json.
+    courseId: 'gamedev',
   },
   {
     ref: 'TRK-BOT', emoji: '🦾', title: 'Robotics', line: 'No electronics needed',
@@ -391,6 +394,41 @@ const NOTES = [
   { quote: 'The badges make me want to finish every level. I taught an AI to recognize cats!', name: 'Mia', age: 9, ref: 'LOG-207' },
   { quote: 'I never thought I could write real Python. Now I help my friends debug theirs.', name: 'Rohan', age: 12, ref: 'LOG-333' },
 ];
+
+// One track card. Split out of the grid below because a gated track has to ask
+// the progress layer whether it's open yet, and that's a hook per card.
+function TrackCard({ track }) {
+  const { ref, emoji, title, line, desc, status, led, to, courseId } = track;
+  const gate = useCourseLock(courseId);
+
+  return (
+    <div className="lab-panel lab-lift flex flex-col p-6">
+      <div className="mb-4 flex items-center justify-between">
+        <span className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-ink bg-white text-2xl" aria-hidden>{emoji}</span>
+        <span className="inline-flex items-center gap-1.5 ref-tag text-ink/55">
+          {gate.locked ? (
+            <><Lock className="h-3.5 w-3.5" /> LOCKED</>
+          ) : (
+            <><span className="led" style={{ color: led }} /> {status}</>
+          )}
+        </span>
+      </div>
+      <span className="ref-tag mb-1 text-ink/45">{ref}</span>
+      <h3 className="font-lab mb-1 text-xl font-bold">{title}</h3>
+      <p className="ref-tag mb-3 text-pcb">
+        {gate.locked ? `${gate.done} / ${gate.required} Python modules done` : line}
+      </p>
+      <p className="mb-5 flex-1 font-semibold text-ink/65">{desc}</p>
+      <Link
+        to={to}
+        className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-ink px-4 py-2.5 font-extrabold text-white transition-colors hover:bg-pcb"
+      >
+        {gate.locked ? <><Lock className="h-4 w-4" /> See what unlocks it</>
+          : <><Zap className="h-4 w-4" /> Open module</>}
+      </Link>
+    </div>
+  );
+}
 
 function Eyebrow({ children }) {
   return (
@@ -588,25 +626,8 @@ export default function Home() {
           </p>
 
           <div className="grid gap-6 sm:grid-cols-2">
-            {TRACKS.map(({ ref, emoji, title, line, desc, status, led, to }) => (
-              <div key={ref} className="lab-panel lab-lift flex flex-col p-6">
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-ink bg-white text-2xl" aria-hidden>{emoji}</span>
-                  <span className="inline-flex items-center gap-1.5 ref-tag text-ink/55">
-                    <span className="led" style={{ color: led }} /> {status}
-                  </span>
-                </div>
-                <span className="ref-tag mb-1 text-ink/45">{ref}</span>
-                <h3 className="font-lab mb-1 text-xl font-bold">{title}</h3>
-                <p className="ref-tag mb-3 text-pcb">{line}</p>
-                <p className="mb-5 flex-1 font-semibold text-ink/65">{desc}</p>
-                <Link
-                  to={to}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-ink px-4 py-2.5 font-extrabold text-white transition-colors hover:bg-pcb"
-                >
-                  <Zap className="h-4 w-4" /> Open module
-                </Link>
-              </div>
+            {TRACKS.map((track) => (
+              <TrackCard key={track.ref} track={track} />
             ))}
           </div>
         </div>

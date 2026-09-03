@@ -232,6 +232,12 @@ const RULES = {
       return false;
     });
   },
+  // Something's LAST position on the trace sits inside a region — for
+  // checks that only care where a thing settles, not its path getting there.
+  ends_in_area: (rule, ctx) => seriesFor(ctx.trace, rule.name, rule.kind).some(({ pts }) => {
+    const last = pts[pts.length - 1];
+    return last.x >= rule.x1 && last.x <= rule.x2 && last.y >= rule.y1 && last.y <= rule.y2;
+  }),
   // Some Text on stage changes its words during the run — a live score.
   text_changes: (rule, ctx) => {
     const words = new Map(); // name/index -> set of distinct strings seen
@@ -253,6 +259,23 @@ const RULES = {
   },
   // game.stop() was reached.
   game_over: (_rule, ctx) => ctx.trace.some((f) => f.over),
+  // A Sprite's scale_x/scale_y actually changes at some point — squash and
+  // stretch really happening, not just sitting at 1.0 the whole run.
+  scale_changes: (rule, ctx) => {
+    const seen = new Map();
+    for (const f of ctx.trace) {
+      for (const t of f.all) {
+        if (t.kind !== 'Sprite') continue;
+        if (rule.name && t.name !== rule.name) continue;
+        const key = t.name;
+        if (!seen.has(key)) seen.set(key, new Set());
+        seen.get(key).add(`${t.scale_x},${t.scale_y}`);
+      }
+    }
+    return [...seen.values()].some((set) => set.size > 1);
+  },
+  // game.shake() ran at some point during the run.
+  shakes: (_rule, ctx) => ctx.trace.some((f) => f.shaking),
 };
 
 // Compare two scenarios: something must end up in a different place when the

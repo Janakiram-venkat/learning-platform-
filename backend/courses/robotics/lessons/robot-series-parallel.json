@@ -1,0 +1,97 @@
+{
+  "lessonId": "robot-series-parallel",
+  "title": "Series vs Parallel",
+  "description": "Two LEDs, two ways to wire them, and two very different results — predict which is brighter before you check.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "One Path, or Two?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Everything so far has had one loop, one path for current to take. With two LEDs there's a real choice to make: chain them one after another in a single loop (series), or give each one its own separate loop back to the battery (parallel)."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "SERIES  (one path, both LEDs share it)\n\n  +---[LED1]---[LED2]---+\n  |                     |\n  +--------[bat]--------+\n\nPARALLEL  (two paths, one LED per loop)\n\n  +---[LED1]---+   +---[LED2]---+\n  |            |   |            |\n  +----------[bat]--------------+"
+    },
+    {
+      "type": "paragraph",
+      "value": "Predict before you check: in series, both LEDs share the exact same current — every electron that visits LED1 must also visit LED2, since there's only one path. In parallel, each LED gets its own full path straight to the battery, as if the other LED wasn't there at all."
+    },
+    {
+      "type": "widget",
+      "kind": "circuit-sandbox",
+      "title": "🔀 Predict, then check",
+      "hint": "Guess which will be brighter before you switch to it. Then flip between Series and Parallel and compare the mA readouts.",
+      "mode": "series-parallel",
+      "voltage": 9,
+      "xp": 20,
+      "xpKey": "robotics-m3-series-parallel"
+    },
+    {
+      "type": "paragraph",
+      "value": "In series, the same current has to squeeze through two LEDs' worth of resistance back-to-back, so it comes out lower — both LEDs glow, but dimmer than either would alone. In parallel, each LED sees the full battery voltage across just itself, so each one lights at full brightness independently."
+    },
+    {
+      "type": "heading",
+      "value": "The Trade-off"
+    },
+    {
+      "type": "paragraph",
+      "value": "Parallel isn't simply \"better\" — it draws more total current from the battery, since it's really two separate circuits both pulling from the same source at once. Series is more efficient with battery life but every part in the chain is now dependent on every other: unplug or break one LED in a series chain and the whole loop opens, and every LED in that chain goes dark. In parallel, one LED failing barely affects the others."
+    },
+    {
+      "type": "tip",
+      "value": "This is exactly why old-style Christmas lights (all series) go completely dark when one bulb dies, while your house's separate wall sockets (parallel) don't all lose power if one appliance breaks."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: series wiring shares one current between every part in the chain (dimmer, but one failure kills the loop). Parallel wiring gives each part its own full-strength path (brighter, more total current drawn, and failures stay isolated)."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Two identical LEDs. Which wiring makes each one glow brighter?",
+      "options": [
+        "Series",
+        "Parallel",
+        "They're always identical"
+      ],
+      "answer": 1,
+      "explain": "In parallel, each LED gets the full battery voltage to itself. In series, the current — and so the brightness — is shared between both."
+    },
+    {
+      "question": "One LED burns out in a series chain of two. What happens to the other LED?",
+      "options": [
+        "Nothing changes",
+        "It gets brighter",
+        "It goes dark too, because the loop is now broken"
+      ],
+      "answer": 2,
+      "explain": "Series means one shared path. A broken LED is an open gap in that path, and current stops flowing to everything downstream of it."
+    },
+    {
+      "question": "One LED burns out in a parallel pair. What happens to the other LED?",
+      "options": [
+        "It keeps working normally, since it has its own separate path to the battery",
+        "It also goes dark",
+        "It gets dimmer"
+      ],
+      "answer": 0,
+      "explain": "Parallel branches are independent loops. Breaking one doesn't touch the others."
+    },
+    {
+      "question": "Why does parallel wiring draw more total current from the battery than series, for the same two LEDs?",
+      "options": [
+        "It doesn't — they draw the same",
+        "Each parallel branch pulls its own current independently, and the battery supplies the sum of both",
+        "Parallel LEDs use less power each, so the total is lower"
+      ],
+      "answer": 1,
+      "explain": "The battery has to supply whatever every branch asks for. Two full-strength branches add up to more total current than one shared path."
+    }
+  ]
+}

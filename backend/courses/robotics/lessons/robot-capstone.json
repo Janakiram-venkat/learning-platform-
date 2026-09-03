@@ -1,0 +1,82 @@
+{
+  "lessonId": "robot-capstone",
+  "title": "Capstone: Design Your Own Robot",
+  "description": "Module 1 asked you to imagine a robot before you knew any electronics. Twelve modules later, design it again — this time knowing exactly how every part of it would actually work.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "You've Earned the Second Draft"
+    },
+    {
+      "type": "paragraph",
+      "value": "Go back and look at what you wrote in Module 1's Robot Concept Card if you still have it. That was an honest guess, made before you knew what a motor driver was for or why a caster ball beats a third wheel. This one doesn't have to guess."
+    },
+    {
+      "type": "paragraph",
+      "value": "Pick a real chore or problem, and design a robot for it — free-form, your own idea, no fixed right answer. The only requirement is that sense, think and act genuinely fit together, using real parts and real logic this course actually taught you."
+    },
+    {
+      "type": "widget",
+      "kind": "design-card",
+      "title": "🎓 Capstone Robot",
+      "prompt": "Name it, describe the problem, and fill in a real sense/think/act loop using parts and ideas from this whole course.",
+      "cardLabel": "Capstone Robot",
+      "cardEmoji": "🎓",
+      "xp": 100,
+      "xpKey": "robotics-m12-capstone",
+      "example": {
+        "name": "GardenGuard",
+        "job": "checks whether the school garden's soil is dry and needs watering, without a human having to check by hand every day",
+        "sense": "a soil-moisture sensor (wired the same way as any resistive sensor in Module 3) plus an ultrasonic sensor to avoid the flower beds while moving between rows",
+        "think": "a while True: loop comparing the moisture reading to a threshold, deciding whether to trigger the pump",
+        "act": "a relay switching a small water pump, and an RGB LED showing green (fine) or red (needs water) at a glance"
+      },
+      "fields": [
+        { "key": "name", "label": "Name your robot", "placeholder": "e.g. GardenGuard" },
+        { "key": "job", "label": "What real problem does it solve?", "placeholder": "e.g. checks the garden's soil moisture" },
+        { "key": "sense", "label": "SENSE: which real sensors, and why those?", "placeholder": "e.g. a soil-moisture sensor and an ultrasonic sensor" },
+        { "key": "think", "label": "THINK: what's the actual decision logic?", "placeholder": "e.g. while True: if moisture < threshold: ..." },
+        { "key": "act", "label": "ACT: what does it physically do?", "placeholder": "e.g. switches a pump, lights an LED" }
+      ]
+    },
+    {
+      "type": "heading",
+      "value": "The Course, End to End"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every field in that card traces back to something specific: SENSE to Modules 7-8, THINK to Modules 9-10, ACT to Modules 4-6, and the whole idea of the loop itself back to Module 1's very first lesson. If you can fill this card in confidently, you've genuinely completed this course — not just clicked through it."
+    },
+    {
+      "type": "tip",
+      "value": "There's no simulator run for this one, on purpose. Some of the best robot ideas — a robot for a genuinely unusual problem, using parts this course never built a widget for — can't be tested in twelve modules' worth of prebuilt worlds. The design itself is the achievement."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a real robot design is nothing more than a sense/think/act loop, made of specific, real parts and real logic — the exact same three words this course opened with, now something you can fill in with genuine expertise."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why does this final lesson deliberately echo Module 1's Robot Concept Card?",
+      "options": [
+        "It's just recycled content with nothing new",
+        "It's the same exercise, but now answerable with real knowledge instead of a guess — proof of how far the course has taken you",
+        "Module 1's card was a mistake that needed correcting"
+      ],
+      "answer": 1,
+      "explain": "The structure repeats on purpose — filling it in with genuine, specific answers is the whole point of ending the course this way."
+    },
+    {
+      "question": "What's the actual requirement for the capstone design, beyond picking any idea?",
+      "options": [
+        "It must use every single component from all twelve modules",
+        "Sense, think and act must genuinely fit together, using real parts and logic this course actually taught",
+        "It must be gradeable by an automated simulator"
+      ],
+      "answer": 1,
+      "explain": "There's no single right answer — the bar is coherence: a real loop, built from real ideas, not an exhaustive checklist."
+    }
+  ]
+}

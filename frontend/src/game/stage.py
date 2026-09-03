@@ -143,11 +143,17 @@ class Sprite(_Thing):
         self.look = picture(look)
         self.size = size
         self.color = color
+        # How stretched the sprite is drawn, across and down. 1.0 is normal
+        # size; bigger stretches that way, smaller squashes it. Purely visual
+        # — collision boxes never look at these.
+        self.scale_x = 1.0
+        self.scale_y = 1.0
         super().__init__(x, y, name)
 
     def _render(self):
         return {"kind": "emoji", "look": self.look, "x": self.x, "y": self.y,
-                "size": self.size, "color": self.color}
+                "size": self.size, "color": self.color,
+                "scale_x": self.scale_x, "scale_y": self.scale_y}
 
 
 class Box(_Thing):
@@ -216,6 +222,8 @@ class Game:
         self._update = None
         self._keys = set()
         self._started = False
+        self._shake_frames = 0
+        self._shake_power = 0
         _stage = self
 
     def _add(self, thing):
@@ -234,6 +242,11 @@ class Game:
     def stop(self):
         """End the game — the loop stops calling your every_frame function."""
         self.over = True
+
+    def shake(self, frames=8, power=6):
+        """Rattle the whole screen for a moment — call this on a big impact."""
+        self._shake_frames = frames
+        self._shake_power = power
 
     # --- input ----------------------------------------------------------
     def key_down(self, key):
@@ -263,27 +276,50 @@ class Game:
         self._keys = set(keys)
         if self._update is not None and not self.over:
             self._update()
+        if self._shake_frames > 0:
+            self._shake_frames -= 1
         self.frame += 1
         self.things = [t for t in self.things if not t.dead]
 
     def _snapshot(self):
         """Everything the renderer and the behaviour checker need this frame."""
+        # One random jitter per frame, shared by every visible thing, so the
+        # whole picture rattles together like a camera shake — not each
+        # sprite jittering on its own. It only ever touches the RENDER list,
+        # never the `all` list the checker grades, so shaking a passing game
+        # can't make its behaviour checks flaky.
+        if self._shake_frames > 0:
+            jx = _random.randint(-self._shake_power, self._shake_power)
+            jy = _random.randint(-self._shake_power, self._shake_power)
+        else:
+            jx = jy = 0
+
+        things = []
+        for t in self.things:
+            if not t.visible:
+                continue
+            rendered = dict(t._render(), name=t.name, visible=t.visible)
+            rendered["x"] += jx
+            rendered["y"] += jy
+            things.append(rendered)
+
         return {
             "width": self.width,
             "height": self.height,
             "background": self.background,
             "frame": self.frame,
             "over": self.over,
-            "things": [
-                dict(t._render(), name=t.name, visible=t.visible)
-                for t in self.things if t.visible
-            ],
+            "shaking": self._shake_frames > 0,
+            "things": things,
             # `all` includes hidden things too — the behaviour checker needs to
             # follow something even while it is invisible. `words` lets a check
-            # see a score label actually change.
+            # see a score label actually change. `scale_x`/`scale_y` let it see
+            # a squash-and-stretch effect actually happening.
             "all": [
                 {"name": t.name, "x": t.x, "y": t.y, "kind": type(t).__name__,
-                 "visible": t.visible, "words": getattr(t, "words", None)}
+                 "visible": t.visible, "words": getattr(t, "words", None),
+                 "scale_x": getattr(t, "scale_x", None),
+                 "scale_y": getattr(t, "scale_y", None)}
                 for t in self.things
             ],
         }

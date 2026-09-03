@@ -1,0 +1,45 @@
+{
+  "moduleId": 10,
+  "title": "Real Code",
+  "emoji": "🐍",
+  "tagline": "Blocks become real Python — the exact language, the exact logic, running on a real simulator.",
+  "lessons": [
+    {
+      "lessonId": "robot-blocks-to-code",
+      "title": "The Bridge: Blocks to Code",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-python-api",
+      "title": "The robot API",
+      "duration": "12 min"
+    },
+    {
+      "lessonId": "robot-variables-sensors",
+      "title": "Variables and Sensors",
+      "duration": "14 min"
+    },
+    {
+      "lessonId": "robot-control-flow",
+      "title": "while True: — The Robot's Heartbeat",
+      "duration": "16 min"
+    },
+    {
+      "lessonId": "robot-functions",
+      "title": "Functions: Packaging a Behaviour",
+      "duration": "14 min"
+    },
+    {
+      "lessonId": "robot-micropython",
+      "title": "MicroPython: What Actually Runs on the ESP32",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-real-hardware",
+      "title": "The Honest Bridge to Real Hardware",
+      "duration": "10 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

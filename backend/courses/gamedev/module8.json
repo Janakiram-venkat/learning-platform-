@@ -1,0 +1,61 @@
+{
+  "moduleId": 8,
+  "title": "Your Own Game",
+  "emoji": "🏆",
+  "tagline": "Pick an idea, build it start to finish, and share it with a friend.",
+  "successMessage": "You picked the idea, you picked what stayed and what got thrown out, and you shipped it. Every single tool you used to build it — gravity, lists, collisions, a score, a menu, juice — you taught yourself, one small game at a time. That's the whole course. 🏆",
+  "steps": [
+    {
+      "title": "Build your own game, start to finish",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "brief": "This one's yours. No fixed steps, no reference solution, no auto-grader watching your sprites — just a blank stage and everything you've built with over the last seven modules. Pick an idea, however small, and ship it.",
+      "todo": [
+        "Pick a genre — dodge things, catch things, jump and land, escape a maze, or something nobody's built yet.",
+        "Grab a launchpad below if you want one, or start from the blank canvas already in your editor.",
+        "Build until every box in the checklist is honestly true, then tick it off."
+      ],
+      "starterCode": "from stage import Game, Sprite, Box, Ball, Text, random_number\n\n# ---------------------------------------------------------------------------\n# Your toolbox, all in one place. Delete this comment block once you don't\n# need it any more.\n#\n#   Game(width, height, background)   the stage itself, make this first\n#   Sprite(look, x, y, size, name)    an emoji character — \"star\", \"robot\", ...\n#   Box(x, y, width, height, color)   a rectangle — floors, walls, platforms\n#   Ball(x, y, radius, color)         a circle\n#   Text(words, x, y, size, color)    words on the stage — scores, messages\n#   random_number(low, high)          a random whole number, low to high\n#\n#   thing.touching(other)             True when two things overlap\n#   thing.move(dx, dy)                shift by dx across, dy down\n#   thing.hide() / thing.show()       for menus and start screens\n#   thing.remove()                    take it off the stage for good\n#\n#   game.key_down(\"left\"/\"right\"/\"up\"/\"down\"/\"space\")   is a key held right now\n#   game.clamp_inside(thing)          keep something from leaving the stage\n#   game.shake(frames, power)         rattle the whole screen for a moment\n#   game.score / game.state / ...     stick ANY name you like straight onto game\n#   game.stop()                       end the game — update() stops running\n#\n#   sprite.scale_x / scale_y          stretch or squash a sprite (1.0 = normal)\n#   a list + a for loop               any number of enemies, stars, particles...\n#   @game.every_frame                 marks the function that runs ~60x/second\n# ---------------------------------------------------------------------------\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nplayer = Sprite(\"robot\", x=240, y=180, size=40, name=\"player\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        player.x = player.x - 4\n    if game.key_down(\"right\"):\n        player.x = player.x + 4\n    if game.key_down(\"up\"):\n        player.y = player.y - 4\n    if game.key_down(\"down\"):\n        player.y = player.y + 4\n    game.clamp_inside(player)\n\n\ngame.start()\n",
+      "hints": [
+        "Stuck on an idea? Sketch it on paper first: what does the player control? What do they avoid or collect? How do they win, and how do they lose?",
+        "The fastest game to finish is usually a remix, not an original: take Space Dodger and swap rocks for something else, or take Jump Quest and change what the platforms mean.",
+        "Every game in this course is built from the same handful of moves: a stored speed (dx/dy/vy), a list you loop over, a touching() check that reacts, and a score or state variable stuck onto game. Mix and match them.",
+        "If it's not fun yet, it's almost always the numbers, not the idea — speed, gravity, how many enemies, how big the hitboxes are. Change one number at a time and replay it.",
+        "Small and finished beats big and half-built. A tiny game with a start screen, an ending, and one good idea is a real game. An ambitious one with no ending isn't, yet."
+      ],
+      "templates": [
+        {
+          "name": "Dodger",
+          "blurb": "A field of falling things and a score for surviving. Remix of Space Dodger.",
+          "code": "from stage import Game, Sprite, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nplayer = Sprite(\"robot\", x=240, y=320, size=40, name=\"player\")\n\nfalling = []\nfor i in range(6):\n    thing = Sprite(\"rock\", x=random_number(20, 460), y=random_number(-200, 0),\n                    size=30, name=\"thing\" + str(i))\n    falling.append(thing)\n\ngame.score = 0\nlabel = Text(\"Score: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        player.x = player.x - 5\n    if game.key_down(\"right\"):\n        player.x = player.x + 5\n    game.clamp_inside(player)\n\n    for thing in falling:\n        thing.y = thing.y + 4\n        if thing.y > 380:\n            thing.y = random_number(-200, 0)\n            thing.x = random_number(20, 460)\n            game.score = game.score + 1\n            label.words = \"Score: \" + str(game.score)\n\n        if player.touching(thing):\n            label.words = \"Game over! Score: \" + str(game.score)\n            game.stop()\n\n\ngame.start()\n"
+        },
+        {
+          "name": "Platformer",
+          "blurb": "Gravity, a jump, one platform to land on. Remix of Jump Quest.",
+          "code": "from stage import Game, Sprite, Box\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\nplatform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")\n\nplayer = Sprite(\"frog\", x=240, y=60, size=40, name=\"player\")\nplayer.vy = 0\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        player.x = player.x - 4\n    if game.key_down(\"right\"):\n        player.x = player.x + 4\n\n    if game.key_down(\"up\") and player.y >= 300:\n        player.vy = -14\n\n    player.vy = player.vy + 1\n    player.y = player.y + player.vy\n\n    if player.touching(platform) and player.vy > 0:\n        player.y = platform.y - 20\n        player.vy = 0\n\n    if player.y > 300:\n        player.y = 300\n        player.vy = 0\n\n\ngame.start()\n"
+        },
+        {
+          "name": "Collector",
+          "blurb": "Walk around freely, grab things, reach a goal to win. Remix of Catch the Fruit / Maze Escape.",
+          "code": "from stage import Game, Sprite, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nplayer = Sprite(\"robot\", x=240, y=180, size=40, name=\"player\")\n\ngems = []\nfor i in range(5):\n    gem = Sprite(\"gem\", x=random_number(20, 460), y=random_number(20, 340),\n                 size=26, name=\"gem\" + str(i))\n    gems.append(gem)\n\ngame.score = 0\nlabel = Text(\"Gems: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        player.x = player.x - 4\n    if game.key_down(\"right\"):\n        player.x = player.x + 4\n    if game.key_down(\"up\"):\n        player.y = player.y - 4\n    if game.key_down(\"down\"):\n        player.y = player.y + 4\n    game.clamp_inside(player)\n\n    for gem in gems:\n        if player.touching(gem):\n            gem.remove()\n            game.score = game.score + 1\n            label.words = \"Gems: \" + str(game.score)\n\n\ngame.start()\n"
+        },
+        {
+          "name": "Blank Canvas",
+          "blurb": "Just a stage and a controllable sprite — everything else is up to you.",
+          "code": "from stage import Game, Sprite\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nplayer = Sprite(\"robot\", x=240, y=180, size=40, name=\"player\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        player.x = player.x - 4\n    if game.key_down(\"right\"):\n        player.x = player.x + 4\n    if game.key_down(\"up\"):\n        player.y = player.y - 4\n    if game.key_down(\"down\"):\n        player.y = player.y + 4\n    game.clamp_inside(player)\n\n\ngame.start()\n"
+        }
+      ],
+      "milestones": [
+        "There's something the player directly controls with the keyboard.",
+        "There's a real way to lose — not just an endless sandbox with nothing at stake.",
+        "There's a score, timer, or counter, visible on screen, that actually changes.",
+        "It has at least one piece of juice — a squash/stretch, a particle burst, or a screen shake.",
+        "It has a start screen or a game-over screen (or both) using game.state.",
+        "You've played it start to finish at least once, on purpose, without editing the code mid-run.",
+        "You've shown it to someone else and watched them play it."
+      ]
+    }
+  ]
+}

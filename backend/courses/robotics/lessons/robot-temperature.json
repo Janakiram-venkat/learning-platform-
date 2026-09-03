@@ -1,0 +1,55 @@
+{
+  "lessonId": "robot-temperature",
+  "title": "Temperature: Sensors Aren't Only Distance",
+  "description": "Component lesson, brief on purpose. Not every sensor points outward — this one just needs to know how hot it is right where it sits.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Different Kind of Sensor"
+    },
+    {
+      "type": "paragraph",
+      "value": "Everything so far in this module answers \"what's out there?\" or \"what's underneath?\". A temperature sensor answers a much simpler question about its own immediate surroundings: how hot or cold is it right here?"
+    },
+    {
+      "type": "paragraph",
+      "value": "A common, cheap version — a thermistor — is a resistor whose resistance changes predictably with temperature. Wire it into a simple circuit (much like Module 3's resistors) and a warmer thermistor lets more current through, a cooler one less. The controller reads that as a changing voltage and converts it to a temperature reading."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "warmer  -->  thermistor resistance drops  -->  more current  -->  higher reading\ncooler  -->  thermistor resistance rises   -->  less current  -->  lower reading"
+    },
+    {
+      "type": "tip",
+      "value": "This is the same idea from Module 3's Ohm's law lesson, applied to a part whose resistance isn't fixed — it deliberately changes with something in the environment, which is exactly what turns a resistor into a sensor."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: sensors don't have to look outward. A thermistor senses its own temperature by changing its resistance predictably with heat — the same resistor-and-current relationship from Module 3, put to work as a sensor."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "How does a thermistor let a controller measure temperature?",
+      "options": [
+        "It generates its own voltage that scales with heat",
+        "Its resistance changes predictably with temperature, which changes how much current flows",
+        "It contains a tiny camera"
+      ],
+      "answer": 1,
+      "explain": "A thermistor is fundamentally still a resistor — just one whose resistance value is deliberately sensitive to heat."
+    },
+    {
+      "question": "What connects this lesson back to Module 3?",
+      "options": [
+        "Nothing, they're unrelated",
+        "A thermistor is a resistor with a temperature-dependent resistance — the same current/resistance relationship from Ohm's law",
+        "Module 3 also covered temperature directly"
+      ],
+      "answer": 1,
+      "explain": "The physics is identical to any resistor circuit — the only new idea is that this resistor's value isn't fixed, it responds to heat."
+    }
+  ]
+}

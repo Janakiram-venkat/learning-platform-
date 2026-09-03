@@ -1,0 +1,65 @@
+{
+  "lessonId": "robot-python-api",
+  "title": "The robot API",
+  "description": "One small object, a dozen or so methods — this is the entire vocabulary you'll use to program ARIA in real code.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Deliberately Small"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every Python exercise from here on gives you one ready-made object called robot, with a small, fixed set of methods. It mirrors the block palette from Module 9 almost exactly on purpose — you already know what every one of these does."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "robot.forward(speed=50, seconds=0.3)   drive forward\nrobot.backward(speed=50, seconds=0.3)  drive backward\nrobot.left(degrees=90)                 turn left\nrobot.right(degrees=90)                turn right\nrobot.stop()                           stop\nrobot.wait(seconds=0.3)                pause\nrobot.distance()                       -> nearest obstacle, in simulated units\nrobot.line()                           -> (left_on_line, right_on_line)\nrobot.led(r, g, b)                     set an RGB LED\nrobot.say(text)                        speak a short message"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice the shape of that list: some methods act (forward, left, stop) and some sense (distance, line) — the exact sense/act split from Module 1's very first lesson, now expressed as real function calls."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-code",
+      "title": "🐍 Try a few calls",
+      "hint": "This is a real, running simulation. Try robot.forward(60), then robot.left(90), then robot.forward(60) again.",
+      "worldId": "obstacleRoom",
+      "starterCode": "robot.forward(60)\nrobot.left(90)\nrobot.forward(60)\n",
+      "xp": 20,
+      "xpKey": "robotics-m10-api"
+    },
+    {
+      "type": "tip",
+      "value": "Default values matter: robot.forward() with no arguments at all still runs, at speed 50 for 0.3 seconds, because every parameter above has a default. You only need to specify what you want to change."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: robot is a small, fixed API — a handful of act methods and a handful of sense methods, deliberately mirroring the block palette you already know."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which of these robot methods senses the world rather than acting on it?",
+      "options": [
+        "robot.forward()",
+        "robot.distance()",
+        "robot.left()"
+      ],
+      "answer": 1,
+      "explain": "distance() reports information back to your code; forward() and left() change the robot's physical state — sense vs act."
+    },
+    {
+      "question": "What does robot.forward() do if you call it with no arguments at all?",
+      "options": [
+        "It raises an error, since arguments are required",
+        "It runs using its default speed and duration",
+        "It does nothing"
+      ],
+      "answer": 1,
+      "explain": "Every parameter has a default value, so calling it bare still does something sensible — speed 50 for 0.3 seconds."
+    }
+  ]
+}

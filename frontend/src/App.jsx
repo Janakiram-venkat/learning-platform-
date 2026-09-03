@@ -7,8 +7,10 @@ import { AuthProvider } from './context/AuthContext';
 export default function App() {
   return (
     <AuthProvider>
-      <ProgressSync />
+      {/* BrowserRouter wraps everything so ProgressSync and all children
+          have access to React Router context if they ever need it. */}
       <BrowserRouter>
+        <ProgressSync />
         <div className="min-h-screen flex flex-col bg-paper">
           <Navbar />
           <main className="flex-1 flex flex-col">

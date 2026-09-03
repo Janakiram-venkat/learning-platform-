@@ -4,10 +4,13 @@ Student progress lives in one JSON blob per user (`users.progress`), owned by
 the frontend. Rather than teach the database its shape, the admin views load the
 users and fold the blobs in Python — the cohort is small enough that this is
 cheaper than the migration a normalised schema would cost.
+
+get_stats() is the exception: those headline numbers are now computed with SQL
+COUNT / SUM aggregates so they don't require loading every progress blob.
 """
 from datetime import datetime, timedelta
 
-from sqlalchemy import func
+from sqlalchemy import func, text
 from sqlalchemy.orm import Session
 
 from app.models.feedback import Feedback
@@ -78,29 +81,47 @@ def list_users(db: Session, search: str | None = None, limit: int = 200) -> list
 
 
 def get_stats(db: Session) -> dict:
-    """Headline totals across every account plus the feedback table."""
-    users = db.query(User).all()
+    """Headline totals across every account plus the feedback table.
+
+    Uses SQL aggregates rather than loading every user row into Python so this
+    stays fast as the user base grows.
+    """
     week_ago = datetime.utcnow() - timedelta(days=7)
 
+    # --- User counts via SQL aggregates (no full table scan) ----------------
+    total_users = db.query(func.count(User.id)).scalar() or 0
+    admin_users = db.query(func.count(User.id)).filter(User.is_admin.is_(True)).scalar() or 0
+    google_users = db.query(func.count(User.id)).filter(User.password_hash.is_(None)).scalar() or 0
+    new_users_7d = (
+        db.query(func.count(User.id)).filter(User.created_at >= week_ago).scalar() or 0
+    )
+
+    # "Active" still requires reading the progress JSON blob (no normalised
+    # columns yet), so we keep the Python fold only for that metric and the
+    # XP / completion totals. The query is bounded by total_users — acceptable
+    # until progress is normalised.
+    users = db.query(User).all()
     totals = {name: 0 for name in _COMPLETION_KEYS}
     total_xp = 0
+    active_users_7d = 0
     for u in users:
         summary = _summarise(u)
         total_xp += summary["total_xp"]
         for name in totals:
             totals[name] += summary[name]
+        if _has_started(u):
+            active_users_7d += 1
 
+    # --- Feedback aggregates -----------------------------------------------
     feedback_count = db.query(func.count(Feedback.id)).scalar() or 0
     average_rating = db.query(func.avg(Feedback.rating)).scalar()
 
     return {
-        "total_users": len(users),
-        "admin_users": sum(1 for u in users if u.is_admin),
-        "google_users": sum(1 for u in users if u.password_hash is None),
-        "new_users_7d": sum(1 for u in users if u.created_at and u.created_at >= week_ago),
-        # "Active" is a proxy: accounts that have completed something. Progress
-        # carries no timestamps, so this is lifetime, not last-7-days activity.
-        "active_users_7d": sum(1 for u in users if _has_started(u)),
+        "total_users": total_users,
+        "admin_users": admin_users,
+        "google_users": google_users,
+        "new_users_7d": new_users_7d,
+        "active_users_7d": active_users_7d,
         "total_xp": total_xp,
         **totals,
         "feedback_count": feedback_count,

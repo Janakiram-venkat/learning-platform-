@@ -1,0 +1,71 @@
+{
+  "lessonId": "robot-algorithms",
+  "title": "Algorithms: Instructions So Exact a Robot Can't Misread Them",
+  "description": "No hardware in this module — just logic. Starting with the oldest trick in computer science: saying exactly what you mean.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A New Kind of Module"
+    },
+    {
+      "type": "paragraph",
+      "value": "Modules 3 through 8 were all about hardware — wiring real parts to ARIA. This module and the next two step back from the soldering iron entirely. From here on, everything you build runs in simulation: the same sense-think-act loop, but the THINK step is now something you write yourself."
+    },
+    {
+      "type": "heading",
+      "value": "The Peanut-Butter-Sandwich Problem"
+    },
+    {
+      "type": "paragraph",
+      "value": "Imagine instructing a robot arm to \"make a peanut butter sandwich.\" A human fills in a thousand unstated assumptions without noticing: open the jar, use a knife, spread evenly, don't put the jar itself between the slices. A robot has none of those assumptions. Told literally \"put peanut butter on bread,\" a robot might set the entire closed jar down on top of the loaf and call the job done — that instruction, followed to the letter, is exactly what was asked."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "human instruction:  \"put peanut butter on the bread\"\nhuman assumes:       open jar, use knife, spread it, use two slices...\nrobot assumes:        nothing. It does exactly, and only, what was said."
+    },
+    {
+      "type": "paragraph",
+      "value": "An algorithm is instructions precise enough that nothing is left for the reader to assume. Every step this course's blocks and code will ask you to write from here on has to meet that same bar: exact enough that a machine with zero common sense still gets it right."
+    },
+    {
+      "type": "heading",
+      "value": "Two Notations, One Idea"
+    },
+    {
+      "type": "paragraph",
+      "value": "This module teaches algorithms as blocks — small labelled pieces you stack and nest, like the ones you'll use in a moment. The next module teaches the exact same ideas as real Python code. Neither one is more \"real\" than the other; blocks make the structure impossible to get syntactically wrong while you're learning the concepts, and code is what real robots actually run."
+    },
+    {
+      "type": "tip",
+      "value": "Every algorithm, no matter how complex, is built from exactly three shapes: doing steps in order (sequence), doing something only if a condition holds (decision), and doing something more than once (loop). You'll meet all three, one at a time, over the next few lessons."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: an algorithm is a set of instructions precise enough to leave nothing to assumption. Every algorithm is built from three shapes — sequence, decision, and loop — which you'll now build with, first as blocks."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why can't a robot fill in unstated assumptions the way a human reading instructions naturally does?",
+      "options": [
+        "Robots are too slow to think that far ahead",
+        "A robot follows exactly what's written, with no built-in common sense to fill gaps the way a human would",
+        "Robots always ask clarifying questions first"
+      ],
+      "answer": 1,
+      "explain": "That's the whole peanut-butter-sandwich lesson: a robot does precisely what's instructed, nothing more, nothing assumed."
+    },
+    {
+      "question": "What are the three basic shapes every algorithm is built from?",
+      "options": [
+        "Sequence, decision, loop",
+        "Sensors, motors, wires",
+        "Input, output, storage"
+      ],
+      "answer": 0,
+      "explain": "Doing things in order, doing something only under a condition, and repeating something — those three cover every algorithm you'll ever write."
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "lessonId": "robot-gears",
+  "title": "Gears: Trading Speed for Strength",
+  "description": "You can't get more speed and more strength for free from the same motor — but you can trade one for the other, precisely, with two meshing wheels of teeth.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Two Meshing Wheels"
+    },
+    {
+      "type": "paragraph",
+      "value": "A gear is just a wheel with teeth. Mesh two of them together and turning one forces the other to turn too — but not necessarily at the same speed. A small gear driving a bigger one has to spin around several times for every one turn of the bigger gear, since it has fewer teeth to hand off per rotation."
+    },
+    {
+      "type": "widget",
+      "kind": "gear-ratio",
+      "title": "⚙️ Resize both gears",
+      "hint": "Make the driving gear small and the driven gear big. Then swap it — make the driving gear big instead.",
+      "xp": 20,
+      "xpKey": "robotics-m6-gears"
+    },
+    {
+      "type": "heading",
+      "value": "The Trade, Exactly"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here's the part that isn't optional: a motor has a fixed amount of mechanical power to give. Gearing it down (small gear driving a big one) trades away speed for extra torque — the output turns slower, but pushes harder. Gearing it up does the opposite: faster output, weaker push. You can shape the trade, but you can never get more of both at once from the same motor."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "small drives big   -->  output SLOWER, but STRONGER  (gearing down)\nbig drives small    -->  output FASTER, but WEAKER    (gearing up)\n\nARIA's wheel motors are geared down: real torque matters more\nthan raw speed for getting a chassis moving from a stop."
+    },
+    {
+      "type": "tip",
+      "value": "This is exactly why a bicycle has multiple gears: a low gear (small in front, big at the back wheel) trades speed for the extra push needed to climb a hill; a high gear does the reverse for flat, fast riding. Same trade-off, same physics, a completely different-looking machine."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: meshing gears trade rotational speed for torque, in a fixed ratio set by their tooth counts. A motor's total mechanical power doesn't change — gearing only decides how that power is split between speed and strength."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A small 10-tooth gear drives a large 30-tooth gear. What happens to the output speed compared to the input?",
+      "options": [
+        "It's 3× slower, but with roughly 3× the torque",
+        "It's 3× faster",
+        "Speed and torque are unaffected by tooth count"
+      ],
+      "answer": 0,
+      "explain": "The small driving gear has to turn 3 times for every 1 turn of the big driven gear — that ratio trades speed for torque."
+    },
+    {
+      "question": "Why does ARIA's wheel motor use a gearbox that gears the output down (slower, stronger)?",
+      "options": [
+        "It's cheaper to manufacture that way",
+        "Getting a chassis moving from a stop needs real torque more than it needs raw speed",
+        "Gearboxes always slow things down regardless of design"
+      ],
+      "answer": 1,
+      "explain": "A small hobby motor spins fast but weak on its own — gearing down trades some of that speed for the torque actually needed to move a robot."
+    },
+    {
+      "question": "Can gearing give a motor both more speed AND more torque at the same time?",
+      "options": [
+        "Yes, always",
+        "No — gearing only redistributes the motor's fixed mechanical power between speed and torque",
+        "Only with a very expensive gearbox"
+      ],
+      "answer": 1,
+      "explain": "It's a trade, not a bonus. Whatever speed you gain, you lose in torque, and vice versa — the total power available doesn't change."
+    }
+  ]
+}

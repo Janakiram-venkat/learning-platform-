@@ -1,0 +1,63 @@
+{
+  "lessonId": "robot-senses-intro",
+  "title": "Real Hardware for SENSE",
+  "description": "Back to Module 1's three boxes — except this time, box one has actual parts wired to it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Loop, Now With Hardware"
+    },
+    {
+      "type": "paragraph",
+      "value": "Module 1 taught you the sense-think-act loop as an idea. Modules 3 through 6 gave ARIA power, a brain, and the ability to move. This module fills in the last missing piece: real parts that turn the physical world into the numbers her brain needs."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "SENSE            THINK              ACT\nultrasonic   -->  ESP32 controller --> motor driver --> wheels\nIR sensors        (Module 4)          (Module 5)\n(this module)"
+    },
+    {
+      "type": "paragraph",
+      "value": "By the end of this module, ARIA can answer two questions no amount of programming alone could answer for her: \"how far away is that wall?\" and \"is the floor under me light or dark?\" Everything from here on — obstacle avoidance, line following, the projects ahead — depends on those two questions having real, honest answers."
+    },
+    {
+      "type": "heading",
+      "value": "Two Sensors, Two Very Different Jobs"
+    },
+    {
+      "type": "paragraph",
+      "value": "This module covers two workhorse sensors: an ultrasonic distance sensor (bounces sound off things ahead) and IR line sensors (read light and dark directly beneath the chassis). They answer completely different questions, and you'll build a real behaviour — line following — out of the second one before the module ends."
+    },
+    {
+      "type": "tip",
+      "value": "Every sensor you'll ever meet does the same fundamental job: turn some physical quantity — distance, light, sound, heat — into a number a controller can read. The parts differ; that job never does."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: this module gives ARIA real sensors for the SENSE step of the loop — an ultrasonic sensor for distance, and IR sensors for reading the floor beneath her."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What job do ARIA's ultrasonic and IR sensors both share, despite working completely differently?",
+      "options": [
+        "Turning a physical quantity into a number the controller can read",
+        "They're actually the same part",
+        "Neither does anything until Module 11"
+      ],
+      "answer": 0,
+      "explain": "Every sensor's fundamental job is the same: convert something physical into a number — only the physical quantity and the method differ."
+    },
+    {
+      "question": "Which two questions does this module let ARIA answer for the first time?",
+      "options": [
+        "What colour is the wall, and what time is it?",
+        "How far away is that wall, and is the floor light or dark?",
+        "How fast is the motor spinning, and how much battery is left?"
+      ],
+      "answer": 1,
+      "explain": "Ultrasonic answers the distance question; IR line sensors answer the light/dark floor question — the two sensors this module covers."
+    }
+  ]
+}

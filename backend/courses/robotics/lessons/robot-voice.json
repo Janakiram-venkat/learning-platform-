@@ -1,0 +1,78 @@
+{
+  "lessonId": "robot-voice",
+  "title": "Voice: Sound Wave to Action",
+  "description": "Four stages between a spoken word and a robot actually doing something about it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Longer Pipeline"
+    },
+    {
+      "type": "paragraph",
+      "value": "Module 8 ended with a microphone turning sound into a raw waveform. Understanding a spoken command takes that waveform through several more stages before ARIA can act on it at all."
+    },
+    {
+      "type": "widget",
+      "kind": "pipeline-stages",
+      "title": "🎙️ Walk through the pipeline",
+      "hint": "Click through all four stages, in order.",
+      "stages": [
+        { "emoji": "〰️", "label": "Waveform", "detail": "The microphone's raw signal — air pressure over time, exactly as Module 8 described it. On its own, it's just numbers." },
+        { "emoji": "📝", "label": "Text", "detail": "Speech-to-text matches patterns in the waveform against known sounds of speech, converting it into written words: \"turn left\"." },
+        { "emoji": "🎯", "label": "Intent", "detail": "The words are matched to a known command the robot understands — \"turn left\" maps to an intent named TURN, with a parameter, direction: left." },
+        { "emoji": "⚙️", "label": "Action", "detail": "The intent finally becomes a real call — robot.left(90) — and ARIA physically turns. This last step is no different from any ACT step in this whole course." }
+      ],
+      "xp": 20,
+      "xpKey": "robotics-m11-voice"
+    },
+    {
+      "type": "heading",
+      "value": "Why Four Separate Stages"
+    },
+    {
+      "type": "paragraph",
+      "value": "Each stage solves one specific problem: turning sound into words, working out what those words mean, and finally doing something about it. Splitting them apart means each one can be built, tested, and improved separately — and it explains a real, common failure: a voice assistant that mishears a word (a text-stage failure) behaves completely differently from one that transcribes correctly but misunderstands the intent behind it."
+    },
+    {
+      "type": "tip",
+      "value": "\"Turn left\", \"turn to the left\", and \"go left\" are three different waveforms and three different sentences, but they should all map to the exact same intent. That's the whole reason an intent stage exists separately from the raw text."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: understanding speech is four separate stages — waveform, text, intent, action — each solving a distinct problem, ending in exactly the same kind of ACT call every earlier module has used."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What's the difference between the 'text' stage and the 'intent' stage?",
+      "options": [
+        "They're the same thing, just named differently",
+        "Text is the transcribed words themselves; intent is what those words actually mean as a command the robot understands",
+        "Intent comes before text in the pipeline"
+      ],
+      "answer": 1,
+      "explain": "Transcription and understanding are genuinely separate problems — text is \"what was said,\" intent is \"what should happen.\""
+    },
+    {
+      "question": "Why should \"turn left\" and \"go left\" map to the same intent even though they're different sentences?",
+      "options": [
+        "They shouldn't — every phrasing needs its own separate action",
+        "Because the intent stage exists specifically to collapse different ways of saying the same thing into one command",
+        "Voice systems can only understand one exact phrase per command"
+      ],
+      "answer": 1,
+      "explain": "That's the whole reason intent is a separate stage from text — normalising different phrasings into one meaning."
+    },
+    {
+      "question": "What does the final 'action' stage of the voice pipeline actually do?",
+      "options": [
+        "Something entirely new and unrelated to the rest of the course",
+        "Calls an ordinary robot method, like robot.left(90) — the same kind of ACT step used throughout this course",
+        "Nothing — voice commands are informational only"
+      ],
+      "answer": 1,
+      "explain": "However sophisticated the pipeline getting there, the final step is the same ACT call this course has used since Module 1."
+    }
+  ]
+}

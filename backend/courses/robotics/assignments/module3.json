@@ -1,0 +1,86 @@
+{
+  "moduleId": 3,
+  "title": "Power Circuit Arcade",
+  "intro": "Six rounds on voltage, current, resistance and how ARIA's power loop holds together. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "⚡",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "In the water analogy, what does tank height stand in for?",
+      "options": [
+        "Voltage",
+        "Current",
+        "Resistance"
+      ],
+      "answer": 0,
+      "explain": "A taller tank pushes harder, exactly like a higher voltage pushes current harder through a circuit."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each electrical quantity to its water twin.",
+      "pairs": [
+        {
+          "left": "Voltage",
+          "right": "Tank height"
+        },
+        {
+          "left": "Current",
+          "right": "Flow rate"
+        },
+        {
+          "left": "Resistance",
+          "right": "Pipe narrowness"
+        },
+        {
+          "left": "Switch",
+          "right": "A valve you open or close"
+        }
+      ],
+      "explain": "Four ideas, four water twins. Once the pairing sticks, Ohm's law is just describing the plumbing."
+    },
+    {
+      "type": "concept",
+      "prompt": "A 9V circuit has a 450Ω resistor. Using I = V/R, about how much current flows?",
+      "options": [
+        "20 mA",
+        "450 mA",
+        "4050 mA"
+      ],
+      "answer": 0,
+      "explain": "9 ÷ 450 = 0.02 A = 20 mA. Dividing volts by ohms always gives you amps."
+    },
+    {
+      "type": "concept",
+      "prompt": "You accidentally bridge a bare wire straight across your LED. What happens?",
+      "options": [
+        "The LED burns extra bright",
+        "Current takes the easy shortcut and skips the LED entirely, which stays dark",
+        "Nothing changes"
+      ],
+      "answer": 1,
+      "explain": "That's a short circuit: an easier path that bypasses your part. Current always takes the path of least resistance."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why does flipping an LED backwards leave it dark, when flipping a resistor backwards changes nothing?",
+      "options": [
+        "An LED only conducts current in one direction; a resistor doesn't care about direction",
+        "LEDs are more fragile than resistors",
+        "Backwards LEDs need more voltage, not less"
+      ],
+      "answer": 0,
+      "explain": "An LED is a one-way valve for current. A resistor just resists — it works the same wired either way."
+    },
+    {
+      "type": "concept",
+      "prompt": "Two identical LEDs, wired in parallel instead of series. What changes?",
+      "options": [
+        "Each LED shines brighter, but the battery supplies more total current",
+        "Both LEDs go dark",
+        "Nothing changes either way"
+      ],
+      "answer": 0,
+      "explain": "Parallel gives each LED its own full-voltage path, so each burns brighter — at the cost of drawing more total current from the battery."
+    }
+  ]
+}

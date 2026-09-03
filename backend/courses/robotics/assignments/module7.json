@@ -1,0 +1,74 @@
+{
+  "moduleId": 7,
+  "title": "Senses Arcade",
+  "intro": "Six rounds on ultrasonic, IR, line following and debouncing. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "📡",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What does an ultrasonic sensor actually measure directly?",
+      "options": [
+        "The colour of the object",
+        "The round-trip time of a sound pulse",
+        "The object's weight"
+      ],
+      "answer": 1,
+      "explain": "Time is the only raw measurement — distance is calculated afterwards using the known speed of sound."
+    },
+    {
+      "type": "concept",
+      "prompt": "A wall is angled at 60° to the sensor. What happens when you ping it?",
+      "options": [
+        "A perfectly accurate reading",
+        "The echo deflects away and never returns — no reading",
+        "The sensor reads double the real distance"
+      ],
+      "answer": 1,
+      "explain": "Past roughly 45°, sound reflects off at an angle rather than straight back, the same way light bounces off a tilted mirror."
+    },
+    {
+      "type": "concept",
+      "prompt": "An IR sensor reads HIGH under a white surface and LOW under black. Why?",
+      "options": [
+        "White reflects the emitted infrared light back strongly; black absorbs most of it",
+        "White surfaces generate their own infrared light",
+        "It's arbitrary and could be wired either way with no physical reason"
+      ],
+      "answer": 0,
+      "explain": "The reading reflects real physics: light surfaces bounce IR back to the detector, dark surfaces soak it up."
+    },
+    {
+      "type": "concept",
+      "prompt": "A line-following robot's left sensor sees the line, right sensor sees the floor. Which way should it turn to recentre?",
+      "options": [
+        "Right",
+        "Left",
+        "It should stop"
+      ],
+      "answer": 0,
+      "explain": "The line sitting under the left sensor means the robot has drifted right of it — turning right brings it back to centre."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why does a single button press sometimes register as several presses?",
+      "options": [
+        "The metal contacts physically bounce for a few milliseconds before settling",
+        "GPIO pins are unreliable",
+        "It's a software bug in every controller"
+      ],
+      "answer": 0,
+      "explain": "Mechanical contact bounce is a real physical effect present in every switch, not a controller fault."
+    },
+    {
+      "type": "concept",
+      "prompt": "What does debouncing actually do to fix bounce?",
+      "options": [
+        "Waits a short window after the first change, then trusts the settled reading",
+        "Physically stops the contacts from touching more than once",
+        "Increases the button's voltage"
+      ],
+      "answer": 0,
+      "explain": "It's a timing fix in software — outlast the bounce, then read the level once it's stable."
+    }
+  ]
+}

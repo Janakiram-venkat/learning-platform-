@@ -1,0 +1,498 @@
+{
+  "moduleId": 6,
+  "title": "Juice It",
+  "emoji": "✨",
+  "tagline": "Squash, stretch, sparks and screen shake. The polish that makes a game feel great.",
+  "successMessage": "Nothing about your game's RULES changed this whole module. Every trick was purely visual, and yet it feels like a completely different game. That gap — between what a game DOES and how it FEELS — is what \"game feel\" means, and you just learned to close it. ✨",
+  "steps": [
+    {
+      "title": "Stretch on the way up, squash on landing",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#123024",
+          "ground": "#1F7A5C",
+          "motion": "still",
+          "actors": [
+            {
+              "look": "🐸",
+              "size": 34,
+              "fixed": {
+                "x": 0.5,
+                "y": 0.78
+              }
+            }
+          ]
+        },
+        "after": {
+          "background": "#123024",
+          "ground": "#1F7A5C",
+          "motion": "jump",
+          "seconds": 1.2,
+          "caption": "stretch → squash",
+          "actors": [
+            {
+              "look": "🐸",
+              "size": 34
+            }
+          ]
+        },
+        "note": "Same jump, same gravity, same numbers. All that changed is how the frog is DRAWN while it happens."
+      },
+      "getIt": {
+        "widget": "juice",
+        "title": "A different shape, not a different picture",
+        "beats": [
+          "scale_x and scale_y stretch or squash a sprite around its own middle. 1.0 is normal.",
+          "Rising fast: thin and tall. Landing hard: wide and flat. Standing still: back to normal.",
+          "Nothing about x, y or collision changed. This is 100% cosmetic — and it's most of what \"juice\" is."
+        ],
+        "config": {}
+      },
+      "explain": {
+        "title": "A timer that counts back down to normal",
+        "intro": "Squash needs to last a few frames to actually be seen, not just one. That means the frog needs to remember it's mid-squash — the same kind of variable as frog.vy, just counting the other way.",
+        "lines": [
+          {
+            "code": "frog.squash_timer = 0",
+            "what": "How many more frames the squash should last. It starts at 0: not squashed.",
+            "why": "This is a COUNTDOWN, the mirror image of game.score. Score counts up and stays up. A timer like this counts down and runs out — exactly what you want from an effect that should fade back to normal on its own."
+          },
+          {
+            "code": "if frog.vy > 3:\n    frog.squash_timer = 6",
+            "what": "Only a hard landing — falling reasonably fast — resets the timer to 6.",
+            "why": "This line sits right where the frog's fall speed is still the OLD value, a moment before it gets reset to 0 by the landing code just below it. Check vy after that reset and it would always read 0, and a squash would never trigger. Order matters here."
+          },
+          {
+            "code": "if frog.squash_timer > 0:\n    frog.scale_x = 1.3\n    frog.scale_y = 0.6\n    frog.squash_timer = frog.squash_timer - 1",
+            "what": "While the timer is still above zero: squashed, and the timer ticks down by one.",
+            "why": "Six frames of squash at 60 frames a second is a tenth of a second — long enough to actually register, short enough to still feel snappy. Change the 6 and you are directly tuning how long the effect lingers."
+          },
+          {
+            "code": "elif frog.vy < 0:\n    frog.scale_x = 0.7\n    frog.scale_y = 1.3\nelse:\n    frog.scale_x = 1\n    frog.scale_y = 1",
+            "what": "Not squashing? Then stretched while rising, or normal otherwise.",
+            "why": "This whole thing runs fresh every single frame, so there's no separate \"go back to normal\" code needed anywhere else. The else IS the reset. Whatever frame you're looking at, this if/elif/else always describes exactly what the frog should look like right now."
+          }
+        ]
+      },
+      "brief": "Give the frog a squash timer. Start it when it lands hard, count it down every frame, and turn it — plus its fall speed — into a stretch or a squash.",
+      "todo": [
+        "Add frog.squash_timer = 0 next to frog.vy = 0.",
+        "In BOTH landing checks (platform and ground), start the timer at 6 when frog.vy > 3, before the landing resets it.",
+        "After both landing checks, write the if/elif/else that turns the timer and frog.vy into scale_x and scale_y."
+      ],
+      "starterCode": "from stage import Game, Sprite, Box, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\nplatform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\n# TODO 1: give the frog a countdown timer, starting at 0\n\n\nstar_a = Sprite(\"star\", x=300, y=300, size=26, name=\"star0\")\nstar_b = Sprite(\"star\", x=400, y=300, size=26, name=\"star1\")\nstars = [star_a, star_b]\n\ngame.score = 0\nlabel = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\ngoal = Sprite(\"trophy\", x=440, y=300, size=30, name=\"goal\")\nfire = Sprite(\"fire\", x=60, y=300, size=30, name=\"fire\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        frog.x = frog.x - 4\n    if game.key_down(\"right\"):\n        frog.x = frog.x + 4\n\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    if frog.touching(platform) and frog.vy > 0:\n        # TODO 2: a hard landing starts the squash timer\n        #         if frog.vy > 3: frog.squash_timer = 6\n        frog.y = platform.y - 20\n        frog.vy = 0\n\n    if frog.y > 300:\n        # TODO 3: the same check for the ground\n        frog.y = 300\n        frog.vy = 0\n\n    # TODO 4: turn squash_timer (and frog.vy) into scale_x / scale_y\n\n\n    for star in stars:\n        if frog.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            label.words = \"Stars: \" + str(game.score)\n\n    if frog.touching(goal):\n        label.words = \"You reached the flag!\"\n        game.stop()\n\n    if frog.touching(fire):\n        label.words = \"You fell in the fire!\"\n        game.stop()\n\n\ngame.start()\n",
+      "hints": [
+        "TODO 1 is one line, right under frog.vy = 0: frog.squash_timer = 0",
+        "TODO 2 and TODO 3 are each: if frog.vy > 3: frog.squash_timer = 6 — placed BEFORE the frog.y and frog.vy reset lines already in that block.",
+        "TODO 4 is an if / elif / else, in that order: squash_timer > 0 first (squashed, then count it down), then frog.vy < 0 (stretched), then else (normal, scale_x = 1, scale_y = 1)."
+      ],
+      "solution": "from stage import Game, Sprite, Box, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\nplatform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\nfrog.squash_timer = 0\n\nstar_a = Sprite(\"star\", x=300, y=300, size=26, name=\"star0\")\nstar_b = Sprite(\"star\", x=400, y=300, size=26, name=\"star1\")\nstars = [star_a, star_b]\n\ngame.score = 0\nlabel = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\ngoal = Sprite(\"trophy\", x=440, y=300, size=30, name=\"goal\")\nfire = Sprite(\"fire\", x=60, y=300, size=30, name=\"fire\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        frog.x = frog.x - 4\n    if game.key_down(\"right\"):\n        frog.x = frog.x + 4\n\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    if frog.touching(platform) and frog.vy > 0:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = platform.y - 20\n        frog.vy = 0\n\n    if frog.y > 300:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = 300\n        frog.vy = 0\n\n    # Squashed while the timer runs, stretched while rising, normal otherwise.\n    if frog.squash_timer > 0:\n        frog.scale_x = 1.3\n        frog.scale_y = 0.6\n        frog.squash_timer = frog.squash_timer - 1\n    elif frog.vy < 0:\n        frog.scale_x = 0.7\n        frog.scale_y = 1.3\n    else:\n        frog.scale_x = 1\n        frog.scale_y = 1\n\n    for star in stars:\n        if frog.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            label.words = \"Stars: \" + str(game.score)\n\n    if frog.touching(goal):\n        label.words = \"You reached the flag!\"\n        game.stop()\n\n    if frog.touching(fire):\n        label.words = \"You fell in the fire!\"\n        game.stop()\n\n\ngame.start()\n",
+      "check": {
+        "keys": {
+          "*": [
+            "up"
+          ]
+        },
+        "frames": 200,
+        "rules": [
+          {
+            "what": "scale_changes",
+            "name": "frog",
+            "label": "The frog visibly stretches and squashes"
+          },
+          {
+            "what": "moves",
+            "name": "frog",
+            "axis": "y",
+            "distance": 100,
+            "label": "It's still jumping properly underneath the polish"
+          }
+        ]
+      },
+      "successMessage": "Same jump, new feeling. That is the entire trick behind squash and stretch."
+    },
+    {
+      "title": "Sparks when you collect a star",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#123024",
+          "ground": "#1F7A5C",
+          "motion": "still",
+          "actors": [
+            {
+              "look": "⭐",
+              "size": 24,
+              "fixed": {
+                "x": 0.5,
+                "y": 0.5
+              }
+            }
+          ]
+        },
+        "after": {
+          "background": "#123024",
+          "ground": "#1F7A5C",
+          "motion": "chase",
+          "seconds": 1,
+          "actors": [
+            {
+              "look": "✨",
+              "size": 14
+            },
+            {
+              "look": "✨",
+              "size": 12
+            },
+            {
+              "look": "✨",
+              "size": 10
+            }
+          ]
+        },
+        "note": "A star that just vanishes feels like a bug. A star that bursts into sparks feels like a reward."
+      },
+      "getIt": {
+        "widget": "list_loop",
+        "title": "A burst is just a list, made all at once",
+        "config": {
+          "mode": "build"
+        },
+        "beats": [
+          "for i in range(6): making six sparks in one go is the exact same loop that built Space Dodger's rocks.",
+          "Each spark gets its own random direction and its own life — a countdown, same idea as frog.squash_timer.",
+          "Every frame, every spark ages by one. Life reaches 0, the spark removes itself."
+        ]
+      },
+      "explain": {
+        "title": "Born together, they still age one at a time",
+        "intro": "A burst is nothing more than a list you fill in a loop, plus a life countdown so it cleans up after itself.",
+        "lines": [
+          {
+            "code": "for i in range(6):\n    spark = Sprite(\"sparkle\", x=star.x, y=star.y, size=14, name=\"spark\" + str(i))\n    spark.vx = random_number(-4, 4)\n    spark.vy = random_number(-6, -1)\n    spark.life = 18\n    particles.append(spark)",
+            "what": "Six sparks, all born at the star's exact spot, each flung off in its own random direction.",
+            "why": "Same shape as filling the rocks list in Space Dodger — a loop, a fresh sprite, an append. What's new is life: a countdown that starts the same for every spark but ticks down independently, so they don't all disappear on the same frame."
+          },
+          {
+            "code": "for p in particles:\n    p.x = p.x + p.vx\n    p.y = p.y + p.vy\n    p.vy = p.vy + 1\n    p.life = p.life - 1\n    if p.life <= 0:\n        p.remove()",
+            "what": "Every particle, every frame: move it, let gravity pull on it a little too, age it by one, and remove it once its time is up.",
+            "why": "p.vy = p.vy + 1 is the exact gravity line from Jump Quest's frog, reused on something the size of a pixel. That's not a coincidence — the same handful of ideas (a stored speed, gravity as growth, a countdown) build almost everything in this course."
+          },
+          {
+            "code": "particles[:] = [p for p in particles if not p.dead]",
+            "what": "Rebuilds the list, keeping only the particles that are still alive.",
+            "why": "remove() marks a thing dead but doesn't erase it from YOUR list — Python has no way to know you were still holding onto it. This line is you cleaning house: build a fresh list containing only the ones that survived. Without it the list keeps growing forever with sparks nobody can see."
+          }
+        ]
+      },
+      "brief": "When the frog collects a star, burst six sparkle particles from that spot. Every frame, move them, age them, and clear out the ones whose time is up.",
+      "todo": [
+        "Add particles = [] near the top of your program, next to stars.",
+        "Inside the star-collecting if, add a for i in range(6): loop that makes a spark with its own vx, vy and life, and appends it to particles.",
+        "In update(), add a loop that moves and ages every particle, then rebuild the list keeping only the ones still alive."
+      ],
+      "starterCode": "from stage import Game, Sprite, Box, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\nplatform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\nfrog.squash_timer = 0\n\nstar_a = Sprite(\"star\", x=300, y=300, size=26, name=\"star0\")\nstar_b = Sprite(\"star\", x=400, y=300, size=26, name=\"star1\")\nstars = [star_a, star_b]\n\n# TODO 1: an empty list to hold every spark currently on screen\n\n\ngame.score = 0\nlabel = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\ngoal = Sprite(\"trophy\", x=440, y=300, size=30, name=\"goal\")\nfire = Sprite(\"fire\", x=60, y=300, size=30, name=\"fire\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        frog.x = frog.x - 4\n    if game.key_down(\"right\"):\n        frog.x = frog.x + 4\n\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    if frog.touching(platform) and frog.vy > 0:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = platform.y - 20\n        frog.vy = 0\n\n    if frog.y > 300:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = 300\n        frog.vy = 0\n\n    if frog.squash_timer > 0:\n        frog.scale_x = 1.3\n        frog.scale_y = 0.6\n        frog.squash_timer = frog.squash_timer - 1\n    elif frog.vy < 0:\n        frog.scale_x = 0.7\n        frog.scale_y = 1.3\n    else:\n        frog.scale_x = 1\n        frog.scale_y = 1\n\n    for star in stars:\n        if frog.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            label.words = \"Stars: \" + str(game.score)\n\n            # TODO 2: burst 6 sparkle particles from star.x, star.y\n\n\n    # TODO 3: move, age and clean up every particle\n\n\n    if frog.touching(goal):\n        label.words = \"You reached the flag!\"\n        game.stop()\n\n    if frog.touching(fire):\n        label.words = \"You fell in the fire!\"\n        game.stop()\n\n\ngame.start()\n",
+      "hints": [
+        "TODO 1 is one line above game.score: particles = []",
+        "TODO 2 goes inside the if frog.touching(star): block, right after label.words is updated. Loop for i in range(6):, make a Sprite(\"sparkle\", x=star.x, y=star.y, size=14, name=\"spark\" + str(i)), give it spark.vx, spark.vy and spark.life, then particles.append(spark).",
+        "TODO 3 is two parts: for p in particles: (move, gravity, age, remove if life is up), then on its own line after the loop: particles[:] = [p for p in particles if not p.dead]"
+      ],
+      "solution": "from stage import Game, Sprite, Box, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\nplatform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\nfrog.squash_timer = 0\n\nstar_a = Sprite(\"star\", x=300, y=300, size=26, name=\"star0\")\nstar_b = Sprite(\"star\", x=400, y=300, size=26, name=\"star1\")\nstars = [star_a, star_b]\n\n# Every spark currently on screen.\nparticles = []\n\ngame.score = 0\nlabel = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\ngoal = Sprite(\"trophy\", x=440, y=300, size=30, name=\"goal\")\nfire = Sprite(\"fire\", x=60, y=300, size=30, name=\"fire\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        frog.x = frog.x - 4\n    if game.key_down(\"right\"):\n        frog.x = frog.x + 4\n\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    if frog.touching(platform) and frog.vy > 0:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = platform.y - 20\n        frog.vy = 0\n\n    if frog.y > 300:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = 300\n        frog.vy = 0\n\n    if frog.squash_timer > 0:\n        frog.scale_x = 1.3\n        frog.scale_y = 0.6\n        frog.squash_timer = frog.squash_timer - 1\n    elif frog.vy < 0:\n        frog.scale_x = 0.7\n        frog.scale_y = 1.3\n    else:\n        frog.scale_x = 1\n        frog.scale_y = 1\n\n    for star in stars:\n        if frog.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            label.words = \"Stars: \" + str(game.score)\n\n            # A small burst, flung off in random directions.\n            for i in range(6):\n                spark = Sprite(\"sparkle\", x=star.x, y=star.y, size=14, name=\"spark\" + str(i))\n                spark.vx = random_number(-4, 4)\n                spark.vy = random_number(-6, -1)\n                spark.life = 18\n                particles.append(spark)\n\n    # Every particle, every frame.\n    for p in particles:\n        p.x = p.x + p.vx\n        p.y = p.y + p.vy\n        p.vy = p.vy + 1\n        p.life = p.life - 1\n        if p.life <= 0:\n            p.remove()\n\n    particles[:] = [p for p in particles if not p.dead]\n\n    if frog.touching(goal):\n        label.words = \"You reached the flag!\"\n        game.stop()\n\n    if frog.touching(fire):\n        label.words = \"You fell in the fire!\"\n        game.stop()\n\n\ngame.start()\n",
+      "check": {
+        "keys": {
+          "*": [
+            "right"
+          ]
+        },
+        "frames": 150,
+        "rules": [
+          {
+            "what": "exists",
+            "kind": "Sprite",
+            "count": 8,
+            "label": "A burst of sparks appears when you collect a star"
+          },
+          {
+            "what": "moves",
+            "name": "frog",
+            "axis": "x",
+            "distance": 100,
+            "label": "The frog still moves across when you hold right"
+          }
+        ]
+      },
+      "successMessage": "A reward that actually feels like one. On to the crash."
+    },
+    {
+      "title": "Shake the screen when you crash",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#123024",
+          "ground": "#1F7A5C",
+          "motion": "still",
+          "caption": "You fell in the fire!",
+          "actors": [
+            {
+              "look": "🐸",
+              "size": 30,
+              "fixed": {
+                "x": 0.2,
+                "y": 0.78
+              }
+            },
+            {
+              "look": "🔥",
+              "size": 26,
+              "fixed": {
+                "x": 0.13,
+                "y": 0.78
+              }
+            }
+          ]
+        },
+        "after": {
+          "background": "#123024",
+          "ground": "#1F7A5C",
+          "motion": "wiggle",
+          "seconds": 0.5,
+          "caption": "You fell in the fire!",
+          "actors": [
+            {
+              "look": "🐸",
+              "size": 30,
+              "fixed": {
+                "x": 0.2,
+                "y": 0.78
+              }
+            },
+            {
+              "look": "🔥",
+              "size": 26,
+              "fixed": {
+                "x": 0.13,
+                "y": 0.78
+              }
+            }
+          ]
+        },
+        "note": "The message told the player what happened. The shake makes them FEEL it."
+      },
+      "getIt": {
+        "widget": "juice",
+        "title": "One line, and the whole screen sells the hit",
+        "beats": [
+          "game.shake(frames, power) rattles EVERYTHING on screen together for a short moment.",
+          "It's random, so it never looks mechanical — a fresh jitter every single frame it runs.",
+          "Press Shake! above. Notice it's over almost as fast as it started — that's on purpose."
+        ],
+        "config": {}
+      },
+      "explain": {
+        "title": "A built-in effect, called from exactly the right spot",
+        "intro": "Unlike squash and stretch, shaking the whole screen isn't something you build from scale_x and scale_y — it's a ready-made tool on game itself.",
+        "lines": [
+          {
+            "code": "game.shake(frames=10, power=8)",
+            "what": "Rattles the screen randomly for 10 frames, up to 8 pixels each way.",
+            "why": "Notice this isn't happening to the frog — it's happening to game, because a screen shake affects EVERYTHING on stage at once: the frog, the fire, the ground, all of it. That's what makes it read as the camera shaking, not just one sprite wobbling."
+          },
+          {
+            "code": "one call, placed inside the crash",
+            "what": "The line sits directly inside if frog.touching(fire):, right alongside the message and game.stop().",
+            "why": "Placement is the entire lesson again, same as game.score back in Space Dodger. Put this line anywhere else — outside the if, or inside the wrong one — and either nothing ever shakes, or everything shakes constantly, which very quickly stops feeling like an effect and starts feeling like a broken screen."
+          },
+          {
+            "code": "only on the fire, not the flag",
+            "what": "Reaching the goal does NOT call game.shake().",
+            "why": "A shake says \"something went wrong\" to a player before they've even read the words. Put it on the win too, by accident, and it quietly tells them the opposite of what actually happened. Which effect goes where is a real design decision, not just decoration."
+          }
+        ]
+      },
+      "brief": "Make the crash hit harder. When the frog touches the fire, shake the screen before the game stops.",
+      "todo": [
+        "Inside if frog.touching(fire):, add game.shake(frames=10, power=8).",
+        "Leave the goal (flag) touch exactly as it is — no shake there.",
+        "Play it, walk into the fire, and feel the difference."
+      ],
+      "starterCode": "from stage import Game, Sprite, Box, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\nplatform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\nfrog.squash_timer = 0\n\nstar_a = Sprite(\"star\", x=300, y=300, size=26, name=\"star0\")\nstar_b = Sprite(\"star\", x=400, y=300, size=26, name=\"star1\")\nstars = [star_a, star_b]\n\nparticles = []\n\ngame.score = 0\nlabel = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\ngoal = Sprite(\"trophy\", x=440, y=300, size=30, name=\"goal\")\nfire = Sprite(\"fire\", x=60, y=300, size=30, name=\"fire\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        frog.x = frog.x - 4\n    if game.key_down(\"right\"):\n        frog.x = frog.x + 4\n\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    if frog.touching(platform) and frog.vy > 0:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = platform.y - 20\n        frog.vy = 0\n\n    if frog.y > 300:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = 300\n        frog.vy = 0\n\n    if frog.squash_timer > 0:\n        frog.scale_x = 1.3\n        frog.scale_y = 0.6\n        frog.squash_timer = frog.squash_timer - 1\n    elif frog.vy < 0:\n        frog.scale_x = 0.7\n        frog.scale_y = 1.3\n    else:\n        frog.scale_x = 1\n        frog.scale_y = 1\n\n    for star in stars:\n        if frog.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            label.words = \"Stars: \" + str(game.score)\n            for i in range(6):\n                spark = Sprite(\"sparkle\", x=star.x, y=star.y, size=14, name=\"spark\" + str(i))\n                spark.vx = random_number(-4, 4)\n                spark.vy = random_number(-6, -1)\n                spark.life = 18\n                particles.append(spark)\n\n    for p in particles:\n        p.x = p.x + p.vx\n        p.y = p.y + p.vy\n        p.vy = p.vy + 1\n        p.life = p.life - 1\n        if p.life <= 0:\n            p.remove()\n\n    particles[:] = [p for p in particles if not p.dead]\n\n    if frog.touching(goal):\n        label.words = \"You reached the flag!\"\n        game.stop()\n\n    if frog.touching(fire):\n        # TODO: shake the screen before the game stops\n        label.words = \"You fell in the fire!\"\n        game.stop()\n\n\ngame.start()\n",
+      "hints": [
+        "One new line, inside if frog.touching(fire):",
+        "It's a call on game, not on frog: game.shake(frames=10, power=8)",
+        "Order inside the if doesn't matter much, but placing it near the top, before the message, is a clean habit."
+      ],
+      "solution": "from stage import Game, Sprite, Box, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\nplatform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\nfrog.squash_timer = 0\n\nstar_a = Sprite(\"star\", x=300, y=300, size=26, name=\"star0\")\nstar_b = Sprite(\"star\", x=400, y=300, size=26, name=\"star1\")\nstars = [star_a, star_b]\n\nparticles = []\n\ngame.score = 0\nlabel = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\ngoal = Sprite(\"trophy\", x=440, y=300, size=30, name=\"goal\")\nfire = Sprite(\"fire\", x=60, y=300, size=30, name=\"fire\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        frog.x = frog.x - 4\n    if game.key_down(\"right\"):\n        frog.x = frog.x + 4\n\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    if frog.touching(platform) and frog.vy > 0:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = platform.y - 20\n        frog.vy = 0\n\n    if frog.y > 300:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = 300\n        frog.vy = 0\n\n    if frog.squash_timer > 0:\n        frog.scale_x = 1.3\n        frog.scale_y = 0.6\n        frog.squash_timer = frog.squash_timer - 1\n    elif frog.vy < 0:\n        frog.scale_x = 0.7\n        frog.scale_y = 1.3\n    else:\n        frog.scale_x = 1\n        frog.scale_y = 1\n\n    for star in stars:\n        if frog.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            label.words = \"Stars: \" + str(game.score)\n            for i in range(6):\n                spark = Sprite(\"sparkle\", x=star.x, y=star.y, size=14, name=\"spark\" + str(i))\n                spark.vx = random_number(-4, 4)\n                spark.vy = random_number(-6, -1)\n                spark.life = 18\n                particles.append(spark)\n\n    for p in particles:\n        p.x = p.x + p.vx\n        p.y = p.y + p.vy\n        p.vy = p.vy + 1\n        p.life = p.life - 1\n        if p.life <= 0:\n            p.remove()\n\n    particles[:] = [p for p in particles if not p.dead]\n\n    if frog.touching(goal):\n        label.words = \"You reached the flag!\"\n        game.stop()\n\n    if frog.touching(fire):\n        game.shake(frames=10, power=8)\n        label.words = \"You fell in the fire!\"\n        game.stop()\n\n\ngame.start()\n",
+      "check": {
+        "keys": {
+          "*": [
+            "left"
+          ]
+        },
+        "frames": 200,
+        "rules": [
+          {
+            "what": "shakes",
+            "label": "The screen shakes when you crash"
+          },
+          {
+            "what": "game_over",
+            "label": "Crashing still ends the game"
+          }
+        ]
+      },
+      "successMessage": "Ten frames of chaos and the crash finally has weight. One more pass and this game is done."
+    },
+    {
+      "title": "Celebrate the flag, punish the fire",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#123024",
+          "ground": "#1F7A5C",
+          "motion": "still",
+          "caption": "You reached the flag!",
+          "actors": [
+            {
+              "look": "🐸",
+              "size": 30,
+              "fixed": {
+                "x": 0.85,
+                "y": 0.78
+              }
+            },
+            {
+              "look": "🏆",
+              "size": 26,
+              "fixed": {
+                "x": 0.92,
+                "y": 0.78
+              }
+            }
+          ]
+        },
+        "after": {
+          "background": "#123024",
+          "ground": "#1F7A5C",
+          "motion": "chase",
+          "seconds": 1.2,
+          "caption": "You reached the flag!",
+          "actors": [
+            {
+              "look": "💎",
+              "size": 14
+            },
+            {
+              "look": "💎",
+              "size": 12
+            },
+            {
+              "look": "💎",
+              "size": 10
+            }
+          ]
+        },
+        "note": "The fire already gets a shake and, from Step 2's pattern, could get sparks too. The flag deserves its own moment just as much."
+      },
+      "getIt": {
+        "widget": "collision",
+        "title": "Two endings, two completely different feelings",
+        "beats": [
+          "touching(goal) and touching(fire) are still two separate ifs — that never changes.",
+          "Now each one gets its own effects: gems for a win, embers plus a shake for a loss.",
+          "Same particle system from Step 2, spawning from a different if. Nothing about it needed to change."
+        ]
+      },
+      "explain": {
+        "title": "Reusing a system instead of rebuilding one",
+        "intro": "The particle loop that moves, ages and cleans up every spark doesn't care who made them or why. That's what makes it worth reusing here instead of writing a second version.",
+        "lines": [
+          {
+            "code": "if frog.touching(goal):\n    label.words = \"You reached the flag!\"\n    for i in range(8):\n        gem = Sprite(\"gem\", x=goal.x, y=goal.y, size=14, name=\"confetti\" + str(i))\n        gem.vx = random_number(-5, 5)\n        gem.vy = random_number(-8, -2)\n        gem.life = 24\n        particles.append(gem)\n    game.stop()",
+            "what": "A celebration burst of gems, built with the exact same five lines as the star sparks.",
+            "why": "This is the payoff of Step 2's for p in particles: loop being written to only care about vx, vy and life — never WHERE a particle came from. Any burst you spawn, from anywhere in your program, gets moved, aged and cleaned up automatically by code you already wrote."
+          },
+          {
+            "code": "if frog.touching(fire):\n    game.shake(frames=10, power=8)\n    label.words = \"You fell in the fire!\"\n    for i in range(8):\n        ember = Sprite(\"fire\", x=frog.x, y=frog.y, size=14, name=\"ember\" + str(i))\n        ember.vx = random_number(-5, 5)\n        ember.vy = random_number(-8, -2)\n        ember.life = 24\n        particles.append(ember)\n    game.stop()",
+            "what": "The crash now shakes AND bursts embers — two effects, stacked in the same if.",
+            "why": "Real games layer juice like this constantly: a hit is rarely just one effect, it's a shake, a flash, a sound and a burst of particles, all fired from the same moment. You now have every piece needed to keep stacking more."
+          },
+          {
+            "code": "four steps, one system",
+            "what": "A timer (Step 1), a list of temporary sprites (Step 2), a built-in screen effect (Step 3), reused freely (Step 4).",
+            "why": "None of these ideas were new to this module — timers, lists and loops all came from earlier games. Juice turned out to be less about learning new tools and more about pointing the ones you already had at how things LOOK instead of what they DO."
+          }
+        ]
+      },
+      "brief": "Finish the game feel. Give the flag its own gem burst to celebrate, and give the fire an ember burst on top of its shake.",
+      "todo": [
+        "Inside if frog.touching(goal):, burst 8 gem particles from goal.x, goal.y, same pattern as the star sparks.",
+        "Inside if frog.touching(fire):, burst 8 fire particles from the frog's own position, alongside the shake that's already there.",
+        "Play it through both ways — reach the flag, then fall in the fire — and feel the difference."
+      ],
+      "starterCode": "from stage import Game, Sprite, Box, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\nplatform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\nfrog.squash_timer = 0\n\nstar_a = Sprite(\"star\", x=300, y=300, size=26, name=\"star0\")\nstar_b = Sprite(\"star\", x=400, y=300, size=26, name=\"star1\")\nstars = [star_a, star_b]\n\nparticles = []\n\ngame.score = 0\nlabel = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\ngoal = Sprite(\"trophy\", x=440, y=300, size=30, name=\"goal\")\nfire = Sprite(\"fire\", x=60, y=300, size=30, name=\"fire\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        frog.x = frog.x - 4\n    if game.key_down(\"right\"):\n        frog.x = frog.x + 4\n\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    if frog.touching(platform) and frog.vy > 0:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = platform.y - 20\n        frog.vy = 0\n\n    if frog.y > 300:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = 300\n        frog.vy = 0\n\n    if frog.squash_timer > 0:\n        frog.scale_x = 1.3\n        frog.scale_y = 0.6\n        frog.squash_timer = frog.squash_timer - 1\n    elif frog.vy < 0:\n        frog.scale_x = 0.7\n        frog.scale_y = 1.3\n    else:\n        frog.scale_x = 1\n        frog.scale_y = 1\n\n    for star in stars:\n        if frog.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            label.words = \"Stars: \" + str(game.score)\n            for i in range(6):\n                spark = Sprite(\"sparkle\", x=star.x, y=star.y, size=14, name=\"spark\" + str(i))\n                spark.vx = random_number(-4, 4)\n                spark.vy = random_number(-6, -1)\n                spark.life = 18\n                particles.append(spark)\n\n    for p in particles:\n        p.x = p.x + p.vx\n        p.y = p.y + p.vy\n        p.vy = p.vy + 1\n        p.life = p.life - 1\n        if p.life <= 0:\n            p.remove()\n\n    particles[:] = [p for p in particles if not p.dead]\n\n    if frog.touching(goal):\n        label.words = \"You reached the flag!\"\n        # TODO 1: burst 8 gem particles from goal.x, goal.y\n\n        game.stop()\n\n    if frog.touching(fire):\n        game.shake(frames=10, power=8)\n        label.words = \"You fell in the fire!\"\n        # TODO 2: burst 8 fire particles from frog.x, frog.y\n\n        game.stop()\n\n\ngame.start()\n",
+      "hints": [
+        "Both TODOs are the exact same shape as the spark burst from Step 2 — a for i in range(8): loop, a new Sprite, vx/vy/life, then particles.append(...).",
+        "TODO 1 uses Sprite(\"gem\", x=goal.x, y=goal.y, ...) and names like \"confetti\" + str(i).",
+        "TODO 2 uses Sprite(\"fire\", x=frog.x, y=frog.y, ...) and names like \"ember\" + str(i)."
+      ],
+      "solution": "from stage import Game, Sprite, Box, Text, random_number\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\nplatform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\nfrog.squash_timer = 0\n\nstar_a = Sprite(\"star\", x=300, y=300, size=26, name=\"star0\")\nstar_b = Sprite(\"star\", x=400, y=300, size=26, name=\"star1\")\nstars = [star_a, star_b]\n\nparticles = []\n\ngame.score = 0\nlabel = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\ngoal = Sprite(\"trophy\", x=440, y=300, size=30, name=\"goal\")\nfire = Sprite(\"fire\", x=60, y=300, size=30, name=\"fire\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        frog.x = frog.x - 4\n    if game.key_down(\"right\"):\n        frog.x = frog.x + 4\n\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    if frog.touching(platform) and frog.vy > 0:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = platform.y - 20\n        frog.vy = 0\n\n    if frog.y > 300:\n        if frog.vy > 3:\n            frog.squash_timer = 6\n        frog.y = 300\n        frog.vy = 0\n\n    if frog.squash_timer > 0:\n        frog.scale_x = 1.3\n        frog.scale_y = 0.6\n        frog.squash_timer = frog.squash_timer - 1\n    elif frog.vy < 0:\n        frog.scale_x = 0.7\n        frog.scale_y = 1.3\n    else:\n        frog.scale_x = 1\n        frog.scale_y = 1\n\n    for star in stars:\n        if frog.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            label.words = \"Stars: \" + str(game.score)\n            for i in range(6):\n                spark = Sprite(\"sparkle\", x=star.x, y=star.y, size=14, name=\"spark\" + str(i))\n                spark.vx = random_number(-4, 4)\n                spark.vy = random_number(-6, -1)\n                spark.life = 18\n                particles.append(spark)\n\n    for p in particles:\n        p.x = p.x + p.vx\n        p.y = p.y + p.vy\n        p.vy = p.vy + 1\n        p.life = p.life - 1\n        if p.life <= 0:\n            p.remove()\n\n    particles[:] = [p for p in particles if not p.dead]\n\n    if frog.touching(goal):\n        label.words = \"You reached the flag!\"\n        for i in range(8):\n            gem = Sprite(\"gem\", x=goal.x, y=goal.y, size=14, name=\"confetti\" + str(i))\n            gem.vx = random_number(-5, 5)\n            gem.vy = random_number(-8, -2)\n            gem.life = 24\n            particles.append(gem)\n        game.stop()\n\n    if frog.touching(fire):\n        game.shake(frames=10, power=8)\n        label.words = \"You fell in the fire!\"\n        for i in range(8):\n            ember = Sprite(\"fire\", x=frog.x, y=frog.y, size=14, name=\"ember\" + str(i))\n            ember.vx = random_number(-5, 5)\n            ember.vy = random_number(-8, -2)\n            ember.life = 24\n            particles.append(ember)\n        game.stop()\n\n\ngame.start()\n",
+      "check": {
+        "scenarios": [
+          {
+            "name": "heading right",
+            "frames": 200,
+            "keys": {
+              "*": [
+                "right"
+              ]
+            }
+          },
+          {
+            "name": "heading left",
+            "frames": 200,
+            "keys": {
+              "*": [
+                "left"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "what": "exists",
+            "kind": "Sprite",
+            "count": 12,
+            "in": "heading right",
+            "label": "Reaching the flag bursts with celebration gems"
+          },
+          {
+            "what": "exists",
+            "kind": "Sprite",
+            "count": 12,
+            "in": "heading left",
+            "label": "Crashing bursts with embers too"
+          },
+          {
+            "what": "shakes",
+            "in": "heading left",
+            "label": "The crash still shakes the screen"
+          }
+        ]
+      },
+      "successMessage": "That's Jump Quest, fully juiced: a squash on every landing, sparks on every star, a shake on every crash, and a burst for every ending. Nothing about the RULES changed all module — only how it feels to play. That's the whole craft. ✨"
+    }
+  ]
+}

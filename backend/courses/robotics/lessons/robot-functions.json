@@ -1,0 +1,73 @@
+{
+  "lessonId": "robot-functions",
+  "title": "Functions: Packaging a Behaviour",
+  "description": "Once a piece of logic earns a name, you can talk about it, reuse it, and read your own program at a glance.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Giving Behaviour a Name"
+    },
+    {
+      "type": "paragraph",
+      "value": "def avoid_obstacle(): wraps a whole block of logic behind one name. Anywhere you'd otherwise repeat those same lines, you instead just write avoid_obstacle() — call the name, and everything inside runs."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "def avoid_obstacle():\n    d = robot.distance()\n    if d < 30:\n        robot.left(30)\n    else:\n        robot.forward(50)\n\nwhile True:\n    avoid_obstacle()"
+    },
+    {
+      "type": "paragraph",
+      "value": "Compare that while True: line to Module 10's earlier ones: it used to contain the whole decision. Now it just says what's happening in plain English — avoid_obstacle() — and the details live inside the function, one level down. That's the real value of a function: it lets the top of your program read like a summary."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-code",
+      "title": "🐍 Package it yourself",
+      "hint": "Define a function called avoid_obstacle() containing the distance check, then call it from inside a while True: loop.",
+      "worldId": "obstacleRoom",
+      "starterCode": "def avoid_obstacle():\n    d = robot.distance()\n    if d < 35:\n        robot.left(35)\n    else:\n        robot.forward(45)\n\nwhile True:\n    avoid_obstacle()\n",
+      "xp": 30,
+      "xpKey": "robotics-m10-functions"
+    },
+    {
+      "type": "heading",
+      "value": "Functions Can Take Parameters Too"
+    },
+    {
+      "type": "paragraph",
+      "value": "Just like robot.forward(speed=50) takes a parameter, your own functions can too: def turn_away(angle): would let you write turn_away(45) in one spot and turn_away(90) in another, reusing the same logic with different specifics each time."
+    },
+    {
+      "type": "tip",
+      "value": "This is exactly the same idea as ARIA's own robot object: robot.forward, robot.distance and every other method are themselves just functions, packaged up and given names, sitting inside one object instead of floating free in your program."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a function packages a chunk of logic behind a name, so the rest of your program can call it by that name instead of repeating the details — making a long program read like a short one."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `def avoid_obstacle():` actually do?",
+      "options": [
+        "Runs the code immediately",
+        "Defines a name for a block of logic, without running it yet — it only runs when called",
+        "Deletes the function avoid_obstacle"
+      ],
+      "answer": 1,
+      "explain": "Definition and execution are separate steps. `def` just creates the function; calling `avoid_obstacle()` is what actually runs it."
+    },
+    {
+      "question": "What's the main benefit of writing `while True: avoid_obstacle()` instead of putting the whole distance-check logic directly inside the loop?",
+      "options": [
+        "It runs faster",
+        "The loop reads as a plain-English summary of what's happening, with the details tucked inside the function",
+        "There's no real benefit"
+      ],
+      "answer": 1,
+      "explain": "Naming a behaviour lets the calling code stay short and readable, while the implementation detail lives one level down."
+    }
+  ]
+}

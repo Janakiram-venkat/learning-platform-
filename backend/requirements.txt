@@ -1,11 +1,14 @@
-fastapi
-uvicorn
-pydantic
-email-validator
-sqlalchemy
-psycopg2-binary
-python-dotenv
-google-auth
-requests
-bcrypt
-PyJWT
+# Pinned to the versions confirmed working in the project venv.
+# To upgrade a package: pip install <pkg>==<new-ver> then update the pin here.
+fastapi==0.136.1
+uvicorn==0.47.0
+pydantic==2.13.4
+email-validator==2.3.0
+sqlalchemy==2.0.50
+psycopg2-binary==2.9.12
+python-dotenv==1.2.2
+google-auth==2.53.0
+requests==2.34.2
+bcrypt==5.0.0
+PyJWT==2.13.0
+slowapi==0.1.10

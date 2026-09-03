@@ -1,0 +1,82 @@
+{
+  "lessonId": "robot-micropython",
+  "title": "MicroPython: What Actually Runs on the ESP32",
+  "description": "Everything you just wrote runs in a simulator. Here's exactly what changes — and what doesn't — when the same ideas run on the real chip from Module 4.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Same Language, Smaller"
+    },
+    {
+      "type": "paragraph",
+      "value": "MicroPython is a real, genuine implementation of the Python language, rewritten to fit inside a microcontroller with only a few hundred kilobytes of memory instead of the gigabytes a laptop has. The language you've been writing — variables, if/else, while, def — is the same language. What's different is the library around it: instead of a robot object built for this course's simulator, real code talks to pins directly."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "THIS COURSE'S SIMULATOR              REAL MICROPYTHON ON THE ESP32\n\nrobot.forward(50)                     motor_pin_a.value(1)\n                                       motor_pin_b.value(0)\n                                       pwm.duty(650)\n\nrobot.distance()                      trigger.value(1)\n                                       # ...timing pulses by hand...\n                                       echo_time = time.ticks_diff(...)"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice the real version is longer and closer to the hardware — you're directly setting GPIO pins HIGH and LOW, exactly like Module 4, rather than calling one clean method. robot.forward() has effectively been doing this work for you the whole time, hidden behind a friendly name."
+    },
+    {
+      "type": "heading",
+      "value": "machine.Pin: The Real GPIO Interface"
+    },
+    {
+      "type": "paragraph",
+      "value": "MicroPython's machine module is how code touches actual hardware pins. Setting one HIGH looks like this:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "from machine import Pin\n\nled = Pin(2, Pin.OUT)   # GPIO 2, configured as an output\nled.value(1)             # HIGH — LED on\nled.value(0)             # LOW — LED off"
+    },
+    {
+      "type": "paragraph",
+      "value": "That's Module 4's digital signals lesson, in real code: Pin(2, Pin.OUT) declares GPIO 2 as an output pin, and .value(1) drives it HIGH. Every one of this course's simulated robot.forward() and robot.left() calls ultimately bottoms out in a sequence of calls that look exactly like this."
+    },
+    {
+      "type": "tip",
+      "value": "This is also why the simulator's robot object is worth building your intuition on first: the logic (the loop, the decision, the sequence) transfers completely unchanged to real hardware. Only the innermost layer — how forward() actually gets implemented — differs."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: MicroPython is real Python, shrunk to fit a microcontroller. The language and your program's logic transfer unchanged to real hardware; what changes is that real code talks to GPIO pins directly through machine.Pin instead of a friendly robot object."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Is MicroPython a different, simplified language from the Python you've been writing?",
+      "options": [
+        "Yes, completely different syntax",
+        "No — it's a real implementation of the same language, shrunk to fit a microcontroller's limited memory",
+        "MicroPython only supports variables, nothing else"
+      ],
+      "answer": 1,
+      "explain": "The language itself — if/else, while, def, variables — is genuinely the same Python. What's smaller is the surrounding library and available memory."
+    },
+    {
+      "question": "What does `Pin(2, Pin.OUT)` do?",
+      "options": [
+        "Reads a value from GPIO pin 2",
+        "Declares GPIO pin 2 as an output pin, ready to be driven HIGH or LOW",
+        "Deletes GPIO pin 2"
+      ],
+      "answer": 1,
+      "explain": "This is MicroPython's real interface to a physical pin — configuring it as an output before driving its value."
+    },
+    {
+      "question": "What transfers unchanged when moving from this course's simulator to real MicroPython on an ESP32?",
+      "options": [
+        "Nothing at all — you have to relearn everything",
+        "The logic — loops, decisions, sequence, and your program's overall structure",
+        "Only the variable names"
+      ],
+      "answer": 1,
+      "explain": "The program's actual logic is identical either way. Only the lowest layer — how robot.forward() is implemented — differs between simulator and real hardware."
+    }
+  ]
+}

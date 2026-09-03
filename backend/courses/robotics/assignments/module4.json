@@ -1,0 +1,86 @@
+{
+  "moduleId": 4,
+  "title": "Brain Teasers Arcade",
+  "intro": "Six rounds on microcontrollers, pins, digital signals and PWM. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "🧠",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What's the single biggest difference between a microcontroller and your laptop?",
+      "options": [
+        "A microcontroller runs one program forever and has no screen; a laptop runs many programs with rich input/output",
+        "Microcontrollers are always faster",
+        "There is no real difference"
+      ],
+      "answer": 0,
+      "explain": "A microcontroller is built for one narrow job, cheaply and on almost no power — very different goals from a general-purpose computer."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each pin type to its job.",
+      "pairs": [
+        {
+          "left": "GPIO",
+          "right": "You choose in code: read input or write output"
+        },
+        {
+          "left": "Ground",
+          "right": "The shared 0V reference"
+        },
+        {
+          "left": "3V3",
+          "right": "Supplies a steady 3.3V, for small loads only"
+        },
+        {
+          "left": "EN",
+          "right": "Pulling it low resets the board"
+        }
+      ],
+      "explain": "Four kinds of pin, four different jobs. GPIO is the flexible one — everything else is fixed."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why does the ESP32 matter more for this course than a basic Arduino Uno?",
+      "options": [
+        "It has built-in Wi-Fi and Bluetooth, which later modules rely on for remote control and voice features",
+        "It's the only board that can run any code at all",
+        "It's cheaper"
+      ],
+      "answer": 0,
+      "explain": "ARIA's brain needs wireless later in the course. The ESP32 has it built in with no extra parts."
+    },
+    {
+      "type": "concept",
+      "prompt": "A digital GPIO pin reads either HIGH or LOW. What voltage roughly counts as LOW?",
+      "options": [
+        "Close to 0V",
+        "Close to 3.3V",
+        "Exactly 1.65V"
+      ],
+      "answer": 0,
+      "explain": "LOW means close to 0V. HIGH means close to the board's operating voltage. There's no in-between reading."
+    },
+    {
+      "type": "concept",
+      "prompt": "An LED is driven with PWM at 80% duty cycle. What does that actually mean is happening?",
+      "options": [
+        "The pin genuinely outputs 80% of full voltage",
+        "The pin is fully HIGH for 80% of each cycle and fully LOW for the rest — never in between",
+        "The LED itself is dimming its own brightness"
+      ],
+      "answer": 1,
+      "explain": "PWM never leaves HIGH/LOW. It fakes an in-between brightness purely by controlling the fraction of time spent HIGH."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why does PWM need a fast enough frequency to work as a dimmer?",
+      "options": [
+        "So the on/off flips are too fast to perceive, and only the average brightness registers",
+        "Frequency has nothing to do with it, only duty cycle matters",
+        "So the LED doesn't overheat"
+      ],
+      "answer": 0,
+      "explain": "Slow the frequency down (as the widget lets you) and you stop seeing a dimmer light — you see it blinking, one flip at a time."
+    }
+  ]
+}

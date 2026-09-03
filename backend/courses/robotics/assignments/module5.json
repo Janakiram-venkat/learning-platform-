@@ -1,0 +1,86 @@
+{
+  "moduleId": 5,
+  "title": "Motors & Movement Arcade",
+  "intro": "Six rounds on motors, H-bridges and differential drive. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "🛞",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What creates the magnetic field that makes a motor's coil spin?",
+      "options": [
+        "Current flowing through the coil",
+        "The coil's colour",
+        "The chassis material"
+      ],
+      "answer": 0,
+      "explain": "Current through a wire always creates a magnetic field — that's the physics fact the whole motor is built on."
+    },
+    {
+      "type": "concept",
+      "prompt": "A motor is under too much load for its current voltage. What actually happens?",
+      "options": [
+        "It slows down smoothly and safely",
+        "It stalls — RPM drops to zero and current spikes upward",
+        "Nothing changes"
+      ],
+      "answer": 1,
+      "explain": "A stalled motor keeps trying to draw current with nothing spinning to regulate it, so current climbs instead of producing motion."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each H-bridge switch combination to what it does.",
+      "pairs": [
+        {
+          "left": "A + D closed",
+          "right": "Motor spins forward"
+        },
+        {
+          "left": "B + C closed",
+          "right": "Motor spins reverse"
+        },
+        {
+          "left": "A + B closed",
+          "right": "Short circuit"
+        },
+        {
+          "left": "None closed",
+          "right": "Motor coasts, stopped"
+        }
+      ],
+      "explain": "Diagonal pairs drive the motor one way or the other. Same-side pairs short the battery — a real driver chip makes that impossible."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why can't a controller GPIO pin power a motor directly?",
+      "options": [
+        "GPIO pins can only supply a small current, far less than a motor needs",
+        "Motors don't use electricity",
+        "GPIO pins are too fast for motors"
+      ],
+      "answer": 0,
+      "explain": "A pin's ~40mA is nowhere near a motor's ~800mA demand — a driver chip bridges that gap."
+    },
+    {
+      "type": "concept",
+      "prompt": "ARIA's wheel is 6.5cm in diameter. What does one full wheel rotation give you?",
+      "options": [
+        "A distance equal to the wheel's circumference, about 20cm",
+        "A distance equal to the wheel's diameter",
+        "It depends on the motor's voltage"
+      ],
+      "answer": 0,
+      "explain": "Distance per rotation is always circumference (π × diameter) — a purely geometric fact about the wheel."
+    },
+    {
+      "type": "concept",
+      "prompt": "Left wheel at +50, right wheel at −50. What does ARIA do?",
+      "options": [
+        "Drives straight forward",
+        "Spins on the spot",
+        "Stops"
+      ],
+      "answer": 1,
+      "explain": "Equal, opposite wheel speeds cancel forward motion and produce pure rotation — the signature differential-drive spin."
+    }
+  ]
+}

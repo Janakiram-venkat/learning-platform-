@@ -1,0 +1,76 @@
+{
+  "lessonId": "robot-microphone",
+  "title": "Microphone: Sound Into Numbers",
+  "description": "Component lesson. Sound is just air pushing back and forth. A microphone's whole job is turning that push into a number, over and over, very fast.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why It Exists"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every sensor in this course does the same fundamental job: turn something physical into a number. A microphone's version of that job is turning air pressure changes — sound — into an electrical signal, and eventually into numbers a controller can read."
+    },
+    {
+      "type": "heading",
+      "value": "How It Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "Inside is a thin membrane, free to vibrate. Sound waves are nothing more than air pressure pushing and pulling rapidly — when they reach the membrane, it physically vibrates along with them. That vibration is converted into a changing electrical voltage, which a controller can sample thousands of times a second and record as a sequence of numbers: a waveform."
+    },
+    {
+      "type": "widget",
+      "kind": "waveform-sim",
+      "title": "🎙️ See the waveform",
+      "hint": "Switch to Microphone mode — notice how irregular and unpredictable a real sound's waveform looks, nothing like a clean tone.",
+      "xp": 15,
+      "xpKey": "robotics-m8-mic"
+    },
+    {
+      "type": "paragraph",
+      "value": "A pure musical note looks like a clean, regular sine wave — smooth and repeating. Real sound, like a voice, looks messy and irregular, layering many frequencies and volumes on top of each other at once. That messiness is genuinely useful: it's what makes voices distinguishable from each other at all."
+    },
+    {
+      "type": "tip",
+      "value": "That waveform is only step one of \"hearing\" in the way Module 11 will mean it. Turning a waveform into actual words is a much bigger job — you'll meet that pipeline properly when this course gets to AI."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a microphone's membrane vibrates with incoming sound pressure, and that vibration becomes an electrical signal a controller can sample as a waveform — a sequence of numbers over time."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What physically vibrates inside a microphone when sound arrives?",
+      "options": [
+        "A thin membrane, moved by the air pressure changes of the sound wave",
+        "A tiny speaker",
+        "Nothing physically moves"
+      ],
+      "answer": 0,
+      "explain": "Sound is pressure pushing and pulling on the membrane, and that motion is what gets converted to an electrical signal."
+    },
+    {
+      "question": "Why does a real voice's waveform look so much messier than a single musical tone's?",
+      "options": [
+        "It's a recording error",
+        "A voice layers many frequencies and volumes together at once, unlike a single clean tone",
+        "Microphones can't record voices accurately"
+      ],
+      "answer": 1,
+      "explain": "That irregular, layered complexity is genuinely part of the signal — it's what makes each voice sound distinct."
+    },
+    {
+      "question": "What does a microphone's waveform give you that's not yet the same as understanding what was said?",
+      "options": [
+        "The exact words spoken, instantly",
+        "A raw sequence of numbers over time — turning that into words is a separate, later step",
+        "Nothing useful at all"
+      ],
+      "answer": 1,
+      "explain": "The waveform is the raw material. Converting it into recognised words is a much bigger job, covered later in the AI module."
+    }
+  ]
+}

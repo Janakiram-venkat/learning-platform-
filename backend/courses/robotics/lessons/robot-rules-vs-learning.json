@@ -1,0 +1,76 @@
+{
+  "lessonId": "robot-rules-vs-learning",
+  "title": "Rules vs Learning",
+  "description": "Every robot behaviour you've built so far follows a rule you wrote by hand. This module is about robots that build their own rules from examples instead.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Two Completely Different Ways to Decide"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every program you've written this course follows a rule-based approach: you, the programmer, worked out exactly what to check and exactly what to do — if distance() < 30, turn. The robot never had to figure anything out; it just followed your instructions precisely, every time."
+    },
+    {
+      "type": "paragraph",
+      "value": "A learned approach flips that around. Instead of a human writing the exact rule, a program is shown thousands of examples and works out its own pattern for responding — one that a human never explicitly wrote down and might not even be able to fully explain."
+    },
+    {
+      "type": "widget",
+      "kind": "rules-vs-learning",
+      "title": "🆚 Same broken line, two approaches",
+      "hint": "Press Run and watch what happens to each robot at the gap.",
+      "xp": 20,
+      "xpKey": "robotics-m11-rules-vs-learning"
+    },
+    {
+      "type": "heading",
+      "value": "Why the Learned One Copes"
+    },
+    {
+      "type": "paragraph",
+      "value": "The rule-based robot's rule was exact: \"if the line is under the sensor, go straight.\" The instant the line physically disappears at the gap, that rule has nothing to work with, and the robot stops. A model trained on many tracks — including ones with gaps — has effectively learned a softer, more general pattern: something closer to \"keep going the way the line was heading, even for a moment without seeing it.\" Nobody wrote that rule by hand; it emerged from the training examples."
+    },
+    {
+      "type": "tip",
+      "value": "Neither approach is simply \"better.\" A rule-based robot is fully predictable and easy to debug — you can read exactly why it did what it did. A learned one can handle situations nobody explicitly planned for, but it's much harder to know exactly why it made a particular choice."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: rule-based behaviour follows exact instructions a human wrote. Learned behaviour follows a pattern discovered from examples — able to handle situations no one explicitly planned for, at the cost of being harder to fully explain."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why does the rule-based line follower stop at the gap in the track?",
+      "options": [
+        "Its exact rule (line under sensor -> go straight) has nothing to work with once the line disappears",
+        "It runs out of battery exactly at gaps",
+        "Rule-based robots can't move in a straight line at all"
+      ],
+      "answer": 0,
+      "explain": "The rule was written for the case where the line is visible — a gap simply wasn't accounted for."
+    },
+    {
+      "question": "Where does a learned model's response to a gap actually come from?",
+      "options": [
+        "A programmer wrote an explicit rule for gaps",
+        "A pattern discovered from many training examples, including tracks with gaps — not an explicit hand-written rule",
+        "Random guessing"
+      ],
+      "answer": 1,
+      "explain": "Nobody wrote \"handle gaps this way\" by hand — the behaviour emerged from what the model was trained on."
+    },
+    {
+      "question": "What's a genuine advantage of a rule-based approach over a learned one?",
+      "options": [
+        "It's fully predictable and easy to explain exactly why it did something",
+        "It always performs better in every situation",
+        "It requires no programming at all"
+      ],
+      "answer": 0,
+      "explain": "Every rule-based decision traces back to a line of code you can read. That transparency is a real, genuine trade-off in the learned approach's favour."
+    }
+  ]
+}

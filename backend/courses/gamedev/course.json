@@ -49,28 +49,28 @@
       "title": "Jump Quest",
       "emoji": "🐸",
       "tagline": "Gravity, jumping and platforms. Build a real little platformer.",
-      "stepCount": 0
+      "stepCount": 5
     },
     {
       "moduleId": 6,
       "title": "Juice It",
       "emoji": "✨",
       "tagline": "Squash, stretch, sparks and screen shake. The polish that makes a game feel great.",
-      "stepCount": 0
+      "stepCount": 4
     },
     {
       "moduleId": 7,
       "title": "Levels & Menus",
       "emoji": "🗺️",
       "tagline": "Start screens, game over, and levels drawn on a grid.",
-      "stepCount": 0
+      "stepCount": 4
     },
     {
       "moduleId": 8,
       "title": "Your Own Game",
       "emoji": "🏆",
       "tagline": "Pick an idea, build it start to finish, and share it with a friend.",
-      "stepCount": 0
+      "stepCount": 1
     }
   ]
 }

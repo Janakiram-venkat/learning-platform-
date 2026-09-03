@@ -17,6 +17,56 @@
       "id": 2,
       "title": "Meet Your Robot",
       "file": "module2.json"
+    },
+    {
+      "id": 3,
+      "title": "Electricity, Gently",
+      "file": "module3.json"
+    },
+    {
+      "id": 4,
+      "title": "The Brain",
+      "file": "module4.json"
+    },
+    {
+      "id": 5,
+      "title": "Making Things Move",
+      "file": "module5.json"
+    },
+    {
+      "id": 6,
+      "title": "Precise Movement",
+      "file": "module6.json"
+    },
+    {
+      "id": 7,
+      "title": "Giving It Senses",
+      "file": "module7.json"
+    },
+    {
+      "id": 8,
+      "title": "Advanced Senses",
+      "file": "module8.json"
+    },
+    {
+      "id": 9,
+      "title": "Thinking in Blocks",
+      "file": "module9.json"
+    },
+    {
+      "id": 10,
+      "title": "Real Code",
+      "file": "module10.json"
+    },
+    {
+      "id": 11,
+      "title": "Robots That Think (AI)",
+      "file": "module11.json"
+    },
+    {
+      "id": 12,
+      "title": "Build & Compete",
+      "file": "module12.json"
     }
   ]
 }

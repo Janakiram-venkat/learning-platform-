@@ -1,0 +1,86 @@
+{
+  "moduleId": 11,
+  "title": "Thinking Robots Arcade",
+  "intro": "Six rounds on rules, learning, detection, voice and navigation. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "🤖",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What's the key difference between a rule-based and a learned behaviour?",
+      "options": [
+        "A rule-based one follows a human-written exact rule; a learned one follows a pattern discovered from examples",
+        "There's no real difference between them",
+        "Learned behaviours never make mistakes"
+      ],
+      "answer": 0,
+      "explain": "One is explicit instructions written by a person; the other is a pattern the system worked out itself from data."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why can an unusual example fool a model trained only on typical ones?",
+      "options": [
+        "The model is fundamentally broken",
+        "That kind of example was never part of what the model was trained on, so it has no learned pattern to match it",
+        "Unusual examples are always classified correctly, never wrong"
+      ],
+      "answer": 1,
+      "explain": "A model's guesses are bounded by its training data — an unfamiliar shape of input is exactly where it's likely to fail."
+    },
+    {
+      "type": "concept",
+      "prompt": "What does a detection's confidence score actually represent?",
+      "options": [
+        "The model's own estimate of how sure it is, not a guarantee",
+        "The exact percentage of the object visible in frame",
+        "How fast the detection ran"
+      ],
+      "answer": 0,
+      "explain": "Confidence is the model's self-reported certainty — real robots typically ignore anything below a threshold as too unreliable."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why does this course distinguish face detection from face identification?",
+      "options": [
+        "They're actually identical processes",
+        "Detection finds where a face is; identification determines whose face it is — a separate, more sensitive capability with real privacy implications",
+        "Identification is a made-up idea with no real use"
+      ],
+      "answer": 1,
+      "explain": "That distinction is exactly why this course pauses on consent and privacy — detecting a face is not the same as recognising a specific person."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each voice pipeline stage to its job.",
+      "pairs": [
+        {
+          "left": "Waveform",
+          "right": "Raw sound signal"
+        },
+        {
+          "left": "Text",
+          "right": "Transcribed words"
+        },
+        {
+          "left": "Intent",
+          "right": "What the words mean as a command"
+        },
+        {
+          "left": "Action",
+          "right": "A real robot.method() call"
+        }
+      ],
+      "explain": "Each stage solves one specific problem, which is exactly why a mishearing (text) and a misunderstanding (intent) are two different kinds of failure."
+    },
+    {
+      "type": "concept",
+      "prompt": "What makes autonomous navigation's 'replan' stage the real test of genuine autonomy?",
+      "options": [
+        "It lets the robot adapt when the world doesn't match its original map, instead of blindly following an outdated plan",
+        "It's an optional extra with little practical value",
+        "It only runs once, at the very start"
+      ],
+      "answer": 0,
+      "explain": "Following a fixed plan in a known room is the easy case — noticing change and adapting is what genuine autonomy actually requires."
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "lessonId": "robot-gpio",
+  "title": "GPIO: General Purpose Pins",
+  "description": "Every wire on ARIA's chassis ends at a pin. This lesson is a tour of what each kind of pin is actually for.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "GPIO Means \"General Purpose\""
+    },
+    {
+      "type": "paragraph",
+      "value": "GPIO stands for General Purpose Input/Output — a pin that isn't hard-wired to one job. You decide in your program whether a given GPIO pin reads a sensor (input) or drives a motor or LED (output). That flexibility is why one small board can control such different parts."
+    },
+    {
+      "type": "paragraph",
+      "value": "Not every pin on the board is a GPIO pin, though. A few are permanently reserved for power and ground, and a couple have a special extra ability worth knowing about."
+    },
+    {
+      "type": "widget",
+      "kind": "gpio-pinout",
+      "title": "📌 Tap a pin",
+      "hint": "Every pin on ARIA's controller falls into one of these four kinds.",
+      "pins": [
+        { "id": "3v3", "label": "3V3", "kind": "power", "detail": "Outputs a steady 3.3V. Use this to power small sensors that need 3.3V, not to power motors — it can't supply much current." },
+        { "id": "gnd1", "label": "GND", "kind": "ground", "detail": "Ground — the 0V reference every other pin's voltage is measured against. Every part on the board shares this same ground." },
+        { "id": "gpio2", "label": "GPIO 2", "kind": "gpio", "detail": "A general-purpose pin, also wired to the board's onboard LED on most dev boards — a handy pin to blink first." },
+        { "id": "gpio4", "label": "GPIO 4", "kind": "gpio", "detail": "A plain digital pin — set it HIGH or LOW, or read HIGH or LOW from it, your choice in code." },
+        { "id": "gpio5", "label": "GPIO 5", "kind": "gpio", "detail": "Another general-purpose pin. On ARIA, a pin like this drives one side of the motor driver." },
+        { "id": "adc34", "label": "GPIO 34 (ADC)", "kind": "special", "detail": "An input-only pin with an analog-to-digital converter — it can read a whole range of voltages, not just HIGH or LOW, which is how ARIA measures her ultrasonic sensor's echo timing indirectly through supporting circuitry." },
+        { "id": "en", "label": "EN", "kind": "special", "detail": "The reset pin. Pulling it low restarts the board, the same as a reset button." },
+        { "id": "vin", "label": "VIN", "kind": "power", "detail": "Where external 5V power comes in, separate from the USB port — this is how ARIA's battery powers the board once it's not plugged into a computer." },
+        { "id": "gnd2", "label": "GND", "kind": "ground", "detail": "A second ground pin. Boards usually break out several, since almost every part needs one." },
+        { "id": "gpio18", "label": "GPIO 18", "kind": "gpio", "detail": "A general-purpose pin capable of PWM — you'll use exactly this ability in the next lesson." }
+      ]
+    },
+    {
+      "type": "heading",
+      "value": "Four Kinds of Pin"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "POWER    supplies a fixed voltage out, or brings external power in\nGROUND   the shared 0V reference (Module 3's \"ground\" idea, on real pins)\nGPIO     you decide: input or output, in your program\nSPECIAL  a GPIO pin with one extra ability (analog reading, reset, etc.)"
+    },
+    {
+      "type": "paragraph",
+      "value": "When you wire an ultrasonic sensor, an LED and a motor driver onto ARIA, each connection is really a choice: which GPIO pin, configured as input or output, wired to which part. Everything else in this module and the next is about what you can do once that connection exists."
+    },
+    {
+      "type": "tip",
+      "value": "Not all GPIO pins are equal — some are input-only, some can do PWM and some can't. Real boards ship with a pinout diagram exactly like the one above for this reason; check it before wiring, not after something doesn't work."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: GPIO pins are general-purpose — your program decides whether each one reads or writes. Power and ground pins are fixed; a few pins have extra abilities worth knowing about."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does GPIO stand for, and what does that mean in practice?",
+      "options": [
+        "General Purpose Input/Output — you choose in code whether a pin reads or writes",
+        "Ground Pin Input/Output — a pin that's always grounded",
+        "General Power Input/Output — a pin only for power"
+      ],
+      "answer": 0,
+      "explain": "\"General purpose\" is the key word — the same physical pin can be an input one project and an output the next, decided entirely in software."
+    },
+    {
+      "question": "Why can't you use the 3V3 pin to power ARIA's motors?",
+      "options": [
+        "It only supplies a small, steady voltage meant for light loads like small sensors, not the higher current motors draw",
+        "3V3 pins don't exist on real boards",
+        "Motors can't run on 3.3V ever, on any board"
+      ],
+      "answer": 0,
+      "explain": "The 3V3 pin can only supply a limited current. Motors need more current than that, and are powered from the battery through the motor driver instead."
+    },
+    {
+      "question": "Every part on ARIA's board shares the same ground pin (or pins). Why does that matter, callback to Module 3?",
+      "options": [
+        "It doesn't matter, ground is just decorative",
+        "It gives every part the same 0V reference, so voltage readings between parts agree",
+        "It saves the board money"
+      ],
+      "answer": 1,
+      "explain": "Same idea as Module 3's ground lesson — one shared 0V floor is what makes readings from different parts comparable at all."
+    }
+  ]
+}

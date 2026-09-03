@@ -82,7 +82,20 @@ function paint(snap) {
       ctx.font = `${t.size}px system-ui, "Segoe UI Emoji", "Apple Color Emoji", sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(t.look, t.x, t.y);
+      // scale_x/scale_y stretch or squash the sprite (squash-and-stretch
+      // juice). Translate to its centre first so the scale grows from the
+      // middle of the sprite, not from the canvas origin.
+      const sx = t.scale_x ?? 1;
+      const sy = t.scale_y ?? 1;
+      if (sx !== 1 || sy !== 1) {
+        ctx.save();
+        ctx.translate(t.x, t.y);
+        ctx.scale(sx, sy);
+        ctx.fillText(t.look, 0, 0);
+        ctx.restore();
+      } else {
+        ctx.fillText(t.look, t.x, t.y);
+      }
     } else if (t.kind === 'box') {
       ctx.fillStyle = t.color;
       ctx.fillRect(t.x, t.y, t.width, t.height);
@@ -174,7 +187,7 @@ async function runHeadless(py, code, frames, keys) {
       const snap = JSON.parse(snapJson);
       stageW = snap.width;
       stageH = snap.height;
-      trace.push({ frame: snap.frame, over: snap.over, all: snap.all });
+      trace.push({ frame: snap.frame, over: snap.over, all: snap.all, shaking: !!snap.shaking });
       if (snap.over) break;
     }
   } catch (err) {

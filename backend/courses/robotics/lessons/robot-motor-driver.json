@@ -1,0 +1,84 @@
+{
+  "lessonId": "robot-motor-driver",
+  "title": "Motor Driver: The H-Bridge",
+  "description": "The controller board can't power a motor directly. This is the part that stands between them — and it's built from exactly four switches.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Four Switches in a Diamond"
+    },
+    {
+      "type": "paragraph",
+      "value": "Arrange four switches in a diamond shape around a motor, and something clever becomes possible: closing different pairs sends current through the motor in different directions, using the same two wires. That arrangement has a name — an H-bridge, because the wiring diagram of the motor sitting between two pairs of switches looks like the letter H."
+    },
+    {
+      "type": "widget",
+      "kind": "h-bridge",
+      "title": "🔀 Tap the switches",
+      "hint": "Find forward, find reverse, then try closing two switches on the same side.",
+      "xp": 20,
+      "xpKey": "robotics-m5-hbridge"
+    },
+    {
+      "type": "heading",
+      "value": "Why This Solves the Direction Problem"
+    },
+    {
+      "type": "paragraph",
+      "value": "A motor's terminals aren't labelled forward and reverse — direction only depends on which way current flows through them, as you learned last lesson. Closing switches A and D sends current one way through the motor; closing B and C sends it the other way. Same motor, same two wires, opposite direction, just by choosing a different diagonal pair."
+    },
+    {
+      "type": "paragraph",
+      "value": "You've also just rediscovered Module 3's short circuit, in a new part: close A and B (or C and D) — both switches on the same side — and you connect the battery's + and − straight to each other with almost nothing in the way. A real motor driver chip is built so its internal circuitry physically can't do that combination; the widget lets you do it anyway so you can see exactly why it's dangerous."
+    },
+    {
+      "type": "heading",
+      "value": "Why Not Just Wire the Controller Straight to the Motor?"
+    },
+    {
+      "type": "paragraph",
+      "value": "You'll meet the full reason in the next lesson, but the short version: a controller pin can only source a tiny trickle of current, nowhere near enough to spin a motor. The four switches in a real motor driver chip aren't hand-flipped like the widget — they're transistors, switched by the controller's weak signal, but each one can pass the motor's much bigger current. The controller decides, the driver does the heavy lifting."
+    },
+    {
+      "type": "tip",
+      "value": "Real driver chips like the L298N or DRV8833 also add PWM control on top of direction — combine what you learned in Module 4 with the H-bridge here, and you get both direction *and* speed from the same four switches."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: an H-bridge is four switches around a motor. Closing a diagonal pair drives it one direction or the other; closing a same-side pair shorts the battery. A real driver chip makes that same-side combination physically impossible."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which pair of switches, when closed together, drives the motor in the opposite direction from A+D?",
+      "options": [
+        "B + C",
+        "A + B",
+        "C + D"
+      ],
+      "answer": 0,
+      "explain": "A+D sends current one way; B+C is the other diagonal, sending it the other way through the same motor."
+    },
+    {
+      "question": "What happens if you close A and B together?",
+      "options": [
+        "The motor spins extra fast",
+        "A short circuit — the battery's two terminals connect almost directly",
+        "Nothing, that combination is safe"
+      ],
+      "answer": 1,
+      "explain": "A and B are both on the same side of the diamond, connecting + and − with very little resistance between them — the same failure Module 3 covered, on a new part."
+    },
+    {
+      "question": "Why can't a controller pin drive a motor directly, without a driver chip?",
+      "options": [
+        "Controller pins can only supply a tiny current, far less than a motor needs",
+        "Controller pins don't produce any voltage",
+        "Motors don't accept digital signals"
+      ],
+      "answer": 0,
+      "explain": "A weak control signal can switch a driver chip's internal transistors, but it can't supply a motor's much larger current on its own — that's exactly what the driver bridges."
+    }
+  ]
+}

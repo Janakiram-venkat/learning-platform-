@@ -1,5 +1,6 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
+from app.core.limiter import limiter
 from app.core.security import get_current_admin
 from app.db import get_db
 from app.schemas.feedback_schema import FeedbackCreate, FeedbackResponse
@@ -9,9 +10,15 @@ router = APIRouter()
 
 
 @router.post("/feedback", response_model=FeedbackResponse)
-def submit_feedback(request: FeedbackCreate, db: Session = Depends(get_db)):
-    """Save a student's star rating + optional comment."""
-    return feedback_service.create_feedback(db, request)
+@limiter.limit("5/minute")
+def submit_feedback(request: Request, body: FeedbackCreate, db: Session = Depends(get_db)):
+    """Save a student's star rating + optional comment.
+
+    Rate-limited to 5 per minute per IP to prevent feedback spam.
+    No authentication required — anonymous feedback is intentional, but
+    the rate limit keeps bots from flooding the table.
+    """
+    return feedback_service.create_feedback(db, body)
 
 
 @router.get(

@@ -1,0 +1,83 @@
+{
+  "lessonId": "robot-control-flow",
+  "title": "while True: — The Robot's Heartbeat",
+  "description": "Real robots don't run once and stop. This is the line of code that keeps ARIA sensing, thinking and acting for as long as she's switched on.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Loop With No Planned End"
+    },
+    {
+      "type": "paragraph",
+      "value": "while True: runs its contents over and over, forever, checking nothing but the literal word True — which is, of course, always true. Nested inside it, an if/else can still make the robot's actual behaviour change every single pass, even though the loop itself never stops on its own."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "while True:\n    d = robot.distance()\n    if d < 30:\n        robot.left(30)\n    else:\n        robot.forward(50)"
+    },
+    {
+      "type": "paragraph",
+      "value": "This is the exact shape from the end of Module 9, now in real code. It's also, quite literally, ARIA's heartbeat: sense, decide, act, and immediately start again — never finished, because the real world never stops changing either."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-code",
+      "title": "🐍 Write the heartbeat",
+      "hint": "Write a real while True: obstacle-avoidance loop. Try tightening the distance threshold and see how it changes the path.",
+      "worldId": "obstacleRoom",
+      "starterCode": "while True:\n    d = robot.distance()\n    if d < 35:\n        robot.left(35)\n    else:\n        robot.forward(45)\n",
+      "xp": 30,
+      "xpKey": "robotics-m10-control-flow"
+    },
+    {
+      "type": "heading",
+      "value": "A Safety Net Underneath"
+    },
+    {
+      "type": "paragraph",
+      "value": "This simulator gives every run a fixed budget of simulated steps — you can see it happen if you write a while True: loop with no way to reach the goal. That's not a limitation unique to teaching: real embedded systems use the same idea, usually called a watchdog timer, to recover automatically if a program ever gets stuck. \"Forever\" in a simulator, or on real hardware, is never truly unlimited."
+    },
+    {
+      "type": "tip",
+      "value": "Notice this program has no explicit break or exit anywhere — and that's correct. A real patrol or obstacle-avoiding robot is meant to run until someone switches it off, not until some internal condition says it's done."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: while True: runs forever by design — it's what lets a robot keep reacting to a changing world indefinitely. Real (and simulated) systems still protect against a truly stuck loop with a safety limit underneath."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `while True:` check, literally?",
+      "options": [
+        "The literal value True — which never changes, so the loop never ends on its own",
+        "Whether the robot is still moving",
+        "Whether the battery is charged"
+      ],
+      "answer": 0,
+      "explain": "It's checking a constant, always-true value. Any actual changing behaviour comes from the code nested inside it, not the loop condition itself."
+    },
+    {
+      "question": "Why doesn't a well-written obstacle-avoidance program need a break statement?",
+      "options": [
+        "It's meant to run indefinitely, reacting to a changing world, until switched off — not until some condition says 'done'",
+        "break isn't valid Python syntax",
+        "It always needs one, this is a mistake"
+      ],
+      "answer": 0,
+      "explain": "Some robot behaviours are genuinely meant to run forever — a patrol or obstacle-avoider doesn't have a natural finishing point."
+    },
+    {
+      "question": "What real embedded-systems concept does the simulator's tick budget mirror?",
+      "options": [
+        "A watchdog timer, which recovers a stuck real system automatically",
+        "A power supply",
+        "A firmware update"
+      ],
+      "answer": 0,
+      "explain": "Real hardware faces the same problem — a genuinely infinite loop needs a safety net, and a watchdog timer is the standard real-world answer."
+    }
+  ]
+}

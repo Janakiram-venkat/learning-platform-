@@ -1,7 +1,22 @@
+from sqlalchemy.orm import Session
+
+from app.models.quiz_attempt import QuizAttempt
 from app.services.course_service import get_lesson_by_id
 
 
-def submit_quiz(course_id: str, lesson_id: str, answers: list[int]):
+def submit_quiz(
+    course_id: str,
+    lesson_id: str,
+    answers: list[int],
+    db: Session | None = None,
+    user_id: int | None = None,
+):
+    """Grade a quiz submission and optionally persist the attempt.
+
+    `db` and `user_id` are optional so the function stays testable without a
+    database, and so the quiz router can pass them through when a signed-in
+    student submits.
+    """
     lesson = get_lesson_by_id(course_id, lesson_id)
     if not lesson or "quiz" not in lesson:
         return {"error": "Quiz not found"}
@@ -24,5 +39,17 @@ def submit_quiz(course_id: str, lesson_id: str, answers: list[int]):
             # Explanation is shown to the student after they answer.
             "explain": quiz.get("explain"),
         })
+
+    # Persist the attempt so admins can see quiz history and struggling lessons.
+    if db is not None and user_id is not None:
+        attempt = QuizAttempt(
+            user_id=user_id,
+            course_id=course_id,
+            lesson_id=lesson_id,
+            score=score,
+            total=total,
+        )
+        db.add(attempt)
+        db.commit()
 
     return {"score": score, "total": total, "results": results}

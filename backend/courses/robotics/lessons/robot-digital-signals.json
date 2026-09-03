@@ -1,0 +1,89 @@
+{
+  "lessonId": "robot-digital-signals",
+  "title": "Digital Signals: HIGH and LOW",
+  "description": "A GPIO pin never says 'sort of'. It only ever says one of two things — and that simple fact is the foundation everything else in this module builds on.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Light Switch, Not a Dimmer"
+    },
+    {
+      "type": "paragraph",
+      "value": "Think of a normal light switch on your wall: on or off, nothing in between. A digital GPIO pin works exactly the same way. It's either HIGH (close to the board's operating voltage — 3.3V on the ESP32) or LOW (0V). There's no setting for \"a little bit on\"."
+    },
+    {
+      "type": "widget",
+      "kind": "digital-signal",
+      "title": "📶 Flip the pin",
+      "hint": "Tap the button a few times and watch the trace remember your last taps.",
+      "xp": 15,
+      "xpKey": "robotics-m4-digital"
+    },
+    {
+      "type": "paragraph",
+      "value": "That trace is a simplified version of a real tool called an oscilloscope, which draws a live graph of a signal's voltage over time. Engineers use one constantly to see exactly this: is a pin actually flipping when the code says it should be?"
+    },
+    {
+      "type": "heading",
+      "value": "Reading vs Writing"
+    },
+    {
+      "type": "paragraph",
+      "value": "A GPIO pin set up as an output writes HIGH or LOW — that's how you turn an LED on and off, or tell a motor driver which direction to spin. A GPIO pin set up as an input reads HIGH or LOW — that's how a button press or a simple sensor's signal reaches your program."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "OUTPUT PIN                        INPUT PIN\nyour code decides the voltage     the outside world decides the voltage\n\"set LED pin HIGH\"                \"read button pin\" → HIGH or LOW\nLED lights up                     tells you if it's pressed"
+    },
+    {
+      "type": "heading",
+      "value": "Why Only Two States?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Real wires are noisy — tiny fluctuations, interference, a slightly loose connection can all jitter a voltage by a little. If a pin had to distinguish fine shades of voltage, that noise would constantly cause wrong readings. By only asking \"closer to 0 or closer to 3.3V?\", digital logic becomes extremely reliable even on cheap, imperfect wiring — which is exactly why computers are built on it."
+    },
+    {
+      "type": "tip",
+      "value": "This is also why a computer's memory is measured in bits — a bit is nothing more than one pin's worth of information: a single HIGH or LOW."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a digital pin only ever reports HIGH or LOW, never in between. That's a deliberate trade — it sacrifices fine detail for reliability, and it's the foundation the whole board is built on."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What are the only two states a digital GPIO pin can report?",
+      "options": [
+        "HIGH and LOW",
+        "Fast and slow",
+        "Red and blue"
+      ],
+      "answer": 0,
+      "explain": "Digital signals are binary by design — close to 0V (LOW) or close to the operating voltage (HIGH), nothing in between."
+    },
+    {
+      "question": "You want to turn ARIA's status LED on from your program. Is that pin set up as an input or an output?",
+      "options": [
+        "Input",
+        "Output",
+        "Neither — LEDs don't use GPIO"
+      ],
+      "answer": 1,
+      "explain": "Your code is deciding the voltage on that pin (HIGH to light it), which is exactly what an output pin does."
+    },
+    {
+      "question": "Why do digital pins only report HIGH or LOW instead of a precise voltage reading?",
+      "options": [
+        "It's cheaper to manufacture that way, nothing else",
+        "Restricting to two states makes readings reliable even with the small noise and jitter real wires always have",
+        "Pins physically cannot measure anything but two values"
+      ],
+      "answer": 1,
+      "explain": "Only needing to tell \"closer to 0 or closer to full voltage\" apart makes the reading robust against the small voltage noise every real circuit has."
+    }
+  ]
+}

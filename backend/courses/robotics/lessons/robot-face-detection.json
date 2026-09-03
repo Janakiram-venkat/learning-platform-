@@ -1,0 +1,76 @@
+{
+  "lessonId": "robot-face-detection",
+  "title": "Face Detection — and a Word on Privacy",
+  "description": "The same box-and-confidence idea, aimed at faces — plus an honest conversation about what that actually means.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Same Idea, More Sensitive"
+    },
+    {
+      "type": "paragraph",
+      "value": "Face detection uses exactly the same technique as last lesson's object detection — a box, a confidence score — just trained specifically to find faces, and often specific landmarks on them: eyes, nose, mouth corners."
+    },
+    {
+      "type": "widget",
+      "kind": "detection-reveal",
+      "title": "🔎 Detect the landmarks",
+      "hint": "Same technique as object detection, aimed at a face this time.",
+      "sceneEmoji": "🙂",
+      "boxes": [
+        { "label": "face", "x": 20, "y": 10, "w": 60, "h": 70, "confidence": 96 },
+        { "label": "left eye", "x": 30, "y": 30, "w": 12, "h": 8, "confidence": 88 },
+        { "label": "right eye", "x": 58, "y": 30, "w": 12, "h": 8, "confidence": 87 }
+      ],
+      "xp": 15,
+      "xpKey": "robotics-m11-face"
+    },
+    {
+      "type": "heading",
+      "value": "Detection Is Not Identification"
+    },
+    {
+      "type": "paragraph",
+      "value": "It's worth being exact about what just happened: the model found where a face is, not whose face it is. Recognising a specific person is a separate, much more sensitive capability — one that raises real questions this course won't wave away."
+    },
+    {
+      "type": "heading",
+      "value": "Consent Matters"
+    },
+    {
+      "type": "paragraph",
+      "value": "A robot that can locate a face is one step from a robot that could track a specific person, store images of people who never agreed to it, or make decisions based on who it thinks someone is. None of that requires bad intentions — it can happen just from building a feature without thinking through who's affected. Anyone building with this technology has a responsibility to think about consent, storage, and who has access to what's captured, before deploying it."
+    },
+    {
+      "type": "tip",
+      "value": "This is a genuinely unresolved area of technology ethics, not a solved problem with one right answer — which is exactly why it's worth pausing on here rather than rushing past it."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: face detection finds where a face is, using the same technique as any other object detection. Detecting is not identifying — and any real use of this capability comes with genuine consent and privacy responsibilities."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What's the real difference between face detection and face identification?",
+      "options": [
+        "There is no difference, they're the same thing",
+        "Detection finds where a face is; identification determines whose face it is — a separate, more sensitive capability",
+        "Identification is always less accurate than detection"
+      ],
+      "answer": 1,
+      "explain": "This lesson is careful to distinguish the two — detection alone says nothing about who is in the frame."
+    },
+    {
+      "question": "Why does this lesson raise privacy and consent explicitly?",
+      "options": [
+        "Because face-related capabilities can affect real people who never agreed to being tracked or recorded, even without bad intent",
+        "It's a legal requirement with no real teaching purpose",
+        "Privacy isn't actually a real concern here"
+      ],
+      "answer": 0,
+      "explain": "Even a well-intentioned feature can affect people who never consented — that's exactly why this responsibility matters regardless of intent."
+    }
+  ]
+}

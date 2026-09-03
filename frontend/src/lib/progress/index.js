@@ -49,6 +49,8 @@ export {
 
 export { isModuleComplete, countCompletedModules, evaluatePrerequisite } from './prereq';
 
+export { getCheckedMilestones, setCheckedMilestones } from './gameMilestones';
+
 export { shouldAskFeedback, markFeedbackAsked } from './feedback';
 export { getAiIdeas, saveAiIdea } from './ideas';
 export { snapshotProgress, applyProgress, clearProgress } from './sync';

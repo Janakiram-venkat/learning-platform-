@@ -1,0 +1,77 @@
+{
+  "lessonId": "robot-wheels-chassis",
+  "title": "Wheels and Chassis",
+  "description": "Component lesson. A motor's spin has to turn into travel, and travel has to be carried by something. Two more parts, both simpler than they look.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "One Rotation, One Circumference"
+    },
+    {
+      "type": "paragraph",
+      "value": "A wheel converts spinning into distance. Every time it completes one full rotation, the robot travels exactly one circumference forward — a fixed, calculable distance that depends only on the wheel's diameter."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "circumference = π × diameter\n\nARIA's wheel: 6.5 cm diameter\ncircumference = π × 6.5 ≈ 20.4 cm per rotation\n\n10 rotations ≈ 204 cm travelled"
+    },
+    {
+      "type": "paragraph",
+      "value": "A bigger wheel covers more ground per rotation, which means faster travel for the same motor RPM — but also less torque available to get moving, since the motor's turning force is now acting on a longer lever arm. Wheel size is a real design trade-off, not just a cosmetic choice."
+    },
+    {
+      "type": "heading",
+      "value": "The Chassis: More Than a Base Plate"
+    },
+    {
+      "type": "paragraph",
+      "value": "The chassis is the structural frame every other part mounts to — battery, controller, motors, sensors. Its job sounds passive, but where weight sits on it matters enormously. A robot with its centre of mass too high, or too far forward, can tip during a sharp turn or an abrupt stop, the same way a top-heavy shopping trolley tips on a fast corner."
+    },
+    {
+      "type": "paragraph",
+      "value": "ARIA's design keeps the heaviest single part — the battery — mounted low and central, which is a deliberate choice: it lowers the centre of mass and keeps weight balanced between both drive wheels."
+    },
+    {
+      "type": "tip",
+      "value": "A three-point base (two driven wheels plus one caster) is inherently stable on any reasonably flat surface — three points always define a plane, which is exactly why you'll see this layout on nearly every beginner robot, including ARIA."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a wheel's circumference sets exactly how far one rotation carries the robot. A chassis's job is structural, and where weight sits on it directly affects stability."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "ARIA's wheel has a 6.5 cm diameter. Roughly how far does she travel in one full wheel rotation?",
+      "options": [
+        "About 6.5 cm",
+        "About 20 cm",
+        "About 40 cm"
+      ],
+      "answer": 1,
+      "explain": "Circumference = π × diameter ≈ 3.14 × 6.5 ≈ 20.4 cm — one rotation, one circumference of travel."
+    },
+    {
+      "question": "What's the trade-off of fitting larger-diameter wheels to the same motor?",
+      "options": [
+        "No trade-off — bigger is always better",
+        "Faster travel per rotation, but less torque available to get moving",
+        "Slower travel per rotation, but more torque"
+      ],
+      "answer": 1,
+      "explain": "A bigger wheel covers more ground per turn (speed) but acts as a longer lever arm against the motor's turning force (less effective torque)."
+    },
+    {
+      "question": "Why does ARIA's design keep the battery mounted low and central on the chassis?",
+      "options": [
+        "It has nothing to do with stability, just convenience",
+        "It lowers the centre of mass and balances weight between both drive wheels, reducing tipping risk",
+        "So it looks better"
+      ],
+      "answer": 1,
+      "explain": "Where weight sits on the chassis directly affects how easily the robot tips during sharp turns or stops — low and central is the stable choice."
+    }
+  ]
+}

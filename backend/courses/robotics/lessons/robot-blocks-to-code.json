@@ -1,0 +1,78 @@
+{
+  "lessonId": "robot-blocks-to-code",
+  "title": "The Bridge: Blocks to Code",
+  "description": "Every block you stacked last module has an exact Python equivalent. Once you see the pattern, blocks stop looking like a separate language.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Same Program, Two Notations"
+    },
+    {
+      "type": "paragraph",
+      "value": "Take the obstacle-avoidance program from the end of last module — a repeat-forever block containing an if/else. Written as Python, it looks like this:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "BLOCKS                              PYTHON\n\nrepeat forever:                     while True:\n  if wall ahead:                        if robot.distance() < 30:\n    turn                                     robot.left(30)\n  else:                                  else:\n    move forward                            robot.forward(50)"
+    },
+    {
+      "type": "paragraph",
+      "value": "Line up each piece: repeat forever became while True:. The if/else block became Python's if/else, with the exact same shape — a condition, a then-branch, an else-branch. \"Move forward\" became a real function call, robot.forward(50), with an actual number for how fast."
+    },
+    {
+      "type": "heading",
+      "value": "What Changed, What Didn't"
+    },
+    {
+      "type": "paragraph",
+      "value": "The structure — sequence, decision, loop — didn't change at all. What changed is precision: blocks let you say \"if wall ahead\" in plain words, but code needs an exact, checkable condition, like robot.distance() < 30. That's the real difference between blocks and code: not what you can express, but how exactly you have to say it."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "block: \"if wall ahead\"     -->  code: \"if robot.distance() < 30\"\nblock: \"move forward\"      -->  code: \"robot.forward(50)\"\nblock: \"repeat forever\"    -->  code: \"while True:\""
+    },
+    {
+      "type": "tip",
+      "value": "Indentation in Python isn't just for readability — it's how Python knows which lines belong inside the loop or the if/else, the same job the visual nesting of blocks was doing. Get the indentation wrong and Python reads the structure wrong too."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: blocks and code express the exact same three shapes — sequence, decision, loop. Code just requires exact conditions and numbers where blocks let you gesture at them in words."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What Python keyword does a 'repeat forever' block translate to?",
+      "options": [
+        "for",
+        "while True:",
+        "loop()"
+      ],
+      "answer": 1,
+      "explain": "An unlimited repeat, with no built-in end, is exactly what `while True:` means in Python."
+    },
+    {
+      "question": "What's the real difference between an 'if wall ahead' block and `if robot.distance() < 30:` in code?",
+      "options": [
+        "They mean completely different things",
+        "Same idea, but code needs an exact, checkable numeric condition instead of a plain-language phrase",
+        "Code can't express conditions at all"
+      ],
+      "answer": 1,
+      "explain": "The shape (a decision) is identical — code just demands precision blocks let you skip."
+    },
+    {
+      "question": "What job does indentation do in Python that visual nesting did for blocks?",
+      "options": [
+        "Nothing, it's just for looks",
+        "It tells Python exactly which lines belong inside a loop or if/else — the same job as a block being nested inside another",
+        "It controls how fast the program runs"
+      ],
+      "answer": 1,
+      "explain": "Indentation is how Python reads structure. Get it wrong, and lines end up inside (or outside) the wrong block entirely."
+    }
+  ]
+}

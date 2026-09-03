@@ -1,0 +1,40 @@
+{
+  "moduleId": 3,
+  "title": "Electricity, Gently",
+  "emoji": "⚡",
+  "tagline": "Meet the push, the flow and the resistance behind every part on ARIA's chassis.",
+  "lessons": [
+    {
+      "lessonId": "robot-electricity",
+      "title": "What Is Electricity?",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-circuit-loop",
+      "title": "The Loop Must Close",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-battery",
+      "title": "Battery: The Tank",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-switch",
+      "title": "Switch: A Gap On Purpose",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-series-parallel",
+      "title": "Series vs Parallel",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-ground",
+      "title": "Ground: The Shared Floor",
+      "duration": "10 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

@@ -1,0 +1,35 @@
+{
+  "moduleId": 9,
+  "title": "Thinking in Blocks",
+  "emoji": "🧩",
+  "tagline": "No hardware this time — pure logic. Sequence, decision, loop, and a maze to prove you've got them.",
+  "lessons": [
+    {
+      "lessonId": "robot-algorithms",
+      "title": "Algorithms: Instructions So Exact a Robot Can't Misread Them",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-sequence",
+      "title": "Sequence: Blocks in Order",
+      "duration": "12 min"
+    },
+    {
+      "lessonId": "robot-decisions",
+      "title": "Decisions: The If Block",
+      "duration": "14 min"
+    },
+    {
+      "lessonId": "robot-loops",
+      "title": "Loops: Repeat Forever, Repeat N Times",
+      "duration": "14 min"
+    },
+    {
+      "lessonId": "robot-putting-together",
+      "title": "Putting It Together: Obstacle Avoidance From Scratch",
+      "duration": "16 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

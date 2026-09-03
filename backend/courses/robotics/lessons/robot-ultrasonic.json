@@ -1,0 +1,98 @@
+{
+  "lessonId": "robot-ultrasonic",
+  "title": "Ultrasonic: Measuring With Sound",
+  "description": "Component lesson. No lens, no laser — just a chirp, a stopwatch, and one formula from school physics.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why It Exists"
+    },
+    {
+      "type": "paragraph",
+      "value": "ARIA needs to know how far away something is before she can decide whether to stop or turn. An ultrasonic sensor answers that with sound — the same trick a bat uses to find its way in the dark."
+    },
+    {
+      "type": "heading",
+      "value": "How It Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "One of the sensor's two round \"eyes\" is a transmitter: it emits a short burst of sound above the range of human hearing. The other is a receiver, listening for that exact sound to come back. Between the moment it's sent and the moment it returns is the only piece of raw data the sensor actually measures: elapsed time."
+    },
+    {
+      "type": "widget",
+      "kind": "ultrasonic-sim",
+      "title": "📡 Ping the wall",
+      "hint": "Try a few distances. Then push the wall angle past 45° and ping again — watch the echo scatter away instead of coming back.",
+      "xp": 25,
+      "xpKey": "robotics-m7-ultrasonic"
+    },
+    {
+      "type": "heading",
+      "value": "Deriving the Formula"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sound travels at a known, roughly constant speed — about 343 metres per second in air. If you know speed and time, distance is just multiplication: distance travelled = speed × time. But the sound made a round trip, out and back, so the wall is only half that total distance away."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "distance travelled by sound = speed × time\nbut that's a round trip (there and back)\n\ndistance to the object = (speed × time) ÷ 2"
+    },
+    {
+      "type": "heading",
+      "value": "The Failure Worth Knowing"
+    },
+    {
+      "type": "paragraph",
+      "value": "You just saw it in the widget: angle a hard, flat surface past roughly 45° and the sound doesn't bounce straight back at all — it deflects off at an angle, like light off a mirror tilted away from you, and the sensor's receiver never hears it. That's not a broken sensor; it's a real physical limit of how ultrasonic sensing works, and it's exactly why a real obstacle-avoiding robot sometimes needs more than one ultrasonic sensor, or a sweeping one, to cover a room reliably."
+    },
+    {
+      "type": "heading",
+      "value": "Specs"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Part        HC-SR04 ultrasonic distance sensor\nRange       2 cm – 400 cm\nAccuracy    ≈ ±0.3 cm\nBeam angle  ≈ 15°\nPrice       ≈ ₹80–120"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: an ultrasonic sensor measures the round-trip time of a sound pulse and computes distance = (speed × time) ÷ 2. Angled surfaces beyond about 45° deflect the echo away, which is a real limitation, not a fault."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does an ultrasonic sensor directly measure?",
+      "options": [
+        "The wall's exact colour and material",
+        "The round-trip time for a sound pulse to leave and return",
+        "The wall's temperature"
+      ],
+      "answer": 1,
+      "explain": "Time is the only raw measurement — distance is calculated from it afterwards using the known speed of sound."
+    },
+    {
+      "question": "Why does the formula divide by 2?",
+      "options": [
+        "To convert centimetres to metres",
+        "Because the measured time covers a round trip — out to the object and back — not a one-way distance",
+        "It's an arbitrary calibration constant"
+      ],
+      "answer": 1,
+      "explain": "Speed × time gives the total distance sound travelled, which is twice the distance to the object, since it goes there and back."
+    },
+    {
+      "question": "Why does a hard wall angled past about 45° give no reading at all?",
+      "options": [
+        "The sensor overheats at that angle",
+        "The sound reflects off at an angle instead of straight back, and never reaches the receiver",
+        "45° is a hardware limit written into the sensor's memory"
+      ],
+      "answer": 1,
+      "explain": "Sound bounces off a surface much like light off a mirror — angle it enough and the reflection simply doesn't return the way it came."
+    }
+  ]
+}

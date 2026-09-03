@@ -1,0 +1,76 @@
+{
+  "lessonId": "robot-training-data",
+  "title": "Training Data: Teach the Robot Yourself",
+  "description": "Label a set of pictures yourself and watch the exact problem every learned model has, happen in your own hands.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Learning From Examples, Literally"
+    },
+    {
+      "type": "paragraph",
+      "value": "A model doesn't learn from instructions — it learns from labelled examples: here's a picture, here's what it is. Enough examples, and it can start guessing correctly on pictures it's never seen before. You're about to do the labelling yourself."
+    },
+    {
+      "type": "widget",
+      "kind": "training-lab",
+      "title": "🏷️ Label them all",
+      "hint": "Tag every card as cat or dog, then test the result on a new one.",
+      "xp": 25,
+      "xpKey": "robotics-m11-training"
+    },
+    {
+      "type": "heading",
+      "value": "The Real Lesson"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice the model's guess on the final image is only ever as good as what it was shown. If every training example was a very typical, clear cat or dog, an unusual example — a wolf, a blurry photo, an odd breed — can genuinely fool it, not because the underlying idea is broken, but because that particular shape of example was never part of what it learned from."
+    },
+    {
+      "type": "paragraph",
+      "value": "This is the single most important idea in this whole module: data quality and coverage is the real work behind any learned system. More or better examples, covering more of the situations a robot will actually meet, matters more than almost anything else."
+    },
+    {
+      "type": "tip",
+      "value": "This connects directly back to Module 7's line-following. A rule you wrote by hand handles exactly the cases you thought of. A trained model handles exactly the cases it was trained on. Neither approach magically covers cases nobody prepared it for."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a model learns entirely from its training examples. A gap between what it was trained on and what it actually encounters is where mistakes come from — which is why data quality, not just clever programming, is the real work behind a learned system."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does a model actually learn from, according to this lesson?",
+      "options": [
+        "A list of instructions written by a programmer",
+        "Labelled examples — pictures paired with what they actually are",
+        "Random chance"
+      ],
+      "answer": 1,
+      "explain": "Learning from examples, not instructions, is the defining difference between a learned and a rule-based approach."
+    },
+    {
+      "question": "Why can an unusual image (like the wolf) fool a model trained only on clear cat and dog photos?",
+      "options": [
+        "The underlying idea is fundamentally broken",
+        "That particular kind of example was never part of what the model was shown, so it has no learned pattern to match it against",
+        "Models can never be trained to recognise animals"
+      ],
+      "answer": 1,
+      "explain": "A model's guesses are bounded by what it actually saw during training — an unfamiliar shape of example is exactly where it's likely to fail."
+    },
+    {
+      "question": "What's the single most important factor behind a well-performing learned system, according to this lesson?",
+      "options": [
+        "Data quality and coverage of the training examples",
+        "How fast the computer running it is",
+        "How many lines of code the programmer wrote"
+      ],
+      "answer": 0,
+      "explain": "Good, representative training data is what this whole lesson is built around — arguably more important than the algorithm itself."
+    }
+  ]
+}

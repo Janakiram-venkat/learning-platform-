@@ -1,0 +1,95 @@
+{
+  "lessonId": "robot-switch",
+  "title": "Switch: A Gap On Purpose",
+  "description": "Component lesson, plus the two most common ways a beginner's circuit goes wrong — and how to spot each one.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why It Exists"
+    },
+    {
+      "type": "paragraph",
+      "value": "You already met the idea last lesson: a switch is a gap in the loop you control. What makes it a real component rather than just an idea is a pair of metal contacts that physically touch when you flip, press, or slide it, and separate when you don't."
+    },
+    {
+      "type": "heading",
+      "value": "How It Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "Two metal contacts, a lever, a spring. Push the lever and the contacts touch — closed, loop complete. Release and a spring pulls them apart — open, loop broken. That's every switch you've ever used, from a light switch to a keyboard key, just packaged differently."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "OPEN                  CLOSED\n  o     o               o-----o\n  contacts apart        contacts touching\n  no current            current flows"
+    },
+    {
+      "type": "heading",
+      "value": "Two Failures Worth Knowing Before You Wire Anything"
+    },
+    {
+      "type": "paragraph",
+      "value": "A short circuit happens when current finds an accidental path that skips your part completely — a stray wire touching where it shouldn't, for instance, bridging straight across an LED. The current takes the easy route, the shortcut, and none of it goes through your part at all."
+    },
+    {
+      "type": "paragraph",
+      "value": "A reversed LED is a different kind of failure. Unlike a resistor, an LED only lets current through one way — it's a one-way valve, not just a resistance. Wire it backwards and no current flows at all, no matter how much voltage you throw at it. The flat edge on the LED's plastic case marks the negative leg — that's your reminder every time."
+    },
+    {
+      "type": "widget",
+      "kind": "circuit-sandbox",
+      "title": "🚨 Break it on purpose",
+      "hint": "Try all three: Normal, Add a shortcut wire, Flip the LED. Watch what each one does to the current.",
+      "mode": "short-reverse",
+      "voltage": 9,
+      "xp": 20,
+      "xpKey": "robotics-m3-failures"
+    },
+    {
+      "type": "paragraph",
+      "value": "Both failures leave your LED dark, which makes them easy to confuse when you're debugging for real. The tell: a short circuit usually runs a wire hot (current is flowing, just not through your part), while a reversed LED draws no current at all — the whole loop is effectively open."
+    },
+    {
+      "type": "tip",
+      "value": "This is the same short circuit that makes shorting a battery's bare terminals dangerous. A switch, a stray wire, or a mis-wired part can all cause it — the physics doesn't care which."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a switch is a controlled open/close gap. A short circuit skips your part with an easy path; a reversed LED blocks current entirely because it's one-way."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "In the widget, which scenario shows current flowing but not through the LED?",
+      "options": [
+        "Normal",
+        "Add a shortcut wire",
+        "Flip the LED"
+      ],
+      "answer": 1,
+      "explain": "A short circuit gives current an easier path that bypasses the LED entirely — current flows, the LED just isn't in that path anymore."
+    },
+    {
+      "question": "Why does a reversed LED draw zero current, while a reversed resistor works exactly the same either way?",
+      "options": [
+        "An LED is a one-way valve for current; a resistor resists current equally in both directions",
+        "LEDs are always broken when new",
+        "Resistors are one-way too, but LEDs aren't"
+      ],
+      "answer": 0,
+      "explain": "A resistor doesn't care about direction. An LED (a diode) only conducts one way — flip it and the path is effectively blocked."
+    },
+    {
+      "question": "What physically happens inside a switch when you flip it closed?",
+      "options": [
+        "It generates a small voltage",
+        "Two metal contacts move together and touch, completing the loop",
+        "It converts current into light"
+      ],
+      "answer": 1,
+      "explain": "A switch has no chemistry or generation of its own — it's purely mechanical, two contacts touching or separating."
+    }
+  ]
+}

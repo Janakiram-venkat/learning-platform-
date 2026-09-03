@@ -1,0 +1,75 @@
+{
+  "moduleId": 9,
+  "title": "Logic Blocks Arcade",
+  "intro": "Five rounds on sequence, decisions and loops. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "🧩",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "\"Turn right, then move forward\" vs \"move forward, then turn right.\" Are these the same program?",
+      "options": [
+        "No — order changes where the robot ends up",
+        "Yes, order never matters in a sequence",
+        "They're only different if a loop is involved"
+      ],
+      "answer": 0,
+      "explain": "A sequence runs in the exact order written — swap two steps and you can get a completely different result."
+    },
+    {
+      "type": "concept",
+      "prompt": "An If block's condition is false. What happens to its 'then' branch?",
+      "options": [
+        "It runs anyway",
+        "It's skipped — only the else branch (if any) runs",
+        "The whole program stops"
+      ],
+      "answer": 1,
+      "explain": "The 'then' branch is specifically for the true case. A false condition skips straight to else, or does nothing if there is no else."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each shape to what it does.",
+      "pairs": [
+        {
+          "left": "Sequence",
+          "right": "Runs steps in order"
+        },
+        {
+          "left": "Decision",
+          "right": "Picks a branch based on a condition"
+        },
+        {
+          "left": "Loop",
+          "right": "Repeats its contents"
+        },
+        {
+          "left": "Repeat forever",
+          "right": "Has no built-in end"
+        }
+      ],
+      "explain": "Every algorithm you'll ever write is built from these — even the most complex real robot program."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why is 'repeat forever' with nothing that can change the situation inside it risky?",
+      "options": [
+        "It's not risky at all",
+        "It never ends on its own — nothing inside it can break the pattern",
+        "It always runs exactly 100 times"
+      ],
+      "answer": 1,
+      "explain": "Without a decision or exit condition, an unlimited loop truly has no way to stop by itself."
+    },
+    {
+      "type": "concept",
+      "prompt": "`repeat forever: if wall ahead: turn, else: move forward` — why does this generalise to a maze it's never seen, unlike a hardcoded sequence?",
+      "options": [
+        "It reacts to whatever it actually senses, rather than memorising one fixed path",
+        "It uses fewer blocks, which always generalises better",
+        "It doesn't generalise any better than a hardcoded sequence"
+      ],
+      "answer": 0,
+      "explain": "A reactive program built from a loop and a decision responds to the real situation in front of it, not a memorised route."
+    }
+  ]
+}

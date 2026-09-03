@@ -4,11 +4,36 @@
 import { loadPyodide } from 'https://cdn.jsdelivr.net/pyodide/v0.28.0/full/pyodide.mjs';
 
 const INDEX_URL = 'https://cdn.jsdelivr.net/pyodide/v0.28.0/full/';
+const MAX_LOAD_ATTEMPTS = 3;
+const RETRY_DELAY_MS = 1500;
 
 let pyodidePromise = null;
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function loadWithRetry() {
+  let lastError;
+  for (let attempt = 1; attempt <= MAX_LOAD_ATTEMPTS; attempt++) {
+    try {
+      return await loadPyodide({ indexURL: INDEX_URL });
+    } catch (err) {
+      lastError = err;
+      if (attempt < MAX_LOAD_ATTEMPTS) {
+        await sleep(RETRY_DELAY_MS * attempt); // back-off: 1.5s, 3s
+      }
+    }
+  }
+  throw new Error(
+    `Python runtime failed to load after ${MAX_LOAD_ATTEMPTS} attempts. ` +
+    `Check your internet connection and try refreshing the page. (${lastError})`
+  );
+}
+
 function getPyodide() {
   if (!pyodidePromise) {
-    pyodidePromise = loadPyodide({ indexURL: INDEX_URL });
+    pyodidePromise = loadWithRetry();
   }
   return pyodidePromise;
 }
@@ -35,8 +60,12 @@ self.onmessage = async (e) => {
   const { id, type, code, stdin } = e.data;
 
   if (type === 'warmup') {
-    try { await getPyodide(); self.postMessage({ id, ready: true }); }
-    catch (err) { self.postMessage({ id, error: String(err) }); }
+    try {
+      await getPyodide();
+      self.postMessage({ id, ready: true });
+    } catch (err) {
+      self.postMessage({ id, error: String(err) });
+    }
     return;
   }
 
@@ -45,8 +74,14 @@ self.onmessage = async (e) => {
   let pyodide;
   try {
     pyodide = await getPyodide();
-  } catch {
-    self.postMessage({ id, result: { output: 'Error: could not load the Python runtime.', needs_input: false } });
+  } catch (err) {
+    self.postMessage({
+      id,
+      result: {
+        output: `⚠️ ${String(err)}`,
+        needs_input: false,
+      },
+    });
     return;
   }
 

@@ -1,0 +1,75 @@
+{
+  "moduleId": 6,
+  "title": "Precision Arcade",
+  "intro": "Five rounds on servos, steppers and gears. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "🎯",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What tells a servo's control board its current position?",
+      "options": [
+        "A potentiometer linked to the output shaft",
+        "Nothing, it runs blind",
+        "A camera watching the horn"
+      ],
+      "answer": 0,
+      "explain": "The potentiometer reading is the \"measured\" half of the servo's feedback loop."
+    },
+    {
+      "type": "concept",
+      "prompt": "A servo receives a 2.0 ms pulse. What angle is it commanded to?",
+      "options": [
+        "0°",
+        "90°",
+        "180°"
+      ],
+      "answer": 2,
+      "explain": "2.0 ms is the top end of the standard 1–2 ms servo pulse range, mapping to 180°."
+    },
+    {
+      "type": "concept",
+      "prompt": "How does a stepper motor's controller know its position without a sensor?",
+      "options": [
+        "By counting the fixed-size steps it has sent",
+        "It measures voltage on the coils",
+        "It can't know its position"
+      ],
+      "answer": 0,
+      "explain": "Every step is a guaranteed exact angle, so counting steps sent is enough to track position precisely."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each job to the motor that fits it best.",
+      "pairs": [
+        {
+          "left": "Spinning a wheel forever",
+          "right": "DC motor"
+        },
+        {
+          "left": "Holding one precise angle",
+          "right": "Servo"
+        },
+        {
+          "left": "Repeatable multi-turn positioning",
+          "right": "Stepper"
+        },
+        {
+          "left": "Trading speed for torque",
+          "right": "Gears"
+        }
+      ],
+      "explain": "Four different jobs, four different tools — none of them is universally \"better\", just built for a different question."
+    },
+    {
+      "type": "concept",
+      "prompt": "A small gear drives a much bigger one. What happens to the output?",
+      "options": [
+        "Faster, but weaker",
+        "Slower, but with more torque",
+        "No change at all"
+      ],
+      "answer": 1,
+      "explain": "A small driving gear has to spin several times per turn of the big gear — trading speed away for extra turning force."
+    }
+  ]
+}

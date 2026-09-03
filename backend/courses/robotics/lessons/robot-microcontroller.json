@@ -1,0 +1,86 @@
+{
+  "lessonId": "robot-microcontroller",
+  "title": "The Brain",
+  "description": "A computer so small it forgot it needed a screen. Meet the part that turns ARIA's sensor numbers into decisions.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Computer With No Screen"
+    },
+    {
+      "type": "paragraph",
+      "value": "The laptop or phone you're reading this on is a general-purpose computer — it can run a browser, a game, a spreadsheet, anything. A microcontroller is a different kind of computer, built to do one job: run a single small program, over and over, forever, talking to wires instead of a screen and keyboard."
+    },
+    {
+      "type": "paragraph",
+      "value": "It has the same basic pieces as your laptop — a processor, a little memory, storage for its program — just shrunk onto one chip small enough to sit on ARIA's chassis, drawing so little power it can run for hours on a single battery cell."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "YOUR LAPTOP                    A MICROCONTROLLER\nscreen, keyboard, mouse         no screen, no keyboard\nruns many programs at once      runs one program, forever\ndraws ~50W                      draws ~0.5W\ncosts ₹40,000+                  costs ₹450"
+    },
+    {
+      "type": "heading",
+      "value": "Where It Sits in the Loop"
+    },
+    {
+      "type": "paragraph",
+      "value": "Remember Module 1's sense→think→act loop? The microcontroller *is* the THINK box, built out of hardware. Sensors wire into it and hand it numbers. It runs your rule against those numbers. Motors, LEDs and speakers wire out of it and receive its decisions."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "  ultrasonic sensor ---> [ MICROCONTROLLER ] ---> motor driver\n      (SENSE)                  (THINK)                (ACT)\n                          runs your program\n                          forever, in a loop"
+    },
+    {
+      "type": "heading",
+      "value": "The Pins Are the Whole Interface"
+    },
+    {
+      "type": "paragraph",
+      "value": "A microcontroller talks to the outside world through a row of metal legs called pins, each one either reading a voltage in or pushing a voltage out. That's the entire vocabulary — no mouse clicks, no keyboard presses, just pins going high or low, or measuring how high a voltage on them is. The next few lessons are about exactly how much you can build out of that one simple idea."
+    },
+    {
+      "type": "tip",
+      "value": "\"Microcontroller\" and \"microprocessor\" get used loosely, but a microcontroller specifically bundles the processor with memory and pins all on one chip — that's what makes it cheap enough to put one in almost anything."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a microcontroller is a tiny, single-purpose computer with no screen, built to run one program forever and talk to the world entirely through its pins."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What's the main difference between your laptop and a microcontroller?",
+      "options": [
+        "A microcontroller is faster",
+        "A microcontroller runs one program forever and talks only through pins, instead of running many programs with a screen and keyboard",
+        "There is no real difference"
+      ],
+      "answer": 1,
+      "explain": "General-purpose computers juggle many programs and have rich input/output. A microcontroller is built to do one job, cheaply and with almost no power."
+    },
+    {
+      "question": "In the sense-think-act loop, which box is the microcontroller?",
+      "options": [
+        "SENSE",
+        "THINK",
+        "ACT"
+      ],
+      "answer": 1,
+      "explain": "Sensors bring numbers in, actuators push decisions out — the microcontroller in the middle is where the decision itself happens."
+    },
+    {
+      "question": "How does a microcontroller talk to the outside world?",
+      "options": [
+        "Through a screen and keyboard",
+        "Through Wi-Fi only",
+        "Through its pins, each one reading or writing a voltage"
+      ],
+      "answer": 2,
+      "explain": "Pins are the entire interface. Every sensor and every motor connects through one."
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "lessonId": "robot-arduino",
+  "title": "Arduino: The Simpler Cousin",
+  "description": "Component lesson. A second common board, and honestly: why two boards exist, and when to pick which.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why It Exists"
+    },
+    {
+      "type": "paragraph",
+      "value": "If the ESP32 does so much, why does anyone still use anything else? Because \"does more\" isn't always what a project needs. Arduino boards — the Uno is the classic one — strip things back to just a processor and pins, no wireless radio, and that simplicity is exactly the point for a lot of beginner projects."
+    },
+    {
+      "type": "heading",
+      "value": "How It's Different"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "                    ESP32              Arduino Uno\nWi-Fi/Bluetooth     yes                 no\nGPIO pins           ~34                 ~20\nLogic voltage       3.3V                5V\nClock speed         240 MHz             16 MHz\nBeginner-friendly   yes                 yes, and slightly simpler\nPrice               ≈ ₹450              ≈ ₹550"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice the voltage row: Arduino Uno's pins are 5V logic, which happens to match a lot of older sensor modules built before 3.3V boards were common. That's often the real deciding factor, more than raw power."
+    },
+    {
+      "type": "heading",
+      "value": "Why Two Boards Exist"
+    },
+    {
+      "type": "paragraph",
+      "value": "They're not really competitors — they're tools for different jobs. If a project needs Wi-Fi, more pins, or more processing power, the ESP32 wins easily. If a project is small, doesn't need wireless, and needs to wire up cleanly to 5V parts, Arduino's simplicity and huge library of ready-made example code can make it the faster build."
+    },
+    {
+      "type": "paragraph",
+      "value": "ARIA uses an ESP32 because this course eventually wants Wi-Fi (Module 11's remote control and voice features need it), but almost everything you learn about pins, digital signals and PWM in this module works identically on either board — the concepts don't belong to one chip."
+    },
+    {
+      "type": "tip",
+      "value": "\"Arduino\" is also the name of the beginner-friendly programming environment both boards can be coded in, which is part of why the two names get used together so often — the board and the toolchain share a name."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: Arduino boards trade away wireless for simplicity and 5V compatibility. Neither board is strictly better — the right one depends on what the project needs."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does a classic Arduino Uno leave out that the ESP32 includes?",
+      "options": [
+        "GPIO pins entirely",
+        "Built-in Wi-Fi and Bluetooth",
+        "A processor"
+      ],
+      "answer": 1,
+      "explain": "Arduino Uno has no wireless radio at all — that stripped-down simplicity is its main trade-off against the ESP32."
+    },
+    {
+      "question": "A project needs to wire up several older 5V sensor modules and never needs Wi-Fi. Which board fits more naturally?",
+      "options": [
+        "Arduino Uno, since its 5V logic matches the sensors directly",
+        "ESP32, always, in every situation",
+        "Neither board can wire up a 5V sensor"
+      ],
+      "answer": 0,
+      "explain": "Matching logic voltage avoids needing a level-shifter. When wireless isn't needed, Arduino's 5V pins can be the simpler match."
+    },
+    {
+      "question": "Why does ARIA use an ESP32 rather than an Arduino Uno?",
+      "options": [
+        "Because Arduino boards can't run any code",
+        "Because later modules need Wi-Fi for remote control and voice features",
+        "Because Arduino is more expensive"
+      ],
+      "answer": 1,
+      "explain": "The deciding factor is future needs — Module 11's autonomous and remote-control features rely on the wireless the ESP32 already has built in."
+    }
+  ]
+}

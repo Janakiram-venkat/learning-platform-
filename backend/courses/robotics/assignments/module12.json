@@ -1,0 +1,75 @@
+{
+  "moduleId": 12,
+  "title": "Graduation Arcade",
+  "intro": "Five rounds pulling together the whole course. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "🏆",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "Both motors are commanded at the same speed, but the robot circles instead of driving straight. What's the likely fault category?",
+      "options": [
+        "Wiring — one motor's leads are probably swapped",
+        "Sensor",
+        "Code"
+      ],
+      "answer": 0,
+      "explain": "If the commanded speeds truly match, a circle almost always traces back to a physically reversed motor connection."
+    },
+    {
+      "type": "concept",
+      "prompt": "A robot resets the instant its motors start spinning. What does this symptom point to?",
+      "options": [
+        "A bug in the robot's Python code",
+        "A power-system issue — the motor's startup current spike sagging the shared voltage rail",
+        "A sensor that's reading incorrectly"
+      ],
+      "answer": 1,
+      "explain": "A working LED and correct logic elsewhere, paired with a motor-triggered reset, is a classic real-world power symptom, not a software bug."
+    },
+    {
+      "type": "concept",
+      "prompt": "In the arena, what does 'fewer ticks used to reach the goal' approximate?",
+      "options": [
+        "Battery life remaining",
+        "A rough stand-in for time — a more direct, efficient program",
+        "The number of sensors used"
+      ],
+      "answer": 1,
+      "explain": "Each tick is a fixed simulated time step, so fewer of them to the goal is a fair proxy for a faster run."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each capstone card field to what part of the course it draws on.",
+      "pairs": [
+        {
+          "left": "SENSE field",
+          "right": "Modules 7-8, sensors"
+        },
+        {
+          "left": "THINK field",
+          "right": "Modules 9-10, logic and code"
+        },
+        {
+          "left": "ACT field",
+          "right": "Modules 4-6, actuators"
+        },
+        {
+          "left": "The loop itself",
+          "right": "Module 1's very first lesson"
+        }
+      ],
+      "explain": "The capstone card is deliberately structured as a map of the whole course, one field at a time."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why does the final assessment take the form of Part Hunt rather than a written test?",
+      "options": [
+        "It's easier to build than a quiz",
+        "It matches the hands-on, interactive teaching style used throughout the entire course",
+        "Written tests are technically impossible in this format"
+      ],
+      "answer": 1,
+      "explain": "Every module favoured doing over reciting — the final exam stays consistent with that all the way through."
+    }
+  ]
+}

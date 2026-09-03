@@ -1,0 +1,111 @@
+{
+  "lessonId": "robot-debug-lab",
+  "title": "The Debug Lab",
+  "description": "Four broken robots, symptoms only. This is the single most valuable skill this course can leave you with: working backwards from what's wrong to why.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Symptoms Are Clues, Not Answers"
+    },
+    {
+      "type": "paragraph",
+      "value": "A real robot doesn't announce what's wrong with it. It just behaves strangely, and the person building it has to reason backwards: what would have to be true, physically or in the code, to produce exactly this symptom and no other?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every category below traces back to something this course already taught. Power failures connect to Module 3. Wiring failures connect to Modules 4 through 8. Sensor failures connect to Module 7. Code failures connect to Modules 9 and 10."
+    },
+    {
+      "type": "widget",
+      "kind": "classify",
+      "title": "🔍 Diagnose each robot",
+      "prompt": "Read each symptom and decide which category the fault is really in.",
+      "xp": 35,
+      "xpKey": "robotics-m12-debug",
+      "options": [
+        { "id": "power", "label": "Power", "emoji": "⚡" },
+        { "id": "wiring", "label": "Wiring", "emoji": "🔌" },
+        { "id": "sensor", "label": "Sensor", "emoji": "📡" },
+        { "id": "code", "label": "Code", "emoji": "🐍" }
+      ],
+      "tasks": [
+        {
+          "id": "circles",
+          "label": "Both motors are commanded at the same speed, but the robot drives in a slow circle instead of straight",
+          "emoji": "🔄",
+          "answer": "wiring",
+          "explain": "If both motors are truly told to spin the same speed, a circle almost always means one motor's leads are swapped — it's spinning backwards relative to the other, cancelling out forward progress on that side."
+        },
+        {
+          "id": "led-stuck",
+          "label": "The status LED blinks exactly as programmed, but the wheels never turn at all",
+          "emoji": "💡",
+          "answer": "wiring",
+          "explain": "A working LED proves the controller has power and is running your code correctly. Something between the controller's output pins and the motor driver is disconnected — a wiring problem, not a power or code one."
+        },
+        {
+          "id": "distance-zero",
+          "label": "robot.distance() always returns 0, no matter what's actually in front of the robot",
+          "emoji": "📏",
+          "answer": "sensor",
+          "explain": "A reading that never changes at all, regardless of the real world, points straight at the sensor itself — miswired, facing the wrong way, or physically blocked."
+        },
+        {
+          "id": "resets",
+          "label": "The whole robot resets and reboots the instant the motors start spinning",
+          "emoji": "🔁",
+          "answer": "power",
+          "explain": "Motors draw a big current spike when they start. If that spike drags the shared voltage rail down far enough, the controller can brown out and reset — a classic power-system symptom, not a code bug."
+        },
+        {
+          "id": "swapped",
+          "label": "The robot reliably turns left every single time the code says right",
+          "emoji": "↩️",
+          "answer": "code",
+          "explain": "Nothing here is physically wrong — the hardware does exactly what it's told. The instruction itself is simply backwards somewhere in the program."
+        }
+      ]
+    },
+    {
+      "type": "tip",
+      "value": "Notice the method: rule things out by what still works. A blinking LED rules out total power failure. A distance reading that changes at all (even wrongly) rules out a fully dead sensor. Debugging is mostly the art of finding what's still working, and narrowing from there."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: diagnosing a fault means reasoning backwards from a symptom to its likely cause — and every category of fault (power, wiring, sensor, code) traces back to a specific part of this course you already understand."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A robot's status LED works perfectly, but the motors never respond. What does the working LED tell you?",
+      "options": [
+        "Nothing useful",
+        "The controller has power and is running code correctly, ruling out a total power failure",
+        "The motors are definitely broken"
+      ],
+      "answer": 1,
+      "explain": "A working LED is strong evidence the controller itself is fine — it narrows the fault to something downstream of the controller."
+    },
+    {
+      "question": "Why does a motor-triggered reset point at the power system rather than the code?",
+      "options": [
+        "It's a coincidence with no real explanation",
+        "Motors draw a current spike on startup that can sag shared voltage below the controller's minimum, causing a brownout reset",
+        "Resets are always caused by bad code, never by hardware"
+      ],
+      "answer": 1,
+      "explain": "This is a genuine, common real-world failure mode — a physical, electrical cause producing a symptom that could easily be mistaken for a software bug."
+    },
+    {
+      "question": "What's the general debugging strategy this lesson teaches?",
+      "options": [
+        "Guess randomly until something works",
+        "Reason backwards from the symptom, using what still works correctly to rule out entire categories of fault",
+        "Always assume the code is at fault first"
+      ],
+      "answer": 1,
+      "explain": "Using what's still working to eliminate possibilities is the real, transferable skill — far more useful than any specific fix."
+    }
+  ]
+}

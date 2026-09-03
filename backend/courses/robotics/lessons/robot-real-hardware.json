@@ -1,0 +1,90 @@
+{
+  "lessonId": "robot-real-hardware",
+  "title": "The Honest Bridge to Real Hardware",
+  "description": "Everything in this course has been building toward one honest question: what would it actually take to build ARIA for real?",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Flashing: Getting Code Onto the Chip"
+    },
+    {
+      "type": "paragraph",
+      "value": "\"Flashing\" means copying your program's compiled form onto the ESP32's own permanent storage, so it starts running that program the instant it powers on — no laptop attached, no simulator, just the chip and your code. It's done once per version of your program, over a USB cable, using free tools built exactly for this."
+    },
+    {
+      "type": "heading",
+      "value": "The Real Toolchain"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "1. Plug the ESP32 into a computer over USB\n2. Flash MicroPython itself onto it (a one-time setup step)\n3. Open Thonny (a free, beginner-friendly Python editor) and connect to the board\n4. Write and run code directly on the chip, exactly like this course's editor\n5. Save your finished program so it runs automatically on power-up"
+    },
+    {
+      "type": "paragraph",
+      "value": "Thonny is worth naming specifically: it's built for exactly this beginner-to-hardware journey, and it makes talking to a real ESP32 feel almost identical to this course's simulator — the same run button, the same idea of typing code and watching it execute."
+    },
+    {
+      "type": "heading",
+      "value": "What Actually Changes"
+    },
+    {
+      "type": "paragraph",
+      "value": "Your logic doesn't change at all — the previous lesson already showed that. What changes is everything underneath: real sensors have real noise (a real ultrasonic sensor occasionally returns a bad reading, unlike the clean simulator), real motors draw real current (Module 5's whole lesson on why you can't wire a motor straight to a pin becomes a genuine, physical constraint), and real batteries run down over the course of a session."
+    },
+    {
+      "type": "heading",
+      "value": "A Real Bill of Materials"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Chassis kit (plate, motors, wheels, caster)   ≈ ₹600\nESP32 dev board                                ≈ ₹450\nMotor driver (L298N or DRV8833)                ≈ ₹120\n18650 battery + holder                         ≈ ₹250\nUltrasonic sensor (HC-SR04)                    ≈ ₹100\nIR sensors ×2                                  ≈ ₹60\nJumper wires, breadboard, misc.                ≈ ₹250\n─────────────────────────────────────────────\nTotal                                          ≈ ₹1,830"
+    },
+    {
+      "type": "paragraph",
+      "value": "Numbers are real, not rounded to something tidy — a genuine beginner robot build in India, at today's prices, lands close to this. It's deliberately less than the ₹3,500 a fancier build with a camera or LiDAR would cost, because everything on this list is exactly what this course has already taught you to wire and program."
+    },
+    {
+      "type": "tip",
+      "value": "Nothing about the rest of this course requires real hardware — every remaining project runs in simulation. But if you do build ARIA for real one day, every method you've called on the simulated robot object maps to something you've already learned the honest, physical reason for."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: flashing gets your code running on the chip itself, independent of a computer. The logic you've learned transfers completely — what's different on real hardware is noise, current limits, and battery life, all things this course already explained the reasons for."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does 'flashing' a microcontroller mean?",
+      "options": [
+        "Making the onboard LED blink rapidly",
+        "Copying a program onto the chip's own storage so it runs automatically on power-up, with no computer attached",
+        "Resetting the chip to factory settings"
+      ],
+      "answer": 1,
+      "explain": "Flashing makes the program permanent on the device itself — the whole point of an embedded system running independently."
+    },
+    {
+      "question": "What genuinely changes between this course's simulator and a real physical build?",
+      "options": [
+        "The entire programming language has to be relearned",
+        "Real-world factors like sensor noise, motor current limits, and battery life become real physical constraints, not just lesson content",
+        "Nothing at all changes"
+      ],
+      "answer": 1,
+      "explain": "The logic transfers unchanged — what's new on real hardware is dealing with the physical world's imperfections directly."
+    },
+    {
+      "question": "Why is the course's example bill of materials given as real, specific prices rather than a rounded estimate?",
+      "options": [
+        "So a student who goes on to build for real isn't surprised by rounded, unrealistic numbers",
+        "It's a marketing decision with no teaching purpose",
+        "Prices are only estimates and don't matter"
+      ],
+      "answer": 0,
+      "explain": "This matches the course's content rule: numbers are real, because students who eventually build for real shouldn't be caught off guard."
+    }
+  ]
+}

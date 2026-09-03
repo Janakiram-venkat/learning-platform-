@@ -1,0 +1,81 @@
+{
+  "lessonId": "robot-gesture",
+  "title": "Gesture: Hand Pose Into Command",
+  "description": "A wave, a thumbs up, an open palm — turning a hand's shape into an instruction ARIA can act on.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Detecting the Hand, Then Reading It"
+    },
+    {
+      "type": "paragraph",
+      "value": "Gesture recognition is a two-step version of the same idea from the last two lessons. First, detect where a hand is and the position of its key points — fingertips, knuckles, wrist — the same box-and-landmark technique as face detection. Then, a second step matches that pattern of points against a small library of known gestures."
+    },
+    {
+      "type": "widget",
+      "kind": "detection-reveal",
+      "title": "🔎 Detect the hand pose",
+      "hint": "The hand is detected first — matching it to a specific gesture is the next step.",
+      "sceneEmoji": "✋",
+      "boxes": [
+        { "label": "hand", "x": 15, "y": 10, "w": 70, "h": 75, "confidence": 93 }
+      ],
+      "xp": 15,
+      "xpKey": "robotics-m11-gesture"
+    },
+    {
+      "type": "heading",
+      "value": "From Pose to Command"
+    },
+    {
+      "type": "paragraph",
+      "value": "Once the key points are known, matching them to a gesture is closer to Module 9's decision blocks than to detection: an open palm's fingertips are all far from the wrist; a fist's are all close to it. A small set of rules — or a trained pattern, either approach works — turns that geometry into a name: \"stop\", \"come here\", \"turn around\"."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "detected hand landmarks --> measure fingertip-to-wrist distances\n                        --> match against known gesture patterns\n                        --> command: \"stop\" / \"come here\" / \"wave back\""
+    },
+    {
+      "type": "tip",
+      "value": "This is exactly the sense-think-act loop again, just with a much richer sense step. \"Command detected\" is the THINK output; what ARIA does with that command — stopping, approaching, waving — is still an ordinary ACT step, no different from anything earlier in this course."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: gesture recognition detects a hand's key points, then matches their geometry against known gesture patterns to produce a command — a richer SENSE step feeding the exact same loop this whole course has been building."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What are the two steps behind gesture recognition?",
+      "options": [
+        "Detect the hand and its key points, then match that pattern against known gestures",
+        "Just one step — gestures are detected directly with no intermediate stage",
+        "Reading the person's voice, then their hand"
+      ],
+      "answer": 0,
+      "explain": "Detection finds the geometry; a separate matching step turns that geometry into a named gesture."
+    },
+    {
+      "question": "How does an open palm's landmark geometry typically differ from a closed fist's?",
+      "options": [
+        "There's no measurable difference at all",
+        "An open palm's fingertips sit far from the wrist; a fist's sit close to it",
+        "Fists have more visible landmarks than open palms"
+      ],
+      "answer": 1,
+      "explain": "That distance measurement is exactly the kind of simple geometric feature a gesture-matching step can use."
+    },
+    {
+      "question": "How does gesture recognition fit the sense-think-act loop from Module 1?",
+      "options": [
+        "It doesn't fit that loop at all — gestures are a completely separate idea",
+        "It's a richer SENSE step; the resulting command still becomes an ordinary THINK/ACT sequence",
+        "It replaces the THINK step entirely"
+      ],
+      "answer": 1,
+      "explain": "Detecting and naming a gesture is still just sensing, in the end — everything the robot does with that command is the same THINK/ACT this course has always used."
+    }
+  ]
+}

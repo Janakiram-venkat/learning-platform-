@@ -1,0 +1,112 @@
+{
+  "lessonId": "robot-battery",
+  "title": "Battery: The Tank",
+  "description": "Component lesson. A battery is where the whole loop starts — a chemical reaction, packaged, waiting to push electrons for you.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why It Exists"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every circuit needs something to raise the tank in the first place. That's the battery's whole job: turn stored chemical energy into a steady electrical push, so current has a reason to flow at all."
+    },
+    {
+      "type": "image",
+      "src": "/course-images/robotics/robot-battery/18650-cell.jpg",
+      "ratio": "16 / 9",
+      "want": "A cylindrical 18650 lithium-ion battery cell, photographed on a plain background, label visible",
+      "alt": "A cylindrical 18650 lithium-ion battery cell",
+      "caption": "ARIA runs on an 18650 cell — the same cylinder shape used in laptop battery packs and power tools.",
+      "credit": ""
+    },
+    {
+      "type": "heading",
+      "value": "How It Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "Inside, two different chemicals are kept apart by a separator, soaked in an electrolyte. One side wants to give up electrons, the other wants to receive them — but they can only do it through an outside path. Connect a wire between the two ends and that path opens: electrons rush out through the wire, and chemistry keeps the push going until the reaction runs out."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "chemical reaction  --push-->  electrons out the (-) terminal\n                               through your circuit\n                    <--flow--  back in the (+) terminal"
+    },
+    {
+      "type": "paragraph",
+      "value": "\"Discharging\" is that reaction running forward. \"Charging\" pushes it back the other way with an outside power source, storing energy again for next time. Not every battery chemistry can be recharged safely — the ones that can, like the 18650, say so on the label."
+    },
+    {
+      "type": "heading",
+      "value": "Types"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "AA / AAA alkaline   1.5V   cheap, not rechargeable, low current\n18650 Li-ion        3.7V   rechargeable, high current, powers ARIA\n9V block             9V    handy voltage, weak current, short life\ncoin cell           3V    tiny devices only (watches, some sensors)"
+    },
+    {
+      "type": "heading",
+      "value": "Specs"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Part          18650 Li-ion cell\nVoltage       3.7V nominal (4.2V full, 3.0V empty)\nCapacity      ~2600 mAh (can supply 2600 mA for one hour)\nPrice         ≈ ₹150–250 per cell"
+    },
+    {
+      "type": "heading",
+      "value": "Watch Out"
+    },
+    {
+      "type": "paragraph",
+      "value": "Never short the two terminals together with a bare wire — with no resistor or load in the way, current tries to become enormous almost instantly, and the cell gets very hot very fast. Never puncture, crush, or charge a cell with the wrong charger. And check polarity before wiring: connecting a battery backwards can damage whatever it's powering."
+    },
+    {
+      "type": "widget",
+      "kind": "circuit-sandbox",
+      "title": "🔋 Try different voltages",
+      "hint": "Slide the resistor down toward a short — watch how fast the current climbs even before it becomes dangerous.",
+      "mode": "basic",
+      "voltage": 9
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a battery is stored chemistry, released as a steady electrical push (voltage) for as long as the reaction has fuel left."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What actually stops a battery from discharging the instant you make one?",
+      "options": [
+        "Nothing outside the battery is needed — it discharges on its own",
+        "The two chemicals can only exchange electrons through an external path, and there isn't one until you wire it",
+        "The plastic wrapper blocks it"
+      ],
+      "answer": 1,
+      "explain": "The chemistry is ready to react, but the electrons need somewhere to go. Without a completed circuit outside the cell, there's no path for them."
+    },
+    {
+      "question": "Why is shorting a battery's terminals together dangerous?",
+      "options": [
+        "It does nothing at all",
+        "With almost no resistance in the path, the circuit tries to draw a huge current very quickly, heating the cell",
+        "It instantly drains the battery to zero with no side effects"
+      ],
+      "answer": 1,
+      "explain": "I = V/R — when R collapses toward zero, I shoots toward enormous. That current turns into heat inside the cell, which is exactly the danger."
+    },
+    {
+      "question": "ARIA's 18650 cell is rated 2600 mAh. Roughly how is that useful to know?",
+      "options": [
+        "It tells you the cell's colour",
+        "It estimates how long the cell can supply a given current before it's empty",
+        "It has nothing to do with runtime"
+      ],
+      "answer": 1,
+      "explain": "mAh (milliamp-hours) is a capacity rating: a 2600 mAh cell can supply roughly 2600 mA for one hour, or 260 mA for ten hours, and so on."
+    }
+  ]
+}

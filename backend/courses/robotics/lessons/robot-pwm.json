@@ -1,0 +1,103 @@
+{
+  "lessonId": "robot-pwm",
+  "title": "PWM: Faking In-Between Values",
+  "description": "A digital pin can't output half-voltage — so how does ARIA dim an LED, or set a motor to half speed? By blinking, very fast, and lying to your eyes about it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Problem"
+    },
+    {
+      "type": "paragraph",
+      "value": "Last lesson's rule was strict: a digital pin is only ever HIGH or LOW. But plenty of things a robot needs aren't binary — a dimmer LED, a motor running at half speed, a servo holding a precise in-between angle. If the pin genuinely can't do \"half on\", how does any of that work?"
+    },
+    {
+      "type": "heading",
+      "value": "The Trick: Blink Faster Than You Can See"
+    },
+    {
+      "type": "paragraph",
+      "value": "The pin still only ever outputs HIGH or LOW — but it switches between them so fast, dozens or hundreds of times a second, that your eye can't follow the individual flips. What you perceive instead is an average: an LED that's on 75% of the time and off 25% looks like a dimmer, steady LED, even though at any single instant it's actually fully on or fully off."
+    },
+    {
+      "type": "paragraph",
+      "value": "This trick is called PWM — Pulse Width Modulation. \"Pulse width\" is exactly what it sounds like: how wide (how long) each HIGH pulse is, out of one full cycle."
+    },
+    {
+      "type": "widget",
+      "kind": "pwm-sim",
+      "title": "🔆 Drag the duty cycle, then slow the frequency",
+      "hint": "Set duty to about 50%, then drag frequency all the way down. The steady dimming will resolve into visible blinking — that's the illusion breaking.",
+      "xp": 20,
+      "xpKey": "robotics-m4-pwm"
+    },
+    {
+      "type": "heading",
+      "value": "Duty Cycle"
+    },
+    {
+      "type": "paragraph",
+      "value": "The percentage of each cycle spent HIGH is called the duty cycle. 100% duty is indistinguishable from just leaving the pin on. 0% duty is the same as leaving it off. Everything useful happens in between."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "25% duty   ▔▁▁▁ ▔▁▁▁ ▔▁▁▁     dim LED, slow motor\n50% duty   ▔▔▁▁ ▔▔▁▁ ▔▔▁▁     half-bright LED, half-speed motor\n90% duty   ▔▔▔▁ ▔▔▔▁ ▔▔▔▁     nearly full brightness/speed"
+    },
+    {
+      "type": "paragraph",
+      "value": "Frequency is how many of those cycles happen per second, measured in Hz. It needs to be fast enough that you (or a motor's own mechanical sluggishness) can't follow the individual flips — typically somewhere from a few hundred to a few thousand Hz on real hardware, though the widget above deliberately lets you go slow enough to see the trick break."
+    },
+    {
+      "type": "tip",
+      "value": "A motor doesn't have eyes to fool — but it does have physical inertia, which averages out fast on/off pulses into smooth partial-speed spinning the same way your eye averages out an LED's flicker into a dimmer glow. Same trick, different reason it works."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: PWM fakes an in-between value by rapidly switching a digital pin HIGH and LOW. Duty cycle (percent of time HIGH) controls the apparent brightness or speed; frequency just needs to be fast enough that the flicker isn't perceptible."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Is a PWM pin ever actually outputting a half-voltage signal?",
+      "options": [
+        "Yes, PWM genuinely outputs in-between voltages",
+        "No — it's always fully HIGH or fully LOW, just switching fast enough that it looks in-between",
+        "Only on Arduino boards, not ESP32"
+      ],
+      "answer": 1,
+      "explain": "PWM never leaves the digital HIGH/LOW world. It fakes an average by controlling how much time is spent in each state."
+    },
+    {
+      "question": "An LED is driven with a 20% duty cycle. Roughly how does it look?",
+      "options": [
+        "Fully bright",
+        "Fully off",
+        "Dim — noticeably darker than full brightness, but not off"
+      ],
+      "answer": 2,
+      "explain": "20% duty means the pin is HIGH only a fifth of the time. Averaged by your eye, that reads as a dim glow rather than full brightness or darkness."
+    },
+    {
+      "question": "In the widget, dragging frequency down to about 1–2 Hz breaks the illusion. Why?",
+      "options": [
+        "Low frequency actually changes the duty cycle",
+        "The individual on/off flips become slow enough for your eye to follow them directly, instead of averaging them",
+        "It doesn't break anything, that's a bug"
+      ],
+      "answer": 1,
+      "explain": "PWM relies on flips being too fast to perceive. Slow them down enough and you're just watching a blinking light, one flip at a time."
+    },
+    {
+      "question": "Why does duty cycle work for controlling a DC motor's speed, even though the motor never actually gets a fractional voltage either?",
+      "options": [
+        "Motors have physical inertia that smooths rapid on/off pulses into an averaged, slower spin — the same averaging trick, for a mechanical reason instead of a visual one",
+        "Motors secretly can read in-between voltages",
+        "It doesn't work for motors, only LEDs"
+      ],
+      "answer": 0,
+      "explain": "The motor's own mechanical sluggishness plays the same role your eye plays for an LED — it can't react to each individual pulse, so it responds to the average."
+    }
+  ]
+}

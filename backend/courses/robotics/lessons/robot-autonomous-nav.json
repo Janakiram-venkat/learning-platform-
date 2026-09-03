@@ -1,0 +1,83 @@
+{
+  "lessonId": "robot-autonomous-nav",
+  "title": "Autonomous Navigation: All of It Together",
+  "description": "Every sense in this course, combined into one loop: map the world, know where you are in it, plan a path, drive — and replan the instant something changes.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Full Loop"
+    },
+    {
+      "type": "paragraph",
+      "value": "This is the module's final destination: a robot that can cross a room it's never seen, using nothing but its own senses. It's built from five stages, running continuously — not once, but again and again, because the world doesn't hold still."
+    },
+    {
+      "type": "widget",
+      "kind": "pipeline-stages",
+      "title": "🗺️ Walk through autonomous navigation",
+      "hint": "This is the whole course, one more time, at its most capable.",
+      "stages": [
+        { "emoji": "🗺️", "label": "Map", "detail": "Build a picture of the surroundings — Module 8's LiDAR point cloud, or a series of ultrasonic pings, turned into a map of walls and open space." },
+        { "emoji": "📍", "label": "Localise", "detail": "Work out where the robot itself sits within that map. Without this step, a perfect map is useless — you need to know your own position on it." },
+        { "emoji": "🧭", "label": "Plan", "detail": "Given the map and the robot's position, calculate a path from here to the goal that avoids every known obstacle." },
+        { "emoji": "🚗", "label": "Drive", "detail": "Follow that planned path using differential drive, exactly as Module 5 taught — two wheel speeds, nothing more." },
+        { "emoji": "🔁", "label": "Replan", "detail": "A new obstacle appears that wasn't on the original map. Rather than crashing into it, the robot updates its map and recalculates a path around it, live." }
+      ],
+      "xp": 30,
+      "xpKey": "robotics-m11-nav"
+    },
+    {
+      "type": "heading",
+      "value": "Why Replanning Is the Real Test"
+    },
+    {
+      "type": "paragraph",
+      "value": "Any robot can follow a fixed path through an empty, known room. The genuinely hard, genuinely valuable part is stage five: something changes — a door closes, someone walks through, a box gets left on the floor — and the robot notices and adapts, instead of blindly continuing a plan that's no longer valid."
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice this entire five-stage loop is still, underneath everything, sense (map, localise), think (plan), act (drive), repeat (replan) — Module 1's loop, run at a scale that took this whole course to build up to."
+    },
+    {
+      "type": "tip",
+      "value": "You've now met every idea autonomous navigation depends on: sensors from Modules 7-8, movement from Module 5, and decision-making from Module 9-10. Nothing about this lesson is new physics — it's everything you already know, composed into one system."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: autonomous navigation is map, localise, plan, drive and replan, running continuously. Replanning when the world changes — not just following a fixed plan — is what makes a robot genuinely autonomous rather than merely automatic."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why is 'localise' a separate stage from 'map'?",
+      "options": [
+        "It isn't really separate, they're the same step",
+        "A perfect map is useless without also knowing where the robot itself currently sits within it",
+        "Localising happens before any sensors are used at all"
+      ],
+      "answer": 1,
+      "explain": "Knowing the world's layout and knowing your own position in it are genuinely two different problems, both needed to plan a path."
+    },
+    {
+      "question": "What makes the 'replan' stage the real test of an autonomous system, rather than just a nice extra?",
+      "options": [
+        "It's optional and rarely used in practice",
+        "It's what lets the robot adapt when the world doesn't match its original map, instead of blindly following an outdated plan",
+        "It only matters for very large rooms"
+      ],
+      "answer": 1,
+      "explain": "A fixed plan through a known, unchanging room is the easy case. Genuine autonomy shows up when something unexpected happens and the robot responds."
+    },
+    {
+      "question": "How does this five-stage pipeline relate to Module 1's sense-think-act loop?",
+      "options": [
+        "It's an unrelated, completely new idea",
+        "It's the same loop, just expanded: map/localise are sensing, plan is thinking, drive is acting, and replan closes the loop again",
+        "It replaces the sense-think-act loop entirely"
+      ],
+      "answer": 1,
+      "explain": "Every stage maps back onto the original three-box loop — this lesson is that same idea, scaled up to its most capable form."
+    }
+  ]
+}

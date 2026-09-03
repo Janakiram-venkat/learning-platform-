@@ -1,0 +1,65 @@
+{
+  "lessonId": "robot-variables-sensors",
+  "title": "Variables and Sensors",
+  "description": "A sensor reading is only useful for an instant unless you catch it in a variable. This is where robot.distance() actually earns its keep.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Catching a Reading"
+    },
+    {
+      "type": "paragraph",
+      "value": "Call robot.distance() on its own and the number vanishes the instant it's returned — nothing kept it. Store it in a variable, and now you can compare it, print it, or reuse it more than once without asking the sensor again."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "d = robot.distance()      # d now holds a number, e.g. 47.0\nif d < 30:\n    robot.left(30)\nelse:\n    robot.forward(50)"
+    },
+    {
+      "type": "paragraph",
+      "value": "This matters more than it looks: calling robot.distance() a second time might return a completely different number, since the robot may have moved between calls. Storing it once in d guarantees your if statement is judging the same reading it just took."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-code",
+      "title": "🐍 Read, store, decide",
+      "hint": "Store robot.distance() in a variable called d, then write an if/else using it. Try robot.say(d) to see the actual number.",
+      "worldId": "obstacleRoom",
+      "starterCode": "d = robot.distance()\nrobot.say(d)\nif d < 40:\n    robot.left(45)\nelse:\n    robot.forward(60)\n",
+      "xp": 25,
+      "xpKey": "robotics-m10-variables"
+    },
+    {
+      "type": "tip",
+      "value": "robot.line() returns two values at once — a pair. Python lets you unpack a pair straight into two variables in one line: left_on, right_on = robot.line()."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a sensor reading only lasts an instant unless a variable captures it. Storing a reading before deciding also guarantees your decision is judging one consistent moment, not two different ones."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why store robot.distance() in a variable instead of calling it twice — once in a print, once in an if?",
+      "options": [
+        "Both calls always return the exact same number, so it doesn't matter",
+        "The robot may have moved between the two calls, so the readings could genuinely differ",
+        "robot.distance() can only be called once per program"
+      ],
+      "answer": 1,
+      "explain": "Sensor readings reflect the current instant — calling twice risks judging two different moments as if they were one."
+    },
+    {
+      "question": "What does `left_on, right_on = robot.line()` do?",
+      "options": [
+        "It's a syntax error",
+        "It unpacks the pair robot.line() returns into two separate variables in one line",
+        "It runs robot.line() twice"
+      ],
+      "answer": 1,
+      "explain": "Python lets a function that returns a pair be unpacked directly into two named variables at once."
+    }
+  ]
+}

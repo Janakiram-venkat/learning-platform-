@@ -1,0 +1,59 @@
+{
+  "lessonId": "robot-sequence",
+  "title": "Sequence: Blocks in Order",
+  "description": "The simplest shape of all: do this, then this, then this. Build your first real program and drive a robot through a maze.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Order Matters"
+    },
+    {
+      "type": "paragraph",
+      "value": "A sequence is nothing more than a list of steps, run top to bottom, one after another. It sounds almost too simple to teach — until you notice that swapping the order of two steps can produce a completely different result. \"Turn right, then move forward\" and \"move forward, then turn right\" send a robot to two different places."
+    },
+    {
+      "type": "widget",
+      "kind": "block-maze",
+      "title": "🧩 Drive to the flag",
+      "hint": "Stack Move forward, Turn left and Turn right blocks in order to get from the start to the 🏁.",
+      "mazeId": "basic",
+      "xp": 25,
+      "xpKey": "robotics-m9-sequence"
+    },
+    {
+      "type": "paragraph",
+      "value": "There's no trick to this maze — it just needs the right steps in the right order, one block at a time. Notice how many blocks it took. The next lesson introduces a way to say \"repeat this part\" instead of writing it out by hand every time, which is exactly the kind of thing that starts to matter once a sequence gets long."
+    },
+    {
+      "type": "tip",
+      "value": "This exact idea — instructions running one after another — is what every one of ARIA's real Python programs will do too, starting next module. Blocks just make the order visible as a physical stack instead of lines of text."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a sequence runs steps in the exact order they're stacked. Getting the order right is often the entire challenge, even with completely correct individual steps."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A robot is told \"turn right, then move forward\" instead of \"move forward, then turn right.\" What's true about these two sequences?",
+      "options": [
+        "They're identical — order never matters",
+        "They can send the robot to two different places, since order changes the result",
+        "The second one is always faster"
+      ],
+      "answer": 1,
+      "explain": "The exact same two steps, reordered, take the robot somewhere different — order is part of what a sequence means."
+    },
+    {
+      "question": "What does a sequence block program actually do, mechanically?",
+      "options": [
+        "Runs every block at the same time",
+        "Runs the stacked blocks in order, top to bottom",
+        "Picks a random block to run first"
+      ],
+      "answer": 1,
+      "explain": "That's the entire definition of a sequence — one step after another, in the order written."
+    }
+  ]
+}

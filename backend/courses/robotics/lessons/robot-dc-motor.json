@@ -1,0 +1,94 @@
+{
+  "lessonId": "robot-dc-motor",
+  "title": "DC Motor: The Workhorse",
+  "description": "Component lesson. The exact motor that turns ARIA's wheels — and what happens inside when you ask it for more than it can give.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why It Exists"
+    },
+    {
+      "type": "paragraph",
+      "value": "The previous lesson's trick — current through a coil near a magnet, mounted to spin — needs one more piece to actually keep turning: something to flip the current's direction at exactly the right moment every half-turn, or the coil would just swing to a stop lined up with the magnet, like a compass needle settling."
+    },
+    {
+      "type": "heading",
+      "value": "How It Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "That job belongs to the commutator, a split metal ring that rotates with the coil, and the brushes, two spring-loaded contacts that stay still and press against it. As the commutator spins past the brushes, the split flips which way current flows through the coil at exactly the half-turn point — so the push never has a chance to run out."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "brushes (fixed) --press against--> commutator (spins with coil)\n\nhalf-turn 1: current flows one way   -> coil pushed forward\nsplit passes under the brushes       -> current direction flips\nhalf-turn 2: current flows other way -> coil still pushed forward"
+    },
+    {
+      "type": "heading",
+      "value": "Try It"
+    },
+    {
+      "type": "widget",
+      "kind": "motor-bench",
+      "title": "⚙️ Voltage and load",
+      "hint": "Crank the load up while voltage is low. Watch what happens to the current when the motor can't turn anymore.",
+      "xp": 20,
+      "xpKey": "robotics-m5-motor-bench"
+    },
+    {
+      "type": "paragraph",
+      "value": "More voltage means more push, so RPM climbs. But push a real motor with a stronger load than its current voltage can overcome, and something specific happens: the rotor can't turn, yet the coil is still trying to draw current — with nothing spinning to generate the usual back-resistance, current spikes upward instead of doing useful work. That's a stall, and it's exactly how motors overheat and burn out for real."
+    },
+    {
+      "type": "heading",
+      "value": "Specs"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Part          Small brushed DC gear motor (TT motor)\nVoltage       3–6V typical hobby range\nNo-load RPM   ~200 RPM (after gearing)\nStall current  several times higher than running current\nPrice         ≈ ₹60–100"
+    },
+    {
+      "type": "tip",
+      "value": "That gearbox matters: a bare motor spins fast but has very little turning force. Gearing trades some of that speed for a lot more torque — enough to actually move a chassis. You'll meet gear ratios properly in Module 6."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: brushes and a commutator keep a DC motor's push going continuously by flipping current direction each half-turn. Overload a motor beyond what its voltage can supply and it stalls — current spikes instead of turning into motion."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is the commutator's job inside a DC motor?",
+      "options": [
+        "To flip the current's direction through the coil at each half-turn, so the push never runs out",
+        "To measure the motor's speed",
+        "To supply power from the battery"
+      ],
+      "answer": 0,
+      "explain": "Without that flip, the coil would just swing to a stop aligned with the fixed magnet, like a compass needle."
+    },
+    {
+      "question": "In the widget, what happens to current when you push the load past what the voltage can overcome?",
+      "options": [
+        "It drops to zero",
+        "It stays exactly the same",
+        "It spikes upward, while RPM drops to zero — a stall"
+      ],
+      "answer": 2,
+      "explain": "A stalled motor still tries to draw current, but with nothing spinning to help regulate it, current climbs instead of producing motion."
+    },
+    {
+      "question": "Why does a stalled motor risk burning out?",
+      "options": [
+        "The spiking current turns into heat inside the motor with nowhere useful to go",
+        "Stalling makes the motor spin faster",
+        "Stalled motors are always disconnected automatically"
+      ],
+      "answer": 0,
+      "explain": "All that extra current has to go somewhere — with the motor not converting it into motion, it becomes heat, which is exactly what damages windings over time."
+    }
+  ]
+}

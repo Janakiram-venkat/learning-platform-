@@ -1,0 +1,81 @@
+{
+  "lessonId": "robot-differential-drive",
+  "title": "Differential Drive",
+  "description": "Two independent wheels, no steering mechanism at all — and yet ARIA can go straight, turn, arc, or spin in place. Here's how two speeds are all it takes.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "No Steering Wheel Needed"
+    },
+    {
+      "type": "paragraph",
+      "value": "A car needs a separate steering mechanism to turn its front wheels. ARIA doesn't have one — she doesn't need it, because her two drive wheels can each spin at their own independent speed. That's the entire idea behind differential drive: steering isn't a separate system, it's just a difference between two wheel speeds."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "left = right               ->  drives straight\nleft = right, but slower   ->  still straight, just slower\nleft > right                ->  arcs to the right\nleft = −right                ->  spins on the spot\none wheel = 0                ->  pivots around that wheel"
+    },
+    {
+      "type": "widget",
+      "kind": "drive-trainer",
+      "title": "🕹️ Predict, then try it",
+      "hint": "Before you touch a slider, guess what each combination above will do. Then check.",
+      "xp": 25,
+      "xpKey": "robotics-m5-drive-trainer"
+    },
+    {
+      "type": "heading",
+      "value": "Four Combinations, All the Moves You Need"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice there's no dedicated \"turn\" mechanism anywhere in ARIA's build — everything you just tried in the widget comes from nothing more than two independently-controlled motor speeds. That's the elegance of differential drive: maximum manoeuvrability from the simplest possible mechanism."
+    },
+    {
+      "type": "paragraph",
+      "value": "Formally, two numbers describe everything the robot is doing at any instant: its forward speed (the average of both wheels) and its turning rate (proportional to the difference between them). You don't need the formulas memorised — the widget's four rules above are the same idea in plain language."
+    },
+    {
+      "type": "tip",
+      "value": "This is also why differential drive robots can spin in a spot with zero turning radius, something a car fundamentally cannot do. It's a real advantage in tight spaces, and one reason it's such a common layout for small robots."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: differential drive steers with nothing but a difference between two independent wheel speeds. Equal speeds go straight; opposite speeds spin on the spot; anything between arcs."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "You set the left wheel to 50 and the right wheel to 50. What does ARIA do?",
+      "options": [
+        "Spins on the spot",
+        "Drives straight forward",
+        "Arcs sharply to one side"
+      ],
+      "answer": 1,
+      "explain": "Equal wheel speeds mean no difference between them, so there's no turning rate — just straight travel."
+    },
+    {
+      "question": "You set the left wheel to 50 and the right wheel to -50. What happens?",
+      "options": [
+        "It drives straight",
+        "It spins in place, since the wheels are pushing in opposite directions equally",
+        "It stops completely"
+      ],
+      "answer": 1,
+      "explain": "Opposite, equal-magnitude speeds cancel out forward motion entirely and produce pure rotation on the spot."
+    },
+    {
+      "question": "What's the one thing that makes differential drive so simple mechanically?",
+      "options": [
+        "It needs a separate steering linkage like a car",
+        "Steering is just a difference between two independently-controlled wheel speeds — no extra mechanism needed",
+        "It requires four wheels minimum"
+      ],
+      "answer": 1,
+      "explain": "No steering column, no linkage — turning comes entirely from software choosing two different speeds."
+    }
+  ]
+}

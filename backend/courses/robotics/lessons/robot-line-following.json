@@ -1,0 +1,89 @@
+{
+  "lessonId": "robot-line-following",
+  "title": "Line Following: Building the Behaviour",
+  "description": "Two sensors, four possible readings, four decisions. Build the rule table yourself and watch it actually drive.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "From One Sensor to Two"
+    },
+    {
+      "type": "paragraph",
+      "value": "One IR sensor can only tell you what's directly underneath it. Put two side by side, straddling a line, and something more useful becomes possible: the pattern of which sensor sees the line tells you which way the robot has drifted, and that's enough information to steer back."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "        L   R\n   [ IR ] [ IR ]      <- two sensors, straddling the line\n      \\\\   //\n       \\\\ //\n     ----X----          <- the dark line"
+    },
+    {
+      "type": "heading",
+      "value": "Four Readings, Four Decisions"
+    },
+    {
+      "type": "paragraph",
+      "value": "With two sensors, there are exactly four possible combinations of readings. Each one tells you something specific about where the robot is relative to the line — and each needs its own response to correct course."
+    },
+    {
+      "type": "widget",
+      "kind": "line-follow-table",
+      "title": "〰️ Build the table, then test it",
+      "hint": "Think it through before testing: if only the left sensor sees the line, which way has the robot drifted, and which way should it turn to get back on?",
+      "xp": 30,
+      "xpKey": "robotics-m7-line-follow"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice what happens with a wrong rule in that last row especially: get \"both sensors off the line\" backwards and the robot doesn't just fail quietly — it visibly overcorrects, oscillates, or drives straight off the track. This is a real closed-loop control problem, the same shape you'll meet again and again in robotics: sense, decide, correct, repeat, many times a second."
+    },
+    {
+      "type": "heading",
+      "value": "Why This Counts as \"Following\""
+    },
+    {
+      "type": "paragraph",
+      "value": "Nobody is steering this robot — it's reacting entirely to what its own sensors tell it, moment to moment. That's the sense-think-act loop from Module 1, running for real, many times a second, with hardware you now understand every part of."
+    },
+    {
+      "type": "tip",
+      "value": "Real line followers often use more than two sensors (five or seven is common) for smoother, more graduated correction instead of a hard left/right snap. The two-sensor version you just built is the same idea, simplified to its essentials."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: two IR sensors straddling a line give four possible readings, and a rule table mapping each one to a response — forward, left, right, stop — is enough to build a real line-following behaviour."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Only the left sensor sees the line; the right sensor sees the floor. Which way has the robot drifted, and what should it do?",
+      "options": [
+        "It's drifted right of the line — turn left to recentre",
+        "It's drifted left of the line — turn right to recentre",
+        "It's perfectly centred — go straight"
+      ],
+      "answer": 0,
+      "explain": "If the line has moved under the left sensor, the robot itself has drifted to the right relative to it — turning left brings it back."
+    },
+    {
+      "question": "What happens in the widget's simulation if the 'both sensors off the line' rule is set incorrectly?",
+      "options": [
+        "Nothing changes, that row doesn't matter",
+        "The robot can oscillate or drive straight off the track when it loses the line entirely",
+        "The simulation ignores incorrect rules automatically"
+      ],
+      "answer": 1,
+      "explain": "That row handles the case where the robot has lost the line completely — get it wrong and there's no way to recover once it happens."
+    },
+    {
+      "question": "Why is line following described as the sense-think-act loop from Module 1, 'running for real'?",
+      "options": [
+        "Because someone is remote-controlling it the whole time",
+        "Because the robot senses its sensors, decides an action from the rule table, and acts, continuously, without a human deciding each move",
+        "It isn't really the same loop, just a coincidence in naming"
+      ],
+      "answer": 1,
+      "explain": "Every element — sensing, deciding, acting, repeating — is present and running on real hardware-shaped logic, exactly the loop Module 1 introduced as an idea."
+    }
+  ]
+}

@@ -22,6 +22,9 @@ class User(Base):
     # Staff flag. Admins get the /admin dashboard; everyone else is a student.
     # Only ever set server-side (seed script / another admin) — never by signup.
     is_admin = Column(Boolean, nullable=False, default=False, server_default="false")
+    # Incremented on logout to invalidate all existing JWTs for this user.
+    # Every token carries the version it was minted at; a mismatch → 401.
+    token_version = Column(Integer, nullable=False, default=0, server_default="0")
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
     @property

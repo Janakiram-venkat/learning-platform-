@@ -1,0 +1,40 @@
+{
+  "moduleId": 8,
+  "title": "Advanced Senses",
+  "emoji": "👁️",
+  "tagline": "Grids of numbers, spinning lasers, and sound in both directions — ARIA is now fully sensed.",
+  "lessons": [
+    {
+      "lessonId": "robot-camera",
+      "title": "Camera: Light Into Numbers",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-lidar",
+      "title": "LiDAR: A Spinning Laser",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-lidar-vs-ultrasonic",
+      "title": "LiDAR vs Ultrasonic",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-microphone",
+      "title": "Microphone: Sound Into Numbers",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-speaker",
+      "title": "Speaker: The Reverse Trick",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-display-rgb",
+      "title": "Display and RGB LED",
+      "duration": "10 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

@@ -1,0 +1,81 @@
+{
+  "lessonId": "robot-display-rgb",
+  "title": "Display and RGB LED: Output Isn't Only Movement",
+  "description": "Component lesson. ACT doesn't always mean a motor. Sometimes the most useful thing a robot can do is simply show you something.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "One RGB LED Is Really Three"
+    },
+    {
+      "type": "paragraph",
+      "value": "You met a single-colour LED all the way back in Module 3. An RGB LED is the same idea, tripled: three tiny LEDs — red, green, blue — packed under one shared lens. Light them in different combinations and proportions, and your eye blends the three into a single perceived colour."
+    },
+    {
+      "type": "widget",
+      "kind": "rgb-mix",
+      "title": "🌈 Mix a colour",
+      "hint": "Try setting all three sliders to 255 — then all to 0. Notice what those two extremes look like.",
+      "xp": 20,
+      "xpKey": "robotics-m8-rgb"
+    },
+    {
+      "type": "paragraph",
+      "value": "Full red, green and blue together reads as white to your eye — the same three-colour mixing your screen uses for every colour it shows you. All three at zero is simply off. Every other combination is somewhere in between."
+    },
+    {
+      "type": "heading",
+      "value": "A Display Is Just Many of These"
+    },
+    {
+      "type": "paragraph",
+      "value": "The dot-matrix grid in the widget above isn't a separate idea — it's simply many controllable coloured lights arranged in a grid, each one a pixel, exactly the same way a camera's grid of light sensors works in reverse. A screen's job is to fill that grid, row by row, fast enough that your eye sees a stable picture instead of a scan happening."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "one RGB LED         -->  one controllable coloured dot\ngrid of many         -->  a display\nfilled row by row,   -->  looks like a stable picture\nfast enough"
+    },
+    {
+      "type": "tip",
+      "value": "This is the direct mirror of Module 8's camera lesson: a camera's grid of sensors turns light into numbers; a display's grid of LEDs turns numbers back into light. Same grid idea, opposite direction — just like microphone and speaker."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: an RGB LED mixes red, green and blue light to produce any colour. A display is nothing more than a grid of controllable lights like this, filled fast enough to look like a stable picture."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What's actually inside a single RGB LED?",
+      "options": [
+        "One LED that changes its own material to shift colour",
+        "Three separate tiny LEDs — red, green and blue — under one shared lens",
+        "A tiny display screen"
+      ],
+      "answer": 1,
+      "explain": "Colour mixing happens because your eye blends the light from three separate, independently controllable LEDs."
+    },
+    {
+      "question": "What colour does full red, full green and full blue together produce?",
+      "options": [
+        "Black",
+        "White",
+        "Purple"
+      ],
+      "answer": 1,
+      "explain": "All three primary colours of light at full strength mix to white — the same principle your screen uses for every colour."
+    },
+    {
+      "question": "How does a display relate to the camera lesson earlier in this module?",
+      "options": [
+        "They're unrelated",
+        "A display is the reverse of a camera's sensor grid — numbers becoming light instead of light becoming numbers, on the same grid idea",
+        "Displays don't use a grid at all"
+      ],
+      "answer": 1,
+      "explain": "Same grid-of-pixels structure, opposite direction of conversion — exactly like the microphone/speaker pair earlier in this module."
+    }
+  ]
+}

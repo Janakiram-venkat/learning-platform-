@@ -110,3 +110,68 @@ def update_progress(db: Session, user: User, progress: dict) -> User:
     db.commit()
     db.refresh(user)
     return user
+
+
+def merge_progress(db: Session, user: User, delta: dict) -> User:
+    """Merge `delta` additively into the user's stored progress.
+
+    Merging rules (prevents multi-tab race conditions):
+    - Array keys (completedLessons etc.): union of stored + incoming arrays.
+    - Numeric keys (totalXP): take the max of stored vs. incoming.
+    - Dict keys (assignmentStars etc.): shallow merge, incoming wins per key.
+    - Unknown keys: incoming value wins (forward-compat).
+    """
+    from app.schemas.user_schema import (
+        _PROGRESS_ARRAY_KEYS,
+        _PROGRESS_INT_KEYS,
+        _PROGRESS_DICT_KEYS,
+    )
+
+    stored = dict(user.progress or {})
+
+    for key, incoming_val in delta.items():
+        if key in _PROGRESS_ARRAY_KEYS:
+            existing = stored.get(key, [])
+            if not isinstance(existing, list):
+                existing = []
+            if not isinstance(incoming_val, list):
+                incoming_val = []
+            # Union: preserve order, deduplicate.
+            merged = list(existing)
+            seen = set(existing)
+            for item in incoming_val:
+                if item not in seen:
+                    merged.append(item)
+                    seen.add(item)
+            stored[key] = merged
+        elif key in _PROGRESS_INT_KEYS:
+            try:
+                stored[key] = max(int(stored.get(key, 0)), int(incoming_val))
+            except (TypeError, ValueError):
+                pass  # keep existing value
+        elif key in _PROGRESS_DICT_KEYS:
+            existing = stored.get(key, {})
+            if not isinstance(existing, dict):
+                existing = {}
+            if isinstance(incoming_val, dict):
+                stored[key] = {**existing, **incoming_val}
+        else:
+            # Unknown key — last-write wins.
+            stored[key] = incoming_val
+
+    user.progress = stored
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+def invalidate_tokens(db: Session, user: User) -> User:
+    """Increment token_version to revoke all existing JWTs for this user.
+
+    Any token minted before this call will be rejected by get_current_user
+    even if it hasn't expired yet.
+    """
+    user.token_version = (user.token_version or 0) + 1
+    db.commit()
+    db.refresh(user)
+    return user

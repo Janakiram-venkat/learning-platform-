@@ -1,0 +1,79 @@
+{
+  "lessonId": "robot-object-detection",
+  "title": "Object Detection: Boxes and Confidence",
+  "description": "Not just \"what is this a picture of\" but \"what's in this picture, and exactly where.\"",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Where, Not Just What"
+    },
+    {
+      "type": "paragraph",
+      "value": "Module 8's camera lesson ended with a plain grid of RGB numbers. Object detection is what a model can do with that grid: not just classify the whole picture as one thing, but find multiple specific objects within it, and draw a box around each one it's confident about."
+    },
+    {
+      "type": "widget",
+      "kind": "detection-reveal",
+      "title": "🔎 Detect the scene",
+      "hint": "Press Detect and watch each box appear with a confidence score — a plausible stand-in for what a real detector like COCO-SSD would report.",
+      "sceneEmoji": "🏠",
+      "boxes": [
+        { "label": "door", "x": 38, "y": 30, "w": 24, "h": 60, "confidence": 91 },
+        { "label": "window", "x": 8, "y": 15, "w": 20, "h": 20, "confidence": 84 },
+        { "label": "roof", "x": 15, "y": 2, "w": 70, "h": 15, "confidence": 76 }
+      ],
+      "note": "This demo is scripted against a known scene — no real neural network is running in your browser. That keeps the course fast and works for every student, and it's an honest, common way to teach the idea before running real inference.",
+      "xp": 20,
+      "xpKey": "robotics-m11-detection"
+    },
+    {
+      "type": "heading",
+      "value": "Reading a Confidence Score"
+    },
+    {
+      "type": "paragraph",
+      "value": "A confidence score isn't a promise — it's the model's own estimate of how sure it is. 91% doesn't mean \"91% of the door is visible\"; it means \"based on everything I learned, I'm fairly confident this box actually contains a door.\" A robot using detections like this typically ignores anything below some threshold, say 50%, treating low-confidence guesses as too unreliable to act on."
+    },
+    {
+      "type": "tip",
+      "value": "This is exactly why ARIA's Module 11 Build Step — being told to \"find the red ball\" — is possible at all: object detection is the piece that turns a raw camera image into \"there's a ball-shaped, red-coloured object, roughly here, and I'm fairly confident about it.\""
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: object detection finds multiple specific things in an image and reports where each one is, along with a confidence score representing how sure the model is — not a guarantee, an estimate."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does object detection do that simple image classification doesn't?",
+      "options": [
+        "Nothing extra, they're the same thing",
+        "It finds multiple specific objects and their locations within one image, not just one label for the whole picture",
+        "It only works on black-and-white images"
+      ],
+      "answer": 1,
+      "explain": "Classification labels a whole image; detection finds and locates individual things within it — a meaningfully bigger job."
+    },
+    {
+      "question": "What does a 91% confidence score on a detected 'door' actually mean?",
+      "options": [
+        "91% of the door is visible in the frame",
+        "The model estimates it's fairly confident this box actually contains a door — an estimate, not a guarantee",
+        "The door is 91 centimetres wide"
+      ],
+      "answer": 1,
+      "explain": "Confidence reflects the model's own certainty about its guess, not any measurement of the object itself."
+    },
+    {
+      "question": "Why might a robot ignore any detection reported below, say, 50% confidence?",
+      "options": [
+        "Low-confidence guesses are too unreliable to safely act on",
+        "It's a rule with no real reason behind it",
+        "Confidence scores below 50% are always wrong"
+      ],
+      "answer": 0,
+      "explain": "A threshold filters out the model's shakiest guesses, trading away some true detections for fewer false ones — a real, deliberate design choice."
+    }
+  ]
+}

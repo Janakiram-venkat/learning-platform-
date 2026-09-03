@@ -1,0 +1,95 @@
+{
+  "lessonId": "robot-ground",
+  "title": "Ground: The Shared Floor",
+  "description": "The last piece before ARIA gets her first spark of real power — why every part on her chassis needs to agree on what \"zero volts\" means.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Voltage Is Always a Comparison"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here's something a little strange: a single wire never \"has\" a voltage on its own. Voltage only means anything as a difference between two points — like altitude only means something compared to sea level. Say a mountain is \"2000 metres\" and everyone assumes you mean above sea level, because that's the shared reference every map agrees on."
+    },
+    {
+      "type": "paragraph",
+      "value": "Circuits need the exact same kind of shared reference point, or every measurement becomes meaningless. That reference point is called ground (sometimes \"common\" or written GND) — the 0V floor that every other voltage in the circuit is measured against."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "sea level  =====================  0 m   (everyone's shared reference)\nmountain top     2000 m above sea level\n\nGND        =====================  0 V   (the circuit's shared reference)\nbattery +           9V above GND"
+    },
+    {
+      "type": "heading",
+      "value": "Why ARIA Has One Ground for Everything"
+    },
+    {
+      "type": "paragraph",
+      "value": "ARIA has a battery, a controller board, motors, and sensors — several different parts, each with their own power needs. All of them still share a single ground wire, tying every part's \"zero\" to the same floor. Without that shared floor, a sensor's \"0V\" and the controller's \"0V\" could silently drift apart, and a reading of \"3 volts\" from the sensor would mean something completely different to the controller reading it."
+    },
+    {
+      "type": "paragraph",
+      "value": "This is also why a circuit is a loop and not just an outward path: current flows out of the battery's + terminal, through your parts, and back to − through the ground wire. Ground isn't a drain that current disappears into — it's simply the return half of the exact same loop you've been wiring all module."
+    },
+    {
+      "type": "tip",
+      "value": "\"Grounding\" a big building for lightning safety is the same idea scaled up enormously: a shared, reliable 0V reference that stray charge can safely flow back to, instead of building up somewhere dangerous."
+    },
+    {
+      "type": "heading",
+      "value": "Power On"
+    },
+    {
+      "type": "paragraph",
+      "value": "You now know everything that's in ARIA's power system: a battery pushing current (voltage), a switch controlling the loop, wires carrying it, resistors and LEDs using it, and a shared ground tying it all together. That's the whole circuit below — flip the switch."
+    },
+    {
+      "type": "widget",
+      "kind": "circuit-sandbox",
+      "title": "⚡ ARIA's power circuit — flip the switch",
+      "hint": "Chassis, battery, switch, ground, status LED. This is the exact circuit that lights her status light for real.",
+      "mode": "basic",
+      "voltage": 9,
+      "xp": 25,
+      "xpKey": "robotics-m3-power-on"
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: voltage is always measured against a shared reference called ground. Every part on ARIA shares one ground, so their measurements agree — and ground is simply the return path of the loop, not a place current vanishes to."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why can't a single isolated wire be said to \"have\" a voltage of, say, 5V?",
+      "options": [
+        "Voltage is always a comparison between two points, so you need a reference to compare against",
+        "Wires can't carry voltage, only current",
+        "5V is too high for a wire to hold"
+      ],
+      "answer": 0,
+      "explain": "Just like altitude needs sea level, voltage needs a reference point — usually ground, the circuit's agreed 0V."
+    },
+    {
+      "question": "ARIA has a battery, a controller and a sensor, each wired to the same ground. What does sharing that ground actually buy you?",
+      "options": [
+        "Nothing, it's just tradition",
+        "It gives every part the same 0V reference, so their voltage readings mean the same thing to each other",
+        "It makes the battery last longer"
+      ],
+      "answer": 1,
+      "explain": "Without a shared reference, a sensor's \"3V\" and a controller's \"3V\" could be measuring from different floors and disagree."
+    },
+    {
+      "question": "What is ground, in terms of the loop?",
+      "options": [
+        "A place where current disappears permanently",
+        "The return path of the same loop — current flows out from + and back through ground to −",
+        "An extra battery"
+      ],
+      "answer": 1,
+      "explain": "It's not a drain — it's simply the other half of the complete circle current has to travel around."
+    }
+  ]
+}

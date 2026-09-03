@@ -1,0 +1,86 @@
+{
+  "moduleId": 8,
+  "title": "Advanced Senses Arcade",
+  "intro": "Six rounds on cameras, LiDAR, sound and light. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "👁️",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What does a single camera pixel report?",
+      "options": [
+        "Three numbers — how much red, green and blue light hit it",
+        "A description of the object in view",
+        "Only whether it's light or dark, like an IR sensor"
+      ],
+      "answer": 0,
+      "explain": "RGB — three separate light measurements per pixel — is the raw data a camera actually captures."
+    },
+    {
+      "type": "concept",
+      "prompt": "What does LiDAR share with an ultrasonic sensor at its core?",
+      "options": [
+        "Nothing, they work completely differently",
+        "Both compute distance from the round-trip time of a pulse — light instead of sound",
+        "Both need physical contact with the object"
+      ],
+      "answer": 1,
+      "explain": "Same time-of-flight idea, different medium — that's the whole relationship between the two."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why can a glass door confuse LiDAR but not necessarily an ultrasonic sensor?",
+      "options": [
+        "Light passes through glass instead of reflecting, so LiDAR can misread it as open space",
+        "LiDAR is afraid of glass",
+        "Glass blocks all sensors equally"
+      ],
+      "answer": 0,
+      "explain": "Transparency to light is LiDAR's specific blind spot — a real, physical limitation worth knowing."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each pair — one senses, one does the reverse.",
+      "pairs": [
+        {
+          "left": "Microphone",
+          "right": "Sound → electrical signal"
+        },
+        {
+          "left": "Speaker",
+          "right": "Electrical signal → sound"
+        },
+        {
+          "left": "Camera",
+          "right": "Light → numbers"
+        },
+        {
+          "left": "Display",
+          "right": "Numbers → light"
+        }
+      ],
+      "explain": "Four sensors, in two reversed pairs — the same grid or signal idea, running in opposite directions."
+    },
+    {
+      "type": "concept",
+      "prompt": "What does a signal's frequency become once a speaker turns it into sound?",
+      "options": [
+        "Pitch",
+        "Colour",
+        "Distance"
+      ],
+      "answer": 0,
+      "explain": "How fast a wave repeats per second is exactly what your ear hears as a high or low pitch."
+    },
+    {
+      "type": "concept",
+      "prompt": "What's actually inside one RGB LED?",
+      "options": [
+        "Three separate tiny LEDs — red, green, blue — under one lens",
+        "A miniature display screen",
+        "A single LED that physically changes colour"
+      ],
+      "answer": 0,
+      "explain": "Colour mixing works because three independently controllable LEDs blend in your eye — the same idea a full display scales up."
+    }
+  ]
+}

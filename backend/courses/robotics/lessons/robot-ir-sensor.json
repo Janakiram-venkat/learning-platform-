@@ -1,0 +1,89 @@
+{
+  "lessonId": "robot-ir-sensor",
+  "title": "IR Sensor: Reading the Floor",
+  "description": "Component lesson. No sound this time — light you can't see, bounced off whatever's directly underneath.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why It Exists"
+    },
+    {
+      "type": "paragraph",
+      "value": "The ultrasonic sensor looks outward, for obstacles ahead. ARIA also needs something that looks straight down, to tell a dark line from the light floor around it — the foundation of line following, which you'll build for real later in this module."
+    },
+    {
+      "type": "heading",
+      "value": "How It Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "An IR sensor module has an emitter (a small infrared LED, invisible to human eyes) and a detector right next to it. The emitter shines infrared light straight down; the detector watches for it to bounce back. Light surfaces reflect a lot of it back; dark surfaces absorb most of it. The detector's output pin simply reports which one just happened — HIGH or LOW, exactly like Module 4's digital signals."
+    },
+    {
+      "type": "widget",
+      "kind": "ir-sim",
+      "title": "⚫⚪ Slide the surface underneath",
+      "hint": "Drag the slider slowly across a black/white boundary and watch the pin flip the instant the colour changes.",
+      "xp": 20,
+      "xpKey": "robotics-m7-ir"
+    },
+    {
+      "type": "heading",
+      "value": "Just Another Digital Reading"
+    },
+    {
+      "type": "paragraph",
+      "value": "There's no image here, no camera, nothing rich or detailed — just one bit of information: reflecting a lot, or not. That simplicity is exactly what makes it fast and cheap, and it's plenty for the job it does: a controller reading this pin many times a second can react to a changing floor almost instantly."
+    },
+    {
+      "type": "heading",
+      "value": "Specs"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Part          IR reflectance sensor module (e.g. TCRT5000)\nOutput        digital HIGH/LOW (some models also give an analog reading)\nRange         a few millimetres to a couple of centimetres above the surface\nPrice         ≈ ₹20–40 each — ARIA uses two, side by side"
+    },
+    {
+      "type": "tip",
+      "value": "Height above the surface matters more than you'd expect: too far and even white stops reflecting enough IR back to register. That's why line-follower sensors are mounted low and close to the floor, not up on the chassis deck."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: an IR sensor shines infrared light down and reads how much bounces back — light surfaces reflect strongly (HIGH), dark surfaces absorb it (LOW). It's a simple digital reading, and that simplicity is the point."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does an IR reflectance sensor's output pin actually report?",
+      "options": [
+        "An image of the surface below",
+        "Whether the emitted infrared light bounced back strongly or was absorbed",
+        "The exact colour of the surface"
+      ],
+      "answer": 1,
+      "explain": "It's a simple reflectance measurement, not an image — light back (white) versus absorbed (black), reported as HIGH or LOW."
+    },
+    {
+      "question": "Why are line-follower IR sensors mounted very close to the floor rather than higher up on the chassis?",
+      "options": [
+        "For looks only",
+        "Too much height weakens the reflected IR signal until even white surfaces stop registering reliably",
+        "Height has no effect on the reading"
+      ],
+      "answer": 1,
+      "explain": "The sensor depends on enough reflected light reaching the detector — distance from the surface directly affects how strong that signal is."
+    },
+    {
+      "question": "Why is a simple HIGH/LOW reading enough for line following, rather than needing a full image?",
+      "options": [
+        "It isn't enough — real line followers use cameras",
+        "The job (dark line vs light floor) only needs one bit of information, so anything richer would be unnecessary complexity",
+        "IR sensors can't produce more detail than that, even if it were useful"
+      ],
+      "answer": 1,
+      "explain": "Matching the sensor to the job: distinguishing two surface types needs exactly one bit, and a simple digital reading delivers it fast and cheap."
+    }
+  ]
+}

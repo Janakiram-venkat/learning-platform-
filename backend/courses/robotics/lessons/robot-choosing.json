@@ -1,0 +1,122 @@
+{
+  "lessonId": "robot-choosing",
+  "title": "DC, Servo or Stepper?",
+  "description": "Three motors, three very different jobs. Here's the decision, boiled down to three questions.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Three Questions"
+    },
+    {
+      "type": "paragraph",
+      "value": "You've now met all three motor types this course uses. Picking the right one for a job isn't guesswork — it comes down to answering three questions about what the job actually needs."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "1. Does it need to spin continuously, with no fixed end position?\n     yes -> DC motor\n\n2. Does it need to hold one precise angle, within a limited range?\n     yes -> Servo\n\n3. Does it need precise, repeatable, possibly multi-turn positioning?\n     yes -> Stepper"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice these aren't really competing on \"which is best\" — a DC motor spinning ARIA's wheels forever has nothing in common with the job of holding a sensor head at a fixed 30° tilt, which has nothing in common with reliably counting exact steps for a robot arm joint. Different jobs, different tools."
+    },
+    {
+      "type": "widget",
+      "kind": "classify",
+      "title": "🔧 Which motor for this job?",
+      "prompt": "Read the job, then decide: DC, servo, or stepper?",
+      "xp": 20,
+      "xpKey": "robotics-m6-choosing",
+      "options": [
+        { "id": "dc", "label": "DC", "emoji": "🌀" },
+        { "id": "servo", "label": "Servo", "emoji": "🎯" },
+        { "id": "stepper", "label": "Stepper", "emoji": "🧭" }
+      ],
+      "tasks": [
+        {
+          "id": "wheel",
+          "label": "Spinning ARIA's drive wheel, continuously, no fixed endpoint",
+          "emoji": "🛞",
+          "answer": "dc",
+          "explain": "Continuous rotation with no target angle is exactly a DC motor's job."
+        },
+        {
+          "id": "camera-tilt",
+          "label": "Holding a camera at a fixed 45° tilt and staying there",
+          "emoji": "📷",
+          "answer": "servo",
+          "explain": "A single precise angle that has to be actively held is a servo's specialty."
+        },
+        {
+          "id": "arm-joint",
+          "label": "A robot arm joint that needs to reliably return to an exact position, turn after turn",
+          "emoji": "🦾",
+          "answer": "stepper",
+          "explain": "Repeatable, countable, possibly multi-turn precision without needing a feedback sensor is what steppers are built for."
+        },
+        {
+          "id": "conveyor",
+          "label": "A small conveyor belt motor that just needs to keep turning at a set speed",
+          "emoji": "📦",
+          "answer": "dc",
+          "explain": "Continuous rotation again, no need to know or hold a specific angle."
+        },
+        {
+          "id": "sensor-sweep",
+          "label": "Sweeping ARIA's ultrasonic sensor head between 0° and 90° to scan a room",
+          "emoji": "📡",
+          "answer": "servo",
+          "explain": "A bounded, precise range of angles that needs to be commanded and held — classic servo territory."
+        },
+        {
+          "id": "3dprinter",
+          "label": "Moving a 3D printer's axis a precise, repeatable distance, over and over",
+          "emoji": "🖨️",
+          "answer": "stepper",
+          "explain": "Exact, repeatable, countable positioning without a feedback sensor — the same reason steppers show up in 3D printers everywhere."
+        }
+      ]
+    },
+    {
+      "type": "tip",
+      "value": "Real designs often mix all three on one robot — exactly like ARIA does: DC motors for the wheels, servos aiming sensors, and (in later modules) steppers where precise multi-turn joints are needed."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: choose DC for continuous rotation with no fixed endpoint, servo for a precise held angle within a limited range, and stepper for precise, repeatable, possibly multi-turn positioning."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A job needs continuous rotation with no target angle at all. Which motor fits?",
+      "options": [
+        "DC motor",
+        "Servo",
+        "Stepper"
+      ],
+      "answer": 0,
+      "explain": "No fixed endpoint to hold or count towards — that's exactly what a plain DC motor is for."
+    },
+    {
+      "question": "A job needs to hold one precise, bounded angle and actively resist being pushed off it. Which motor fits?",
+      "options": [
+        "DC motor",
+        "Servo",
+        "Stepper"
+      ],
+      "answer": 1,
+      "explain": "Actively holding and correcting a specific angle is the servo's feedback loop doing exactly its job."
+    },
+    {
+      "question": "Why might a stepper be chosen over a servo for a job needing many full rotations of precise, repeatable positioning?",
+      "options": [
+        "Steppers are always more powerful",
+        "A servo's range is limited by its potentiometer; a stepper can keep counting steps indefinitely",
+        "There's no reason, they're interchangeable"
+      ],
+      "answer": 1,
+      "explain": "Servos are typically bounded to a limited range like 0–180°. Steppers have no such limit — they just keep counting steps."
+    }
+  ]
+}

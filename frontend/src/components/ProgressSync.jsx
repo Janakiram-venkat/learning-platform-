@@ -9,7 +9,9 @@ import { snapshotProgress, applyProgress, clearProgress } from '../lib/progress'
  *  - On login: pull the server's saved progress into the local cache (server
  *    is the source of truth). If the account has none yet, seed it from
  *    whatever is in the local cache (covers "played a bit, then signed up").
- *  - On any progress change: debounce, then push the full snapshot up.
+ *  - On any progress change: debounce, then PATCH (merge) the delta up.
+ *    Using PATCH instead of PUT prevents a multi-tab race where one tab's
+ *    full snapshot could overwrite completions recorded by another tab.
  *  - On logout: wipe the local cache so the next user starts clean.
  *
  * Renders nothing — it's a behavioural component mounted once near the root.
@@ -57,7 +59,10 @@ export default function ProgressSync() {
     return () => { cancelled = true; };
   }, [user]);
 
-  // Debounced push whenever progress changes.
+  // Debounced PATCH (merge) whenever progress changes.
+  // Sends only the current snapshot as a delta — the server unions arrays and
+  // takes the max of numeric keys, so concurrent updates from multiple tabs
+  // are safe and no completion is ever lost.
   useEffect(() => {
     const email = user?.email || null;
     if (!email) return;
@@ -66,7 +71,7 @@ export default function ProgressSync() {
       clearTimeout(timer.current);
       timer.current = setTimeout(() => {
         if (hydratedFor.current !== email) return; // don't push before hydrate
-        progressService.save(snapshotProgress()).catch(() => {});
+        progressService.merge(snapshotProgress()).catch(() => {});
       }, 1000);
     };
 

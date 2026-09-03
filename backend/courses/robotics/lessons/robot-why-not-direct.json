@@ -1,0 +1,78 @@
+{
+  "lessonId": "robot-why-not-direct",
+  "title": "Why Not Wire It Direct?",
+  "description": "A garden hose and a fire hose carry water. Only one of them can put out a real fire — and the difference is the whole reason a motor driver exists.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Two Very Different Hoses"
+    },
+    {
+      "type": "paragraph",
+      "value": "A controller pin, like the ones you met in Module 4, can supply maybe 40 milliamps — think of it as a garden hose, useful for watering a small pot. A DC motor under load wants closer to 800 milliamps, sometimes far more when it stalls — a fire hose's worth of flow, by comparison. Try to run a fire hose's demand through a garden hose's supply, and the garden hose simply can't deliver it."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "controller pin        ~40 mA available    (garden hose)\nDC motor under load   ~800 mA wanted      (fire hose)\n\n40 mA in, 800 mA wanted  ->  the pin can't supply it\n                              and trying can damage the pin"
+    },
+    {
+      "type": "paragraph",
+      "value": "Wiring a motor's power leads directly to a GPIO pin isn't just underpowered — it can actually damage the controller. GPIO pins are built to switch small signals, not to survive a motor demanding far more current than they're rated for."
+    },
+    {
+      "type": "heading",
+      "value": "The Actual Solution"
+    },
+    {
+      "type": "paragraph",
+      "value": "This is exactly why the motor driver from the last lesson exists as a separate chip. The controller's weak 40 mA signal switches the driver's internal transistors — a light touch is all it takes to flip a switch — and the driver, wired straight to the battery, supplies the motor's real 800 mA demand. The controller decides; a part built for higher current does the actual work."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "controller  --40mA signal-->  driver chip  --800mA-->  motor\n(garden hose worth            (built to pass                (fire hose\n of control)                   fire-hose current)             worth of flow)"
+    },
+    {
+      "type": "tip",
+      "value": "This same pattern — a small signal controlling a larger power source, rather than supplying it directly — shows up constantly in electronics. A relay does the same job for even bigger loads, like household appliances."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a controller pin can supply only a small current, far less than a motor needs. A motor driver bridges that gap — accepting the pin's weak signal but supplying the motor's real current from the battery directly."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Roughly how much current can a controller GPIO pin safely supply?",
+      "options": [
+        "About 40 mA",
+        "About 40 A",
+        "Unlimited"
+      ],
+      "answer": 0,
+      "explain": "GPIO pins are built for small signals, not to power motors — tens of milliamps, not hundreds."
+    },
+    {
+      "question": "What actually happens if you wire a motor's power leads straight to a GPIO pin?",
+      "options": [
+        "It works fine at reduced speed",
+        "The pin can't supply the current the motor wants, and the attempt can damage the controller",
+        "The motor simply refuses to spin, with no risk to anything"
+      ],
+      "answer": 1,
+      "explain": "It's not just underpowered — pulling far more current than a pin is rated for is a real way to damage it."
+    },
+    {
+      "question": "In the controller-driver-motor chain, what does the controller actually supply to the driver?",
+      "options": [
+        "The motor's full operating current",
+        "A weak signal that switches the driver's internal transistors",
+        "Nothing — the driver ignores the controller"
+      ],
+      "answer": 1,
+      "explain": "The controller only has to supply enough current to flip a switch. The driver, wired to the battery, supplies the motor's real power."
+    }
+  ]
+}

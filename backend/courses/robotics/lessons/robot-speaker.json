@@ -1,0 +1,85 @@
+{
+  "lessonId": "robot-speaker",
+  "title": "Speaker: The Reverse Trick",
+  "description": "Component lesson. Everything you just learned about microphones, run exactly backwards.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why It Exists"
+    },
+    {
+      "type": "paragraph",
+      "value": "A microphone turns sound into an electrical signal. A speaker does the exact opposite: it takes an electrical signal and turns it back into sound. ARIA needs this for the ACT half of the loop — telling you something, or giving feedback, instead of only sensing."
+    },
+    {
+      "type": "heading",
+      "value": "How It Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "A speaker also has a membrane, but this time driven rather than sensed: a changing electrical signal pushes and pulls it back and forth, and that motion pushes the air in front of it, recreating the original pressure wave — sound you can actually hear."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "MICROPHONE                          SPEAKER\nsound  -->  membrane vibrates       electrical signal --> membrane driven\n       -->  electrical signal        -->  air pushed --> sound\n(sound to signal)                   (signal to sound — exactly reversed)"
+    },
+    {
+      "type": "widget",
+      "kind": "waveform-sim",
+      "title": "🔊 Hear it",
+      "hint": "Drag the frequency slider and press Play tone. Notice how the waveform gets denser (more cycles) as the pitch rises.",
+      "xp": 20,
+      "xpKey": "robotics-m8-speaker"
+    },
+    {
+      "type": "heading",
+      "value": "Frequency Is Pitch"
+    },
+    {
+      "type": "paragraph",
+      "value": "How many times the wave repeats per second — its frequency, in Hz — is what your ear perceives as pitch. A low frequency sounds like a low rumble; a high frequency sounds like a high whistle. This is the same \"frequency\" idea from Module 4's PWM lesson, just applied to something you can actually hear rather than an LED blinking too fast to see."
+    },
+    {
+      "type": "tip",
+      "value": "A buzzer, which you might see on a cheaper robot kit, is really a much simpler cousin of a speaker — usually built to produce one fixed loud tone rather than a controllable range of pitches."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a speaker is a microphone in reverse — an electrical signal drives a membrane, which pushes air into sound. The signal's frequency directly becomes the pitch you hear."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "How is a speaker's job related to a microphone's?",
+      "options": [
+        "They're unrelated parts",
+        "A speaker does the exact reverse: electrical signal in, sound out, instead of sound in, signal out",
+        "A speaker is just a bigger microphone"
+      ],
+      "answer": 1,
+      "explain": "Same membrane idea, opposite direction of conversion — that symmetry is the whole point of this lesson."
+    },
+    {
+      "question": "What does a signal's frequency become, once it comes out of a speaker as sound?",
+      "options": [
+        "Volume",
+        "Pitch",
+        "Colour"
+      ],
+      "answer": 1,
+      "explain": "How many times per second the wave repeats is exactly what your ear perceives as a high or low pitch."
+    },
+    {
+      "question": "How does a simple buzzer differ from a full speaker?",
+      "options": [
+        "A buzzer is usually built for one fixed tone, while a speaker can typically produce a controllable range of pitches",
+        "There's no real difference at all",
+        "Buzzers only work with microphones, not controllers"
+      ],
+      "answer": 0,
+      "explain": "A buzzer trades range for simplicity and cost — good enough for a single beep, not for varied tones or speech."
+    }
+  ]
+}

@@ -25,6 +25,7 @@ export const DOCUMENT_KEYS = [
   'feedbackAsked',   // module milestones we've already prompted at
   'assignmentStars', // { assignmentKey: bestStars }
   'aiIdeas',         // saved "Design Your Own AI" concept cards
+  'gameMilestones',  // { "moduleId:stepIndex": [checked milestone indexes] }
 ];
 
 // Every key that gets snapshotted, pushed to the server, and wiped on sign-out.

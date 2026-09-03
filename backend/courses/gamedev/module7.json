@@ -1,0 +1,555 @@
+{
+  "moduleId": 7,
+  "title": "Levels & Menus",
+  "emoji": "🗺️",
+  "tagline": "Start screens, game over, and levels drawn on a grid.",
+  "successMessage": "A start screen, a level built from data instead of typed-out sprites, walls that actually block you, and a real clock ticking down. That's not a demo anymore — that's a game with a shape a stranger could sit down and just play. 🗺️",
+  "steps": [
+    {
+      "title": "Wait for the player to press start",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#0B1020",
+          "motion": "still",
+          "caption": "MAZE ESCAPE — Press SPACE",
+          "actors": [
+            {
+              "look": "🤖",
+              "size": 34,
+              "fixed": {
+                "x": 0.5,
+                "y": 0.7
+              }
+            }
+          ]
+        },
+        "after": {
+          "background": "#0B1020",
+          "motion": "drive",
+          "seconds": 2,
+          "actors": [
+            {
+              "look": "🤖",
+              "size": 34
+            }
+          ]
+        },
+        "note": "Every game you've built so far started moving the instant you pressed Play. A real game waits for the PLAYER to say go."
+      },
+      "getIt": {
+        "widget": "screens",
+        "title": "One stage, one variable, three completely different screens",
+        "beats": [
+          "game.state is just a word your code invented and remembers — nothing built-in about it.",
+          "Click the three buttons. Same stage, same sprites available — what gets drawn depends entirely on what state currently says.",
+          "This is the whole idea behind every menu, pause screen and game-over screen you've ever seen."
+        ],
+        "config": {}
+      },
+      "explain": {
+        "title": "return skips everything below it",
+        "intro": "A start screen is one new idea: a variable that remembers which \"screen\" the game is on, and a return that keeps the game logic from running until it's the right one.",
+        "lines": [
+          {
+            "code": "game.state = \"start\"",
+            "what": "A label, stored right on game, saying which screen is currently showing.",
+            "why": "\"start\" isn't a special word Python knows about — you could call it \"menu\" or \"waiting\" and nothing would break. It only means something because YOUR code is about to check for it."
+          },
+          {
+            "code": "if game.state == \"start\":\n    ...\n    return",
+            "what": "While the state is \"start\", handle the start screen, then return before reaching any of the actual game code below.",
+            "why": "return immediately exits update() for this frame — every line after it simply doesn't run. That's what makes the robot hold perfectly still on the start screen: its movement code exists, but this frame never reaches it."
+          },
+          {
+            "code": "if game.key_down(\"space\"):\n    game.state = \"playing\"\n    title.hide()\n    subtitle.hide()",
+            "what": "The moment Space is pressed, switch the state and hide the title text.",
+            "why": "Nothing about the robot changed here — only the two texts and one word stored on game. Yet that's enough: next frame, game.state == \"start\" is False, so the return above never fires, and the movement code underneath finally gets its turn."
+          }
+        ]
+      },
+      "brief": "Give the game a start screen. Nothing should move until the player presses Space.",
+      "todo": [
+        "Look at the if game.state == \"start\": block already in update().",
+        "Inside it, if Space is held, switch game.state to \"playing\" and hide both texts.",
+        "Leave the return where it is — it's what keeps the robot frozen until then."
+      ],
+      "starterCode": "from stage import Game, Sprite, Text\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nrobot = Sprite(\"robot\", x=240, y=180, size=40, name=\"robot\")\n\ntitle = Text(\"MAZE ESCAPE\", x=140, y=150, size=26, color=\"#FFC93C\", name=\"title\")\nsubtitle = Text(\"Press SPACE to start\", x=110, y=190, size=16, color=\"#FFFFFF\", name=\"subtitle\")\n\ngame.state = \"start\"\n\n\n@game.every_frame\ndef update():\n    if game.state == \"start\":\n        # TODO: if space is held, switch to \"playing\" and hide both texts\n        return\n\n    if game.key_down(\"left\"):\n        robot.x = robot.x - 3\n    if game.key_down(\"right\"):\n        robot.x = robot.x + 3\n    if game.key_down(\"up\"):\n        robot.y = robot.y - 3\n    if game.key_down(\"down\"):\n        robot.y = robot.y + 3\n\n\ngame.start()\n",
+      "hints": [
+        "Your new code goes ABOVE the return, still indented inside the if game.state == \"start\": block.",
+        "It's an if inside an if: if game.key_down(\"space\"):",
+        "Three lines inside that: game.state = \"playing\", then title.hide(), then subtitle.hide()."
+      ],
+      "solution": "from stage import Game, Sprite, Text\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nrobot = Sprite(\"robot\", x=240, y=180, size=40, name=\"robot\")\n\ntitle = Text(\"MAZE ESCAPE\", x=140, y=150, size=26, color=\"#FFC93C\", name=\"title\")\nsubtitle = Text(\"Press SPACE to start\", x=110, y=190, size=16, color=\"#FFFFFF\", name=\"subtitle\")\n\ngame.state = \"start\"\n\n\n@game.every_frame\ndef update():\n    if game.state == \"start\":\n        if game.key_down(\"space\"):\n            game.state = \"playing\"\n            title.hide()\n            subtitle.hide()\n        return\n\n    if game.key_down(\"left\"):\n        robot.x = robot.x - 3\n    if game.key_down(\"right\"):\n        robot.x = robot.x + 3\n    if game.key_down(\"up\"):\n        robot.y = robot.y - 3\n    if game.key_down(\"down\"):\n        robot.y = robot.y + 3\n\n\ngame.start()\n",
+      "check": {
+        "scenarios": [
+          {
+            "name": "right only",
+            "frames": 60,
+            "keys": {
+              "*": [
+                "right"
+              ]
+            }
+          },
+          {
+            "name": "space and right",
+            "frames": 60,
+            "keys": {
+              "*": [
+                "space",
+                "right"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "what": "still",
+            "name": "robot",
+            "axis": "x",
+            "in": "right only",
+            "label": "Without pressing Space, nothing moves yet"
+          },
+          {
+            "what": "moves",
+            "name": "robot",
+            "axis": "x",
+            "distance": 30,
+            "in": "space and right",
+            "label": "Space starts the game, then the arrows work"
+          }
+        ]
+      },
+      "successMessage": "A real start screen. Small change, but it's the difference between a demo and a game."
+    },
+    {
+      "title": "Draw a level from a grid",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#0B1020",
+          "motion": "still",
+          "actors": [
+            {
+              "look": "🤖",
+              "size": 34,
+              "fixed": {
+                "x": 0.5,
+                "y": 0.5
+              }
+            }
+          ]
+        },
+        "after": {
+          "background": "#0B1020",
+          "motion": "still",
+          "actors": [
+            {
+              "look": "🟦",
+              "size": 22,
+              "fixed": {
+                "x": 0.08,
+                "y": 0.15
+              }
+            },
+            {
+              "look": "🟦",
+              "size": 22,
+              "fixed": {
+                "x": 0.92,
+                "y": 0.15
+              }
+            },
+            {
+              "look": "🟦",
+              "size": 22,
+              "fixed": {
+                "x": 0.08,
+                "y": 0.85
+              }
+            },
+            {
+              "look": "🟦",
+              "size": 22,
+              "fixed": {
+                "x": 0.92,
+                "y": 0.85
+              }
+            },
+            {
+              "look": "⭐",
+              "size": 20,
+              "fixed": {
+                "x": 0.3,
+                "y": 0.25
+              }
+            },
+            {
+              "look": "🏰",
+              "size": 26,
+              "fixed": {
+                "x": 0.9,
+                "y": 0.85
+              }
+            },
+            {
+              "look": "🤖",
+              "size": 30,
+              "fixed": {
+                "x": 0.15,
+                "y": 0.25
+              }
+            }
+          ]
+        },
+        "note": "Typing out eighteen walls one Box(...) at a time would be miserable. A grid of characters and a loop builds the whole level instead."
+      },
+      "getIt": {
+        "widget": "coordinates",
+        "title": "Every tile is just x, y in disguise",
+        "beats": [
+          "Drag the sprite around — it snaps to the same idea a grid uses: a row and a column, turned into real pixels.",
+          "Tile (col, row) sits at pixel (col × tile size, row × tile size). That multiplication is the entire trick.",
+          "A level is really just a list of rows, and the loop reads it one character at a time."
+        ],
+        "config": {}
+      },
+      "explain": {
+        "title": "A picture, made of characters",
+        "intro": "LEVEL is a list of strings — one string per row. Each character in each string stands for one tile, and a nested loop turns that text picture into real sprites.",
+        "lines": [
+          {
+            "code": "LEVEL = [\n    \"########\",\n    \"#..S...#\",\n    ...\n]",
+            "what": "Six rows of eight characters. # is a wall, S is a star, X is the door, and . is empty floor.",
+            "why": "This is the whole level, readable at a glance, editable by just moving characters around — no coordinates to recalculate by hand. Change the shape of the maze by editing text, and the loop below does the rest."
+          },
+          {
+            "code": "for row in range(6):\n    for col in range(8):\n        ch = LEVEL[row][col]",
+            "what": "A loop inside a loop: for every row, visit every column in it.",
+            "why": "LEVEL[row] gets you one row-string, and LEVEL[row][col] gets you one character out of that string — row first, then column, same order you'd read a page. Six rows times eight columns is 48 visits from four lines of code."
+          },
+          {
+            "code": "if ch == \"#\":\n    wall = Box(x=col*60, y=row*60, width=60, height=60, ...)\n    walls.append(wall)",
+            "what": "A wall character becomes an actual Box, sized to fill one 60×60 tile.",
+            "why": "col*60 and row*60 turn a grid position into a pixel position — column 3 sits at x=180, exactly three tiles across. Every wall gets appended to a list, the same list-building pattern as Space Dodger's rocks, so later code can check the whole level at once."
+          },
+          {
+            "code": "elif ch == \"S\": ...\nelif ch == \"X\": ...",
+            "what": "A star character makes a star sprite; the door character makes the one door sprite.",
+            "why": "elif keeps these as separate possibilities for the SAME character — a tile is a wall, or a star, or a door, or (if none of those match) just empty floor that needs nothing drawn at all."
+          }
+        ]
+      },
+      "brief": "Turn LEVEL — a grid of text — into a real level. Loop over every row and column, and build a wall, a star, or the door depending on the character.",
+      "todo": [
+        "Inside the nested loop, if ch == \"#\": make a wall Box at (col*60, row*60), 60 wide and 60 tall, and append it to walls.",
+        "elif ch == \"S\": make a star Sprite at the tile's centre (col*60+30, row*60+30) and append it to stars.",
+        "elif ch == \"X\": make a door Sprite (look \"castle\") at the tile's centre — store it as door, no list needed."
+      ],
+      "starterCode": "from stage import Game, Sprite, Box, Text\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nLEVEL = [\n    \"########\",\n    \"#..S...#\",\n    \"#.....##\",\n    \"#....S.#\",\n    \"#......#\",\n    \"#......X\",\n]\n\nwalls = []\nstars = []\n\nfor row in range(6):\n    for col in range(8):\n        ch = LEVEL[row][col]\n        # TODO 1: if ch == \"#\": make a wall Box and append it to walls\n\n\n        # TODO 2: elif ch == \"S\": make a star Sprite and append it to stars\n\n\n        # TODO 3: elif ch == \"X\": make door = Sprite(\"castle\", ...)\n\n\nrobot = Sprite(\"robot\", x=90, y=90, size=40, name=\"robot\")\n\ntitle = Text(\"MAZE ESCAPE\", x=140, y=150, size=26, color=\"#FFC93C\", name=\"title\")\nsubtitle = Text(\"Press SPACE to start\", x=110, y=190, size=16, color=\"#FFFFFF\", name=\"subtitle\")\n\ngame.state = \"start\"\n\n\n@game.every_frame\ndef update():\n    if game.state == \"start\":\n        if game.key_down(\"space\"):\n            game.state = \"playing\"\n            title.hide()\n            subtitle.hide()\n        return\n\n    if game.key_down(\"left\"):\n        robot.x = robot.x - 3\n    if game.key_down(\"right\"):\n        robot.x = robot.x + 3\n    if game.key_down(\"up\"):\n        robot.y = robot.y - 3\n    if game.key_down(\"down\"):\n        robot.y = robot.y + 3\n\n\ngame.start()\n",
+      "hints": [
+        "Each TODO is 2-3 lines, at the SAME indent as the ch = LEVEL[row][col] line above them (inside both loops).",
+        "A wall: wall = Box(x=col*60, y=row*60, width=60, height=60, color=\"#2A3B55\", name=\"wall\"+str(row)+\"_\"+str(col)), then walls.append(wall).",
+        "A star: star = Sprite(\"star\", x=col*60+30, y=row*60+30, size=26, name=\"star\"+str(row)+\"_\"+str(col)), then stars.append(star). The door: door = Sprite(\"castle\", x=col*60+30, y=row*60+30, size=36, name=\"door\") — no append, it's a single sprite."
+      ],
+      "solution": "from stage import Game, Sprite, Box, Text\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nLEVEL = [\n    \"########\",\n    \"#..S...#\",\n    \"#.....##\",\n    \"#....S.#\",\n    \"#......#\",\n    \"#......X\",\n]\n\nwalls = []\nstars = []\n\nfor row in range(6):\n    for col in range(8):\n        ch = LEVEL[row][col]\n        if ch == \"#\":\n            wall = Box(x=col*60, y=row*60, width=60, height=60, color=\"#2A3B55\", name=\"wall\" + str(row) + \"_\" + str(col))\n            walls.append(wall)\n        elif ch == \"S\":\n            star = Sprite(\"star\", x=col*60+30, y=row*60+30, size=26, name=\"star\" + str(row) + \"_\" + str(col))\n            stars.append(star)\n        elif ch == \"X\":\n            door = Sprite(\"castle\", x=col*60+30, y=row*60+30, size=36, name=\"door\")\n\nrobot = Sprite(\"robot\", x=90, y=90, size=40, name=\"robot\")\n\ntitle = Text(\"MAZE ESCAPE\", x=140, y=150, size=26, color=\"#FFC93C\", name=\"title\")\nsubtitle = Text(\"Press SPACE to start\", x=110, y=190, size=16, color=\"#FFFFFF\", name=\"subtitle\")\n\ngame.state = \"start\"\n\n\n@game.every_frame\ndef update():\n    if game.state == \"start\":\n        if game.key_down(\"space\"):\n            game.state = \"playing\"\n            title.hide()\n            subtitle.hide()\n        return\n\n    if game.key_down(\"left\"):\n        robot.x = robot.x - 3\n    if game.key_down(\"right\"):\n        robot.x = robot.x + 3\n    if game.key_down(\"up\"):\n        robot.y = robot.y - 3\n    if game.key_down(\"down\"):\n        robot.y = robot.y + 3\n\n\ngame.start()\n",
+      "check": {
+        "keys": {
+          "*": [
+            "space"
+          ]
+        },
+        "frames": 5,
+        "rules": [
+          {
+            "what": "exists",
+            "kind": "Box",
+            "count": 15,
+            "label": "The walls are built from the grid"
+          },
+          {
+            "what": "exists",
+            "kind": "Sprite",
+            "count": 4,
+            "label": "The robot, both stars and the door are all on stage"
+          },
+          {
+            "what": "exists",
+            "name": "door",
+            "label": "The door has its own name, ready for later"
+          }
+        ]
+      },
+      "successMessage": "Eighteen walls, two stars and a door — from eight lines of code and six lines of text."
+    },
+    {
+      "title": "Walls block the way, stars still count",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#0B1020",
+          "motion": "still",
+          "actors": [
+            {
+              "look": "🤖",
+              "size": 30,
+              "fixed": {
+                "x": 0.2,
+                "y": 0.2
+              }
+            },
+            {
+              "look": "🟦",
+              "size": 26,
+              "fixed": {
+                "x": 0.4,
+                "y": 0.2
+              }
+            }
+          ]
+        },
+        "after": {
+          "background": "#0B1020",
+          "motion": "wiggle",
+          "seconds": 1,
+          "actors": [
+            {
+              "look": "🤖",
+              "size": 30,
+              "fixed": {
+                "x": 0.35,
+                "y": 0.2
+              }
+            },
+            {
+              "look": "🟦",
+              "size": 26,
+              "fixed": {
+                "x": 0.4,
+                "y": 0.2
+              }
+            }
+          ]
+        },
+        "note": "Right now the robot walks straight through walls like they're painted on. A wall that doesn't stop you isn't really a wall."
+      },
+      "getIt": {
+        "widget": "collision",
+        "title": "Try the move, undo it if it's blocked",
+        "beats": [
+          "There's no \"is this tile empty\" check — the robot just moves, then asks whether it's now touching a wall.",
+          "If it is, the move gets undone: put back exactly where it came from.",
+          "Checked separately for sideways and up-down, so sliding along a wall still works instead of getting stuck."
+        ]
+      },
+      "explain": {
+        "title": "Move first, check second, undo if you have to",
+        "intro": "This is a different shape from every collision check so far — instead of reacting to a touch, it uses one to CANCEL a move that already happened.",
+        "lines": [
+          {
+            "code": "old_x = robot.x\nif game.key_down(\"left\"): ...\nif game.key_down(\"right\"): ...\nfor wall in walls:\n    if robot.touching(wall):\n        robot.x = old_x\n        break",
+            "what": "Remember where x was, try moving it, then put it back if that move landed inside a wall.",
+            "why": "There's no way to ask \"is this tile empty\" before moving — touching() only tells you about overlap that has already happened. So the trick is to let the move happen, check the damage, and undo it if needed, all within the same frame, before anything is ever drawn."
+          },
+          {
+            "code": "break",
+            "what": "The instant one wall is found blocking the move, stop checking the rest.",
+            "why": "The loop only needs a yes-or-no answer — is the robot touching ANY wall right now. Once it finds one, checking the remaining twenty-something walls can't change that answer, so break saves the work of asking questions whose answer no longer matters."
+          },
+          {
+            "code": "old_y = robot.y\n... up/down ...\nfor wall in walls:\n    ...",
+            "what": "The exact same undo trick, run a second time, for up and down.",
+            "why": "This has to be a SEPARATE check from the x one. Combine them and bumping a wall while moving diagonally would cancel BOTH directions, gluing the robot to the wall. Two separate checks let it slide: blocked one way, still free to move the other."
+          },
+          {
+            "code": "game.clamp_inside(robot)",
+            "what": "One familiar line, at the very end, keeping the robot from sliding off the edge of the stage.",
+            "why": "You met this back in Space Dodger. The walls stop the robot from crossing INTO a wall tile — this stops it from ever leaving the stage at all, which the level's own border walls mostly handle, but it's a good habit to keep regardless."
+          }
+        ]
+      },
+      "brief": "Make the walls real. Try each move, then undo it if it lands the robot inside a wall — checked separately for x and for y. Keep collecting stars along the way.",
+      "todo": [
+        "Before moving in x, save old_x = robot.x. After the left/right ifs, loop over walls and put robot.x back if touching one — then break.",
+        "Do the same thing for y: old_y, the up/down ifs, then the same wall-check loop.",
+        "Add game.clamp_inside(robot) at the end, and keep the star-collecting loop that's already there."
+      ],
+      "starterCode": "from stage import Game, Sprite, Box, Text\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nLEVEL = [\n    \"########\",\n    \"#..S...#\",\n    \"#.....##\",\n    \"#....S.#\",\n    \"#......#\",\n    \"#......X\",\n]\n\nwalls = []\nstars = []\n\nfor row in range(6):\n    for col in range(8):\n        ch = LEVEL[row][col]\n        if ch == \"#\":\n            wall = Box(x=col*60, y=row*60, width=60, height=60, color=\"#2A3B55\", name=\"wall\" + str(row) + \"_\" + str(col))\n            walls.append(wall)\n        elif ch == \"S\":\n            star = Sprite(\"star\", x=col*60+30, y=row*60+30, size=26, name=\"star\" + str(row) + \"_\" + str(col))\n            stars.append(star)\n        elif ch == \"X\":\n            door = Sprite(\"castle\", x=col*60+30, y=row*60+30, size=36, name=\"door\")\n\nrobot = Sprite(\"robot\", x=90, y=90, size=40, name=\"robot\")\n\ntitle = Text(\"MAZE ESCAPE\", x=140, y=150, size=26, color=\"#FFC93C\", name=\"title\")\nsubtitle = Text(\"Press SPACE to start\", x=110, y=190, size=16, color=\"#FFFFFF\", name=\"subtitle\")\n\ngame.state = \"start\"\ngame.score = 0\nscore_label = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\", name=\"score_label\")\n\n\n@game.every_frame\ndef update():\n    if game.state == \"start\":\n        if game.key_down(\"space\"):\n            game.state = \"playing\"\n            title.hide()\n            subtitle.hide()\n        return\n\n    # TODO 1: save old_x, try moving left/right, then undo if it hit a wall\n\n\n    if game.key_down(\"left\"):\n        robot.x = robot.x - 3\n    if game.key_down(\"right\"):\n        robot.x = robot.x + 3\n\n\n    # TODO 2: the same idea for old_y and up/down\n\n\n    if game.key_down(\"up\"):\n        robot.y = robot.y - 3\n    if game.key_down(\"down\"):\n        robot.y = robot.y + 3\n\n\n    # TODO 3: game.clamp_inside(robot)\n\n\n    for star in stars:\n        if robot.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            score_label.words = \"Stars: \" + str(game.score)\n\n\ngame.start()\n",
+      "hints": [
+        "TODO 1: old_x = robot.x goes right before the left/right ifs. The wall-check loop goes right AFTER them: for wall in walls: if robot.touching(wall): robot.x = old_x, then break.",
+        "TODO 2 is the exact same shape, with every x swapped for a y, wrapped around the up/down ifs.",
+        "TODO 3 is one line, after both movement blocks, before the star loop: game.clamp_inside(robot)"
+      ],
+      "solution": "from stage import Game, Sprite, Box, Text\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nLEVEL = [\n    \"########\",\n    \"#..S...#\",\n    \"#.....##\",\n    \"#....S.#\",\n    \"#......#\",\n    \"#......X\",\n]\n\nwalls = []\nstars = []\n\nfor row in range(6):\n    for col in range(8):\n        ch = LEVEL[row][col]\n        if ch == \"#\":\n            wall = Box(x=col*60, y=row*60, width=60, height=60, color=\"#2A3B55\", name=\"wall\" + str(row) + \"_\" + str(col))\n            walls.append(wall)\n        elif ch == \"S\":\n            star = Sprite(\"star\", x=col*60+30, y=row*60+30, size=26, name=\"star\" + str(row) + \"_\" + str(col))\n            stars.append(star)\n        elif ch == \"X\":\n            door = Sprite(\"castle\", x=col*60+30, y=row*60+30, size=36, name=\"door\")\n\nrobot = Sprite(\"robot\", x=90, y=90, size=40, name=\"robot\")\n\ntitle = Text(\"MAZE ESCAPE\", x=140, y=150, size=26, color=\"#FFC93C\", name=\"title\")\nsubtitle = Text(\"Press SPACE to start\", x=110, y=190, size=16, color=\"#FFFFFF\", name=\"subtitle\")\n\ngame.state = \"start\"\ngame.score = 0\nscore_label = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\", name=\"score_label\")\n\n\n@game.every_frame\ndef update():\n    if game.state == \"start\":\n        if game.key_down(\"space\"):\n            game.state = \"playing\"\n            title.hide()\n            subtitle.hide()\n        return\n\n    old_x = robot.x\n    if game.key_down(\"left\"):\n        robot.x = robot.x - 3\n    if game.key_down(\"right\"):\n        robot.x = robot.x + 3\n    for wall in walls:\n        if robot.touching(wall):\n            robot.x = old_x\n            break\n\n    old_y = robot.y\n    if game.key_down(\"up\"):\n        robot.y = robot.y - 3\n    if game.key_down(\"down\"):\n        robot.y = robot.y + 3\n    for wall in walls:\n        if robot.touching(wall):\n            robot.y = old_y\n            break\n\n    game.clamp_inside(robot)\n\n    for star in stars:\n        if robot.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            score_label.words = \"Stars: \" + str(game.score)\n\n\ngame.start()\n",
+      "check": {
+        "keys": {
+          "*": [
+            "space",
+            "right"
+          ]
+        },
+        "frames": 150,
+        "rules": [
+          {
+            "what": "ends_in_area",
+            "name": "robot",
+            "x1": 0,
+            "y1": 0,
+            "x2": 410,
+            "y2": 360,
+            "label": "A wall really does stop the robot"
+          },
+          {
+            "what": "count_drops",
+            "kind": "Sprite",
+            "label": "Walking through a star picks it up"
+          },
+          {
+            "what": "text_changes",
+            "label": "The star count on screen goes up"
+          }
+        ]
+      },
+      "successMessage": "Real walls, real collecting. The maze finally works like a maze."
+    },
+    {
+      "title": "Escape... or run out of time",
+      "stage": {
+        "width": 480,
+        "height": 360
+      },
+      "seeIt": {
+        "before": {
+          "background": "#0B1020",
+          "motion": "drive",
+          "seconds": 2,
+          "actors": [
+            {
+              "look": "🤖",
+              "size": 30
+            }
+          ]
+        },
+        "after": {
+          "background": "#0B1020",
+          "motion": "still",
+          "caption": "You escaped! Stars: 2",
+          "actors": [
+            {
+              "look": "🤖",
+              "size": 30,
+              "fixed": {
+                "x": 0.9,
+                "y": 0.85
+              }
+            },
+            {
+              "look": "🏰",
+              "size": 30,
+              "fixed": {
+                "x": 0.95,
+                "y": 0.85
+              }
+            }
+          ]
+        },
+        "note": "A maze without a clock is just a room. Ten seconds turns wandering around into an actual decision every second counts toward."
+      },
+      "getIt": {
+        "widget": "screens",
+        "title": "A third screen, reached from inside the game",
+        "beats": [
+          "\"start\" got the game moving. This step adds \"over\" — reached two different ways.",
+          "Touch the door: you win, with however many stars you grabbed. Timer hits 0: you don't.",
+          "Either way it's the same two lines: change what the label says, then game.stop()."
+        ],
+        "config": {}
+      },
+      "explain": {
+        "title": "A countdown with real stakes",
+        "intro": "You've built a countdown timer before, for a squash effect that lasted six frames. This one lasts ten seconds, and running out actually ends the game.",
+        "lines": [
+          {
+            "code": "game.timer = 600\n...\ngame.timer = game.timer - 1\ntimer_label.words = \"Time: \" + str(game.timer // 60)",
+            "what": "600 frames is 10 seconds at 60fps. Every playing frame, it counts down by one, and the label shows it in whole seconds.",
+            "why": "// is integer division — it throws away the remainder, so 600 // 60 shows \"10\", not \"10.0\". Counting frames and displaying seconds are different jobs on purpose: the countdown needs to be precise, but the player only needs to read whole numbers."
+          },
+          {
+            "code": "if game.timer <= 0:\n    score_label.words = \"Out of time!\"\n    game.stop()",
+            "what": "Time runs out: change the message, freeze the game.",
+            "why": "<= rather than == matters here. If some other change ever made the timer drop by more than 1 in a single frame, == 0 could skip straight past zero and this check would simply never fire. <= 0 always eventually catches it."
+          },
+          {
+            "code": "if robot.touching(door):\n    score_label.words = \"You escaped! Stars: \" + str(game.score)\n    game.stop()",
+            "what": "Reach the door with any time left, and it's a win instead.",
+            "why": "Same two-line shape as running out of time — a message, then stop() — just triggered by a touch instead of a countdown. Two completely different reasons to end the game, both ending it the exact same way."
+          }
+        ]
+      },
+      "brief": "Add a ten-second clock. Reaching the door before it runs out is a win; running out first is a loss — both should end the game with their own message.",
+      "todo": [
+        "Add game.timer = 600 and a Text to show it, then count it down and update the label every playing frame.",
+        "If the timer reaches 0, show \"Out of time!\" and call game.stop().",
+        "If the robot touches the door, show \"You escaped!\" with the star count, and call game.stop() there too."
+      ],
+      "starterCode": "from stage import Game, Sprite, Box, Text\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nLEVEL = [\n    \"########\",\n    \"#..S...#\",\n    \"#.....##\",\n    \"#....S.#\",\n    \"#......#\",\n    \"#......X\",\n]\n\nwalls = []\nstars = []\n\nfor row in range(6):\n    for col in range(8):\n        ch = LEVEL[row][col]\n        if ch == \"#\":\n            wall = Box(x=col*60, y=row*60, width=60, height=60, color=\"#2A3B55\", name=\"wall\" + str(row) + \"_\" + str(col))\n            walls.append(wall)\n        elif ch == \"S\":\n            star = Sprite(\"star\", x=col*60+30, y=row*60+30, size=26, name=\"star\" + str(row) + \"_\" + str(col))\n            stars.append(star)\n        elif ch == \"X\":\n            door = Sprite(\"castle\", x=col*60+30, y=row*60+30, size=36, name=\"door\")\n\nrobot = Sprite(\"robot\", x=90, y=90, size=40, name=\"robot\")\n\ntitle = Text(\"MAZE ESCAPE\", x=140, y=150, size=26, color=\"#FFC93C\", name=\"title\")\nsubtitle = Text(\"Press SPACE to start\", x=110, y=190, size=16, color=\"#FFFFFF\", name=\"subtitle\")\n\ngame.state = \"start\"\ngame.score = 0\nscore_label = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\", name=\"score_label\")\n\n# TODO 1: game.timer = 600, and a Text to show it (name it timer_label)\n\n\n@game.every_frame\ndef update():\n    if game.state == \"start\":\n        if game.key_down(\"space\"):\n            game.state = \"playing\"\n            title.hide()\n            subtitle.hide()\n        return\n\n    # TODO 2: count the timer down by 1, update timer_label.words,\n    #         and if it's reached 0, show \"Out of time!\" and game.stop()\n\n\n    old_x = robot.x\n    if game.key_down(\"left\"):\n        robot.x = robot.x - 3\n    if game.key_down(\"right\"):\n        robot.x = robot.x + 3\n    for wall in walls:\n        if robot.touching(wall):\n            robot.x = old_x\n            break\n\n    old_y = robot.y\n    if game.key_down(\"up\"):\n        robot.y = robot.y - 3\n    if game.key_down(\"down\"):\n        robot.y = robot.y + 3\n    for wall in walls:\n        if robot.touching(wall):\n            robot.y = old_y\n            break\n\n    game.clamp_inside(robot)\n\n    for star in stars:\n        if robot.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            score_label.words = \"Stars: \" + str(game.score)\n\n    # TODO 3: if robot.touching(door): show \"You escaped!\" with the score,\n    #         and game.stop()\n\n\ngame.start()\n",
+      "hints": [
+        "TODO 1 is two lines, near game.score: game.timer = 600, then timer_label = Text(\"Time: 10\", x=380, y=16, size=18, color=\"#FFFFFF\", name=\"timer_label\").",
+        "TODO 2 is three lines at the very top of the \"playing\" code: game.timer = game.timer - 1, then timer_label.words = \"Time: \" + str(game.timer // 60), then an if game.timer <= 0: block with the message and game.stop().",
+        "TODO 3 is an if robot.touching(door):, with score_label.words = \"You escaped! Stars: \" + str(game.score) and game.stop() inside it."
+      ],
+      "solution": "from stage import Game, Sprite, Box, Text\n\ngame = Game(width=480, height=360, background=\"#0B1020\")\n\nLEVEL = [\n    \"########\",\n    \"#..S...#\",\n    \"#.....##\",\n    \"#....S.#\",\n    \"#......#\",\n    \"#......X\",\n]\n\nwalls = []\nstars = []\n\nfor row in range(6):\n    for col in range(8):\n        ch = LEVEL[row][col]\n        if ch == \"#\":\n            wall = Box(x=col*60, y=row*60, width=60, height=60, color=\"#2A3B55\", name=\"wall\" + str(row) + \"_\" + str(col))\n            walls.append(wall)\n        elif ch == \"S\":\n            star = Sprite(\"star\", x=col*60+30, y=row*60+30, size=26, name=\"star\" + str(row) + \"_\" + str(col))\n            stars.append(star)\n        elif ch == \"X\":\n            door = Sprite(\"castle\", x=col*60+30, y=row*60+30, size=36, name=\"door\")\n\nrobot = Sprite(\"robot\", x=90, y=90, size=40, name=\"robot\")\n\ntitle = Text(\"MAZE ESCAPE\", x=140, y=150, size=26, color=\"#FFC93C\", name=\"title\")\nsubtitle = Text(\"Press SPACE to start\", x=110, y=190, size=16, color=\"#FFFFFF\", name=\"subtitle\")\n\ngame.state = \"start\"\ngame.score = 0\nscore_label = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\", name=\"score_label\")\n\ngame.timer = 600\ntimer_label = Text(\"Time: 10\", x=380, y=16, size=18, color=\"#FFFFFF\", name=\"timer_label\")\n\n\n@game.every_frame\ndef update():\n    if game.state == \"start\":\n        if game.key_down(\"space\"):\n            game.state = \"playing\"\n            title.hide()\n            subtitle.hide()\n        return\n\n    game.timer = game.timer - 1\n    timer_label.words = \"Time: \" + str(game.timer // 60)\n    if game.timer <= 0:\n        score_label.words = \"Out of time!\"\n        game.stop()\n\n    old_x = robot.x\n    if game.key_down(\"left\"):\n        robot.x = robot.x - 3\n    if game.key_down(\"right\"):\n        robot.x = robot.x + 3\n    for wall in walls:\n        if robot.touching(wall):\n            robot.x = old_x\n            break\n\n    old_y = robot.y\n    if game.key_down(\"up\"):\n        robot.y = robot.y - 3\n    if game.key_down(\"down\"):\n        robot.y = robot.y + 3\n    for wall in walls:\n        if robot.touching(wall):\n            robot.y = old_y\n            break\n\n    game.clamp_inside(robot)\n\n    for star in stars:\n        if robot.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            score_label.words = \"Stars: \" + str(game.score)\n\n    if robot.touching(door):\n        score_label.words = \"You escaped! Stars: \" + str(game.score)\n        game.stop()\n\n\ngame.start()\n",
+      "check": {
+        "scenarios": [
+          {
+            "name": "racing to the door",
+            "frames": 200,
+            "keys": {
+              "*": [
+                "space",
+                "right",
+                "down"
+              ]
+            }
+          },
+          {
+            "name": "standing still",
+            "frames": 650,
+            "keys": {
+              "*": [
+                "space"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "what": "game_over",
+            "in": "racing to the door",
+            "label": "Reaching the door ends the game"
+          },
+          {
+            "what": "game_over",
+            "in": "standing still",
+            "label": "Running out of time ends it too"
+          },
+          {
+            "what": "text_changes",
+            "label": "The message on screen changes to say what happened"
+          }
+        ]
+      },
+      "successMessage": "That's Maze Escape: a start screen, a level built from a grid, walls you can't walk through, and a clock that means it. Every game you build from here starts from these same few pieces. 🗺️"
+    }
+  ]
+}

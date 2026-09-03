@@ -1,0 +1,45 @@
+{
+  "moduleId": 11,
+  "title": "Robots That Think (AI)",
+  "emoji": "🤖",
+  "tagline": "Rules a human writes vs patterns a robot discovers — and everything that becomes possible once it can see, hear and understand.",
+  "lessons": [
+    {
+      "lessonId": "robot-rules-vs-learning",
+      "title": "Rules vs Learning",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-training-data",
+      "title": "Training Data: Teach the Robot Yourself",
+      "duration": "12 min"
+    },
+    {
+      "lessonId": "robot-object-detection",
+      "title": "Object Detection: Boxes and Confidence",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-face-detection",
+      "title": "Face Detection — and a Word on Privacy",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-gesture",
+      "title": "Gesture: Hand Pose Into Command",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-voice",
+      "title": "Voice: Sound Wave to Action",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-autonomous-nav",
+      "title": "Autonomous Navigation: All of It Together",
+      "duration": "14 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

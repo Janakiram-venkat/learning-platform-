@@ -54,7 +54,8 @@ export const courseService = {
   getCourses: () => api.get('/courses'),
   getCourse: (courseId) => api.get(`/courses/${courseId}`),
   getModule: (courseId, moduleId) => api.get(`/courses/${courseId}/modules/${moduleId}`),
-  getLesson: (courseId, lessonId) => api.get(`/courses/${courseId}/lessons/${lessonId}`),
+  // Uses the canonical content route (not the legacy /lessons/ alias).
+  getLesson: (courseId, lessonId) => api.get(`/courses/${courseId}/content/lesson/${lessonId}`),
   getAssignment: (courseId, moduleId) => api.get(`/courses/${courseId}/assignments/${moduleId}`),
   getProject: (courseId, moduleId) => api.get(`/courses/${courseId}/projects/${moduleId}`),
   getLab: (courseId, moduleId) => api.get(`/courses/${courseId}/labs/${moduleId}`),
@@ -71,7 +72,8 @@ export const compilerService = {
 };
 
 export const quizService = {
-  submitQuiz: (courseId, lessonId, answers) => api.post(`/courses/${courseId}/quiz/submit`, { lessonId, answers }),
+  submitQuiz: (courseId, lessonId, answers) =>
+    api.post(`/courses/${courseId}/quiz/submit`, { lessonId, answers }),
 };
 
 export const feedbackService = {
@@ -86,6 +88,9 @@ export const authService = {
   me: () => api.get('/auth/me'),
   updateProfile: (payload) => api.patch('/auth/profile', payload),
   changePassword: (payload) => api.post('/auth/password', payload),
+  // Invalidates all existing JWTs for the user server-side. Call before
+  // clearing the local token so route guards can't race a stale session.
+  logout: () => api.post('/auth/logout').catch(() => {}), // best-effort; clear local state regardless
 };
 
 // Admin dashboard. Every call 403s unless the signed-in account is staff, so
@@ -100,5 +105,8 @@ export const adminService = {
 
 export const progressService = {
   get: () => api.get('/progress'),
+  // Full replace — used on initial hydration.
   save: (progress) => api.put('/progress', { progress }),
+  // Additive merge — used for ongoing sync to prevent multi-tab overwrites.
+  merge: (delta) => api.patch('/progress', { delta }),
 };

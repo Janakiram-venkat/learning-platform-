@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
 from app.db import get_db
+from app.core.limiter import limiter
 from app.schemas.user_schema import (
     SignUpRequest,
     LoginRequest,
@@ -10,6 +11,7 @@ from app.schemas.user_schema import (
     UserResponse,
     AuthResponse,
     ProgressUpdate,
+    ProgressMerge,
     ProgressResponse,
 )
 from app.services import user_service
@@ -21,10 +23,11 @@ router = APIRouter()
 
 
 @router.post("/auth/signup", response_model=AuthResponse, status_code=201)
-def sign_up(request: SignUpRequest, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+def sign_up(request: Request, body: SignUpRequest, db: Session = Depends(get_db)):
     """Create a new email + password account and return a session token."""
     user = user_service.create_user_with_password(
-        db, request.email, request.name, request.password, request.interests
+        db, body.email, body.name, body.password, body.interests
     )
     if user is None:
         raise HTTPException(
@@ -35,9 +38,10 @@ def sign_up(request: SignUpRequest, db: Session = Depends(get_db)):
 
 
 @router.post("/auth/login", response_model=AuthResponse)
-def login(request: LoginRequest, db: Session = Depends(get_db)):
+@limiter.limit("10/minute")
+def login(request: Request, body: LoginRequest, db: Session = Depends(get_db)):
     """Log in with email + password. Returns a session token on success."""
-    user = user_service.authenticate(db, request.email, request.password)
+    user = user_service.authenticate(db, body.email, body.password)
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -47,10 +51,11 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
 
 
 @router.post("/auth/google", response_model=AuthResponse)
-def google_sign_in(request: GoogleSignInRequest, db: Session = Depends(get_db)):
+@limiter.limit("10/minute")
+def google_sign_in(request: Request, body: GoogleSignInRequest, db: Session = Depends(get_db)):
     """Sign in with a Google ID token. Creates the account if it's new."""
     try:
-        claims = verify_google_token(request.token)
+        claims = verify_google_token(body.token)
     except ValueError as exc:
         raise HTTPException(status_code=401, detail=f"Invalid Google token: {exc}")
 
@@ -64,6 +69,21 @@ def google_sign_in(request: GoogleSignInRequest, db: Session = Depends(get_db)):
 def me(current_user: User = Depends(get_current_user)):
     """Return the currently signed-in user (requires a valid session token)."""
     return current_user
+
+
+@router.post("/auth/logout", status_code=204)
+def logout(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Invalidate all existing JWTs for the signed-in user.
+
+    Increments the user's token_version so every token minted before this
+    call returns 401, even if it hasn't reached its expiry date yet. The
+    client should discard its stored token after calling this.
+    """
+    user_service.invalidate_tokens(db, current_user)
+    return None
 
 
 @router.patch("/auth/profile", response_model=UserResponse)
@@ -112,6 +132,22 @@ def save_progress(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Persist the signed-in student's progress document."""
+    """Persist the signed-in student's full progress snapshot."""
     user = user_service.update_progress(db, current_user, payload.progress)
+    return ProgressResponse(progress=user.progress or {})
+
+
+@router.patch("/progress", response_model=ProgressResponse)
+def merge_progress(
+    payload: ProgressMerge,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Additively merge a progress delta into the stored document.
+
+    Arrays are unioned, numeric keys take the max, dict keys are shallow-merged.
+    This prevents multi-tab race conditions where a full PUT from one tab
+    could overwrite completions from another.
+    """
+    user = user_service.merge_progress(db, current_user, payload.delta)
     return ProgressResponse(progress=user.progress or {})

@@ -402,6 +402,124 @@ function ListLoop({ mode = 'move', look = '🪨' }) {
   );
 }
 
+// --- juice: squash/stretch and screen shake, the two visual-only tricks ----
+
+function Juice({ look = '🐸' }) {
+  const frogRef = useRef(null);
+  const groupRef = useRef(null);
+  const motion = useRef({ y: 150, vy: 0, squash: 0 });
+  const shakeFrames = useRef(0);
+
+  useEffect(() => {
+    let raf = 0;
+    const tick = () => {
+      const m = motion.current;
+      m.vy += 1; // gravity
+      m.y += m.vy;
+
+      let sx = 1;
+      let sy = 1;
+      if (m.squash > 0) {
+        sx = 1.3; sy = 0.6;
+        m.squash -= 1;
+      } else if (m.vy < 0) {
+        sx = 0.7; sy = 1.3;
+      }
+
+      if (m.y >= 150) {
+        m.y = 150;
+        if (m.vy > 3) m.squash = 6;
+        m.vy = -14; // auto-bounce so the loop demos itself
+      }
+
+      if (frogRef.current) {
+        frogRef.current.setAttribute('transform', `translate(${W / 2} ${m.y}) scale(${sx} ${sy})`);
+      }
+
+      if (shakeFrames.current > 0) {
+        shakeFrames.current -= 1;
+        const jx = (Math.random() * 2 - 1) * 6;
+        const jy = (Math.random() * 2 - 1) * 6;
+        groupRef.current?.setAttribute('transform', `translate(${jx} ${jy})`);
+      } else {
+        groupRef.current?.setAttribute('transform', 'translate(0 0)');
+      }
+
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  return (
+    <div>
+      <Stage>
+        <g ref={groupRef}>
+          <Grid />
+          <rect x="0" y="168" width={W} height="32" fill="#1F7A5C" />
+          <text ref={frogRef} x="0" y="0" fontSize="28" textAnchor="middle" dominantBaseline="central">{look}</text>
+        </g>
+      </Stage>
+      <button
+        onClick={() => { shakeFrames.current = 14; }}
+        className="lab-btn mt-3 rounded-lg border-2 border-ink bg-signal px-3 py-2 text-sm font-extrabold text-ink"
+      >
+        Shake!
+      </button>
+      <p className="mt-2 text-sm text-ink/60">
+        Watch it stretch tall on the way up and squash flat the instant it lands — that's{' '}
+        <code className="rounded bg-ink/8 px-1">scale_x</code> and <code className="rounded bg-ink/8 px-1">scale_y</code>{' '}
+        changing, not a different picture. Press <strong>Shake!</strong> for the trick a crash uses on the whole screen.
+      </p>
+    </div>
+  );
+}
+
+// --- screens: one stage, redrawn completely differently per game.state -----
+
+function Screens() {
+  const [state, setState] = useState('start');
+
+  return (
+    <div>
+      <Stage>
+        <Grid />
+        {state === 'start' && (
+          <g>
+            <text x={W / 2} y="80" fontSize="20" fontWeight="bold" textAnchor="middle" fill="#FFC93C">MAZE ESCAPE</text>
+            <text x={W / 2} y="106" fontSize="12" textAnchor="middle" fill="#ffffffb0">Press SPACE to start</text>
+          </g>
+        )}
+        {state === 'playing' && (
+          <text x={W / 2} y={H / 2} fontSize="30" textAnchor="middle" dominantBaseline="central">🤖</text>
+        )}
+        {state === 'over' && (
+          <g>
+            <text x={W / 2} y="90" fontSize="18" fontWeight="bold" textAnchor="middle" fill="#3FBF7F">You escaped!</text>
+            <text x={W / 2} y="114" fontSize="12" textAnchor="middle" fill="#ffffffb0">Stars: 2</text>
+          </g>
+        )}
+      </Stage>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {['start', 'playing', 'over'].map((s) => (
+          <button
+            key={s}
+            onClick={() => setState(s)}
+            className={`lab-btn rounded-lg border-2 border-ink px-3 py-2 text-sm font-extrabold ${state === s ? 'bg-signal text-ink' : 'bg-white text-ink'}`}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+      <Readout items={[{ label: 'game.state', value: `"${state}"` }]} />
+      <p className="mt-2 text-sm text-ink/60">
+        It's the exact same stage every time — only what your code CHECKS about <code className="rounded bg-ink/8 px-1">game.state</code> decides
+        what gets drawn and what update() actually does that frame.
+      </p>
+    </div>
+  );
+}
+
 const WIDGETS = {
   coordinates: Coordinates,
   velocity: Velocity,
@@ -409,6 +527,8 @@ const WIDGETS = {
   collision: Collision,
   gravity: Gravity,
   list_loop: ListLoop,
+  juice: Juice,
+  screens: Screens,
 };
 
 export default function GetIt({ widget, title, beats, config }) {

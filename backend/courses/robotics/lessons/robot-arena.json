@@ -1,0 +1,97 @@
+{
+  "lessonId": "robot-arena",
+  "title": "The Arena",
+  "description": "Three challenges, real Python, real simulation. This is everything Module 10 taught you, aimed at something harder than any single lesson asked for.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Three Tracks"
+    },
+    {
+      "type": "paragraph",
+      "value": "Each challenge below drops you into a world you've seen before, but without a lesson walking you through the exact solution. Fewer ticks used to reach the goal is a rough stand-in for a leaderboard's \"time\" — a tighter, more direct program beats a meandering one."
+    },
+    {
+      "type": "heading",
+      "value": "1. Maze Sprint"
+    },
+    {
+      "type": "paragraph",
+      "value": "Navigate the obstacle field to the goal, as directly as you can."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-code",
+      "title": "🏁 Maze Sprint",
+      "worldId": "obstacleRoom",
+      "starterCode": "while True:\n    d = robot.distance()\n    if d < 30:\n        robot.left(30)\n    else:\n        robot.forward(50)\n",
+      "xp": 30,
+      "xpKey": "robotics-m12-arena-maze"
+    },
+    {
+      "type": "heading",
+      "value": "2. Line Race"
+    },
+    {
+      "type": "paragraph",
+      "value": "Follow the track to the goal at the far end. Both sensors need to work together — check back on Module 7's line-following rules if it's been a while."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-code",
+      "title": "🏁 Line Race",
+      "worldId": "lineTrack",
+      "starterCode": "while True:\n    left_on, right_on = robot.line()\n    if left_on and right_on:\n        robot.forward(40)\n    elif left_on:\n        robot.left(8)\n    elif right_on:\n        robot.right(8)\n    else:\n        robot.forward(20)\n",
+      "xp": 35,
+      "xpKey": "robotics-m12-arena-line"
+    },
+    {
+      "type": "heading",
+      "value": "3. Warehouse Run"
+    },
+    {
+      "type": "paragraph",
+      "value": "A tighter, more maze-like obstacle course. The starting heading is different from the other two challenges — read it carefully before you write your first move."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-code",
+      "title": "🏁 Warehouse Run",
+      "worldId": "warehouse",
+      "starterCode": "while True:\n    d = robot.distance()\n    if d < 25:\n        robot.right(25)\n    else:\n        robot.forward(40)\n",
+      "xp": 40,
+      "xpKey": "robotics-m12-arena-warehouse"
+    },
+    {
+      "type": "tip",
+      "value": "None of the three starter programs shown are optimal — they're deliberately plain starting points, the same way this course has never handed you a finished answer. Tightening the turn angles and thresholds is the actual challenge."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: the arena is every idea from Modules 5 through 10, applied without a lesson holding your hand — real sensing, real decisions, real code, on three different layouts."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does 'fewer ticks used' approximate in the arena challenges?",
+      "options": [
+        "Battery usage",
+        "A rough stand-in for time — a tighter, more direct program reaches the goal faster",
+        "The number of lines of code written"
+      ],
+      "answer": 1,
+      "explain": "Since each tick is a fixed simulated time step, fewer ticks to the goal means a more efficient run — the same idea a real leaderboard would measure by wall-clock time."
+    },
+    {
+      "question": "Why does the Line Race challenge require checking both robot.line() sensors together, rather than just one?",
+      "options": [
+        "It doesn't — one sensor is enough",
+        "Two sensors reading together tell you whether the robot is centred, drifted left, drifted right, or has lost the line entirely — Module 7's four-case rule table",
+        "robot.line() only works with two sensors checked separately"
+      ],
+      "answer": 1,
+      "explain": "This is exactly the same two-sensor logic Module 7 built by hand — now expressed as real Python conditions."
+    }
+  ]
+}

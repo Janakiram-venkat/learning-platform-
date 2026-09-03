@@ -1,0 +1,81 @@
+{
+  "lessonId": "robot-loops",
+  "title": "Loops: Repeat Forever, Repeat N Times",
+  "description": "The third and final shape. Say a step once, ask for it to happen many times — and watch a long sequence collapse into a handful of blocks.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Two Kinds of Repeat"
+    },
+    {
+      "type": "paragraph",
+      "value": "A loop runs the blocks inside it more than once. This course's block palette has two versions: repeat N times, which runs a fixed number of times and then stops, and repeat forever, which keeps going with no built-in end — useful, but genuinely dangerous if nothing inside it ever changes the situation."
+    },
+    {
+      "type": "widget",
+      "kind": "block-maze",
+      "title": "🧩 Solve it with a loop",
+      "hint": "This maze repeats a pattern. Try wrapping 'forward, forward, right' in a Repeat block instead of stacking it out by hand.",
+      "mazeId": "staircase",
+      "xp": 30,
+      "xpKey": "robotics-m9-loops"
+    },
+    {
+      "type": "heading",
+      "value": "Same Destination, Fewer Blocks"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice you can solve that maze two ways: stack out every single forward and turn by hand, or wrap the repeating pattern in one Repeat block. Both reach the flag — but the loop version is shorter, and more importantly, it's shorter in a way that reveals the pattern in the maze itself. That's usually a sign a loop is the right tool."
+    },
+    {
+      "type": "heading",
+      "value": "The Danger of Forever"
+    },
+    {
+      "type": "paragraph",
+      "value": "A repeat forever block never exits on its own — it only stops if something inside it, like a decision, breaks the pattern (for example, stopping once the flag is reached). Without that, it would run endlessly. The maze widget protects you with a safety limit so a runaway loop can't actually freeze anything, but a real robot has no such guardrail unless you build one in yourself."
+    },
+    {
+      "type": "tip",
+      "value": "Real code has the exact same two shapes, just written differently: `for i in range(n):` is repeat N times, and `while True:` is repeat forever. You'll meet both by name in the next module."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a loop repeats its contents — either a fixed number of times, or forever until something inside it stops the pattern. Spotting a repeating pattern and replacing it with a loop is one of the most useful moves in programming."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What's the key difference between 'repeat 3 times' and 'repeat forever'?",
+      "options": [
+        "No difference, they behave identically",
+        "'Repeat 3 times' stops on its own after 3 runs; 'repeat forever' has no built-in end",
+        "'Repeat forever' is always faster"
+      ],
+      "answer": 1,
+      "explain": "A fixed-count loop is self-limiting. An unlimited loop keeps going unless something inside it (like a decision) breaks the pattern."
+    },
+    {
+      "question": "A maze needs 'forward, forward, right' repeated four times. What's the advantage of wrapping that in a loop instead of writing all twelve blocks by hand?",
+      "options": [
+        "No real advantage, both work identically well",
+        "It's shorter and makes the repeating pattern in the maze visible in the program itself",
+        "Loops always run faster in real time"
+      ],
+      "answer": 1,
+      "explain": "Both solve the maze, but the loop version is more concise and honestly reflects the structure of the problem — which is exactly why it earns more stars."
+    },
+    {
+      "question": "What's the risk of a 'repeat forever' block with nothing inside it that can change the situation?",
+      "options": [
+        "It runs endlessly, with no way to stop on its own",
+        "It automatically stops after 10 seconds",
+        "It's exactly as safe as a fixed-count loop"
+      ],
+      "answer": 0,
+      "explain": "Without a condition or decision that can break the pattern, an unlimited loop truly never ends on its own — a real risk to design around."
+    }
+  ]
+}

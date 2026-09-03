@@ -1,0 +1,87 @@
+{
+  "lessonId": "robot-circuit-loop",
+  "title": "The Loop Must Close",
+  "description": "Water only flows through a pipe that leads somewhere. Electricity is the same — it needs a complete loop back to where it started, or nothing happens at all.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Circuit Is a Circle"
+    },
+    {
+      "type": "paragraph",
+      "value": "The word \"circuit\" comes from the same root as \"circle\" for a reason. Current doesn't just flow out of a battery and vanish — it has to travel all the way around, out one terminal, through every part, and back into the other terminal. Cut the loop anywhere and the whole thing stops, instantly, everywhere."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "COMPLETE LOOP                    CUT LOOP\n\n  +----[LED]----+                  +----[LED]----+\n  |             |                  |             X  <- gap\n  +----[bat]----+                  +----[bat]----+\n\n  current flows, LED lit           current stops, LED dark"
+    },
+    {
+      "type": "paragraph",
+      "value": "This is why the widget's switch matters so much. A switch is nothing more than a deliberate, controllable gap in the loop — closed, the loop is whole and current flows; open, the loop is broken and current is zero, everywhere in the circuit, all at once."
+    },
+    {
+      "type": "widget",
+      "kind": "circuit-sandbox",
+      "title": "🔌 Open and close the loop",
+      "hint": "Flip the switch. Notice the LED doesn't fade out — it just stops, the instant the loop breaks.",
+      "mode": "basic",
+      "voltage": 9,
+      "xp": 15,
+      "xpKey": "robotics-m3-loop"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice something odd: current doesn't pile up at the battery waiting for the loop to close, and it doesn't drain out and disappear when the loop opens. It simply isn't flowing at all until there's a full circle for it to flow around."
+    },
+    {
+      "type": "heading",
+      "value": "Two Ways to Break the Loop"
+    },
+    {
+      "type": "paragraph",
+      "value": "An open circuit is a loop with a gap in it on purpose or by accident — a switch left open, a wire that's come loose, a broken LED leg. No current flows anywhere. A short circuit is the opposite problem: the current finds a path that skips your part entirely, usually a stray wire touching where it shouldn't. You'll build both of those failures yourself in the next lesson."
+    },
+    {
+      "type": "tip",
+      "value": "Series wiring — one path, everything in a single loop — is what you just used. It's the simplest circuit there is, and it's the one every other wiring pattern in this module builds on."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: current only flows around a complete loop. A switch is a controlled gap you can open or close on purpose."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "You open the switch in the widget above. What happens to the LED?",
+      "options": [
+        "It fades out slowly",
+        "It stops instantly — no current flows anywhere in the loop",
+        "It stays lit but dimmer"
+      ],
+      "answer": 1,
+      "explain": "Breaking the loop anywhere stops current everywhere in that loop, all at once. There's no fading — the current simply has nowhere to go."
+    },
+    {
+      "question": "What is a switch, physically?",
+      "options": [
+        "A tiny battery",
+        "A deliberate, controllable gap in the loop",
+        "A part that adds resistance"
+      ],
+      "answer": 1,
+      "explain": "Open, it's a gap that stops current. Closed, it completes the loop. That's the entire job of a switch."
+    },
+    {
+      "question": "ARIA's status LED won't light. You check and the battery is fresh and the wiring looks connected. What should you check next?",
+      "options": [
+        "Whether the loop is actually complete somewhere you can't easily see, like a loose connector",
+        "The colour of the LED",
+        "How old the wire is"
+      ],
+      "answer": 0,
+      "explain": "A dead circuit almost always means a broken loop somewhere — an open connection is the first thing to hunt for."
+    }
+  ]
+}

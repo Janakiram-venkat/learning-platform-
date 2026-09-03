@@ -1,0 +1,35 @@
+{
+  "moduleId": 6,
+  "title": "Precise Movement",
+  "emoji": "🎯",
+  "tagline": "Beyond plain spinning: hold an angle, count exact steps, and trade speed for strength.",
+  "lessons": [
+    {
+      "lessonId": "robot-servo",
+      "title": "Servo: A Motor That Checks Its Work",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-servo-signal",
+      "title": "The Servo's Pulse",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-stepper",
+      "title": "Stepper Motor: Counting Instead of Guessing",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-gears",
+      "title": "Gears: Trading Speed for Strength",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-choosing",
+      "title": "DC, Servo or Stepper?",
+      "duration": "10 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

@@ -1,0 +1,80 @@
+{
+  "lessonId": "robot-lidar",
+  "title": "LiDAR: A Spinning Laser",
+  "description": "Component lesson. Take the ultrasonic sensor's whole idea, swap sound for light, and spin it in a circle. The room appears out of nothing.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why It Exists"
+    },
+    {
+      "type": "paragraph",
+      "value": "An ultrasonic sensor gives you one distance reading, in the direction it's pointed. LiDAR (Light Detection and Ranging) asks the exact same question — how far away is something? — but spins a laser around in a full circle, taking a fresh reading at every angle, building up a complete picture of everything around the robot instead of just what's straight ahead."
+    },
+    {
+      "type": "heading",
+      "value": "How It Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "The core measurement is identical to ultrasonic's: send a pulse, time how long it takes to come back, compute distance. LiDAR just uses light instead of sound — much faster, so the timing has to be measured in nanoseconds rather than milliseconds — and it does that measurement over and over while spinning, once per degree or better."
+    },
+    {
+      "type": "widget",
+      "kind": "lidar-sweep",
+      "title": "🔦 Watch it sweep",
+      "hint": "Follow the red ray around. Each dot it drops stays put — watch the room's shape build up from nothing.",
+      "xp": 20,
+      "xpKey": "robotics-m8-lidar"
+    },
+    {
+      "type": "heading",
+      "value": "One Rotation, One Map"
+    },
+    {
+      "type": "paragraph",
+      "value": "After a full rotation, those individual dots — a point cloud — trace out the shape of everything around the sensor: walls, furniture, other robots. That's a complete local map, rebuilt fresh every rotation, which is exactly what lets a robot navigate a room it's never seen before."
+    },
+    {
+      "type": "tip",
+      "value": "You'll compare LiDAR head-to-head against ultrasonic in the next lesson — same basic idea, very different trade-offs in cost, resolution, and what kinds of surfaces trip each one up."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: LiDAR is the same time-of-flight idea as an ultrasonic sensor, using light instead of sound, spun through a full circle to build a complete map of the surroundings rather than one single-direction reading."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What's the core measurement LiDAR shares with an ultrasonic sensor?",
+      "options": [
+        "Distance from a round-trip time of flight",
+        "Colour of the object",
+        "Weight of the object"
+      ],
+      "answer": 0,
+      "explain": "Both work the same way at heart: send a pulse, time its return, compute distance — light instead of sound is the only real difference."
+    },
+    {
+      "question": "What does one full LiDAR rotation give you that a single ultrasonic sensor can't?",
+      "options": [
+        "A reading in every direction at once, building a complete map rather than one direction's distance",
+        "Colour information",
+        "Nothing extra — they're identical"
+      ],
+      "answer": 0,
+      "explain": "Spinning through 360° and taking a reading at each angle produces a full point cloud of the surroundings, not just one straight-ahead number."
+    },
+    {
+      "question": "Why does LiDAR need to measure time in nanoseconds instead of the milliseconds an ultrasonic sensor uses?",
+      "options": [
+        "Light travels vastly faster than sound, so its round trip takes far less time to measure",
+        "It's an arbitrary design choice with no physical reason",
+        "LiDAR doesn't actually measure time at all"
+      ],
+      "answer": 0,
+      "explain": "Light's speed is about a million times sound's — the same round-trip idea just happens on a vastly shorter timescale."
+    }
+  ]
+}

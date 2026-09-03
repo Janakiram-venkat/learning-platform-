@@ -1,0 +1,63 @@
+{
+  "lessonId": "robot-motors-intro",
+  "title": "Electricity + Magnets = Spin",
+  "description": "Everything ARIA does to move comes down to one trick from physics, wired to a chassis.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The One Trick"
+    },
+    {
+      "type": "paragraph",
+      "value": "Run current through a wire and it creates a small magnetic field around itself — that's not a robotics fact, it's a plain physics fact, true of any wire, anywhere. Put that wire near a fixed magnet, arranged the right way, and the two magnetic fields push and pull against each other. Shape the wire into a loop that's free to turn, and that push becomes rotation."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "current through a coil  -->  coil becomes a magnet\ncoil's magnet vs the fixed magnet's poles  -->  push/pull\nmounted so it can spin  -->  the push becomes rotation"
+    },
+    {
+      "type": "paragraph",
+      "value": "That's the entire idea behind a DC motor. Everything in the next lesson — brushes, a commutator, coils — exists purely to keep that push happening continuously as the coil spins past the point where it would otherwise stop and settle."
+    },
+    {
+      "type": "heading",
+      "value": "Why This Matters for a Robot"
+    },
+    {
+      "type": "paragraph",
+      "value": "Motors are how a robot turns a THINK decision into an ACT in the physical world. Everything else in this module — driver chips, wheels, differential steering — is really just plumbing around this one spinning trick, getting it wired safely and steered usefully."
+    },
+    {
+      "type": "tip",
+      "value": "Reverse the current direction and the push reverses too — that single fact is why swapping two wires on a motor makes it spin the opposite way. You'll use exactly this in the H-bridge lesson coming up."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: current through a coil creates a magnetic field; placed near a fixed magnet, that field pushes, and mounted to spin, the push becomes rotation. That's the entire physics behind every motor on ARIA."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What creates the magnetic field inside a motor's spinning coil?",
+      "options": [
+        "Current flowing through the coil's wire",
+        "The coil being made of metal",
+        "Friction with the fixed magnet"
+      ],
+      "answer": 0,
+      "explain": "Any current-carrying wire creates a magnetic field around itself — that's the whole starting point of a motor."
+    },
+    {
+      "question": "What happens if you reverse the direction of current through a motor?",
+      "options": [
+        "Nothing changes",
+        "It spins the opposite direction",
+        "It stops permanently"
+      ],
+      "answer": 1,
+      "explain": "Reversing current reverses the coil's magnetic field, which flips which way it's pushed relative to the fixed magnet."
+    }
+  ]
+}

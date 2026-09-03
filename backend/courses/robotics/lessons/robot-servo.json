@@ -1,0 +1,90 @@
+{
+  "lessonId": "robot-servo",
+  "title": "Servo: A Motor That Checks Its Work",
+  "description": "Component lesson. A DC motor spins forever. A servo does something smarter: it goes exactly where you tell it, then holds — and knows if something pushes it off.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why It Exists"
+    },
+    {
+      "type": "paragraph",
+      "value": "A DC motor is great at spinning continuously, but useless if you want a part to hold a precise angle — say, a sensor head aimed at exactly 45°. A servo solves that by wrapping a small DC motor in extra parts whose whole job is knowing exactly where the output shaft currently is, and correcting until it matches where you asked it to be."
+    },
+    {
+      "type": "heading",
+      "value": "How It Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "Inside a servo: a small DC motor, a gear train that trades its speed for torque (you'll meet gear ratios properly later in this module), and — the key part — a potentiometer mechanically linked to the output shaft, which reports the shaft's actual current angle back to a tiny control board."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "commanded angle  ---\\\n                      >  compare  --> error --> drive motor toward zero error\nmeasured angle   ---/                              (potentiometer feedback)"
+    },
+    {
+      "type": "paragraph",
+      "value": "That's a feedback loop: compare what's commanded to what's actually measured, and keep correcting until the difference (the error) is zero. It runs continuously, many times a second — which is exactly why a servo fights back if you push its horn away by hand."
+    },
+    {
+      "type": "widget",
+      "kind": "servo-dial",
+      "title": "🎯 Command an angle",
+      "hint": "Try 0°, then 180°, then somewhere in between. Watch for the small overshoot before it settles — that's the loop correcting itself.",
+      "xp": 20,
+      "xpKey": "robotics-m6-servo"
+    },
+    {
+      "type": "heading",
+      "value": "Specs"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Part          SG90 micro servo\nRange         0°–180°\nControl       pulse-width signal (next lesson)\nTorque        ≈ 1.8 kg·cm\nPrice         ≈ ₹120"
+    },
+    {
+      "type": "tip",
+      "value": "This closed-loop idea — measure, compare, correct — is one of the most reused patterns in all of engineering, not just robotics. A thermostat, a cruise control, even your own hand reaching for a cup all run some version of the same loop."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a servo is a motor plus a feedback loop — it measures its own position with a potentiometer, compares it to the commanded angle, and drives until the error is zero."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What tells a servo's control board where its output shaft currently is?",
+      "options": [
+        "A potentiometer mechanically linked to the shaft",
+        "It doesn't know — servos run blind",
+        "A separate camera"
+      ],
+      "answer": 0,
+      "explain": "The potentiometer's reading is the \"measured angle\" half of the feedback loop — without it, there'd be nothing to compare the command against."
+    },
+    {
+      "question": "Why does a servo fight back if you push its horn away by hand?",
+      "options": [
+        "It's a mechanical accident",
+        "The feedback loop detects the resulting error and keeps driving the motor to correct it",
+        "Servos are always locked rigid and can't be pushed"
+      ],
+      "answer": 1,
+      "explain": "Pushing the horn changes the measured angle, creating an error against the commanded angle — and the loop responds exactly as it's designed to."
+    },
+    {
+      "question": "What's the small overshoot you see when a servo settles onto a new angle?",
+      "options": [
+        "A malfunction",
+        "The feedback loop correcting itself — it's part of how the loop behaves, not a bug",
+        "The gear train slipping"
+      ],
+      "answer": 1,
+      "explain": "A responsive feedback loop often overcorrects slightly before settling exactly on target — normal behaviour, not a fault."
+    }
+  ]
+}

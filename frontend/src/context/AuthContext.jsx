@@ -85,7 +85,12 @@ export function AuthProvider({ children }) {
     return persist(res.data);
   }, [persist]);
 
-  const signOut = useCallback(() => clear(), [clear]);
+  const signOut = useCallback(async () => {
+    // Invalidate the JWT server-side first so it can't be replayed on other
+    // devices even before it naturally expires.
+    await authService.logout(); // best-effort; authService.logout catches its own errors
+    clear();
+  }, [clear]);
 
   return (
     <AuthContext.Provider

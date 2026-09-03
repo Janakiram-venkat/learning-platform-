@@ -1,0 +1,81 @@
+{
+  "lessonId": "robot-servo-signal",
+  "title": "The Servo's Pulse",
+  "description": "One HIGH/LOW signal, timed precisely, is all a servo needs to hear an angle. Here's exactly how a pulse becomes a position.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Different Use for a Familiar Signal"
+    },
+    {
+      "type": "paragraph",
+      "value": "You already know a GPIO pin only speaks HIGH and LOW, from Module 4. A servo doesn't need anything richer than that — it just cares about one specific detail of the HIGH pulse: exactly how long it lasts."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "pulse width      commanded angle\n1.0 ms       -->  0°\n1.5 ms       -->  90°\n2.0 ms       -->  180°\n\n(repeated roughly every 20 ms, about 50 times a second)"
+    },
+    {
+      "type": "paragraph",
+      "value": "That's the entire protocol: send a HIGH pulse somewhere between 1 and 2 milliseconds long, roughly every 20 milliseconds, and the servo's internal circuit measures the pulse's width and converts it directly into a target angle for its feedback loop to chase."
+    },
+    {
+      "type": "widget",
+      "kind": "servo-dial",
+      "title": "🎯 Watch the pulse width change",
+      "hint": "Same widget as last lesson — this time watch the pulse-width readout as you drag the angle. 1.0ms and 2.0ms are the two ends of the range.",
+      "xp": 15,
+      "xpKey": "robotics-m6-servo-signal"
+    },
+    {
+      "type": "heading",
+      "value": "Both Directions at Once"
+    },
+    {
+      "type": "paragraph",
+      "value": "The mapping works exactly the same read forwards or backwards: a shorter pulse always means a smaller angle, a longer pulse always means a bigger one, in a straight line between the two ends. Knowing the pulse width tells you the angle; knowing the angle tells you exactly what pulse width to send."
+    },
+    {
+      "type": "tip",
+      "value": "This is why a servo needs its own dedicated signal wire, separate from power and ground — three wires total: power, ground, and this timed pulse. You'll see all three when you wire one onto ARIA's chassis."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a servo reads angle purely from how long a repeating HIGH pulse lasts, somewhere between about 1ms (0°) and 2ms (180°), sent roughly 50 times a second."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A servo receives a 1.5 ms HIGH pulse. Roughly what angle is it being commanded to?",
+      "options": [
+        "0°",
+        "90°",
+        "180°"
+      ],
+      "answer": 1,
+      "explain": "1.5 ms sits exactly halfway between the 1.0 ms (0°) and 2.0 ms (180°) ends of the range — the midpoint angle."
+    },
+    {
+      "question": "What does a servo's control signal actually measure to determine the commanded angle?",
+      "options": [
+        "The voltage level of the pulse",
+        "How long the HIGH pulse lasts",
+        "The colour of the wire"
+      ],
+      "answer": 1,
+      "explain": "It's purely about timing — the pulse's width, not its voltage or any other property, encodes the angle."
+    },
+    {
+      "question": "Why does a servo need three wires instead of the two a simple DC motor uses?",
+      "options": [
+        "Power, ground, and a dedicated signal wire for the timed pulse",
+        "Servos need three separate batteries",
+        "It's just tradition, two would work fine"
+      ],
+      "answer": 0,
+      "explain": "The signal pulse is a separate, precisely-timed line — mixing it with the power wires would make accurate timing unreliable."
+    }
+  ]
+}

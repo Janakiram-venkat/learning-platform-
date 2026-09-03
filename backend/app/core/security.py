@@ -3,6 +3,11 @@
 Passwords are hashed with bcrypt. Sessions are stateless JWTs signed with
 JWT_SECRET (set in backend/.env). The frontend stores the token and sends it
 as `Authorization: Bearer <token>` on requests that need a signed-in user.
+
+Token revocation is implemented via a `token_version` column on the User row.
+Every token carries the version it was minted at; if the stored version has
+since been incremented (e.g. via logout), the token is rejected even if it
+hasn't expired yet.
 """
 import os
 from datetime import datetime, timedelta, timezone
@@ -53,6 +58,9 @@ def create_access_token(user: User) -> str:
     payload = {
         "sub": str(user.id),
         "email": user.email,
+        # tv (token version) — must match user.token_version at decode time.
+        # Incrementing that column invalidates every older token immediately.
+        "tv": user.token_version,
         "iat": now,
         "exp": now + timedelta(hours=TOKEN_TTL_HOURS),
     }
@@ -68,8 +76,9 @@ def get_current_user(
 ) -> User:
     """FastAPI dependency that resolves the signed-in user from the JWT.
 
-    Raises 401 if the token is missing, malformed, expired, or the user no
-    longer exists.
+    Raises 401 if the token is missing, malformed, expired, the user no
+    longer exists, or the token version has been superseded (e.g. the user
+    logged out on another device).
     """
     unauthorized = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -81,12 +90,18 @@ def get_current_user(
             credentials.credentials, JWT_SECRET, algorithms=[JWT_ALGORITHM]
         )
         user_id = int(payload["sub"])
+        token_version = int(payload.get("tv", 0))
     except (jwt.PyJWTError, KeyError, ValueError):
         raise unauthorized
 
     user = db.query(User).filter(User.id == user_id).first()
     if user is None:
         raise unauthorized
+
+    # Reject tokens that pre-date the last logout / invalidation.
+    if token_version != user.token_version:
+        raise unauthorized
+
     return user
 
 

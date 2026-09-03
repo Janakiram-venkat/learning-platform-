@@ -7,6 +7,7 @@ import GetIt from '../components/game/GetIt';
 import Explain from '../components/game/Explain';
 import PicturePack from '../components/game/PicturePack';
 import Solution from '../components/game/Solution';
+import Templates from '../components/game/Templates';
 import Celebration from '../components/feedback/Celebration';
 import FeedbackModal from '../components/feedback/FeedbackModal';
 import { useGameRunner } from '../hooks/useGameRunner';
@@ -15,6 +16,7 @@ import { useCompletionFlow } from '../hooks/useCompletionFlow';
 import { useCourseLock } from '../hooks/useCoursePrerequisite';
 import {
   gameStepKey, isGameStepCompleted, isGameStepUnlocked, awardXPOnce,
+  getCheckedMilestones, setCheckedMilestones,
 } from '../lib/progress';
 import {
   Play, Square, CheckCircle2, Circle, XCircle, Loader2, Lightbulb, ArrowRight, ArrowLeft,
@@ -39,11 +41,15 @@ export default function GamePage() {
   const [code, setCode] = useState('');
   const [starterCode, setStarterCode] = useState('');
   const [hintsShown, setHintsShown] = useState(0);
+  const [checkedMilestones, setCheckedMilestonesState] = useState(() => new Set());
   const runner = useGameRunner();
   const resetResults = runner.resetResults;
   const editorPanelRef = useRef(null);
 
   const step = module?.steps?.[idx];
+  // A step with no fixed check but a self-checked milestone list — Module 8,
+  // "Your Own Game", where there's no reference solution to grade against.
+  const openEnded = !step?.check && step?.milestones?.length > 0;
 
   // Every step is a clean slate: seed the editor, re-lock hints, and clear the
   // pass/fail ticks left over from the previous step's code.
@@ -54,7 +60,8 @@ export default function GamePage() {
     setStarterCode(step.starterCode || '');
     setHintsShown(0);
     resetResults();
-  }, [step, resetResults]);
+    setCheckedMilestonesState(getCheckedMilestones(moduleId, idx));
+  }, [step, moduleId, idx, resetResults]);
 
   // A typed URL shouldn't get past the course's prerequisite either — bounce
   // back to the course front door, which explains what's still missing.
@@ -81,11 +88,9 @@ export default function GamePage() {
     resetResults();
   }, [resetResults]);
 
-  const handleCheck = useCallback(async () => {
-    if (!step?.check) return;
-    const results = await runner.check(code, step.check);
-    if (!results || !results.every((r) => r.passed)) return;
-
+  // Shared by both ways a step can finish: an auto-graded Check that passes,
+  // or (Module 8) the student ticking off their own milestone checklist.
+  const finishStep = useCallback(() => {
     // Finishing the last step ships the whole game: bonus XP and a badge.
     if (isLast) awardXPOnce(`gamemodule-${courseId}-${moduleId}`, MODULE_BONUS_XP);
 
@@ -110,7 +115,29 @@ export default function GamePage() {
             || `Nice — your game does something new.${xpGained && firstTime ? ` +${xpGained} XP` : ''}`,
         }),
     });
-  }, [runner, code, step, moduleId, idx, isLast, module, courseId, complete]);
+  }, [isLast, courseId, moduleId, idx, module, step, complete]);
+
+  const handleCheck = useCallback(async () => {
+    if (!step?.check) return;
+    const results = await runner.check(code, step.check);
+    if (!results || !results.every((r) => r.passed)) return;
+    finishStep();
+  }, [runner, code, step, finishStep]);
+
+  const toggleMilestone = useCallback((i) => {
+    setCheckedMilestonesState((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i); else next.add(i);
+      setCheckedMilestones(moduleId, idx, next);
+      return next;
+    });
+  }, [moduleId, idx]);
+
+  const handleMarkComplete = useCallback(() => {
+    if (!openEnded) return;
+    if (checkedMilestones.size < step.milestones.length) return;
+    finishStep();
+  }, [openEnded, checkedMilestones, step, finishStep]);
 
   if (!loading && !step) {
     return (
@@ -227,6 +254,9 @@ export default function GamePage() {
           {/* The typeable way to get any picture on the stage */}
           <PicturePack />
 
+          {/* Genre launchpads — only Module 8 has these */}
+          <Templates templates={step.templates} onUseCode={handleUseSolution} />
+
           {/* Hints */}
           {hints.length > 0 && (
             <div className="lab-panel p-4 sm:p-5">
@@ -261,41 +291,80 @@ export default function GamePage() {
           <Solution code={step.solution} onUseCode={handleUseSolution} />
 
           {/* Beat 5 — what "done" means */}
-          <div className="lab-panel p-4 sm:p-5">
-            <h3 className="mb-1 flex items-center gap-2 font-lab font-bold text-ink">
-              <ListChecks className="h-5 w-5 text-pcb" /> Your game must…
-            </h3>
-            <p className="mb-4 text-sm text-ink/55">
-              We play your game for a few seconds and watch what happens. However you wrote it, if it does these
-              things, it passes.
-            </p>
-            <ul className="space-y-2">
-              {rules.map((r, i) => {
-                const passed = results?.[i]?.passed;
-                return (
-                  <li key={i} className="flex items-center gap-3">
-                    {passed === true ? <CheckCircle2 className="h-5 w-5 shrink-0 text-pcb" />
-                      : passed === false ? <XCircle className="h-5 w-5 shrink-0 text-wire" />
-                      : <Circle className="h-5 w-5 shrink-0 text-ink/20" />}
-                    <span className={`font-medium ${passed === true ? 'text-pcb' : passed === false ? 'text-wire' : 'text-ink/65'}`}>
-                      {r.label}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
+          {openEnded ? (
+            <div className="lab-panel p-4 sm:p-5">
+              <h3 className="mb-1 flex items-center gap-2 font-lab font-bold text-ink">
+                <ListChecks className="h-5 w-5 text-pcb" /> Check yourself off
+              </h3>
+              <p className="mb-4 text-sm text-ink/55">
+                There's no auto-grader for an idea that's entirely yours — you decide when each of these is
+                true. Be honest with yourself; the badge means more that way.
+              </p>
+              <ul className="space-y-2">
+                {step.milestones.map((m, i) => {
+                  const checked = checkedMilestones.has(i);
+                  return (
+                    <li key={i}>
+                      <button
+                        onClick={() => toggleMilestone(i)}
+                        className="flex w-full items-center gap-3 text-left"
+                      >
+                        {checked ? <CheckCircle2 className="h-5 w-5 shrink-0 text-pcb" /> : <Circle className="h-5 w-5 shrink-0 text-ink/20" />}
+                        <span className={`font-medium ${checked ? 'text-pcb' : 'text-ink/65'}`}>{m}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
 
-            {results && !allPassed && (
-              <p className="mt-4 rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-800 ring-1 ring-amber-100">
-                Not there yet — fix the red ones and check again. 💪
+              <button
+                onClick={handleMarkComplete}
+                disabled={checkedMilestones.size < step.milestones.length}
+                className="lab-btn mt-4 flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-4 py-2.5 font-extrabold text-ink disabled:opacity-50"
+              >
+                <Trophy className="h-4 w-4" />
+                {checkedMilestones.size < step.milestones.length
+                  ? `Tick everything above (${checkedMilestones.size}/${step.milestones.length})`
+                  : 'Ship it'}
+              </button>
+            </div>
+          ) : (
+            <div className="lab-panel p-4 sm:p-5">
+              <h3 className="mb-1 flex items-center gap-2 font-lab font-bold text-ink">
+                <ListChecks className="h-5 w-5 text-pcb" /> Your game must…
+              </h3>
+              <p className="mb-4 text-sm text-ink/55">
+                We play your game for a few seconds and watch what happens. However you wrote it, if it does these
+                things, it passes.
               </p>
-            )}
-            {allPassed && (
-              <p className="mt-4 flex items-center gap-2 rounded-xl bg-green-50 p-3 text-sm font-bold text-green-700 ring-1 ring-green-100">
-                <Trophy className="h-4 w-4" /> All good — step complete!
-              </p>
-            )}
-          </div>
+              <ul className="space-y-2">
+                {rules.map((r, i) => {
+                  const passed = results?.[i]?.passed;
+                  return (
+                    <li key={i} className="flex items-center gap-3">
+                      {passed === true ? <CheckCircle2 className="h-5 w-5 shrink-0 text-pcb" />
+                        : passed === false ? <XCircle className="h-5 w-5 shrink-0 text-wire" />
+                        : <Circle className="h-5 w-5 shrink-0 text-ink/20" />}
+                      <span className={`font-medium ${passed === true ? 'text-pcb' : passed === false ? 'text-wire' : 'text-ink/65'}`}>
+                        {r.label}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              {results && !allPassed && (
+                <p className="mt-4 rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-800 ring-1 ring-amber-100">
+                  Not there yet — fix the red ones and check again. 💪
+                </p>
+              )}
+              {allPassed && (
+                <p className="mt-4 flex items-center gap-2 rounded-xl bg-green-50 p-3 text-sm font-bold text-green-700 ring-1 ring-green-100">
+                  <Trophy className="h-4 w-4" /> All good — step complete!
+                </p>
+              )}
+            </div>
+          )}
 
           {/* Step-to-step navigation */}
           <div className="flex items-center justify-between gap-3 pb-4">
@@ -364,14 +433,16 @@ export default function GamePage() {
                   <Play className="mr-2 h-5 w-5" /> Play
                 </button>
               )}
-              <button
-                onClick={handleCheck}
-                disabled={runner.checking || !step}
-                className="lab-btn flex items-center rounded-lg border-2 border-ink bg-signal px-4 py-2.5 font-extrabold text-ink disabled:opacity-60"
-              >
-                {runner.checking ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <CheckCircle2 className="mr-2 h-5 w-5" />}
-                Check
-              </button>
+              {!openEnded && (
+                <button
+                  onClick={handleCheck}
+                  disabled={runner.checking || !step}
+                  className="lab-btn flex items-center rounded-lg border-2 border-ink bg-signal px-4 py-2.5 font-extrabold text-ink disabled:opacity-60"
+                >
+                  {runner.checking ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <CheckCircle2 className="mr-2 h-5 w-5" />}
+                  Check
+                </button>
+              )}
             </div>
           </div>
           <div className="min-h-0 flex-1">

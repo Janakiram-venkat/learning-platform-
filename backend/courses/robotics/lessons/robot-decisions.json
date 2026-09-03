@@ -1,0 +1,68 @@
+{
+  "lessonId": "robot-decisions",
+  "title": "Decisions: The If Block",
+  "description": "A sequence always does the same thing. A decision lets the robot's own path change based on what it actually finds.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Diamond Shape"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every decision has the same shape: check something, then choose one of two branches based on the answer. In flowcharts this is traditionally drawn as a diamond — one path in, two paths out, depending on true or false."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "         is there a wall ahead?\n              /        \\\n           yes          no\n            |            |\n      (then branch)  (else branch)"
+    },
+    {
+      "type": "paragraph",
+      "value": "You already met this exact idea back in Module 1: \"if distance < 20, turn instead of driving forward\" is a decision. Here, the block version checks a simpler question — is there a wall directly ahead — but it's structurally identical."
+    },
+    {
+      "type": "widget",
+      "kind": "block-maze",
+      "title": "🧩 Use if / else to navigate",
+      "hint": "This maze has forks. Try an If wall ahead block: turn one way in the 'then' branch, keep going straight in the 'else' branch.",
+      "mazeId": "avoider",
+      "xp": 30,
+      "xpKey": "robotics-m9-decisions"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice what a decision buys you that a plain sequence can't: the same block program can now react differently depending on what's actually in front of the robot, instead of blindly following one fixed path. That's a real step toward the kind of autonomous behaviour this whole course has been building to."
+    },
+    {
+      "type": "tip",
+      "value": "An if block without an else isn't broken — it just means \"do nothing extra\" when the condition is false. Both branches existing side by side, though, is what makes a decision a true fork rather than an optional extra step."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: a decision checks a condition and runs one of two branches depending on the answer — the same shape as Module 1's \"if distance < 20, turn,\" now something you build yourself."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does an If block's 'then' branch run?",
+      "options": [
+        "Always, regardless of the condition",
+        "Only when the checked condition is true",
+        "Only when the checked condition is false"
+      ],
+      "answer": 1,
+      "explain": "The 'then' branch is specifically the true case — that's the whole point of branching on a condition."
+    },
+    {
+      "question": "What can a decision-using program do that a plain sequence-only program can't?",
+      "options": [
+        "Run faster",
+        "React differently depending on what it actually senses, instead of always following one fixed path",
+        "Use fewer blocks, always"
+      ],
+      "answer": 1,
+      "explain": "That's the real power of a decision — the same program can produce different behaviour depending on the situation it's actually in."
+    }
+  ]
+}

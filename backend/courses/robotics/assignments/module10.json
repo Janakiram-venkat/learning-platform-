@@ -1,0 +1,86 @@
+{
+  "moduleId": 10,
+  "title": "Real Code Arcade",
+  "intro": "Six rounds on the robot API, variables, loops, functions and MicroPython. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "🐍",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What does a 'repeat forever' block become in Python?",
+      "options": [
+        "for i in range(10):",
+        "while True:",
+        "def loop():"
+      ],
+      "answer": 1,
+      "explain": "An unlimited repeat with no built-in end is exactly what `while True:` means."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why store robot.distance() in a variable before deciding what to do with it?",
+      "options": [
+        "The robot may have moved between two separate calls, giving inconsistent readings",
+        "It's required by Python syntax",
+        "It makes the program run faster"
+      ],
+      "answer": 0,
+      "explain": "Capturing one reading guarantees your decision judges a single consistent moment, not two different ones."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each robot method to what it does.",
+      "pairs": [
+        {
+          "left": "robot.forward(speed)",
+          "right": "Acts — drives forward"
+        },
+        {
+          "left": "robot.distance()",
+          "right": "Senses — returns nearest obstacle distance"
+        },
+        {
+          "left": "robot.line()",
+          "right": "Senses — returns (left, right) on-line booleans"
+        },
+        {
+          "left": "robot.say(text)",
+          "right": "Acts — speaks a message"
+        }
+      ],
+      "explain": "The robot API mirrors Module 1's sense/act split directly — some methods bring information in, others push change out."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why write `def avoid_obstacle():` instead of putting the whole distance-check logic directly inside `while True:`?",
+      "options": [
+        "It runs faster",
+        "It packages the logic behind a readable name, so the loop reads as a plain summary of what's happening",
+        "Functions are required by Python, there's no choice"
+      ],
+      "answer": 1,
+      "explain": "Naming a behaviour is purely about readability and reuse — the loop becomes a one-line summary."
+    },
+    {
+      "type": "concept",
+      "prompt": "What does `Pin(2, Pin.OUT)` do in real MicroPython?",
+      "options": [
+        "Declares GPIO pin 2 as an output, ready to be driven HIGH or LOW",
+        "Deletes GPIO pin 2",
+        "Reads a sensor value"
+      ],
+      "answer": 0,
+      "explain": "This is MicroPython's real interface to a physical pin — the same digital HIGH/LOW idea from Module 4, in real code."
+    },
+    {
+      "type": "concept",
+      "prompt": "What genuinely differs between this course's simulator and building ARIA for real?",
+      "options": [
+        "The entire programming language",
+        "Real-world factors like sensor noise, motor current limits and battery life become actual physical constraints",
+        "Nothing — simulators and real hardware behave identically in every way"
+      ],
+      "answer": 1,
+      "explain": "The logic transfers unchanged. What's new on real hardware is dealing with the physical world's imperfections directly."
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "lessonId": "robot-electricity",
+  "title": "What Is Electricity?",
+  "description": "Every part on ARIA's chassis needs power to do its job. Before you meet any of them, meet the thing that moves through all of them.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Electricity Is Just Pushed Water"
+    },
+    {
+      "type": "paragraph",
+      "value": "You already understand electricity. You just don't know it yet, because you've spent your whole life understanding water instead. A battery is a raised tank. A wire is a pipe. A resistor is a narrow spot in the pipe. Something that uses electricity, like an LED, is a little wheel the water turns as it rushes past."
+    },
+    {
+      "type": "widget",
+      "kind": "water-circuit",
+      "title": "💧 Drag both sliders",
+      "hint": "Raise the tank, widen the pipe, and watch the same number move on both sides."
+    },
+    {
+      "type": "paragraph",
+      "value": "Three words show up everywhere in electronics. Each one has a water twin, and once you see the pair you won't lose either one again."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "VOLTAGE (V)     how hard the water is pushed      → tank height\nCURRENT (A)     how much water flows past a point → flow rate\nRESISTANCE (Ω)  how much the pipe fights the flow → pipe narrowness"
+    },
+    {
+      "type": "paragraph",
+      "value": "A 9V battery pushes harder than a 1.5V battery, the same way a tall tank pushes harder than a short one. A thin wire resists more than a thick one, the same way a narrow pipe slows the water more than a wide one."
+    },
+    {
+      "type": "heading",
+      "value": "The Rule Behind All of It"
+    },
+    {
+      "type": "paragraph",
+      "value": "You just found it yourself by dragging the sliders: more push (voltage) means more flow (current). A narrower pipe (more resistance) means less flow. Electrical engineers write that exact pattern as one short line, called Ohm's Law:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "I = V / R\n\ncurrent  =  voltage  ÷  resistance"
+    },
+    {
+      "type": "paragraph",
+      "value": "That's it. No calculus, no circuit theory beyond this — the whole of Module 3 is this one equation, applied to six different parts."
+    },
+    {
+      "type": "tip",
+      "value": "\"Amps\" (A) measure current, same idea as litres per second. A tiny LED sips about 0.02 A — that's 20 milliamps (mA). A hair dryer gulps about 10 A. Same unit, very different tap."
+    },
+    {
+      "type": "heading",
+      "value": "Where This Shows Up on ARIA"
+    },
+    {
+      "type": "paragraph",
+      "value": "ARIA's 18650 battery cell is the tank. Every wire on her chassis is a pipe. Her motors, sensors and lights are all wheels the current turns to do work. By the end of this module you'll wire real ones together and watch her status LED light up for the first time."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: voltage pushes, resistance resists, current flows — and I = V/R connects all three."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "You raise the tank on the water side of the widget. What happens on the electricity side?",
+      "options": [
+        "Nothing — they're separate systems",
+        "The current increases, because voltage went up",
+        "The resistance increases"
+      ],
+      "answer": 1,
+      "explain": "Tank height is the voltage twin. More push means more flow on both sides at once, because they're the same idea."
+    },
+    {
+      "question": "Which pipe lets more water through for the same push: a wide pipe or a narrow one?",
+      "options": [
+        "The narrow pipe",
+        "The wide pipe",
+        "They're always equal"
+      ],
+      "answer": 1,
+      "explain": "A wide pipe has less resistance, so more water gets through for the same tank height. A narrow pipe is high resistance."
+    },
+    {
+      "question": "A circuit has 9V and a 300Ω resistor. Roughly how much current flows (ignore the LED's own small drop for this one)?",
+      "options": [
+        "About 0.03 A (30 mA)",
+        "About 300 A",
+        "About 9 A"
+      ],
+      "answer": 0,
+      "explain": "I = V/R = 9/300 = 0.03 A. Dividing volts by ohms always lands you in amps."
+    },
+    {
+      "question": "If you double the resistance and keep voltage the same, what happens to the current?",
+      "options": [
+        "It doubles",
+        "It stays the same",
+        "It halves"
+      ],
+      "answer": 2,
+      "explain": "I = V/R — R is on the bottom of the fraction, so doubling it halves the answer."
+    }
+  ]
+}

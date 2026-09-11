@@ -10,7 +10,7 @@ Usage:
     python backend/scripts/validate_courses.py          # report + exit 1 on errors
     python backend/scripts/validate_courses.py --warn   # report, always exit 0
 
-Add it to CI once the existing backlog is clean.
+Runs in CI (.github/workflows/ci.yml) — a course error fails the build.
 """
 
 import argparse

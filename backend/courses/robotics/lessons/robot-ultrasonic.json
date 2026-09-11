@@ -21,6 +21,21 @@
       "value": "One of the sensor's two round \"eyes\" is a transmitter: it emits a short burst of sound above the range of human hearing. The other is a receiver, listening for that exact sound to come back. Between the moment it's sent and the moment it returns is the only piece of raw data the sensor actually measures: elapsed time."
     },
     {
+      "type": "image",
+      "value": "HC-SR04 ultrasonic sensor",
+      "columns": 1,
+      "ratio": "4 / 3",
+      "items": [
+        {
+          "src": "/course-images/robotics/robot-intro/sense-ultrasonic-sensor.jpg",
+          "want": "Close-up of an HC-SR04 ultrasonic distance sensor, its two round \"eyes\" facing the camera",
+          "alt": "An ultrasonic distance sensor module with two cylindrical transducers",
+          "caption": "HC-SR04 ultrasonic distance sensor",
+          "credit": ""
+        }
+      ]
+    },
+    {
       "type": "widget",
       "kind": "ultrasonic-sim",
       "title": "📡 Ping the wall",

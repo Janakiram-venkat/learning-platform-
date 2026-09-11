@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
 from app.db import get_db
-from app.core.limiter import limiter
+from app.core.limiter import client_ip, limiter
 from app.schemas.user_schema import (
     SignUpRequest,
     LoginRequest,
@@ -23,7 +23,7 @@ router = APIRouter()
 
 
 @router.post("/auth/signup", response_model=AuthResponse, status_code=201)
-@limiter.limit("5/minute")
+@limiter.limit("5/minute", key_func=client_ip)
 def sign_up(request: Request, body: SignUpRequest, db: Session = Depends(get_db)):
     """Create a new email + password account and return a session token."""
     user = user_service.create_user_with_password(
@@ -38,7 +38,7 @@ def sign_up(request: Request, body: SignUpRequest, db: Session = Depends(get_db)
 
 
 @router.post("/auth/login", response_model=AuthResponse)
-@limiter.limit("10/minute")
+@limiter.limit("10/minute", key_func=client_ip)
 def login(request: Request, body: LoginRequest, db: Session = Depends(get_db)):
     """Log in with email + password. Returns a session token on success."""
     user = user_service.authenticate(db, body.email, body.password)
@@ -51,7 +51,7 @@ def login(request: Request, body: LoginRequest, db: Session = Depends(get_db)):
 
 
 @router.post("/auth/google", response_model=AuthResponse)
-@limiter.limit("10/minute")
+@limiter.limit("10/minute", key_func=client_ip)
 def google_sign_in(request: Request, body: GoogleSignInRequest, db: Session = Depends(get_db)):
     """Sign in with a Google ID token. Creates the account if it's new."""
     try:
@@ -99,8 +99,10 @@ def update_profile(
 
 
 @router.post("/auth/password", response_model=UserResponse)
+@limiter.limit("5/minute")
 def change_password(
-    request: ChangePasswordRequest,
+    request: Request,
+    body: ChangePasswordRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
@@ -110,14 +112,14 @@ def change_password(
     password. Google-only accounts may set one for the first time without it.
     """
     if current_user.password_hash is not None:
-        if not request.current_password or not verify_password(
-            request.current_password, current_user.password_hash
+        if not body.current_password or not verify_password(
+            body.current_password, current_user.password_hash
         ):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Your current password is incorrect.",
             )
-    return user_service.set_password(db, current_user, request.new_password)
+    return user_service.set_password(db, current_user, body.new_password)
 
 
 @router.get("/progress", response_model=ProgressResponse)

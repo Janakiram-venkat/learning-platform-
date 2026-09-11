@@ -2,16 +2,17 @@ import os
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 from sqlalchemy import text
-from app.core.limiter import limiter  # noqa: F401 — re-exported for routers that still use it
-from app.api import admin, courses, lessons, quiz, users, feedback
+from app.core.limiter import limiter, rate_limit_exceeded_handler
+from app.api import admin, contests, courses, lessons, quiz, users, feedback
 from app.core.security import get_current_user
 from app.db import Base, engine
 from app.models import user as _user_model          # noqa: F401
 from app.models import feedback as _feedback_model  # noqa: F401
 from app.models import quiz_attempt as _quiz_attempt_model  # noqa: F401
+from app.models import contest as _contest_model  # noqa: F401
 
 # ---------------------------------------------------------------------------
 # Database — create missing tables and columns on startup.
@@ -30,12 +31,17 @@ with engine.begin() as conn:
         text("ALTER TABLE users ADD COLUMN IF NOT EXISTS token_version INTEGER NOT NULL DEFAULT 0")
     )
 
-# Rate limiter is instantiated in app.core.limiter and imported above.
-# It's attached to app.state so slowapi can find it.
+# Rate limiter is configured in app.core.limiter (see its docstring for the
+# limits and env vars). app.state is where slowapi looks for it.
 
 app = FastAPI(title="Student Coding Platform API")
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)  # 429 on rate-limit breaches
+app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)
+
+# Applies the application + default limits to every route without its own
+# @limiter.limit. Added before CORS so CORS wraps it — otherwise a 429 goes out
+# without CORS headers and the browser reports a network error instead.
+app.add_middleware(SlowAPIMiddleware)
 
 # Allowed frontend origins. Set CORS_ORIGINS on Render to your Vercel URL
 # (comma-separated for multiple). Falls back to local dev origins.
@@ -62,6 +68,8 @@ app.include_router(quiz.router, prefix="/api", tags=["Quiz"], dependencies=_sign
 app.include_router(users.router, prefix="/api", tags=["Users"])
 app.include_router(feedback.router, prefix="/api", tags=["Feedback"])
 app.include_router(admin.router, prefix="/api", tags=["Admin"])
+app.include_router(contests.router, prefix="/api", tags=["Contests"], dependencies=_signed_in)
+app.include_router(contests.admin_router, prefix="/api", tags=["Admin"])
 
 @app.get("/")
 def read_root():

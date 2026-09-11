@@ -103,6 +103,27 @@ export const adminService = {
   deleteUser: (userId) => api.delete(`/admin/users/${userId}`),
 };
 
+// Game-dev contests. The server enforces the time window and the submit lock;
+// the page's countdown is only a convenience.
+export const contestService = {
+  list: () => api.get('/contests'),
+  get: (id) => api.get(`/contests/${id}`),
+  getEntry: (id) => api.get(`/contests/${id}/entry`),
+  saveEntry: (id, code) => api.put(`/contests/${id}/entry`, { code }),
+  submit: (id, code) => api.post(`/contests/${id}/submit`, { code }),
+  leaderboard: (id) => api.get(`/contests/${id}/leaderboard`),
+};
+
+export const adminContestService = {
+  list: () => api.get('/admin/contests'),
+  create: (payload) => api.post('/admin/contests', payload),
+  update: (id, payload) => api.put(`/admin/contests/${id}`, payload),
+  remove: (id) => api.delete(`/admin/contests/${id}`),
+  entries: (id) => api.get(`/admin/contests/${id}/entries`),
+  entry: (id, entryId) => api.get(`/admin/contests/${id}/entries/${entryId}`),
+  score: (id, entryId, payload) => api.put(`/admin/contests/${id}/entries/${entryId}/score`, payload),
+};
+
 export const progressService = {
   get: () => api.get('/progress'),
   // Full replace — used on initial hydration.

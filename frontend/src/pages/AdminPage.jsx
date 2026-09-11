@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Users, Star, Zap, BookOpen, Trash2, Search, RefreshCw, ShieldCheck,
-  MessageSquare, GraduationCap, UserPlus, Mail,
+  MessageSquare, GraduationCap, UserPlus, Mail, Trophy,
 } from 'lucide-react';
+import ContestsTab from '../components/admin/ContestsTab';
 import { adminService } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -10,6 +11,7 @@ const TABS = [
   { key: 'users', label: 'Students', icon: Users },
   { key: 'courses', label: 'Courses', icon: BookOpen },
   { key: 'feedback', label: 'Feedback', icon: MessageSquare },
+  { key: 'contests', label: 'Contests', icon: Trophy },
 ];
 
 function Stat({ icon: Icon, value, label, sub, tone = 'pcb' }) {
@@ -317,6 +319,9 @@ export default function AdminPage() {
           )}
         </section>
       )}
+
+      {/* ---------------- Contests ---------------- */}
+      {tab === 'contests' && <ContestsTab />}
     </div>
   );
 }

@@ -12,6 +12,19 @@ import STAGE_SOURCE from '../game/stage.py?raw';
 const INDEX_URL = 'https://cdn.jsdelivr.net/pyodide/v0.28.0/full/';
 const MAX_HEADLESS_FRAMES = 2000;
 
+// The live game advances in fixed 1/60 s steps whatever the screen's refresh
+// rate, so a game plays at the same speed on a 60Hz and a 120Hz laptop.
+const STEP_MS = 1000 / 60;
+// A slow frame (or a tab coming back into view) owes a burst of updates. Cap
+// the catch-up so the game doesn't fast-forward; the rest of the debt is dropped.
+const MAX_STEPS_PER_FRAME = 4;
+// How often the loop tells the page it's still alive (and flushes prints). The
+// page treats a long silence as a frozen game — see gameRuntime.js.
+const BEAT_MS = 250;
+// Output from print() inside every_frame is capped per flush, so a game that
+// prints every frame can't flood the page.
+const MAX_OUTPUT_FLUSH = 4000;
+
 let pyodidePromise = null;
 let canvas = null;
 let ctx = null;
@@ -19,6 +32,14 @@ let stage = null;      // the Python `stage` module proxy
 let rafId = null;
 let heldKeys = new Set();
 let lastSnapshot = null;
+
+// Where Python's stdout goes right now: the setup run's buffer while the
+// program runs, then the live buffer while the game loop runs, then nowhere.
+let stdoutSink = null;
+let liveOutput = '';
+let lastTime = null;
+let debt = 0;
+let lastBeat = 0;
 
 function getPyodide() {
   if (!pyodidePromise) {
@@ -57,6 +78,18 @@ function stopLoop() {
     (self.cancelAnimationFrame || clearTimeout)(rafId);
     rafId = null;
   }
+  stdoutSink = null;
+}
+
+// Send any prints from the game loop to the page, along with the heartbeat.
+function beat(now) {
+  lastBeat = now;
+  let text;
+  if (liveOutput) {
+    text = liveOutput.length > MAX_OUTPUT_FLUSH ? liveOutput.slice(-MAX_OUTPUT_FLUSH) : liveOutput;
+    liveOutput = '';
+  }
+  self.postMessage({ type: 'alive', output: text });
 }
 
 // --- rendering -------------------------------------------------------------
@@ -121,7 +154,14 @@ async function execProgram(py, code) {
   stage._reset();
   let out = '';
   const decoder = new TextDecoder('utf-8');
-  py.setStdout({ write: (buf) => { out += decoder.decode(buf, { stream: true }); return buf.length; } });
+  stdoutSink = (text) => { out += text; };
+  liveOutput = '';
+  py.setStdout({
+    write: (buf) => {
+      if (stdoutSink) stdoutSink(decoder.decode(buf, { stream: true }));
+      return buf.length;
+    },
+  });
   py.setStderr({ write: (buf) => buf.length });
   py.setStdin({ stdin: () => null });
 
@@ -137,27 +177,42 @@ async function execProgram(py, code) {
     ns.destroy();
     builtins.destroy();
   }
+  // Setup is over. Prints from here on come from inside every_frame.
+  stdoutSink = null;
   return { ok: !error, output: out, error, started: stage._started() };
 }
 
-function frameStep() {
-  let snapJson;
-  try {
-    snapJson = stage._tick_json(JSON.stringify([...heldKeys]));
-  } catch (err) {
-    stopLoop();
-    self.postMessage({ type: 'error', error: friendlyError(err && err.message ? err.message : err) });
-    return;
+function frameStep(timestamp) {
+  const now = typeof timestamp === 'number' ? timestamp : performance.now();
+  if (lastTime == null) lastTime = now - STEP_MS; // the first frame always updates
+  debt += now - lastTime;
+  lastTime = now;
+
+  const steps = Math.min(Math.floor(debt / STEP_MS), MAX_STEPS_PER_FRAME);
+  // Anything beyond the cap is forgiven rather than carried into a burst later.
+  debt = steps === MAX_STEPS_PER_FRAME ? 0 : debt - steps * STEP_MS;
+
+  if (steps > 0) {
+    let snapJson;
+    try {
+      snapJson = stage._step_json(JSON.stringify([...heldKeys]), steps);
+    } catch (err) {
+      stopLoop();
+      self.postMessage({ type: 'error', error: friendlyError(err && err.message ? err.message : err) });
+      return;
+    }
+    if (snapJson === 'null') { stopLoop(); return; }
+    const snap = JSON.parse(snapJson);
+    lastSnapshot = snap;
+    paint(snap);
+    if (snap.over) {
+      beat(now); // flush the last prints before saying goodbye
+      stopLoop();
+      self.postMessage({ type: 'over', frame: snap.frame });
+      return;
+    }
   }
-  if (snapJson === 'null') { stopLoop(); return; }
-  const snap = JSON.parse(snapJson);
-  lastSnapshot = snap;
-  paint(snap);
-  if (snap.over) {
-    stopLoop();
-    self.postMessage({ type: 'over', frame: snap.frame });
-    return;
-  }
+  if (now - lastBeat >= BEAT_MS) beat(now);
   schedule();
 }
 
@@ -165,6 +220,15 @@ function schedule() {
   rafId = self.requestAnimationFrame
     ? self.requestAnimationFrame(frameStep)
     : setTimeout(frameStep, 16);
+}
+
+function startLoop() {
+  lastTime = null;
+  debt = 0;
+  lastBeat = performance.now();
+  liveOutput = '';
+  stdoutSink = (text) => { liveOutput += text; };
+  schedule();
 }
 
 // Run the program with no rendering for `frames` ticks, recording where every
@@ -214,6 +278,8 @@ self.onmessage = async (e) => {
 
   if (type === 'stop') {
     stopLoop();
+    // Tells the page's freeze watchdog the loop ended cleanly.
+    self.postMessage({ type: 'stopped' });
     return;
   }
 
@@ -244,11 +310,14 @@ self.onmessage = async (e) => {
     // Paint frame zero immediately so a still scene (no every_frame) shows up.
     const snapJson = stage._snapshot_json();
     if (snapJson !== 'null') { lastSnapshot = JSON.parse(snapJson); paint(lastSnapshot); }
-    self.postMessage({ id, type: 'result', output: res.output, error: '' });
+    // The stage's real size, so the page can give the screen the right shape.
+    const size = lastSnapshot ? { width: lastSnapshot.width, height: lastSnapshot.height } : null;
+    const animated = stage._is_animated();
+    self.postMessage({ id, type: 'result', output: res.output, error: '', size, animated });
     // A scene with no every_frame is already finished — it is on screen and
     // nothing can ever change it. Say so, rather than spinning a frame loop
     // that leaves the UI stuck showing "Stop" for a picture.
-    if (stage._is_animated()) schedule();
+    if (animated) startLoop();
     else self.postMessage({ type: 'over', frame: 0 });
     return;
   }

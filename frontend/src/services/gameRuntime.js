@@ -7,20 +7,55 @@
 // is how a slow connection turns into a bogus "endless loop" error.
 const RUN_TIMEOUT_MS = 15000;
 const BOOT_TIMEOUT_MS = 60000;
+// While a game loop runs, the worker says "alive" a few times a second. This
+// long without one means Python is stuck inside every_frame.
+const FREEZE_MS = 4000;
+const FREEZE_MESSAGE = 'Your game froze — something inside your every_frame function never finished '
+  + '(usually a while loop that never ends). Fix it and press Play again.';
 
 let worker = null;
 let seq = 0;
 let attachedTo = null;   // the <canvas> element whose control we transferred
 let ready = false;
 let warmed = null;
+let loopRunning = false;
+let lastAlive = 0;
+let watchdog = null;
 const pending = new Map();
 const listeners = new Set();
 const statusListeners = new Set();
+const canvasLostListeners = new Set();
 
 function setReady(value) {
   if (ready === value) return;
   ready = value;
   for (const fn of statusListeners) fn(ready);
+}
+
+function emit(event) {
+  for (const fn of listeners) fn(event);
+}
+
+function disarmWatchdog() {
+  loopRunning = false;
+  if (watchdog) { clearInterval(watchdog); watchdog = null; }
+}
+
+function armWatchdog() {
+  loopRunning = true;
+  lastAlive = performance.now();
+  if (!watchdog) watchdog = setInterval(checkFrozen, 1000);
+}
+
+function checkFrozen() {
+  if (!loopRunning) return;
+  // A hidden tab pauses animation frames, so silence there isn't a freeze.
+  // Keep the clock reset until the page is visible again.
+  if (document.visibilityState !== 'visible') { lastAlive = performance.now(); return; }
+  if (performance.now() - lastAlive > FREEZE_MS) {
+    killWorker({ canvasLost: true, reason: FREEZE_MESSAGE });
+    emit({ type: 'error', error: FREEZE_MESSAGE });
+  }
 }
 
 function ensureWorker() {
@@ -30,26 +65,47 @@ function ensureWorker() {
   worker = new Worker(new URL('../workers/game.worker.js', import.meta.url), { type: 'module' });
   worker.onmessage = (e) => {
     const { id, type } = e.data;
-    // Unsolicited events (the game ended, a crash mid-loop) go to subscribers.
+    // Unsolicited events (heartbeats, the game ended, a crash mid-loop) go to
+    // subscribers.
     if (id == null) {
-      for (const fn of listeners) fn(e.data);
+      if (type === 'alive') lastAlive = performance.now();
+      if (type === 'over' || type === 'error' || type === 'stopped') disarmWatchdog();
+      emit(e.data);
       return;
     }
     const resolve = pending.get(id);
     if (!resolve) return;
     pending.delete(id);
     if (type === 'ready') setReady(true);
+    if (type === 'result' && !e.data.error && e.data.animated) armWatchdog();
     resolve(e.data);
   };
   return worker;
 }
 
-function killWorker() {
+// `canvasLost` is for unplanned teardowns (a timeout or a frozen game): the
+// <canvas> on the page was handed to the dead worker and can't be handed over
+// again, so GameCanvas has to mount a fresh one. A planned swap to a new
+// element (attachCanvas) already has its replacement and must not ask.
+function killWorker({ canvasLost = false, reason = 'The game runtime restarted. Press Play again.' } = {}) {
   if (worker) { worker.terminate(); worker = null; }
+  disarmWatchdog();
   setReady(false);
   warmed = null;
   attachedTo = null;
+  // Answer every request the dead worker will never reply to. Dropping them
+  // would leave a Play waiting forever — and their own timeouts would later
+  // kill the NEXT, healthy worker.
+  const orphans = [...pending.values()];
   pending.clear();
+  for (const settle of orphans) settle({ type: 'result', error: reason });
+  if (canvasLost) for (const fn of canvasLostListeners) fn();
+}
+
+// GameCanvas subscribes so it can remount its <canvas> after a teardown.
+export function onCanvasLost(fn) {
+  canvasLostListeners.add(fn);
+  return () => canvasLostListeners.delete(fn);
 }
 
 function post(message, timeoutMs = RUN_TIMEOUT_MS) {
@@ -61,7 +117,7 @@ function post(message, timeoutMs = RUN_TIMEOUT_MS) {
       if (settled) return;
       settled = true;
       pending.delete(id);
-      killWorker();
+      killWorker({ canvasLost: true });
       resolve({ type: 'result', error: 'Your game took too long to respond. Check for a loop that never ends.' });
     }, timeoutMs);
     pending.set(id, (val) => {
@@ -120,12 +176,18 @@ export function warmupGameRuntime() {
 }
 
 export async function runGame(code) {
+  // Setup has its own timeout (post); the freeze watchdog only covers the
+  // loop, and re-arms once this run reports it has one.
+  disarmWatchdog();
   await warmupGameRuntime();
   return post({ type: 'run', code });
 }
 
+// The watchdog stays armed until the worker confirms with 'stopped' — a frozen
+// worker never reads this message, and the watchdog is what rescues it.
 export function stopGame() {
   if (worker) worker.postMessage({ type: 'stop' });
+  else disarmWatchdog();
 }
 
 export function setKeys(keys) {
@@ -324,6 +386,7 @@ export function gradeTrace(check, byScenario) {
 // Run every scenario a check needs, then grade its rules.
 // Returns { ok, error, results: [{ label, passed }] }.
 export async function checkGame(code, check) {
+  disarmWatchdog(); // headless runs have their own timeout
   await warmupGameRuntime();
   const byScenario = {};
   for (const s of scenariosFor(check)) {

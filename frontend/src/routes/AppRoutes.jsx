@@ -17,6 +17,8 @@ const GameCoursePage = lazy(() => import('../pages/GameCoursePage'));
 const GamePage = lazy(() => import('../pages/GamePage'));
 const GameReference = lazy(() => import('../pages/GameReference'));
 const AdminPage = lazy(() => import('../pages/AdminPage'));
+const ContestListPage = lazy(() => import('../pages/ContestListPage'));
+const ContestPage = lazy(() => import('../pages/ContestPage'));
 
 function RouteFallback() {
   return (
@@ -55,6 +57,8 @@ export default function AppRoutes() {
           <Route path="/course/:courseId/games" element={<GameCoursePage />} />
           <Route path="/course/:courseId/reference" element={<GameReference />} />
           <Route path="/course/:courseId/module/:moduleId/step/:stepIndex" element={<GamePage />} />
+          <Route path="/contests" element={<ContestListPage />} />
+          <Route path="/contests/:contestId" element={<ContestPage />} />
           <Route path="/admin" element={<AdminRoute><AdminPage /></AdminRoute>} />
         </Route>
       </Routes>

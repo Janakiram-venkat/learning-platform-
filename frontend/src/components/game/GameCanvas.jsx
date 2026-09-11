@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { attachCanvas, setKeys } from '../../services/gameRuntime';
+import { attachCanvas, onCanvasLost, setKeys } from '../../services/gameRuntime';
 
 // Maps a browser KeyboardEvent.key onto the short names students type in
 // game.key_down("left"). Letters pass through lowercased.
@@ -41,10 +41,16 @@ export default function GameCanvas({ width = 480, height = 360, focusHint = true
   // frozen at their first value; the worker resizes its own backing store from
   // each game's stage size, and the CSS aspect ratio below still follows props.
   const [initialSize] = useState({ width, height });
+  // Bumped when the runtime had to be torn down (a frozen game or a timeout).
+  // The old <canvas> belongs to the dead worker for good, so a new key mounts a
+  // fresh element that can be handed to the new one.
+  const [generation, setGeneration] = useState(0);
+
+  useEffect(() => onCanvasLost(() => setGeneration((g) => g + 1)), []);
 
   useEffect(() => {
     if (canvasRef.current) attachCanvas(canvasRef.current);
-  }, []);
+  }, [generation]);
 
   useEffect(() => {
     const held = heldRef.current;
@@ -81,6 +87,7 @@ export default function GameCanvas({ width = 480, height = 360, focusHint = true
     <div className="flex flex-col items-center gap-1">
       <div className="overflow-hidden rounded-xl border-2 border-ink shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
         <canvas
+          key={generation}
           ref={canvasRef}
           width={initialSize.width}
           height={initialSize.height}

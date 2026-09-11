@@ -12,6 +12,7 @@ export default function CodeEditor({
   starterCode,
   language = 'python',
   filename = 'main.py',
+  readOnly = false,
 }) {
   const editorRef = useRef(null);
   const monacoRef = useRef(null);
@@ -80,7 +81,7 @@ export default function CodeEditor({
           <button onClick={download} className={btn} title="Download file">
             <Download className="h-3.5 w-3.5" />
           </button>
-          {starterCode != null && (
+          {starterCode != null && !readOnly && (
             <button onClick={reset} className={btn} title="Reset to starter code">
               <RotateCcw className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Reset</span>
@@ -101,6 +102,7 @@ export default function CodeEditor({
           theme="vs-dark"
           options={{
             minimap: { enabled: false },
+            readOnly,
             fontSize,
             fontFamily: "'JetBrains Mono', 'Fira Code', ui-monospace, monospace",
             fontLigatures: true,

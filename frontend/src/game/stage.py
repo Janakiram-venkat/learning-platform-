@@ -339,6 +339,24 @@ def _tick_json(keys_json):
     return json.dumps(g._snapshot())
 
 
+def _step_json(keys_json, steps):
+    """Advance `steps` frames with the same keys held, then snapshot once.
+
+    The live loop runs at a fixed 60 updates a second whatever the screen's
+    refresh rate, so one screen frame can owe more than one update. Only the
+    last one gets drawn, so only the last one pays for a snapshot.
+    """
+    g = _stage
+    if g is None:
+        return "null"
+    keys = json.loads(keys_json)
+    for _ in range(steps):
+        g._tick(keys)
+        if g.over:
+            break
+    return json.dumps(g._snapshot())
+
+
 def _snapshot_json():
     g = _stage
     if g is None:

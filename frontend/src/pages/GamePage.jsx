@@ -392,7 +392,10 @@ export default function GamePage() {
       {/* Stage + editor */}
       <div ref={editorPanelRef} className="z-10 flex w-full flex-col border-t-2 border-ink bg-white lg:h-full lg:w-[560px] lg:border-l-2 lg:border-t-0">
         <div className="shrink-0 border-b-2 border-ink/10 bg-gray-50 p-3">
-          <GameCanvas width={step?.stage?.width || 480} height={step?.stage?.height || 360} />
+          <GameCanvas
+            width={runner.stageSize?.width || step?.stage?.width || 480}
+            height={runner.stageSize?.height || step?.stage?.height || 360}
+          />
           {runner.booting && (
             <p className="mt-2 text-center text-xs font-semibold text-ink/50">
               Booting the Python runtime (one-time download)…

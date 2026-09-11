@@ -28,7 +28,16 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
-      - run: npm ci
+      # On failure, surface npm's error lines as an annotation so they show up
+      # in the checks summary without digging through the raw log.
+      - name: npm ci
+        run: |
+          if ! npm ci > npm-ci.log 2>&1; then
+            cat npm-ci.log
+            echo "::error title=npm ci failed::$(grep -E '^npm (error|ERR)' npm-ci.log | head -15 | sed 's/%/%25/g' | tr '\n' '|')"
+            exit 1
+          fi
+          tail -n 3 npm-ci.log
       - run: npm run lint
       - run: npm run build
 

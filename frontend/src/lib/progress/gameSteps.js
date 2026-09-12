@@ -22,9 +22,9 @@ export function markGameStepComplete(moduleId, stepIndex) {
   return gameSteps.mark(gameStepKey(moduleId, stepIndex));
 }
 
-/** A step opens once the step before it is done; step 0 is always open. */
-export function isGameStepUnlocked(moduleId, stepIndex) {
-  return stepIndex === 0 || isGameStepCompleted(moduleId, stepIndex - 1);
+/** All steps are open. */
+export function isGameStepUnlocked() {
+  return true;
 }
 
 /** How many steps of a module are finished (drives the module map's progress bar). */
@@ -35,12 +35,7 @@ export function countGameStepsDone(moduleId, totalSteps) {
   return n;
 }
 
-/** A module opens once every step of the previous module is done. */
-export function isGameModuleUnlocked(course, moduleIndex) {
-  if (moduleIndex === 0) return true;
-  const prev = course?.modules?.[moduleIndex - 1];
-  if (!prev) return false;
-  const total = prev.stepCount ?? prev.steps?.length ?? 0;
-  if (!total) return false;
-  return countGameStepsDone(`module${prev.moduleId ?? prev.id}`, total) >= total;
+/** All modules are open. */
+export function isGameModuleUnlocked() {
+  return true;
 }

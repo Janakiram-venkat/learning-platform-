@@ -21,16 +21,8 @@ export function getCompletedLessons() {
  * every lesson before it (in course order) is complete; the first is always open.
  */
 export function getUnlockedLessonIds(course) {
-  const completed = new Set(lessons.all());
   const allLessons = course?.modules?.flatMap((m) => m.lessons || []) || [];
-
-  const unlocked = new Set();
-  let prevAllDone = true;
-  for (const lesson of allLessons) {
-    if (prevAllDone) unlocked.add(lesson.lessonId);
-    prevAllDone = prevAllDone && completed.has(lesson.lessonId);
-  }
-  return unlocked;
+  return new Set(allLessons.map((lesson) => lesson.lessonId));
 }
 
 /**
@@ -68,9 +60,7 @@ export function getAssignmentKey(module) {
  * module's arcade challenge open up.
  */
 export function isAssignmentUnlocked(module) {
-  const completed = new Set(lessons.all());
-  const moduleLessons = module?.lessons || [];
-  return moduleLessons.length > 0 && moduleLessons.every((l) => completed.has(l.lessonId));
+  return (module?.lessons?.length ?? 0) > 0;
 }
 
 export function getCompletedAssignments() {

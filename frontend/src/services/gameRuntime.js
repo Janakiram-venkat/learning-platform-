@@ -313,13 +313,21 @@ const RULES = {
   text_changes: (rule, ctx) => {
     const words = new Map(); // name/index -> set of distinct strings seen
     for (const f of ctx.trace) {
-      f.all.forEach((t, i) => {
-        if (t.kind !== 'Text') return;
-        if (rule.name && t.name !== rule.name) return;
-        const key = t.name ?? `#${i}`;
+      // Index among Texts only, not among every thing: removing a Sprite or
+      // Box earlier in the list (a collected star, say) shifts everything
+      // after it in `all`, so indexing against the whole list would give an
+      // unnamed Text a different fallback key every time something ahead of
+      // it disappears — splitting one label's word history across keys and
+      // making a real change look like none happened.
+      let i = 0;
+      for (const t of f.all) {
+        if (t.kind !== 'Text') continue;
+        const textIndex = i++;
+        if (rule.name && t.name !== rule.name) continue;
+        const key = t.name ?? `#${textIndex}`;
         if (!words.has(key)) words.set(key, new Set());
         words.get(key).add(String(t.words));
-      });
+      }
     }
     return [...words.values()].some((set) => set.size > 1);
   },

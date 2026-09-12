@@ -47,7 +47,7 @@ export default function IRSim({ block }) {
             className="h-2 w-full cursor-grab accent-pcb active:cursor-grabbing" />
         </label>
         <p className="mt-3 text-center text-sm font-semibold text-ink/60">
-          White bounces the sensor's own IR light back to it; black soaks it up. That's the whole sensor — no camera, no image, just reflected light.
+          White bounces the sensor's own IR light back to it; black soaks it up. That's the whole sensor, no camera, no image, just reflected light.
         </p>
       </div>
     </WidgetShell>

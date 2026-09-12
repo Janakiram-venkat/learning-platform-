@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "You already know a GPIO pin only speaks HIGH and LOW, from Module 4. A servo doesn't need anything richer than that — it just cares about one specific detail of the HIGH pulse: exactly how long it lasts."
+      "value": "You already know a GPIO pin only speaks HIGH and LOW, from Module 4. A servo doesn't need anything richer than that. It just cares about one specific detail of the HIGH pulse: exactly how long it lasts."
     },
     {
       "type": "code",
@@ -25,7 +25,7 @@
       "type": "widget",
       "kind": "servo-dial",
       "title": "🎯 Watch the pulse width change",
-      "hint": "Same widget as last lesson — this time watch the pulse-width readout as you drag the angle. 1.0ms and 2.0ms are the two ends of the range.",
+      "hint": "Same widget as last lesson: this time watch the pulse-width readout as you drag the angle. 1.0ms and 2.0ms are the two ends of the range.",
       "xp": 15,
       "xpKey": "robotics-m6-servo-signal"
     },
@@ -39,7 +39,7 @@
     },
     {
       "type": "tip",
-      "value": "This is why a servo needs its own dedicated signal wire, separate from power and ground — three wires total: power, ground, and this timed pulse. You'll see all three when you wire one onto ARIA's chassis."
+      "value": "This is why a servo needs its own dedicated signal wire, separate from power and ground. That makes three wires total: power, ground, and this timed pulse. You'll see all three when you wire one onto ARIA's chassis."
     },
     {
       "type": "paragraph",
@@ -55,7 +55,7 @@
         "180°"
       ],
       "answer": 1,
-      "explain": "1.5 ms sits exactly halfway between the 1.0 ms (0°) and 2.0 ms (180°) ends of the range — the midpoint angle."
+      "explain": "1.5 ms sits exactly halfway between the 1.0 ms (0°) and 2.0 ms (180°) ends of the range: the midpoint angle."
     },
     {
       "question": "What does a servo's control signal actually measure to determine the commanded angle?",
@@ -65,7 +65,7 @@
         "The colour of the wire"
       ],
       "answer": 1,
-      "explain": "It's purely about timing — the pulse's width, not its voltage or any other property, encodes the angle."
+      "explain": "It's purely about timing: the pulse's width, not its voltage or any other property, encodes the angle."
     },
     {
       "question": "Why does a servo need three wires instead of the two a simple DC motor uses?",
@@ -75,7 +75,7 @@
         "It's just tradition, two would work fine"
       ],
       "answer": 0,
-      "explain": "The signal pulse is a separate, precisely-timed line — mixing it with the power wires would make accurate timing unreliable."
+      "explain": "The signal pulse is a separate, precisely-timed line: mixing it with the power wires would make accurate timing unreliable."
     }
   ]
 }

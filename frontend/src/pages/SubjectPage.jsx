@@ -78,7 +78,7 @@ export default function SubjectPage() {
       </h1>
       <p className="mb-10 max-w-2xl text-base font-semibold text-ink/65 sm:text-lg">
         {info.tagline}{' '}
-        {hasCourses ? 'Pick a chapter and start your adventure!' : 'Pick your class to begin — new lessons are being added soon!'}
+        {hasCourses ? 'Pick a chapter and start your adventure!' : 'Pick your class to begin: new lessons are being added soon!'}
       </p>
 
       {/* Loading state */}

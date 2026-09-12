@@ -24,7 +24,7 @@
         "Unusual examples are always classified correctly, never wrong"
       ],
       "answer": 1,
-      "explain": "A model's guesses are bounded by its training data — an unfamiliar shape of input is exactly where it's likely to fail."
+      "explain": "A model's guesses are bounded by its training data: an unfamiliar shape of input is exactly where it's likely to fail."
     },
     {
       "type": "concept",
@@ -35,18 +35,18 @@
         "How fast the detection ran"
       ],
       "answer": 0,
-      "explain": "Confidence is the model's self-reported certainty — real robots typically ignore anything below a threshold as too unreliable."
+      "explain": "Confidence is the model's self-reported certainty: real robots typically ignore anything below a threshold as too unreliable."
     },
     {
       "type": "concept",
       "prompt": "Why does this course distinguish face detection from face identification?",
       "options": [
         "They're actually identical processes",
-        "Detection finds where a face is; identification determines whose face it is — a separate, more sensitive capability with real privacy implications",
+        "Detection finds where a face is; identification determines whose face it is: a separate, more sensitive capability with real privacy implications",
         "Identification is a made-up idea with no real use"
       ],
       "answer": 1,
-      "explain": "That distinction is exactly why this course pauses on consent and privacy — detecting a face is not the same as recognising a specific person."
+      "explain": "That distinction is exactly why this course pauses on consent and privacy: detecting a face is not the same as recognising a specific person."
     },
     {
       "type": "match",
@@ -80,7 +80,7 @@
         "It only runs once, at the very start"
       ],
       "answer": 0,
-      "explain": "Following a fixed plan in a known room is the easy case — noticing change and adapting is what genuine autonomy actually requires."
+      "explain": "Following a fixed plan in a known room is the easy case: noticing change and adapting is what genuine autonomy actually requires."
     }
   ]
 }

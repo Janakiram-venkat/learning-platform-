@@ -13,14 +13,14 @@
         "The object's weight"
       ],
       "answer": 1,
-      "explain": "Time is the only raw measurement — distance is calculated afterwards using the known speed of sound."
+      "explain": "Time is the only raw measurement: distance is calculated afterwards using the known speed of sound."
     },
     {
       "type": "concept",
       "prompt": "A wall is angled at 60° to the sensor. What happens when you ping it?",
       "options": [
         "A perfectly accurate reading",
-        "The echo deflects away and never returns — no reading",
+        "The echo deflects away and never returns, no reading",
         "The sensor reads double the real distance"
       ],
       "answer": 1,
@@ -46,7 +46,7 @@
         "It should stop"
       ],
       "answer": 0,
-      "explain": "The line sitting under the left sensor means the robot has drifted right of it — turning right brings it back to centre."
+      "explain": "The line sitting under the left sensor means the robot has drifted right of it: turning right brings it back to centre."
     },
     {
       "type": "concept",
@@ -68,7 +68,7 @@
         "Increases the button's voltage"
       ],
       "answer": 0,
-      "explain": "It's a timing fix in software — outlast the bounce, then read the level once it's stable."
+      "explain": "It's a timing fix in software: outlast the bounce, then read the level once it's stable."
     }
   ]
 }

@@ -32,6 +32,9 @@ class Contest(Base):
     end_at = Column(DateTime(timezone=True), nullable=False)
     # Once true, students can see the scored leaderboard.
     results_published = Column(Boolean, nullable=False, default=False, server_default="false")
+    # False (the default) means every signed-in student can enter. True means
+    # only the emails on the contest's invite list can see or enter it.
+    invite_only = Column(Boolean, nullable=False, default=False, server_default="false")
     created_at = Column(DateTime(timezone=True), nullable=False, default=_now)
 
 
@@ -55,3 +58,21 @@ class ContestEntry(Base):
     # Filled in by an organizer while judging.
     score = Column(Integer, nullable=True)
     judge_comment = Column(Text, nullable=True)
+
+
+class ContestInvite(Base):
+    """One invited email for one invite-only contest.
+
+    Keyed by email rather than user_id on purpose: an organizer usually has a
+    class list before those students have signed up. The invite matches
+    whoever holds that address whenever they do, and stays valid if they
+    later change their name. Emails are stored lowercased so the lookup is a
+    plain equality check on every database.
+    """
+    __tablename__ = "contest_invites"
+    __table_args__ = (UniqueConstraint("contest_id", "email", name="uq_contest_invite_email"),)
+
+    id = Column(Integer, primary_key=True, index=True)
+    contest_id = Column(Integer, ForeignKey("contests.id", ondelete="CASCADE"), nullable=False, index=True)
+    email = Column(String(255), nullable=False, index=True)
+    created_at = Column(DateTime(timezone=True), nullable=False, default=_now)

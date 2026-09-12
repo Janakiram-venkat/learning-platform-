@@ -81,7 +81,7 @@ export default function UltrasonicSim({ block }) {
         <div className="mt-3 text-center">
           {phase === 'idle' && <p className="font-mono-lab text-sm font-bold text-ink/50">ready to ping</p>}
           {(phase === 'out' || phase === 'back') && <p className="font-mono-lab text-sm font-bold text-pcb">ping travelling…</p>}
-          {phase === 'lost' && <p className="font-mono-lab text-sm font-bold text-wire">echo scattered away — no reading (timeout)</p>}
+          {phase === 'lost' && <p className="font-mono-lab text-sm font-bold text-wire">echo scattered away, no reading (timeout)</p>}
           {phase === 'done' && (
             <p className="font-mono-lab text-sm font-bold text-pcb">
               {flightUs} µs round trip → distance = (343 m/s × {flightUs} µs) ÷ 2 ≈ {distance} cm

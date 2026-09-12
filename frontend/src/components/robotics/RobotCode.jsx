@@ -61,7 +61,7 @@ export default function RobotCode({ block }) {
       const out = res?.data?.output ?? '';
       const idx = out.indexOf(MARKER);
       if (idx === -1) {
-        setParseError(out.trim() || 'No output — check your code for a syntax error.');
+        setParseError(out.trim() || 'No output: check your code for a syntax error.');
         setRunning(false);
         return;
       }
@@ -131,7 +131,7 @@ export default function RobotCode({ block }) {
                   : result.reachedGoal
                     ? `reached the goal in ${result.ticks} ticks${earned ? ` · +${earned} XP` : ''}`
                     : result.budgetExceeded
-                      ? "ran out of ticks — did your loop's exit condition ever become true?"
+                      ? "ran out of ticks: did your loop's exit condition ever become true?"
                       : 'program finished without reaching the goal'}
               </p>
             )}

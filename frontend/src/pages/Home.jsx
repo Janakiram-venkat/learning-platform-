@@ -376,14 +376,14 @@ const TRACKS = [
   },
   {
     ref: 'TRK-GAME', emoji: '🎮', title: 'Game Development', line: 'After Python 1–5',
-    desc: 'Build real playable games — bouncing balls, falling fruit, and a score to beat.',
+    desc: 'Build real playable games: bouncing balls, falling fruit, and a score to beat.',
     status: 'READY', led: '#E8503A', to: '/course/gamedev/games',
     // Gated: the card reads its own lock state from gamedev/course.json.
     courseId: 'gamedev',
   },
   {
     ref: 'TRK-BOT', emoji: '🦾', title: 'Robotics', line: 'No electronics needed',
-    desc: 'Meet the machines that sense, think and act — then design one of your own.',
+    desc: 'Meet the machines that sense, think and act, then design one of your own.',
     status: 'READY', led: '#FFC93C', to: '/course/robotics/lesson/robot-intro',
   },
 ];

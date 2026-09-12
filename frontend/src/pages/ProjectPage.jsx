@@ -306,7 +306,7 @@ export default function ProjectPage() {
                 <Lightbulb className="h-5 w-5 fill-signal text-ink" /> Stuck? Take a hint
               </h3>
               <p className="mb-4 text-sm text-ink/55">
-                Try it on your own first — hints are here whenever you want one.
+                Try it on your own first: hints are here whenever you want one.
               </p>
 
               <ol className="space-y-3">
@@ -330,7 +330,7 @@ export default function ProjectPage() {
                   <span className="text-ink/45">({hints.length - hintsShown} left)</span>
                 </button>
               ) : (
-                <p className="mt-3 text-sm font-semibold text-ink/50">That's every hint — you've got this! 💪</p>
+                <p className="mt-3 text-sm font-semibold text-ink/50">That's every hint: you've got this! 💪</p>
               )}
             </div>
           )}
@@ -339,7 +339,7 @@ export default function ProjectPage() {
           <div className="lab-panel p-5 sm:p-6">
             <h3 className="mb-4 flex items-center gap-2 font-lab font-bold text-ink">
               <ListChecks className="h-5 w-5 text-pcb" />
-              {hasTests ? 'Test Cases — your bot must pass them all' : 'Goals to pass'}
+              {hasTests ? 'Test Cases: your bot must pass them all' : 'Goals to pass'}
             </h3>
 
             {hasTests ? (
@@ -409,13 +409,13 @@ export default function ProjectPage() {
 
             {goalResults && !allPassed && (
               <p className="mt-4 rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-800 ring-1 ring-amber-100">
-                Almost! Some goals aren't met yet — tweak your code and check again. 💪
+                Almost! Some goals aren't met yet: tweak your code and check again. 💪
               </p>
             )}
             {allPassed && (
               <div className="mt-4 space-y-3">
                 <p className="flex items-center gap-2 rounded-xl bg-green-50 p-3 text-sm font-bold text-green-700 ring-1 ring-green-100">
-                  <Trophy className="h-4 w-4" /> All goals passed — project complete!
+                  <Trophy className="h-4 w-4" /> All goals passed. Project complete!
                 </p>
                 {nextLessonId ? (
                   <Link
@@ -478,7 +478,7 @@ export default function ProjectPage() {
               waiting={runner.waiting}
               onSubmit={runner.submitInput}
               emptyHint={usesInput
-                ? 'Run your code — when the bot asks a question, type your answer right here.'
+                ? 'Run your code. When the bot asks a question, type your answer right here.'
                 : 'Run your code to see the output here…'}
             />
           </div>

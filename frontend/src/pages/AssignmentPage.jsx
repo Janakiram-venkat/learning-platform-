@@ -490,7 +490,7 @@ export default function AssignmentPage() {
         {/* --- Ordering puzzle (drag blocks into numbered slots) --- */}
         {isOrder && (
           <div className="space-y-5">
-            <p className="text-sm font-semibold text-ink/65">Drag the blocks into the right order — or tap a block to drop it in the next slot.</p>
+            <p className="text-sm font-semibold text-ink/65">Drag the blocks into the right order, or tap a block to drop it in the next slot.</p>
 
             {/* The program: numbered slots */}
             <div className={`space-y-2 rounded-2xl border-2 border-dashed p-3 transition-colors ${orderShake ? 'animate-shake border-rose-400 bg-rose-50' : orderSolved ? 'border-green-400 bg-green-50' : 'border-ink/20 bg-ink/[0.03]'}`}>
@@ -564,7 +564,7 @@ export default function AssignmentPage() {
         {/* --- Match the following (drag answers into each box) --- */}
         {isMatch && (
           <div className="space-y-5">
-            <p className="text-sm font-semibold text-ink/65">Drag each answer into its box — or tap an answer, then tap a box.</p>
+            <p className="text-sm font-semibold text-ink/65">Drag each answer into its box, or tap an answer, then tap a box.</p>
 
             {/* Prompt + placeholder slot rows */}
             <div className={`space-y-3 ${matchShake ? 'animate-shake' : ''}`}>
@@ -624,7 +624,7 @@ export default function AssignmentPage() {
                   <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
                   <p className="text-sm font-medium leading-relaxed">
                     <span className="font-bold">Almost! </span>
-                    The boxes in <span className="font-bold text-green-700">green</span> are correct — leave those.
+                    The boxes in <span className="font-bold text-green-700">green</span> are correct: leave those.
                     {wrongCount === 1
                       ? ' 1 box is still wrong (in red). Drag that answer out and try a different one!'
                       : ` ${wrongCount} boxes are still wrong (in red). Drag those answers out and swap them around!`}

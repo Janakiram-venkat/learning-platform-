@@ -100,7 +100,7 @@ def rate_limit_exceeded_handler(request: Request, exc: RateLimitExceeded) -> JSO
         except Exception:  # headers are best-effort; the 429 itself matters
             pass
     return JSONResponse(
-        {"detail": "Too many requests — please wait a moment and try again."},
+        {"detail": "Too many requests. Please wait a moment and try again."},
         status_code=429,
         headers=headers,
     )

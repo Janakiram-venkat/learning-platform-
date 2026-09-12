@@ -10,11 +10,11 @@
     },
     {
       "type": "paragraph",
-      "value": "The laptop or phone you're reading this on is a general-purpose computer — it can run a browser, a game, a spreadsheet, anything. A microcontroller is a different kind of computer, built to do one job: run a single small program, over and over, forever, talking to wires instead of a screen and keyboard."
+      "value": "The laptop or phone you're reading this on is a general-purpose computer: it can run a browser, a game, a spreadsheet, anything. A microcontroller is a different kind of computer, built to do one job: run a single small program, over and over, forever, talking to wires instead of a screen and keyboard."
     },
     {
       "type": "paragraph",
-      "value": "It has the same basic pieces as your laptop — a processor, a little memory, storage for its program — just shrunk onto one chip small enough to sit on ARIA's chassis, drawing so little power it can run for hours on a single battery cell."
+      "value": "It has the same basic pieces as your laptop (a processor, a little memory, storage for its program) just shrunk onto one chip small enough to sit on ARIA's chassis, drawing so little power it can run for hours on a single battery cell."
     },
     {
       "type": "code",
@@ -40,11 +40,11 @@
     },
     {
       "type": "paragraph",
-      "value": "A microcontroller talks to the outside world through a row of metal legs called pins, each one either reading a voltage in or pushing a voltage out. That's the entire vocabulary — no mouse clicks, no keyboard presses, just pins going high or low, or measuring how high a voltage on them is. The next few lessons are about exactly how much you can build out of that one simple idea."
+      "value": "A microcontroller talks to the outside world through a row of metal legs called pins, each one either reading a voltage in or pushing a voltage out. That's the entire vocabulary: no mouse clicks, no keyboard presses, just pins going high or low, or measuring how high a voltage on them is. The next few lessons are about exactly how much you can build out of that one simple idea."
     },
     {
       "type": "tip",
-      "value": "\"Microcontroller\" and \"microprocessor\" get used loosely, but a microcontroller specifically bundles the processor with memory and pins all on one chip — that's what makes it cheap enough to put one in almost anything."
+      "value": "\"Microcontroller\" and \"microprocessor\" get used loosely, but a microcontroller specifically bundles the processor with memory and pins all on one chip: that's what makes it cheap enough to put one in almost anything."
     },
     {
       "type": "paragraph",
@@ -70,7 +70,7 @@
         "ACT"
       ],
       "answer": 1,
-      "explain": "Sensors bring numbers in, actuators push decisions out — the microcontroller in the middle is where the decision itself happens."
+      "explain": "Sensors bring numbers in, actuators push decisions out: the microcontroller in the middle is where the decision itself happens."
     },
     {
       "question": "How does a microcontroller talk to the outside world?",

@@ -9,7 +9,7 @@ const CARDS = [
   { id: 5, emoji: '🐈‍⬛', truth: 'cat' }, { id: 6, emoji: '🐩', truth: 'dog' },
   { id: 7, emoji: '🐱', truth: 'cat' }, { id: 8, emoji: '🐶', truth: 'dog' },
 ];
-const MYSTERY = { emoji: '🐺', looksLike: 'dog', truth: 'neither — a wolf' };
+const MYSTERY = { emoji: '🐺', looksLike: 'dog', truth: 'neither: a wolf' };
 
 /** Label training cards, watch an accuracy bar climb, then meet a blurry example that fools the model anyway — the module's "data quality is the whole game" moment. */
 export default function TrainingLab({ block }) {
@@ -80,7 +80,7 @@ export default function TrainingLab({ block }) {
               {earned ? ` · +${earned} XP` : ''}
             </p>
             <p className="mt-2 text-sm font-semibold text-ink/70">
-              None of your training cards looked quite like this one. A model can only be as good as the examples it learned from — this is exactly what "data quality is the whole game" means.
+              None of your training cards looked quite like this one. A model can only be as good as the examples it learned from: this is exactly what "data quality is the whole game" means.
             </p>
           </div>
         )}

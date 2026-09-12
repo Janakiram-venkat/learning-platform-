@@ -2,8 +2,8 @@
 //
 // The student's program runs to completion (it defines sprites and an
 // every_frame function, then calls game.start()). Only THEN do we start a
-// requestAnimationFrame loop here in JS, calling back into Python's _tick()
-// once per frame and painting the snapshot it returns. Python never loops, so
+// requestAnimationFrame loop here in JS, calling back into Python's
+// _step_json() once per frame and painting the snapshot it returns. Python never loops, so
 // it never blocks — and a runaway loop inside their own update function is
 // still killable by terminating the worker.
 import { loadPyodide } from 'https://cdn.jsdelivr.net/pyodide/v0.28.0/full/pyodide.mjs';
@@ -32,6 +32,12 @@ let stage = null;      // the Python `stage` module proxy
 let rafId = null;
 let heldKeys = new Set();
 let lastSnapshot = null;
+// The pointer, as fractions of the screen (0..1) — the page doesn't know the
+// stage's size, so it's turned into stage pixels here, per frame. Clicks queue
+// up until the next update so a quick tap between frames still counts.
+let pointer = null;        // { x, y } or null until it first moves over the stage
+let pointerDown = false;
+let pendingClicks = [];
 
 // Where Python's stdout goes right now: the setup run's buffer while the
 // program runs, then the live buffer while the game loop runs, then nowhere.
@@ -116,13 +122,17 @@ function paint(snap) {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       // scale_x/scale_y stretch or squash the sprite (squash-and-stretch
-      // juice). Translate to its centre first so the scale grows from the
-      // middle of the sprite, not from the canvas origin.
+      // juice) and angle spins it. Translate to its centre first so both
+      // happen around the middle of the sprite, not the canvas origin.
       const sx = t.scale_x ?? 1;
       const sy = t.scale_y ?? 1;
-      if (sx !== 1 || sy !== 1) {
+      const angle = t.angle || 0;
+      if (sx !== 1 || sy !== 1 || angle) {
         ctx.save();
         ctx.translate(t.x, t.y);
+        // Turn first, then stretch, so a squash always runs along the
+        // sprite's own body rather than the screen's axes.
+        if (angle) ctx.rotate((angle * Math.PI) / 180);
         ctx.scale(sx, sy);
         ctx.fillText(t.look, 0, 0);
         ctx.restore();
@@ -182,6 +192,26 @@ async function execProgram(py, code) {
   return { ok: !error, output: out, error, started: stage._started() };
 }
 
+// The mouse as Python wants it: stage pixels, plus the clicks since last time.
+// Takes the queued clicks, so call it only when an update will actually run.
+function takeMouse() {
+  const w = lastSnapshot?.width || 0;
+  const h = lastSnapshot?.height || 0;
+  const px = (p) => [Math.round(p.x * w), Math.round(p.y * h)];
+  const mouse = {
+    x: pointer ? px(pointer)[0] : null,
+    y: pointer ? px(pointer)[1] : null,
+    down: pointerDown,
+    clicks: pendingClicks.map(px),
+  };
+  pendingClicks = [];
+  return mouse;
+}
+
+function sendSounds(snap) {
+  if (snap?.sounds?.length) self.postMessage({ type: 'sound', names: snap.sounds });
+}
+
 function frameStep(timestamp) {
   const now = typeof timestamp === 'number' ? timestamp : performance.now();
   if (lastTime == null) lastTime = now - STEP_MS; // the first frame always updates
@@ -195,7 +225,7 @@ function frameStep(timestamp) {
   if (steps > 0) {
     let snapJson;
     try {
-      snapJson = stage._step_json(JSON.stringify([...heldKeys]), steps);
+      snapJson = stage._step_json(JSON.stringify([...heldKeys]), steps, JSON.stringify(takeMouse()));
     } catch (err) {
       stopLoop();
       self.postMessage({ type: 'error', error: friendlyError(err && err.message ? err.message : err) });
@@ -205,6 +235,7 @@ function frameStep(timestamp) {
     const snap = JSON.parse(snapJson);
     lastSnapshot = snap;
     paint(snap);
+    sendSounds(snap);
     if (snap.over) {
       beat(now); // flush the last prints before saying goodbye
       stopLoop();
@@ -231,9 +262,25 @@ function startLoop() {
   schedule();
 }
 
+// A check scenario can drive the mouse too, in stage pixels:
+//   mouse:  { "*": [x, y], "40": [x, y] }   where the pointer sits (from that frame on)
+//   clicks: { "30": [x, y] }                 a click on that frame
+function headlessMouse(f, mouse, clicks, state) {
+  if (!mouse && !clicks) return null;
+  const at = mouse && (mouse[f] || (f === 0 && mouse['*']));
+  if (at) state.pos = at;
+  const click = clicks && clicks[f];
+  return {
+    x: state.pos ? state.pos[0] : null,
+    y: state.pos ? state.pos[1] : null,
+    down: !!click,
+    clicks: click ? [click] : [],
+  };
+}
+
 // Run the program with no rendering for `frames` ticks, recording where every
 // thing was on each tick. This trace is what the behaviour checks grade.
-async function runHeadless(py, code, frames, keys) {
+async function runHeadless(py, code, frames, keys, mouse, clicks) {
   const res = await execProgram(py, code);
   if (!res.ok) return { ...res, trace: [] };
 
@@ -241,17 +288,21 @@ async function runHeadless(py, code, frames, keys) {
   const trace = [];
   let stageW = 0;
   let stageH = 0;
+  const mouseState = { pos: null };
   try {
     for (let f = 0; f < total; f++) {
       // `keys` maps a frame number to the keys held down at that moment, so a
       // check can drive the player character (e.g. "hold left for 30 frames").
       const held = keys && keys[f] ? keys[f] : (keys && keys['*']) || [];
-      const snapJson = stage._tick_json(JSON.stringify(held));
+      const m = headlessMouse(f, mouse, clicks, mouseState);
+      const snapJson = stage._tick_json(JSON.stringify(held), JSON.stringify(m));
       if (snapJson === 'null') break;
       const snap = JSON.parse(snapJson);
       stageW = snap.width;
       stageH = snap.height;
-      trace.push({ frame: snap.frame, over: snap.over, all: snap.all, shaking: !!snap.shaking });
+      trace.push({
+        frame: snap.frame, over: snap.over, all: snap.all, shaking: !!snap.shaking, sounds: snap.sounds || [],
+      });
       if (snap.over) break;
     }
   } catch (err) {
@@ -273,6 +324,15 @@ self.onmessage = async (e) => {
 
   if (type === 'keys') {
     heldKeys = new Set(e.data.keys);
+    return;
+  }
+
+  // The pointer moved, or its button went down or up. x/y are 0..1 across the
+  // screen; `click` marks the press itself.
+  if (type === 'mouse') {
+    if (e.data.x != null) pointer = { x: e.data.x, y: e.data.y };
+    pointerDown = !!e.data.down;
+    if (e.data.click && pointer) pendingClicks.push(pointer);
     return;
   }
 
@@ -309,7 +369,9 @@ self.onmessage = async (e) => {
     }
     // Paint frame zero immediately so a still scene (no every_frame) shows up.
     const snapJson = stage._snapshot_json();
-    if (snapJson !== 'null') { lastSnapshot = JSON.parse(snapJson); paint(lastSnapshot); }
+    if (snapJson !== 'null') { lastSnapshot = JSON.parse(snapJson); paint(lastSnapshot); sendSounds(lastSnapshot); }
+    // A click made before this run (e.g. on the last game) must not count.
+    pendingClicks = [];
     // The stage's real size, so the page can give the screen the right shape.
     const size = lastSnapshot ? { width: lastSnapshot.width, height: lastSnapshot.height } : null;
     const animated = stage._is_animated();
@@ -327,7 +389,7 @@ self.onmessage = async (e) => {
     let py;
     try { py = await getPyodide(); }
     catch { self.postMessage({ id, type: 'trace', error: 'Could not load the Python runtime.' }); return; }
-    const res = await runHeadless(py, e.data.code, e.data.frames, e.data.keys);
+    const res = await runHeadless(py, e.data.code, e.data.frames, e.data.keys, e.data.mouse, e.data.clicks);
     self.postMessage({ id, type: 'trace', ...res });
     return;
   }

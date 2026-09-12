@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-full-assembly",
   "title": "The Final Exam, and It's a Game",
-  "description": "No new ideas in this lesson — just everything from Module 2 onward, tested the way this whole course has always taught: by doing, not reciting.",
+  "description": "No new ideas in this lesson, just everything from Module 2 onward, tested the way this whole course has always taught: by doing, not reciting.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -16,7 +16,7 @@
       "type": "widget",
       "kind": "robot-bench",
       "title": "🔧 One last look before the exam",
-      "hint": "Spin her, explode her, x-ray her — however you study best.",
+      "hint": "Spin her, explode her, x-ray her: however you study best.",
       "controls": ["systems", "explode", "views"]
     },
     {
@@ -25,7 +25,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Same format as Module 2's Part Hunt, with everything this course has since taught folded in — sensors, motors, the brain, the movement system, all fair game. Wrong guesses still teach: a mis-click shakes and names whatever you actually hit."
+      "value": "Same format as Module 2's Part Hunt, with everything this course has since taught folded in: sensors, motors, the brain, the movement system, all fair game. Wrong guesses still teach: a mis-click shakes and names whatever you actually hit."
     },
     {
       "type": "widget",
@@ -34,11 +34,11 @@
     },
     {
       "type": "tip",
-      "value": "There's no hint button in this final round, on purpose. If a part's name has genuinely slipped your mind, that's useful information — it tells you exactly which earlier module is worth a quick re-read before the debug lab next."
+      "value": "There's no hint button in this final round, on purpose. If a part's name has genuinely slipped your mind, that's useful information: it tells you exactly which earlier module is worth a quick re-read before the debug lab next."
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: naming and locating every part on ARIA, quickly and confidently, is the real test of whether this course's twelve modules actually stuck — not a definitions quiz, a hands-on one."
+      "value": "Key takeaway: naming and locating every part on ARIA, quickly and confidently, is the real test of whether this course's twelve modules actually stuck, not a definitions quiz, a hands-on one."
     }
   ],
   "quiz": [
@@ -46,11 +46,11 @@
       "question": "Why does this lesson's assessment take the form of a game (Part Hunt) rather than a written quiz?",
       "options": [
         "Games are always easier than quizzes",
-        "It matches how the whole course has taught throughout — by doing and interacting, not reciting definitions",
+        "It matches how the whole course has taught throughout: by doing and interacting, not reciting definitions",
         "Written quizzes aren't possible in this format"
       ],
       "answer": 1,
-      "explain": "Every module in this course has favoured hands-on interaction over recitation — the final assessment stays consistent with that."
+      "explain": "Every module in this course has favoured hands-on interaction over recitation: the final assessment stays consistent with that."
     },
     {
       "question": "Why is it useful, not just embarrassing, if you can't immediately name a part during Part Hunt?",
@@ -60,7 +60,7 @@
         "Part Hunt doesn't actually test anything real"
       ],
       "answer": 1,
-      "explain": "A wrong or missed answer is diagnostic information — it points precisely at what to review, which is the whole spirit of this course's approach to mistakes."
+      "explain": "A wrong or missed answer is diagnostic information: it points precisely at what to review, which is the whole spirit of this course's approach to mistakes."
     }
   ]
 }

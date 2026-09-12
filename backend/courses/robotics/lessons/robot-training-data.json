@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "A model doesn't learn from instructions — it learns from labelled examples: here's a picture, here's what it is. Enough examples, and it can start guessing correctly on pictures it's never seen before. You're about to do the labelling yourself."
+      "value": "A model doesn't learn from instructions. It learns from labelled examples: here's a picture, here's what it is. Enough examples, and it can start guessing correctly on pictures it's never seen before. You're about to do the labelling yourself."
     },
     {
       "type": "widget",
@@ -26,7 +26,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Notice the model's guess on the final image is only ever as good as what it was shown. If every training example was a very typical, clear cat or dog, an unusual example — a wolf, a blurry photo, an odd breed — can genuinely fool it, not because the underlying idea is broken, but because that particular shape of example was never part of what it learned from."
+      "value": "Notice the model's guess on the final image is only ever as good as what it was shown. If every training example was a very typical, clear cat or dog, an unusual example (a wolf, a blurry photo, an odd breed) can genuinely fool it, not because the underlying idea is broken, but because that particular shape of example was never part of what it learned from."
     },
     {
       "type": "paragraph",
@@ -38,7 +38,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: a model learns entirely from its training examples. A gap between what it was trained on and what it actually encounters is where mistakes come from — which is why data quality, not just clever programming, is the real work behind a learned system."
+      "value": "Key takeaway: a model learns entirely from its training examples. A gap between what it was trained on and what it actually encounters is where mistakes come from, which is why data quality, not just clever programming, is the real work behind a learned system."
     }
   ],
   "quiz": [
@@ -46,7 +46,7 @@
       "question": "What does a model actually learn from, according to this lesson?",
       "options": [
         "A list of instructions written by a programmer",
-        "Labelled examples — pictures paired with what they actually are",
+        "Labelled examples: pictures paired with what they actually are",
         "Random chance"
       ],
       "answer": 1,
@@ -60,7 +60,7 @@
         "Models can never be trained to recognise animals"
       ],
       "answer": 1,
-      "explain": "A model's guesses are bounded by what it actually saw during training — an unfamiliar shape of example is exactly where it's likely to fail."
+      "explain": "A model's guesses are bounded by what it actually saw during training: an unfamiliar shape of example is exactly where it's likely to fail."
     },
     {
       "question": "What's the single most important factor behind a well-performing learned system, according to this lesson?",
@@ -70,7 +70,7 @@
         "How many lines of code the programmer wrote"
       ],
       "answer": 0,
-      "explain": "Good, representative training data is what this whole lesson is built around — arguably more important than the algorithm itself."
+      "explain": "Good, representative training data is what this whole lesson is built around: arguably more important than the algorithm itself."
     }
   ]
 }

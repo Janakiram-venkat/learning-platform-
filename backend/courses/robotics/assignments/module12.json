@@ -8,7 +8,7 @@
       "type": "concept",
       "prompt": "Both motors are commanded at the same speed, but the robot circles instead of driving straight. What's the likely fault category?",
       "options": [
-        "Wiring — one motor's leads are probably swapped",
+        "Wiring: one motor's leads are probably swapped",
         "Sensor",
         "Code"
       ],
@@ -20,7 +20,7 @@
       "prompt": "A robot resets the instant its motors start spinning. What does this symptom point to?",
       "options": [
         "A bug in the robot's Python code",
-        "A power-system issue — the motor's startup current spike sagging the shared voltage rail",
+        "A power-system issue: the motor's startup current spike sagging the shared voltage rail",
         "A sensor that's reading incorrectly"
       ],
       "answer": 1,
@@ -31,7 +31,7 @@
       "prompt": "In the arena, what does 'fewer ticks used to reach the goal' approximate?",
       "options": [
         "Battery life remaining",
-        "A rough stand-in for time — a more direct, efficient program",
+        "A rough stand-in for time: a more direct, efficient program",
         "The number of sensors used"
       ],
       "answer": 1,
@@ -69,7 +69,7 @@
         "Written tests are technically impossible in this format"
       ],
       "answer": 1,
-      "explain": "Every module favoured doing over reciting — the final exam stays consistent with that all the way through."
+      "explain": "Every module favoured doing over reciting: the final exam stays consistent with that all the way through."
     }
   ]
 }

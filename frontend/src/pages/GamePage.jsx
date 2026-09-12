@@ -100,19 +100,19 @@ export default function GamePage() {
       xpKey: `gamestep-${courseId}-${moduleId}-${idx}`,
       xp: STEP_XP,
       badge: isLast
-        ? { id: `game-${moduleId}`, name: `${module.title} — Shipped`, type: 'project' }
+        ? { id: `game-${moduleId}`, name: `${module.title}: Shipped`, type: 'project' }
         : undefined,
       celebration: ({ firstTime, xpGained }) => (isLast
         ? {
           title: 'Game complete! 🎮',
           message: module.successMessage
-            || `You built ${module.title} from an empty screen. That's a real game — go show someone.`,
-          badge: `${module.title} — Shipped`,
+            || `You built ${module.title} from an empty screen. That's a real game: go show someone.`,
+          badge: `${module.title}: Shipped`,
         }
         : {
           title: 'Step complete! ✅',
           message: step.successMessage
-            || `Nice — your game does something new.${xpGained && firstTime ? ` +${xpGained} XP` : ''}`,
+            || `Nice! Your game does something new.${xpGained && firstTime ? ` +${xpGained} XP` : ''}`,
         }),
     });
   }, [isLast, courseId, moduleId, idx, module, step, complete]);
@@ -263,7 +263,7 @@ export default function GamePage() {
               <h3 className="mb-1 flex items-center gap-2 font-lab font-bold text-ink">
                 <Lightbulb className="h-5 w-5 fill-signal text-ink" /> Stuck? Take a hint
               </h3>
-              <p className="mb-4 text-sm text-ink/55">Try it on your own first — hints are here whenever you want one.</p>
+              <p className="mb-4 text-sm text-ink/55">Try it on your own first: hints are here whenever you want one.</p>
               <ol className="space-y-3">
                 {hints.slice(0, hintsShown).map((h, i) => (
                   <li key={i} className="flex items-start gap-3 rounded-xl border-2 border-ink/15 bg-white p-3">
@@ -282,7 +282,7 @@ export default function GamePage() {
                   <span className="text-ink/45">({hints.length - hintsShown} left)</span>
                 </button>
               ) : (
-                <p className="mt-3 text-sm font-semibold text-ink/50">That's every hint — you've got this! 💪</p>
+                <p className="mt-3 text-sm font-semibold text-ink/50">That's every hint: you've got this! 💪</p>
               )}
             </div>
           )}
@@ -297,7 +297,7 @@ export default function GamePage() {
                 <ListChecks className="h-5 w-5 text-pcb" /> Check yourself off
               </h3>
               <p className="mb-4 text-sm text-ink/55">
-                There's no auto-grader for an idea that's entirely yours — you decide when each of these is
+                There's no auto-grader for an idea that's entirely yours: you decide when each of these is
                 true. Be honest with yourself; the badge means more that way.
               </p>
               <ul className="space-y-2">
@@ -355,12 +355,12 @@ export default function GamePage() {
 
               {results && !allPassed && (
                 <p className="mt-4 rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-800 ring-1 ring-amber-100">
-                  Not there yet — fix the red ones and check again. 💪
+                  Not there yet: fix the red ones and check again. 💪
                 </p>
               )}
               {allPassed && (
                 <p className="mt-4 flex items-center gap-2 rounded-xl bg-green-50 p-3 text-sm font-bold text-green-700 ring-1 ring-green-100">
-                  <Trophy className="h-4 w-4" /> All good — step complete!
+                  <Trophy className="h-4 w-4" /> All good! Step complete!
                 </p>
               )}
             </div>

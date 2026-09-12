@@ -79,7 +79,7 @@ function Coordinates({ look = '🐱' }) {
       </div>
       <Readout items={[{ label: 'x', value: pos.x }, { label: 'y', value: pos.y }]} />
       <p className="mt-2 text-sm text-ink/60">
-        Drag the sprite. Notice <strong>y gets bigger as you go DOWN</strong> — that surprises everyone at first.
+        Drag the sprite. Notice <strong>y gets bigger as you go DOWN</strong>, and that surprises everyone at first.
       </p>
     </div>
   );
@@ -199,7 +199,7 @@ function FrameStepper({ start = 40, step = 8, lines }) {
         </button>
       </div>
       <p className="mt-2 text-sm text-ink/60">
-        A real game does this <strong>60 times every second</strong>. Press "One frame" a few times — that's all
+        A real game does this <strong>60 times every second</strong>. Press "One frame" a few times: that's all
         movement is: a small change, over and over, too fast to see.
       </p>
     </div>
@@ -253,7 +253,7 @@ function Collision() {
         </span>
       </div>
       <p className="mt-2 text-sm text-ink/60">
-        Drag the basket. The dotted rings are the <strong>hitboxes</strong> — the invisible shapes the computer
+        Drag the basket. The dotted rings are the <strong>hitboxes</strong>: the invisible shapes the computer
         actually compares. It never sees the pictures, only the rings.
       </p>
     </div>
@@ -304,7 +304,7 @@ function Gravity() {
         ))}
       </div>
       <p className="mt-2 text-sm text-ink/60">
-        Gravity doesn't change position — it changes <strong>speed</strong>, every frame. Low gravity feels like the
+        Gravity doesn't change position: it changes <strong>speed</strong>, every frame. Low gravity feels like the
         moon; high gravity feels heavy and snappy. This one slider is most of what "game feel" means.
       </p>
     </div>
@@ -467,7 +467,7 @@ function Juice({ look = '🐸' }) {
         Shake!
       </button>
       <p className="mt-2 text-sm text-ink/60">
-        Watch it stretch tall on the way up and squash flat the instant it lands — that's{' '}
+        Watch it stretch tall on the way up and squash flat the instant it lands: that's{' '}
         <code className="rounded bg-ink/8 px-1">scale_x</code> and <code className="rounded bg-ink/8 px-1">scale_y</code>{' '}
         changing, not a different picture. Press <strong>Shake!</strong> for the trick a crash uses on the whole screen.
       </p>
@@ -513,7 +513,7 @@ function Screens() {
       </div>
       <Readout items={[{ label: 'game.state', value: `"${state}"` }]} />
       <p className="mt-2 text-sm text-ink/60">
-        It's the exact same stage every time — only what your code CHECKS about <code className="rounded bg-ink/8 px-1">game.state</code> decides
+        It's the exact same stage every time: only what your code CHECKS about <code className="rounded bg-ink/8 px-1">game.state</code> decides
         what gets drawn and what update() actually does that frame.
       </p>
     </div>

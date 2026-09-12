@@ -8,19 +8,19 @@
       "type": "concept",
       "prompt": "\"Turn right, then move forward\" vs \"move forward, then turn right.\" Are these the same program?",
       "options": [
-        "No — order changes where the robot ends up",
+        "No: order changes where the robot ends up",
         "Yes, order never matters in a sequence",
         "They're only different if a loop is involved"
       ],
       "answer": 0,
-      "explain": "A sequence runs in the exact order written — swap two steps and you can get a completely different result."
+      "explain": "A sequence runs in the exact order written: swap two steps and you can get a completely different result."
     },
     {
       "type": "concept",
       "prompt": "An If block's condition is false. What happens to its 'then' branch?",
       "options": [
         "It runs anyway",
-        "It's skipped — only the else branch (if any) runs",
+        "It's skipped: only the else branch (if any) runs",
         "The whole program stops"
       ],
       "answer": 1,
@@ -47,14 +47,14 @@
           "right": "Has no built-in end"
         }
       ],
-      "explain": "Every algorithm you'll ever write is built from these — even the most complex real robot program."
+      "explain": "Every algorithm you'll ever write is built from these, even the most complex real robot program."
     },
     {
       "type": "concept",
       "prompt": "Why is 'repeat forever' with nothing that can change the situation inside it risky?",
       "options": [
         "It's not risky at all",
-        "It never ends on its own — nothing inside it can break the pattern",
+        "It never ends on its own: nothing inside it can break the pattern",
         "It always runs exactly 100 times"
       ],
       "answer": 1,
@@ -62,7 +62,7 @@
     },
     {
       "type": "concept",
-      "prompt": "`repeat forever: if wall ahead: turn, else: move forward` — why does this generalise to a maze it's never seen, unlike a hardcoded sequence?",
+      "prompt": "`repeat forever: if wall ahead: turn, else: move forward`. Why does this generalise to a maze it's never seen, unlike a hardcoded sequence?",
       "options": [
         "It reacts to whatever it actually senses, rather than memorising one fixed path",
         "It uses fewer blocks, which always generalises better",

@@ -75,7 +75,9 @@ export function usePrerequisite(prerequisite) {
     : evaluatePrerequisite(prerequisite, prereqCourse);
 
   const checking = !resolved;
-  return { ...state, checking, locked: !checking && !state.met, prerequisite: prerequisite || null };
+  // Course-level prerequisite gates are disabled: every course is open regardless
+  // of how far the student has gotten in any other course.
+  return { ...state, checking, locked: false, prerequisite: prerequisite || null };
 }
 
 /**
@@ -104,5 +106,5 @@ export function useCourseLock(courseId) {
   const result = usePrerequisite(resolved ? fetched?.prerequisite || null : null);
 
   const checking = !resolved || result.checking;
-  return { ...result, checking, locked: !checking && !result.met };
+  return { ...result, checking, locked: false };
 }

@@ -141,7 +141,7 @@ export default function WaterCircuit({ block }) {
         </label>
       </div>
       <p className="border-t-2 border-ink/10 bg-paper/60 px-4 py-3 text-sm font-semibold text-ink/70">
-        Raise the tank and the water pushes harder — that's more voltage. Widen the pipe and
+        Raise the tank and the water pushes harder: that's more voltage. Widen the pipe and
         the water meets less resistance. Both sliders move both sides, because it's the same
         idea twice: <span className="font-mono-lab font-bold text-ink">flow = height ÷ narrowness</span>,
         or in the wire: <span className="font-mono-lab font-bold text-ink">I = V ÷ R</span>.

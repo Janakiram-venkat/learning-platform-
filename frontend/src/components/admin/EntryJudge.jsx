@@ -72,7 +72,7 @@ export default function EntryJudge({ contestId, entries, entryId, onSelect, onSc
               {current.email} ·
               {current.submitted_at
                 ? <span className="flex items-center gap-1 text-pcb"><Lock className="h-3 w-3" /> Submitted {fmtDateTime(current.submitted_at)}</span>
-                : <span className="flex items-center gap-1"><PencilLine className="h-3 w-3" /> Not submitted — last saved {fmtDateTime(current.updated_at)}</span>}
+                : <span className="flex items-center gap-1"><PencilLine className="h-3 w-3" /> Not submitted, last saved {fmtDateTime(current.updated_at)}</span>}
             </p>
           )}
         </div>

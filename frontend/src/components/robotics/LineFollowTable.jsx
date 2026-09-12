@@ -123,7 +123,7 @@ export default function LineFollowTable({ block }) {
 
         {result && (
           <p className={`mt-2 text-center font-mono-lab text-sm font-bold ${result === 'pass' ? 'text-pcb' : 'text-wire'}`}>
-            {result === 'pass' ? '✓ completed the track, staying on the line' : '✗ drove off the track — adjust your rules and try again'}
+            {result === 'pass' ? '✓ completed the track, staying on the line' : '✗ drove off the track: adjust your rules and try again'}
           </p>
         )}
 

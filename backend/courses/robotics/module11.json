@@ -2,7 +2,7 @@
   "moduleId": 11,
   "title": "Robots That Think (AI)",
   "emoji": "🤖",
-  "tagline": "Rules a human writes vs patterns a robot discovers — and everything that becomes possible once it can see, hear and understand.",
+  "tagline": "Rules a human writes vs patterns a robot discovers, and everything that becomes possible once it can see, hear and understand.",
   "lessons": [
     {
       "lessonId": "robot-rules-vs-learning",
@@ -21,7 +21,7 @@
     },
     {
       "lessonId": "robot-face-detection",
-      "title": "Face Detection — and a Word on Privacy",
+      "title": "Face Detection, and a Word on Privacy",
       "duration": "10 min"
     },
     {

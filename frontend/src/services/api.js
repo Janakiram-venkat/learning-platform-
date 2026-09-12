@@ -122,6 +122,17 @@ export const adminContestService = {
   entries: (id) => api.get(`/admin/contests/${id}/entries`),
   entry: (id, entryId) => api.get(`/admin/contests/${id}/entries/${entryId}`),
   score: (id, entryId, payload) => api.put(`/admin/contests/${id}/entries/${entryId}/score`, payload),
+  duplicate: (id) => api.post(`/admin/contests/${id}/duplicate`),
+  // Live controls: open the doors, call time, add minutes, show the board.
+  // `minutes` null keeps whatever length the contest was scheduled for.
+  startNow: (id, minutes = null) => api.post(`/admin/contests/${id}/start`, { minutes }),
+  endNow: (id) => api.post(`/admin/contests/${id}/end`),
+  addTime: (id, minutes) => api.post(`/admin/contests/${id}/time`, { minutes }),
+  setResults: (id, published) => api.put(`/admin/contests/${id}/results`, { published }),
+  invites: (id) => api.get(`/admin/contests/${id}/invites`),
+  // `emails` is raw pasted text; the server splits and validates it.
+  addInvites: (id, emails) => api.post(`/admin/contests/${id}/invites`, { emails }),
+  removeInvite: (id, inviteId) => api.delete(`/admin/contests/${id}/invites/${inviteId}`),
 };
 
 export const progressService = {

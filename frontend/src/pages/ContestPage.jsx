@@ -45,7 +45,7 @@ function SubmitDialog({ open, submitting, onCancel, onConfirm }) {
           This locks in exactly what's in your editor right now. You <strong>won't be able to change it</strong> afterwards.
         </p>
         <p className="mt-2 text-sm font-semibold text-ink/55">
-          Not ready? You don't have to submit early — whatever is saved when the time runs out still counts.
+          Not ready? You don't have to submit early: whatever is saved when the time runs out still counts.
         </p>
         <div className="mt-6 flex justify-end gap-3">
           <button onClick={onCancel} disabled={submitting} className="lab-btn rounded-xl border-2 border-ink bg-white px-4 py-2.5 font-extrabold text-ink">
@@ -76,7 +76,7 @@ function WaitingRoom({ contest, phase, now }) {
       </div>
       <Countdown contest={contest} phase={phase} now={now} />
       <p className="max-w-md font-semibold text-ink/60">
-        Starts {fmtDateTime(contest.start_at)}. The theme is revealed the moment it begins — this page opens by itself, no need to refresh.
+        Starts {fmtDateTime(contest.start_at)}. The theme is revealed the moment it begins: this page opens by itself, no need to refresh.
       </p>
       <Link to="/contests" className="text-sm font-bold text-ink/50 hover:text-pcb">← All contests</Link>
     </div>
@@ -175,7 +175,7 @@ export default function ContestPage() {
           entry.saveState === 'error' && !locked ? 'border-wire/30 bg-wire/10 text-wire' : 'border-ink/10 bg-paper text-ink/65'
         }`}>
           {entry.submittedAt
-            ? `Submitted ${fmtDateTime(entry.submittedAt)} — your entry is locked in. You can still play it.`
+            ? `Submitted ${fmtDateTime(entry.submittedAt)}. Your entry is locked in. You can still play it.`
             : phase === 'ended'
               ? "Time's up! Your last saved version is your entry. You can still play it."
               : entry.saveError}

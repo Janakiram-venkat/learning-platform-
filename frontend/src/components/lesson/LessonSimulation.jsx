@@ -147,7 +147,7 @@ function LoopSim({ sim }) {
         </div>
       </div>
       <p className="mt-5 text-center text-sm font-medium text-ink/70">
-        The loop runs the indented line {times} times — so “{say}” is printed {times} times!
+        The loop runs the indented line {times} times, so “{say}” is printed {times} times!
       </p>
     </Shell>
   );

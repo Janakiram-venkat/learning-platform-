@@ -60,7 +60,7 @@ export default function SortStage({ stage, onComplete }) {
           dragOverTray ? 'border-pcb bg-pcb/8' : 'border-ink/15 bg-paper'
         }`}
       >
-        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-ink/40">Drag a card into a bucket — or tap a card, then tap a bucket</p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-ink/40">Drag a card into a bucket, or tap a card, then tap a bucket</p>
         <div className="flex flex-wrap gap-2">
           {unplaced.length === 0 && <span className="text-sm text-ink/40">All cards placed!</span>}
           {unplaced.map((c) => (

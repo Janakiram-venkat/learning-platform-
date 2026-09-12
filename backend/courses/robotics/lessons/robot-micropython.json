@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-micropython",
   "title": "MicroPython: What Actually Runs on the ESP32",
-  "description": "Everything you just wrote runs in a simulator. Here's exactly what changes — and what doesn't — when the same ideas run on the real chip from Module 4.",
+  "description": "Everything you just wrote runs in a simulator. Here's exactly what changes, and what doesn't, when the same ideas run on the real chip from Module 4.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "MicroPython is a real, genuine implementation of the Python language, rewritten to fit inside a microcontroller with only a few hundred kilobytes of memory instead of the gigabytes a laptop has. The language you've been writing — variables, if/else, while, def — is the same language. What's different is the library around it: instead of a robot object built for this course's simulator, real code talks to pins directly."
+      "value": "MicroPython is a real, genuine implementation of the Python language, rewritten to fit inside a microcontroller with only a few hundred kilobytes of memory instead of the gigabytes a laptop has. The language you've been writing (variables, if/else, while, def) is the same language. What's different is the library around it: instead of a robot object built for this course's simulator, real code talks to pins directly."
     },
     {
       "type": "code",
@@ -19,7 +19,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Notice the real version is longer and closer to the hardware — you're directly setting GPIO pins HIGH and LOW, exactly like Module 4, rather than calling one clean method. robot.forward() has effectively been doing this work for you the whole time, hidden behind a friendly name."
+      "value": "Notice the real version is longer and closer to the hardware: you're directly setting GPIO pins HIGH and LOW, exactly like Module 4, rather than calling one clean method. robot.forward() has effectively been doing this work for you the whole time, hidden behind a friendly name."
     },
     {
       "type": "heading",
@@ -32,7 +32,7 @@
     {
       "type": "code",
       "language": "text",
-      "value": "from machine import Pin\n\nled = Pin(2, Pin.OUT)   # GPIO 2, configured as an output\nled.value(1)             # HIGH — LED on\nled.value(0)             # LOW — LED off"
+      "value": "from machine import Pin\n\nled = Pin(2, Pin.OUT)   # GPIO 2, configured as an output\nled.value(1)             # HIGH: LED on\nled.value(0)             # LOW: LED off"
     },
     {
       "type": "paragraph",
@@ -40,7 +40,7 @@
     },
     {
       "type": "tip",
-      "value": "This is also why the simulator's robot object is worth building your intuition on first: the logic (the loop, the decision, the sequence) transfers completely unchanged to real hardware. Only the innermost layer — how forward() actually gets implemented — differs."
+      "value": "This is also why the simulator's robot object is worth building your intuition on first: the logic (the loop, the decision, the sequence) transfers completely unchanged to real hardware. Only the innermost layer, how forward() actually gets implemented, differs."
     },
     {
       "type": "paragraph",
@@ -52,11 +52,11 @@
       "question": "Is MicroPython a different, simplified language from the Python you've been writing?",
       "options": [
         "Yes, completely different syntax",
-        "No — it's a real implementation of the same language, shrunk to fit a microcontroller's limited memory",
+        "No: it's a real implementation of the same language, shrunk to fit a microcontroller's limited memory",
         "MicroPython only supports variables, nothing else"
       ],
       "answer": 1,
-      "explain": "The language itself — if/else, while, def, variables — is genuinely the same Python. What's smaller is the surrounding library and available memory."
+      "explain": "The language itself (if/else, while, def, variables) is genuinely the same Python. What's smaller is the surrounding library and available memory."
     },
     {
       "question": "What does `Pin(2, Pin.OUT)` do?",
@@ -66,17 +66,17 @@
         "Deletes GPIO pin 2"
       ],
       "answer": 1,
-      "explain": "This is MicroPython's real interface to a physical pin — configuring it as an output before driving its value."
+      "explain": "This is MicroPython's real interface to a physical pin: configuring it as an output before driving its value."
     },
     {
       "question": "What transfers unchanged when moving from this course's simulator to real MicroPython on an ESP32?",
       "options": [
-        "Nothing at all — you have to relearn everything",
-        "The logic — loops, decisions, sequence, and your program's overall structure",
+        "Nothing at all: you have to relearn everything",
+        "The logic: loops, decisions, sequence, and your program's overall structure",
         "Only the variable names"
       ],
       "answer": 1,
-      "explain": "The program's actual logic is identical either way. Only the lowest layer — how robot.forward() is implemented — differs between simulator and real hardware."
+      "explain": "The program's actual logic is identical either way. Only the lowest layer (how robot.forward() is implemented) differs between simulator and real hardware."
     }
   ]
 }

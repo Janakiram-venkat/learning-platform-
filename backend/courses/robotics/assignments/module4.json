@@ -13,7 +13,7 @@
         "There is no real difference"
       ],
       "answer": 0,
-      "explain": "A microcontroller is built for one narrow job, cheaply and on almost no power — very different goals from a general-purpose computer."
+      "explain": "A microcontroller is built for one narrow job, cheaply and on almost no power: very different goals from a general-purpose computer."
     },
     {
       "type": "match",
@@ -36,7 +36,7 @@
           "right": "Pulling it low resets the board"
         }
       ],
-      "explain": "Four kinds of pin, four different jobs. GPIO is the flexible one — everything else is fixed."
+      "explain": "Four kinds of pin, four different jobs. GPIO is the flexible one: everything else is fixed."
     },
     {
       "type": "concept",
@@ -65,7 +65,7 @@
       "prompt": "An LED is driven with PWM at 80% duty cycle. What does that actually mean is happening?",
       "options": [
         "The pin genuinely outputs 80% of full voltage",
-        "The pin is fully HIGH for 80% of each cycle and fully LOW for the rest — never in between",
+        "The pin is fully HIGH for 80% of each cycle and fully LOW for the rest, never in between",
         "The LED itself is dimming its own brightness"
       ],
       "answer": 1,
@@ -80,7 +80,7 @@
         "So the LED doesn't overheat"
       ],
       "answer": 0,
-      "explain": "Slow the frequency down (as the widget lets you) and you stop seeing a dimmer light — you see it blinking, one flip at a time."
+      "explain": "Slow the frequency down (as the widget lets you) and you stop seeing a dimmer light: you see it blinking, one flip at a time."
     }
   ]
 }

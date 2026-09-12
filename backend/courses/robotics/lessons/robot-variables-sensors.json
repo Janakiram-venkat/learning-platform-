@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Call robot.distance() on its own and the number vanishes the instant it's returned — nothing kept it. Store it in a variable, and now you can compare it, print it, or reuse it more than once without asking the sensor again."
+      "value": "Call robot.distance() on its own and the number vanishes the instant it's returned: nothing kept it. Store it in a variable, and now you can compare it, print it, or reuse it more than once without asking the sensor again."
     },
     {
       "type": "code",
@@ -33,7 +33,7 @@
     },
     {
       "type": "tip",
-      "value": "robot.line() returns two values at once — a pair. Python lets you unpack a pair straight into two variables in one line: left_on, right_on = robot.line()."
+      "value": "robot.line() returns two values at once: a pair. Python lets you unpack a pair straight into two variables in one line: left_on, right_on = robot.line()."
     },
     {
       "type": "paragraph",
@@ -42,14 +42,14 @@
   ],
   "quiz": [
     {
-      "question": "Why store robot.distance() in a variable instead of calling it twice — once in a print, once in an if?",
+      "question": "Why store robot.distance() in a variable instead of calling it twice: once in a print, once in an if?",
       "options": [
         "Both calls always return the exact same number, so it doesn't matter",
         "The robot may have moved between the two calls, so the readings could genuinely differ",
         "robot.distance() can only be called once per program"
       ],
       "answer": 1,
-      "explain": "Sensor readings reflect the current instant — calling twice risks judging two different moments as if they were one."
+      "explain": "Sensor readings reflect the current instant: calling twice risks judging two different moments as if they were one."
     },
     {
       "question": "What does `left_on, right_on = robot.line()` do?",

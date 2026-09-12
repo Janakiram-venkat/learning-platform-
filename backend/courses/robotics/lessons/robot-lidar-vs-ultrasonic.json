@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-lidar-vs-ultrasonic",
   "title": "LiDAR vs Ultrasonic",
-  "description": "Same basic trick, same room — but each one fails in a completely different place. Knowing where is half of choosing well.",
+  "description": "Same basic trick, same room, but each one fails in a completely different place. Knowing where is half of choosing well.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -10,12 +10,12 @@
     },
     {
       "type": "paragraph",
-      "value": "You've now met both time-of-flight sensors this course covers. Neither one is simply \"better\" — each is a genuine trade-off, and the right choice depends entirely on the room and the budget."
+      "value": "You've now met both time-of-flight sensors this course covers. Neither one is simply \"better\": each is a genuine trade-off, and the right choice depends entirely on the room and the budget."
     },
     {
       "type": "code",
       "language": "text",
-      "value": "                    ULTRASONIC              LiDAR\nprice               ~₹100                    ~₹2,000+\ncoverage             one direction            full 360°\nresolution           coarse                   fine, degree-by-degree\nrange                a few metres              tens of metres\nfails on glass       no — sound passes through glass poorly, but doesn't\n                      get fooled by transparency the way light does\nfails on soft/angled  yes — soft fabric absorbs sound, angled            \n surfaces              surfaces deflect the echo"
+      "value": "                    ULTRASONIC              LiDAR\nprice               ~₹100                    ~₹2,000+\ncoverage             one direction            full 360°\nresolution           coarse                   fine, degree-by-degree\nrange                a few metres              tens of metres\nfails on glass       no: sound passes through glass poorly, but doesn't\n                      get fooled by transparency the way light does\nfails on soft/angled  yes: soft fabric absorbs sound, angled            \n surfaces              surfaces deflect the echo"
     },
     {
       "type": "heading",
@@ -23,7 +23,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Glass is nearly invisible to LiDAR: light passes straight through it instead of reflecting back, so a glass door can register as open space that isn't actually there. Sound behaves differently against glass, which is one of the reasons the two sensors are sometimes used together rather than as strict alternatives — each one's blind spot is the other's strength."
+      "value": "Glass is nearly invisible to LiDAR: light passes straight through it instead of reflecting back, so a glass door can register as open space that isn't actually there. Sound behaves differently against glass, which is one of the reasons the two sensors are sometimes used together rather than as strict alternatives: each one's blind spot is the other's strength."
     },
     {
       "type": "heading",
@@ -39,7 +39,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: ultrasonic is cheap and single-direction; LiDAR is expensive but gives a full, fine-resolution map. Each has real physical blind spots — glass for LiDAR, soft or angled surfaces for ultrasonic — and a well-designed robot often needs to know both."
+      "value": "Key takeaway: ultrasonic is cheap and single-direction; LiDAR is expensive but gives a full, fine-resolution map. Each has real physical blind spots (glass for LiDAR, soft or angled surfaces for ultrasonic) and a well-designed robot often needs to know both."
     }
   ],
   "quiz": [
@@ -51,7 +51,7 @@
         "Glass doesn't exist as a real material to sensors"
       ],
       "answer": 0,
-      "explain": "Transparency to light is exactly the failure mode — the laser doesn't bounce back the way it would off a solid, opaque wall."
+      "explain": "Transparency to light is exactly the failure mode: the laser doesn't bounce back the way it would off a solid, opaque wall."
     },
     {
       "question": "Why does a thick curtain sometimes fool an ultrasonic sensor?",
@@ -61,7 +61,7 @@
         "Ultrasonic sensors can't detect fabric of any kind"
       ],
       "answer": 1,
-      "explain": "Soft, absorbent materials swallow the sound pulse instead of bouncing it back — the same underlying issue as the angled-wall problem from Module 7, just a different cause."
+      "explain": "Soft, absorbent materials swallow the sound pulse instead of bouncing it back: the same underlying issue as the angled-wall problem from Module 7, just a different cause."
     },
     {
       "question": "Why would a real robot sometimes use both sensor types rather than picking just one?",
@@ -71,7 +71,7 @@
         "Using two sensors always doubles accuracy with no downside"
       ],
       "answer": 1,
-      "explain": "Since their failure modes don't overlap, pairing them lets one catch what the other misses — a common real engineering trade-off."
+      "explain": "Since their failure modes don't overlap, pairing them lets one catch what the other misses: a common real engineering trade-off."
     }
   ]
 }

@@ -179,8 +179,8 @@ export default function CircuitSandbox({ block }) {
               <path d="M60 130 L68 116 L76 130 L84 116 L92 130 L100 116 L108 130" fill="none" stroke="#E8503A" strokeWidth="3" strokeLinejoin="round" />
             </svg>
             <p className="mt-2 flex items-center justify-center gap-2 text-center font-mono-lab text-sm font-bold text-pcb">
-              {srShorted && <><Flame className="h-4 w-4 text-wire" /> current took the shortcut — LED gets nothing</>}
-              {srReversed && 'no current flows backwards through a diode — flat edge = negative'}
+              {srShorted && <><Flame className="h-4 w-4 text-wire" /> current took the shortcut: LED gets nothing</>}
+              {srReversed && 'no current flows backwards through a diode: flat edge = negative'}
               {scenario === 'normal' && `${srMa.toFixed(0)} mA · circuit is healthy`}
             </p>
             <div className="mt-4 flex flex-wrap justify-center gap-2">
@@ -239,8 +239,8 @@ export default function CircuitSandbox({ block }) {
             )}
             <p className="mt-2 text-center font-mono-lab text-sm font-bold text-pcb">
               {wiring === 'series'
-                ? `${seriesMa.toFixed(0)} mA shared by both — each LED is dimmer`
-                : `${parallelMaEach.toFixed(0)} mA through each — both LEDs at full brightness`}
+                ? `${seriesMa.toFixed(0)} mA shared by both: each LED is dimmer`
+                : `${parallelMaEach.toFixed(0)} mA through each: both LEDs at full brightness`}
             </p>
           </>
         )}

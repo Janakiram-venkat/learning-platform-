@@ -46,8 +46,12 @@ const GROUPS = [
   ] },
 ];
 
-export default function PicturePack() {
+// `forceOpen` is for printing: the manual's PDF button opens every collapsed
+// panel on the page, and a picture pack that stayed shut would leave the reader
+// with a heading and no pictures.
+export default function PicturePack({ forceOpen = false }) {
   const [open, setOpen] = useState(false);
+  const shown = open || forceOpen;
   const [copied, setCopied] = useState('');
 
   const copy = async (name) => {
@@ -62,20 +66,20 @@ export default function PicturePack() {
     <div className="lab-panel p-4 sm:p-5">
       <button
         onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
+        aria-expanded={shown}
         className="flex w-full items-center gap-2 text-left"
       >
         <Palette className="h-5 w-5 shrink-0 text-pcb" />
         <span className="flex-1 font-lab font-bold text-ink">Pictures you can use</span>
-        <ChevronDown className={`h-5 w-5 shrink-0 text-ink/35 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`no-print h-5 w-5 shrink-0 text-ink/35 transition-transform ${shown ? 'rotate-180' : ''}`} />
       </button>
       <p className="mt-1 text-sm text-ink/55">
-        Your keyboard can't type an emoji — so every picture has a name you <em>can</em> type.
+        Your keyboard can't type an emoji, so every picture has a name you <em>can</em> type.
         Write <code className="rounded bg-ink/8 px-1 font-mono">Sprite("dog", x=100, y=100)</code> and
         you get a 🐶.
       </p>
 
-      {open && (
+      {shown && (
         <>
           <div className="mt-4 space-y-4">
             {GROUPS.map((g) => (
@@ -102,7 +106,7 @@ export default function PicturePack() {
           </div>
           <p className="mt-4 rounded-xl bg-paper p-3 text-sm text-ink/70">
             Click any picture to copy its name. The code you were given already has the emoji typed in
-            for you — both styles work, so you can mix them freely.
+            for you: both styles work, so you can mix them freely.
           </p>
         </>
       )}

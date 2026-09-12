@@ -62,10 +62,10 @@ export default function GearRatio({ block }) {
 
         <p className="mt-2 text-center font-mono-lab text-sm font-bold text-pcb">
           {teethB > teethA
-            ? `Small gear turns ${(teethB / teethA).toFixed(2)}× for every 1 turn of the big gear — more speed, less torque`
+            ? `Small gear turns ${(teethB / teethA).toFixed(2)}× for every 1 turn of the big gear: more speed, less torque`
             : teethA > teethB
               ? `Big gear turns ${(teethA / teethB).toFixed(2)}× slower, but with ${(teethA / teethB).toFixed(2)}× the torque`
-              : 'Equal size — same speed, same torque, just reversed direction'}
+              : 'Equal size: same speed, same torque, just reversed direction'}
         </p>
 
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">

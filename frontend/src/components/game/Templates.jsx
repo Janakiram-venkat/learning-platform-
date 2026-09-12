@@ -17,7 +17,7 @@ export default function Templates({ templates, onUseCode }) {
       </h3>
       <p className="mb-4 text-sm text-ink/55">
         Every game you've built this course is a remix of the same handful of ideas. Pick one of these as a
-        launchpad, then make it yours — rename things, change the rules, throw half of it away.
+        launchpad, then make it yours: rename things, change the rules, throw half of it away.
       </p>
       <div className="grid gap-2 sm:grid-cols-2">
         {templates.map((t) => (

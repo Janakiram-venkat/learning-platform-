@@ -3,6 +3,7 @@ import {
   runGame, stopGame, checkGame, warmupGameRuntime, isGameRuntimeReady, onGameEvent,
   onRuntimeStatus,
 } from '../services/gameRuntime';
+import { unlockSounds } from '../game/sounds';
 
 // The page keeps only the tail of a game's printed output, so a game that
 // prints every frame can't grow it without bound.
@@ -58,6 +59,9 @@ export function useGameRunner() {
     setOutput('');
     setRunning(true);
     releaseEditorFocus();
+    // Must happen now, while the Play press still counts as the person asking
+    // for it — after the await below the browser would keep the game silent.
+    unlockSounds();
     const res = await runGame(code);
     if (!aliveRef.current) return;
     if (res.error) { setError(res.error); setRunning(false); return; }

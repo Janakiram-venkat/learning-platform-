@@ -32,22 +32,22 @@
       "pairs": [
         {
           "left": "robot.forward(speed)",
-          "right": "Acts — drives forward"
+          "right": "Acts: drives forward"
         },
         {
           "left": "robot.distance()",
-          "right": "Senses — returns nearest obstacle distance"
+          "right": "Senses: returns nearest obstacle distance"
         },
         {
           "left": "robot.line()",
-          "right": "Senses — returns (left, right) on-line booleans"
+          "right": "Senses: returns (left, right) on-line booleans"
         },
         {
           "left": "robot.say(text)",
-          "right": "Acts — speaks a message"
+          "right": "Acts: speaks a message"
         }
       ],
-      "explain": "The robot API mirrors Module 1's sense/act split directly — some methods bring information in, others push change out."
+      "explain": "The robot API mirrors Module 1's sense/act split directly: some methods bring information in, others push change out."
     },
     {
       "type": "concept",
@@ -58,7 +58,7 @@
         "Functions are required by Python, there's no choice"
       ],
       "answer": 1,
-      "explain": "Naming a behaviour is purely about readability and reuse — the loop becomes a one-line summary."
+      "explain": "Naming a behaviour is purely about readability and reuse: the loop becomes a one-line summary."
     },
     {
       "type": "concept",
@@ -69,7 +69,7 @@
         "Reads a sensor value"
       ],
       "answer": 0,
-      "explain": "This is MicroPython's real interface to a physical pin — the same digital HIGH/LOW idea from Module 4, in real code."
+      "explain": "This is MicroPython's real interface to a physical pin: the same digital HIGH/LOW idea from Module 4, in real code."
     },
     {
       "type": "concept",
@@ -77,7 +77,7 @@
       "options": [
         "The entire programming language",
         "Real-world factors like sensor noise, motor current limits and battery life become actual physical constraints",
-        "Nothing — simulators and real hardware behave identically in every way"
+        "Nothing: simulators and real hardware behave identically in every way"
       ],
       "answer": 1,
       "explain": "The logic transfers unchanged. What's new on real hardware is dealing with the physical world's imperfections directly."

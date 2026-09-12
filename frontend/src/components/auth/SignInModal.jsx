@@ -205,7 +205,7 @@ export default function SignInModal({ open, onClose }) {
               <p className="mt-4 text-center text-xs font-semibold text-secondary">
                 {interests.length > 0
                   ? `Awesome! You picked ${interests.length} ${interests.length === 1 ? 'topic' : 'topics'} 🎉`
-                  : 'Pick as many as you like — you can change these later.'}
+                  : 'Pick as many as you like: you can change these later.'}
               </p>
 
               {error && <p className="mt-3 text-center text-sm font-bold text-wire">{error}</p>}

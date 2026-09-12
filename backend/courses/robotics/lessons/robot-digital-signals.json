@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-digital-signals",
   "title": "Digital Signals: HIGH and LOW",
-  "description": "A GPIO pin never says 'sort of'. It only ever says one of two things — and that simple fact is the foundation everything else in this module builds on.",
+  "description": "A GPIO pin never says 'sort of'. It only ever says one of two things, and that simple fact is the foundation everything else in this module builds on.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Think of a normal light switch on your wall: on or off, nothing in between. A digital GPIO pin works exactly the same way. It's either HIGH (close to the board's operating voltage — 3.3V on the ESP32) or LOW (0V). There's no setting for \"a little bit on\"."
+      "value": "Think of a normal light switch on your wall: on or off, nothing in between. A digital GPIO pin works exactly the same way. It's either HIGH (close to the board's operating voltage, 3.3V on the ESP32) or LOW (0V). There's no setting for \"a little bit on\"."
     },
     {
       "type": "widget",
@@ -30,7 +30,7 @@
     },
     {
       "type": "paragraph",
-      "value": "A GPIO pin set up as an output writes HIGH or LOW — that's how you turn an LED on and off, or tell a motor driver which direction to spin. A GPIO pin set up as an input reads HIGH or LOW — that's how a button press or a simple sensor's signal reaches your program."
+      "value": "A GPIO pin set up as an output writes HIGH or LOW: that's how you turn an LED on and off, or tell a motor driver which direction to spin. A GPIO pin set up as an input reads HIGH or LOW: that's how a button press or a simple sensor's signal reaches your program."
     },
     {
       "type": "code",
@@ -43,15 +43,15 @@
     },
     {
       "type": "paragraph",
-      "value": "Real wires are noisy — tiny fluctuations, interference, a slightly loose connection can all jitter a voltage by a little. If a pin had to distinguish fine shades of voltage, that noise would constantly cause wrong readings. By only asking \"closer to 0 or closer to 3.3V?\", digital logic becomes extremely reliable even on cheap, imperfect wiring — which is exactly why computers are built on it."
+      "value": "Real wires are noisy: tiny fluctuations, interference, a slightly loose connection can all jitter a voltage by a little. If a pin had to distinguish fine shades of voltage, that noise would constantly cause wrong readings. By only asking \"closer to 0 or closer to 3.3V?\", digital logic becomes extremely reliable even on cheap, imperfect wiring, which is exactly why computers are built on it."
     },
     {
       "type": "tip",
-      "value": "This is also why a computer's memory is measured in bits — a bit is nothing more than one pin's worth of information: a single HIGH or LOW."
+      "value": "This is also why a computer's memory is measured in bits. A bit is nothing more than one pin's worth of information: a single HIGH or LOW."
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: a digital pin only ever reports HIGH or LOW, never in between. That's a deliberate trade — it sacrifices fine detail for reliability, and it's the foundation the whole board is built on."
+      "value": "Key takeaway: a digital pin only ever reports HIGH or LOW, never in between. That's a deliberate trade: it sacrifices fine detail for reliability, and it's the foundation the whole board is built on."
     }
   ],
   "quiz": [
@@ -63,14 +63,14 @@
         "Red and blue"
       ],
       "answer": 0,
-      "explain": "Digital signals are binary by design — close to 0V (LOW) or close to the operating voltage (HIGH), nothing in between."
+      "explain": "Digital signals are binary by design: close to 0V (LOW) or close to the operating voltage (HIGH), nothing in between."
     },
     {
       "question": "You want to turn ARIA's status LED on from your program. Is that pin set up as an input or an output?",
       "options": [
         "Input",
         "Output",
-        "Neither — LEDs don't use GPIO"
+        "Neither: LEDs don't use GPIO"
       ],
       "answer": 1,
       "explain": "Your code is deciding the voltage on that pin (HIGH to light it), which is exactly what an output pin does."

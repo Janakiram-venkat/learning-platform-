@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, ShieldCheck, Trophy } from 'lucide-react';
+import { BookOpen, ShieldCheck, Trophy, Gamepad2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import SignInModal from '../auth/SignInModal';
 import ProfileMenu from '../profile/ProfileMenu';
@@ -30,6 +30,15 @@ export default function Navbar() {
           className="flex items-center gap-1.5 rounded-lg px-3 py-2 font-bold text-ink/70 transition-colors hover:bg-pcb/10 hover:text-pcb"
         >
           <BookOpen className="h-4 w-4" /> <span className="hidden sm:inline">Courses</span>
+        </Link>
+        {/* Public, like the landing page: contest entrants who have not taken
+            the course still need the manual. */}
+        <Link
+          to="/manual"
+          aria-label="Game manual"
+          className="flex items-center gap-1.5 rounded-lg px-3 py-2 font-bold text-ink/70 transition-colors hover:bg-pcb/10 hover:text-pcb"
+        >
+          <Gamepad2 className="h-4 w-4" /> <span className="hidden sm:inline">Manual</span>
         </Link>
         {user && (
           <Link

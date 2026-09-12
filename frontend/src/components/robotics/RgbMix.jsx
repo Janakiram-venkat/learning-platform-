@@ -53,7 +53,7 @@ export default function RgbMix({ block }) {
           ))}
         </div>
         <p className="mt-3 text-center text-sm font-semibold text-ink/60">
-          One RGB LED is really three tiny LEDs — red, green, blue — sharing one lens. A display is just a grid of these, one per pixel.
+          One RGB LED is really three tiny LEDs (red, green, blue) sharing one lens. A display is just a grid of these, one per pixel.
         </p>
       </div>
     </WidgetShell>

@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "You've now met all three motor types this course uses. Picking the right one for a job isn't guesswork — it comes down to answering three questions about what the job actually needs."
+      "value": "You've now met all three motor types this course uses. Picking the right one for a job isn't guesswork: it comes down to answering three questions about what the job actually needs."
     },
     {
       "type": "code",
@@ -19,7 +19,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Notice these aren't really competing on \"which is best\" — a DC motor spinning ARIA's wheels forever has nothing in common with the job of holding a sensor head at a fixed 30° tilt, which has nothing in common with reliably counting exact steps for a robot arm joint. Different jobs, different tools."
+      "value": "Notice these aren't really competing on \"which is best\": a DC motor spinning ARIA's wheels forever has nothing in common with the job of holding a sensor head at a fixed 30° tilt, which has nothing in common with reliably counting exact steps for a robot arm joint. Different jobs, different tools."
     },
     {
       "type": "widget",
@@ -67,20 +67,20 @@
           "label": "Sweeping ARIA's ultrasonic sensor head between 0° and 90° to scan a room",
           "emoji": "📡",
           "answer": "servo",
-          "explain": "A bounded, precise range of angles that needs to be commanded and held — classic servo territory."
+          "explain": "A bounded, precise range of angles that needs to be commanded and held: classic servo territory."
         },
         {
           "id": "3dprinter",
           "label": "Moving a 3D printer's axis a precise, repeatable distance, over and over",
           "emoji": "🖨️",
           "answer": "stepper",
-          "explain": "Exact, repeatable, countable positioning without a feedback sensor — the same reason steppers show up in 3D printers everywhere."
+          "explain": "Exact, repeatable, countable positioning without a feedback sensor: the same reason steppers show up in 3D printers everywhere."
         }
       ]
     },
     {
       "type": "tip",
-      "value": "Real designs often mix all three on one robot — exactly like ARIA does: DC motors for the wheels, servos aiming sensors, and (in later modules) steppers where precise multi-turn joints are needed."
+      "value": "Real designs often mix all three on one robot, exactly like ARIA does: DC motors for the wheels, servos aiming sensors, and (in later modules) steppers where precise multi-turn joints are needed."
     },
     {
       "type": "paragraph",
@@ -96,7 +96,7 @@
         "Stepper"
       ],
       "answer": 0,
-      "explain": "No fixed endpoint to hold or count towards — that's exactly what a plain DC motor is for."
+      "explain": "No fixed endpoint to hold or count towards: that's exactly what a plain DC motor is for."
     },
     {
       "question": "A job needs to hold one precise, bounded angle and actively resist being pushed off it. Which motor fits?",
@@ -116,7 +116,7 @@
         "There's no reason, they're interchangeable"
       ],
       "answer": 1,
-      "explain": "Servos are typically bounded to a limited range like 0–180°. Steppers have no such limit — they just keep counting steps."
+      "explain": "Servos are typically bounded to a limited range like 0–180°. Steppers have no such limit: they just keep counting steps."
     }
   ]
 }

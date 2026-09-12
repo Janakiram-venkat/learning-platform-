@@ -312,3 +312,93 @@ body {
   .badge-pop, .badge-shine::after { animation: none; }
   .ring-progress { transition: none; }
 }
+
+
+/* --- Printing (the manual's "Download as PDF" button) ------------------- */
+/* The page prints itself: the PDF button expands every collapsed panel and
+   then calls print(), so "Save as PDF" in the browser's own dialog produces
+   the whole manual. Here we only strip the things that make no sense on
+   paper, and stop panels being sliced in half across a page break. */
+@media print {
+  /* Chrome's own dark-background printing is unreliable, and a black code
+     block costs a fortune in ink, so code goes to paper as ink on light. */
+  :root { --color-paper: #ffffff; }
+
+  .no-print,
+  nav.sticky {
+    display: none !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+  }
+
+  .bench-grid {
+    background-image: none !important;
+    background-color: #ffffff !important;
+    padding: 0 !important;
+  }
+
+  .lab-panel,
+  .lab-panel-pcb,
+  .lab-btn {
+    box-shadow: none !important;
+  }
+
+  .lab-panel-pcb {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Keep a panel, a code block or a list item whole on one sheet. */
+  .lab-panel,
+  .lab-panel-pcb,
+  pre,
+  li,
+  dl > div,
+  section > div > div {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Each numbered section starts a fresh sheet, so the PDF reads like a book. */
+  section[id] {
+    break-before: page;
+    page-break-before: always;
+  }
+  section[id]:first-of-type {
+    break-before: auto;
+    page-break-before: auto;
+  }
+
+  h1, h2, h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Long lines wrap instead of being cut off at the paper's edge. */
+  pre {
+    white-space: pre-wrap !important;
+    word-break: break-word;
+    background: #f3f5f3 !important;
+    color: #16241D !important;
+    border: 1px solid #c9d4cb !important;
+  }
+  pre code,
+  pre * {
+    color: #16241D !important;
+  }
+
+  /* Sticky positioning pins an element to a viewport that does not exist on
+     paper, which silently swallows whatever it covers. */
+  .lg\:sticky,
+  [class*="sticky"] {
+    position: static !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #55655C;
+  }
+}

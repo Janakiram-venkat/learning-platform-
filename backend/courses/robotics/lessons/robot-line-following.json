@@ -23,7 +23,7 @@
     },
     {
       "type": "paragraph",
-      "value": "With two sensors, there are exactly four possible combinations of readings. Each one tells you something specific about where the robot is relative to the line — and each needs its own response to correct course."
+      "value": "With two sensors, there are exactly four possible combinations of readings. Each one tells you something specific about where the robot is relative to the line, and each needs its own response to correct course."
     },
     {
       "type": "widget",
@@ -35,7 +35,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Notice what happens with a wrong rule in that last row especially: get \"both sensors off the line\" backwards and the robot doesn't just fail quietly — it visibly overcorrects, oscillates, or drives straight off the track. This is a real closed-loop control problem, the same shape you'll meet again and again in robotics: sense, decide, correct, repeat, many times a second."
+      "value": "Notice what happens with a wrong rule in that last row especially: get \"both sensors off the line\" backwards and the robot doesn't just fail quietly. It visibly overcorrects, oscillates, or drives straight off the track. This is a real closed-loop control problem, the same shape you'll meet again and again in robotics: sense, decide, correct, repeat, many times a second."
     },
     {
       "type": "heading",
@@ -43,7 +43,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Nobody is steering this robot — it's reacting entirely to what its own sensors tell it, moment to moment. That's the sense-think-act loop from Module 1, running for real, many times a second, with hardware you now understand every part of."
+      "value": "Nobody is steering this robot: it's reacting entirely to what its own sensors tell it, moment to moment. That's the sense-think-act loop from Module 1, running for real, many times a second, with hardware you now understand every part of."
     },
     {
       "type": "tip",
@@ -51,19 +51,19 @@
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: two IR sensors straddling a line give four possible readings, and a rule table mapping each one to a response — forward, left, right, stop — is enough to build a real line-following behaviour."
+      "value": "Key takeaway: two IR sensors straddling a line give four possible readings, and a rule table mapping each one to a response (forward, left, right, stop) is enough to build a real line-following behaviour."
     }
   ],
   "quiz": [
     {
       "question": "Only the left sensor sees the line; the right sensor sees the floor. Which way has the robot drifted, and what should it do?",
       "options": [
-        "It's drifted right of the line — turn left to recentre",
-        "It's drifted left of the line — turn right to recentre",
-        "It's perfectly centred — go straight"
+        "It's drifted right of the line: turn left to recentre",
+        "It's drifted left of the line: turn right to recentre",
+        "It's perfectly centred: go straight"
       ],
       "answer": 0,
-      "explain": "If the line has moved under the left sensor, the robot itself has drifted to the right relative to it — turning left brings it back."
+      "explain": "If the line has moved under the left sensor, the robot itself has drifted to the right relative to it: turning left brings it back."
     },
     {
       "question": "What happens in the widget's simulation if the 'both sensors off the line' rule is set incorrectly?",
@@ -73,7 +73,7 @@
         "The simulation ignores incorrect rules automatically"
       ],
       "answer": 1,
-      "explain": "That row handles the case where the robot has lost the line completely — get it wrong and there's no way to recover once it happens."
+      "explain": "That row handles the case where the robot has lost the line completely: get it wrong and there's no way to recover once it happens."
     },
     {
       "question": "Why is line following described as the sense-think-act loop from Module 1, 'running for real'?",
@@ -83,7 +83,7 @@
         "It isn't really the same loop, just a coincidence in naming"
       ],
       "answer": 1,
-      "explain": "Every element — sensing, deciding, acting, repeating — is present and running on real hardware-shaped logic, exactly the loop Module 1 introduced as an idea."
+      "explain": "Every element (sensing, deciding, acting, repeating) is present and running on real hardware-shaped logic, exactly the loop Module 1 introduced as an idea."
     }
   ]
 }

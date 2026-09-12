@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-stepper",
   "title": "Stepper Motor: Counting Instead of Guessing",
-  "description": "Component lesson. No potentiometer, no feedback loop — a stepper knows exactly where it is a completely different way: by counting.",
+  "description": "Component lesson. No potentiometer, no feedback loop. A stepper knows exactly where it is a completely different way: by counting.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "A servo measures its position with a potentiometer. A stepper motor takes a different approach entirely: it's built so that each electrical \"step\" you send it turns the rotor by one exact, fixed, guaranteed angle — no measuring required, because if you count the steps you sent, you already know exactly how far it turned."
+      "value": "A servo measures its position with a potentiometer. A stepper motor takes a different approach entirely: it's built so that each electrical \"step\" you send it turns the rotor by one exact, fixed, guaranteed angle, no measuring required, because if you count the steps you sent, you already know exactly how far it turned."
     },
     {
       "type": "heading",
@@ -18,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Four coils sit fixed around a toothed rotor. Energising them in a specific sequence — one coil, then the next, then the next — pulls the rotor's nearest tooth into alignment with each coil in turn, one small fixed increment at a time. On a typical hobby stepper, that increment is exactly 1.8°, meaning 200 steps make one full rotation, every time, precisely."
+      "value": "Four coils sit fixed around a toothed rotor. Energising them in a specific sequence (one coil, then the next, then the next) pulls the rotor's nearest tooth into alignment with each coil in turn, one small fixed increment at a time. On a typical hobby stepper, that increment is exactly 1.8°, meaning 200 steps make one full rotation, every time, precisely."
     },
     {
       "type": "widget",
@@ -39,11 +39,11 @@
     },
     {
       "type": "tip",
-      "value": "\"Microstepping\" — the toggle in the widget — sends the coils intermediate energy levels between full steps, doubling (or more) the number of positions per rotation for smoother motion. Toggle it and notice the rotor now needs twice as many presses to complete the same full turn."
+      "value": "\"Microstepping\", the toggle in the widget, sends the coils intermediate energy levels between full steps, doubling (or more) the number of positions per rotation for smoother motion. Toggle it and notice the rotor now needs twice as many presses to complete the same full turn."
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: a stepper motor turns a fixed, exact angle per electrical step — position is known by counting steps sent, not by measuring anything. That trade-off makes it ideal for continuous, precise, multi-turn motion."
+      "value": "Key takeaway: a stepper motor turns a fixed, exact angle per electrical step. Position is known by counting steps sent, not by measuring anything. That trade-off makes it ideal for continuous, precise, multi-turn motion."
     }
   ],
   "quiz": [
@@ -51,11 +51,11 @@
       "question": "How does a stepper motor's controller know its current position, without a potentiometer?",
       "options": [
         "It measures the rotor directly, same as a servo",
-        "By counting how many steps it has sent — each one is a fixed, known angle",
+        "By counting how many steps it has sent: each one is a fixed, known angle",
         "It doesn't know its position at all"
       ],
       "answer": 1,
-      "explain": "Since each step is a guaranteed fixed increment, counting sent steps is enough to know exact position — no sensor needed."
+      "explain": "Since each step is a guaranteed fixed increment, counting sent steps is enough to know exact position, no sensor needed."
     },
     {
       "question": "On a stepper with 1.8° per full step, how many steps make one complete rotation?",
@@ -75,7 +75,7 @@
         "There's no real difference between the two for this job"
       ],
       "answer": 0,
-      "explain": "A servo's range is bounded by its potentiometer's mechanical travel. A stepper has no such limit — it just keeps counting steps."
+      "explain": "A servo's range is bounded by its potentiometer's mechanical travel. A stepper has no such limit: it just keeps counting steps."
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-series-parallel",
   "title": "Series vs Parallel",
-  "description": "Two LEDs, two ways to wire them, and two very different results — predict which is brighter before you check.",
+  "description": "Two LEDs, two ways to wire them, and two very different results: predict which is brighter before you check.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -19,7 +19,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Predict before you check: in series, both LEDs share the exact same current — every electron that visits LED1 must also visit LED2, since there's only one path. In parallel, each LED gets its own full path straight to the battery, as if the other LED wasn't there at all."
+      "value": "Predict before you check: in series, both LEDs share the exact same current. Every electron that visits LED1 must also visit LED2, since there's only one path. In parallel, each LED gets its own full path straight to the battery, as if the other LED wasn't there at all."
     },
     {
       "type": "widget",
@@ -33,7 +33,7 @@
     },
     {
       "type": "paragraph",
-      "value": "In series, the same current has to squeeze through two LEDs' worth of resistance back-to-back, so it comes out lower — both LEDs glow, but dimmer than either would alone. In parallel, each LED sees the full battery voltage across just itself, so each one lights at full brightness independently."
+      "value": "In series, the same current has to squeeze through two LEDs' worth of resistance back-to-back, so it comes out lower: both LEDs glow, but dimmer than either would alone. In parallel, each LED sees the full battery voltage across just itself, so each one lights at full brightness independently."
     },
     {
       "type": "heading",
@@ -41,7 +41,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Parallel isn't simply \"better\" — it draws more total current from the battery, since it's really two separate circuits both pulling from the same source at once. Series is more efficient with battery life but every part in the chain is now dependent on every other: unplug or break one LED in a series chain and the whole loop opens, and every LED in that chain goes dark. In parallel, one LED failing barely affects the others."
+      "value": "Parallel isn't simply \"better\": it draws more total current from the battery, since it's really two separate circuits both pulling from the same source at once. Series is more efficient with battery life but every part in the chain is now dependent on every other: unplug or break one LED in a series chain and the whole loop opens, and every LED in that chain goes dark. In parallel, one LED failing barely affects the others."
     },
     {
       "type": "tip",
@@ -61,7 +61,7 @@
         "They're always identical"
       ],
       "answer": 1,
-      "explain": "In parallel, each LED gets the full battery voltage to itself. In series, the current — and so the brightness — is shared between both."
+      "explain": "In parallel, each LED gets the full battery voltage to itself. In series, the current, and so the brightness, is shared between both."
     },
     {
       "question": "One LED burns out in a series chain of two. What happens to the other LED?",
@@ -86,7 +86,7 @@
     {
       "question": "Why does parallel wiring draw more total current from the battery than series, for the same two LEDs?",
       "options": [
-        "It doesn't — they draw the same",
+        "It doesn't: they draw the same",
         "Each parallel branch pulls its own current independently, and the battery supplies the sum of both",
         "Parallel LEDs use less power each, so the total is lower"
       ],

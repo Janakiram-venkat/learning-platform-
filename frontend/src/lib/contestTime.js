@@ -14,3 +14,11 @@ export function formatRemaining(ms) {
 export const fmtDateTime = (iso) => new Date(iso).toLocaleString(undefined, {
   weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit',
 });
+
+// Which side of the window a contest is on, judged against a clock the caller
+// passes in so a ticking page and a countdown never disagree by a frame.
+export function phaseOf(contest, now = Date.now()) {
+  if (now < Date.parse(contest.start_at)) return 'upcoming';
+  if (now < Date.parse(contest.end_at)) return 'live';
+  return 'ended';
+}

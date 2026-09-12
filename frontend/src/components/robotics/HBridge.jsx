@@ -31,10 +31,10 @@ export default function HBridge({ block }) {
   const spinning = forward || reverse;
 
   let status = 'Motor stopped (coasting)';
-  if (shorted) status = 'SHORT CIRCUIT — same-side switches closed';
+  if (shorted) status = 'SHORT CIRCUIT: same-side switches closed';
   else if (forward) status = 'Motor spins forward';
   else if (reverse) status = 'Motor spins reverse';
-  else if (Object.values(sw).some(Boolean)) status = 'Incomplete path — motor stays stopped';
+  else if (Object.values(sw).some(Boolean)) status = 'Incomplete path: motor stays stopped';
 
   return (
     <WidgetShell title={title} hint={hint}>

@@ -19,13 +19,14 @@ share the same runtime.
 | 3 | Show `print()` from inside `every_frame` | Only prints during setup reach the page; prints from the game loop are silently lost, which makes debugging hard | Done |
 | 4 | Arrow keys work right after Ctrl+Enter | Ctrl+Enter leaves focus in the code editor, which swallows the arrow keys, so the game doesn't respond | Done |
 | 5 | Screen matches the game's size | The on-page screen is always 480×360; `Game(width=800, height=400)` is drawn squashed | Done |
-| 6 | Mouse and click input | Keyboard only today — rules out clicker, aiming and drag games | Later |
-| 7 | Sound effects | A small named pack (`game.play("coin")`), like the picture pack | Later |
-| 8 | Sprite rotation (`sprite.angle`) | Spinning and aiming; follows how `scale_x`/`scale_y` were added | Later |
-| 9 | Cheaper frames with many sprites | Each frame sends every sprite twice (render list + the grading `all` list); live play only needs the first | Later |
+| 6 | Mouse and click input | Keyboard only today — rules out clicker, aiming and drag games | Done |
+| 7 | Sound effects | A small named pack (`game.play("coin")`), like the picture pack | Done |
+| 8 | Sprite rotation (`sprite.angle`) | Spinning and aiming; follows how `scale_x`/`scale_y` were added | Done |
+| 9 | Cheaper frames with many sprites | Each frame sends every sprite twice (render list + the grading `all` list); live play only needs the first | Done |
 
-Also noticed, low priority: `touching()` treats `Text` as a 20px square centred
-on its position, but text is drawn from its top-left corner.
+Also fixed: `touching()` treated `Text` as a 20px square centred on its
+position, but text is drawn from its top-left corner. Its hitbox now starts at
+the top-left and is roughly as wide as the words.
 
 ## Design notes
 
@@ -63,6 +64,63 @@ on its position, but text is drawn from its top-left corner.
 - The worker reports the game's `width`/`height` when a run starts, and the page
   sizes the screen to that shape. The contest page, the judging panel and the
   course page all use it.
+
+### 6. Mouse
+- New in Python: `game.mouse_x`, `game.mouse_y`, `game.mouse_down()`,
+  `game.clicked()` / `game.clicked(thing)` and `game.mouse_over(thing)`.
+- `GameCanvas` forwards pointer events (mouse, pen and touch) as fractions of
+  the screen; the worker turns them into stage pixels, so it's right at any
+  stage size and any on-page size. It captures the pointer on press, so a
+  release off the screen still counts.
+- A click is queued until the next update and counts on exactly one frame, even
+  when a screen frame runs several catch-up updates.
+- Check scenarios can drive the mouse: `mouse: {"*": [x, y]}` for where the
+  pointer sits and `clicks: {"30": [x, y]}` for a click on that frame.
+- Page scrolling on a phone is left alone, so a tap works but dragging a finger
+  across the screen scrolls the page. Add `touch-action: none` to the canvas if
+  a contest ever needs drag-on-phone.
+
+### 7. Sound
+- `game.play(name)` with ten names: coin, jump, hit, boom, laser, powerup, win,
+  lose, click, pop. A wrong name raises an error that lists them.
+- The sounds are made on the spot with Web Audio (`frontend/src/game/sounds.js`),
+  so there are no files. Workers can't play audio, so each snapshot carries the
+  frame's sound names and the page plays them.
+- The audio is unlocked on the Play press (browsers block sound until the person
+  interacts). The same sound can't restart within 60ms, and at most 8 play at
+  once, so a game calling `play` every frame isn't a wall of noise.
+
+### 8. Rotation
+- `sprite.angle` (degrees, clockwise), `sprite.turn(degrees)` and
+  `sprite.point_at(x, y)` (turns the sprite's right side toward the spot). Like
+  scale, it only changes how the sprite looks; its hitbox doesn't turn.
+
+### 9. Cheaper frames
+- Live frames skip the `all` list and the unused `name`/`visible` fields in the
+  drawing list. With 500 sprites (CPython): 2.2ms → 0.95ms per snapshot,
+  147KB → 66KB of JSON per frame. The checker still gets the full list.
+
+New checker rules: `turns` (a sprite's angle changes) and `plays_sound`
+(optionally `sound: "coin"`).
+
+## Verification (items 6–9)
+
+- **Course unaffected:** every step's solution and starter code, in every check
+  scenario, produces the same checker trace on the old and new `stage.py` (85 of
+  85, same random seed), including the Text hitbox change.
+- **In the browser** (contest page, headless Chrome, local SQLite backend):
+  on a 640×360 stage, hovering the balloon reported `mouse 500 100 … over True`.
+  A click on empty space reported `click at 200 250` and didn't pop it; a click
+  on the balloon popped it exactly once. `mouse_down()` was True while held and
+  False after release. The rocket aimed at the pointer and the star spun.
+  Sounds created their tones after the real Play click.
+- **Checker:** a scenario that clicks the balloon passes `count_drops` and
+  `plays_sound`; one that clicks elsewhere fails both. `turns` passes only when
+  the star actually spins.
+- **Items 1–5 re-run:** they still pass (60 updates/s at a 45fps browser, freeze
+  caught in 5.5s and recovered, focus, 16:9 screen, checker).
+- **Not verified:** how the sounds actually sound — headless Chrome has no
+  speakers, so only "the tones were created" is checked. Worth a listen.
 
 ## Verification (items 1–5)
 

@@ -71,7 +71,7 @@ export default function QuizStage({ stage, onComplete }) {
       ) : passed ? (
         <>
           <p className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-pcb/10 p-3 text-lg font-extrabold text-pcb ring-1 ring-pcb/20">
-            <Trophy className="h-5 w-5" /> Score: {score}/{stage.questions.length} — you passed!
+            <Trophy className="h-5 w-5" /> Score: {score}/{stage.questions.length}. You passed!
           </p>
           {!allCorrect && (
             <button
@@ -86,7 +86,7 @@ export default function QuizStage({ stage, onComplete }) {
       ) : (
         <div className="mt-6 animate-slide-up">
           <p className="mb-3 rounded-xl bg-signal/15 p-3 text-center text-sm font-bold text-ink ring-1 ring-ink/15">
-            You scored {score}/{stage.questions.length}. You need {Math.ceil((stage.pass ?? 0.8) * stage.questions.length)} to pass — read the notes and retry!
+            You scored {score}/{stage.questions.length}. You need {Math.ceil((stage.pass ?? 0.8) * stage.questions.length)} to pass: read the notes and retry!
           </p>
           <button
             onClick={retry}

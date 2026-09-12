@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "def avoid_obstacle(): wraps a whole block of logic behind one name. Anywhere you'd otherwise repeat those same lines, you instead just write avoid_obstacle() — call the name, and everything inside runs."
+      "value": "def avoid_obstacle(): wraps a whole block of logic behind one name. Anywhere you'd otherwise repeat those same lines, you instead just write avoid_obstacle(): call the name, and everything inside runs."
     },
     {
       "type": "code",
@@ -19,7 +19,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Compare that while True: line to Module 10's earlier ones: it used to contain the whole decision. Now it just says what's happening in plain English — avoid_obstacle() — and the details live inside the function, one level down. That's the real value of a function: it lets the top of your program read like a summary."
+      "value": "Compare that while True: line to Module 10's earlier ones: it used to contain the whole decision. Now it just says what's happening in plain English: avoid_obstacle(). The details live inside the function, one level down. That's the real value of a function: it lets the top of your program read like a summary."
     },
     {
       "type": "widget",
@@ -45,7 +45,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: a function packages a chunk of logic behind a name, so the rest of your program can call it by that name instead of repeating the details — making a long program read like a short one."
+      "value": "Key takeaway: a function packages a chunk of logic behind a name, so the rest of your program can call it by that name instead of repeating the details, making a long program read like a short one."
     }
   ],
   "quiz": [
@@ -53,7 +53,7 @@
       "question": "What does `def avoid_obstacle():` actually do?",
       "options": [
         "Runs the code immediately",
-        "Defines a name for a block of logic, without running it yet — it only runs when called",
+        "Defines a name for a block of logic, without running it yet: it only runs when called",
         "Deletes the function avoid_obstacle"
       ],
       "answer": 1,

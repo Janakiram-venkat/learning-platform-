@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-esp32",
   "title": "ESP32: The Hero Chip",
-  "description": "Component lesson. The exact board mounted on ARIA's chassis — and why it's the one this whole course is built around.",
+  "description": "Component lesson. The exact board mounted on ARIA's chassis, and why it's the one this whole course is built around.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -18,7 +18,7 @@
       "ratio": "16 / 9",
       "want": "An ESP32 development board photographed from above, showing the chip, headers, USB port and antenna trace clearly, ideally with a coin or fingertip for scale",
       "alt": "An ESP32 microcontroller development board",
-      "caption": "The ESP32 dev board — this exact one is what sits on ARIA's chassis.",
+      "caption": "The ESP32 dev board: this exact one is what sits on ARIA's chassis.",
       "credit": ""
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Under the metal shield in the middle of the board sits the actual chip: a processor, working memory, storage for your program, and — this is the ESP32's whole reputation — a built-in Wi-Fi and Bluetooth radio. Around the edges, two rows of pins bring all of that out to where you can wire things to it."
+      "value": "Under the metal shield in the middle of the board sits the actual chip: a processor, working memory, storage for your program, and (this is the ESP32's whole reputation) a built-in Wi-Fi and Bluetooth radio. Around the edges, two rows of pins bring all of that out to where you can wire things to it."
     },
     {
       "type": "code",
@@ -36,7 +36,7 @@
     },
     {
       "type": "paragraph",
-      "value": "That antenna trace is the part that unlocks the most later in this course: because Wi-Fi is already built in, ARIA can eventually be controlled from a phone, stream what her camera sees, or send you a message — all without adding a single extra part."
+      "value": "That antenna trace is the part that unlocks the most later in this course: because Wi-Fi is already built in, ARIA can eventually be controlled from a phone, stream what her camera sees, or send you a message, all without adding a single extra part."
     },
     {
       "type": "heading",
@@ -54,15 +54,15 @@
     {
       "type": "code",
       "language": "text",
-      "value": "GOOD                              BAD\ncheap, powerful for the price      logic pins are 3.3V, not 5V —\nWi-Fi + Bluetooth built in         wiring a 5V signal straight in\nplenty of GPIO pins                can damage the chip\nlarge hobbyist community           slightly more setup than a\n                                    simpler board like Arduino Uno"
+      "value": "GOOD                              BAD\ncheap, powerful for the price      logic pins are 3.3V, not 5V:\nWi-Fi + Bluetooth built in         wiring a 5V signal straight in\nplenty of GPIO pins                can damage the chip\nlarge hobbyist community           slightly more setup than a\n                                    simpler board like Arduino Uno"
     },
     {
       "type": "tip",
-      "value": "That 3.3V detail matters later: some sensors and modules are built for 5V logic. Mixing them with the ESP32 without a level-shifter is one of the most common beginner mistakes in real hardware — file it away for Module 10."
+      "value": "That 3.3V detail matters later: some sensors and modules are built for 5V logic. Mixing them with the ESP32 without a level-shifter is one of the most common beginner mistakes in real hardware: file it away for Module 10."
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: the ESP32 is a cheap, low-power microcontroller with Wi-Fi and Bluetooth built in — that combination is why it powers ARIA's brain."
+      "value": "Key takeaway: the ESP32 is a cheap, low-power microcontroller with Wi-Fi and Bluetooth built in. That combination is why it powers ARIA's brain."
     }
   ],
   "quiz": [
@@ -84,7 +84,7 @@
         "It measures temperature"
       ],
       "answer": 1,
-      "explain": "Built-in wireless is the ESP32's whole reputation — it's what unlocks phone control and remote features later without adding parts."
+      "explain": "Built-in wireless is the ESP32's whole reputation: it's what unlocks phone control and remote features later without adding parts."
     },
     {
       "question": "The ESP32's GPIO pins run at 3.3V logic. What's the risk of wiring in a 5V sensor signal directly?",
@@ -94,7 +94,7 @@
         "It will make the ESP32 run faster"
       ],
       "answer": 1,
-      "explain": "Feeding a higher voltage than a pin is rated for is a real, common way to damage a board — a level-shifter or divider is needed to mix 3.3V and 5V parts safely."
+      "explain": "Feeding a higher voltage than a pin is rated for is a real, common way to damage a board: a level-shifter or divider is needed to mix 3.3V and 5V parts safely."
     }
   ]
 }

@@ -99,7 +99,7 @@ export default function BlockMaze({ block }) {
                 </>
               ) : (
                 <p className="font-mono-lab text-xs font-bold text-wire">
-                  {result.budgetExceeded ? "ran out of turns — check for an endless loop" : "didn't reach the flag yet"}
+                  {result.budgetExceeded ? "ran out of turns: check for an endless loop" : "didn't reach the flag yet"}
                 </p>
               )}
             </div>

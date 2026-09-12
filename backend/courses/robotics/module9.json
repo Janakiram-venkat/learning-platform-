@@ -2,7 +2,7 @@
   "moduleId": 9,
   "title": "Thinking in Blocks",
   "emoji": "🧩",
-  "tagline": "No hardware this time — pure logic. Sequence, decision, loop, and a maze to prove you've got them.",
+  "tagline": "No hardware this time: pure logic. Sequence, decision, loop, and a maze to prove you've got them.",
   "lessons": [
     {
       "lessonId": "robot-algorithms",

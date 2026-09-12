@@ -2,7 +2,7 @@
   "moduleId": 10,
   "title": "Real Code",
   "emoji": "🐍",
-  "tagline": "Blocks become real Python — the exact language, the exact logic, running on a real simulator.",
+  "tagline": "Blocks become real Python: the exact language, the exact logic, running on a real simulator.",
   "lessons": [
     {
       "lessonId": "robot-blocks-to-code",
@@ -21,7 +21,7 @@
     },
     {
       "lessonId": "robot-control-flow",
-      "title": "while True: — The Robot's Heartbeat",
+      "title": "The Robot's Heartbeat: while True",
       "duration": "16 min"
     },
     {

@@ -46,11 +46,11 @@
     },
     {
       "type": "paragraph",
-      "value": "That's it. No calculus, no circuit theory beyond this — the whole of Module 3 is this one equation, applied to six different parts."
+      "value": "That's it. No calculus, no circuit theory beyond this: the whole of Module 3 is this one equation, applied to six different parts."
     },
     {
       "type": "tip",
-      "value": "\"Amps\" (A) measure current, same idea as litres per second. A tiny LED sips about 0.02 A — that's 20 milliamps (mA). A hair dryer gulps about 10 A. Same unit, very different tap."
+      "value": "\"Amps\" (A) measure current, same idea as litres per second. A tiny LED sips about 0.02 A: that's 20 milliamps (mA). A hair dryer gulps about 10 A. Same unit, very different tap."
     },
     {
       "type": "heading",
@@ -62,14 +62,14 @@
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: voltage pushes, resistance resists, current flows — and I = V/R connects all three."
+      "value": "Key takeaway: voltage pushes, resistance resists, current flows, and I = V/R connects all three."
     }
   ],
   "quiz": [
     {
       "question": "You raise the tank on the water side of the widget. What happens on the electricity side?",
       "options": [
-        "Nothing — they're separate systems",
+        "Nothing: they're separate systems",
         "The current increases, because voltage went up",
         "The resistance increases"
       ],
@@ -104,7 +104,7 @@
         "It halves"
       ],
       "answer": 2,
-      "explain": "I = V/R — R is on the bottom of the fraction, so doubling it halves the answer."
+      "explain": "I = V/R: R is on the bottom of the fraction, so doubling it halves the answer."
     }
   ]
 }

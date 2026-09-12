@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-putting-together",
   "title": "Putting It Together: Obstacle Avoidance From Scratch",
-  "description": "Sequence, decision, loop — all three, in one program you design yourself, to build the exact behaviour ARIA's real ultrasonic sensor needs.",
+  "description": "Sequence, decision, loop: all three, in one program you design yourself, to build the exact behaviour ARIA's real ultrasonic sensor needs.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "This is the behaviour Module 7's ultrasonic sensor was always building toward: a robot that drives forward, and the moment it senses a wall ahead, turns instead of crashing into it — then keeps going, forever, reacting to whatever it finds next."
+      "value": "This is the behaviour Module 7's ultrasonic sensor was always building toward: a robot that drives forward, and the moment it senses a wall ahead, turns instead of crashing into it, then keeps going, forever, reacting to whatever it finds next."
     },
     {
       "type": "code",
@@ -19,13 +19,13 @@
     },
     {
       "type": "paragraph",
-      "value": "Read that shape carefully: a loop (forever) containing a decision (if/else), which itself contains simple sequence steps. All three shapes from this module, nested inside each other. That's not a coincidence — real programs are built exactly this way, shapes nested inside shapes."
+      "value": "Read that shape carefully: a loop (forever) containing a decision (if/else), which itself contains simple sequence steps. All three shapes from this module, nested inside each other. That's not a coincidence: real programs are built exactly this way, shapes nested inside shapes."
     },
     {
       "type": "widget",
       "kind": "block-maze",
       "title": "🧩 Build obstacle avoidance",
-      "hint": "Try to solve this with a single repeat forever containing one if/else — no other blocks needed outside it.",
+      "hint": "Try to solve this with a single repeat forever containing one if/else, no other blocks needed outside it.",
       "mazeId": "avoider",
       "xp": 40,
       "xpKey": "robotics-m9-final"
@@ -36,11 +36,11 @@
     },
     {
       "type": "paragraph",
-      "value": "Every previous maze in this module had one fixed correct path. This one is different: the same repeat-forever-with-if program you just wrote would work on a completely different maze layout too, because it isn't memorising a path — it's reacting to whatever wall it happens to find, one decision at a time. That's the real definition of an autonomous behaviour, and you just built one."
+      "value": "Every previous maze in this module had one fixed correct path. This one is different: the same repeat-forever-with-if program you just wrote would work on a completely different maze layout too, because it isn't memorising a path. It's reacting to whatever wall it happens to find, one decision at a time. That's the real definition of an autonomous behaviour, and you just built one."
     },
     {
       "type": "tip",
-      "value": "You've now finished every block-based lesson this course has. Next module takes this exact same program and rewrites it, line for line, as real Python — the bridge from blocks to code."
+      "value": "You've now finished every block-based lesson this course has. Next module takes this exact same program and rewrites it, line for line, as real Python: the bridge from blocks to code."
     },
     {
       "type": "paragraph",
@@ -63,7 +63,7 @@
       "options": [
         "A loop contains a decision, which contains sequence steps",
         "A decision contains a loop",
-        "None of the shapes are nested — they're all separate"
+        "None of the shapes are nested: they're all separate"
       ],
       "answer": 0,
       "explain": "The outermost shape is the loop; inside it sits a decision; inside each branch of the decision sits a simple sequence step."

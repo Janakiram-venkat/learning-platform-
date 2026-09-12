@@ -16,6 +16,7 @@ const SubjectPage = lazy(() => import('../pages/SubjectPage'));
 const GameCoursePage = lazy(() => import('../pages/GameCoursePage'));
 const GamePage = lazy(() => import('../pages/GamePage'));
 const GameReference = lazy(() => import('../pages/GameReference'));
+const GameManual = lazy(() => import('../pages/GameManual'));
 const AdminPage = lazy(() => import('../pages/AdminPage'));
 const ContestListPage = lazy(() => import('../pages/ContestListPage'));
 const ContestPage = lazy(() => import('../pages/ContestPage'));
@@ -44,6 +45,10 @@ export default function AppRoutes() {
       <Routes>
         {/* Public: the landing page is the only thing a signed-out visitor sees. */}
         <Route path="/" element={<Home />} />
+        {/* The game dev manual is public on purpose: a contest is open to people
+            who have not worked through the course, so "read the manual first" is
+            only fair advice if reading it does not need an account. */}
+        <Route path="/manual" element={<GameManual />} />
 
         {/* Everything course-related needs an account. Grouping them under one
             pathless route means a new course page is gated by default. */}

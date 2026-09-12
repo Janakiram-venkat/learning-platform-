@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-camera",
   "title": "Camera: Light Into Numbers",
-  "description": "Component lesson. Zoom in far enough on any photo and the picture disappears — all that's left is a grid of numbers.",
+  "description": "Component lesson. Zoom in far enough on any photo and the picture disappears: all that's left is a grid of numbers.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Every sensor so far in this course reports one number: a distance, a HIGH or LOW, a temperature. A camera is different — it's really thousands of tiny light sensors packed onto one chip, each reporting its own number, all at once."
+      "value": "Every sensor so far in this course reports one number: a distance, a HIGH or LOW, a temperature. A camera is different: it's really thousands of tiny light sensors packed onto one chip, each reporting its own number, all at once."
     },
     {
       "type": "heading",
@@ -18,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Light passes through a lens and lands on a grid of light-sensitive spots called pixels. Each pixel measures how much red, green and blue light hit it, and reports three numbers, 0 to 255 each — that's what \"RGB\" means. Zoom out far enough and thousands of these tiny coloured squares blend into what looks like a smooth photo."
+      "value": "Light passes through a lens and lands on a grid of light-sensitive spots called pixels. Each pixel measures how much red, green and blue light hit it, and reports three numbers, 0 to 255 each: that's what \"RGB\" means. Zoom out far enough and thousands of these tiny coloured squares blend into what looks like a smooth photo."
     },
     {
       "type": "widget",
@@ -34,7 +34,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Once a picture is just numbers, a computer can do real work on it, in stages: capture the raw grid, resize it smaller for speed, sometimes convert it to grayscale (throwing away colour to simplify the numbers further), then look for patterns — and finally decide something based on what it found."
+      "value": "Once a picture is just numbers, a computer can do real work on it, in stages: capture the raw grid, resize it smaller for speed, sometimes convert it to grayscale (throwing away colour to simplify the numbers further), then look for patterns, and finally decide something based on what it found."
     },
     {
       "type": "code",
@@ -47,7 +47,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: a camera is a grid of tiny sensors, each reporting an RGB number. A picture is nothing more than that grid of numbers — everything a computer does with an image starts from there."
+      "value": "Key takeaway: a camera is a grid of tiny sensors, each reporting an RGB number. A picture is nothing more than that grid of numbers: everything a computer does with an image starts from there."
     }
   ],
   "quiz": [
@@ -55,7 +55,7 @@
       "question": "What does a single camera pixel actually report?",
       "options": [
         "A description of what object it's looking at",
-        "Three numbers — how much red, green and blue light hit it",
+        "Three numbers: how much red, green and blue light hit it",
         "A single brightness value only, always"
       ],
       "answer": 1,
@@ -69,7 +69,7 @@
         "Grayscale is required by law for robots"
       ],
       "answer": 1,
-      "explain": "Throwing away colour when it isn't needed cuts the data a controller has to process by two-thirds — a real, practical trade-off."
+      "explain": "Throwing away colour when it isn't needed cuts the data a controller has to process by two-thirds: a real, practical trade-off."
     },
     {
       "question": "Why might a small robot's camera deliberately capture fewer pixels than a modern phone?",
@@ -79,7 +79,7 @@
         "Fewer pixels always look identical to more"
       ],
       "answer": 1,
-      "explain": "Resolution trades detail for processing load — a deliberate choice matched to what the controller can handle in real time."
+      "explain": "Resolution trades detail for processing load: a deliberate choice matched to what the controller can handle in real time."
     }
   ]
 }

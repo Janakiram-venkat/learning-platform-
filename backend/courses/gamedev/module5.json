@@ -45,9 +45,9 @@
         "widget": "gravity",
         "title": "A speed that keeps growing",
         "beats": [
-          "Gravity doesn't move the frog directly — it changes vy, the frog's fall SPEED, a little every frame.",
+          "Gravity doesn't move the frog directly: it changes vy, the frog's fall SPEED, a little every frame.",
           "Bigger vy means bigger steps downward, so the fall gets faster the longer it lasts.",
-          "Slide gravity to 0 and nothing falls. That's not a bug — it's exactly what no gravity means."
+          "Slide gravity to 0 and nothing falls. That's not a bug: it's exactly what no gravity means."
         ],
         "config": {}
       },
@@ -58,7 +58,7 @@
           {
             "code": "frog.vy = 0",
             "what": "A new number, starting at zero: how fast the frog is currently falling.",
-            "why": "Same trick as ball.dx back in Module 2 — a value that lives ON the sprite, so update() can find it and change it later. Starting it at 0 means the frog isn't falling yet, on the very first frame."
+            "why": "Same trick as ball.dx back in Module 2: a value that lives ON the sprite, so update() can find it and change it later. Starting it at 0 means the frog isn't falling yet, on the very first frame."
           },
           {
             "code": "frog.vy = frog.vy + 1",
@@ -73,7 +73,7 @@
           {
             "code": "if frog.y > 300:\n    frog.y = 300\n    frog.vy = 0",
             "what": "Stops the frog the instant it reaches the ground, and resets its fall speed to zero.",
-            "why": "Without this the frog falls forever, straight through the floor and off the bottom of the screen. Resetting vy matters as much as fixing y — leave the old fall speed sitting there and the frog looks like it lands, then instantly sinks again the moment gravity is added to it next frame."
+            "why": "Without this the frog falls forever, straight through the floor and off the bottom of the screen. Resetting vy matters as much as fixing y: leave the old fall speed sitting there and the frog looks like it lands, then instantly sinks again the moment gravity is added to it next frame."
           }
         ]
       },
@@ -171,7 +171,7 @@
           {
             "code": "frog.vy = -14",
             "what": "Sets the fall speed to a big negative number, all in one go.",
-            "why": "Negative vy means moving UP, because y counts downward — the same rule as every module before this one. -14 is much bigger than the +1 gravity adds each frame, so the frog rockets upward at first, then gravity eats away at that speed, frame by frame, until it turns positive again and the frog comes back down."
+            "why": "Negative vy means moving UP, because y counts downward: the same rule as every module before this one. -14 is much bigger than the +1 gravity adds each frame, so the frog rockets upward at first, then gravity eats away at that speed, frame by frame, until it turns positive again and the frog comes back down."
           },
           {
             "code": "no other line changes",
@@ -296,7 +296,7 @@
         "title": "Touching isn't enough on its own",
         "beats": [
           "touching() tells you the frog and the platform overlap. It does not tell you which SIDE they touched.",
-          "So the code also checks frog.vy > 0 — the frog must be FALLING for this to count as a landing.",
+          "So the code also checks frog.vy > 0: the frog must be FALLING for this to count as a landing.",
           "Land on top and the frog stops there. Miss the platform and gravity just keeps going."
         ]
       },
@@ -307,12 +307,12 @@
           {
             "code": "platform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")",
             "what": "A second rectangle, floating partway up the screen.",
-            "why": "Nothing about Box changed since Module 1 — it is still just a position and a size. What makes it feel like a platform is entirely down to what your code does when the frog touches it."
+            "why": "Nothing about Box changed since Module 1: it is still just a position and a size. What makes it feel like a platform is entirely down to what your code does when the frog touches it."
           },
           {
             "code": "if frog.touching(platform) and frog.vy > 0:",
             "what": "Checks two things at once: is the frog overlapping the platform, AND is it currently falling.",
-            "why": "touching() alone isn't enough. Check only that and the frog would also stop dead the instant it brushed the platform's underside while jumping upward through it — an invisible ceiling. Adding and frog.vy > 0 limits the landing to the moment the frog is coming down onto it."
+            "why": "touching() alone isn't enough. Check only that and the frog would also stop dead the instant it brushed the platform's underside while jumping upward through it: an invisible ceiling. Adding and frog.vy > 0 limits the landing to the moment the frog is coming down onto it."
           },
           {
             "code": "frog.y = platform.y - 20\n    frog.vy = 0",
@@ -332,7 +332,7 @@
         "Inside update(), check if frog.touching(platform) and frog.vy > 0:",
         "Inside that if, set frog.y = platform.y - 20 and frog.vy = 0."
       ],
-      "starterCode": "from stage import Game, Sprite, Box\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\n\n# TODO 1: make a platform — Box(x=160, y=200, width=160, height=16,\n#         color=\"#3FBF7F\", name=\"platform\")\n\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    # TODO 2: if the frog is touching the platform AND falling, land on it\n    #         (frog.y = platform.y - 20, frog.vy = 0)\n\n\n    if frog.y > 300:\n        frog.y = 300\n        frog.vy = 0\n\n\ngame.start()\n",
+      "starterCode": "from stage import Game, Sprite, Box\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\n\n# TODO 1: make a platform like Box(x=160, y=200, width=160, height=16,\n#         color=\"#3FBF7F\", name=\"platform\")\n\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    # TODO 2: if the frog is touching the platform AND falling, land on it\n    #         (frog.y = platform.y - 20, frog.vy = 0)\n\n\n    if frog.y > 300:\n        frog.y = 300\n        frog.vy = 0\n\n\ngame.start()\n",
       "hints": [
         "TODO 1 goes above the frog, since the frog's starting fall needs to pass through the platform's height.",
         "TODO 2's if goes ABOVE the ground check, and checks BOTH frog.touching(platform) and frog.vy > 0.",
@@ -427,7 +427,7 @@
           "mode": "move"
         },
         "beats": [
-          "for star in stars: visits every star in the list, one at a time — same idea as the rocks in Space Dodger.",
+          "for star in stars: visits every star in the list, one at a time, same idea as the rocks in Space Dodger.",
           "Touching one removes it from the stage for good, and adds one to the score.",
           "However many stars you scatter around the level, this loop stays exactly two lines long."
         ]
@@ -439,7 +439,7 @@
           {
             "code": "if game.key_down(\"left\"):\n    frog.x = frog.x - 4",
             "what": "Left and right arrows move the frog sideways.",
-            "why": "The exact same pattern as every basket and ship before it. Sideways movement and vertical falling never talk to each other — one changes x, the other changes y, and neither cares what the other is doing."
+            "why": "The exact same pattern as every basket and ship before it. Sideways movement and vertical falling never talk to each other: one changes x, the other changes y, and neither cares what the other is doing."
           },
           {
             "code": "for star in stars:",
@@ -449,7 +449,7 @@
           {
             "code": "if frog.touching(star):\n        star.remove()\n        game.score = game.score + 1",
             "what": "The instant the frog overlaps a star, that star is taken off the stage for good and the score goes up.",
-            "why": "remove() is different from moving something off screen — a removed thing is really gone, and it can never be touching anything again. That is how a checker can tell a star was actually collected rather than just walked over: the number of things on the stage drops."
+            "why": "remove() is different from moving something off screen: a removed thing is really gone, and it can never be touching anything again. That is how a checker can tell a star was actually collected rather than just walked over: the number of things on the stage drops."
           },
           {
             "code": "label.words = \"Stars: \" + str(game.score)",
@@ -543,20 +543,20 @@
             }
           ]
         },
-        "note": "Every game needs an ending. A flag to reach, or a hazard to avoid — either way, the game has to actually stop."
+        "note": "Every game needs an ending. A flag to reach, or a hazard to avoid: either way, the game has to actually stop."
       },
       "getIt": {
         "widget": "collision",
         "title": "Two different touches, two different endings",
         "beats": [
-          "touching() doesn't care what happens next — that part is up to your if.",
+          "touching() doesn't care what happens next: that part is up to your if.",
           "Touch the flag: write a win message, then stop().",
           "Touch the fire: write a different message, then stop() again. Same function, two separate endings."
         ]
       },
       "explain": {
         "title": "The same ending, called from two different places",
-        "intro": "Winning and losing aren't different systems. They're the same three lines — a message, then game.stop() — triggered by two different touches.",
+        "intro": "Winning and losing aren't different systems. They're the same three lines (a message, then game.stop()) triggered by two different touches.",
         "lines": [
           {
             "code": "goal = Sprite(\"trophy\", x=440, y=300, size=30, name=\"goal\")",
@@ -566,21 +566,21 @@
           {
             "code": "if frog.touching(goal):\n    label.words = \"You reached the flag!\"\n    game.stop()",
             "what": "The win condition: touch it, show a message, stop the game.",
-            "why": "This is the exact shape as the crash check from Space Dodger — one if, a message, then stop(). The only thing that changed is which sprite is being checked and what the message says."
+            "why": "This is the exact shape as the crash check from Space Dodger: one if, a message, then stop(). The only thing that changed is which sprite is being checked and what the message says."
           },
           {
             "code": "fire = Sprite(\"fire\", x=60, y=300, size=30, name=\"fire\")",
-            "what": "A hazard near the left edge — the wrong way to go.",
+            "what": "A hazard near the left edge: the wrong way to go.",
             "why": "Two ends to the level means the frog now has an actual choice to make, which is what turns \"a frog that can move\" into something that feels like a real level."
           },
           {
             "code": "if frog.touching(fire):\n    label.words = \"You fell in the fire!\"\n    game.stop()",
-            "what": "The lose condition — same shape as the win condition, different sprite, different words.",
+            "what": "The lose condition: same shape as the win condition, different sprite, different words.",
             "why": "This if and the goal if are two SEPARATE ifs, not one joined with or. They need different messages, so they can't be merged, even though the checking looks almost identical. That split is a very common shape in real games: many endings, one repeated pattern."
           }
         ]
       },
-      "brief": "Give the level an ending. Add a flag to reach and a hazard to avoid — touching either one shows a message and stops the game.",
+      "brief": "Give the level an ending. Add a flag to reach and a hazard to avoid: touching either one shows a message and stops the game.",
       "todo": [
         "Make goal = Sprite(\"trophy\", ...) near the right edge, and fire = Sprite(\"fire\", ...) near the left edge.",
         "If the frog touches the goal, set a win message on label and call game.stop().",
@@ -588,7 +588,7 @@
       ],
       "starterCode": "from stage import Game, Sprite, Box, Text\n\ngame = Game(width=480, height=360, background=\"#123024\")\n\nground = Box(x=0, y=320, width=480, height=40, color=\"#1F7A5C\", name=\"ground\")\nplatform = Box(x=160, y=200, width=160, height=16, color=\"#3FBF7F\", name=\"platform\")\n\nfrog = Sprite(\"frog\", x=240, y=60, size=40, name=\"frog\")\nfrog.vy = 0\n\nstar_a = Sprite(\"star\", x=300, y=300, size=26, name=\"star0\")\nstar_b = Sprite(\"star\", x=400, y=300, size=26, name=\"star1\")\nstars = [star_a, star_b]\n\ngame.score = 0\nlabel = Text(\"Stars: 0\", x=16, y=16, size=20, color=\"#FFC93C\")\n\n# TODO 1: make goal = Sprite(\"trophy\", x=440, y=300, size=30, name=\"goal\")\n#         and fire = Sprite(\"fire\", x=60, y=300, size=30, name=\"fire\")\n\n\n@game.every_frame\ndef update():\n    if game.key_down(\"left\"):\n        frog.x = frog.x - 4\n    if game.key_down(\"right\"):\n        frog.x = frog.x + 4\n\n    if game.key_down(\"up\") and frog.y >= 300:\n        frog.vy = -14\n\n    frog.vy = frog.vy + 1\n    frog.y = frog.y + frog.vy\n\n    if frog.touching(platform) and frog.vy > 0:\n        frog.y = platform.y - 20\n        frog.vy = 0\n\n    if frog.y > 300:\n        frog.y = 300\n        frog.vy = 0\n\n    for star in stars:\n        if frog.touching(star):\n            star.remove()\n            game.score = game.score + 1\n            label.words = \"Stars: \" + str(game.score)\n\n    # TODO 2: if the frog is touching goal, show a win message and stop()\n\n\n    # TODO 3: if the frog is touching fire, show a different message and stop()\n\n\ngame.start()\n",
       "hints": [
-        "TODO 1 is two Sprite lines, placed anywhere above update() — right after the stars list is a good spot.",
+        "TODO 1 is two Sprite lines, placed anywhere above update(): right after the stars list is a good spot.",
         "TODO 2 and TODO 3 are each an if with two lines inside: set label.words to a message, then call game.stop().",
         "Both new ifs go inside update(), after the star loop. Order between them doesn't matter."
       ],

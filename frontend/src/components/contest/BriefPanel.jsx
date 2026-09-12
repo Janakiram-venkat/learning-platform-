@@ -31,13 +31,13 @@ export default function BriefPanel({ contest, result }) {
           </button>
         ))}
         <Link
-          to="/course/gamedev/reference"
+          to="/manual"
           target="_blank"
           rel="noreferrer"
           className="ml-auto flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-bold text-ink/55 hover:text-pcb"
           title="Opens in a new tab so your work stays put"
         >
-          <BookOpen className="h-4 w-4" /> Library reference <ExternalLink className="h-3 w-3" />
+          <BookOpen className="h-4 w-4" /> Game manual <ExternalLink className="h-3 w-3" />
         </Link>
       </div>
 
@@ -45,7 +45,7 @@ export default function BriefPanel({ contest, result }) {
         {tab === 'brief' && (
           <div className="space-y-4">
             <p className="whitespace-pre-wrap leading-relaxed text-ink/80">
-              {contest?.brief || 'No brief for this one — build whatever you like!'}
+              {contest?.brief || 'No brief for this one: build whatever you like!'}
             </p>
             <PicturePack />
           </div>

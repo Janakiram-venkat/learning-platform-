@@ -55,7 +55,7 @@ export default function RequireAuth({ children }) {
         <div className="px-8 pb-8 pt-6">
           <h1 className="font-lab text-2xl font-bold text-ink">Members only ⚡</h1>
           <p className="mt-2 text-sm font-semibold text-secondary">
-            Sign in to open this course — it&apos;s free, and it keeps your XP, badges
+            Sign in to open this course: it&apos;s free, and it keeps your XP, badges
             and progress saved wherever you learn.
           </p>
 

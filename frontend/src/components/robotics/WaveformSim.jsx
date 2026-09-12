@@ -98,7 +98,7 @@ export default function WaveformSim({ block }) {
           </>
         ) : (
           <p className="mt-4 text-center text-sm font-semibold text-ink/60">
-            A microphone's membrane vibrates with incoming sound, and that vibration becomes exactly this kind of wobbly, irregular wave — nothing like a clean tone.
+            A microphone's membrane vibrates with incoming sound, and that vibration becomes exactly this kind of wobbly, irregular wave: nothing like a clean tone.
           </p>
         )}
       </div>

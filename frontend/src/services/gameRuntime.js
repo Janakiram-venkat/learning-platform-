@@ -1,5 +1,7 @@
 // Main-thread side of the game runtime. Owns the worker, hands it the
-// OffscreenCanvas, forwards key state, and grades behaviour checks.
+// OffscreenCanvas, forwards key and mouse state, plays the sounds a game asks
+// for, and grades behaviour checks.
+import { playSounds } from '../game/sounds';
 
 // Running a program should never take this long. Booting Python legitimately
 // can, so the two get separate budgets — see runGame/checkGame, which wait for
@@ -10,7 +12,7 @@ const BOOT_TIMEOUT_MS = 60000;
 // While a game loop runs, the worker says "alive" a few times a second. This
 // long without one means Python is stuck inside every_frame.
 const FREEZE_MS = 4000;
-const FREEZE_MESSAGE = 'Your game froze — something inside your every_frame function never finished '
+const FREEZE_MESSAGE = 'Your game froze: something inside your every_frame function never finished '
   + '(usually a while loop that never ends). Fix it and press Play again.';
 
 let worker = null;
@@ -68,6 +70,7 @@ function ensureWorker() {
     // Unsolicited events (heartbeats, the game ended, a crash mid-loop) go to
     // subscribers.
     if (id == null) {
+      if (type === 'sound') { playSounds(e.data.names); return; }
       if (type === 'alive') lastAlive = performance.now();
       if (type === 'over' || type === 'error' || type === 'stopped') disarmWatchdog();
       emit(e.data);
@@ -192,6 +195,12 @@ export function stopGame() {
 
 export function setKeys(keys) {
   if (worker) worker.postMessage({ type: 'keys', keys });
+}
+
+// x/y are fractions (0..1) across and down the screen, or null to leave the
+// pointer where it was; `click` marks the moment the button went down.
+export function setMouse({ x = null, y = null, down = false, click = false }) {
+  if (worker) worker.postMessage({ type: 'mouse', x, y, down, click });
 }
 
 // ---------------------------------------------------------------------------
@@ -338,6 +347,22 @@ const RULES = {
   },
   // game.shake() ran at some point during the run.
   shakes: (_rule, ctx) => ctx.trace.some((f) => f.shaking),
+  // A Sprite's angle changes during the run — it spins or aims.
+  turns: (rule, ctx) => {
+    const seen = new Map();
+    for (const f of ctx.trace) {
+      for (const t of f.all) {
+        if (t.kind !== 'Sprite') continue;
+        if (rule.name && t.name !== rule.name) continue;
+        if (!seen.has(t.name)) seen.set(t.name, new Set());
+        seen.get(t.name).add(Math.round(t.angle ?? 0));
+      }
+    }
+    return [...seen.values()].some((set) => set.size > 1);
+  },
+  // game.play() ran — any sound, or the one named in `sound`.
+  plays_sound: (rule, ctx) => ctx.trace.some((f) =>
+    (f.sounds || []).some((s) => !rule.sound || s === rule.sound)),
 };
 
 // Compare two scenarios: something must end up in a different place when the
@@ -359,7 +384,7 @@ function differsBetween(rule, byScenario) {
 export function scenariosFor(check) {
   return check.scenarios?.length
     ? check.scenarios
-    : [{ name: 'default', frames: check.frames || 90, keys: check.keys || {} }];
+    : [{ name: 'default', frames: check.frames || 90, keys: check.keys || {}, mouse: check.mouse, clicks: check.clicks }];
 }
 
 // Grade a check's rules against already-collected scenario traces. Split out
@@ -390,7 +415,9 @@ export async function checkGame(code, check) {
   await warmupGameRuntime();
   const byScenario = {};
   for (const s of scenariosFor(check)) {
-    const res = await post({ type: 'check', code, frames: s.frames, keys: s.keys || {} });
+    const res = await post({
+      type: 'check', code, frames: s.frames, keys: s.keys || {}, mouse: s.mouse, clicks: s.clicks,
+    });
     if (res.error) return { ok: false, error: res.error, results: [] };
     if (!res.trace?.length) {
       return { ok: false, error: 'Your game did not run for even one frame. Is game.start() the last line?', results: [] };

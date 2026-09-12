@@ -55,7 +55,7 @@ export default function DigitalSignal({ block }) {
               level ? 'bg-signal text-ink' : 'bg-white text-ink/70'
             }`}
           >
-            Pin is {level ? 'HIGH (3.3V)' : 'LOW (0V)'} — tap to flip
+            Pin is {level ? 'HIGH (3.3V)' : 'LOW (0V)'}. Tap to flip.
           </button>
           <div className="flex items-center gap-2">
             <span
@@ -70,7 +70,7 @@ export default function DigitalSignal({ block }) {
         </div>
 
         <p className="mt-3 text-center text-sm font-semibold text-ink/60">
-          A GPIO pin only ever reports one of two states — there's no "in between" reading.
+          A GPIO pin only ever reports one of two states: there's no "in between" reading.
         </p>
       </div>
     </WidgetShell>

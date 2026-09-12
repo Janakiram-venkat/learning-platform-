@@ -30,6 +30,9 @@ with engine.begin() as conn:
     conn.execute(
         text("ALTER TABLE users ADD COLUMN IF NOT EXISTS token_version INTEGER NOT NULL DEFAULT 0")
     )
+    conn.execute(
+        text("ALTER TABLE contests ADD COLUMN IF NOT EXISTS invite_only BOOLEAN NOT NULL DEFAULT FALSE")
+    )
 
 # Rate limiter is configured in app.core.limiter (see its docstring for the
 # limits and env vars). app.state is where slowapi looks for it.

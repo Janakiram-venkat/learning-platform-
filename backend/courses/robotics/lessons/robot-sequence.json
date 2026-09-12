@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "A sequence is nothing more than a list of steps, run top to bottom, one after another. It sounds almost too simple to teach — until you notice that swapping the order of two steps can produce a completely different result. \"Turn right, then move forward\" and \"move forward, then turn right\" send a robot to two different places."
+      "value": "A sequence is nothing more than a list of steps, run top to bottom, one after another. It sounds almost too simple to teach, until you notice that swapping the order of two steps can produce a completely different result. \"Turn right, then move forward\" and \"move forward, then turn right\" send a robot to two different places."
     },
     {
       "type": "widget",
@@ -23,11 +23,11 @@
     },
     {
       "type": "paragraph",
-      "value": "There's no trick to this maze — it just needs the right steps in the right order, one block at a time. Notice how many blocks it took. The next lesson introduces a way to say \"repeat this part\" instead of writing it out by hand every time, which is exactly the kind of thing that starts to matter once a sequence gets long."
+      "value": "There's no trick to this maze: it just needs the right steps in the right order, one block at a time. Notice how many blocks it took. The next lesson introduces a way to say \"repeat this part\" instead of writing it out by hand every time, which is exactly the kind of thing that starts to matter once a sequence gets long."
     },
     {
       "type": "tip",
-      "value": "This exact idea — instructions running one after another — is what every one of ARIA's real Python programs will do too, starting next module. Blocks just make the order visible as a physical stack instead of lines of text."
+      "value": "This exact idea, instructions running one after another, is what every one of ARIA's real Python programs will do too, starting next module. Blocks just make the order visible as a physical stack instead of lines of text."
     },
     {
       "type": "paragraph",
@@ -38,12 +38,12 @@
     {
       "question": "A robot is told \"turn right, then move forward\" instead of \"move forward, then turn right.\" What's true about these two sequences?",
       "options": [
-        "They're identical — order never matters",
+        "They're identical: order never matters",
         "They can send the robot to two different places, since order changes the result",
         "The second one is always faster"
       ],
       "answer": 1,
-      "explain": "The exact same two steps, reordered, take the robot somewhere different — order is part of what a sequence means."
+      "explain": "The exact same two steps, reordered, take the robot somewhere different: order is part of what a sequence means."
     },
     {
       "question": "What does a sequence block program actually do, mechanically?",
@@ -53,7 +53,7 @@
         "Picks a random block to run first"
       ],
       "answer": 1,
-      "explain": "That's the entire definition of a sequence — one step after another, in the order written."
+      "explain": "That's the entire definition of a sequence: one step after another, in the order written."
     }
   ]
 }

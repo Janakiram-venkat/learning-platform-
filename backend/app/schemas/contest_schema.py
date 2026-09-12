@@ -38,6 +38,7 @@ class ContestWrite(BaseModel):
     start_at: datetime
     end_at: datetime
     results_published: bool = False
+    invite_only: bool = False
 
     @model_validator(mode="after")
     def _window(self):
@@ -59,9 +60,31 @@ class ContestAdmin(_UtcModel):
     start_at: datetime
     end_at: datetime
     results_published: bool
+    invite_only: bool = False
     created_at: datetime
     entry_count: int = 0
     submitted_count: int = 0
+    invite_count: int = 0
+
+
+# --- Admin: running the contest ----------------------------------------------
+
+class StartNow(BaseModel):
+    """How long the contest should run from this moment.
+
+    None keeps whatever length it was already scheduled for.
+    """
+    # A day is the ceiling: anything longer is a course, not a contest.
+    minutes: int | None = Field(None, ge=1, le=1440)
+
+
+class AddTime(BaseModel):
+    """Minutes to move the deadline by. Negative shortens the contest."""
+    minutes: int = Field(..., ge=-1440, le=1440)
+
+
+class ResultsToggle(BaseModel):
+    published: bool
 
 
 # --- Student views -----------------------------------------------------------
@@ -74,6 +97,7 @@ class ContestSummary(_UtcModel):
     end_at: datetime
     status: str  # "upcoming" | "live" | "ended"
     results_published: bool
+    invite_only: bool = False
     my_status: str | None = None  # None | "draft" | "submitted"
 
 
@@ -89,6 +113,7 @@ class ContestDetail(_UtcModel):
     end_at: datetime
     status: str
     results_published: bool
+    invite_only: bool = False
     # Null while upcoming.
     brief: str | None = None
     rules: str | None = None
@@ -140,3 +165,36 @@ class EntryScore(BaseModel):
     # None clears a score.
     score: int | None = Field(None, ge=0, le=100)
     judge_comment: str | None = Field(None, max_length=5_000)
+
+
+# --- Admin: invites -----------------------------------------------------------
+
+class InviteRow(_UtcModel):
+    """One invited email, plus whether it has landed anywhere yet."""
+    id: int
+    email: str
+    created_at: datetime
+    # True once somebody has signed up with this address.
+    has_account: bool = False
+    # The account's display name, or None while the invite is unclaimed.
+    name: str | None = None
+    # True once they have saved or submitted an entry.
+    has_entry: bool = False
+
+
+class InviteAdd(BaseModel):
+    """A paste from a class list: newlines, commas, semicolons or spaces.
+
+    Names in angle brackets ("Ada <ada@example.com>") are tolerated because
+    that is what a copied mail client row looks like.
+    """
+    emails: str = Field(..., max_length=20_000)
+
+
+class InviteAddResult(BaseModel):
+    added: list[str]
+    # Already on the list; re-pasting the same class list is not an error.
+    duplicates: list[str]
+    # Did not look like an email address.
+    invalid: list[str]
+    invites: list[InviteRow]

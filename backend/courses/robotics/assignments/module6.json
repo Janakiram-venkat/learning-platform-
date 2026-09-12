@@ -58,7 +58,7 @@
           "right": "Gears"
         }
       ],
-      "explain": "Four different jobs, four different tools — none of them is universally \"better\", just built for a different question."
+      "explain": "Four different jobs, four different tools: none of them is universally \"better\", just built for a different question."
     },
     {
       "type": "concept",
@@ -69,7 +69,7 @@
         "No change at all"
       ],
       "answer": 1,
-      "explain": "A small driving gear has to spin several times per turn of the big gear — trading speed away for extra turning force."
+      "explain": "A small driving gear has to spin several times per turn of the big gear, trading speed away for extra turning force."
     }
   ]
 }

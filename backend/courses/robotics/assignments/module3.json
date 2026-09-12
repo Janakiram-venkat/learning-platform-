@@ -69,7 +69,7 @@
         "Backwards LEDs need more voltage, not less"
       ],
       "answer": 0,
-      "explain": "An LED is a one-way valve for current. A resistor just resists — it works the same wired either way."
+      "explain": "An LED is a one-way valve for current. A resistor just resists: it works the same wired either way."
     },
     {
       "type": "concept",
@@ -80,7 +80,7 @@
         "Nothing changes either way"
       ],
       "answer": 0,
-      "explain": "Parallel gives each LED its own full-voltage path, so each burns brighter — at the cost of drawing more total current from the battery."
+      "explain": "Parallel gives each LED its own full-voltage path, so each burns brighter, at the cost of drawing more total current from the battery."
     }
   ]
 }

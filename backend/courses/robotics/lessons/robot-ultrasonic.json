@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-ultrasonic",
   "title": "Ultrasonic: Measuring With Sound",
-  "description": "Component lesson. No lens, no laser — just a chirp, a stopwatch, and one formula from school physics.",
+  "description": "Component lesson. No lens, no laser, just a chirp, a stopwatch, and one formula from school physics.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "ARIA needs to know how far away something is before she can decide whether to stop or turn. An ultrasonic sensor answers that with sound — the same trick a bat uses to find its way in the dark."
+      "value": "ARIA needs to know how far away something is before she can decide whether to stop or turn. An ultrasonic sensor answers that with sound: the same trick a bat uses to find its way in the dark."
     },
     {
       "type": "heading",
@@ -39,7 +39,7 @@
       "type": "widget",
       "kind": "ultrasonic-sim",
       "title": "📡 Ping the wall",
-      "hint": "Try a few distances. Then push the wall angle past 45° and ping again — watch the echo scatter away instead of coming back.",
+      "hint": "Try a few distances. Then push the wall angle past 45° and ping again: watch the echo scatter away instead of coming back.",
       "xp": 25,
       "xpKey": "robotics-m7-ultrasonic"
     },
@@ -49,7 +49,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Sound travels at a known, roughly constant speed — about 343 metres per second in air. If you know speed and time, distance is just multiplication: distance travelled = speed × time. But the sound made a round trip, out and back, so the wall is only half that total distance away."
+      "value": "Sound travels at a known, roughly constant speed: about 343 metres per second in air. If you know speed and time, distance is just multiplication: distance travelled = speed × time. But the sound made a round trip, out and back, so the wall is only half that total distance away."
     },
     {
       "type": "code",
@@ -62,7 +62,7 @@
     },
     {
       "type": "paragraph",
-      "value": "You just saw it in the widget: angle a hard, flat surface past roughly 45° and the sound doesn't bounce straight back at all — it deflects off at an angle, like light off a mirror tilted away from you, and the sensor's receiver never hears it. That's not a broken sensor; it's a real physical limit of how ultrasonic sensing works, and it's exactly why a real obstacle-avoiding robot sometimes needs more than one ultrasonic sensor, or a sweeping one, to cover a room reliably."
+      "value": "You just saw it in the widget: angle a hard, flat surface past roughly 45° and the sound doesn't bounce straight back at all. It deflects off at an angle, like light off a mirror tilted away from you, and the sensor's receiver never hears it. That's not a broken sensor; it's a real physical limit of how ultrasonic sensing works, and it's exactly why a real obstacle-avoiding robot sometimes needs more than one ultrasonic sensor, or a sweeping one, to cover a room reliably."
     },
     {
       "type": "heading",
@@ -87,13 +87,13 @@
         "The wall's temperature"
       ],
       "answer": 1,
-      "explain": "Time is the only raw measurement — distance is calculated from it afterwards using the known speed of sound."
+      "explain": "Time is the only raw measurement: distance is calculated from it afterwards using the known speed of sound."
     },
     {
       "question": "Why does the formula divide by 2?",
       "options": [
         "To convert centimetres to metres",
-        "Because the measured time covers a round trip — out to the object and back — not a one-way distance",
+        "Because the measured time covers a round trip, out to the object and back, not a one-way distance",
         "It's an arbitrary calibration constant"
       ],
       "answer": 1,
@@ -107,7 +107,7 @@
         "45° is a hardware limit written into the sensor's memory"
       ],
       "answer": 1,
-      "explain": "Sound bounces off a surface much like light off a mirror — angle it enough and the reflection simply doesn't return the way it came."
+      "explain": "Sound bounces off a surface much like light off a mirror: angle it enough and the reflection simply doesn't return the way it came."
     }
   ]
 }

@@ -1,3 +1,5 @@
+import json
+
 from sqlalchemy.orm import Session
 from app.models.user import User
 from app.core.security import hash_password, verify_password
@@ -112,6 +114,23 @@ def update_progress(db: Session, user: User, progress: dict) -> User:
     return user
 
 
+def _dedupe_key(item):
+    """A hashable stand-in for one array item, for de-duplicating a union.
+
+    Most progress arrays hold strings, but some hold objects: earnedBadges is
+    [{id, name, ...}] (same badge = same id) and aiIdeas is [{..., savedAt}]
+    (no id, so the whole card is compared). Dicts and lists aren't hashable,
+    so they're compared by id or by their canonical JSON instead.
+    """
+    if isinstance(item, dict):
+        if "id" in item:
+            return ("id", json.dumps(item["id"], sort_keys=True, default=str))
+        return ("json", json.dumps(item, sort_keys=True, default=str))
+    if isinstance(item, list):
+        return ("json", json.dumps(item, sort_keys=True, default=str))
+    return ("value", item)
+
+
 def merge_progress(db: Session, user: User, delta: dict) -> User:
     """Merge `delta` additively into the user's stored progress.
 
@@ -138,11 +157,12 @@ def merge_progress(db: Session, user: User, delta: dict) -> User:
                 incoming_val = []
             # Union: preserve order, deduplicate.
             merged = list(existing)
-            seen = set(existing)
+            seen = {_dedupe_key(item) for item in existing}
             for item in incoming_val:
-                if item not in seen:
+                k = _dedupe_key(item)
+                if k not in seen:
                     merged.append(item)
-                    seen.add(item)
+                    seen.add(k)
             stored[key] = merged
         elif key in _PROGRESS_INT_KEYS:
             try:

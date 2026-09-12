@@ -18,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Here's the part that surprises most beginners: those two metal contacts don't touch cleanly. At the microscopic level, they physically bounce against each other several times in the first few milliseconds of a press before finally settling — and a controller reading fast enough sees every single one of those bounces as a separate press."
+      "value": "Here's the part that surprises most beginners: those two metal contacts don't touch cleanly. At the microscopic level, they physically bounce against each other several times in the first few milliseconds of a press before finally settling, and a controller reading fast enough sees every single one of those bounces as a separate press."
     },
     {
       "type": "widget",
@@ -34,11 +34,11 @@
     },
     {
       "type": "paragraph",
-      "value": "The fix is simple once you know the problem exists: after the first change is detected, wait a short window — 10 to 30 milliseconds is typical — and ignore any further changes during that time. By the time the window ends, the bounce has always settled, and the level you read then is trustworthy."
+      "value": "The fix is simple once you know the problem exists: after the first change is detected, wait a short window (10 to 30 milliseconds is typical) and ignore any further changes during that time. By the time the window ends, the bounce has always settled, and the level you read then is trustworthy."
     },
     {
       "type": "tip",
-      "value": "Debouncing isn't unique to buttons — any mechanical contact (a limit switch, a relay) bounces the same way. The fix is identical everywhere: wait it out before trusting the reading."
+      "value": "Debouncing isn't unique to buttons: any mechanical contact (a limit switch, a relay) bounces the same way. The fix is identical everywhere: wait it out before trusting the reading."
     },
     {
       "type": "paragraph",
@@ -54,7 +54,7 @@
         "GPIO pins always report presses twice"
       ],
       "answer": 1,
-      "explain": "That bounce is a real mechanical effect, present in every physical switch — not a fault in any particular button."
+      "explain": "That bounce is a real mechanical effect, present in every physical switch, not a fault in any particular button."
     },
     {
       "question": "What does debouncing actually do?",
@@ -64,13 +64,13 @@
         "Makes the button press instantly with zero delay"
       ],
       "answer": 1,
-      "explain": "It's a software wait, not a mechanical fix — give the bounce time to finish, then read the level once it has settled."
+      "explain": "It's a software wait, not a mechanical fix: give the bounce time to finish, then read the level once it has settled."
     },
     {
       "question": "Would a limit switch on a robot arm need debouncing too?",
       "options": [
         "No, only buttons bounce",
-        "Yes — any mechanical contact bounces the same way, so the same fix applies",
+        "Yes: any mechanical contact bounces the same way, so the same fix applies",
         "Only if it's wired backwards"
       ],
       "answer": 1,

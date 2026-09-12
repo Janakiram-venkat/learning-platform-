@@ -20,7 +20,7 @@ export function completionSet(kind) {
   const key = COMPLETION_KEYS[kind];
   if (!key) {
     throw new Error(
-      `Unknown completion kind "${kind}" — add it to COMPLETION_KEYS in lib/progress/keys.js`,
+      `Unknown completion kind "${kind}": add it to COMPLETION_KEYS in lib/progress/keys.js`,
     );
   }
 

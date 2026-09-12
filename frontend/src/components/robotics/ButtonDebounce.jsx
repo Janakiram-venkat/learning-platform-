@@ -63,7 +63,7 @@ export default function ButtonDebounce({ block }) {
         <svg key={`raw-${pressCount}`} viewBox={`0 0 300 ${H}`} className="w-full rounded-lg border-2 border-ink/12 bg-[#0B180F]">
           <path d={rawPath} fill="none" stroke="#E8503A" strokeWidth="2.5" className="animate-slide-up" />
         </svg>
-        <p className="mt-1 text-xs font-semibold text-ink/50">{rawCount} separate HIGH edges — a naive counter would think the button was pressed {rawCount} times.</p>
+        <p className="mt-1 text-xs font-semibold text-ink/50">{rawCount} separate HIGH edges: a naive counter would think the button was pressed {rawCount} times.</p>
 
         <p className="mb-1 mt-4 text-xs font-bold uppercase tracking-wide text-ink/50">Debounced signal (what your code should trust)</p>
         <svg key={`db-${pressCount}-${debounceMs}`} viewBox={`0 0 300 ${H}`} className="w-full rounded-lg border-2 border-ink/12 bg-[#0B180F]">
@@ -79,7 +79,7 @@ export default function ButtonDebounce({ block }) {
             className="h-2 w-full cursor-grab accent-pcb active:cursor-grabbing" />
         </label>
         <p className="mt-3 text-center text-sm font-semibold text-ink/60">
-          {clean ? 'Long enough — the bounce is fully hidden, one clean press.' : 'Too short — some of the bounce still leaks through.'}
+          {clean ? 'Long enough: the bounce is fully hidden, one clean press.' : 'Too short: some of the bounce still leaks through.'}
         </p>
       </div>
     </WidgetShell>

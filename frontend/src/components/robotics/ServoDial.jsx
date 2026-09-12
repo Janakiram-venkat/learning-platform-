@@ -82,7 +82,7 @@ export default function ServoDial({ block }) {
           ))}
         </div>
         <p className="mt-3 text-center text-sm font-semibold text-ink/60">
-          Notice the tiny overshoot before it settles — that's the servo's own feedback loop correcting itself, not a bug.
+          Notice the tiny overshoot before it settles: that's the servo's own feedback loop correcting itself, not a bug.
         </p>
       </div>
     </WidgetShell>

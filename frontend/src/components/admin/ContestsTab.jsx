@@ -1,24 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
-  Plus, Pencil, Trash2, Users, ArrowLeft, Eye, EyeOff, Lock, PencilLine, RefreshCw, Trophy,
+  Plus, Pencil, Trash2, Users, ArrowLeft, Eye, Lock, PencilLine, RefreshCw, Mail, Copy,
 } from 'lucide-react';
 import ContestForm from './ContestForm';
+import ContestControls from './ContestControls';
+import ContestInvites from './ContestInvites';
 import EntryJudge from './EntryJudge';
 import { adminContestService } from '../../services/api';
-import { fmtDateTime } from '../../lib/contestTime';
+import { fmtDateTime, phaseOf } from '../../lib/contestTime';
 
-function statusOf(c) {
-  const now = Date.now();
-  if (now < Date.parse(c.start_at)) return { label: 'Upcoming', cls: 'bg-signal text-ink' };
-  if (now < Date.parse(c.end_at)) return { label: 'Live', cls: 'bg-wire text-white' };
-  return { label: 'Ended', cls: 'bg-ink/10 text-ink/70' };
-}
-
-// The fields PUT /admin/contests/:id expects — the list rows carry extras.
-const writable = (c) => ({
-  title: c.title, brief: c.brief, rules: c.rules, starter_code: c.starter_code,
-  start_at: c.start_at, end_at: c.end_at, results_published: c.results_published,
-});
+const BADGES = {
+  upcoming: { label: 'Upcoming', cls: 'bg-signal text-ink' },
+  live: { label: 'Live', cls: 'bg-wire text-white' },
+  ended: { label: 'Ended', cls: 'bg-ink/10 text-ink/70' },
+};
 
 export default function ContestsTab() {
   const [contests, setContests] = useState([]);
@@ -26,8 +21,26 @@ export default function ContestsTab() {
   const [error, setError] = useState('');
   const [editing, setEditing] = useState(null); // null | 'new' | contest
   const [viewing, setViewing] = useState(null); // contest whose entries are open
+  const [inviting, setInviting] = useState(null); // contest whose invite list is open
   const [entries, setEntries] = useState([]);
   const [judgingId, setJudgingId] = useState(null);
+  // Drives the live countdowns and flips a row from Upcoming to Live on its
+  // own, so an organizer watching the page never has to refresh to see that
+  // the contest they scheduled has opened.
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Every control answers with the contest's fresh admin row; patch it in
+  // wherever that contest is currently on screen.
+  const merge = useCallback((row) => {
+    setContests((cur) => cur.map((c) => (c.id === row.id ? row : c)));
+    setViewing((cur) => (cur && cur.id === row.id ? row : cur));
+    setError('');
+  }, []);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -67,13 +80,13 @@ export default function ContestsTab() {
     setEditing(null);
   };
 
-  const togglePublish = async (c) => {
+  const duplicate = async (c) => {
     try {
-      const { data } = await adminContestService.update(c.id, { ...writable(c), results_published: !c.results_published });
-      setContests((cur) => cur.map((x) => (x.id === data.id ? data : x)));
-      if (viewing?.id === data.id) setViewing(data);
+      const { data } = await adminContestService.duplicate(c.id);
+      setContests((cur) => [data, ...cur]);
+      setEditing(data);
     } catch (err) {
-      setError(err?.response?.data?.detail || 'Could not update the contest.');
+      setError(err?.response?.data?.detail || 'Could not copy the contest.');
     }
   };
 
@@ -90,6 +103,17 @@ export default function ContestsTab() {
   const onScored = (row) => {
     setEntries((cur) => cur.map((e) => (e.id === row.id ? { ...e, score: row.score, judge_comment: row.judge_comment } : e)));
   };
+
+  // ---------------- One contest's invite list ----------------
+  if (inviting) {
+    return (
+      <ContestInvites
+        contest={inviting}
+        onBack={() => setInviting(null)}
+        onCountChange={(n) => setContests((cur) => cur.map((c) => (c.id === inviting.id ? { ...c, invite_count: n } : c)))}
+      />
+    );
+  }
 
   if (editing) {
     return <ContestForm contest={editing === 'new' ? null : editing} onSave={save} onCancel={() => setEditing(null)} />;
@@ -109,12 +133,7 @@ export default function ContestsTab() {
           <button onClick={() => loadEntries(viewing)} className="lab-btn flex items-center gap-2 rounded-xl border-2 border-ink bg-white px-3 py-2 font-extrabold text-ink">
             <RefreshCw className="h-4 w-4" /> Refresh
           </button>
-          <button
-            onClick={() => togglePublish(viewing)}
-            className={`lab-btn flex items-center gap-2 rounded-xl border-2 border-ink px-3 py-2 font-extrabold ${viewing.results_published ? 'bg-white text-ink' : 'bg-signal text-ink'}`}
-          >
-            {viewing.results_published ? <><EyeOff className="h-4 w-4" /> Hide results</> : <><Trophy className="h-4 w-4" /> Publish results</>}
-          </button>
+          <ContestControls contest={viewing} now={now} onChange={merge} onError={setError} compact />
         </div>
 
         {error && <p className="lab-panel border-wire p-4 text-center font-bold text-wire">{error}</p>}
@@ -184,33 +203,51 @@ export default function ContestsTab() {
       {error && <p className="lab-panel border-wire p-4 text-center font-bold text-wire">{error}</p>}
 
       {contests.map((c) => {
-        const s = statusOf(c);
+        const s = BADGES[phaseOf(c, now)];
         return (
-          <article key={c.id} className="lab-panel flex flex-wrap items-center gap-4 p-5">
-            <div className="min-w-0 flex-1">
-              <div className="mb-1 flex flex-wrap items-center gap-2">
-                <span className={`rounded-md border-2 border-ink px-2 py-0.5 text-xs font-extrabold uppercase ${s.cls}`}>{s.label}</span>
-                {c.results_published && (
-                  <span className="flex items-center gap-1 rounded-md border-2 border-ink bg-led px-2 py-0.5 text-xs font-extrabold uppercase text-white">
-                    <Eye className="h-3 w-3" /> Results public
-                  </span>
-                )}
+          <article key={c.id} className="lab-panel space-y-4 p-5">
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="min-w-0 flex-1">
+                <div className="mb-1 flex flex-wrap items-center gap-2">
+                  <span className={`rounded-md border-2 border-ink px-2 py-0.5 text-xs font-extrabold uppercase ${s.cls}`}>{s.label}</span>
+                  {c.invite_only && (
+                    <span className="flex items-center gap-1 rounded-md border-2 border-ink bg-ink px-2 py-0.5 text-xs font-extrabold uppercase text-white">
+                      <Mail className="h-3 w-3" /> Invite only
+                    </span>
+                  )}
+                  {c.results_published && (
+                    <span className="flex items-center gap-1 rounded-md border-2 border-ink bg-led px-2 py-0.5 text-xs font-extrabold uppercase text-white">
+                      <Eye className="h-3 w-3" /> Results public
+                    </span>
+                  )}
+                </div>
+                <h3 className="truncate font-lab text-lg font-extrabold text-ink">{c.title}</h3>
+                <p className="text-sm font-semibold text-ink/55">
+                  {fmtDateTime(c.start_at)} → {fmtDateTime(c.end_at)} · {c.entry_count} entries, {c.submitted_count} submitted
+                  {c.invite_only && ` · ${c.invite_count} invited`}
+                </p>
               </div>
-              <h3 className="truncate font-lab text-lg font-extrabold text-ink">{c.title}</h3>
-              <p className="text-sm font-semibold text-ink/55">
-                {fmtDateTime(c.start_at)} → {fmtDateTime(c.end_at)} · {c.entry_count} entries, {c.submitted_count} submitted
-              </p>
+              <div className="flex flex-wrap gap-2">
+                <button onClick={() => loadEntries(c)} className="lab-btn flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-3 py-2 font-extrabold text-ink">
+                  <Users className="h-4 w-4" /> Entries{c.entry_count ? ` (${c.entry_count})` : ''}
+                </button>
+                <button onClick={() => setInviting(c)} className="lab-btn flex items-center gap-2 rounded-xl border-2 border-ink bg-white px-3 py-2 font-extrabold text-ink">
+                  <Mail className="h-4 w-4" /> Invites{c.invite_count ? ` (${c.invite_count})` : ''}
+                </button>
+                <button onClick={() => setEditing(c)} className="lab-btn flex items-center gap-2 rounded-xl border-2 border-ink bg-white px-3 py-2 font-extrabold text-ink">
+                  <Pencil className="h-4 w-4" /> Edit
+                </button>
+                <button onClick={() => duplicate(c)} className="rounded-lg p-2 text-ink/35 transition-colors hover:bg-pcb/10 hover:text-pcb" aria-label={`Duplicate ${c.title}`} title="Copy this contest, invite list and all">
+                  <Copy className="h-4 w-4" />
+                </button>
+                <button onClick={() => remove(c)} className="rounded-lg p-2 text-ink/35 transition-colors hover:bg-wire/10 hover:text-wire" aria-label={`Delete ${c.title}`}>
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              <button onClick={() => loadEntries(c)} className="lab-btn flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-3 py-2 font-extrabold text-ink">
-                <Users className="h-4 w-4" /> Entries
-              </button>
-              <button onClick={() => setEditing(c)} className="lab-btn flex items-center gap-2 rounded-xl border-2 border-ink bg-white px-3 py-2 font-extrabold text-ink">
-                <Pencil className="h-4 w-4" /> Edit
-              </button>
-              <button onClick={() => remove(c)} className="rounded-lg p-2 text-ink/35 transition-colors hover:bg-wire/10 hover:text-wire" aria-label={`Delete ${c.title}`}>
-                <Trash2 className="h-4 w-4" />
-              </button>
+
+            <div className="border-t-2 border-dashed border-ink/10 pt-3">
+              <ContestControls contest={c} now={now} onChange={merge} onError={setError} />
             </div>
           </article>
         );

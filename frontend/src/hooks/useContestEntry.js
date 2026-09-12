@@ -5,6 +5,13 @@ import { contestService } from '../services/api';
 const SAVE_DELAY_MS = 2500;
 // After a failed save (e.g. the wifi dropped), try again this often.
 const RETRY_DELAY_MS = 10000;
+// How often to re-read the contest window. An organizer can start a contest
+// early, hand out extra minutes or call time from the admin page, and a
+// student already sitting on the page should see that without refreshing.
+const POLL_MS = 15000;
+// Keep polling this long past the deadline, so a contest reopened just after
+// time was called still reaches the students who are still on the page.
+const POLL_AFTER_END_MS = 5 * 60 * 1000;
 
 const backupKey = (contestId, userId) => `contest-backup:${contestId}:${userId}`;
 
@@ -150,7 +157,7 @@ export function useContestEntry(contestId, userId) {
           load();
           return;
         }
-        setSaveError('Not saved to the server yet — your work is kept on this device and will retry.');
+        setSaveError('Not saved to the server yet: your work is kept on this device and will retry.');
         setSaveState('error');
         timerRef.current = setTimeout(() => saveRef.current?.(), RETRY_DELAY_MS);
       })
@@ -194,13 +201,37 @@ export function useContestEntry(contestId, userId) {
     load();
   }, [load]);
 
+  // Poll the window, never the entry: re-reading the entry would fight with
+  // whatever the student is typing, while the contest row is read-only to
+  // them and safe to refresh at any moment.
+  useEffect(() => {
+    if (!contest) return undefined;
+    const id = setInterval(async () => {
+      if (document.hidden) return;
+      if (Date.now() + offset > Date.parse(contest.end_at) + POLL_AFTER_END_MS) return;
+      try {
+        const { data } = await contestService.get(contestId);
+        setOffset(Date.parse(data.server_now) - Date.now());
+        // Only the window and the published flag can move under the student;
+        // swapping the whole row in would also re-seal a brief mid-contest if
+        // the poll and the clock ever disagreed by a second.
+        setContest((cur) => (cur && (cur.start_at !== data.start_at
+          || cur.end_at !== data.end_at
+          || cur.results_published !== data.results_published)
+          ? { ...cur, start_at: data.start_at, end_at: data.end_at, results_published: data.results_published }
+          : cur));
+      } catch { /* a dropped poll is harmless; the next one is 15s away */ }
+    }, POLL_MS);
+    return () => clearInterval(id);
+  }, [contestId, contest, offset]);
+
   // The moment the countdown crosses the start, fetch the now-unsealed brief.
   // At the end, push the last edits while the server's grace window is open.
   const prevPhase = useRef(phase);
   useEffect(() => {
     const was = prevPhase.current;
     prevPhase.current = phase;
-    if (was === 'upcoming' && phase === 'live') load();
+    if (phase === 'live' && was && was !== 'live') load();
     if (was === 'live' && phase === 'ended' && codeRef.current !== savedRef.current) saveRef.current?.();
   }, [phase, load]);
 

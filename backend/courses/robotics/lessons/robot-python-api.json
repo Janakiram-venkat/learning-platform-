@@ -1,7 +1,7 @@
 {
   "lessonId": "robot-python-api",
   "title": "The robot API",
-  "description": "One small object, a dozen or so methods — this is the entire vocabulary you'll use to program ARIA in real code.",
+  "description": "One small object, a dozen or so methods: this is the entire vocabulary you'll use to program ARIA in real code.",
   "difficulty": "Beginner",
   "content": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Every Python exercise from here on gives you one ready-made object called robot, with a small, fixed set of methods. It mirrors the block palette from Module 9 almost exactly on purpose — you already know what every one of these does."
+      "value": "Every Python exercise from here on gives you one ready-made object called robot, with a small, fixed set of methods. It mirrors the block palette from Module 9 almost exactly on purpose: you already know what every one of these does."
     },
     {
       "type": "code",
@@ -19,7 +19,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Notice the shape of that list: some methods act (forward, left, stop) and some sense (distance, line) — the exact sense/act split from Module 1's very first lesson, now expressed as real function calls."
+      "value": "Notice the shape of that list: some methods act (forward, left, stop) and some sense (distance, line), the exact sense/act split from Module 1's very first lesson, now expressed as real function calls."
     },
     {
       "type": "widget",
@@ -37,7 +37,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: robot is a small, fixed API — a handful of act methods and a handful of sense methods, deliberately mirroring the block palette you already know."
+      "value": "Key takeaway: robot is a small, fixed API with a handful of act methods and a handful of sense methods, deliberately mirroring the block palette you already know."
     }
   ],
   "quiz": [
@@ -49,7 +49,7 @@
         "robot.left()"
       ],
       "answer": 1,
-      "explain": "distance() reports information back to your code; forward() and left() change the robot's physical state — sense vs act."
+      "explain": "distance() reports information back to your code; forward() and left() change the robot's physical state: sense vs act."
     },
     {
       "question": "What does robot.forward() do if you call it with no arguments at all?",
@@ -59,7 +59,7 @@
         "It does nothing"
       ],
       "answer": 1,
-      "explain": "Every parameter has a default value, so calling it bare still does something sensible — speed 50 for 0.3 seconds."
+      "explain": "Every parameter has a default value, so calling it bare still does something sensible: speed 50 for 0.3 seconds."
     }
   ]
 }

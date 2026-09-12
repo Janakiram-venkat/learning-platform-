@@ -1,4 +1,4 @@
-"""stage — the Pocket Lab game kit.
+"""stage: the Pocket Lab game kit.
 
 A deliberately tiny game library for kids. The whole public API is:
 
@@ -6,12 +6,14 @@ A deliberately tiny game library for kids. The whole public API is:
 
 Design note for maintainers: `game.start()` does NOT loop. It only marks the
 game as ready and hands control back. The JavaScript side then drives
-requestAnimationFrame and calls `_tick()` once per frame. That keeps the
+requestAnimationFrame and calls `_step_json()` once per screen frame (the
+checker calls `_tick_json()` once per frame, headless). That keeps the
 student's program a normal run-to-completion script, so nothing blocks the
 worker and an infinite loop in their own code is still catchable.
 """
 
 import json
+import math
 import random as _random
 
 # The stage every newly-created sprite attaches itself to. Set by Game().
@@ -69,6 +71,15 @@ PICTURES = {
 globals().update({name.upper(): char for name, char in PICTURES.items()})
 
 
+# --- the sound pack ---------------------------------------------------------
+#
+# game.play("coin") plays one of these. The sounds are made up on the spot by
+# the browser (see sounds.js), so there are no files to load: the names here
+# must match the ones there.
+SOUNDS = ("coin", "jump", "hit", "boom", "laser", "powerup", "win", "lose",
+          "click", "pop")
+
+
 def picture(name):
     """Turn a picture name like "cat" into the emoji it stands for.
 
@@ -115,7 +126,7 @@ class _Thing:
 
     # --- collision ------------------------------------------------------
     def _box(self):
-        """(left, top, right, bottom) — overridden by shapes with real size."""
+        """(left, top, right, bottom): overridden by shapes with real size."""
         half = getattr(self, "size", 40) / 2
         return (self.x - half, self.y - half, self.x + half, self.y + half)
 
@@ -136,7 +147,7 @@ class Sprite(_Thing):
 
     `look` can be a picture name ("cat"), a constant (CAT), or an emoji you
     pasted in. `color` only matters when the look is plain text rather than an
-    emoji — emoji bring their own colours.
+    emoji; emoji bring their own colours.
     """
 
     def __init__(self, look="🙂", x=0, y=0, size=40, name=None, color="#FFFFFF"):
@@ -144,16 +155,35 @@ class Sprite(_Thing):
         self.size = size
         self.color = color
         # How stretched the sprite is drawn, across and down. 1.0 is normal
-        # size; bigger stretches that way, smaller squashes it. Purely visual
-        # — collision boxes never look at these.
+        # size; bigger stretches that way, smaller squashes it. Purely visual:
+        # collision boxes never look at these.
         self.scale_x = 1.0
         self.scale_y = 1.0
+        # How far the sprite is turned, in degrees, clockwise. 0 is the
+        # picture as drawn; 90 is a quarter turn. Purely visual, like scale.
+        self.angle = 0
         super().__init__(x, y, name)
+
+    def turn(self, degrees):
+        """Spin by this many degrees: positive is clockwise."""
+        self.angle = (self.angle + degrees) % 360
+
+    def point_at(self, x, y):
+        """Turn so the sprite's RIGHT-hand side faces the spot (x, y).
+
+        Most pictures don't face right to begin with (a rocket points up and to
+        the right), so add a few degrees afterwards if yours looks off:
+        cannon.point_at(game.mouse_x, game.mouse_y); cannon.turn(45)
+        """
+        if x == self.x and y == self.y:
+            return
+        self.angle = math.degrees(math.atan2(y - self.y, x - self.x)) % 360
 
     def _render(self):
         return {"kind": "emoji", "look": self.look, "x": self.x, "y": self.y,
                 "size": self.size, "color": self.color,
-                "scale_x": self.scale_x, "scale_y": self.scale_y}
+                "scale_x": self.scale_x, "scale_y": self.scale_y,
+                "angle": self.angle}
 
 
 class Box(_Thing):
@@ -202,6 +232,13 @@ class Text(_Thing):
         self.color = color
         super().__init__(x, y, name)
 
+    def _box(self):
+        # Text is drawn from its top-left corner, so its hitbox is too. The
+        # width is a guess (bold letters average a bit over half their height
+        # across): close enough for "did the ball hit the word".
+        width = len(str(self.words)) * self.size * 0.6
+        return (self.x, self.y, self.x + width, self.y + self.size)
+
     def _render(self):
         return {"kind": "text", "words": str(self.words), "x": self.x, "y": self.y,
                 "size": self.size, "color": self.color}
@@ -224,6 +261,13 @@ class Game:
         self._started = False
         self._shake_frames = 0
         self._shake_power = 0
+        # Where the mouse is on the stage. Starts in the middle until the
+        # mouse first moves over the screen.
+        self.mouse_x = width // 2
+        self.mouse_y = height // 2
+        self._mouse_held = False
+        self._clicks = []        # [(x, y), ...] pressed since the last frame
+        self._sounds = []        # names played since the last snapshot
         _stage = self
 
     def _add(self, thing):
@@ -240,18 +284,48 @@ class Game:
         self._started = True
 
     def stop(self):
-        """End the game — the loop stops calling your every_frame function."""
+        """End the game: the loop stops calling your every_frame function."""
         self.over = True
 
     def shake(self, frames=8, power=6):
-        """Rattle the whole screen for a moment — call this on a big impact."""
+        """Rattle the whole screen for a moment: call this on a big impact."""
         self._shake_frames = frames
         self._shake_power = power
+
+    def play(self, sound):
+        """Play a sound effect: game.play("coin"). See SOUNDS for the names."""
+        name = str(sound).strip().lower()
+        if name not in SOUNDS:
+            raise ValueError(
+                f'There is no sound called "{sound}". Try one of: ' + ", ".join(SOUNDS))
+        self._sounds.append(name)
 
     # --- input ----------------------------------------------------------
     def key_down(self, key):
         """True while an arrow key or letter is held: game.key_down("left")."""
         return str(key).lower() in self._keys
+
+    def mouse_down(self):
+        """True while the mouse button (or a finger) is pressed on the stage."""
+        return self._mouse_held
+
+    def clicked(self, thing=None):
+        """True on the frame a click lands (on `thing`, if you name one).
+
+        if game.clicked(star):
+            star.remove()
+        """
+        if thing is None:
+            return bool(self._clicks)
+        if thing.dead or not thing.visible:
+            return False
+        return any(_inside(thing, x, y) for x, y in self._clicks)
+
+    def mouse_over(self, thing):
+        """True while the mouse pointer is on top of `thing`."""
+        if thing.dead or not thing.visible:
+            return False
+        return _inside(thing, self.mouse_x, self.mouse_y)
 
     # --- helpers students use -------------------------------------------
     def on_screen(self, thing, margin=0):
@@ -272,8 +346,24 @@ class Game:
             thing.y -= bottom - self.height
 
     # --- called by the runtime, not by students --------------------------
-    def _tick(self, keys):
+    def _set_mouse(self, mouse):
+        """Take in the mouse as the page saw it: {"x", "y", "down", "clicks"}.
+
+        Called with None on the catch-up frames of a screen frame, so a click
+        counts once rather than once per update.
+        """
+        if mouse is None:
+            self._clicks = []
+            return
+        if mouse.get("x") is not None:
+            self.mouse_x = mouse["x"]
+            self.mouse_y = mouse["y"]
+        self._mouse_held = bool(mouse.get("down"))
+        self._clicks = [(c[0], c[1]) for c in mouse.get("clicks") or []]
+
+    def _tick(self, keys, mouse=None):
         self._keys = set(keys)
+        self._set_mouse(mouse)
         if self._update is not None and not self.over:
             self._update()
         if self._shake_frames > 0:
@@ -281,10 +371,14 @@ class Game:
         self.frame += 1
         self.things = [t for t in self.things if not t.dead]
 
-    def _snapshot(self):
-        """Everything the renderer and the behaviour checker need this frame."""
+    def _snapshot(self, for_checker=True):
+        """Everything the renderer and the behaviour checker need this frame.
+
+        Live play only draws, so it asks for for_checker=False and skips the
+        `all` list: with a lot of sprites that list is most of the work.
+        """
         # One random jitter per frame, shared by every visible thing, so the
-        # whole picture rattles together like a camera shake — not each
+        # whole picture rattles together like a camera shake, not each
         # sprite jittering on its own. It only ever touches the RENDER list,
         # never the `all` list the checker grades, so shaking a passing game
         # can't make its behaviour checks flaky.
@@ -298,31 +392,43 @@ class Game:
         for t in self.things:
             if not t.visible:
                 continue
-            rendered = dict(t._render(), name=t.name, visible=t.visible)
+            # Only what the painter needs: names and visibility are the
+            # checker's business and live in `all`.
+            rendered = t._render()
             rendered["x"] += jx
             rendered["y"] += jy
             things.append(rendered)
 
-        return {
+        snap = {
             "width": self.width,
             "height": self.height,
             "background": self.background,
             "frame": self.frame,
             "over": self.over,
             "shaking": self._shake_frames > 0,
+            "sounds": list(self._sounds),
             "things": things,
-            # `all` includes hidden things too — the behaviour checker needs to
+        }
+        if for_checker:
+            # `all` includes hidden things too: the behaviour checker needs to
             # follow something even while it is invisible. `words` lets a check
-            # see a score label actually change. `scale_x`/`scale_y` let it see
-            # a squash-and-stretch effect actually happening.
-            "all": [
+            # see a score label actually change. `scale_x`/`scale_y`/`angle`
+            # let it see squash-and-stretch or spinning actually happening.
+            snap["all"] = [
                 {"name": t.name, "x": t.x, "y": t.y, "kind": type(t).__name__,
                  "visible": t.visible, "words": getattr(t, "words", None),
                  "scale_x": getattr(t, "scale_x", None),
-                 "scale_y": getattr(t, "scale_y", None)}
+                 "scale_y": getattr(t, "scale_y", None),
+                 "angle": getattr(t, "angle", None)}
                 for t in self.things
-            ],
-        }
+            ]
+        return snap
+
+
+def _inside(thing, x, y):
+    """True when the point (x, y) is inside the thing's hitbox."""
+    left, top, right, bottom = thing._box()
+    return left <= x <= right and top <= y <= bottom
 
 
 # --- runtime bridge (the worker calls these; students never do) -----------
@@ -331,37 +437,49 @@ def _current():
     return _stage
 
 
-def _tick_json(keys_json):
+def _tick_json(keys_json, mouse_json="null"):
+    """One frame for the headless checker, with the full `all` list."""
     g = _stage
     if g is None:
         return "null"
-    g._tick(json.loads(keys_json))
-    return json.dumps(g._snapshot())
+    g._tick(json.loads(keys_json), json.loads(mouse_json))
+    return _send(g, g._snapshot())
 
 
-def _step_json(keys_json, steps):
+def _step_json(keys_json, steps, mouse_json="null"):
     """Advance `steps` frames with the same keys held, then snapshot once.
 
     The live loop runs at a fixed 60 updates a second whatever the screen's
     refresh rate, so one screen frame can owe more than one update. Only the
-    last one gets drawn, so only the last one pays for a snapshot.
+    last one gets drawn, so only the last one pays for a snapshot, and a
+    drawing-only one at that. Sounds from every one of the steps are kept.
     """
     g = _stage
     if g is None:
         return "null"
     keys = json.loads(keys_json)
-    for _ in range(steps):
-        g._tick(keys)
+    mouse = json.loads(mouse_json)
+    for i in range(steps):
+        # Clicks land on the first update only; the rest just see the mouse
+        # where it is.
+        g._tick(keys, mouse if i == 0 or mouse is None else dict(mouse, clicks=[]))
         if g.over:
             break
-    return json.dumps(g._snapshot())
+    return _send(g, g._snapshot(for_checker=False))
 
 
 def _snapshot_json():
+    """Frame zero, drawn before the loop starts. Carries setup's sounds."""
     g = _stage
     if g is None:
         return "null"
-    return json.dumps(g._snapshot())
+    return _send(g, g._snapshot(for_checker=False))
+
+
+def _send(g, snap):
+    # Each sound goes out in exactly one snapshot, then is forgotten.
+    g._sounds = []
+    return json.dumps(snap)
 
 
 def _started():

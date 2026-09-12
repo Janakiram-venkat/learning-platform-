@@ -28,7 +28,7 @@ export default function Solution({ code, onUseCode }) {
         <FileCode2 className="h-5 w-5 text-pcb" /> One way to write it
       </h3>
       <p className="mb-4 text-sm text-ink/55">
-        There's never only one right answer — the check watches what your game <em>does</em>, not how you
+        There's never only one right answer: the check watches what your game <em>does</em>, not how you
         typed it. Have a go yourself first, but if you're stuck, reading this and then running it counts
         as learning too.
       </p>
@@ -69,7 +69,7 @@ export default function Solution({ code, onUseCode }) {
             </button>
           </div>
           <p className="mt-3 text-sm text-ink/55">
-            Try changing a number in it and pressing Play — poking at working code is one of the fastest
+            Try changing a number in it and pressing Play: poking at working code is one of the fastest
             ways to work out what each part was holding up.
           </p>
         </>

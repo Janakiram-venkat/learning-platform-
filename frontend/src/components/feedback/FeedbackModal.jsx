@@ -90,7 +90,7 @@ export default function FeedbackModal({ open, courseId, onClose }) {
             <div className="mb-6 text-center">
               <h2 className="font-lab text-xl font-extrabold text-ink">How's it going so far?</h2>
               <p className="mt-1 text-sm text-ink/55">
-                Rate the lessons and animations — your feedback shapes what's next.
+                Rate the lessons and animations: your feedback shapes what's next.
               </p>
             </div>
 

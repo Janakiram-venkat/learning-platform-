@@ -41,7 +41,7 @@ export default function ExploreStage({ stage, onComplete }) {
         <ContinueBar xp={stage.xp} onClick={() => onComplete(true)} />
       ) : (
         <p className="mt-6 text-center text-sm font-semibold text-ink/55">
-          Visited {Object.keys(visited).length}/{stage.locations.length} places — tap them all to continue.
+          Visited {Object.keys(visited).length}/{stage.locations.length} places: tap them all to continue.
         </p>
       )}
     </div>

@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Every decision has the same shape: check something, then choose one of two branches based on the answer. In flowcharts this is traditionally drawn as a diamond — one path in, two paths out, depending on true or false."
+      "value": "Every decision has the same shape: check something, then choose one of two branches based on the answer. In flowcharts this is traditionally drawn as a diamond: one path in, two paths out, depending on true or false."
     },
     {
       "type": "code",
@@ -19,7 +19,7 @@
     },
     {
       "type": "paragraph",
-      "value": "You already met this exact idea back in Module 1: \"if distance < 20, turn instead of driving forward\" is a decision. Here, the block version checks a simpler question — is there a wall directly ahead — but it's structurally identical."
+      "value": "You already met this exact idea back in Module 1: \"if distance < 20, turn instead of driving forward\" is a decision. Here, the block version checks a simpler question (is there a wall directly ahead) but it's structurally identical."
     },
     {
       "type": "widget",
@@ -36,11 +36,11 @@
     },
     {
       "type": "tip",
-      "value": "An if block without an else isn't broken — it just means \"do nothing extra\" when the condition is false. Both branches existing side by side, though, is what makes a decision a true fork rather than an optional extra step."
+      "value": "An if block without an else isn't broken: it just means \"do nothing extra\" when the condition is false. Both branches existing side by side, though, is what makes a decision a true fork rather than an optional extra step."
     },
     {
       "type": "paragraph",
-      "value": "Key takeaway: a decision checks a condition and runs one of two branches depending on the answer — the same shape as Module 1's \"if distance < 20, turn,\" now something you build yourself."
+      "value": "Key takeaway: a decision checks a condition and runs one of two branches depending on the answer, the same shape as Module 1's \"if distance < 20, turn,\" now something you build yourself."
     }
   ],
   "quiz": [
@@ -52,7 +52,7 @@
         "Only when the checked condition is false"
       ],
       "answer": 1,
-      "explain": "The 'then' branch is specifically the true case — that's the whole point of branching on a condition."
+      "explain": "The 'then' branch is specifically the true case: that's the whole point of branching on a condition."
     },
     {
       "question": "What can a decision-using program do that a plain sequence-only program can't?",
@@ -62,7 +62,7 @@
         "Use fewer blocks, always"
       ],
       "answer": 1,
-      "explain": "That's the real power of a decision — the same program can produce different behaviour depending on the situation it's actually in."
+      "explain": "That's the real power of a decision: the same program can produce different behaviour depending on the situation it's actually in."
     }
   ]
 }

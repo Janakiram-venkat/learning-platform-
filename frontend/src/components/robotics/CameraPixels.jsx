@@ -64,7 +64,7 @@ export default function CameraPixels({ block }) {
             className="h-2 w-full cursor-grab accent-pcb active:cursor-grabbing" />
         </label>
         <p className="mt-3 text-center text-sm font-semibold text-ink/60">
-          Zoomed out, this reads as a picture. Zoomed in, it's nothing but a grid of numbers — that's all a camera ever actually captures.
+          Zoomed out, this reads as a picture. Zoomed in, it's nothing but a grid of numbers: that's all a camera ever actually captures.
         </p>
       </div>
     </WidgetShell>

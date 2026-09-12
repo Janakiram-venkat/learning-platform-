@@ -2,7 +2,7 @@
   "moduleId": 1,
   "title": "Greeting Bot",
   "emoji": "🤖",
-  "brief": "Build a friendly robot that talks to people! Your Greeting Bot asks two questions — a name and an age — and then says two things back.",
+  "brief": "Build a friendly robot that talks to people! Your Greeting Bot asks two questions, a name and an age, and then says two things back.",
   "problem": {
     "goal": "Write a program that asks for a person's name and age, greets them by name, and tells them how old they will be next year.",
     "example": {
@@ -23,10 +23,10 @@
   ],
   "starterCode": "# 🤖 Greeting Bot\n\n# ---- Already done for you ----\n# input() shows a question and gives back whatever the person types.\nname = input(\"What is your name? \")\n\n# int() turns the typed text into a real number, so we can do math with it.\nage = int(input(\"How old are you? \"))\n\n\n# ---- Your turn! ----\n\n# TODO 1: print a greeting that uses name.\n#         For Alex it must read:  Hello, Alex!\n\n\n# TODO 2: print how old they will be next year.\n#         For a 10 year old it must read:  Next year you will be 11\n\n",
   "hints": [
-    "Start small. Add the line print(\"Hello!\") and press Run — you will see it appear in the terminal. That is all print() does: it shows a message.",
-    "To stick words together, use + between them. Example: greeting = \"Hi, \" + \"Sam\"  →  Hi, Sam. Watch the space inside the quotes — without it you get Hi,Sam.",
+    "Start small. Add the line print(\"Hello!\") and press Run: you will see it appear in the terminal. That is all print() does: it shows a message.",
+    "To stick words together, use + between them. Example: greeting = \"Hi, \" + \"Sam\"  →  Hi, Sam. Watch the space inside the quotes: without it you get Hi,Sam.",
     "For TODO 1 you need three pieces glued together: the words \"Hello, \", then the variable name, then the \"!\".",
-    "Numbers can't be glued to words directly — Python complains. Wrap the number in str() first. Example: print(\"I have \" + str(3 + 2) + \" apples\")  →  I have 5 apples",
+    "Numbers can't be glued to words directly: Python complains. Wrap the number in str() first. Example: print(\"I have \" + str(3 + 2) + \" apples\")  →  I have 5 apples",
     "For TODO 2, next year's age is age + 1. So you need the words \"Next year you will be \" glued to str(age + 1)."
   ],
   "inputPlaceholder": "Alex\n10",
@@ -48,5 +48,5 @@
       "expect": ["Hello, Sam!", "Next year you will be 13"]
     }
   ],
-  "successMessage": "Your Greeting Bot is ALIVE! 🤖 It asks questions, listens to the answer, does math, and greets everyone correctly. That's a real interactive program — awesome work!"
+  "successMessage": "Your Greeting Bot is ALIVE! 🤖 It asks questions, listens to the answer, does math, and greets everyone correctly. That's a real interactive program: awesome work!"
 }

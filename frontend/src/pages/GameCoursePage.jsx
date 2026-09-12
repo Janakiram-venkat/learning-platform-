@@ -71,12 +71,20 @@ export default function GameCoursePage() {
               Before you start: {course.prerequisite.note}
             </p>
           )}
-          <Link
-            to={`/course/${courseId}/reference`}
-            className="lab-btn mt-5 inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-white px-4 py-2.5 font-extrabold text-ink"
-          >
-            <BookOpen className="h-4 w-4" /> The stage library — every tool, explained
-          </Link>
+          <div className="mt-5 flex flex-wrap justify-center gap-3">
+            <Link
+              to={`/course/${courseId}/reference`}
+              className="lab-btn inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-white px-4 py-2.5 font-extrabold text-ink"
+            >
+              <BookOpen className="h-4 w-4" /> The stage library: every tool, explained
+            </Link>
+            <Link
+              to="/manual"
+              className="lab-btn inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-4 py-2.5 font-extrabold text-ink"
+            >
+              <Gamepad2 className="h-4 w-4" /> The game dev manual
+            </Link>
+          </div>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">

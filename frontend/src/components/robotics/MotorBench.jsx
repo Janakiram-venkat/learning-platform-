@@ -61,7 +61,7 @@ export default function MotorBench({ block }) {
               />
             </div>
             <p className="font-mono-lab text-xs font-bold text-ink/60">{current.toFixed(2)} A drawn</p>
-            {stalled && <p className="text-xs font-bold text-wire">too much load for this voltage — current spikes, motor can't turn</p>}
+            {stalled && <p className="text-xs font-bold text-wire">too much load for this voltage: current spikes, motor can't turn</p>}
           </div>
         </div>
 

@@ -10,7 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Run current through a wire and it creates a small magnetic field around itself — that's not a robotics fact, it's a plain physics fact, true of any wire, anywhere. Put that wire near a fixed magnet, arranged the right way, and the two magnetic fields push and pull against each other. Shape the wire into a loop that's free to turn, and that push becomes rotation."
+      "value": "Run current through a wire and it creates a small magnetic field around itself: that's not a robotics fact, it's a plain physics fact, true of any wire, anywhere. Put that wire near a fixed magnet, arranged the right way, and the two magnetic fields push and pull against each other. Shape the wire into a loop that's free to turn, and that push becomes rotation."
     },
     {
       "type": "code",
@@ -19,7 +19,7 @@
     },
     {
       "type": "paragraph",
-      "value": "That's the entire idea behind a DC motor. Everything in the next lesson — brushes, a commutator, coils — exists purely to keep that push happening continuously as the coil spins past the point where it would otherwise stop and settle."
+      "value": "That's the entire idea behind a DC motor. Everything in the next lesson (brushes, a commutator, coils) exists purely to keep that push happening continuously as the coil spins past the point where it would otherwise stop and settle."
     },
     {
       "type": "heading",
@@ -27,11 +27,11 @@
     },
     {
       "type": "paragraph",
-      "value": "Motors are how a robot turns a THINK decision into an ACT in the physical world. Everything else in this module — driver chips, wheels, differential steering — is really just plumbing around this one spinning trick, getting it wired safely and steered usefully."
+      "value": "Motors are how a robot turns a THINK decision into an ACT in the physical world. Everything else in this module (driver chips, wheels, differential steering) is really just plumbing around this one spinning trick, getting it wired safely and steered usefully."
     },
     {
       "type": "tip",
-      "value": "Reverse the current direction and the push reverses too — that single fact is why swapping two wires on a motor makes it spin the opposite way. You'll use exactly this in the H-bridge lesson coming up."
+      "value": "Reverse the current direction and the push reverses too: that single fact is why swapping two wires on a motor makes it spin the opposite way. You'll use exactly this in the H-bridge lesson coming up."
     },
     {
       "type": "paragraph",
@@ -47,7 +47,7 @@
         "Friction with the fixed magnet"
       ],
       "answer": 0,
-      "explain": "Any current-carrying wire creates a magnetic field around itself — that's the whole starting point of a motor."
+      "explain": "Any current-carrying wire creates a magnetic field around itself: that's the whole starting point of a motor."
     },
     {
       "question": "What happens if you reverse the direction of current through a motor?",

@@ -1,0 +1,15 @@
+{
+  "moduleId": 1,
+  "title": "Coming Soon",
+  "emoji": "🌐",
+  "tagline": "The Web Development track is being built. Here's a peek at what's coming.",
+  "lessons": [
+    {
+      "lessonId": "webdev-intro",
+      "title": "What Is Web Development?",
+      "duration": "5 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

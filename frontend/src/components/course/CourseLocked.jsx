@@ -10,7 +10,7 @@ import { Lock, ArrowRight } from 'lucide-react';
  */
 export default function CourseLocked({ title, emoji = '🔒', done, required, prerequisite }) {
   const prereqTitle = prerequisite?.courseTitle || 'the earlier course';
-  const startPath = prerequisite?.startPath || '/#tracks';
+  const startPath = prerequisite?.startPath || '/courses';
   const pct = required ? (done / required) * 100 : 0;
 
   return (

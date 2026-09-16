@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext';
 // Home is the landing page, so it stays in the main bundle. Everything else is
 // split out: the course pages pull in Monaco and the game runtime, and a student
 // who's only looking at the landing page shouldn't be downloading either.
+const CoursesPage = lazy(() => import('../pages/CoursesPage'));
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const LessonPage = lazy(() => import('../pages/LessonPage'));
 const AssignmentPage = lazy(() => import('../pages/AssignmentPage'));
@@ -20,6 +21,7 @@ const GameManual = lazy(() => import('../pages/GameManual'));
 const AdminPage = lazy(() => import('../pages/AdminPage'));
 const ContestListPage = lazy(() => import('../pages/ContestListPage'));
 const ContestPage = lazy(() => import('../pages/ContestPage'));
+const VirtualLabPage = lazy(() => import('../pages/VirtualLabPage'));
 
 function RouteFallback() {
   return (
@@ -49,6 +51,10 @@ export default function AppRoutes() {
             who have not worked through the course, so "read the manual first" is
             only fair advice if reading it does not need an account. */}
         <Route path="/manual" element={<GameManual />} />
+        <Route path="/virtual-lab" element={<VirtualLabPage />} />
+        {/* The catalogue is public too: a visitor should see what they would be
+            signing up for. Opening a track still hits RequireAuth below. */}
+        <Route path="/courses" element={<CoursesPage />} />
 
         {/* Everything course-related needs an account. Grouping them under one
             pathless route means a new course page is gated by default. */}

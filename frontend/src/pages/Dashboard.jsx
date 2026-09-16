@@ -264,7 +264,7 @@ export default function Dashboard() {
             <p className="max-w-sm font-semibold text-ink/60">
               Finish every lesson in a module to earn your first badge. It'll show up right here.
             </p>
-            <Link to="/#tracks" className="lab-btn mt-1 inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-5 py-2.5 font-extrabold text-ink">
+            <Link to="/courses" className="lab-btn mt-1 inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-5 py-2.5 font-extrabold text-ink">
               <Rocket className="h-4 w-4" /> Start a module
             </Link>
           </div>
@@ -283,7 +283,7 @@ export default function Dashboard() {
             <p className="mx-auto mb-6 max-w-md font-semibold text-white/85">
               Every lesson adds XP and gets you closer to the next badge. Pick up where you left off.
             </p>
-            <Link to="/#tracks" className="lab-btn inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-7 py-3.5 text-lg font-extrabold text-ink">
+            <Link to="/courses" className="lab-btn inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-7 py-3.5 text-lg font-extrabold text-ink">
               <Star className="h-5 w-5 fill-ink" /> Keep learning
               <ArrowRight className="h-5 w-5" />
             </Link>

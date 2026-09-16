@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  ArrowRight, Terminal, Bot, Rocket, Zap, Code2, Trophy,
-  MousePointerClick, CheckCircle2, Wrench, Cpu, Power, Play, RotateCcw, Lock,
+  ArrowRight, Terminal, Bot, Rocket, Code2, Trophy,
+  MousePointerClick, CheckCircle2, Wrench, Cpu, Power, Play, RotateCcw,
 } from 'lucide-react';
 import logo from '../assets/pocketlab.png';
-import { useCourseLock } from '../hooks/useCoursePrerequisite';
 
 /* ---------------------------------------------------------------------------
    Pocket Lab — "Workbench" home page.
@@ -362,73 +361,12 @@ const STEPS = [
   { n: '03', Icon: Trophy, led: '#E8503A', title: 'Earn XP & badges', desc: 'Level up, collect badges, and unlock new powers as you master each skill.' },
 ];
 
-// Learning tracks, framed as bench modules. `status` drives the LED state.
-const TRACKS = [
-  {
-    ref: 'TRK-PY', emoji: '🐍', title: 'Python', line: 'Beginner friendly',
-    desc: 'Master the language behind games, AI, and the web, one puzzle at a time.',
-    status: 'READY', led: '#3FBF7F', to: '/course/python/lesson/intro',
-  },
-  {
-    ref: 'TRK-AI', emoji: '🤖', title: 'AI & Machine Learning', line: 'Explorer',
-    desc: 'Train smart models, teach a computer to see, and build your own mini-AI.',
-    status: 'READY', led: '#23B5D3', to: '/course/ai/lesson/intro',
-  },
-  {
-    ref: 'TRK-GAME', emoji: '🎮', title: 'Game Development', line: 'After Python 1–5',
-    desc: 'Build real playable games: bouncing balls, falling fruit, and a score to beat.',
-    status: 'READY', led: '#E8503A', to: '/course/gamedev/games',
-    // Gated: the card reads its own lock state from gamedev/course.json.
-    courseId: 'gamedev',
-  },
-  {
-    ref: 'TRK-BOT', emoji: '🦾', title: 'Robotics', line: 'No electronics needed',
-    desc: 'Meet the machines that sense, think and act, then design one of your own.',
-    status: 'READY', led: '#FFC93C', to: '/course/robotics/lesson/robot-intro',
-  },
-];
-
 // Testimonials as lab-notebook field notes.
 const NOTES = [
   { quote: 'I built my own number-guessing game on day one. Coding feels like playing!', name: 'Aarav', age: 11, ref: 'LOG-114' },
   { quote: 'The badges make me want to finish every level. I taught an AI to recognize cats!', name: 'Mia', age: 9, ref: 'LOG-207' },
   { quote: 'I never thought I could write real Python. Now I help my friends debug theirs.', name: 'Rohan', age: 12, ref: 'LOG-333' },
 ];
-
-// One track card. Split out of the grid below because a gated track has to ask
-// the progress layer whether it's open yet, and that's a hook per card.
-function TrackCard({ track }) {
-  const { ref, emoji, title, line, desc, status, led, to, courseId } = track;
-  const gate = useCourseLock(courseId);
-
-  return (
-    <div className="lab-panel lab-lift flex flex-col p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <span className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-ink bg-white text-2xl" aria-hidden>{emoji}</span>
-        <span className="inline-flex items-center gap-1.5 ref-tag text-ink/55">
-          {gate.locked ? (
-            <><Lock className="h-3.5 w-3.5" /> LOCKED</>
-          ) : (
-            <><span className="led" style={{ color: led }} /> {status}</>
-          )}
-        </span>
-      </div>
-      <span className="ref-tag mb-1 text-ink/45">{ref}</span>
-      <h3 className="font-lab mb-1 text-xl font-bold">{title}</h3>
-      <p className="ref-tag mb-3 text-pcb">
-        {gate.locked ? `${gate.done} / ${gate.required} Python modules done` : line}
-      </p>
-      <p className="mb-5 flex-1 font-semibold text-ink/65">{desc}</p>
-      <Link
-        to={to}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-ink px-4 py-2.5 font-extrabold text-white transition-colors hover:bg-pcb"
-      >
-        {gate.locked ? <><Lock className="h-4 w-4" /> See what unlocks it</>
-          : <><Zap className="h-4 w-4" /> Open module</>}
-      </Link>
-    </div>
-  );
-}
 
 function Eyebrow({ children }) {
   return (
@@ -441,7 +379,7 @@ function Eyebrow({ children }) {
 
 export default function Home() {
   // Scroll to an in-page section when arriving with a hash (e.g. the navbar's
-  // "Courses" link points to /#tracks from any page).
+  // "See how it works" button points to #how-it-works).
   const { hash } = useLocation();
   useEffect(() => {
     if (!hash) return;
@@ -468,14 +406,14 @@ export default function Home() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#tracks"
+              <Link
+                to="/courses"
                 className="lab-btn group inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-7 py-3.5 text-lg font-extrabold text-ink"
               >
                 <Power className="h-5 w-5" />
                 Start Learning 
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </a>
+              </Link>
               <a
                 href="#how-it-works"
                 className="lab-btn inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-white px-7 py-3.5 text-lg font-extrabold text-ink"
@@ -616,23 +554,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ Tracks / pick your path ============ */}
-      <section id="tracks" className="bench-grid w-full scroll-mt-20 border-y-2 border-ink/10 py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <Eyebrow>Modules</Eyebrow>
-          <h2 className="font-lab mb-3 text-3xl font-extrabold sm:text-4xl">Pick your path</h2>
-          <p className="mb-12 max-w-2xl text-lg font-semibold text-ink/65">
-            Start with Python, then plug in AI as you level up.
-          </p>
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            {TRACKS.map((track) => (
-              <TrackCard key={track.ref} track={track} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ============ Field notes (testimonials) ============ */}
       <section className="w-full bg-paper py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
@@ -677,13 +598,13 @@ export default function Home() {
                 Jump in free and write your very first line of code today. The bench
                 is powered up and waiting.
               </p>
-              <a
-                href="#tracks"
+              <Link
+                to="/courses"
                 className="lab-btn inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-8 py-3.5 text-lg font-extrabold text-ink"
               >
                 <Rocket className="h-5 w-5" /> Start building free
                 <ArrowRight className="h-5 w-5" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -697,7 +618,7 @@ export default function Home() {
             <p className="font-semibold text-ink/60">Learn to code, train AI & build robots, by building.</p>
           </div>
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 ref-tag">
-            <a href="#tracks" className="text-ink/60 transition-colors hover:text-pcb">Tracks</a>
+            <Link to="/courses" className="text-ink/60 transition-colors hover:text-pcb">Courses</Link>
             <Link to="/course/python/lesson/intro" className="text-ink/60 transition-colors hover:text-pcb">Python</Link>
             <Link to="/course/ai/lesson/intro" className="text-ink/60 transition-colors hover:text-pcb">AI</Link>
           </nav>

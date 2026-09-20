@@ -45,6 +45,7 @@ const WIDGETS = {
   'training-lab': lazy(() => import('../robotics/TrainingLab')),
   'detection-reveal': lazy(() => import('../robotics/DetectionReveal')),
   'pipeline-stages': lazy(() => import('../robotics/PipelineStages')),
+  'force-arena': lazy(() => import('../science/ForceArena')),
 };
 
 function WidgetSkeleton() {

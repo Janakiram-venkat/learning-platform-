@@ -158,14 +158,47 @@ const RUNTIME = `
     return false;
   }
 
+  // A verdict must ALWAYS be posted. A check that throws becomes a failed
+  // check, and a grader that throws outright still reports every check as
+  // failed with the reason attached — a frame that goes silent is worse than
+  // one that reports bad news, because silence looks like a hang.
   function runChecks(checks) {
-    var results = checks.map(function (check, index) {
+    var results;
+    try {
+      results = checks.map(function (check, index) {
+        try {
+          return { index: index, passed: !!runOne(check), message: check.message };
+        } catch (e) {
+          return {
+            index: index,
+            passed: false,
+            message: check.message,
+            detail: "this check could not run: " + (e && e.message ? e.message : String(e)),
+          };
+        }
+      });
+    } catch (e) {
+      var reason = "the grader failed: " + (e && e.message ? e.message : String(e));
+      // Rebuild the result list with a plain loop rather than checks.map: if
+      // the checks array is malformed enough to have broken the grader, its
+      // own map may throw too, and a throw in here would escape and silence
+      // the frame - the exact failure this whole block exists to prevent.
+      // (No backticks in this comment: it lives inside a template literal.)
+      results = [];
       try {
-        return { index: index, passed: !!runOne(check), message: check.message };
-      } catch (e) {
-        return { index: index, passed: false, message: check.message, detail: e.message };
+        var count = checks && typeof checks.length === "number" ? checks.length : 0;
+        for (var i = 0; i < count; i++) {
+          var c = checks[i];
+          results.push({ index: i, passed: false, message: c && c.message, detail: reason });
+        }
+      } catch (inner) {
+        results = [{ index: 0, passed: false, message: "This task could not be graded.", detail: reason }];
       }
-    });
+      if (!results.length) {
+        results = [{ index: 0, passed: false, message: "This task could not be graded.", detail: reason }];
+      }
+      send({ kind: "error", text: reason });
+    }
     send({ kind: "checks", results: results });
   }
 
@@ -174,15 +207,41 @@ const RUNTIME = `
 })();
 `;
 
-/** The tail script that reports readiness and grades the task, if there is one. */
-function checksScript(checks) {
+/** The tail script that grades the task, if there is one. */
+function checksScript(checks, runId) {
   if (!checks || !checks.length) return '';
   const payload = escapeScript(JSON.stringify(checks));
   // Wait for load so images/late scripts have settled, then give the event
   // loop one tick — enough for a student's `setTimeout(…, 0)` to have fired.
+  // Independent of the runtime script above: if that one failed to parse,
+  // __webdevRunChecks won't exist, and without this fallback the frame would
+  // simply never answer. Posting the bad news directly is the difference
+  // between a visible error and an apparent hang.
   return `<script>
 (function () {
-  var run = function () { setTimeout(function () { window.__webdevRunChecks(${payload}); }, 30); };
+  var checks = ${payload};
+  function report() {
+    try {
+      if (typeof window.__webdevRunChecks === "function") {
+        window.__webdevRunChecks(checks);
+        return;
+      }
+      throw new Error("the sandbox runtime did not load");
+    } catch (e) {
+      var reason = e && e.message ? e.message : String(e);
+      try {
+        parent.postMessage({
+          source: "${RUNNER_SOURCE}",
+          runId: "${runId}",
+          kind: "checks",
+          results: checks.map(function (c, i) {
+            return { index: i, passed: false, message: c && c.message, detail: reason };
+          })
+        }, "*");
+      } catch (ignored) { /* frame detached */ }
+    }
+  }
+  var run = function () { setTimeout(report, 30); };
   if (document.readyState === "complete") run();
   else window.addEventListener("load", run);
 })();
@@ -216,7 +275,7 @@ export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId
 
   const tail =
     (js.trim() ? `<script>\n${escapeScript(js)}\n</script>` : '') +
-    checksScript(checks);
+    checksScript(checks, runId);
 
   const body = String(html ?? '').replace(/<!doctype[^>]*>/i, '');
 

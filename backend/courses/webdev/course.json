@@ -1,7 +1,7 @@
 {
   "courseId": "webdev",
   "title": "Web Development",
-  "description": "Build pages and apps for the browser with HTML, CSS and JavaScript. Full course coming soon.",
+  "description": "Build pages and apps for the browser with HTML, CSS and JavaScript.",
   "level": "Beginner",
   "estimatedHours": 20,
   "emoji": "🌐",
@@ -10,7 +10,7 @@
   "modules": [
     {
       "id": 1,
-      "title": "Coming Soon",
+      "title": "Web Foundations & HTML",
       "file": "module1.json"
     }
   ]

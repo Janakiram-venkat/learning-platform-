@@ -1,15 +1,35 @@
 {
   "moduleId": 1,
-  "title": "Coming Soon",
+  "title": "Web Foundations & HTML",
   "emoji": "🌐",
-  "tagline": "The Web Development track is being built. Here's a peek at what's coming.",
+  "tagline": "How the web works, and how to build a page for it from scratch.",
   "lessons": [
     {
-      "lessonId": "webdev-intro",
-      "title": "What Is Web Development?",
-      "duration": "5 min"
+      "lessonId": "wd1-intro",
+      "title": "Introduction to Web Development",
+      "duration": "25 min"
+    },
+    {
+      "lessonId": "wd1-html-basics",
+      "title": "HTML Basics",
+      "duration": "30 min"
+    },
+    {
+      "lessonId": "wd1-text-links-images",
+      "title": "Text, Links & Images",
+      "duration": "30 min"
+    },
+    {
+      "lessonId": "wd1-lists-tables",
+      "title": "Lists & Tables",
+      "duration": "25 min"
+    },
+    {
+      "lessonId": "wd1-forms",
+      "title": "Forms & Inputs",
+      "duration": "30 min"
     }
   ],
-  "hasProject": false,
+  "hasProject": true,
   "hasLab": false
 }

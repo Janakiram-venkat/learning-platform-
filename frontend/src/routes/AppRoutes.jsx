@@ -9,6 +9,7 @@ import { useAuth } from '../context/AuthContext';
 // who's only looking at the landing page shouldn't be downloading either.
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const LessonPage = lazy(() => import('../pages/LessonPage'));
+const WebDevLessonPage = lazy(() => import('../pages/WebDevLessonPage'));
 const AssignmentPage = lazy(() => import('../pages/AssignmentPage'));
 const ProjectPage = lazy(() => import('../pages/ProjectPage'));
 const LabPage = lazy(() => import('../pages/LabPage'));
@@ -59,6 +60,10 @@ export default function AppRoutes() {
         <Route element={<RequireAuth><Outlet /></RequireAuth>}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/subject/:subject" element={<SubjectPage />} />
+          {/* The web-dev course is paged and runs its code in a browser
+              sandbox, so it has its own lesson page. Declared before the
+              generic route so it wins for this one course id. */}
+          <Route path="/course/webdev/lesson/:lessonId" element={<WebDevLessonPage />} />
           <Route path="/course/:courseId/lesson/:lessonId" element={<LessonPage />} />
           <Route path="/course/:courseId/module/:moduleId/assignment" element={<AssignmentPage />} />
           <Route path="/course/:courseId/module/:moduleId/project" element={<ProjectPage />} />

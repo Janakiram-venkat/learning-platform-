@@ -5,6 +5,11 @@
 import { useState } from 'react';
 import CodeRunner from '../components/webdev/CodeRunner';
 import LessonPager from '../components/lesson-engine/LessonPager';
+import TaskSelfTest from '../components/webdev/TaskSelfTest';
+import { SECTIONS } from '../data/webdev/module1';
+
+/** Every written section, for the task self-test. */
+const REAL_SECTIONS = SECTIONS.filter((s) => s.section).map((s) => s.section);
 
 const CHECKS = [
   { type: 'dom', selector: 'h1', text: 'Hello', message: 'Your page has an <h1> that says "Hello".' },
@@ -170,6 +175,9 @@ export default function WebDevDemo() {
     <div className="bench-grid min-h-screen p-6">
       <div className="mx-auto flex max-w-6xl flex-col gap-10">
         <h1 className="font-lab text-3xl font-extrabold text-ink">Web-dev harness</h1>
+
+        {/* ---------------- Real content self-test ---------------- */}
+        <TaskSelfTest sections={REAL_SECTIONS} />
 
         {/* ---------------- Lesson engine ---------------- */}
         <div className="rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(22,36,29,0.9)] sm:p-8">

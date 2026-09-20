@@ -387,9 +387,9 @@ const TRACKS = [
     status: 'READY', led: '#FFC93C', to: '/course/robotics/lesson/robot-intro',
   },
   {
-    ref: 'TRK-WEB', emoji: '🌐', title: 'Web Dev', line: 'Coming soon',
+    ref: 'TRK-WEB', emoji: '🌐', title: 'Web Dev', line: 'Build your first page',
     desc: 'Build pages and apps for the browser with HTML, CSS and JavaScript.',
-    status: 'READY', led: '#8B5CF6', to: '/course/webdev/lesson/webdev-intro',
+    status: 'READY', led: '#8B5CF6', to: '/course/webdev/lesson/wd1-intro',
   },
 ];
 

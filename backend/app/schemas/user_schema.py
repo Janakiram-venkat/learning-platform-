@@ -23,7 +23,7 @@ _PROGRESS_ARRAY_KEYS = {
     "aiIdeas",
 }
 _PROGRESS_INT_KEYS = {"totalXP"}
-_PROGRESS_DICT_KEYS = {"assignmentStars", "gameMilestones"}
+_PROGRESS_DICT_KEYS = {"assignmentStars", "gameMilestones", "webdevPages"}
 
 
 class SignUpRequest(BaseModel):

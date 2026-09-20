@@ -26,6 +26,7 @@ export const DOCUMENT_KEYS = [
   'assignmentStars', // { assignmentKey: bestStars }
   'aiIdeas',         // saved "Design Your Own AI" concept cards
   'gameMilestones',  // { "moduleId:stepIndex": [checked milestone indexes] }
+  'webdevPages',     // { sectionId: [ids of pages whose task/quiz is passed] }
 ];
 
 // Every key that gets snapshotted, pushed to the server, and wiped on sign-out.

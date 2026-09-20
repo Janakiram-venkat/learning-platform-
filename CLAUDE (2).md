@@ -332,7 +332,6 @@ broken into 8 sub-topic modules as above):
 - Pollution of Air and Water
 
 ---
-
 ## 7. Workflow When Asked to "Create Chapter N"
 
 1. Pick the topic (from §6 or as specified) and confirm it's not

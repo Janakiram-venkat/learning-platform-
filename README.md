@@ -84,7 +84,6 @@ learning-platform/
 *   **Execution**: Python subprocess execution (for running student code securely with timeouts).
 
 ---
-
 ## ⚡ API Endpoints Summary
 
 All backend API endpoints are prefixed with `/api`.

@@ -1148,7 +1148,6 @@ Non-negotiable, applies to every string written into the JSON:
    fictional tidiness; students who go on to build for real must not be surprised.
 8. **One idea per screen.** If a lesson has two ideas, it's two lessons.
 9. **Interaction within 30 seconds** of any screen opening. No screen is read-only.
-
 ---
 
 ## Open questions for Janakiram

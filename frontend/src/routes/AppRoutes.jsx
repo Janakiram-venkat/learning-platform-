@@ -20,6 +20,8 @@ const GameManual = lazy(() => import('../pages/GameManual'));
 const AdminPage = lazy(() => import('../pages/AdminPage'));
 const ContestListPage = lazy(() => import('../pages/ContestListPage'));
 const ContestPage = lazy(() => import('../pages/ContestPage'));
+// TEMPORARY: CodeRunner harness for the web-dev course build. Removed in Phase 7.
+const WebDevDemo = lazy(() => import('../pages/WebDevDemo'));
 
 function RouteFallback() {
   return (
@@ -49,6 +51,8 @@ export default function AppRoutes() {
             who have not worked through the course, so "read the manual first" is
             only fair advice if reading it does not need an account. */}
         <Route path="/manual" element={<GameManual />} />
+        {/* TEMPORARY dev harness — public so it can be exercised without a session. */}
+        <Route path="/webdev-demo" element={<WebDevDemo />} />
 
         {/* Everything course-related needs an account. Grouping them under one
             pathless route means a new course page is gated by default. */}

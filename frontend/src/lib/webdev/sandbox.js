@@ -1,0 +1,246 @@
+// Builds the sandboxed document that a student's HTML/CSS/JS runs inside.
+//
+// The web-dev course has no server-side runner (unlike Python/Pyodide): the
+// browser already is the runtime. We hand the composed document to an
+// <iframe srcDoc sandbox="allow-scripts"> — deliberately WITHOUT
+// allow-same-origin, so the frame gets an opaque origin and cannot reach the
+// parent's DOM, cookies or localStorage. Everything the parent needs to know
+// (console output, thrown errors, task check results) therefore has to come
+// back over postMessage, which is what the runtime shim below is for.
+//
+// Because the frame can't be read from outside, task checks also run *inside*
+// it. They're serialised into the document and their verdicts posted back.
+
+/** Every message from the frame carries this, so the parent can ignore noise. */
+export const RUNNER_SOURCE = 'webdev-runner';
+
+/** A `</script>` inside injected JS would close the tag early. Neutralise it. */
+const escapeScript = (s) => String(s ?? '').replace(/<\/script/gi, '<\\/script');
+
+/**
+ * The shim injected as the very first thing in <head>.
+ *
+ * Written as an old-school IIFE with no template literals or arrow functions:
+ * it is embedded into a JS template string here, and it is also the one script
+ * that must never itself throw, including in an older browser.
+ */
+const RUNTIME = `
+(function () {
+  var RUN_ID = "__RUN_ID__";
+  var SOURCE = "__SOURCE__";
+  var logs = [];
+
+  function send(msg) {
+    try {
+      msg.source = SOURCE;
+      msg.runId = RUN_ID;
+      parent.postMessage(msg, "*");
+    } catch (e) { /* frame detached mid-run */ }
+  }
+
+  function norm(s) {
+    return String(s == null ? "" : s).replace(/\\s+/g, " ").trim().toLowerCase();
+  }
+
+  // Turn any console argument into one readable line of terminal text.
+  function fmt(value) {
+    if (typeof value === "string") return value;
+    if (value === null) return "null";
+    if (value === undefined) return "undefined";
+    var t = typeof value;
+    if (t === "number" || t === "boolean" || t === "bigint") return String(value);
+    if (t === "symbol") return value.toString();
+    if (t === "function") return "function " + (value.name || "") + "()";
+    if (value instanceof Error) return value.name + ": " + value.message;
+    if (typeof Element !== "undefined" && value instanceof Element) {
+      return "<" + value.tagName.toLowerCase() + (value.id ? " id=\\"" + value.id + "\\"" : "") + ">";
+    }
+    try {
+      var seen = [];
+      return JSON.stringify(value, function (k, v) {
+        if (typeof v === "object" && v !== null) {
+          if (seen.indexOf(v) !== -1) return "[Circular]";
+          seen.push(v);
+        }
+        return v;
+      }, 2);
+    } catch (e) {
+      return String(value);
+    }
+  }
+
+  function emit(level, args) {
+    var text = Array.prototype.map.call(args, fmt).join(" ");
+    logs.push(text);
+    send({ kind: "console", level: level, text: text });
+  }
+
+  // Keep the real console so the browser devtools still show everything.
+  var real = {};
+  ["log", "info", "warn", "error", "debug"].forEach(function (level) {
+    real[level] = console[level];
+    console[level] = function () {
+      try { real[level].apply(console, arguments); } catch (e) { /* ignore */ }
+      emit(level === "debug" ? "log" : level, arguments);
+    };
+  });
+
+  window.onerror = function (message, src, line, col) {
+    var where = line ? " (line " + line + (col ? ":" + col : "") + ")" : "";
+    send({ kind: "error", text: String(message) + where });
+    return false; // let the browser log it too
+  };
+
+  window.addEventListener("unhandledrejection", function (e) {
+    var r = e && e.reason;
+    send({ kind: "error", text: "Unhandled promise rejection: " + fmt(r) });
+  });
+
+  // --- Task checks ---------------------------------------------------------
+  // The parent can't read this document, so the verdicts are decided here.
+
+  // Resolve an authored value ("red", "2rem") to the same computed form the
+  // browser will report for the student's element, so "red" matches
+  // "rgb(255, 0, 0)" instead of failing on spelling.
+  function resolveStyle(prop, value) {
+    var probe = document.createElement("div");
+    probe.style.setProperty(prop, value);
+    probe.style.position = "absolute";
+    probe.style.visibility = "hidden";
+    document.body.appendChild(probe);
+    var out = getComputedStyle(probe).getPropertyValue(prop);
+    probe.parentNode.removeChild(probe);
+    return norm(out);
+  }
+
+  function matchElements(check) {
+    var list = Array.prototype.slice.call(document.querySelectorAll(check.selector));
+    if (check.text) {
+      list = list.filter(function (el) {
+        return norm(el.textContent).indexOf(norm(check.text)) !== -1;
+      });
+    }
+    if (check.attr) {
+      list = list.filter(function (el) {
+        if (!el.hasAttribute(check.attr)) return false;
+        if (check.attrValue == null) return true;
+        return norm(el.getAttribute(check.attr)).indexOf(norm(check.attrValue)) !== -1;
+      });
+    }
+    return list;
+  }
+
+  function runOne(check) {
+    if (check.type === "console") {
+      var all = logs.join("\\n");
+      var needle = String(check.contains);
+      return check.caseSensitive
+        ? all.indexOf(needle) !== -1
+        : all.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    }
+
+    if (check.type === "dom") {
+      var list = matchElements(check);
+      if (typeof check.count === "number") return list.length === check.count;
+      if (typeof check.minCount === "number") return list.length >= check.minCount;
+      return list.length > 0;
+    }
+
+    if (check.type === "style") {
+      var targets = matchElements(check);
+      if (!targets.length) return false;
+      var want = resolveStyle(check.prop, check.value);
+      return targets.some(function (el) {
+        return norm(getComputedStyle(el).getPropertyValue(check.prop)) === want;
+      });
+    }
+
+    return false;
+  }
+
+  function runChecks(checks) {
+    var results = checks.map(function (check, index) {
+      try {
+        return { index: index, passed: !!runOne(check), message: check.message };
+      } catch (e) {
+        return { index: index, passed: false, message: check.message, detail: e.message };
+      }
+    });
+    send({ kind: "checks", results: results });
+  }
+
+  window.__webdevRunChecks = runChecks;
+  send({ kind: "ready" });
+})();
+`;
+
+/** The tail script that reports readiness and grades the task, if there is one. */
+function checksScript(checks) {
+  if (!checks || !checks.length) return '';
+  const payload = escapeScript(JSON.stringify(checks));
+  // Wait for load so images/late scripts have settled, then give the event
+  // loop one tick — enough for a student's `setTimeout(…, 0)` to have fired.
+  return `<script>
+(function () {
+  var run = function () { setTimeout(function () { window.__webdevRunChecks(${payload}); }, 30); };
+  if (document.readyState === "complete") run();
+  else window.addEventListener("load", run);
+})();
+</script>`;
+}
+
+/**
+ * Compose the full document for one run.
+ *
+ * Student HTML is accepted either as a fragment (`<h1>Hi</h1>`) or as a whole
+ * page (`<!DOCTYPE html><html>…`), because both are things this course teaches
+ * students to write. A whole page is injected into rather than wrapped, so the
+ * student's own <head>/<body> stay exactly where they wrote them.
+ *
+ * @param {object} options
+ * @param {string} [options.html]
+ * @param {string} [options.css]
+ * @param {string} [options.js]
+ * @param {Array<object>} [options.checks] Task checks, graded inside the frame.
+ * @param {number|string} options.runId    Echoed back on every message.
+ * @returns {string} A complete HTML document for `<iframe srcDoc>`.
+ */
+export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId = 0 }) {
+  const runtime = RUNTIME
+    .replace('__RUN_ID__', String(runId))
+    .replace('__SOURCE__', RUNNER_SOURCE);
+
+  const head =
+    `<script>${runtime}</script>` +
+    (css.trim() ? `<style>\n${css}\n</style>` : '');
+
+  const tail =
+    (js.trim() ? `<script>\n${escapeScript(js)}\n</script>` : '') +
+    checksScript(checks);
+
+  const body = String(html ?? '').replace(/<!doctype[^>]*>/i, '');
+
+  // Fragment: wrap it in a minimal page of our own.
+  if (!/<html[\s>]/i.test(body)) {
+    return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">` +
+      `<meta name="viewport" content="width=device-width, initial-scale=1">${head}</head>` +
+      `<body>${body}${tail}</body></html>`;
+  }
+
+  // Whole page: splice our head and tail into the student's own structure.
+  let doc = body;
+  if (/<head[\s>]/i.test(doc)) {
+    doc = doc.replace(/<head([^>]*)>/i, (match) => match + head);
+  } else {
+    doc = doc.replace(/<html([^>]*)>/i, (match) => `${match}<head>${head}</head>`);
+  }
+
+  if (/<\/body>/i.test(doc)) doc = doc.replace(/<\/body>/i, tail + '</body>');
+  else if (/<\/html>/i.test(doc)) doc = doc.replace(/<\/html>/i, tail + '</html>');
+  else doc += tail;
+
+  return `<!DOCTYPE html>${doc}`;
+}
+
+/** A blank document — used to tear down a run (e.g. a runaway loop). */
+export const BLANK_DOC = '<!DOCTYPE html><html><head></head><body></body></html>';

@@ -10,6 +10,34 @@ import {
   markSectionComplete,
   requiredPageIds,
 } from '../../lib/webdev/progress';
+import { loadCursor, saveCursor } from '../../lib/webdev/storage';
+
+/**
+ * Where to drop a returning student.
+ *
+ * Two rules, in this order:
+ *  - Never past a gate. The first required page they haven't passed is a hard
+ *    ceiling, because landing beyond it would show them a Next button that
+ *    their own progress says they haven't earned.
+ *  - Otherwise, back where they were. Opening at page 1 every time is the thing
+ *    that makes a long section feel like a punishment to resume.
+ *
+ * With no saved position (a fresh device, or progress synced from another one)
+ * it falls back to the gate if they've done anything at all, and to the very
+ * beginning if they haven't.
+ *
+ * @param {Array<object>} pages
+ * @param {Set<string>} done
+ * @param {number|null} saved
+ * @returns {number}
+ */
+function openingPage(pages, done, saved) {
+  const gateIndex = pages.findIndex((p) => p.required && !done.has(p.id));
+  const ceiling = gateIndex === -1 ? pages.length - 1 : gateIndex;
+
+  if (saved != null) return Math.max(0, Math.min(saved, ceiling));
+  return done.size > 0 ? ceiling : 0;
+}
 
 // ---------------------------------------------------------------------------
 // LessonPager — renders one page of a section at a time.
@@ -37,20 +65,28 @@ function isTypingTarget(el) {
 export default function LessonPager({ section, onSectionComplete, completeLabel = 'Complete & Continue' }) {
   const pages = useMemo(() => section?.pages || [], [section]);
 
-  const [index, setIndex] = useState(0);
-  const [maxVisited, setMaxVisited] = useState(0);
   const [done, setDone] = useState(() => getDonePages(section.id));
+  const [index, setIndex] = useState(() =>
+    openingPage(section.pages || [], getDonePages(section.id), loadCursor(section.id)));
+  const [maxVisited, setMaxVisited] = useState(index);
 
   const topRef = useRef(null);
 
-  // A different section is a different lesson: start at the top with that
-  // section's own saved progress.
+  // A different section is a different lesson: reload that section's own
+  // progress and resume wherever it left the student.
   useEffect(() => {
+    const freshDone = getDonePages(section.id);
+    const start = openingPage(section.pages || [], freshDone, loadCursor(section.id));
     // eslint-disable-next-line react-hooks/set-state-in-effect -- re-seed the pager when the section changes
-    setIndex(0);
-    setMaxVisited(0);
-    setDone(getDonePages(section.id));
-  }, [section.id]);
+    setDone(freshDone);
+    setIndex(start);
+    setMaxVisited(start);
+  }, [section.id, section.pages]);
+
+  // Remember the position so a reload resumes here.
+  useEffect(() => {
+    saveCursor(section.id, index);
+  }, [section.id, index]);
 
   const page = pages[index];
   const isLast = index === pages.length - 1;

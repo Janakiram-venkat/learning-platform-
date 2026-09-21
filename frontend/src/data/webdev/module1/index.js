@@ -6,6 +6,7 @@
 // Nothing reads the backend copy except the course list on the dashboard.
 
 import wd1Intro from './wd1-intro';
+import wd1HtmlBasics from './wd1-html-basics';
 
 /**
  * Every section in the module, written or not.
@@ -18,14 +19,21 @@ import wd1Intro from './wd1-intro';
  */
 export const SECTIONS = [
   { id: 'wd1-intro', title: 'Introduction to Web Development', duration: '25 min', section: wd1Intro },
-  { id: 'wd1-html-basics', title: 'HTML Basics', duration: '30 min', section: null },
+  { id: 'wd1-html-basics', title: 'HTML Basics', duration: '30 min', section: wd1HtmlBasics },
   { id: 'wd1-text-links-images', title: 'Text, Links & Images', duration: '30 min', section: null },
   { id: 'wd1-lists-tables', title: 'Lists & Tables', duration: '25 min', section: null },
   { id: 'wd1-forms', title: 'Forms & Inputs', duration: '30 min', section: null },
 ];
 
 export const MODULE = {
-  moduleId: 1,
+  // Not 1. Challenge and project completion live in flat, course-agnostic
+  // localStorage sets (`completedAssignments`/`completedProjects`) keyed only
+  // "module<N>" — so a webdev moduleId of 1 reads Python's finished module 1 as
+  // this module's, ticking our challenge and project before the student opens
+  // them. 101 keeps this course's numbering clear of every other course's
+  // (highest in use: robotics 12). The sidebar heading numbers modules by
+  // position, so this still displays as "Module 1".
+  moduleId: 101,
   title: 'Web Foundations & HTML',
   emoji: '🌐',
   tagline: 'How the web works, and how to build a page for it from scratch.',

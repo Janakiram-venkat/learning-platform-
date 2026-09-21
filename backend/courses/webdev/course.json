@@ -9,9 +9,9 @@
   "hasEditor": false,
   "modules": [
     {
-      "id": 1,
+      "id": 101,
       "title": "Web Foundations & HTML",
-      "file": "module1.json"
+      "file": "module101.json"
     }
   ]
 }

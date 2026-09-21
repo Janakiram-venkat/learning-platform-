@@ -3,6 +3,7 @@ import { Play, Square, RotateCcw, Minus, Plus, Eye, TerminalSquare } from 'lucid
 import Terminal from '../editor/Terminal';
 import { useWebRunner } from '../../hooks/useWebRunner';
 import { loadCode, saveCode, clearCode } from '../../lib/webdev/storage';
+import { editorPath, nextRunnerId } from './editorPath';
 
 // Monaco is ~1MB of editor. A student reading a content page shouldn't pay for
 // it, so it only arrives when a runnable block actually mounts.
@@ -47,6 +48,11 @@ export default function CodeRunner({
   className = '',
 }) {
   const activeTabs = tabs.length ? tabs : ['html'];
+
+  // This runner's own Monaco namespace. Without it, a page with two runners
+  // (task + solution, or two examples) hands both the same model path and they
+  // share one buffer - see editorPath.js.
+  const [runnerId] = useState(nextRunnerId);
 
   // Starter is authored data and never changes for a given page, but it arrives
   // as a fresh object literal each render - memoise on its contents so the
@@ -213,10 +219,13 @@ export default function CodeRunner({
             <Suspense fallback={<div className="flex h-full items-center justify-center bg-[#1e1e1e] text-sm font-bold text-white/40">Loading editor…</div>}>
               <MonacoEditor
                 height="100%"
-                path={TAB_META[tab].label}
+                path={editorPath(runnerId, TAB_META[tab].label)}
                 language={TAB_META[tab].language}
                 value={files[tab] ?? ''}
-                onChange={setActiveFile}
+                // A read-only runner has nothing to report: keeping the
+                // listener off means it can never write its `value` back over
+                // another editor's text.
+                onChange={readOnly ? undefined : setActiveFile}
                 onMount={handleMount}
                 theme="vs-dark"
                 options={{

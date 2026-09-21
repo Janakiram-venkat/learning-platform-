@@ -75,6 +75,10 @@ const section = {
             '',
             'Here is a small webpage. It is real and it is running — the box on the right',
             'is a live browser window showing the code on the left.',
+            '',
+            'You are not meant to understand any of that code yet. Just look at it, press',
+            'the button, and change a word or two. Every piece of it gets explained before',
+            'this section is over.',
           ].join('\n'),
         },
         {
@@ -194,14 +198,14 @@ const section = {
         {
           q: 'You type an address into your browser and press Enter. What happens first?',
           options: [
-            'Your browser looks the page up in a list of pages stored on your computer.',
+            'The page is already stored inside your browser, and pressing Enter just opens it.',
             'Your browser sends a request to a server, asking for the page.',
             'The server notices you are interested and sends the page over automatically.',
-            'Your browser downloads the entire website, then shows you one page of it.',
+            'Nothing happens until you click a link on the page.',
           ],
           answerIndex: 1,
           explanation:
-            'Nothing moves until your browser **asks**. It sends a request, and the server answers with a response. The tempting wrong answer is the last one — browsers do not download a whole site at once. They fetch one page, and then fetch more only if you click through to it.',
+            'Nothing moves until your browser **asks**. It sends a request, and the server answers with a response. The first option is the one worth ruling out: your browser is a program for *fetching* pages, not a cupboard with every page already in it — which is why nothing loads when you lose your internet connection.',
         },
         {
           q: 'What does the server actually send back to your browser?',
@@ -384,15 +388,17 @@ const section = {
           prop: 'color',
           value: 'darkgreen',
           message:
-            'The heading is not dark green yet. You need an h1 rule setting "color" — and note the spelling: CSS uses color, not colour.',
+            'The heading is not dark green yet. You need an h1 rule setting "color: darkgreen;" — note the spelling, CSS uses color, not colour.',
         },
         {
+          // `body, html` because either one legitimately colours the page, and
+          // a student who reaches for html first has not made a mistake.
           type: 'style',
-          selector: 'body',
+          selector: 'body, html',
           prop: 'background-color',
           value: 'lightyellow',
           message:
-            'The page background is not light yellow yet. Add a body rule setting "background-color".',
+            'The page background is not light yellow yet. Add a body rule setting "background-color: lightyellow;". Colour names go in as plain words — no quote marks and no # needed.',
         },
       ],
       hint: [

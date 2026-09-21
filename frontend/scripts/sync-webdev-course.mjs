@@ -28,7 +28,9 @@ const check = process.argv.includes('--check');
 const source = readFileSync(DATA_FILE, 'utf8');
 
 function extract(name) {
-  const m = source.match(new RegExp(`export const ${name} = ([\\s\\S]*?);\\n`));
+  // `\r?\n` because core.autocrlf checks this file out with CRLF endings on
+  // Windows, and a bare `\n` then matches nothing and throws below.
+  const m = source.match(new RegExp(`export const ${name} = ([\\s\\S]*?);\\r?\\n`));
   if (!m) throw new Error(`Could not find "export const ${name}" in ${DATA_FILE}`);
   // The literals contain only strings, numbers, booleans, null and identifiers
   // used as `section:` values — strip those identifiers to null before parsing.

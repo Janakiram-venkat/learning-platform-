@@ -9,6 +9,7 @@
 import { readJSON, writeJSON } from '../progress/storage';
 
 const CODE_KEY = 'webdevCode';
+const CURSOR_KEY = 'webdevCursor';
 
 /** @typedef {{ html?: string, css?: string, js?: string }} CodeFiles */
 
@@ -30,6 +31,27 @@ export function saveCode(key, files) {
   const all = readJSON(CODE_KEY, {});
   all[key] = files;
   writeJSON(CODE_KEY, all);
+}
+
+/**
+ * The page index the student was last on in a section.
+ * Local-only like the drafts above: "where I had got to" is a per-device
+ * convenience, and a stale value from another device would be worse than none.
+ *
+ * @param {string} sectionId
+ * @returns {number|null} null if they have never opened this section here.
+ */
+export function loadCursor(sectionId) {
+  const all = readJSON(CURSOR_KEY, {});
+  const value = all[sectionId];
+  return Number.isInteger(value) ? value : null;
+}
+
+/** @param {string} sectionId @param {number} index */
+export function saveCursor(sectionId, index) {
+  const all = readJSON(CURSOR_KEY, {});
+  all[sectionId] = index;
+  writeJSON(CURSOR_KEY, all);
 }
 
 /** Forget one editor's draft — what the Reset button does. @param {string} key */

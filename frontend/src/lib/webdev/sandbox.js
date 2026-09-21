@@ -146,13 +146,23 @@ const RUNTIME = `
       return list.length > 0;
     }
 
+    // Style checks report what they actually found when they fail. "The
+    // heading is not dark green" is much less useful than that plus "found
+    // color: rgb(0, 0, 0)", which tells the student whether their rule was
+    // ignored entirely or just set to the wrong value.
     if (check.type === "style") {
       var targets = matchElements(check);
-      if (!targets.length) return false;
+      if (!targets.length) {
+        return { passed: false, detail: 'nothing on the page matches "' + check.selector + '"' };
+      }
       var want = resolveStyle(check.prop, check.value);
-      return targets.some(function (el) {
-        return norm(getComputedStyle(el).getPropertyValue(check.prop)) === want;
-      });
+      var found = null;
+      for (var t = 0; t < targets.length; t++) {
+        var got = norm(getComputedStyle(targets[t]).getPropertyValue(check.prop));
+        if (got === want) return true;
+        if (found === null) found = got;
+      }
+      return { passed: false, detail: "found " + check.prop + ": " + found };
     }
 
     return false;
@@ -167,7 +177,12 @@ const RUNTIME = `
     try {
       results = checks.map(function (check, index) {
         try {
-          return { index: index, passed: !!runOne(check), message: check.message };
+          // runOne answers with a boolean, or with { passed, detail } when it
+          // has something useful to say about why it failed.
+          var out = runOne(check);
+          var verdict = out === true || !!(out && out.passed);
+          var note = out && out.detail ? out.detail : undefined;
+          return { index: index, passed: verdict, message: check.message, detail: note };
         } catch (e) {
           return {
             index: index,

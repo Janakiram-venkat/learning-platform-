@@ -11,6 +11,7 @@ import {
   requiredPageIds,
 } from '../../lib/webdev/progress';
 import { loadCursor, saveCursor } from '../../lib/webdev/storage';
+import { usePagerKeys } from './usePagerKeys';
 
 /**
  * Where to drop a returning student.
@@ -47,12 +48,6 @@ function openingPage(pages, done, saved) {
 // what "next" means. That's what lets the same component serve a lesson
 // section, the module challenge and the mini project.
 // ---------------------------------------------------------------------------
-
-/** Don't hijack arrow keys while the student is typing. */
-function isTypingTarget(el) {
-  if (!el) return false;
-  return !!el.closest?.('input, textarea, select, [contenteditable="true"], .monaco-editor');
-}
 
 /**
  * @param {object} props
@@ -125,17 +120,8 @@ export default function LessonPager({ section, onSectionComplete, completeLabel 
     onSectionComplete?.(section.id);
   };
 
-  // Left/right arrows page through, as long as focus isn't in an editor.
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
-      if (isTypingTarget(e.target)) return;
-      if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); goBack(); }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [goNext, goBack]);
+  // Left/right arrows page through, as long as focus is not in an editor.
+  usePagerKeys(goNext, goBack);
 
   if (!page) return null;
 

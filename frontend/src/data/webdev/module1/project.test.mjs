@@ -345,6 +345,17 @@ test('every editor on the page gets its own Monaco model path', () => {
   assert.match(pathSource, /counter \+= 1/);
 });
 
+test('no runner hardcodes a DOM id, so two on one page stay distinct', () => {
+  const runnerSource = readSrc('../../../components/webdev/CodeRunner.jsx');
+  // Same bug class as the Monaco model path: a page mounts more than one
+  // runner, and a literal id="file-editor" in two of them is invalid HTML
+  // whose aria-controls then points at the wrong editor.
+  assert.match(runnerSource, /const domId = \(name\) => `\$\{name\}-\$\{runnerId\}`/);
+  for (const literal of ['id="file-editor"', 'id="output-pane"', 'aria-controls="file-editor"', 'aria-controls="output-pane"']) {
+    assert.equal(runnerSource.includes(literal), false, `CodeRunner still hardcodes ${literal}`);
+  }
+});
+
 test('the rubric grades itself on arrival', () => {
   assert.match(pagerSource, /autoRun=\{isRubric\}/);
   assert.match(taskPageSource, /autoRun=\{autoRun\}/);

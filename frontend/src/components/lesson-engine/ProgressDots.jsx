@@ -12,10 +12,14 @@ const KIND_TITLE = { content: 'Reading', task: 'Task', quiz: 'Quiz' };
  * @param {number} props.maxVisited  Furthest page reached this session.
  * @param {Set<string>} props.done   Page ids whose required work is passed.
  * @param {(i: number) => void} props.onJump
+ * @param {string} [props.label] What this strip is a strip OF. The three
+ *        pagers show pages, tasks and milestones respectively, and the only
+ *        person who hears this string is using a screen reader — "Pages in
+ *        this section" on the mini project would be simply wrong.
  */
-export default function ProgressDots({ pages, index, maxVisited, done, onJump }) {
+export default function ProgressDots({ pages, index, maxVisited, done, onJump, label = 'Pages in this section' }) {
   return (
-    <nav aria-label="Pages in this section" className="flex flex-wrap items-center gap-1.5">
+    <nav aria-label={label} className="flex flex-wrap items-center gap-1.5">
       {pages.map((page, i) => {
         const isCurrent = i === index;
         const isDone = done.has(page.id);

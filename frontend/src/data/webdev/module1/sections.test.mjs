@@ -394,7 +394,12 @@ test('the recap names the challenge and the project without linking to them', ()
   const md = by5('p9-module-recap').blocks.map((b) => b.md || '').join('\n');
   assert.match(md, /Module\s+\*{0,2}\n?Challenge|Module Challenge/);
   assert.match(md, /Mini\s+\*{0,2}\n?Project|Mini Project/);
-  assert.ok(!/\]\(/.test(md), 'the recap contains a markdown link, and neither page exists yet');
+  // Both pages exist now, and the recap still must not link to them: the
+  // sidebar is the single place that navigates to the challenge and the
+  // project, so an href in the content would be a second one to keep right.
+  assert.ok(!/\]\(/.test(md), 'the recap contains a markdown link — the sidebar owns that navigation');
+  // The copy must not still be promising them as unbuilt, either.
+  assert.ok(!/still being written|not open yet/.test(md), 'the recap still says they are unbuilt');
   // ...and it recaps all five sections.
   for (const word of ['HTML basics', 'Text, links & images', 'Lists & tables', 'Forms & inputs']) {
     assert.ok(md.includes(word), `the recap table never mentions ${word}`);

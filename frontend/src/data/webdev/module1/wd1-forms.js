@@ -20,8 +20,9 @@
 //  - Page 7 opens on the Terminal (`pane: 'terminal'`), because its whole
 //    output is console text and the preview is one button.
 //  - Page 9 is the module wrap-up and carries the section's Complete & Continue
-//    button. The Module Challenge and Mini Project are named but NOT linked:
-//    neither is built yet.
+//    button. The Module Challenge and Mini Project are named but NOT linked —
+//    both exist now, and the sidebar is the one place that navigates to them,
+//    so a second set of links here would be a second thing to keep correct.
 //  - Deliberately NOT claimed anywhere: what any particular screen reader
 //    announces, what browser validation does with type="email", or what
 //    type="button" does (not verified in the sandbox, so not taught here).
@@ -908,11 +909,11 @@ const section = {
           type: 'tip',
           md: [
             '**What comes next.** Two pieces finish this module off: the **Module',
-            'Challenge**, a set of questions across everything above, and the **Mini',
-            'Project**, where you build one page of your own from scratch.',
+            'Challenge**, six tasks that put everything above together, and the **Mini',
+            'Project**, where you build one page about yourself across five milestones.',
             '',
-            'Both are still being written, so they are not open yet — you will find them in',
-            'the sidebar when they are. Nothing you have done is waiting on them.',
+            'Both are in the sidebar, under this section\'s list. Take them in that order —',
+            'the challenge is the shorter of the two.',
             '',
             'After that, Module 2 is CSS: the layer that decides what all of this *looks*',
             'like. You have had one taste of it already, styling a table header in the',

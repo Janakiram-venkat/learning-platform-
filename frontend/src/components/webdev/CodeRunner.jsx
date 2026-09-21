@@ -59,6 +59,14 @@ export default function CodeRunner({
   // share one buffer - see editorPath.js.
   const [runnerId] = useState(nextRunnerId);
 
+  // The same id also namespaces this runner's DOM ids. A page routinely mounts
+  // more than one runner, and `id` must be unique in a document: two runners
+  // sharing one literal id is invalid HTML, and every aria-controls or
+  // aria-labelledby pointing at that id resolves to whichever element happens
+  // to come first - so a screen reader announces the wrong editor for the
+  // second runner's tabs. Every id below goes through here.
+  const domId = (name) => `${name}-${runnerId}`;
+
   // Starter is authored data and never changes for a given page, but it arrives
   // as a fresh object literal each render - memoise on its contents so the
   // effects below don't re-fire forever.
@@ -191,9 +199,9 @@ export default function CodeRunner({
                   <button
                     key={id}
                     role="tab"
-                    id={`file-tab-${id}`}
+                    id={domId(`file-tab-${id}`)}
                     aria-selected={active}
-                    aria-controls="file-editor"
+                    aria-controls={domId('file-editor')}
                     onClick={() => setTab(id)}
                     className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-bold transition-colors focus-visible:outline-2 focus-visible:outline-pcb ${
                       active ? 'bg-ink/10 text-ink' : 'text-ink/45 hover:text-ink'
@@ -225,7 +233,7 @@ export default function CodeRunner({
             </div>
           </div>
 
-          <div id="file-editor" role="tabpanel" aria-labelledby={`file-tab-${tab}`} className="h-[280px] lg:h-[340px]">
+          <div id={domId('file-editor')} role="tabpanel" aria-labelledby={domId(`file-tab-${tab}`)} className="h-[280px] lg:h-[340px]">
             <Suspense fallback={<div className="flex h-full items-center justify-center bg-[#1e1e1e] text-sm font-bold text-white/40">Loading editor…</div>}>
               <MonacoEditor
                 height="100%"
@@ -264,8 +272,9 @@ export default function CodeRunner({
           <div role="tablist" aria-label="Output" className="flex shrink-0 items-center border-b border-ink/10 bg-paper px-2">
             <button
               role="tab"
+              id={domId('pane-tab-preview')}
               aria-selected={pane === 'preview'}
-              aria-controls="output-pane"
+              aria-controls={domId('output-pane')}
               onClick={() => setPaneChoice('preview')}
               className={paneBtn(pane === 'preview')}
             >
@@ -273,8 +282,9 @@ export default function CodeRunner({
             </button>
             <button
               role="tab"
+              id={domId('pane-tab-terminal')}
               aria-selected={pane === 'terminal'}
-              aria-controls="output-pane"
+              aria-controls={domId('output-pane')}
               onClick={() => setPaneChoice('terminal')}
               className={paneBtn(pane === 'terminal')}
             >
@@ -294,7 +304,12 @@ export default function CodeRunner({
             </button>
           </div>
 
-          <div id="output-pane" className="h-[280px] bg-white lg:h-[340px]">
+          <div
+            id={domId('output-pane')}
+            role="tabpanel"
+            aria-labelledby={domId(`pane-tab-${pane}`)}
+            className="h-[280px] bg-white lg:h-[340px]"
+          >
             {/* Both panes stay mounted: switching to the terminal must not
                 reload the preview (and restart the student's script). */}
             <div className={`h-full ${pane === 'preview' ? '' : 'hidden'}`}>

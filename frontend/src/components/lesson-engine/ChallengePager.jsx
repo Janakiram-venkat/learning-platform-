@@ -11,6 +11,7 @@ import {
   recordChallengeResult,
 } from '../../lib/webdev/challenge';
 import { challengeBreakdown, scoreChallenge } from '../../lib/webdev/challengeScore';
+import { usePagerKeys } from './usePagerKeys';
 
 // ---------------------------------------------------------------------------
 // ChallengePager — one task per page, then a result screen.
@@ -33,12 +34,6 @@ import { challengeBreakdown, scoreChallenge } from '../../lib/webdev/challengeSc
 // page in the data, so `checkSection` still validates the challenge and the
 // result screen can never be mistaken for something to grade.
 // ---------------------------------------------------------------------------
-
-/** Don't hijack arrow keys while the student is typing. */
-function isTypingTarget(el) {
-  if (!el) return false;
-  return !!el.closest?.('input, textarea, select, [contenteditable="true"], .monaco-editor');
-}
 
 /**
  * @param {object} props
@@ -108,17 +103,8 @@ export default function ChallengePager({ challenge, moduleId, onResult }) {
     onResultRef.current?.(fresh);
   }, [index, resultIndex, challenge, moduleId]);
 
-  // Left/right arrows page through, as long as focus isn't in an editor.
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
-      if (isTypingTarget(e.target)) return;
-      if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); goBack(); }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [goNext, goBack]);
+  // Left/right arrows page through, as long as focus is not in an editor.
+  usePagerKeys(goNext, goBack);
 
   if (!pages.length) return null;
 
@@ -146,6 +132,7 @@ export default function ChallengePager({ challenge, moduleId, onResult }) {
           maxVisited={pages.length - 1}
           done={done}
           onJump={goTo}
+          label="Tasks in this challenge"
         />
       </div>
 

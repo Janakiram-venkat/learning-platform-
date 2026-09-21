@@ -145,7 +145,11 @@ export default function QuizPage({ page, passed, onPass }) {
                   allCorrect ? 'bg-pcb/20' : 'bg-signal/25'
                 }`}
               >
-                <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
+                {/* A green tick beside "2 / 4" reads as a pass. Match the icon
+                    to the actual result. */}
+                {allCorrect
+                  ? <CheckCircle2 className="h-5 w-5 text-pcb" aria-hidden="true" />
+                  : <XCircle className="h-5 w-5 text-wire" aria-hidden="true" />}
                 {correctCount} / {questions.length}
               </span>
             )}

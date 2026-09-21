@@ -232,6 +232,23 @@ const RUNTIME = `
     note("This link would go to: " + href + blank);
   }, true);
 
+  // --- Forms ---------------------------------------------------------------
+  // Submitting a real form navigates: the browser leaves for the action URL, or
+  // reloads with the values in the address bar. Either one would wipe the
+  // preview mid-lesson. Reported instead.
+  //
+  // Capture phase, but preventDefault only - propagation is untouched, so a
+  // student's own submit handler still runs. Covers both ways of submitting
+  // (Enter in a field, clicking a submit button): both fire this same event.
+  //
+  // Nothing here touches label/input activation. Clicking a <label> is handled
+  // by the browser itself and no listener below intercepts it, so it focuses a
+  // text field and toggles a checkbox exactly as it would anywhere else.
+  document.addEventListener("submit", function (e) {
+    e.preventDefault();
+    note("Form submitted (nothing is sent anywhere)");
+  }, true);
+
   // --- Images --------------------------------------------------------------
   // Map a handful of names onto built-in pictures WITHOUT touching the src the
   // student typed: srcset wins over src when the browser picks a source, so the
@@ -373,9 +390,82 @@ const RUNTIME = `
     if (check.type === "console") {
       var all = logs.join("\\n");
       var needle = String(check.contains);
-      return check.caseSensitive
-        ? all.indexOf(needle) !== -1
-        : all.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+      var hit = check.collapseSpace
+        // Opt-in: also forgives run-together or extra spacing, for messages the
+        // student types out by hand.
+        ? norm(all).indexOf(norm(needle)) !== -1
+        : check.caseSensitive
+          ? all.indexOf(needle) !== -1
+          : all.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+      if (hit) return true;
+      // A console check that just says "no" is the least useful failure there
+      // is. Say what the terminal actually holds.
+      return {
+        passed: false,
+        detail: logs.length
+          ? "the Terminal shows: " + logs.join(" | ").substring(0, 120)
+          : "nothing was printed to the Terminal",
+      };
+    }
+
+    // "This element points at that one": a label's for naming an input's id,
+    // and anything else built the same way. No existing check type can compare
+    // one element's attribute against another element's attribute, and every
+    // way of getting it wrong deserves a different sentence back.
+    if (check.type === "link") {
+      var sources = Array.prototype.slice.call(document.querySelectorAll(check.selector));
+      var targets = Array.prototype.slice.call(document.querySelectorAll(check.target));
+      var withAttr = [];
+      var s, t;
+
+      for (s = 0; s < sources.length; s++) {
+        if (norm(sources[s].getAttribute(check.attr)) !== "") withAttr.push(sources[s]);
+      }
+
+      for (s = 0; s < withAttr.length; s++) {
+        if (check.requireText && norm(withAttr[s].textContent) === "") continue;
+        var want = norm(withAttr[s].getAttribute(check.attr));
+        for (t = 0; t < targets.length; t++) {
+          if (norm(targets[t].getAttribute(check.targetAttr)) === want) return true;
+        }
+      }
+
+      // Nothing matched. Work out which mistake it was.
+      if (!sources.length) {
+        return { passed: false, detail: "there is no " + check.selector + " element on the page" };
+      }
+      if (!withAttr.length) {
+        return {
+          passed: false,
+          detail: 'the ' + check.selector + ' has no ' + check.attr + ' attribute - ' + check.attr +
+            ' is what makes the connection, and an id or a name on it does not',
+        };
+      }
+      if (check.requireText) {
+        var anyText = false;
+        for (s = 0; s < withAttr.length; s++) {
+          if (norm(withAttr[s].textContent) !== "") anyText = true;
+        }
+        if (!anyText) {
+          return {
+            passed: false,
+            detail: 'the ' + check.selector + ' has no text between its tags, so there is nothing to click or read',
+          };
+        }
+      }
+      var found = [];
+      for (t = 0; t < targets.length; t++) {
+        var got = targets[t].getAttribute(check.targetAttr);
+        if (got) found.push('"' + got + '"');
+      }
+      return {
+        passed: false,
+        detail: check.attr + '="' + withAttr[0].getAttribute(check.attr) + '" does not match any ' +
+          check.target + " " + check.targetAttr + " on the page" +
+          (found.length
+            ? " (found " + found.join(", ") + ")"
+            : " (no " + check.target + " on the page has a " + check.targetAttr + " at all)"),
+      };
     }
 
     if (check.type === "dom") {

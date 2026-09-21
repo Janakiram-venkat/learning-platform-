@@ -59,6 +59,7 @@ export default function TaskPage({ page, sectionId, passed, onPass }) {
         starter={page.starter}
         tabs={page.tabs}
         checks={page.checks}
+        initialPane={page.pane}
         onCheckResults={handleResults}
       />
 
@@ -133,6 +134,7 @@ export default function TaskPage({ page, sectionId, passed, onPass }) {
             label="Solution"
             starter={page.solution}
             tabs={page.tabs}
+            initialPane={page.pane}
             readOnly
           />
         </div>

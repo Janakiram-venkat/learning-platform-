@@ -53,11 +53,18 @@ export default function WebDevLessonPage() {
   const handleSectionComplete = useCallback(() => {
     // The section is already recorded by the pager; this decides where to go.
     const nextReady = next?.section ? next : null;
+    // No next section at all means the last section of the module, not an
+    // unfinished course — so say what actually comes next instead of leaving
+    // the student on a full stop. Neither the challenge nor the project is
+    // built yet, so both are named and neither is linked.
+    const endOfModule = !next;
     setCelebration({
-      title: 'Section complete! ✅',
+      title: endOfModule ? 'Module 1 complete! 🏆' : 'Section complete! ✅',
       message: nextReady
         ? `Nice work. Up next: ${nextReady.title}.`
-        : 'That is every section written so far. More of Module 1 is on the way.',
+        : endOfModule
+          ? 'That is every section of Module 1. The Module Challenge and the Mini Project come next — both are still being written, and they will appear in the sidebar when they are ready.'
+          : 'That is every section written so far. More of Module 1 is on the way.',
       next: nextReady?.id ?? null,
     });
   }, [next]);

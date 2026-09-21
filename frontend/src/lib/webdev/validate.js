@@ -12,7 +12,7 @@
 
 const PAGE_TYPES = ['content', 'task', 'quiz'];
 const BLOCK_TYPES = ['text', 'tip', 'warning', 'example'];
-const CHECK_TYPES = ['dom', 'console', 'style'];
+const CHECK_TYPES = ['dom', 'console', 'style', 'link'];
 const FILE_KEYS = ['html', 'css', 'js'];
 
 const isNonEmptyString = (v) => typeof v === 'string' && v.trim().length > 0;
@@ -159,6 +159,12 @@ function validateCheck(check, at, bad) {
   }
   if (check.type === 'console' && !isNonEmptyString(check.contains)) {
     bad(`${at} (console) has no "contains" text to look for.`);
+  }
+  // "one element's attribute names another element" — label[for] -> input[id].
+  if (check.type === 'link') {
+    ['selector', 'attr', 'target', 'targetAttr'].forEach((field) => {
+      if (!isNonEmptyString(check[field])) bad(`${at} (link) has no "${field}".`);
+    });
   }
   if (check.type === 'style') {
     if (!isNonEmptyString(check.selector)) bad(`${at} (style) has no "selector".`);

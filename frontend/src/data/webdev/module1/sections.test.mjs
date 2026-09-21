@@ -24,15 +24,18 @@ import wd1Intro from './wd1-intro.js';
 import wd1HtmlBasics from './wd1-html-basics.js';
 import wd1TextLinksImages from './wd1-text-links-images.js';
 import wd1ListsTables from './wd1-lists-tables.js';
+import wd1Forms from './wd1-forms.js';
 
 // index.js is read as text rather than imported: its own imports are
 // extensionless (Vite resolves those, Node does not), and the registration is
 // what needs checking anyway.
 const indexSource = readFileSync(fileURLToPath(new URL('./index.js', import.meta.url)), 'utf8');
 
-const written = [wd1Intro, wd1HtmlBasics, wd1TextLinksImages, wd1ListsTables];
+const written = [wd1Intro, wd1HtmlBasics, wd1TextLinksImages, wd1ListsTables, wd1Forms];
 const section3 = wd1TextLinksImages;
 const section4 = wd1ListsTables;
+const section5 = wd1Forms;
+const by5 = (id) => pageOf(section5, id);
 const pageOf = (section, id) => section.pages.find((p) => p.id === id);
 const byId = (id) => pageOf(section3, id);
 const by4 = (id) => pageOf(section4, id);
@@ -78,7 +81,7 @@ test('section 3 is the 8 pages of the outline, in order', () => {
 });
 
 test('never three content pages in a row', () => {
-  for (const section of [section3, section4]) {
+  for (const section of [section3, section4, section5]) {
     let run = 0;
     for (const page of section.pages) {
       run = page.type === 'content' ? run + 1 : 0;
@@ -93,11 +96,11 @@ test('only pages 7 and 8 gate Complete & Continue in section 3', () => {
 });
 
 test('every content page ends with something to try', () => {
-  for (const section of [section3, section4]) {
+  for (const section of [section3, section4, section5]) {
     for (const page of section.pages.filter((p) => p.type === 'content')) {
       const last = page.blocks[page.blocks.length - 1];
       assert.ok(
-        /try this|try changing|try deleting/i.test(last.md || ''),
+        /try this|try changing|try deleting|thing to try/i.test(last.md || ''),
         `${section.id}/${page.id} does not end with something to try`,
       );
     }
@@ -105,7 +108,7 @@ test('every content page ends with something to try', () => {
 });
 
 test('every example carries a caption saying what to look at', () => {
-  for (const section of [section3, section4]) {
+  for (const section of [section3, section4, section5]) {
     for (const page of section.pages.filter((p) => p.type === 'content')) {
       for (const block of page.blocks.filter((b) => b.type === 'example')) {
         assert.ok(block.caption && block.caption.length > 40, `${section.id}/${page.id}: thin caption`);
@@ -125,7 +128,7 @@ test('the quiz asks the five commissioned questions', () => {
 
 // --- Tasks: everything provable without a DOM -------------------------------
 
-const tasks = () => [...tasksOf(section3), ...tasksOf(section4)];
+const tasks = () => [...tasksOf(section3), ...tasksOf(section4), ...tasksOf(section5)];
 
 test('every task has a starter, a hint and a full solution', () => {
   for (const t of tasks()) {
@@ -337,6 +340,153 @@ test('the bonus task is css-only, still renders its page, and starts failing', (
   assert.ok(!rule.test(bonus.starter.css.replace(/\/\*[\s\S]*?\*\//g, '')), 'starter already passes');
   assert.match(bonus.solution.css, rule);
   assert.match(bonus.solution.css, /^\s*th\s*\{/);
+});
+
+// --- Section 5: Forms & Inputs ----------------------------------------------
+
+test('section 5 is registered, so the sidebar drops "(coming soon)"', () => {
+  assert.match(indexSource, /import wd1Forms from '\.\/wd1-forms'/);
+  assert.match(
+    indexSource,
+    /id: 'wd1-forms'[^}]*section: wd1Forms/,
+    'wd1-forms is still registered as null in SECTIONS',
+  );
+  // The sidebar title should match the section's own title.
+  assert.match(indexSource, /id: 'wd1-forms', title: 'Forms & Inputs \(basics\)'/);
+});
+
+test('section 5 is the 9 pages of the outline, in order', () => {
+  assert.deepEqual(
+    section5.pages.map((p) => `${p.id}:${p.type}`),
+    [
+      'p1-what-forms-are:content',
+      'p2-input-types:content',
+      'p3-task-inputs:task',
+      'p4-labels:content',
+      'p5-task-label:task',
+      'p6-buttons:content',
+      'p7-task-button-js:task',
+      'p8-quiz-forms:quiz',
+      'p9-module-recap:content',
+    ],
+  );
+});
+
+test('a student who skips the optional tasks can still complete section 5', () => {
+  const required = section5.pages.filter((p) => p.required).map((p) => p.id);
+  assert.deepEqual(required, ['p5-task-label', 'p8-quiz-forms']);
+
+  // Passed only the two required pages; pages 3 and 7 never attempted.
+  const done = new Set(required);
+  assert.equal(required.every((id) => done.has(id)), true, 'Complete & Continue would stay locked');
+  for (const page of section5.pages.filter((p) => !p.required)) {
+    assert.equal(!page.required || done.has(page.id), true, `${page.id} would trap the student`);
+  }
+
+  // The section ends on the recap, which carries the final button.
+  const last = section5.pages[section5.pages.length - 1];
+  assert.equal(last.id, 'p9-module-recap');
+  assert.equal(last.type, 'content');
+  assert.ok(!last.required, 'a content page cannot be required');
+});
+
+test('the recap names the challenge and the project without linking to them', () => {
+  const md = by5('p9-module-recap').blocks.map((b) => b.md || '').join('\n');
+  assert.match(md, /Module\s+\*{0,2}\n?Challenge|Module Challenge/);
+  assert.match(md, /Mini\s+\*{0,2}\n?Project|Mini Project/);
+  assert.ok(!/\]\(/.test(md), 'the recap contains a markdown link, and neither page exists yet');
+  // ...and it recaps all five sections.
+  for (const word of ['HTML basics', 'Text, links & images', 'Lists & tables', 'Forms & inputs']) {
+    assert.ok(md.includes(word), `the recap table never mentions ${word}`);
+  }
+});
+
+test('page 3 asks for exactly the three input types it names', () => {
+  const page = by5('p3-task-inputs');
+  assert.deepEqual(
+    page.checks.map((c) => [c.selector, c.attr, c.attrValue]),
+    [['input', 'type', 'text'], ['input', 'type', 'email'], ['input', 'type', 'checkbox']],
+  );
+  assert.ok(!stripComments(page.starter.html).includes('<input'), 'p3 starter already has an input');
+  for (const type of ['text', 'email', 'checkbox']) {
+    assert.ok(page.solution.html.includes(`type="${type}"`), `p3 solution is missing type="${type}"`);
+  }
+});
+
+test('page 5 checks that the label really points at the input', () => {
+  const page = by5('p5-task-label');
+  const link = page.checks.find((c) => c.type === 'link');
+  assert.ok(link, 'p5 has no link check');
+  assert.deepEqual(
+    [link.selector, link.attr, link.target, link.targetAttr, link.requireText],
+    ['label', 'for', 'input', 'id', true],
+  );
+
+  // The starter has the label and the input, and neither the for nor the id.
+  const starter = stripComments(page.starter.html);
+  assert.ok(starter.includes('<label>'), 'p5 starter should already have the label');
+  assert.ok(starter.includes('<input'), 'p5 starter should already have the input');
+  assert.ok(!/for=/.test(starter), 'p5 starter already has a for attribute');
+  assert.ok(!/<input[^>]*\sid=/.test(starter), 'p5 starter already has an id on the input');
+
+  // The solution's for and id are the same string, which is the whole point.
+  const forValue = page.solution.html.match(/<label[^>]*for="([^"]+)"/)?.[1];
+  const idValue = page.solution.html.match(/<input[^>]*\sid="([^"]+)"/)?.[1];
+  assert.ok(forValue, 'p5 solution has no for');
+  assert.equal(forValue, idValue);
+  assert.ok(page.prompt.includes(forValue), `the prompt never states the id "${forValue}"`);
+});
+
+test('page 7 is a js-only task that opens on the terminal and starts silent', () => {
+  const page = by5('p7-task-button-js');
+  assert.deepEqual(page.tabs, ['js']);
+  assert.equal(page.pane, 'terminal');
+  assert.ok(!page.required, 'the JS taster must not gate the section');
+
+  // The page itself is locked: identical in starter and solution.
+  assert.equal(page.starter.html, page.solution.html);
+  assert.ok(page.starter.html.includes('id="greet"'), 'the button the scaffolding targets is missing');
+  // ...and the button is NOT in a form, so clicking it submits nothing.
+  assert.ok(!page.starter.html.includes('<form'), 'the button is inside a form, which would also submit');
+
+  const check = page.checks[0];
+  assert.equal(page.checks.length, 1);
+  assert.equal(check.type, 'console');
+  assert.equal(check.collapseSpace, true, 'the console check should forgive spacing');
+  assert.ok(!check.caseSensitive, 'the console check should forgive capitals');
+
+  // The scaffolding is present in both; only the console.log line is missing.
+  for (const code of [page.starter.js, page.solution.js]) {
+    assert.match(code, /addEventListener\("click"/);
+    assert.match(code, /getElementById\("greet"\)\.click\(\);/, 'nothing triggers the handler for the grader');
+  }
+  // Comments stripped: the starter's guidance names console.log on purpose.
+  const starterCode = page.starter.js.replace(/\/\/.*$/gm, '');
+  assert.ok(!starterCode.includes('console.log('), 'p7 starter already prints something');
+  assert.ok(page.starter.js.includes('console.log('), 'the starter should still name console.log in a comment');
+  assert.ok(page.solution.js.includes('console.log('), 'p7 solution never prints');
+  assert.ok(page.solution.js.includes(check.contains), 'the solution does not print the checked message');
+  assert.ok(page.prompt.includes(check.contains), 'the prompt never states the message');
+});
+
+// --- The sandbox shim's form handling ---------------------------------------
+
+test('the shim intercepts form submission and says so', () => {
+  const doc = buildSrcDoc({ html: '<form><input></form>', runId: 1 });
+  assert.match(doc, /document\.addEventListener\("submit"/);
+  assert.ok(doc.includes('Form submitted (nothing is sent anywhere)'));
+  // preventDefault only — propagation untouched, so a student's own handler runs.
+  assert.ok(!doc.includes('stopPropagation'));
+});
+
+test('nothing in the shim intercepts a label click', () => {
+  const doc = buildSrcDoc({ html: '', runId: 1 });
+  const listeners = [...doc.matchAll(/document\.addEventListener\("(\w+)"/g)].map((m) => m[1]);
+  // Exactly these three, and no generic click swallower: the click handler
+  // bails out unless the click landed inside an <a>, so labels behave normally.
+  assert.deepEqual(listeners.sort(), ['DOMContentLoaded', 'click', 'submit'].sort());
+  assert.ok(doc.includes('el.closest("a")'));
+  assert.ok(doc.includes('if (!a) return;'));
 });
 
 // --- The alt-text rule, tested directly -------------------------------------

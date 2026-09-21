@@ -33,6 +33,10 @@ const EMPTY = { html: '', css: '', js: '' };
  * @param {(results: Array<{index:number,passed:boolean,message:string}>) => void} [props.onCheckResults]
  * @param {boolean} [props.autoRun] Run once on mount - used by lesson examples.
  * @param {boolean} [props.readOnly] Show the code without letting it be edited.
+ * @param {'preview'|'terminal'} [props.initialPane] Which output pane to open
+ *        on. Defaults to the preview whenever there is a page to draw. A run
+ *        that errors still opens on the terminal, and the student's own click
+ *        always wins.
  * @param {string} [props.label] Heading shown above the editor.
  * @param {string} [props.className] Extra classes on the outer wrapper.
  */
@@ -44,6 +48,7 @@ export default function CodeRunner({
   onCheckResults,
   autoRun = false,
   readOnly = false,
+  initialPane,
   label,
   className = '',
 }) {
@@ -85,7 +90,8 @@ export default function CodeRunner({
   // HTML *tab*: a CSS-only exercise still edits a real page, and opening it on
   // an empty terminal would hide the very thing being styled.
   const hasPage = activeTabs.includes('html') || !!files.html?.trim();
-  const pane = paneChoice ?? (errored ? 'terminal' : hasPage ? 'preview' : 'terminal');
+  const pane = paneChoice
+    ?? (errored ? 'terminal' : initialPane ?? (hasPage ? 'preview' : 'terminal'));
 
   // A new page means new starter code and a clean runner.
   useEffect(() => {

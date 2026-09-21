@@ -15,8 +15,10 @@
 //     document, so this file parses the HTML itself (see MiniDOM below) and
 //     hands the real matcher a tree to walk.
 //
-// WHAT THIS CANNOT VERIFY — a browser is still required, via the Task
-// self-test panel on /webdev-demo:
+// WHAT THIS CANNOT VERIFY — a browser is still required: open the challenge in
+// the app and press Run. (The /webdev-demo self-test panel used to check these
+// in bulk; it was deleted with the rest of the harness once the module shipped,
+// after a final run in which all four link checks passed.)
 //   - `link` checks (task 5's label-for/input-id pairing). That grader lives
 //     inside the injected runtime string and has no exported form, so the two
 //     link-shaped assertions here are skipped and reported as skipped.

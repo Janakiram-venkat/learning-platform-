@@ -5,8 +5,9 @@
 // What this CANNOT do: grade a task. Task checks are DOM checks — they run
 // querySelectorAll and getComputedStyle inside the sandboxed frame — and there
 // is no DOM in Node and no HTML parser in this project's dependencies. Proving
-// "starter fails, solution passes" needs a browser, and that is what the Task
-// self-test panel on /webdev-demo is for.
+// "starter fails, solution passes" needs a browser: run the section in the app
+// and press Run. (The /webdev-demo self-test panel used to do this in bulk; it
+// was deleted with the rest of the harness once the module shipped.)
 //
 // What it CAN do, and does: the structural rules, and the pure predicates that
 // the DOM checks are built out of.

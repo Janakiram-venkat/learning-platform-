@@ -28,11 +28,10 @@
 //  - Each milestone's checks cover only ITS new requirements. Re-checking
 //    everything is the rubric's job, which is what catches a student who
 //    deletes their table while building the form.
-//  - Prerequisites: everything here is taught in Sections 1-5, with ONE
-//    exception — `<textarea>` (milestone 5) is not covered anywhere in Module
-//    1, so it is introduced in that milestone's prompt, hint and solution at
-//    the point of use. A message box that is one line tall is the wrong thing
-//    to teach, and the spec for this project asks for a message field.
+//  - Prerequisites: everything here is taught in Sections 1-5. `<textarea>`
+//    (milestone 5) is the thinnest of them — one tip on Section 5's input-types
+//    page — so it is restated in this milestone's prompt, hint and solution at
+//    the point of use rather than assumed.
 //  - `cat.jpg`, `mountain.jpg` and `logo.png` are the sandbox's built-in sample
 //    images (lib/webdev/sandbox.js); nothing else resolves to a picture.
 //  - No HTML entities in the starters or solutions: the checks compare text
@@ -472,7 +471,8 @@ const wd1Project = {
         '3. A `<label>` and a `<textarea>` for a message',
         '4. A `<button>` with words on it',
         '',
-        '`<textarea>` is the one tag here you have not met yet. It is a text box that is',
+        '`<textarea>` is the one tag here you have only seen in passing, in Section 5\'s',
+        'tip on multi-line boxes. It is a text box that is',
         'several lines tall, for anything longer than a line — and unlike `<input>` it has',
         'a closing tag: `<textarea id="message" rows="4"></textarea>`. Leave the inside',
         'empty; anything you type between the tags shows up as text already in the box.',

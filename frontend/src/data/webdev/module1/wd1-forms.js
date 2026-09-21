@@ -386,6 +386,26 @@ const section = {
           ].join('\n'),
         },
         {
+          type: 'tip',
+          md: [
+            'One box in a form is **not** an `<input>`. When you want several lines of',
+            'text — a message, a comment, an address — the element is `<textarea>`:',
+            '',
+            '```html',
+            '<textarea id="message" rows="4"></textarea>',
+            '```',
+            '',
+            'Two things to notice. `rows` is how many lines tall it starts out; the person',
+            'typing can usually drag it bigger from its corner. And unlike `<input>`, this',
+            'one is **not** a void element — it has a closing `</textarea>`, and anything',
+            'you put between the tags appears as text already sitting in the box, so leave',
+            'it empty.',
+            '',
+            'Everything the next page says about labels applies to it just the same: a',
+            '`<textarea>` needs a matching `<label>` as much as any input does.',
+          ].join('\n'),
+        },
+        {
           type: 'text',
           md: [
             '**Try this before you move on.** In the example, change the second radio',

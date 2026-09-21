@@ -31,15 +31,6 @@ export function getDonePages(sectionId) {
 }
 
 /**
- * @param {string} sectionId
- * @param {string} pageId
- * @returns {boolean}
- */
-export function isPageDone(sectionId, pageId) {
-  return getDonePages(sectionId).has(pageId);
-}
-
-/**
  * Record a passed task or quiz. Idempotent.
  * @param {string} sectionId
  * @param {string} pageId
@@ -54,11 +45,6 @@ export function markPageDone(sectionId, pageId) {
   writeJSON(PAGES_KEY, all);
   notifyProgressChange();
   return true;
-}
-
-/** @param {string} sectionId @returns {boolean} */
-export function isSectionComplete(sectionId) {
-  return lessons.has(sectionId);
 }
 
 /**

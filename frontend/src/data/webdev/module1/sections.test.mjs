@@ -23,15 +23,20 @@ import {
 import wd1Intro from './wd1-intro.js';
 import wd1HtmlBasics from './wd1-html-basics.js';
 import wd1TextLinksImages from './wd1-text-links-images.js';
+import wd1ListsTables from './wd1-lists-tables.js';
 
 // index.js is read as text rather than imported: its own imports are
 // extensionless (Vite resolves those, Node does not), and the registration is
 // what needs checking anyway.
 const indexSource = readFileSync(fileURLToPath(new URL('./index.js', import.meta.url)), 'utf8');
 
-const written = [wd1Intro, wd1HtmlBasics, wd1TextLinksImages];
+const written = [wd1Intro, wd1HtmlBasics, wd1TextLinksImages, wd1ListsTables];
 const section3 = wd1TextLinksImages;
-const byId = (id) => section3.pages.find((p) => p.id === id);
+const section4 = wd1ListsTables;
+const pageOf = (section, id) => section.pages.find((p) => p.id === id);
+const byId = (id) => pageOf(section3, id);
+const by4 = (id) => pageOf(section4, id);
+const tasksOf = (section) => section.pages.filter((p) => p.type === 'task');
 
 // --- Every written section is well-formed -----------------------------------
 
@@ -73,32 +78,38 @@ test('section 3 is the 8 pages of the outline, in order', () => {
 });
 
 test('never three content pages in a row', () => {
-  let run = 0;
-  for (const page of section3.pages) {
-    run = page.type === 'content' ? run + 1 : 0;
-    assert.ok(run < 3, `three content pages in a row, ending at ${page.id}`);
+  for (const section of [section3, section4]) {
+    let run = 0;
+    for (const page of section.pages) {
+      run = page.type === 'content' ? run + 1 : 0;
+      assert.ok(run < 3, `${section.id}: three content pages in a row, ending at ${page.id}`);
+    }
   }
 });
 
-test('only pages 7 and 8 gate Complete & Continue', () => {
+test('only pages 7 and 8 gate Complete & Continue in section 3', () => {
   const gates = section3.pages.filter((p) => p.required).map((p) => p.id);
   assert.deepEqual(gates, ['p7-task-image', 'p8-quiz-text-links-images']);
 });
 
 test('every content page ends with something to try', () => {
-  for (const page of section3.pages.filter((p) => p.type === 'content')) {
-    const last = page.blocks[page.blocks.length - 1];
-    assert.ok(
-      /try this|try changing|try deleting/i.test(last.md || ''),
-      `${page.id} does not end with something to try`,
-    );
+  for (const section of [section3, section4]) {
+    for (const page of section.pages.filter((p) => p.type === 'content')) {
+      const last = page.blocks[page.blocks.length - 1];
+      assert.ok(
+        /try this|try changing|try deleting/i.test(last.md || ''),
+        `${section.id}/${page.id} does not end with something to try`,
+      );
+    }
   }
 });
 
 test('every example carries a caption saying what to look at', () => {
-  for (const page of section3.pages.filter((p) => p.type === 'content')) {
-    for (const block of page.blocks.filter((b) => b.type === 'example')) {
-      assert.ok(block.caption && block.caption.length > 40, `${page.id}: thin caption`);
+  for (const section of [section3, section4]) {
+    for (const page of section.pages.filter((p) => p.type === 'content')) {
+      for (const block of page.blocks.filter((b) => b.type === 'example')) {
+        assert.ok(block.caption && block.caption.length > 40, `${section.id}/${page.id}: thin caption`);
+      }
     }
   }
 });
@@ -114,14 +125,17 @@ test('the quiz asks the five commissioned questions', () => {
 
 // --- Tasks: everything provable without a DOM -------------------------------
 
-const tasks = () => section3.pages.filter((p) => p.type === 'task');
+const tasks = () => [...tasksOf(section3), ...tasksOf(section4)];
 
 test('every task has a starter, a hint and a full solution', () => {
   for (const t of tasks()) {
     assert.ok(t.starter?.html, `${t.id} has no starter html`);
     assert.ok(t.solution?.html, `${t.id} has no solution html`);
     assert.ok(t.hint && t.hint.length > 80, `${t.id} has no useful hint`);
-    assert.notEqual(t.starter.html, t.solution.html, `${t.id}: starter IS the solution`);
+    // A css-only task shares its html with the starter by design; the editable
+    // tab is what must differ.
+    const editable = t.tabs?.[0] ?? 'html';
+    assert.notEqual(t.starter[editable], t.solution[editable], `${t.id}: starter IS the solution`);
   }
 });
 
@@ -129,7 +143,7 @@ test('every check explains what is wrong and nudges toward the fix', () => {
   for (const t of tasks()) {
     for (const c of t.checks) {
       assert.ok(c.message.length > 60, `${t.id}: check message too terse: ${c.message}`);
-      assert.match(c.message, /<|"/, `${t.id}: message names no tag or value: ${c.message}`);
+      assert.match(c.message, /<|"|#/, `${t.id}: message names no tag or value: ${c.message}`);
     }
   }
 });
@@ -173,7 +187,7 @@ test('each task asks for markup its starter does not already contain', () => {
 test('every value a check needs is stated in the prompt', () => {
   for (const t of tasks()) {
     for (const c of t.checks) {
-      const needle = c.attrValue || c.text;
+      const needle = c.attrValue || c.text || (c.type === 'style' ? c.value : null);
       if (!needle) continue;
       const prompt = t.prompt.toLowerCase();
       assert.ok(
@@ -182,6 +196,147 @@ test('every value a check needs is stated in the prompt', () => {
       );
     }
   }
+});
+
+// --- Section 4: Lists & Tables ----------------------------------------------
+
+test('section 4 is registered, so the sidebar drops "(coming soon)"', () => {
+  assert.match(indexSource, /import wd1ListsTables from '\.\/wd1-lists-tables'/);
+  assert.match(
+    indexSource,
+    /id: 'wd1-lists-tables'[^}]*section: wd1ListsTables/,
+    'wd1-lists-tables is still registered as null in SECTIONS',
+  );
+});
+
+test('section 4 is the 8 pages of the outline, in order', () => {
+  assert.deepEqual(
+    section4.pages.map((p) => `${p.id}:${p.type}`),
+    [
+      'p1-unordered-lists:content',
+      'p2-ordered-lists:content',
+      'p3-task-lists:task',
+      'p4-nested-lists:content',
+      'p5-tables:content',
+      'p6-task-table:task',
+      'p7-quiz-lists-tables:quiz',
+      'p8-task-style-table:task',
+    ],
+  );
+});
+
+// The gating question: this section ENDS on an optional page. LessonPager
+// unlocks its final button on `allRequiredDone` — every page marked required —
+// and lets you leave a page when `!page.required || done.has(page.id)`. Both
+// predicates are reproduced here against section 4's real data.
+test('a student who skips the bonus can still complete section 4', () => {
+  const required = section4.pages.filter((p) => p.required).map((p) => p.id);
+  assert.deepEqual(required, ['p6-task-table', 'p7-quiz-lists-tables']);
+
+  const last = section4.pages[section4.pages.length - 1];
+  assert.equal(last.id, 'p8-task-style-table');
+  assert.ok(!last.required, 'the bonus page is required, which would lock the section');
+
+  // Passed 6 and 7, never touched the bonus.
+  const done = new Set(['p6-task-table', 'p7-quiz-lists-tables']);
+  assert.equal(required.every((id) => done.has(id)), true, 'Complete & Continue would stay locked');
+  // ...and nothing stops them walking from 7 to 8 to reach that button.
+  assert.equal(!last.required || done.has(last.id), true, 'the bonus page would trap them');
+});
+
+test('table checks use descendant selectors, because of the implicit tbody', () => {
+  for (const c of by4('p6-task-table').checks) {
+    assert.match(c.selector, /^table /, `not a descendant selector: ${c.selector}`);
+    assert.ok(!c.selector.includes('>'), `"${c.selector}" would miss the tbody the parser inserts`);
+  }
+});
+
+test('list checks count direct children, so a nested list is not double-counted', () => {
+  for (const c of by4('p3-task-lists').checks) {
+    assert.match(c.selector, /^(ul|ol) > li/, `expected a child combinator: ${c.selector}`);
+  }
+});
+
+test('both list/table tasks demand non-empty cells and the right counts', () => {
+  const lists = by4('p3-task-lists').checks;
+  assert.deepEqual(lists.map((c) => [c.selector, c.minCount, !!c.textNonEmpty]), [
+    ['ul > li', 3, false],
+    ['ol > li', 3, false],
+    ['ul > li, ol > li', 6, true],
+  ]);
+
+  const table = by4('p6-task-table').checks;
+  assert.deepEqual(table.map((c) => [c.selector, c.minCount, !!c.textNonEmpty]), [
+    ['table tr', 3, false],
+    ['table th', 3, false],
+    ['table td', 6, false],
+    ['table th, table td', 9, true],
+  ]);
+});
+
+// What the starters do and don't already contain. Not the DOM check — but a
+// starter carrying the answer would fail here long before a browser saw it.
+// Comments are stripped first: the starters name the tags in their guidance
+// comments on purpose, and a comment is not markup the browser ever sees.
+const stripComments = (html) => html.replace(/<!--[\s\S]*?-->/g, '');
+
+test('section 4 starters do not contain the markup their checks require', () => {
+  const lists = by4('p3-task-lists');
+  for (const needle of ['<ul>', '<ol>', '<li>']) {
+    assert.ok(!stripComments(lists.starter.html).includes(needle), `p3 starter already has ${needle}`);
+    assert.ok(lists.solution.html.includes(needle), `p3 solution is missing ${needle}`);
+  }
+
+  const table = by4('p6-task-table');
+  for (const needle of ['<tr>', '<th>', '<td>']) {
+    assert.ok(!stripComments(table.starter.html).includes(needle), `p6 starter already has ${needle}`);
+    assert.ok(table.solution.html.includes(needle), `p6 solution is missing ${needle}`);
+  }
+  assert.ok(table.starter.html.includes('<table>'), 'p6 starter should still frame the table');
+});
+
+test('starter comments still point at the tags the student needs', () => {
+  const comments = (html) => (html.match(/<!--[\s\S]*?-->/g) || []).join(' ');
+  assert.match(comments(by4('p3-task-lists').starter.html), /<ul>[\s\S]*<ol>/);
+  assert.match(comments(by4('p6-task-table').starter.html), /<th>[\s\S]*<td>/);
+});
+
+test('the solution really supplies the counts the checks demand', () => {
+  const count = (html, re) => (html.match(re) || []).length;
+  const lists = by4('p3-task-lists').solution.html;
+  assert.equal(count(lists, /<li>/g), 6);
+
+  const table = by4('p6-task-table').solution.html;
+  assert.equal(count(table, /<tr>/g), 3);
+  assert.equal(count(table, /<th>/g), 3);
+  assert.equal(count(table, /<td>/g), 6);
+  // Every cell has text: no <th></th> or <td></td> pair with nothing between.
+  assert.equal(count(table, /<(th|td)>\s*<\/(th|td)>/g), 0);
+});
+
+test('the bonus task is css-only, still renders its page, and starts failing', () => {
+  const bonus = by4('p8-task-style-table');
+  assert.deepEqual(bonus.tabs, ['css']);
+  assert.ok(!bonus.required, 'the bonus must not gate the section');
+  assert.match(bonus.title, /^Bonus/);
+
+  // The html is carried by both so the preview (and the solution's preview)
+  // has a table to style, even though only the css tab is shown.
+  assert.ok(bonus.starter.html.includes('<table>'));
+  assert.ok(bonus.solution.html.includes('<table>'));
+  assert.equal(bonus.starter.html, by4('p6-task-table').solution.html, 'bonus should start from p6\'s answer');
+
+  const check = bonus.checks[0];
+  assert.equal(bonus.checks.length, 1);
+  assert.equal(check.type, 'style');
+  assert.equal(check.selector, 'th');
+  assert.equal(check.prop, 'background-color');
+
+  // Starter css cannot already set it; solution css must.
+  const rule = new RegExp(`background-color\\s*:\\s*${check.value}\\s*;`, 'i');
+  assert.ok(!rule.test(bonus.starter.css.replace(/\/\*[\s\S]*?\*\//g, '')), 'starter already passes');
+  assert.match(bonus.solution.css, rule);
+  assert.match(bonus.solution.css, /^\s*th\s*\{/);
 });
 
 // --- The alt-text rule, tested directly -------------------------------------

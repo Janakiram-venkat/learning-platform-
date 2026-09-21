@@ -330,6 +330,13 @@ const RUNTIME = `
         return norm(el.textContent).indexOf(norm(check.text)) !== -1;
       });
     }
+    // "every cell has something in it" - a count of elements that are not
+    // empty, which a substring test can't express.
+    if (check.textNonEmpty) {
+      list = list.filter(function (el) {
+        return norm(el.textContent) !== "";
+      });
+    }
     if (check.attr) {
       list = list.filter(function (el) {
         if (!el.hasAttribute(check.attr)) return false;

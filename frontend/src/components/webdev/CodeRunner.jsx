@@ -81,7 +81,11 @@ export default function CodeRunner({
   // to *show*, and an error beats a silently blank preview either way. An
   // explicit click always wins.
   const errored = lines.some((l) => l.type === 'err');
-  const pane = paneChoice ?? (errored ? 'terminal' : activeTabs.includes('html') ? 'preview' : 'terminal');
+  // "Has something to show" is about the HTML, not about whether there's an
+  // HTML *tab*: a CSS-only exercise still edits a real page, and opening it on
+  // an empty terminal would hide the very thing being styled.
+  const hasPage = activeTabs.includes('html') || !!files.html?.trim();
+  const pane = paneChoice ?? (errored ? 'terminal' : hasPage ? 'preview' : 'terminal');
 
   // A new page means new starter code and a clean runner.
   useEffect(() => {

@@ -72,7 +72,7 @@ export default function CodeRunner({
   const [paneChoice, setPaneChoice] = useState(null);
 
   const {
-    iframeRef, srcDoc, frameKey, lines, running,
+    iframeRef, srcDoc, frameKey, lines, running, title,
     run, stop, reset: resetRunner, handleFrameLoad,
   } = useWebRunner({ onChecks: onCheckResults });
 
@@ -269,7 +269,18 @@ export default function CodeRunner({
               className={paneBtn(pane === 'terminal')}
             >
               <TerminalSquare className="h-3.5 w-3.5" aria-hidden="true" /> Terminal
-              {errored && <span className="h-1.5 w-1.5 rounded-full bg-wire" aria-label="has errors" />}
+              {errored
+                ? <span className="h-1.5 w-1.5 rounded-full bg-wire" aria-label="has errors" />
+                // Clicking a link in the preview answers in the terminal, which
+                // is the wrong pane to be looking at. Say that something landed.
+                : pane !== 'terminal' && lines.length > 0 && (
+                  <span
+                    className="rounded-full bg-pcb px-1.5 text-[10px] font-extrabold leading-4 text-white"
+                    aria-label={`${lines.length} new terminal messages`}
+                  >
+                    {lines.length}
+                  </span>
+                )}
             </button>
           </div>
 
@@ -278,15 +289,27 @@ export default function CodeRunner({
                 reload the preview (and restart the student's script). */}
             <div className={`h-full ${pane === 'preview' ? '' : 'hidden'}`}>
               {srcDoc ? (
-                <iframe
-                  key={frameKey}
-                  ref={iframeRef}
-                  title="Live preview of your page"
-                  srcDoc={srcDoc}
-                  onLoad={handleFrameLoad}
-                  sandbox="allow-scripts"
-                  className="h-full w-full border-0 bg-white"
-                />
+                <div className="flex h-full flex-col">
+                  {/* A mock browser tab. <title> is invisible inside the frame,
+                      so without this there is nowhere to see what it does. */}
+                  <div className="flex shrink-0 items-center gap-1.5 border-b border-ink/10 bg-ink/5 px-2 py-1">
+                    <span className="flex max-w-[70%] items-center gap-1.5 rounded-t-md border border-ink/12 border-b-0 bg-white px-2.5 py-1">
+                      <span className="h-2 w-2 shrink-0 rounded-sm bg-ink/25" aria-hidden="true" />
+                      <span className="truncate text-[11px] font-bold text-ink/70">
+                        {title ? title : <span className="italic text-ink/35">Untitled page</span>}
+                      </span>
+                    </span>
+                  </div>
+                  <iframe
+                    key={frameKey}
+                    ref={iframeRef}
+                    title="Live preview of your page"
+                    srcDoc={srcDoc}
+                    onLoad={handleFrameLoad}
+                    sandbox="allow-scripts"
+                    className="min-h-0 w-full flex-1 border-0 bg-white"
+                  />
+                </div>
               ) : (
                 <div className="flex h-full items-center justify-center px-6 text-center text-sm font-semibold text-ink/40">
                   Press&nbsp;<span className="rounded border border-ink/20 bg-paper px-1.5 py-0.5 font-mono-lab text-xs">Run</span>&nbsp;to see your page.

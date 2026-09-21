@@ -28,6 +28,7 @@ const LEVEL_TYPE = { log: 'out', info: 'out', warn: 'warn', error: 'err' };
  * @returns {{
  *   iframeRef: React.RefObject<HTMLIFrameElement>,
  *   srcDoc: string, frameKey: number, lines: object[], running: boolean,
+ *   title: string|null,
  *   run: (files: object, checks?: object[]|null) => void,
  *   stop: () => void, reset: () => void,
  *   handleFrameLoad: () => void,
@@ -40,6 +41,10 @@ export function useWebRunner({ onChecks } = {}) {
   const [frameKey, setFrameKey] = useState(0);
   const [lines, setLines] = useState([]);
   const [running, setRunning] = useState(false);
+  // What the frame's <title> says, for the mock tab bar above the preview.
+  // Empty string is meaningful ("a page with no title"), so null means
+  // "nothing has run yet".
+  const [title, setTitle] = useState(null);
 
   // The run the frame is currently executing. Messages tagged with anything
   // else are from a frame we've already replaced, and are dropped.
@@ -71,6 +76,8 @@ export function useWebRunner({ onChecks } = {}) {
         push('err', msg.text);
       } else if (msg.kind === 'checks') {
         onChecksRef.current?.(msg.results || []);
+      } else if (msg.kind === 'title') {
+        setTitle(String(msg.text ?? ''));
       }
     };
 
@@ -87,6 +94,7 @@ export function useWebRunner({ onChecks } = {}) {
     runIdRef.current = nextId;
 
     setLines([]);
+    setTitle(null);
     setRunning(true);
     setSrcDoc(buildSrcDoc({ ...files, checks, runId: nextId }));
     setFrameKey(nextId);
@@ -107,11 +115,12 @@ export function useWebRunner({ onChecks } = {}) {
     runIdRef.current += 1;
     setSrcDoc('');
     setLines([]);
+    setTitle(null);
     setRunning(false);
   }, []);
 
   /** Wire to the iframe's onLoad: the document has finished parsing. */
   const handleFrameLoad = useCallback(() => setRunning(false), []);
 
-  return { iframeRef, srcDoc, frameKey, lines, running, run, stop, reset, handleFrameLoad };
+  return { iframeRef, srcDoc, frameKey, lines, running, title, run, stop, reset, handleFrameLoad };
 }

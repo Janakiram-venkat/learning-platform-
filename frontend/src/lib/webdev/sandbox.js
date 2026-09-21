@@ -18,6 +18,81 @@ export const RUNNER_SOURCE = 'webdev-runner';
 const escapeScript = (s) => String(s ?? '').replace(/<\/script/gi, '<\\/script');
 
 /**
+ * Sample images the course can use by name.
+ *
+ * A srcDoc frame has no base URL, so `<img src="cat.jpg">` can never resolve to
+ * a file — and the frame has no business fetching the wider internet either.
+ * These stand in: tiny inline SVGs, matched on the *filename* so "cat.jpg",
+ * "./cat.jpg" and "images/cat.jpg" all find the same picture.
+ *
+ * The extensions are deliberately .jpg/.png rather than .svg. Students meet
+ * those in every tutorial they will ever read, and the point being taught is
+ * the `src`/`alt` pair, not the file format.
+ *
+ * Anything NOT listed here is left alone and breaks, on purpose: a broken image
+ * showing its alt text is the single best argument for writing alt text.
+ */
+const SAMPLE_IMAGES = {
+  'cat.jpg':
+    '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="160" viewBox="0 0 240 160">' +
+    '<rect width="240" height="160" fill="#ffd8a8"/>' +
+    '<g fill="#5c4033"><path d="M78 62 L66 26 L104 46 Z"/><path d="M162 62 L174 26 L136 46 Z"/>' +
+    '<ellipse cx="120" cy="92" rx="56" ry="44"/></g>' +
+    '<circle cx="101" cy="84" r="9" fill="#ffffff"/><circle cx="139" cy="84" r="9" fill="#ffffff"/>' +
+    '<circle cx="101" cy="85" r="4" fill="#16241d"/><circle cx="139" cy="85" r="4" fill="#16241d"/>' +
+    '<path d="M112 103 h16 l-8 9 Z" fill="#ff9aa2"/>' +
+    '<g stroke="#ffffff" stroke-width="2"><path d="M66 99 h32 M66 109 h32 M174 99 h-32 M174 109 h-32"/></g>' +
+    '<text x="120" y="152" font-family="monospace" font-size="11" fill="#5c4033" text-anchor="middle">cat.jpg</text>' +
+    '</svg>',
+  'mountain.jpg':
+    '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="160" viewBox="0 0 240 160">' +
+    '<rect width="240" height="160" fill="#cfe8ff"/>' +
+    '<circle cx="198" cy="38" r="17" fill="#ffd66b"/>' +
+    '<path d="M0 160 L74 52 L132 160 Z" fill="#4a7c59"/>' +
+    '<path d="M94 160 L166 42 L240 160 Z" fill="#2f5d45"/>' +
+    '<path d="M148 72 L166 42 L184 72 L166 64 Z" fill="#ffffff"/>' +
+    '<text x="120" y="152" font-family="monospace" font-size="11" fill="#ffffff" text-anchor="middle">mountain.jpg</text>' +
+    '</svg>',
+  'logo.png':
+    '<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">' +
+    '<rect x="8" y="8" width="144" height="144" rx="28" fill="#16241d"/>' +
+    '<circle cx="80" cy="64" r="26" fill="#9ae66e"/>' +
+    '<rect x="44" y="100" width="72" height="12" rx="6" fill="#ffffff"/>' +
+    '<text x="80" y="140" font-family="monospace" font-size="11" fill="#ffffff" text-anchor="middle">logo.png</text>' +
+    '</svg>',
+};
+
+/** The names students can type. Exported so lesson content can list them. */
+export const SAMPLE_IMAGE_NAMES = Object.keys(SAMPLE_IMAGES);
+
+/**
+ * Normalise a student's `src` to the sample name it is asking for, or null if
+ * it isn't asking for one. "./cat.jpg", "images/CAT.JPG" and "cat.jpg?v=2" all
+ * come back as "cat.jpg"; anything with a scheme (http:, data:) is left alone.
+ *
+ * Written in ES5 with no outer references because its *source* is injected
+ * into the sandbox shim (see buildSrcDoc), so the rule the frame applies and
+ * the rule tested in Node are the same function, not two copies of it.
+ *
+ * @param {string} src
+ * @returns {string|null}
+ */
+export function resolveSampleName(src) {
+  var raw = String(src == null ? '' : src).trim();
+  if (!raw) return null;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(raw)) return null;
+  var clean = raw.split('?')[0].split('#')[0];
+  var name = clean.substring(clean.lastIndexOf('/') + 1).toLowerCase();
+  return name || null;
+}
+
+/** Is this `src` one of the built-in samples? @param {string} src */
+export function isSampleImage(src) {
+  const name = resolveSampleName(src);
+  return !!name && Object.prototype.hasOwnProperty.call(SAMPLE_IMAGES, name);
+}
+
+/**
  * The shim injected as the very first thing in <head>.
  *
  * Written as an old-school IIFE with no template literals or arrow functions:
@@ -96,6 +171,133 @@ const RUNTIME = `
     send({ kind: "error", text: "Unhandled promise rejection: " + fmt(r) });
   });
 
+  // A note from the sandbox itself, not from the student's code. Deliberately
+  // NOT pushed into \`logs\`, so a sandbox note can never satisfy a console check.
+  function note(text) {
+    send({ kind: "console", level: "info", text: text });
+  }
+
+  // --- The tab bar ---------------------------------------------------------
+  // <title> is invisible inside the frame, which makes it impossible to teach.
+  // The parent draws a mock browser tab above the preview; this reports what
+  // should be written on it.
+
+  var lastTitle = null;
+  function reportTitle() {
+    var t = document.title || "";
+    if (t === lastTitle) return;
+    lastTitle = t;
+    send({ kind: "title", text: t });
+  }
+
+  // --- Links ---------------------------------------------------------------
+  // A real navigation would replace the preview with somewhere else entirely -
+  // an error page, most likely, since the frame has an opaque origin. So an
+  // off-page link is reported instead of followed, and an in-page one is
+  // allowed through so the student can watch a fragment link actually work.
+  //
+  // Capture phase, so this runs before any handler the student wrote.
+  // Keyboard activation is covered by the same listener: pressing Enter on a
+  // focused link dispatches a click event, it does not navigate directly.
+  document.addEventListener("click", function (e) {
+    var el = e.target;
+    var a = el && el.closest ? el.closest("a") : null;
+    if (!a) return;
+    if (!a.hasAttribute("href")) {
+      note("This <a> has no href attribute, so it is not a link yet.");
+      return;
+    }
+
+    var href = a.getAttribute("href");
+    var blank = a.getAttribute("target") === "_blank"
+      ? ' It has target="_blank", so it would open in a new tab.'
+      : "";
+
+    if (href.charAt(0) === "#") {
+      var id = href.slice(1);
+      if (!id) {
+        note('This link goes to "#", which means the top of this page.');
+        return;
+      }
+      if (document.getElementById(id)) {
+        note("Jumping to #" + id + " on this page." + blank);
+        return; // let the frame scroll - this one really works
+      }
+      e.preventDefault();
+      note('This link points to #' + id + ', but nothing on this page has id="' + id + '" yet.');
+      return;
+    }
+
+    e.preventDefault();
+    note("This link would go to: " + href + blank);
+  }, true);
+
+  // --- Images --------------------------------------------------------------
+  // Map a handful of names onto built-in pictures WITHOUT touching the src the
+  // student typed: srcset wins over src when the browser picks a source, so the
+  // attribute stays exactly as written and the checks grade what was written.
+
+  var SAMPLES = __SAMPLES__;
+  // The same function the parent module exports and Node tests - injected by
+  // source so there is only one copy of the rule.
+  var resolveSampleName = __RESOLVE_SAMPLE__;
+
+  function sampleFor(src) {
+    var name = resolveSampleName(src);
+    return name && Object.prototype.hasOwnProperty.call(SAMPLES, name) ? SAMPLES[name] : null;
+  }
+
+  function applySample(img) {
+    if (img.getAttribute("data-webdev-sample") === "1") return;
+    var typed = img.getAttribute("src");
+    var svg = sampleFor(typed);
+    if (!svg) return;
+
+    var uri = "data:image/svg+xml;base64," + btoa(svg);
+    img.setAttribute("data-webdev-sample", "1");
+    // The student's own value, mirrored. runOne reads src through this, so a
+    // check on src grades what they typed even if the fallback below fires.
+    img.setAttribute("data-webdev-src", typed);
+    img.setAttribute("srcset", uri);
+
+    // Fallback for anything that ignores srcset here: only then is src itself
+    // rewritten, and only after the mirror above is already in place.
+    function rescue() {
+      if (img.naturalWidth === 0 && img.getAttribute("src") !== uri) img.setAttribute("src", uri);
+    }
+    img.addEventListener("error", rescue);
+    if (img.complete) rescue();
+  }
+
+  function sweepImages() {
+    var imgs = document.getElementsByTagName("img");
+    for (var i = 0; i < imgs.length; i++) applySample(imgs[i]);
+  }
+
+  // The document is still parsing when this runs, so everything below waits for
+  // content - and repeats on load, which also catches elements added by the
+  // student's own script.
+  function afterParse() {
+    sweepImages();
+    reportTitle();
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", afterParse);
+  } else {
+    afterParse();
+  }
+  window.addEventListener("load", function () {
+    sweepImages();
+    reportTitle();
+    // A student who sets document.title from JS should see the tab change too.
+    try {
+      new MutationObserver(function () {
+        reportTitle();
+        sweepImages();
+      }).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+    } catch (e) { /* no MutationObserver, no live updates */ }
+  });
+
   // --- Task checks ---------------------------------------------------------
   // The parent can't read this document, so the verdicts are decided here.
 
@@ -113,6 +315,14 @@ const RUNTIME = `
     return norm(out);
   }
 
+  // Read an attribute the way the student wrote it. Only src differs: a sample
+  // image may have had its src rescued to a data URI (see applySample), and
+  // grading that instead of "cat.jpg" would be grading our own code.
+  function attrOf(el, name) {
+    if (name === "src" && el.hasAttribute("data-webdev-src")) return el.getAttribute("data-webdev-src");
+    return el.getAttribute(name);
+  }
+
   function matchElements(check) {
     var list = Array.prototype.slice.call(document.querySelectorAll(check.selector));
     if (check.text) {
@@ -123,8 +333,30 @@ const RUNTIME = `
     if (check.attr) {
       list = list.filter(function (el) {
         if (!el.hasAttribute(check.attr)) return false;
+        var actual = attrOf(el, check.attr);
+        // attrNonEmpty is opt-in: presence alone has always been enough, and
+        // sections written before this flag existed rely on that.
+        if (check.attrNonEmpty && String(actual == null ? "" : actual).trim() === "") return false;
         if (check.attrValue == null) return true;
-        return norm(el.getAttribute(check.attr)).indexOf(norm(check.attrValue)) !== -1;
+        return norm(actual).indexOf(norm(check.attrValue)) !== -1;
+      });
+    }
+    // A last gate for the things a substring test can't say: "present, but not
+    // one of these words", used by the alt-text task.
+    if (check.attrNot && check.attr) {
+      list = list.filter(function (el) {
+        var actual = norm(attrOf(el, check.attr));
+        for (var i = 0; i < check.attrNot.length; i++) {
+          if (actual === norm(check.attrNot[i])) return false;
+        }
+        return true;
+      });
+    }
+    if (check.attrNotPattern && check.attr) {
+      var re = new RegExp(check.attrNotPattern, "i");
+      list = list.filter(function (el) {
+        var actual = attrOf(el, check.attr);
+        return !re.test(String(actual == null ? "" : actual).trim());
       });
     }
     return list;
@@ -282,7 +514,10 @@ function checksScript(checks, runId) {
 export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId = 0 }) {
   const runtime = RUNTIME
     .replace('__RUN_ID__', String(runId))
-    .replace('__SOURCE__', RUNNER_SOURCE);
+    .replace('__SOURCE__', RUNNER_SOURCE)
+    // Function form: a "$" in the payload would otherwise be a replacement token.
+    .replace('__SAMPLES__', () => escapeScript(JSON.stringify(SAMPLE_IMAGES)))
+    .replace('__RESOLVE_SAMPLE__', () => resolveSampleName.toString());
 
   const head =
     `<script>${runtime}</script>` +

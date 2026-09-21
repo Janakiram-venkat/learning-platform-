@@ -7,6 +7,7 @@
 
 import wd1Intro from './wd1-intro';
 import wd1HtmlBasics from './wd1-html-basics';
+import wd1TextLinksImages from './wd1-text-links-images';
 
 /**
  * Every section in the module, written or not.
@@ -20,7 +21,7 @@ import wd1HtmlBasics from './wd1-html-basics';
 export const SECTIONS = [
   { id: 'wd1-intro', title: 'Introduction to Web Development', duration: '25 min', section: wd1Intro },
   { id: 'wd1-html-basics', title: 'HTML Basics', duration: '30 min', section: wd1HtmlBasics },
-  { id: 'wd1-text-links-images', title: 'Text, Links & Images', duration: '30 min', section: null },
+  { id: 'wd1-text-links-images', title: 'Text, Links & Images', duration: '30 min', section: wd1TextLinksImages },
   { id: 'wd1-lists-tables', title: 'Lists & Tables', duration: '25 min', section: null },
   { id: 'wd1-forms', title: 'Forms & Inputs', duration: '30 min', section: null },
 ];

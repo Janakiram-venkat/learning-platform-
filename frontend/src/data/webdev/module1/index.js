@@ -10,6 +10,7 @@ import wd1HtmlBasics from './wd1-html-basics';
 import wd1TextLinksImages from './wd1-text-links-images';
 import wd1ListsTables from './wd1-lists-tables';
 import wd1Forms from './wd1-forms';
+import wd1Challenge from './wd1-challenge';
 
 /**
  * Every section in the module, written or not.
@@ -27,6 +28,24 @@ export const SECTIONS = [
   { id: 'wd1-lists-tables', title: 'Lists & Tables', duration: '25 min', section: wd1ListsTables },
   { id: 'wd1-forms', title: 'Forms & Inputs (basics)', duration: '30 min', section: wd1Forms },
 ];
+
+/**
+ * The Module Challenge.
+ *
+ * Shaped exactly like a section, but deliberately NOT in SECTIONS: a section is
+ * a lesson everywhere else in the app (the sidebar lists it, course progress
+ * counts it, `completedLessons` records it), and the challenge is an
+ * assignment. It is reached from the sidebar's own "Module Challenge" entry,
+ * which points at the assignment route for MODULE.moduleId, and its pass is
+ * recorded under `module101` in `completedAssignments` — see
+ * lib/webdev/challenge.js.
+ */
+export const CHALLENGE = wd1Challenge;
+
+/** @returns {object} The module's challenge data. */
+export function getChallenge() {
+  return CHALLENGE;
+}
 
 export const MODULE = {
   // Not 1. Challenge and project completion live in flat, course-agnostic
@@ -100,7 +119,12 @@ export function buildCourse() {
 if (import.meta.env?.DEV) {
   import('../../../lib/webdev/validate')
     .then(({ validateSections }) => {
-      validateSections(SECTIONS.filter((s) => s.section).map((s) => s.section));
+      validateSections([
+        ...SECTIONS.filter((s) => s.section).map((s) => s.section),
+        // The challenge is the same shape, so the same validator catches a
+        // typo'd check or a duplicate page id in it too.
+        CHALLENGE,
+      ]);
     })
     .catch(() => { /* never block the lesson on its own linter */ });
 }

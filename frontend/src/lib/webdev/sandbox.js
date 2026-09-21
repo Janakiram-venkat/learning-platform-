@@ -93,6 +93,96 @@ export function isSampleImage(src) {
 }
 
 /**
+ * Narrow a `dom`/`style` check's selector down to the elements it really
+ * matches: the selector first, then each authored filter in turn.
+ *
+ * Written in ES5 with no outer references, for the same reason
+ * `resolveSampleName` is: its *source* is injected into the sandbox shim (see
+ * buildSrcDoc), so the rule the frame applies and the rule a Node test applies
+ * are the same function rather than two copies that can drift apart. Everything
+ * it needs from the document arrives in `ctx`, which is what lets a test hand it
+ * a parsed tree instead of a real DOM.
+ *
+ * @param {object} check
+ * @param {{ queryAll: (selector: string) => Array<any>,
+ *           norm: (value: any) => string,
+ *           attrOf: (el: any, name: string) => string|null }} ctx
+ * @returns {Array<any>}
+ */
+export function matchElements(check, ctx) {
+  var list = ctx.queryAll(check.selector);
+  var norm = ctx.norm;
+  if (check.text) {
+    list = list.filter(function (el) {
+      return norm(el.textContent).indexOf(norm(check.text)) !== -1;
+    });
+  }
+  // "every cell has something in it" - a count of elements that are not
+  // empty, which a substring test can't express.
+  if (check.textNonEmpty) {
+    list = list.filter(function (el) {
+      return norm(el.textContent) !== "";
+    });
+  }
+  if (check.attr) {
+    list = list.filter(function (el) {
+      if (!el.hasAttribute(check.attr)) return false;
+      var actual = ctx.attrOf(el, check.attr);
+      // attrNonEmpty is opt-in: presence alone has always been enough, and
+      // sections written before this flag existed rely on that.
+      if (check.attrNonEmpty && String(actual == null ? "" : actual).trim() === "") return false;
+      if (check.attrValue == null) return true;
+      return norm(actual).indexOf(norm(check.attrValue)) !== -1;
+    });
+  }
+  // A last gate for the things a substring test can't say: "present, but not
+  // one of these words", used by the alt-text task.
+  if (check.attrNot && check.attr) {
+    list = list.filter(function (el) {
+      var actual = norm(ctx.attrOf(el, check.attr));
+      for (var i = 0; i < check.attrNot.length; i++) {
+        if (actual === norm(check.attrNot[i])) return false;
+      }
+      return true;
+    });
+  }
+  if (check.attrNotPattern && check.attr) {
+    var re = new RegExp(check.attrNotPattern, "i");
+    list = list.filter(function (el) {
+      var actual = ctx.attrOf(el, check.attr);
+      return !re.test(String(actual == null ? "" : actual).trim());
+    });
+  }
+  return list;
+}
+
+/**
+ * The verdict of a `dom` check, given the elements it matched. Injected by
+ * source alongside {@link matchElements}, for the same reason.
+ *
+ * @param {object} check
+ * @param {Array<any>} list
+ * @returns {boolean}
+ */
+export function domVerdict(check, list) {
+  if (typeof check.count === "number") return list.length === check.count;
+  if (typeof check.minCount === "number") return list.length >= check.minCount;
+  return list.length > 0;
+}
+
+/**
+ * The default `norm` for {@link matchElements}: collapse whitespace, trim, lower
+ * case. Mirrors the sandbox's own `norm`, and exported so a Node test builds its
+ * ctx out of the same rule the frame uses.
+ *
+ * @param {any} s
+ * @returns {string}
+ */
+export function normalizeText(s) {
+  return String(s == null ? '' : s).replace(/\s+/g, ' ').trim().toLowerCase();
+}
+
+/**
  * The shim injected as the very first thing in <head>.
  *
  * Written as an old-school IIFE with no template literals or arrow functions:
@@ -340,50 +430,21 @@ const RUNTIME = `
     return el.getAttribute(name);
   }
 
+  // Both injected by source from the parent module, so the Node tests grade
+  // with this exact function rather than a second copy of the rule.
+  var matchElementsFn = __MATCH_ELEMENTS__;
+  var domVerdictFn = __DOM_VERDICT__;
+
+  var MATCH_CTX = {
+    queryAll: function (selector) {
+      return Array.prototype.slice.call(document.querySelectorAll(selector));
+    },
+    norm: norm,
+    attrOf: attrOf,
+  };
+
   function matchElements(check) {
-    var list = Array.prototype.slice.call(document.querySelectorAll(check.selector));
-    if (check.text) {
-      list = list.filter(function (el) {
-        return norm(el.textContent).indexOf(norm(check.text)) !== -1;
-      });
-    }
-    // "every cell has something in it" - a count of elements that are not
-    // empty, which a substring test can't express.
-    if (check.textNonEmpty) {
-      list = list.filter(function (el) {
-        return norm(el.textContent) !== "";
-      });
-    }
-    if (check.attr) {
-      list = list.filter(function (el) {
-        if (!el.hasAttribute(check.attr)) return false;
-        var actual = attrOf(el, check.attr);
-        // attrNonEmpty is opt-in: presence alone has always been enough, and
-        // sections written before this flag existed rely on that.
-        if (check.attrNonEmpty && String(actual == null ? "" : actual).trim() === "") return false;
-        if (check.attrValue == null) return true;
-        return norm(actual).indexOf(norm(check.attrValue)) !== -1;
-      });
-    }
-    // A last gate for the things a substring test can't say: "present, but not
-    // one of these words", used by the alt-text task.
-    if (check.attrNot && check.attr) {
-      list = list.filter(function (el) {
-        var actual = norm(attrOf(el, check.attr));
-        for (var i = 0; i < check.attrNot.length; i++) {
-          if (actual === norm(check.attrNot[i])) return false;
-        }
-        return true;
-      });
-    }
-    if (check.attrNotPattern && check.attr) {
-      var re = new RegExp(check.attrNotPattern, "i");
-      list = list.filter(function (el) {
-        var actual = attrOf(el, check.attr);
-        return !re.test(String(actual == null ? "" : actual).trim());
-      });
-    }
-    return list;
+    return matchElementsFn(check, MATCH_CTX);
   }
 
   function runOne(check) {
@@ -469,10 +530,7 @@ const RUNTIME = `
     }
 
     if (check.type === "dom") {
-      var list = matchElements(check);
-      if (typeof check.count === "number") return list.length === check.count;
-      if (typeof check.minCount === "number") return list.length >= check.minCount;
-      return list.length > 0;
+      return domVerdictFn(check, matchElements(check));
     }
 
     // Style checks report what they actually found when they fail. "The
@@ -614,7 +672,9 @@ export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId
     .replace('__SOURCE__', RUNNER_SOURCE)
     // Function form: a "$" in the payload would otherwise be a replacement token.
     .replace('__SAMPLES__', () => escapeScript(JSON.stringify(SAMPLE_IMAGES)))
-    .replace('__RESOLVE_SAMPLE__', () => resolveSampleName.toString());
+    .replace('__RESOLVE_SAMPLE__', () => resolveSampleName.toString())
+    .replace('__MATCH_ELEMENTS__', () => matchElements.toString())
+    .replace('__DOM_VERDICT__', () => domVerdict.toString());
 
   const head =
     `<script>${runtime}</script>` +

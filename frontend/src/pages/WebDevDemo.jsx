@@ -7,10 +7,16 @@ import CodeRunner from '../components/webdev/CodeRunner';
 import LessonPager from '../components/lesson-engine/LessonPager';
 import TaskSelfTest from '../components/webdev/TaskSelfTest';
 import WebDevProgressReset from '../components/webdev/WebDevProgressReset';
-import { SECTIONS } from '../data/webdev/module1';
+import { CHALLENGE, SECTIONS } from '../data/webdev/module1';
 
-/** Every written section, for the task self-test. */
-const REAL_SECTIONS = SECTIONS.filter((s) => s.section).map((s) => s.section);
+/**
+ * Every written section plus the Module Challenge, for the task self-test.
+ *
+ * The challenge is in here because its `link` check (task 5's label-for/input-id
+ * pairing) is graded inside the frame and has no exported form, so the Node
+ * tests skip it. This panel is the only place it gets verified.
+ */
+const REAL_SECTIONS = [...SECTIONS.filter((s) => s.section).map((s) => s.section), CHALLENGE];
 
 const CHECKS = [
   { type: 'dom', selector: 'h1', text: 'Hello', message: 'Your page has an <h1> that says "Hello".' },

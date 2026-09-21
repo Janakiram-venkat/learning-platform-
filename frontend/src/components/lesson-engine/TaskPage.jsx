@@ -17,8 +17,11 @@ const ATTEMPTS_BEFORE_SOLUTION = 2;
  * @param {string} props.sectionId Used to namespace the autosave key.
  * @param {boolean} props.passed   Already passed on a previous visit.
  * @param {() => void} props.onPass
+ * @param {() => void} [props.onFail] Fired on a run that did not pass every
+ *        check. Sections ignore it; the module challenge counts attempts with
+ *        it, so its result screen can tell "tried and failed" from "skipped".
  */
-export default function TaskPage({ page, sectionId, passed, onPass }) {
+export default function TaskPage({ page, sectionId, passed, onPass, onFail }) {
   const [results, setResults] = useState(null);
   const [attempts, setAttempts] = useState(0);
   const [showHint, setShowHint] = useState(false);
@@ -27,9 +30,13 @@ export default function TaskPage({ page, sectionId, passed, onPass }) {
   const handleResults = useCallback((next) => {
     setResults(next);
     const allPassed = next.length > 0 && next.every((r) => r.passed);
-    if (allPassed) onPass();
-    else setAttempts((n) => n + 1);
-  }, [onPass]);
+    if (allPassed) {
+      onPass();
+    } else {
+      setAttempts((n) => n + 1);
+      onFail?.();
+    }
+  }, [onPass, onFail]);
 
   const allPassed = !!results && results.length > 0 && results.every((r) => r.passed);
   const solutionOffered = attempts >= ATTEMPTS_BEFORE_SOLUTION && !allPassed;

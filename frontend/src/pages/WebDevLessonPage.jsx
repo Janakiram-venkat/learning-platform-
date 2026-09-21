@@ -55,15 +55,15 @@ export default function WebDevLessonPage() {
     const nextReady = next?.section ? next : null;
     // No next section at all means the last section of the module, not an
     // unfinished course — so say what actually comes next instead of leaving
-    // the student on a full stop. The Module Challenge is built and waiting in
-    // the sidebar; the Mini Project is not, so it is named and not promised.
+    // the student on a full stop. Both the Module Challenge and the Mini
+    // Project are built and waiting in the sidebar.
     const endOfModule = !next;
     setCelebration({
       title: endOfModule ? 'Module 1 complete! 🏆' : 'Section complete! ✅',
       message: nextReady
         ? `Nice work. Up next: ${nextReady.title}.`
         : endOfModule
-          ? 'That is every section of Module 1. The Module Challenge is next — six tasks in the sidebar that put the whole module together. The Mini Project comes after it, and will appear there when it is ready.'
+          ? 'That is every section of Module 1. The Module Challenge is next — six tasks in the sidebar that put the whole module together. After it comes the Mini Project: five milestones that build one page about you.'
           : 'That is every section written so far. More of Module 1 is on the way.',
       next: nextReady?.id ?? null,
     });

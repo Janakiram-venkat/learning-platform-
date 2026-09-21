@@ -11,6 +11,7 @@ const Dashboard = lazy(() => import('../pages/Dashboard'));
 const LessonPage = lazy(() => import('../pages/LessonPage'));
 const WebDevLessonPage = lazy(() => import('../pages/WebDevLessonPage'));
 const WebDevChallengePage = lazy(() => import('../pages/WebDevChallengePage'));
+const WebDevProjectPage = lazy(() => import('../pages/WebDevProjectPage'));
 const AssignmentPage = lazy(() => import('../pages/AssignmentPage'));
 const ProjectPage = lazy(() => import('../pages/ProjectPage'));
 const LabPage = lazy(() => import('../pages/LabPage'));
@@ -76,6 +77,10 @@ export default function AppRoutes() {
             element={<WebDevChallengePage />}
           />
           <Route path="/course/:courseId/module/:moduleId/assignment" element={<AssignmentPage />} />
+          {/* Same reason again: the web-dev mini project is five sandbox-graded
+              milestones over one HTML document, not a Python program run
+              server-side. Declared first so it wins for this one course id. */}
+          <Route path="/course/webdev/module/:moduleId/project" element={<WebDevProjectPage />} />
           <Route path="/course/:courseId/module/:moduleId/project" element={<ProjectPage />} />
           <Route path="/course/:courseId/module/:moduleId/lab" element={<LabPage />} />
           <Route path="/course/:courseId/games" element={<GameCoursePage />} />

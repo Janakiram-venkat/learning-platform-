@@ -1,48 +1,52 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Menu, X, PartyPopper } from 'lucide-react';
+import { Menu, X, Hammer } from 'lucide-react';
 import Sidebar from '../components/layout/Sidebar';
-import ChallengePager from '../components/lesson-engine/ChallengePager';
+import ProjectPager from '../components/lesson-engine/ProjectPager';
 import Celebration from '../components/feedback/Celebration';
-import { buildCourse, getChallenge, MODULE } from '../data/webdev/module1';
+import { buildCourse, getProject, MODULE } from '../data/webdev/module1';
 
 // ---------------------------------------------------------------------------
-// WebDevChallengePage — the web-dev course's Module Challenge route.
+// WebDevProjectPage — the web-dev course's Mini Project route.
 //
-// Sibling of WebDevLessonPage, and the same frame around it: the shared
-// Sidebar, the bench styling, the celebration modal. It hosts ChallengePager
-// instead of LessonPager, and that is the whole difference.
+// Sibling of WebDevChallengePage, and the same frame around it: the shared
+// Sidebar, the bench styling, the celebration modal. It hosts ProjectPager
+// instead of ChallengePager, and that is the whole difference.
 //
-// It does NOT use AssignmentPage. That page is the Python/robotics arcade — a
-// fetched JSON of multiple-choice, ordering and matching rounds, with its own
-// star scoring. This course's challenge grades real HTML in the sandbox, so it
-// shares the arcade's *record* (module101 in `completedAssignments`, written by
-// lib/webdev/challenge.js) without sharing its UI.
+// It does NOT use ProjectPage. That page is the Python one — it fetches a
+// project JSON from the backend, runs the student's code through
+// /api/run-python and grades stdout. This course has no server-side runner:
+// the milestones are graded in the browser sandbox, from data that ships with
+// the bundle. What the two DO share is the record: finishing this writes
+// `module101` into `completedProjects` through lib/webdev/project.js, which is
+// the same key ProjectPage writes and the same one Sidebar.jsx reads to tick
+// the Mini Project entry.
 //
-// Nothing here gates anything: the challenge opens whether or not the module's
-// sections are finished, and finishing it unlocks nothing yet.
+// Nothing here gates anything: the project opens whether or not the module's
+// sections are finished, and finishing it unlocks nothing yet. Module 2 is
+// deliberately NOT locked behind it — see isProjectPassed() for the one call
+// that would do it.
 // ---------------------------------------------------------------------------
 
-export default function WebDevChallengePage() {
+export default function WebDevProjectPage() {
   const { moduleId } = useParams(); // e.g. "module101"
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [celebration, setCelebration] = useState(null);
 
   const course = useMemo(() => buildCourse(), []);
-  const challenge = getChallenge();
+  const project = getProject();
 
   // The route is per-module, but this course has one module so far. Anything
   // else is a typed URL, not a real place.
-  const known = String(moduleId) === `module${MODULE.moduleId}`;
+  const projectKey = `module${MODULE.moduleId}`;
+  const known = String(moduleId) === projectKey;
 
-  const handleResult = useCallback((score) => {
-    if (!score.isPass) return; // a fail is reported on the result screen, not celebrated
+  const handleComplete = useCallback((progress) => {
     setCelebration({
-      title: 'Module 1 Challenge passed! 🏆',
+      title: 'Mini Project complete! 🛠️',
       message:
-        score.passed === score.total
-          ? `Every one of the ${score.total} tasks passed. The Mini Project is next — five milestones that build one profile page, in the sidebar.`
-          : `${score.passed} of ${score.total} tasks passed, above the pass mark of ${score.passMark}. Any task you skipped is still there to go back to.`,
+        `All ${progress.total} milestones and every item on the final checklist. ` +
+        'Your profile page is saved — Module 2 starts from this exact page and styles it with CSS.',
     });
   }, []);
 
@@ -86,23 +90,27 @@ export default function WebDevChallengePage() {
         >
           <X className="h-5 w-5" aria-hidden="true" />
         </button>
-        <Sidebar course={course} onNavigate={() => setSidebarOpen(false)} />
+        <Sidebar
+          course={course}
+          currentProjectKey={known ? projectKey : undefined}
+          onNavigate={() => setSidebarOpen(false)}
+        />
       </div>
 
       <main className="bench-grid min-w-0 flex-1 overflow-y-auto p-4 sm:p-8">
         <div className="mx-auto w-full max-w-5xl rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(22,36,29,0.9)] sm:p-10">
           {known ? (
-            <ChallengePager
-              challenge={challenge}
+            <ProjectPager
+              project={project}
               moduleId={MODULE.moduleId}
-              onResult={handleResult}
+              onComplete={handleComplete}
             />
           ) : (
             <div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
-              <PartyPopper className="h-12 w-12 text-ink/30" aria-hidden="true" />
-              <h1 className="font-lab text-2xl font-extrabold text-ink">Challenge not found</h1>
+              <Hammer className="h-12 w-12 text-ink/30" aria-hidden="true" />
+              <h1 className="font-lab text-2xl font-extrabold text-ink">Project not found</h1>
               <p className="text-ink/60">
-                There is no web-dev module challenge with the id “{moduleId}”.
+                There is no web-dev mini project with the id “{moduleId}”.
               </p>
               <Link
                 to="/course/webdev/lesson/wd1-intro"

@@ -171,6 +171,48 @@ export function domVerdict(check, list) {
 }
 
 /**
+ * The verdict of an `every` check: "all of these elements satisfy the filters",
+ * not "at least one does".
+ *
+ * A `dom` check can only ever say *some* element matched, which is the wrong
+ * question for a rubric item like "every image has alt text" — one described
+ * image and four bare ones would pass it. This compares the filtered list
+ * against the unfiltered one, so a single offender fails the check and the
+ * detail says how many.
+ *
+ * `minCount` (default 1) is the "…and there is at least one of them at all"
+ * half: vacuous truth over an empty page is not a passed rubric item.
+ *
+ * Injected by source alongside {@link matchElements}, hence ES5 with no outer
+ * references. The caller supplies both lists because the two queries it needs
+ * (`queryAll(selector)` and `matchElements(check, ctx)`) live outside it.
+ *
+ * @param {object} check
+ * @param {Array<any>} all     Everything the selector matched.
+ * @param {Array<any>} matched Those that also passed the check's filters.
+ * @returns {true|{passed: false, detail: string}}
+ */
+export function everyVerdict(check, all, matched) {
+  var need = typeof check.minCount === "number" ? check.minCount : 1;
+  if (all.length < need) {
+    return {
+      passed: false,
+      detail: all.length === 0
+        ? "there is no " + check.selector + " on the page at all"
+        : "there " + (all.length === 1 ? "is " : "are ") + all.length + " " + check.selector +
+          " on the page, and this needs at least " + need,
+    };
+  }
+  if (matched.length === all.length) return true;
+  var missing = all.length - matched.length;
+  return {
+    passed: false,
+    detail: missing + " of the " + all.length + " " + check.selector + " element" +
+      (all.length === 1 ? "" : "s") + " on the page " + (missing === 1 ? "does not" : "do not"),
+  };
+}
+
+/**
  * The default `norm` for {@link matchElements}: collapse whitespace, trim, lower
  * case. Mirrors the sandbox's own `norm`, and exported so a Node test builds its
  * ctx out of the same rule the frame uses.
@@ -434,6 +476,7 @@ const RUNTIME = `
   // with this exact function rather than a second copy of the rule.
   var matchElementsFn = __MATCH_ELEMENTS__;
   var domVerdictFn = __DOM_VERDICT__;
+  var everyVerdictFn = __EVERY_VERDICT__;
 
   var MATCH_CTX = {
     queryAll: function (selector) {
@@ -531,6 +574,11 @@ const RUNTIME = `
 
     if (check.type === "dom") {
       return domVerdictFn(check, matchElements(check));
+    }
+
+    // "ALL of them, not just one of them" - the rubric's question.
+    if (check.type === "every") {
+      return everyVerdictFn(check, MATCH_CTX.queryAll(check.selector), matchElements(check));
     }
 
     // Style checks report what they actually found when they fail. "The
@@ -674,7 +722,8 @@ export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId
     .replace('__SAMPLES__', () => escapeScript(JSON.stringify(SAMPLE_IMAGES)))
     .replace('__RESOLVE_SAMPLE__', () => resolveSampleName.toString())
     .replace('__MATCH_ELEMENTS__', () => matchElements.toString())
-    .replace('__DOM_VERDICT__', () => domVerdict.toString());
+    .replace('__DOM_VERDICT__', () => domVerdict.toString())
+    .replace('__EVERY_VERDICT__', () => everyVerdict.toString());
 
   const head =
     `<script>${runtime}</script>` +

@@ -11,6 +11,7 @@ import wd1TextLinksImages from './wd1-text-links-images';
 import wd1ListsTables from './wd1-lists-tables';
 import wd1Forms from './wd1-forms';
 import wd1Challenge from './wd1-challenge';
+import wd1Project from './wd1-project';
 
 /**
  * Every section in the module, written or not.
@@ -45,6 +46,27 @@ export const CHALLENGE = wd1Challenge;
 /** @returns {object} The module's challenge data. */
 export function getChallenge() {
   return CHALLENGE;
+}
+
+/**
+ * The Mini Project.
+ *
+ * Kept out of SECTIONS for exactly the reason the challenge is: a section is a
+ * lesson everywhere else in the app, and this is a project. It is reached from
+ * the sidebar's own "Mini Project" entry (drawn because MODULE.hasProject is
+ * true), which points at the project route for MODULE.moduleId, and finishing
+ * it is recorded under `module101` in `completedProjects` — see
+ * lib/webdev/project.js.
+ *
+ * Its five milestones build ONE page, which is parked under a stable key for
+ * Module 2 to style with CSS: `finishedPageKey('wd1-project')`, documented in
+ * lib/webdev/projectRules.js.
+ */
+export const PROJECT = wd1Project;
+
+/** @returns {object} The module's mini project data. */
+export function getProject() {
+  return PROJECT;
 }
 
 export const MODULE = {
@@ -121,9 +143,10 @@ if (import.meta.env?.DEV) {
     .then(({ validateSections }) => {
       validateSections([
         ...SECTIONS.filter((s) => s.section).map((s) => s.section),
-        // The challenge is the same shape, so the same validator catches a
-        // typo'd check or a duplicate page id in it too.
+        // The challenge and the project are the same shape, so the same
+        // validator catches a typo'd check or a duplicate page id in them too.
         CHALLENGE,
+        PROJECT,
       ]);
     })
     .catch(() => { /* never block the lesson on its own linter */ });

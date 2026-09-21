@@ -12,7 +12,7 @@
 
 const PAGE_TYPES = ['content', 'task', 'quiz'];
 const BLOCK_TYPES = ['text', 'tip', 'warning', 'example'];
-const CHECK_TYPES = ['dom', 'console', 'style', 'link'];
+const CHECK_TYPES = ['dom', 'console', 'style', 'link', 'every'];
 const FILE_KEYS = ['html', 'css', 'js'];
 
 const isNonEmptyString = (v) => typeof v === 'string' && v.trim().length > 0;
@@ -156,6 +156,18 @@ function validateCheck(check, at, bad) {
   }
   if (check.type === 'dom' && !isNonEmptyString(check.selector)) {
     bad(`${at} (dom) has no "selector".`);
+  }
+  // "every <selector> also satisfies these filters". A filterless one asks
+  // whether every element is itself, which is true of any page.
+  if (check.type === 'every') {
+    if (!isNonEmptyString(check.selector)) bad(`${at} (every) has no "selector".`);
+    const FILTERS = ['attr', 'text', 'textNonEmpty', 'attrNot', 'attrNotPattern'];
+    if (!FILTERS.some((f) => check[f] != null)) {
+      bad(`${at} (every) has no filter — it would pass on any page. Add one of ${FILTERS.join(', ')}.`);
+    }
+    if (typeof check.count === 'number') {
+      bad(`${at} (every) uses "count", which it ignores — use "minCount" for "and there is at least one".`);
+    }
   }
   if (check.type === 'console' && !isNonEmptyString(check.contains)) {
     bad(`${at} (console) has no "contains" text to look for.`);

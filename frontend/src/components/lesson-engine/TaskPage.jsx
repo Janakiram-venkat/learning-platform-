@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { CheckCircle2, XCircle, Lightbulb, Eye, Wrench } from 'lucide-react';
 import CodeRunner from '../webdev/CodeRunner';
 import Markdown from './blocks/Markdown';
@@ -20,12 +20,33 @@ const ATTEMPTS_BEFORE_SOLUTION = 2;
  * @param {() => void} [props.onFail] Fired on a run that did not pass every
  *        check. Sections ignore it; the module challenge counts attempts with
  *        it, so its result screen can tell "tried and failed" from "skipped".
+ * @param {string} [props.draftKey] Override the autosave key. Sections and the
+ *        challenge leave this alone and get one draft per task. The mini
+ *        project passes ONE key for all of its milestones, because they are
+ *        stages of a single document rather than separate exercises — see
+ *        lib/webdev/projectRules.js.
+ * @param {boolean} [props.autoRun] Run as soon as this page opens, instead of
+ *        waiting for the student to press Run. Used by the project's rubric,
+ *        which grades a page that is already written.
  */
-export default function TaskPage({ page, sectionId, passed, onPass, onFail }) {
+export default function TaskPage({ page, sectionId, passed, onPass, onFail, draftKey, autoRun }) {
   const [results, setResults] = useState(null);
   const [attempts, setAttempts] = useState(0);
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
+
+  // A different page is a different exercise. Hosts that key this component by
+  // page id (LessonPager, ChallengePager) remount it and never reach this; the
+  // project pager deliberately does NOT remount — that is what keeps one Monaco
+  // editor, and so one unsaved buffer, alive across its milestones — so the
+  // per-page state has to be cleared here instead.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- clear last page's verdicts when the page changes
+    setResults(null);
+    setAttempts(0);
+    setShowHint(false);
+    setShowSolution(false);
+  }, [page.id]);
 
   const handleResults = useCallback((next) => {
     setResults(next);
@@ -62,11 +83,12 @@ export default function TaskPage({ page, sectionId, passed, onPass, onFail }) {
 
       <CodeRunner
         label="Your turn"
-        storageKey={`${sectionId}/${page.id}`}
+        storageKey={draftKey ?? `${sectionId}/${page.id}`}
         starter={page.starter}
         tabs={page.tabs}
         checks={page.checks}
         initialPane={page.pane}
+        autoRun={autoRun}
         onCheckResults={handleResults}
       />
 
@@ -136,7 +158,12 @@ export default function TaskPage({ page, sectionId, passed, onPass, onFail }) {
           </p>
           {/* Read-only and separate from the student's own editor on purpose:
               the solution is there to be understood, not pasted over their
-              work. They can still run it to see the target behaviour. */}
+              work. They can still run it to see the target behaviour.
+              Note the absence of `storageKey` — that is load-bearing. Without
+              one this runner never calls saveCode, so revealing a solution
+              cannot write into the student's draft, and in the mini project
+              (where every milestone shares one draft) it cannot overwrite the
+              page they have been building for five milestones. */}
           <CodeRunner
             label="Solution"
             starter={page.solution}

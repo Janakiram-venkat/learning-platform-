@@ -12,8 +12,8 @@ Run these commands from the `backend` directory.
 #### On Windows (PowerShell/CMD):
 
 ```powershell
-# create virtual environtemt 
-pythom -m venv venv
+# create virtual environment
+python -m venv venv
 #for first time install requirements 
 pip install -r requirements.txt
 # Activate the virtual environment

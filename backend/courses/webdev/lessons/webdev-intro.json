@@ -1,0 +1,37 @@
+{
+  "lessonId": "webdev-intro",
+  "title": "What Is Web Development?",
+  "description": "A placeholder chapter while the Web Development track is being written. Here's the short version of what you'll learn.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "This Track Is Still Being Built"
+    },
+    {
+      "type": "paragraph",
+      "value": "Full lessons for Web Development are on the way. This page is a placeholder so you can see where the track will live, what it covers, and roughly what order it'll come in."
+    },
+    {
+      "type": "heading",
+      "value": "What Web Development Means"
+    },
+    {
+      "type": "paragraph",
+      "value": "Web development is building the things you open in a browser: websites, web apps, games, dashboards. Every one of them is made from the same three ingredients working together."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "🧱  HTML  → the structure: headings, text, buttons, images\n🎨  CSS   → the style: colours, spacing, layout, animation\n⚙️  JS    → the behaviour: what happens when you click"
+    },
+    {
+      "type": "paragraph",
+      "value": "Think of a house. HTML is the walls and rooms, CSS is the paint and furniture, and JavaScript is the wiring that makes the lights and doorbell actually work."
+    },
+    {
+      "type": "tip",
+      "value": "Content coming soon. In the meantime, the Python track is the best place to start, most of what you learn there carries straight over to JavaScript."
+    }
+  ]
+}

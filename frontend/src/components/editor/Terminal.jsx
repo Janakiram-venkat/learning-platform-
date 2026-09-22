@@ -11,6 +11,8 @@ const LINE_STYLE = {
   out: 'text-emerald-300',
   in: 'text-sky-300',
   err: 'text-rose-400',
+  // console.warn in the web-dev runner: a real problem, but not a thrown error.
+  warn: 'text-amber-300',
   sys: 'text-white/35 italic',
 };
 

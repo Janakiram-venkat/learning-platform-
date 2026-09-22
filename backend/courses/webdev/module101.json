@@ -1,0 +1,35 @@
+{
+  "moduleId": 101,
+  "title": "Web Foundations & HTML",
+  "emoji": "🌐",
+  "tagline": "How the web works, and how to build a page for it from scratch.",
+  "lessons": [
+    {
+      "lessonId": "wd1-intro",
+      "title": "Introduction to Web Development",
+      "duration": "25 min"
+    },
+    {
+      "lessonId": "wd1-html-basics",
+      "title": "HTML Basics",
+      "duration": "30 min"
+    },
+    {
+      "lessonId": "wd1-text-links-images",
+      "title": "Text, Links & Images",
+      "duration": "30 min"
+    },
+    {
+      "lessonId": "wd1-lists-tables",
+      "title": "Lists & Tables",
+      "duration": "25 min"
+    },
+    {
+      "lessonId": "wd1-forms",
+      "title": "Forms & Inputs (basics)",
+      "duration": "30 min"
+    }
+  ],
+  "hasProject": true,
+  "hasLab": false
+}

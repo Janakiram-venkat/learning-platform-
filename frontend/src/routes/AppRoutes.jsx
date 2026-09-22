@@ -10,6 +10,9 @@ import { useAuth } from '../context/AuthContext';
 const CoursesPage = lazy(() => import('../pages/CoursesPage'));
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const LessonPage = lazy(() => import('../pages/LessonPage'));
+const WebDevLessonPage = lazy(() => import('../pages/WebDevLessonPage'));
+const WebDevChallengePage = lazy(() => import('../pages/WebDevChallengePage'));
+const WebDevProjectPage = lazy(() => import('../pages/WebDevProjectPage'));
 const AssignmentPage = lazy(() => import('../pages/AssignmentPage'));
 const ProjectPage = lazy(() => import('../pages/ProjectPage'));
 const LabPage = lazy(() => import('../pages/LabPage'));
@@ -63,8 +66,25 @@ export default function AppRoutes() {
         <Route element={<RequireAuth><Outlet /></RequireAuth>}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/subject/:subject" element={<SubjectPage />} />
+          {/* The web-dev course is paged and runs its code in a browser
+              sandbox, so it has its own lesson page. Declared before the
+              generic route so it wins for this one course id. */}
+          <Route path="/course/webdev/lesson/:lessonId" element={<WebDevLessonPage />} />
           <Route path="/course/:courseId/lesson/:lessonId" element={<LessonPage />} />
+          {/* Same reason as the lesson route above: the web-dev challenge
+              grades real HTML in the sandbox rather than running the arcade's
+              multiple-choice rounds, so it has its own page. Declared first so
+              it wins for this one course id; every other course still gets
+              AssignmentPage. */}
+          <Route
+            path="/course/webdev/module/:moduleId/assignment"
+            element={<WebDevChallengePage />}
+          />
           <Route path="/course/:courseId/module/:moduleId/assignment" element={<AssignmentPage />} />
+          {/* Same reason again: the web-dev mini project is five sandbox-graded
+              milestones over one HTML document, not a Python program run
+              server-side. Declared first so it wins for this one course id. */}
+          <Route path="/course/webdev/module/:moduleId/project" element={<WebDevProjectPage />} />
           <Route path="/course/:courseId/module/:moduleId/project" element={<ProjectPage />} />
           <Route path="/course/:courseId/module/:moduleId/lab" element={<LabPage />} />
           <Route path="/course/:courseId/games" element={<GameCoursePage />} />

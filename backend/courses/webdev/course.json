@@ -1,0 +1,17 @@
+{
+  "courseId": "webdev",
+  "title": "Web Development",
+  "description": "Build pages and apps for the browser with HTML, CSS and JavaScript.",
+  "level": "Beginner",
+  "estimatedHours": 20,
+  "emoji": "🌐",
+  "thumbnail": "/images/webdev.png",
+  "hasEditor": false,
+  "modules": [
+    {
+      "id": 101,
+      "title": "Web Foundations & HTML",
+      "file": "module101.json"
+    }
+  ]
+}

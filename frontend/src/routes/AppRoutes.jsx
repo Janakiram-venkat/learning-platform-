@@ -22,6 +22,7 @@ const AdminPage = lazy(() => import('../pages/AdminPage'));
 const ContestListPage = lazy(() => import('../pages/ContestListPage'));
 const ContestPage = lazy(() => import('../pages/ContestPage'));
 const VirtualLabPage = lazy(() => import('../pages/VirtualLabPage'));
+const VirtualLabExperiment = lazy(() => import('../pages/VirtualLabExperiment'));
 
 function RouteFallback() {
   return (
@@ -52,6 +53,7 @@ export default function AppRoutes() {
             only fair advice if reading it does not need an account. */}
         <Route path="/manual" element={<GameManual />} />
         <Route path="/virtual-lab" element={<VirtualLabPage />} />
+        <Route path="/virtual-lab/:experimentId" element={<VirtualLabExperiment />} />
         {/* The catalogue is public too: a visitor should see what they would be
             signing up for. Opening a track still hits RequireAuth below. */}
         <Route path="/courses" element={<CoursesPage />} />

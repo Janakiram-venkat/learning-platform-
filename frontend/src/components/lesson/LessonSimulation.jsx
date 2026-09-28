@@ -21,7 +21,7 @@ export default function LessonSimulation({ sim }) {
 
 function Shell({ title, code, onPlay, playing, onReset, children }) {
   return (
-    <div className="my-8 overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+    <div className="my-8 overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
       <div className="flex items-center justify-between gap-3 border-b-2 border-ink bg-signal px-4 py-3">
         <span className="font-lab text-sm font-bold text-ink">🎬 {title}</span>
         <div className="flex items-center gap-2">
@@ -42,7 +42,7 @@ function Shell({ title, code, onPlay, playing, onReset, children }) {
         </div>
       </div>
       {code && (
-        <pre className="overflow-x-auto border-b-2 border-ink bg-[#0B180F] px-4 py-3 font-mono-lab text-sm text-white/90">{code}</pre>
+        <pre className="overflow-x-auto border-b-2 border-ink bg-well px-4 py-3 font-mono-lab text-sm text-white/90">{code}</pre>
       )}
       <div className="p-5">{children}</div>
     </div>
@@ -84,7 +84,7 @@ function VariableSim({ sim }) {
 
         {/* The screen / print output */}
         <div className="flex flex-col items-center">
-          <div className="flex h-24 w-44 items-center justify-center rounded-xl border-2 border-ink bg-[#0B180F] px-3 font-mono-lab text-xl text-emerald-400 shadow-inner">
+          <div className="flex h-24 w-44 items-center justify-center rounded-xl border-2 border-ink bg-well px-3 font-mono-lab text-xl text-mint shadow-inner">
             {stage >= 2 ? <span className="animate-bounce-in">{value}</span> : <span className="text-white/35">screen…</span>}
           </div>
           <span className="mt-2 text-xs font-semibold text-ink/50">print output</span>
@@ -138,7 +138,7 @@ function LoopSim({ sim }) {
           <span className="mt-2 text-xs font-semibold text-ink/50">times looped</span>
         </div>
         {/* Output stack */}
-        <div className="min-h-24 w-52 rounded-xl border-2 border-ink bg-[#0B180F] p-3 font-mono-lab text-sm text-emerald-400 shadow-inner">
+        <div className="min-h-24 w-52 rounded-xl border-2 border-ink bg-well p-3 font-mono-lab text-sm text-mint shadow-inner">
           {outputs.length === 0 ? (
             <span className="text-white/35">screen…</span>
           ) : (
@@ -178,7 +178,7 @@ function PrintSim({ sim }) {
 
   return (
     <Shell title="Showing output" code={code} onPlay={play} playing={running} onReset={reset}>
-      <div className="min-h-20 rounded-xl border-2 border-ink bg-[#0B180F] p-4 font-mono-lab text-base text-emerald-400 shadow-inner">
+      <div className="min-h-20 rounded-xl border-2 border-ink bg-well p-4 font-mono-lab text-base text-mint shadow-inner">
         {shown === 0 ? (
           <span className="text-white/35">screen…</span>
         ) : (

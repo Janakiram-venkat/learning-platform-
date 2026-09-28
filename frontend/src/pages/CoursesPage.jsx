@@ -16,24 +16,24 @@ const TRACKS = [
   {
     ref: 'TRK-PY', emoji: '🐍', title: 'Python', line: 'Beginner friendly',
     desc: 'Master the language behind games, AI, and the web, one puzzle at a time.',
-    status: 'READY', led: '#3FBF7F', to: '/course/python/lesson/intro',
+    status: 'READY', led: '#00C48C', to: '/course/python/lesson/intro',
   },
   {
     ref: 'TRK-AI', emoji: '🤖', title: 'AI & Machine Learning', line: 'Explorer',
     desc: 'Train smart models, teach a computer to see, and build your own mini-AI.',
-    status: 'READY', led: '#23B5D3', to: '/course/ai/lesson/intro',
+    status: 'READY', led: '#0097F8', to: '/course/ai/lesson/intro',
   },
   {
     ref: 'TRK-GAME', emoji: '🎮', title: 'Game Development', line: 'After Python 1–5',
     desc: 'Build real playable games: bouncing balls, falling fruit, and a score to beat.',
-    status: 'READY', led: '#E8503A', to: '/course/gamedev/games',
+    status: 'READY', led: '#E63C22', to: '/course/gamedev/games',
     // Gated: the card reads its own lock state from gamedev/course.json.
     courseId: 'gamedev',
   },
   {
     ref: 'TRK-BOT', emoji: '🦾', title: 'Robotics', line: 'No electronics needed',
     desc: 'Meet the machines that sense, think and act, then design one of your own.',
-    status: 'READY', led: '#FFC93C', to: '/course/robotics/lesson/robot-intro',
+    status: 'READY', led: '#FFB40A', to: '/course/robotics/lesson/robot-intro',
   },
   {
     ref: 'TRK-PHY', emoji: '🪐', title: 'Physics', line: 'In the workshop',
@@ -101,7 +101,7 @@ export default function CoursesPage() {
       <section className="bench-grid w-full border-b-2 border-ink/10 py-14 sm:py-20">
         <div className="mx-auto max-w-6xl px-6">
           <span className="mb-4 inline-flex items-center gap-2 rounded-md border-2 border-ink bg-white px-3 py-1 ref-tag text-ink">
-            <span className="led" style={{ color: '#1F7A5C' }} />
+            <span className="led" style={{ color: '#5B0DA8' }} />
             Modules
           </span>
           <h1 className="font-lab mb-3 text-3xl font-extrabold sm:text-5xl">Pick your path</h1>

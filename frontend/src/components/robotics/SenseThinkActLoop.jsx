@@ -193,7 +193,7 @@ function Scene({ wallX, playing, stepRef, onPhase }) {
         const outbound = flown < reach;
         const travelled = outbound ? flown : reach * 2 - flown;
         ping.current.scale.setScalar(Math.max(0.01, travelled));
-        pingMat.current.color.set(outbound ? '#23B5D3' : '#FFC93C');
+        pingMat.current.color.set(outbound ? '#0097F8' : '#FFB40A');
         // A returning echo is weaker than the pulse that left.
         pingMat.current.opacity = (outbound ? 0.85 : 0.5) * (1 - 0.4 * (travelled / reach));
       }
@@ -216,7 +216,7 @@ function Scene({ wallX, playing, stepRef, onPhase }) {
   });
 
   const mat = benchMat(14, 14);   // one tile per scene unit — 50 cm of matting
-  const block = paintedBlock('#E8503A')(3, 1.4);
+  const block = paintedBlock('#E63C22')(3, 1.4);
   // Same stone, a darker coat of paint. The noise fields behind it are cached,
   // so the second variant is close to free.
   const kick = paintedBlock('#8C3527')(3, 0.4);
@@ -230,7 +230,7 @@ function Scene({ wallX, playing, stepRef, onPhase }) {
       </mesh>
       {/* The measuring grid stays, but quieter now that the mat carries texture
           of its own — two competing patterns just read as noise. */}
-      <gridHelper args={[14, 28, '#1F7A5C', '#16352A']} position={[0, 0.003, 0]}>
+      <gridHelper args={[14, 28, '#5B0DA8', '#2A1250']} position={[0, 0.003, 0]}>
         <lineBasicMaterial attach="material" vertexColors transparent opacity={0.32} />
       </gridHelper>
 
@@ -256,7 +256,7 @@ function Scene({ wallX, playing, stepRef, onPhase }) {
       {/* Where the pulse strikes the wall. World space, not on the robot. */}
       <mesh ref={hit} rotation={[0, -Math.PI / 2, 0]} visible={false}>
         <circleGeometry args={[0.22, 24]} />
-        <meshBasicMaterial ref={hitMat} color="#FFC93C" transparent opacity={0} depthWrite={false} toneMapped={false} />
+        <meshBasicMaterial ref={hitMat} color="#FFB40A" transparent opacity={0} depthWrite={false} toneMapped={false} />
       </mesh>
 
       <group ref={robot} position={[START.x, 0, START.z]}>
@@ -264,7 +264,7 @@ function Scene({ wallX, playing, stepRef, onPhase }) {
             lifting off the floor. */}
         <group ref={body} position={[0, 0.13, 0]}>
           <group position={[0, -0.13, 0]}>
-            <RobotBot speedRef={speedRef} turnRef={turnRef} led="#23B5D3" />
+            <RobotBot speedRef={speedRef} turnRef={turnRef} led="#0097F8" />
           </group>
         </group>
         {/* Sonar pulse: an arc, not a circle, because the sensor only hears
@@ -273,7 +273,7 @@ function Scene({ wallX, playing, stepRef, onPhase }) {
           <ringGeometry args={[0.88, 1, 40, 1, -BEAM_HALF, BEAM_HALF * 2]} />
           <meshBasicMaterial
             ref={pingMat}
-            color="#23B5D3"
+            color="#0097F8"
             transparent
             opacity={0.7}
             depthWrite={false}
@@ -344,7 +344,7 @@ export default function SenseThinkActLoop() {
                 key={box.id}
                 className={`relative rounded-xl border-2 p-3 transition-all duration-200 ${
                   active
-                    ? 'border-ink bg-signal/25 shadow-[3px_3px_0_rgba(22,36,29,0.9)]'
+                    ? 'border-ink bg-signal/25 shadow-[3px_3px_0_rgba(27,27,27,0.9)]'
                     : 'border-ink/15 bg-white'
                 }`}
               >

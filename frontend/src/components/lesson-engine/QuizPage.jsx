@@ -55,7 +55,7 @@ export default function QuizPage({ page, passed, onPass }) {
         <h2 className="font-lab text-2xl font-extrabold text-ink sm:text-3xl">{page.title}</h2>
       )}
 
-      <div className="overflow-hidden rounded-2xl border-2 border-ink shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+      <div className="overflow-hidden rounded-2xl border-2 border-ink shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
         <div className="border-b-2 border-ink bg-signal px-5 py-4">
           <h3 className="font-lab text-lg font-bold text-ink">
             {questions.length} question{questions.length === 1 ? '' : 's'}

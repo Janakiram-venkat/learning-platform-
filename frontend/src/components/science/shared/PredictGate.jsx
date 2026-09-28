@@ -17,7 +17,7 @@ export default function PredictGate({ predict, children }) {
   const correct = answered && picked === predict.answer;
 
   return (
-    <div className="my-8 rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+    <div className="my-8 rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
       <p className="font-mono-lab text-[11px] uppercase tracking-[0.18em] text-ink/50">Predict first</p>
       <h3 className="mt-1 font-lab text-lg font-extrabold text-ink">{predict.question}</h3>
 
@@ -33,7 +33,7 @@ export default function PredictGate({ predict, children }) {
                 ? 'rounded-xl border-2 border-ink bg-pcb px-5 py-2.5 font-lab font-extrabold text-white'
                 : answered && i === picked
                   ? 'rounded-xl border-2 border-ink bg-wire px-5 py-2.5 font-lab font-extrabold text-white'
-                  : 'rounded-xl border-2 border-ink bg-signal px-5 py-2.5 font-lab font-extrabold text-ink shadow-[3px_3px_0_rgba(22,36,29,0.9)] transition-transform active:translate-x-[3px] active:translate-y-[3px] active:shadow-none disabled:opacity-60'
+                  : 'rounded-xl border-2 border-ink bg-signal px-5 py-2.5 font-lab font-extrabold text-ink shadow-[3px_3px_0_rgba(27,27,27,0.9)] transition-transform active:translate-x-[3px] active:translate-y-[3px] active:shadow-none disabled:opacity-60'
             }
           >
             {label}

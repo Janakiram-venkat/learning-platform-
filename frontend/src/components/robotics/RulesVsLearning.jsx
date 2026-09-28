@@ -32,12 +32,12 @@ export default function RulesVsLearning({ block }) {
           <div key={side.key} className="rounded-2xl border-2 border-ink/12 bg-paper/60 p-3">
             <p className="mb-1 font-lab text-sm font-extrabold text-ink">{side.label}</p>
             <p className="mb-2 text-xs font-semibold text-ink/50">{side.desc}</p>
-            <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-lg border-2 border-ink/10 bg-[#0B180F]">
-              <path d={dashTrack} stroke="#FFC93C" strokeWidth="4" fill="none" opacity="0.7" />
+            <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-lg border-2 border-ink/10 bg-well">
+              <path d={dashTrack} stroke="#FFB40A" strokeWidth="4" fill="none" opacity="0.7" />
               <circle
                 cy="30"
                 r="7"
-                fill={side.key === 'rule' ? '#E8503A' : '#23B5D3'}
+                fill={side.key === 'rule' ? '#E63C22' : '#0097F8'}
                 cx={
                   phase === 'idle' ? 15
                     : side.key === 'rule'

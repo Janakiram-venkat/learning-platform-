@@ -36,17 +36,17 @@ export default function MotorBench({ block }) {
       <div className="p-4">
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
           <svg viewBox="0 0 140 140" className="w-36 shrink-0">
-            <circle cx="70" cy="70" r="50" fill="none" stroke="#16241D" strokeWidth="4" />
-            <circle cx="70" cy="70" r="50" fill={stalled ? '#E8503A22' : '#1F7A5C11'} />
+            <circle cx="70" cy="70" r="50" fill="none" stroke="#1B1B1B" strokeWidth="4" />
+            <circle cx="70" cy="70" r="50" fill={stalled ? '#E63C2222' : '#5B0DA811'} />
             <g
               style={{
                 transformOrigin: '70px 70px',
                 animation: rpm > 0 ? `motorspin ${spinDuration}s linear infinite ${reverse ? 'reverse' : ''}` : 'none',
               }}
             >
-              <line x1="70" y1="24" x2="70" y2="116" stroke="#16241D" strokeWidth="4" />
-              <line x1="24" y1="70" x2="116" y2="70" stroke="#16241D" strokeWidth="4" />
-              <circle cx="70" cy="70" r="6" fill="#16241D" />
+              <line x1="70" y1="24" x2="70" y2="116" stroke="#1B1B1B" strokeWidth="4" />
+              <line x1="24" y1="70" x2="116" y2="70" stroke="#1B1B1B" strokeWidth="4" />
+              <circle cx="70" cy="70" r="6" fill="#1B1B1B" />
             </g>
           </svg>
 

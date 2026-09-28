@@ -33,7 +33,7 @@ import {
 /** Machined, unpainted metal — links, shafts, brackets. */
 const metal = () => ({ ...brushedAlu(), roughness: 0.35, metalness: 0.9, envMapIntensity: 1.2 });
 /** Matte dark plastic — housings, bases, anything not meant to be looked at. */
-const dark = () => ({ ...mouldedPlastic('#16241D'), roughness: 0.72, metalness: 0.08 });
+const dark = () => ({ ...mouldedPlastic('#1B1B1B'), roughness: 0.72, metalness: 0.08 });
 /** Powder-coated steel in a given colour — the parts a factory painted. */
 const painted = (hex) => ({ ...paintedShell(hex), roughness: 0.55, metalness: 0.25 });
 /** Glossy moulded shell — medical and consumer robots, wiped-clean white. */
@@ -99,7 +99,7 @@ export function IndustrialArm({ t }) {
       </mesh>
       <mesh castShadow position={[0, 0.28, 0]}>
         <cylinderGeometry args={[0.16, 0.2, 0.34, 20]} />
-        <meshStandardMaterial {...painted('#FFC93C')} />
+        <meshStandardMaterial {...painted('#FFB40A')} />
       </mesh>
       {/* The workpiece the torch comes down onto: a mill-finish steel plate,
           shiny enough to throw the torch flare back up at the arm. */}
@@ -115,7 +115,7 @@ export function IndustrialArm({ t }) {
         <group ref={elbow} position={[ARM.upper, 0, 0]}>
           <mesh castShadow position={[ARM.fore / 2, 0, 0]}>
             <boxGeometry args={[0.38, 0.1, 0.12]} />
-            <meshStandardMaterial {...painted('#FFC93C')} />
+            <meshStandardMaterial {...painted('#FFB40A')} />
           </mesh>
           <mesh castShadow position={[ARM.fore, -0.04, 0]} rotation={[0, 0, Math.PI]}>
             <coneGeometry args={[0.055, 0.13, 14]} />
@@ -123,7 +123,7 @@ export function IndustrialArm({ t }) {
           </mesh>
           <mesh ref={spark} position={[ARM.fore, ARM.torchY, 0]}>
             <sphereGeometry args={[1, 12, 12]} />
-            <meshBasicMaterial color="#FFC93C" transparent opacity={0} toneMapped={false} />
+            <meshBasicMaterial color="#FFB40A" transparent opacity={0} toneMapped={false} />
           </mesh>
           <pointLight
             ref={flare}
@@ -158,14 +158,14 @@ export function SurgicalRobot({ t }) {
       </mesh>
       <mesh castShadow position={[0, 0.5, 0]}>
         <cylinderGeometry args={[0.1, 0.12, 0.8, 18]} />
-        <meshStandardMaterial {...gloss('#EDF3EE')} />
+        <meshStandardMaterial {...gloss('#F7F7F7')} />
       </mesh>
       <group ref={arms} position={[0, 0.92, 0]}>
         {[0, (Math.PI * 2) / 3, (Math.PI * 4) / 3].map((a, i) => (
           <group key={i} rotation={[0, a, 0]}>
             <mesh castShadow position={[0.22, -0.02, 0]} rotation={[0, 0, -0.35]}>
               <boxGeometry args={[0.44, 0.07, 0.07]} />
-              <meshStandardMaterial {...gloss('#EDF3EE')} />
+              <meshStandardMaterial {...gloss('#F7F7F7')} />
             </mesh>
             {/* The instrument itself: surgical stainless, polished to a mirror. */}
             <mesh castShadow position={[0.4, -0.3, 0]} rotation={[0, 0, 0.25]}>
@@ -177,7 +177,7 @@ export function SurgicalRobot({ t }) {
       </group>
       <mesh position={[0, 0.06, 0.42]}>
         <sphereGeometry args={[0.035, 12, 12]} />
-        <meshStandardMaterial color="#23B5D3" emissive="#23B5D3" emissiveIntensity={1.6} toneMapped={false} />
+        <meshStandardMaterial color="#0097F8" emissive="#0097F8" emissiveIntensity={1.6} toneMapped={false} />
       </mesh>
     </group>
   );
@@ -211,19 +211,19 @@ export function Humanoid({ t }) {
     <group ref={body} position={[0, STAND_Y, 0]}>
       <mesh castShadow position={[0, 0.86, 0]}>
         <sphereGeometry args={[0.17, 24, 24]} />
-        <meshStandardMaterial {...gloss('#EDF3EE')} />
+        <meshStandardMaterial {...gloss('#F7F7F7')} />
       </mesh>
       <mesh position={[0.09, 0.88, 0.13]}>
         <sphereGeometry args={[0.035, 12, 12]} />
-        <meshStandardMaterial color="#23B5D3" emissive="#23B5D3" emissiveIntensity={1.4} toneMapped={false} />
+        <meshStandardMaterial color="#0097F8" emissive="#0097F8" emissiveIntensity={1.4} toneMapped={false} />
       </mesh>
       <mesh position={[-0.09, 0.88, 0.13]}>
         <sphereGeometry args={[0.035, 12, 12]} />
-        <meshStandardMaterial color="#23B5D3" emissive="#23B5D3" emissiveIntensity={1.4} toneMapped={false} />
+        <meshStandardMaterial color="#0097F8" emissive="#0097F8" emissiveIntensity={1.4} toneMapped={false} />
       </mesh>
       <mesh castShadow position={[0, 0.55, 0]}>
         <boxGeometry args={[0.34, 0.42, 0.2]} />
-        <meshStandardMaterial {...painted('#1F7A5C')} />
+        <meshStandardMaterial {...painted('#5B0DA8')} />
       </mesh>
       <mesh castShadow position={[-0.25, 0.55, 0]} rotation={[0, 0, 0.25]}>
         <boxGeometry args={[0.09, 0.36, 0.09]} />
@@ -334,7 +334,7 @@ export function MarsRover({ t }) {
             </mesh>
             <mesh position={[0.085, 0.22, 0]} rotation={[0, 0, Math.PI / 2]}>
               <cylinderGeometry args={[0.03, 0.03, 0.02, 14]} />
-              <meshStandardMaterial color="#23B5D3" emissive="#23B5D3" emissiveIntensity={1.2} toneMapped={false} />
+              <meshStandardMaterial color="#0097F8" emissive="#0097F8" emissiveIntensity={1.2} toneMapped={false} />
             </mesh>
           </group>
         </group>
@@ -405,11 +405,11 @@ export function BombDisposal({ t }) {
           </mesh>
           <mesh ref={jawA} castShadow position={[0.42, 0, 0.18]}>
             <boxGeometry args={[0.14, 0.04, 0.04]} />
-            <meshStandardMaterial {...painted('#FFC93C')} />
+            <meshStandardMaterial {...painted('#FFB40A')} />
           </mesh>
           <mesh ref={jawB} castShadow position={[0.42, 0, -0.18]}>
             <boxGeometry args={[0.14, 0.04, 0.04]} />
-            <meshStandardMaterial {...painted('#FFC93C')} />
+            <meshStandardMaterial {...painted('#FFB40A')} />
           </mesh>
         </group>
       </group>
@@ -464,24 +464,24 @@ export function VacuumRobot({ t }) {
     <group ref={body}>
       <mesh castShadow position={[0, 0.09, 0]}>
         <cylinderGeometry args={[0.42, 0.42, 0.14, 40]} />
-        <meshStandardMaterial {...gloss('#16241D')} roughness={0.32} metalness={0.2} />
+        <meshStandardMaterial {...gloss('#1B1B1B')} roughness={0.32} metalness={0.2} />
       </mesh>
       <mesh position={[0, 0.17, 0]}>
         <cylinderGeometry args={[0.16, 0.16, 0.03, 28]} />
-        <meshStandardMaterial color="#23B5D3" emissive="#23B5D3" emissiveIntensity={0.7} toneMapped={false} />
+        <meshStandardMaterial color="#0097F8" emissive="#0097F8" emissiveIntensity={0.7} toneMapped={false} />
       </mesh>
       {/* Bumper ring — the thing that senses a chair leg. The Z spin is applied
           first (in the torus's own plane) to centre the arc on the front, then
           the X rotation lays it flat around the body. */}
       <mesh position={[0, 0.09, 0]} rotation={[-Math.PI / 2, 0, -Math.PI * 0.35]}>
         <torusGeometry args={[0.43, 0.025, 10, 40, Math.PI * 0.7]} />
-        <meshStandardMaterial {...gloss('#EDF3EE')} roughness={0.45} />
+        <meshStandardMaterial {...gloss('#F7F7F7')} roughness={0.45} />
       </mesh>
       <group ref={brush} position={[0.3, 0.03, 0]}>
         {[0, 1, 2].map((i) => (
           <mesh key={i} rotation={[0, (i * Math.PI * 2) / 3, 0]} position={[0.06, 0, 0]}>
             <boxGeometry args={[0.14, 0.012, 0.012]} />
-            <meshStandardMaterial color="#FFC93C" />
+            <meshStandardMaterial color="#FFB40A" />
           </mesh>
         ))}
       </group>
@@ -521,18 +521,18 @@ export function DeliveryBot({ t }) {
     <group ref={body}>
       <mesh castShadow position={[0, 0.34, 0]}>
         <boxGeometry args={[0.74, 0.36, 0.5]} />
-        <meshStandardMaterial {...gloss('#EDF3EE')} roughness={0.35} />
+        <meshStandardMaterial {...gloss('#F7F7F7')} roughness={0.35} />
       </mesh>
       <group ref={lid} position={[-0.37, 0.52, 0]}>
         <mesh castShadow position={[0.37, 0, 0]}>
           <boxGeometry args={[0.74, 0.05, 0.5]} />
-          <meshStandardMaterial {...painted('#1F7A5C')} />
+          <meshStandardMaterial {...painted('#5B0DA8')} />
         </mesh>
       </group>
       {/* Sensor band */}
       <mesh position={[0.38, 0.36, 0]}>
         <boxGeometry args={[0.02, 0.09, 0.4]} />
-        <meshStandardMaterial color="#23B5D3" emissive="#23B5D3" emissiveIntensity={1.1} toneMapped={false} />
+        <meshStandardMaterial color="#0097F8" emissive="#0097F8" emissiveIntensity={1.1} toneMapped={false} />
       </mesh>
       <group ref={flag} position={[-0.3, 0.52, 0.2]}>
         <mesh position={[0, 0.16, 0]}>
@@ -541,7 +541,7 @@ export function DeliveryBot({ t }) {
         </mesh>
         <mesh position={[0.06, 0.28, 0]}>
           <boxGeometry args={[0.12, 0.08, 0.005]} />
-          <meshStandardMaterial color="#E8503A" />
+          <meshStandardMaterial color="#E63C22" />
         </mesh>
       </group>
       {/* Axles run across the bot, not along it — so rotation.y is the roll */}
@@ -622,7 +622,7 @@ export function Quadcopter({ t }) {
     <group ref={body} position={[0, 0.1, 0]}>
       <mesh castShadow>
         <boxGeometry args={[0.3, 0.1, 0.22]} />
-        <meshStandardMaterial {...painted('#1F7A5C')} />
+        <meshStandardMaterial {...painted('#5B0DA8')} />
       </mesh>
       {/* Gimbal camera underneath */}
       <mesh castShadow position={[0.1, -0.09, 0]}>
@@ -642,11 +642,11 @@ export function Quadcopter({ t }) {
           <group ref={(el) => { rotors.current[i] = el; }} position={[x, 0.07, z]}>
             <mesh>
               <boxGeometry args={[0.38, 0.006, 0.035]} />
-              <meshStandardMaterial color="#EDF3EE" transparent opacity={0.55} />
+              <meshStandardMaterial color="#F7F7F7" transparent opacity={0.55} />
             </mesh>
             <mesh rotation={[0, Math.PI / 2, 0]}>
               <boxGeometry args={[0.38, 0.006, 0.035]} />
-              <meshStandardMaterial color="#EDF3EE" transparent opacity={0.55} />
+              <meshStandardMaterial color="#F7F7F7" transparent opacity={0.55} />
             </mesh>
           </group>
           {/* The blur disc. Outside the spinning group — a disc that rotates
@@ -659,7 +659,7 @@ export function Quadcopter({ t }) {
           >
             <circleGeometry args={[0.19, 24]} />
             <meshBasicMaterial
-              color="#EDF3EE"
+              color="#F7F7F7"
               transparent
               opacity={0}
               depthWrite={false}
@@ -675,7 +675,7 @@ export function Quadcopter({ t }) {
       ))}
       <mesh position={[0.16, 0, 0]}>
         <sphereGeometry args={[0.022, 10, 10]} />
-        <meshStandardMaterial color="#E8503A" emissive="#E8503A" emissiveIntensity={1.8} toneMapped={false} />
+        <meshStandardMaterial color="#E63C22" emissive="#E63C22" emissiveIntensity={1.8} toneMapped={false} />
       </mesh>
     </group>
   );

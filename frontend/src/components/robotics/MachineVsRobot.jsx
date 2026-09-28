@@ -163,7 +163,7 @@ function Run({ mode, obstacleX, runToken, onFinish }) {
         <RobotBot
           speedRef={speedRef}
           turnRef={turnRef}
-          led={mode === 'robot' ? '#23B5D3' : '#E8503A'}
+          led={mode === 'robot' ? '#0097F8' : '#E63C22'}
         />
       </group>
       {Array.from({ length: TRACE_POINTS }).map((_, i) => (
@@ -176,7 +176,7 @@ function Run({ mode, obstacleX, runToken, onFinish }) {
         >
           <circleGeometry args={[0.045, 10]} />
           <meshBasicMaterial
-            color={mode === 'robot' ? '#23B5D3' : '#E8503A'}
+            color={mode === 'robot' ? '#0097F8' : '#E63C22'}
             transparent
             opacity={0.55}
             toneMapped={false}
@@ -269,11 +269,11 @@ function Goal() {
     <group position={[GOAL_X + 0.15, 0, 0]}>
       <mesh ref={ring} position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.22, 0.34, 40]} />
-        <meshBasicMaterial color="#FFC93C" transparent opacity={0.35} depthWrite={false} toneMapped={false} />
+        <meshBasicMaterial color="#FFB40A" transparent opacity={0.35} depthWrite={false} toneMapped={false} />
       </mesh>
       <mesh ref={chevron} position={[0, 0.3, 0]}>
         <coneGeometry args={[0.1, 0.24, 4]} />
-        <meshStandardMaterial color="#FFC93C" emissive="#FFC93C" emissiveIntensity={0.6} />
+        <meshStandardMaterial color="#FFB40A" emissive="#FFB40A" emissiveIntensity={0.6} />
       </mesh>
     </group>
   );
@@ -296,7 +296,7 @@ function Room({ obstacleX, mode, runToken, onFinish }) {
         <planeGeometry args={[14, 14]} />
         <meshStandardMaterial {...mat} roughness={0.95} metalness={0.04} />
       </mesh>
-      <gridHelper args={[14, 28, '#1F7A5C', '#16352A']} position={[0, 0.002, 0]}>
+      <gridHelper args={[14, 28, '#5B0DA8', '#2A1250']} position={[0, 0.002, 0]}>
         <lineBasicMaterial attach="material" vertexColors transparent opacity={0.32} />
       </gridHelper>
 

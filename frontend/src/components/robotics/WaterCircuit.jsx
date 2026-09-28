@@ -30,13 +30,13 @@ export default function WaterCircuit({ block }) {
           </p>
           <svg viewBox="0 0 220 160" className="w-full">
             {/* tank */}
-            <rect x="10" y="10" width="50" height="130" rx="4" fill="none" stroke="#16241D" strokeWidth="3" />
+            <rect x="10" y="10" width="50" height="130" rx="4" fill="none" stroke="#1B1B1B" strokeWidth="3" />
             <rect
               x="12"
               y={140 - tankLevel}
               width="46"
               height={tankLevel}
-              fill="#23B5D3"
+              fill="#0097F8"
               opacity="0.55"
               className="transition-all duration-300"
             />
@@ -46,22 +46,22 @@ export default function WaterCircuit({ block }) {
               y={95 - pipeWidth / 2}
               width="120"
               height={pipeWidth}
-              fill="#23B5D3"
+              fill="#0097F8"
               opacity="0.35"
               className="transition-all duration-300"
             />
-            <rect x="60" y={95 - pipeWidth / 2} width="120" height={pipeWidth} fill="none" stroke="#16241D" strokeWidth="2" className="transition-all duration-300" />
+            <rect x="60" y={95 - pipeWidth / 2} width="120" height={pipeWidth} fill="none" stroke="#1B1B1B" strokeWidth="2" className="transition-all duration-300" />
             {/* flow dashes */}
             <line
               x1="65" y1="95" x2="175" y2="95"
-              stroke="#1F7A5C" strokeWidth="4" strokeDasharray="8 10" strokeLinecap="round"
+              stroke="#5B0DA8" strokeWidth="4" strokeDasharray="8 10" strokeLinecap="round"
               style={{ animation: `waterflow ${dashSpeed}s linear infinite` }}
             />
             {/* wheel (waterwheel = the load) */}
-            <circle cx="195" cy="95" r="22" fill="none" stroke="#16241D" strokeWidth="3" />
+            <circle cx="195" cy="95" r="22" fill="none" stroke="#1B1B1B" strokeWidth="3" />
             <g style={{ transformOrigin: '195px 95px', animation: `spin ${Math.max(0.4, 2.4 - flow * 0.5)}s linear infinite` }}>
-              <line x1="195" y1="75" x2="195" y2="115" stroke="#16241D" strokeWidth="2" />
-              <line x1="175" y1="95" x2="215" y2="95" stroke="#16241D" strokeWidth="2" />
+              <line x1="195" y1="75" x2="195" y2="115" stroke="#1B1B1B" strokeWidth="2" />
+              <line x1="175" y1="95" x2="215" y2="95" stroke="#1B1B1B" strokeWidth="2" />
             </g>
           </svg>
           <p className="mt-2 text-center font-mono-lab text-sm font-bold text-pcb">
@@ -76,41 +76,41 @@ export default function WaterCircuit({ block }) {
           </p>
           <svg viewBox="0 0 220 160" className="w-full">
             {/* battery */}
-            <rect x="15" y="55" width="18" height="80" rx="2" fill="none" stroke="#16241D" strokeWidth="3" />
+            <rect x="15" y="55" width="18" height="80" rx="2" fill="none" stroke="#1B1B1B" strokeWidth="3" />
             <rect
               x="17"
               y={135 - tankLevel * 0.55}
               width="14"
               height={tankLevel * 0.55}
-              fill="#FFC93C"
+              fill="#FFB40A"
               className="transition-all duration-300"
             />
-            <text x="24" y="50" textAnchor="middle" fontSize="10" fontWeight="700" fill="#16241D">+</text>
+            <text x="24" y="50" textAnchor="middle" fontSize="10" fontWeight="700" fill="#1B1B1B">+</text>
             {/* wire top */}
-            <path d="M24 55 L24 30 L195 30 L195 60" fill="none" stroke="#16241D" strokeWidth="3" />
+            <path d="M24 55 L24 30 L195 30 L195 60" fill="none" stroke="#1B1B1B" strokeWidth="3" />
             {/* resistor (zig-zag, width = wire "thickness" analog via stroke) */}
             <path
               d={`M60 95 L${70} ${95 - pipeWidth / 6} L${80} ${95 + pipeWidth / 6} L${90} ${95 - pipeWidth / 6} L${100} ${95 + pipeWidth / 6} L${110} ${95 - pipeWidth / 6} L120 95`}
-              fill="none" stroke="#E8503A" strokeWidth="3" strokeLinejoin="round"
+              fill="none" stroke="#E63C22" strokeWidth="3" strokeLinejoin="round"
               className="transition-all duration-300"
             />
-            <path d="M24 135 L24 150 L195 150 L195 130" fill="none" stroke="#16241D" strokeWidth="3" />
-            <path d="M33 95 L60 95" fill="none" stroke="#16241D" strokeWidth="3" />
-            <path d="M120 95 L165 95" fill="none" stroke="#16241D" strokeWidth="3" />
+            <path d="M24 135 L24 150 L195 150 L195 130" fill="none" stroke="#1B1B1B" strokeWidth="3" />
+            <path d="M33 95 L60 95" fill="none" stroke="#1B1B1B" strokeWidth="3" />
+            <path d="M120 95 L165 95" fill="none" stroke="#1B1B1B" strokeWidth="3" />
             {/* current dashes */}
             <path
               d="M24 30 L195 30 L195 60 M33 95 L60 95 M120 95 L165 95 M24 135 L24 150 L195 150 L195 130"
-              fill="none" stroke="#FFC93C" strokeWidth="2" strokeDasharray="6 8" strokeLinecap="round"
+              fill="none" stroke="#FFB40A" strokeWidth="2" strokeDasharray="6 8" strokeLinecap="round"
               style={{ animation: `waterflow ${dashSpeed}s linear infinite` }}
             />
             {/* LED (the load) */}
             <circle
-              cx="180" cy="95" r="18" fill="#23B5D3"
+              cx="180" cy="95" r="18" fill="#0097F8"
               opacity={Math.min(1, 0.15 + flow * 0.12)}
-              style={{ filter: flow > 0.6 ? `drop-shadow(0 0 ${Math.min(10, flow * 2)}px #23B5D3)` : 'none' }}
+              style={{ filter: flow > 0.6 ? `drop-shadow(0 0 ${Math.min(10, flow * 2)}px #0097F8)` : 'none' }}
               className="transition-all duration-300"
             />
-            <circle cx="180" cy="95" r="18" fill="none" stroke="#16241D" strokeWidth="2" />
+            <circle cx="180" cy="95" r="18" fill="none" stroke="#1B1B1B" strokeWidth="2" />
           </svg>
           <p className="mt-2 text-center font-mono-lab text-sm font-bold text-pcb">
             current ≈ {flow.toFixed(1)} A

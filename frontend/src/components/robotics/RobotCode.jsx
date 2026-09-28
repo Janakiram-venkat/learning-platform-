@@ -108,16 +108,16 @@ export default function RobotCode({ block }) {
       hint={hint}
       side={
         <div className="p-4">
-          <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-[#0B180F]">
+          <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-well">
             <rect x="1" y="1" width={W - 2} height={H - 2} fill="none" stroke="#ffffff15" strokeWidth="2" />
             {(world.obstacles || []).map((o, i) => (
-              <rect key={i} x={o.x} y={o.y} width={o.w} height={o.h} fill="#16241D" stroke="#E8503A" strokeWidth="1.5" />
+              <rect key={i} x={o.x} y={o.y} width={o.w} height={o.h} fill="#1B1B1B" stroke="#E63C22" strokeWidth="1.5" />
             ))}
-            {world.line && <path d={trackPath(world)} fill="none" stroke="#FFC93C" strokeWidth="3" opacity="0.7" />}
-            {world.goal && <circle cx={world.goal.x} cy={world.goal.y} r={world.goal.r} fill="none" stroke="#1F7A5C" strokeWidth="2" strokeDasharray="4 3" />}
+            {world.line && <path d={trackPath(world)} fill="none" stroke="#FFB40A" strokeWidth="3" opacity="0.7" />}
+            {world.goal && <circle cx={world.goal.x} cy={world.goal.y} r={world.goal.r} fill="none" stroke="#5B0DA8" strokeWidth="2" strokeDasharray="4 3" />}
             {pose && (
               <g transform={`translate(${pose.x} ${pose.y}) rotate(${(pose.h * 180) / Math.PI})`}>
-                <polygon points="9,0 -6,6 -6,-6" fill="#23B5D3" stroke="#EDF3EE" strokeWidth="1.2" />
+                <polygon points="9,0 -6,6 -6,-6" fill="#0097F8" stroke="#F7F7F7" strokeWidth="1.2" />
               </g>
             )}
           </svg>

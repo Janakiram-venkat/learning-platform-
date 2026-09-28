@@ -354,12 +354,12 @@ export default function GamePage() {
               </ul>
 
               {results && !allPassed && (
-                <p className="mt-4 rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-800 ring-1 ring-amber-100">
+                <p className="mt-4 rounded-xl bg-signal/10 p-3 text-sm font-medium text-signal-deep ring-1 ring-signal/20">
                   Not there yet: fix the red ones and check again. 💪
                 </p>
               )}
               {allPassed && (
-                <p className="mt-4 flex items-center gap-2 rounded-xl bg-green-50 p-3 text-sm font-bold text-green-700 ring-1 ring-green-100">
+                <p className="mt-4 flex items-center gap-2 rounded-xl bg-mint/10 p-3 text-sm font-bold text-mint-deep ring-1 ring-mint/20">
                   <Trophy className="h-4 w-4" /> All good! Step complete!
                 </p>
               )}

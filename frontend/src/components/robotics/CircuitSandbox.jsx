@@ -19,12 +19,12 @@ function Led({ x, y, brightness, dead, label }) {
     <g>
       <circle
         cx={x} cy={y} r="17"
-        fill={dead ? '#16241D' : '#23B5D3'}
+        fill={dead ? '#1B1B1B' : '#0097F8'}
         opacity={dead ? 0.12 : Math.min(1, 0.18 + glow * 0.9)}
-        style={{ filter: !dead && glow > 0.15 ? `drop-shadow(0 0 ${Math.min(9, glow * 10)}px #23B5D3)` : 'none', transition: 'all .25s' }}
+        style={{ filter: !dead && glow > 0.15 ? `drop-shadow(0 0 ${Math.min(9, glow * 10)}px #0097F8)` : 'none', transition: 'all .25s' }}
       />
-      <circle cx={x} cy={y} r="17" fill="none" stroke="#16241D" strokeWidth="2" />
-      {label && <text x={x} y={y + 32} textAnchor="middle" fontSize="10" fontWeight="700" fill="#16241D">{label}</text>}
+      <circle cx={x} cy={y} r="17" fill="none" stroke="#1B1B1B" strokeWidth="2" />
+      {label && <text x={x} y={y + 32} textAnchor="middle" fontSize="10" fontWeight="700" fill="#1B1B1B">{label}</text>}
     </g>
   );
 }
@@ -33,9 +33,9 @@ function Wire({ d, live, ma }) {
   const speed = Math.max(0.2, 1.4 - ma / 40);
   return (
     <g>
-      <path d={d} fill="none" stroke="#16241D" strokeWidth="3" />
+      <path d={d} fill="none" stroke="#1B1B1B" strokeWidth="3" />
       {live && (
-        <path d={d} fill="none" stroke="#FFC93C" strokeWidth="2" strokeDasharray="6 8" strokeLinecap="round"
+        <path d={d} fill="none" stroke="#FFB40A" strokeWidth="2" strokeDasharray="6 8" strokeLinecap="round"
           style={{ animation: `csflow ${speed}s linear infinite` }} />
       )}
     </g>
@@ -112,24 +112,24 @@ export default function CircuitSandbox({ block }) {
         {mode === 'basic' && (
           <>
             <svg viewBox="0 0 240 130" className="mx-auto w-full max-w-[420px]">
-              <rect x="14" y="45" width="16" height="40" rx="2" fill="none" stroke="#16241D" strokeWidth="3" />
-              <rect x="16" y="65" width="12" height="18" fill="#FFC93C" />
-              <text x="22" y="42" textAnchor="middle" fontSize="10" fontWeight="700" fill="#16241D">+</text>
+              <rect x="14" y="45" width="16" height="40" rx="2" fill="none" stroke="#1B1B1B" strokeWidth="3" />
+              <rect x="16" y="65" width="12" height="18" fill="#FFB40A" />
+              <text x="22" y="42" textAnchor="middle" fontSize="10" fontWeight="700" fill="#1B1B1B">+</text>
               <Wire d="M22 45 L22 20 L120 20" live={closed} ma={basicMa} />
               {/* switch */}
-              <circle cx="120" cy="20" r="3" fill="#16241D" />
-              <circle cx="150" cy="20" r="3" fill="#16241D" />
+              <circle cx="120" cy="20" r="3" fill="#1B1B1B" />
+              <circle cx="150" cy="20" r="3" fill="#1B1B1B" />
               <line
                 x1="120" y1="20"
                 x2={closed ? 150 : 140}
                 y2={closed ? 20 : 8}
-                stroke="#E8503A" strokeWidth="3" strokeLinecap="round"
+                stroke="#E63C22" strokeWidth="3" strokeLinecap="round"
               />
               <Wire d="M150 20 L200 20 L200 78" live={closed} ma={basicMa} />
               <Led x={200} y={95} brightness={basicMa} dead={!closed} />
               <Wire d="M200 112 L200 130 L22 130 L22 85" live={closed} ma={basicMa} />
               {/* resistor */}
-              <path d="M60 130 L68 116 L76 130 L84 116 L92 130 L100 116 L108 130" fill="none" stroke="#E8503A" strokeWidth="3" strokeLinejoin="round" />
+              <path d="M60 130 L68 116 L76 130 L84 116 L92 130 L100 116 L108 130" fill="none" stroke="#E63C22" strokeWidth="3" strokeLinejoin="round" />
             </svg>
             <p className="mt-2 text-center font-mono-lab text-sm font-bold text-pcb">
               {closed ? `${basicMa.toFixed(0)} mA · ${(basicBrightness * 100).toFixed(0)}% brightness` : 'switch open · 0 mA'}
@@ -158,25 +158,25 @@ export default function CircuitSandbox({ block }) {
         {mode === 'short-reverse' && (
           <>
             <svg viewBox="0 0 240 130" className="mx-auto w-full max-w-[420px]">
-              <rect x="14" y="45" width="16" height="40" rx="2" fill="none" stroke="#16241D" strokeWidth="3" />
-              <rect x="16" y="65" width="12" height="18" fill="#FFC93C" />
+              <rect x="14" y="45" width="16" height="40" rx="2" fill="none" stroke="#1B1B1B" strokeWidth="3" />
+              <rect x="16" y="65" width="12" height="18" fill="#FFB40A" />
               <Wire d="M22 45 L22 20 L200 20 L200 78" live ma={srMa} />
               {srReversed ? (
                 <g>
-                  <circle cx="200" cy="95" r="17" fill="#16241D" opacity="0.12" />
-                  <circle cx="200" cy="95" r="17" fill="none" stroke="#E8503A" strokeWidth="2" />
-                  <text x="200" y="100" textAnchor="middle" fontSize="14" fontWeight="900" fill="#E8503A">✕</text>
+                  <circle cx="200" cy="95" r="17" fill="#1B1B1B" opacity="0.12" />
+                  <circle cx="200" cy="95" r="17" fill="none" stroke="#E63C22" strokeWidth="2" />
+                  <text x="200" y="100" textAnchor="middle" fontSize="14" fontWeight="900" fill="#E63C22">✕</text>
                 </g>
               ) : (
                 <Led x={200} y={95} brightness={srMa} dead={srShorted} />
               )}
               {srShorted && (
-                <path d="M182 78 Q200 60 218 78" fill="none" stroke="#E8503A" strokeWidth="3" strokeDasharray="4 4">
+                <path d="M182 78 Q200 60 218 78" fill="none" stroke="#E63C22" strokeWidth="3" strokeDasharray="4 4">
                   <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.5s" repeatCount="indefinite" />
                 </path>
               )}
               <Wire d="M200 112 L200 130 L22 130 L22 85" live ma={srMa} />
-              <path d="M60 130 L68 116 L76 130 L84 116 L92 130 L100 116 L108 130" fill="none" stroke="#E8503A" strokeWidth="3" strokeLinejoin="round" />
+              <path d="M60 130 L68 116 L76 130 L84 116 L92 130 L100 116 L108 130" fill="none" stroke="#E63C22" strokeWidth="3" strokeLinejoin="round" />
             </svg>
             <p className="mt-2 flex items-center justify-center gap-2 text-center font-mono-lab text-sm font-bold text-pcb">
               {srShorted && <><Flame className="h-4 w-4 text-wire" /> current took the shortcut: LED gets nothing</>}
@@ -216,8 +216,8 @@ export default function CircuitSandbox({ block }) {
             </div>
             {wiring === 'series' ? (
               <svg viewBox="0 0 260 130" className="mx-auto w-full max-w-[440px]">
-                <rect x="14" y="45" width="16" height="40" rx="2" fill="none" stroke="#16241D" strokeWidth="3" />
-                <rect x="16" y="65" width="12" height="18" fill="#FFC93C" />
+                <rect x="14" y="45" width="16" height="40" rx="2" fill="none" stroke="#1B1B1B" strokeWidth="3" />
+                <rect x="16" y="65" width="12" height="18" fill="#FFB40A" />
                 <Wire d="M22 45 L22 20 L230 20 L230 78" live ma={seriesMa} />
                 <Led x={230} y={95} brightness={seriesMa} label="LED 1" />
                 <Wire d="M230 112 L230 130 L150 130 L150 112" live ma={seriesMa} />
@@ -227,8 +227,8 @@ export default function CircuitSandbox({ block }) {
               </svg>
             ) : (
               <svg viewBox="0 0 260 130" className="mx-auto w-full max-w-[440px]">
-                <rect x="14" y="45" width="16" height="40" rx="2" fill="none" stroke="#16241D" strokeWidth="3" />
-                <rect x="16" y="65" width="12" height="18" fill="#FFC93C" />
+                <rect x="14" y="45" width="16" height="40" rx="2" fill="none" stroke="#1B1B1B" strokeWidth="3" />
+                <rect x="16" y="65" width="12" height="18" fill="#FFB40A" />
                 <Wire d="M22 45 L22 15 L230 15 L230 78" live ma={parallelMaEach} />
                 <Led x={230} y={95} brightness={parallelMaEach} label="LED 1" />
                 <Wire d="M150 15 L150 78" live ma={parallelMaEach} />

@@ -34,7 +34,7 @@ const COMPONENTS = {
   // itself — hence the two different treatments.
   pre: (props) => (
     <pre
-      className="mb-4 overflow-x-auto rounded-xl border-2 border-ink bg-[#0B180F] p-4 font-mono-lab text-sm text-white/90 last:mb-0"
+      className="mb-4 overflow-x-auto rounded-xl border-2 border-ink bg-well p-4 font-mono-lab text-sm text-white/90 last:mb-0"
       {...props}
     />
   ),

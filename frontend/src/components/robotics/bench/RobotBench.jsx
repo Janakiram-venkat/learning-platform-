@@ -148,7 +148,7 @@ function Part({ part, state, onSelect, onHover }) {
           style={{ pointerEvents: 'none' }}
         >
           <span
-            className="whitespace-nowrap rounded-md border-2 border-ink px-2 py-0.5 font-mono-lab text-[11px] font-bold text-ink shadow-[2px_2px_0_rgba(22,36,29,0.9)]"
+            className="whitespace-nowrap rounded-md border-2 border-ink px-2 py-0.5 font-mono-lab text-[11px] font-bold text-ink shadow-[2px_2px_0_rgba(27,27,27,0.9)]"
             style={{ background: systemColor }}
           >
             {part.label}
@@ -202,7 +202,7 @@ export default function RobotBench({
       </mesh>
       <mesh position={[0, 0.001, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.71, 0.77, 56]} />
-        <meshBasicMaterial color="#1F7A5C" toneMapped={false} />
+        <meshBasicMaterial color="#5B0DA8" toneMapped={false} />
       </mesh>
 
       {/* Clicking the bench itself clears the selection */}

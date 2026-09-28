@@ -72,11 +72,11 @@ export default function DriveTrainer({ block }) {
       }
     >
       <div ref={ref} className="p-4">
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-[#0B180F]">
-          {tracePath && <path d={tracePath} fill="none" stroke="#23B5D3" strokeWidth="2" opacity="0.6" />}
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-well">
+          {tracePath && <path d={tracePath} fill="none" stroke="#0097F8" strokeWidth="2" opacity="0.6" />}
           <g transform={`translate(${pose.x} ${pose.y}) rotate(${(pose.heading * 180) / Math.PI})`}>
-            <rect x="-14" y="-10" width="28" height="20" rx="3" fill="#1F7A5C" stroke="#EDF3EE" strokeWidth="1.5" />
-            <polygon points="14,0 4,-6 4,6" fill="#FFC93C" />
+            <rect x="-14" y="-10" width="28" height="20" rx="3" fill="#5B0DA8" stroke="#F7F7F7" strokeWidth="1.5" />
+            <polygon points="14,0 4,-6 4,6" fill="#FFB40A" />
           </g>
         </svg>
 

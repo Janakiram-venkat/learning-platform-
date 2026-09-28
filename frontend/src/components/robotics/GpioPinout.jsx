@@ -16,7 +16,7 @@ export default function GpioPinout({ block }) {
   const right = pins.filter((_, i) => i % 2 === 1);
   const active = pins.find((p) => p.id === selected);
 
-  const kindColor = { power: '#FFC93C', ground: '#16241D', gpio: '#1F7A5C', special: '#23B5D3' };
+  const kindColor = { power: '#FFB40A', ground: '#1B1B1B', gpio: '#5B0DA8', special: '#0097F8' };
 
   const Pin = ({ p, side }) => (
     <button
@@ -27,7 +27,7 @@ export default function GpioPinout({ block }) {
     >
       <span
         className="h-2.5 w-2.5 shrink-0 rounded-full border border-ink/30"
-        style={{ backgroundColor: kindColor[p.kind] || '#1F7A5C' }}
+        style={{ backgroundColor: kindColor[p.kind] || '#5B0DA8' }}
       />
       {p.label}
     </button>

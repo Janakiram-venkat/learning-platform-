@@ -40,12 +40,12 @@ export default function DigitalSignal({ block }) {
   return (
     <WidgetShell title={title} hint={hint}>
       <div className="p-4">
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-[#0B180F]">
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-well">
           <line x1="0" y1={H - 16} x2={W} y2={H - 16} stroke="#ffffff20" strokeWidth="1" />
           <line x1="0" y1="16" x2={W} y2="16" stroke="#ffffff20" strokeWidth="1" />
           <text x="4" y="12" fontSize="8" fill="#ffffff60" fontFamily="monospace">HIGH</text>
           <text x="4" y={H - 4} fontSize="8" fill="#ffffff60" fontFamily="monospace">LOW</text>
-          <path d={d} fill="none" stroke="#23B5D3" strokeWidth="2.5" strokeLinejoin="round" />
+          <path d={d} fill="none" stroke="#0097F8" strokeWidth="2.5" strokeLinejoin="round" />
         </svg>
 
         <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
@@ -61,8 +61,8 @@ export default function DigitalSignal({ block }) {
             <span
               className="h-8 w-8 rounded-full border-2 border-ink transition-all"
               style={{
-                backgroundColor: level ? '#23B5D3' : '#16241D',
-                boxShadow: level ? '0 0 12px #23B5D3' : 'none',
+                backgroundColor: level ? '#0097F8' : '#1B1B1B',
+                boxShadow: level ? '0 0 12px #0097F8' : 'none',
               }}
             />
             <span className="text-sm font-bold text-ink/60">onboard LED</span>

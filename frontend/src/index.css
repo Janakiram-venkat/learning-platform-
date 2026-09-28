@@ -1,33 +1,59 @@
 @import "tailwindcss";
 
 @theme {
-  /* Legacy tokens, repointed to the workbench palette so any older component
-     still using them (text-primary, text-secondary, bg-accent, …) inherits the
-     electronics-kit look automatically instead of the old lavender/purple. */
-  --color-primary: #16241D;     /* ink — near-black circuit green (text) */
-  --color-secondary: #55655C;   /* muted ink-green for secondary text */
-  --color-accent: #1F7A5C;      /* printed-circuit green */
-  --color-accent2: #FFC93C;     /* signal yellow */
-  --color-accent3: #23B5D3;     /* LED cyan */
-  --color-accent4: #E8503A;     /* wire red */
-  --color-background: #EDF3EE;  /* PCB-tinted paper */
-  --color-sidebar: #E3EDE5;
-  --color-border: #D3E0D6;
+  /* Legacy tokens, repointed to the Pocket Lab logo palette so any older
+     component still using them (text-primary, text-secondary, bg-accent, …)
+     inherits the brand look automatically. */
+  --color-primary: #1B1B1B;     /* ink — the wordmark black */
+  --color-secondary: #5C5C60;   /* neutral graphite for secondary text */
+  --color-accent: #5B0DA8;      /* brand violet */
+  --color-accent2: #FFB40A;     /* signal amber */
+  --color-accent3: #0097F8;     /* LED azure */
+  --color-accent4: #CE3117;     /* wire red-orange */
+  --color-background: #F7F7F7;
+  --color-sidebar: #F0F0F2;
+  --color-border: #DFDFE3;
 
-  /* --- Pocket Lab "Workbench" identity (Home page) --------------------- */
-  /* An electronics-kit palette: printed-circuit green, signal yellow,     */
-  /* wire red, LED cyan — grounded in the maker/lab world the name implies.*/
-  --color-paper: #EDF3EE;   /* PCB-tinted page white */
-  --color-ink: #16241D;     /* near-black circuit green — text & chassis */
-  --color-pcb: #1F7A5C;     /* printed-circuit-board green — structure */
-  --color-signal: #FFC93C;  /* signal yellow — primary action */
-  --color-wire: #E8503A;    /* wire red — secondary / alert */
-  --color-led: #23B5D3;     /* LED cyan — info */
+  /* --- Pocket Lab identity, sampled from the logo ---------------------- */
+  /* The mark is a full hue wheel on a neutral field: red-orange → amber,   */
+  /* spring green → teal, azure, indigo → magenta, with a black wordmark.   */
+  /* The page keeps the logo's own composition — neutral ground, one burst  */
+  /* of colour — so the spectrum stays loud by staying rare.                */
+  --color-paper: #F7F7F7;    /* the logo's field — page ground */
+  --color-ink: #1B1B1B;      /* the wordmark black — text, rules, chassis */
+  --color-pcb: #5B0DA8;      /* the mark's violet stroke — structure */
+  --color-signal: #FFB40A;   /* amber, from the mark's warm face — action */
+  --color-wire: #CE3117;     /* red-orange, the warm face's hot end — alert */
+  --color-led: #0097F8;      /* azure — information */
+  --color-mint: #00C48C;     /* spring green → teal — success */
+  --color-magenta: #BD16BB;  /* the violet face's hot end — accent */
+
+  /* Dark surfaces (terminals, stages, code) carry the violet cast of the
+     mark rather than a neutral black, so they read as the same object. */
+  --color-well: #140A22;
+  --color-mute: #A6A6A6;     /* the logo's tagline grey — de-emphasis only */
+
+  /* Darkened siblings for the two accents that are too bright to be read as
+     text on paper. Same hue, enough contrast for body copy (4.5:1+). */
+  --color-led-deep: #0A6FBE;
+  --color-mint-deep: #007A55;
+  --color-signal-deep: #8A5800;
+
+  /* The wire red darkened for body text loses its bite on a dark well, so the
+     logo's untouched hot red-orange stays available for those surfaces. */
+  --color-wire-bright: #FF4C35;
 
   --font-sans: 'Nunito', 'Segoe UI', sans-serif;
   --font-display: 'Fredoka', 'Nunito', sans-serif;
   --font-lab: 'Bricolage Grotesque', 'Nunito', sans-serif;
   --font-mono-lab: 'Space Mono', ui-monospace, monospace;
+}
+
+@layer base {
+  .bg-well,
+  .bg-ink {
+    color: rgba(255, 255, 255, 0.86);
+  }
 }
 
 html {
@@ -93,8 +119,8 @@ body {
 }
 
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
-  50% { box-shadow: 0 0 28px 6px rgba(124, 58, 237, 0.35); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(91, 13, 168, 0.4); }
+  50% { box-shadow: 0 0 28px 6px rgba(91, 13, 168, 0.35); }
 }
 
 @keyframes shimmer {
@@ -132,7 +158,7 @@ body {
 
 /* Rainbow gradient text */
 .gradient-text {
-  background: linear-gradient(90deg, #1F7A5C, #23B5D3, #FFC93C, #E8503A, #1F7A5C);
+  background: linear-gradient(90deg, #5B0DA8, #BD16BB, #E63C22, #FFB40A, #00C48C, #0097F8, #5B0DA8);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -200,10 +226,10 @@ body {
 .bench-grid {
   background-color: var(--color-paper);
   background-image:
-    linear-gradient(rgba(22, 36, 29, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(22, 36, 29, 0.045) 1px, transparent 1px),
-    linear-gradient(rgba(22, 36, 29, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(22, 36, 29, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(27, 27, 27, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 27, 27, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(27, 27, 27, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 27, 27, 0.07) 1px, transparent 1px);
   background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
   background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
 }
@@ -214,29 +240,29 @@ body {
   border: 2px solid var(--color-ink);
   border-radius: 14px;
   background: #ffffff;
-  box-shadow: 5px 5px 0 rgba(22, 36, 29, 0.9);
+  box-shadow: 5px 5px 0 rgba(27, 27, 27, 0.9);
 }
 .lab-panel-pcb {
   border: 2px solid var(--color-ink);
   border-radius: 14px;
   background: var(--color-pcb);
-  box-shadow: 5px 5px 0 rgba(22, 36, 29, 0.9);
+  box-shadow: 5px 5px 0 rgba(27, 27, 27, 0.9);
 }
 
 /* Hover: the panel "presses" toward the bench (shadow shrinks). */
 .lab-lift { transition: transform 0.18s ease, box-shadow 0.18s ease; }
 .lab-lift:hover {
   transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 rgba(22, 36, 29, 0.9);
+  box-shadow: 3px 3px 0 rgba(27, 27, 27, 0.9);
 }
 
 /* A pressable bench button: hard offset shadow that shrinks as it's pressed. */
 .lab-btn {
-  box-shadow: 5px 5px 0 rgba(22, 36, 29, 0.9);
+  box-shadow: 5px 5px 0 rgba(27, 27, 27, 0.9);
   transition: transform 0.14s ease, box-shadow 0.14s ease;
 }
-.lab-btn:hover  { transform: translate(2px, 2px); box-shadow: 3px 3px 0 rgba(22, 36, 29, 0.9); }
-.lab-btn:active { transform: translate(4px, 4px); box-shadow: 1px 1px 0 rgba(22, 36, 29, 0.9); }
+.lab-btn:hover  { transform: translate(2px, 2px); box-shadow: 3px 3px 0 rgba(27, 27, 27, 0.9); }
+.lab-btn:active { transform: translate(4px, 4px); box-shadow: 1px 1px 0 rgba(27, 27, 27, 0.9); }
 .lab-btn:focus-visible { outline: 3px solid var(--color-pcb); outline-offset: 3px; }
 
 /* Mono reference tag used as an eyebrow: like a component label on a board. */
@@ -250,7 +276,7 @@ body {
 /* Status LED — a small glowing indicator. */
 .led {
   width: 10px; height: 10px; border-radius: 999px;
-  box-shadow: 0 0 0 2px rgba(22,36,29,0.25), 0 0 8px 1px currentColor;
+  box-shadow: 0 0 0 2px rgba(27,27,27,0.25), 0 0 8px 1px currentColor;
   background: currentColor;
 }
 .led-pulse { animation: ledPulse 1.6s ease-in-out infinite; }
@@ -279,7 +305,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .led-pulse, .power-on, .term-cursor { animation: none; }
-  .lab-lift:hover { transform: none; box-shadow: 5px 5px 0 rgba(22,36,29,0.9); }
+  .lab-lift:hover { transform: none; box-shadow: 5px 5px 0 rgba(27,27,27,0.9); }
 }
 
 /* --- Student dashboard: badges + gauges ------------------------------- */
@@ -313,6 +339,83 @@ body {
   .ring-progress { transition: none; }
 }
 
+
+/* --- Browser surfaces ------------------------------------------------- */
+/* Selection, caret, scrollbars and the focus ring ship with defaults that
+   belong to no palette. Point them at the logo so the chrome the browser
+   draws reads as part of the same object as the parts we draw. */
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-ink);
+}
+/* On the dark wells (terminal, stage, code) amber-on-black is unreadable as
+   a selection, so those surfaces select in violet with light text. */
+.bg-well ::selection,
+.bg-ink ::selection,
+pre ::selection,
+code ::selection {
+  background: var(--color-pcb);
+  color: #ffffff;
+}
+
+input, textarea, [contenteditable] {
+  caret-color: var(--color-pcb);
+}
+
+/* One focus ring for the whole app, not just .lab-btn. Azure reads as
+   "the browser is talking to you" against every brand surface. */
+:focus-visible {
+  outline: 3px solid var(--color-led);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* On violet chassis the azure ring muddies; go to amber there. */
+.bg-pcb :focus-visible,
+.lab-panel-pcb :focus-visible,
+.bg-ink :focus-visible,
+.bg-well :focus-visible {
+  outline-color: var(--color-signal);
+}
+
+/* Scrollbars: a thin ink track that darkens on hover, not the OS grey slab. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(27, 27, 27, 0.28) transparent;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(27, 27, 27, 0.28);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(27, 27, 27, 0.5); background-clip: content-box; }
+::-webkit-scrollbar-corner { background: transparent; }
+/* Inside a dark well the same scrollbar inverts. */
+.bg-well ::-webkit-scrollbar-thumb,
+.bg-ink ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  background-clip: content-box;
+}
+
+/* Scores, timers, XP and leaderboards line up column-wise and stop
+   shivering as digits change. */
+.tabular, time, .ref-tag {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Links inside prose sit on the brand violet and keep their descenders clear. */
+.prose a, .markdown a {
+  color: var(--color-pcb);
+  text-decoration-color: color-mix(in srgb, var(--color-pcb) 40%, transparent);
+  text-underline-offset: 3px;
+}
+.prose a:hover, .markdown a:hover {
+  text-decoration-color: var(--color-pcb);
+}
 
 /* --- Printing (the manual's "Download as PDF" button) ------------------- */
 /* The page prints itself: the PDF button expands every collapsed panel and
@@ -380,13 +483,13 @@ body {
   pre {
     white-space: pre-wrap !important;
     word-break: break-word;
-    background: #f3f5f3 !important;
-    color: #16241D !important;
-    border: 1px solid #c9d4cb !important;
+    background: #f4f4f6 !important;
+    color: #1B1B1B !important;
+    border: 1px solid #d6d6dc !important;
   }
   pre code,
   pre * {
-    color: #16241D !important;
+    color: #1B1B1B !important;
   }
 
   /* Sticky positioning pins an element to a viewport that does not exist on
@@ -399,6 +502,6 @@ body {
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 0.75em;
-    color: #55655C;
+    color: #5C5C60;
   }
 }

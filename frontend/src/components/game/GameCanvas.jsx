@@ -109,7 +109,7 @@ export default function GameCanvas({ width = 480, height = 360, focusHint = true
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="overflow-hidden rounded-xl border-2 border-ink shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+      <div className="overflow-hidden rounded-xl border-2 border-ink shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
         <canvas
           key={generation}
           ref={canvasRef}

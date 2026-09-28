@@ -45,17 +45,17 @@ export default function PwmSim({ block }) {
           <div
             className="h-20 w-20 shrink-0 rounded-full border-2 border-ink"
             style={{
-              backgroundColor: '#23B5D3',
+              backgroundColor: '#0097F8',
               animation: duty === 0 ? 'none' : duty === 100 ? 'none' : `${animName} ${period}s steps(1,jump-none) infinite`,
               opacity: duty === 0 ? 0.08 : duty === 100 ? 1 : undefined,
-              boxShadow: duty > 0 ? '0 0 16px #23B5D3' : 'none',
+              boxShadow: duty > 0 ? '0 0 16px #0097F8' : 'none',
             }}
           />
           <div className="min-w-0 flex-1">
-            <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-[#0B180F]">
+            <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-well">
               <text x="4" y="12" fontSize="8" fill="#ffffff60" fontFamily="monospace">HIGH</text>
               <text x="4" y={H - 4} fontSize="8" fill="#ffffff60" fontFamily="monospace">LOW</text>
-              <path d={wave} fill="none" stroke="#FFC93C" strokeWidth="2.5" strokeLinejoin="round" />
+              <path d={wave} fill="none" stroke="#FFB40A" strokeWidth="2.5" strokeLinejoin="round" />
             </svg>
             <p className="mt-1 text-center font-mono-lab text-xs text-ink/50">one period, drawn to scale</p>
           </div>

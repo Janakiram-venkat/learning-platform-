@@ -19,9 +19,9 @@ function GearShape({ teeth, radius, color }) {
   }).join(' ') + ' Z';
   return (
     <g>
-      <path d={d} fill={color} stroke="#16241D" strokeWidth="2" />
-      <circle r={radius * 0.28} fill="#16241D" />
-      <line x1={-radius * 0.7} y1="0" x2={radius * 0.7} y2="0" stroke="#EDF3EE" strokeWidth="2" />
+      <path d={d} fill={color} stroke="#1B1B1B" strokeWidth="2" />
+      <circle r={radius * 0.28} fill="#1B1B1B" />
+      <line x1={-radius * 0.7} y1="0" x2={radius * 0.7} y2="0" stroke="#F7F7F7" strokeWidth="2" />
     </g>
   );
 }
@@ -53,10 +53,10 @@ export default function GearRatio({ block }) {
       <div className="p-4">
         <svg viewBox="0 0 260 200" className="mx-auto w-full max-w-[380px]">
           <g style={{ animation: `gearspinA 3s linear infinite` }}>
-            <GearShape teeth={teethA} radius={radiusA} color="#1F7A5C" />
+            <GearShape teeth={teethA} radius={radiusA} color="#5B0DA8" />
           </g>
           <g style={{ animation: `gearspinB ${Math.abs(durB)}s linear infinite reverse` }}>
-            <GearShape teeth={teethB} radius={radiusB} color="#23B5D3" />
+            <GearShape teeth={teethB} radius={radiusB} color="#0097F8" />
           </g>
         </svg>
 

@@ -362,7 +362,7 @@ export default function LessonPage() {
         style={lessonStyle}
         className="bench-grid min-w-0 flex-1 overflow-y-auto p-4 sm:p-8"
       >
-        <div className="mx-auto w-full max-w-[86rem] rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(22,36,29,0.9)] [container-type:inline-size] sm:p-10">
+        <div className="mx-auto w-full max-w-[86rem] rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(27,27,27,0.9)] [container-type:inline-size] sm:p-10">
           <header className="mb-6 border-b-2 border-ink/10 pb-6 sm:mb-10">
             <h1 className="font-lab mb-4 text-2xl font-extrabold tracking-tight text-ink sm:text-4xl">{lesson.title}</h1>
             <p className="text-base text-ink/65 sm:text-lg">{lesson.description}</p>
@@ -383,7 +383,7 @@ export default function LessonPage() {
                 </div>
               );
               if (block.type === 'code') return (
-                <pre key={idx} className="bg-[#0B180F] text-white/90 p-6 rounded-xl overflow-x-auto text-sm font-mono-lab border-2 border-ink shadow-inner">
+                <pre key={idx} className="bg-well text-white/90 p-6 rounded-xl overflow-x-auto text-sm font-mono-lab border-2 border-ink shadow-inner">
                   {block.value}
                 </pre>
               );
@@ -399,7 +399,7 @@ export default function LessonPage() {
 
           {/* Practice Section — coding exercises, only for courses with the editor */}
           {showEditor && lesson.practice && lesson.practice.length > 0 && (
-            <div className="mb-16 border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+            <div className="mb-16 border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
               <div className="bg-pcb px-5 py-4 border-b-2 border-ink sm:px-8 sm:py-5">
                 <h3 className="font-lab font-bold text-white text-lg">Practice Exercises</h3>
               </div>
@@ -421,7 +421,7 @@ export default function LessonPage() {
 
           {/* Quiz Section */}
           {lesson.quiz && lesson.quiz.length > 0 && (
-            <div className="mb-16 border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+            <div className="mb-16 border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
               <div className="bg-signal px-5 py-4 border-b-2 border-ink sm:px-8 sm:py-5">
                 <h3 className="font-lab font-bold text-ink text-lg">Knowledge Check</h3>
               </div>

@@ -8,11 +8,11 @@ import { TerminalSquare, CornerDownLeft } from 'lucide-react';
 // ---------------------------------------------------------------------------
 
 const LINE_STYLE = {
-  out: 'text-emerald-300',
-  in: 'text-sky-300',
-  err: 'text-rose-400',
+  out: 'text-mint',
+  in: 'text-led',
+  err: 'text-wire-bright',
   // console.warn in the web-dev runner: a real problem, but not a thrown error.
-  warn: 'text-amber-300',
+  warn: 'text-signal',
   sys: 'text-white/35 italic',
 };
 
@@ -39,7 +39,7 @@ export default function Terminal({ lines, running, waiting, onSubmit, emptyHint 
   const hasContent = lines.length > 0 || running || waiting;
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-md bg-[#0B180F] font-mono-lab text-sm">
+    <div className="flex h-full flex-col overflow-hidden rounded-md bg-well font-mono-lab text-sm">
       <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-4 py-2 text-white/45">
         <span className="flex items-center gap-1.5">
           <TerminalSquare className="h-4 w-4" /> Terminal
@@ -47,7 +47,7 @@ export default function Terminal({ lines, running, waiting, onSubmit, emptyHint 
         {running ? (
           <span className="animate-pulse text-led">Running…</span>
         ) : waiting ? (
-          <span className="text-sky-300">Waiting for input</span>
+          <span className="text-led">Waiting for input</span>
         ) : null}
       </div>
 
@@ -68,7 +68,7 @@ export default function Terminal({ lines, running, waiting, onSubmit, emptyHint 
         ))}
 
         {waiting && (
-          <div className="mt-0.5 flex items-center gap-2 text-sky-300">
+          <div className="mt-0.5 flex items-center gap-2 text-led">
             <span className="text-white/30">❯</span>
             <input
               ref={inputRef}
@@ -78,11 +78,11 @@ export default function Terminal({ lines, running, waiting, onSubmit, emptyHint 
               spellCheck={false}
               autoComplete="off"
               placeholder="type your input, then press Enter"
-              className="flex-1 bg-transparent text-sky-200 placeholder:text-white/25 focus:outline-none"
+              className="flex-1 bg-transparent text-led placeholder:text-white/25 focus:outline-none"
             />
             <button
               onClick={send}
-              className="flex items-center gap-1 rounded border border-white/15 px-1.5 py-0.5 text-xs text-white/50 hover:border-sky-300/50 hover:text-sky-300"
+              className="flex items-center gap-1 rounded border border-white/15 px-1.5 py-0.5 text-xs text-white/50 hover:border-led/40 hover:text-led"
               title="Send input (Enter)"
             >
               <CornerDownLeft className="h-3.5 w-3.5" />

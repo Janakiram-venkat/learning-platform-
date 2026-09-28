@@ -28,7 +28,7 @@ export default function RgbMix({ block }) {
             className="h-20 w-20 shrink-0 rounded-full border-2 border-ink"
             style={{ backgroundColor: hex, boxShadow: `0 0 18px ${hex}` }}
           />
-          <div className="grid grid-cols-7 gap-1 rounded-xl border-2 border-ink bg-[#0B180F] p-2">
+          <div className="grid grid-cols-7 gap-1 rounded-xl border-2 border-ink bg-well p-2">
             {HEART.map((row, y) => row.split('').map((c, x) => (
               <div
                 key={`${x}-${y}`}
@@ -41,7 +41,7 @@ export default function RgbMix({ block }) {
         <p className="mt-2 text-center font-mono-lab text-sm font-bold text-pcb">{hex}</p>
 
         <div className="mt-4 space-y-3">
-          {[['Red', r, setR, '#E8503A'], ['Green', g, setG, '#1F7A5C'], ['Blue', b, setB, '#23B5D3']].map(([label, val, setter, color]) => (
+          {[['Red', r, setR, '#E63C22'], ['Green', g, setG, '#5B0DA8'], ['Blue', b, setB, '#0097F8']].map(([label, val, setter, color]) => (
             <label key={label} className="block">
               <span className="mb-1 flex justify-between text-xs font-bold uppercase tracking-wide" style={{ color }}>
                 <span>{label}</span><span className="font-mono-lab">{val}</span>

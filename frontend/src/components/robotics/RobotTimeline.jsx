@@ -59,7 +59,7 @@ export default function RobotTimeline({ block }) {
                 <span
                   className={`block rounded-full border-2 transition-all ${
                     here
-                      ? 'h-6 w-6 border-ink bg-signal shadow-[2px_2px_0_rgba(22,36,29,0.9)]'
+                      ? 'h-6 w-6 border-ink bg-signal shadow-[2px_2px_0_rgba(27,27,27,0.9)]'
                       : past
                         ? 'mt-1.5 h-3 w-3 border-pcb bg-pcb'
                         : 'mt-1.5 h-3 w-3 border-ink/25 bg-white'

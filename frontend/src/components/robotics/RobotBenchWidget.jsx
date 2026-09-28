@@ -58,7 +58,7 @@ export default function RobotBenchWidget({ block }) {
                 key={key}
                 onClick={() => setHighlightSystem(on ? null : key)}
                 className={`flex items-center gap-1.5 rounded-xl border-2 px-3 py-1.5 text-sm font-bold transition-all active:scale-95 ${
-                  on ? 'border-ink text-ink shadow-[2px_2px_0_rgba(22,36,29,0.9)]' : 'border-ink/15 bg-white text-ink/60 hover:border-ink/40'
+                  on ? 'border-ink text-ink shadow-[2px_2px_0_rgba(27,27,27,0.9)]' : 'border-ink/15 bg-white text-ink/60 hover:border-ink/40'
                 }`}
                 style={on ? { background: sys.color } : undefined}
               >

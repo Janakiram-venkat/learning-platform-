@@ -38,7 +38,7 @@ function Shot({ shot, ratio }) {
     <figure className="m-0">
       <div
         className={`relative overflow-hidden rounded-xl border-2 ${
-          loaded ? 'border-ink bg-[#0B180F]' : 'border-dashed border-ink/30 bg-paper/50'
+          loaded ? 'border-ink bg-well' : 'border-dashed border-ink/30 bg-paper/50'
         }`}
         style={{ aspectRatio: shot.ratio || ratio || '16 / 9' }}
       >

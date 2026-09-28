@@ -47,7 +47,7 @@ export default function VirtualLabExperiment() {
       </div>
 
       {block.takeaway && (
-        <div className="rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+        <div className="rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
           <p className="ref-tag text-ink/50">Takeaway</p>
           <p className="mt-1 font-lab text-lg font-extrabold text-ink">{block.takeaway}</p>
         </div>

@@ -63,7 +63,7 @@ export default function LabRunner({ lab, course, courseId, moduleId }) {
         <span className="text-4xl">{lab.emoji || '🧪'}</span>
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-pcb">Interactive Lab · {lab.difficulty} · {lab.duration}</p>
-          <h1 className="font-lab text-2xl font-extrabold text-[#16241D] sm:text-3xl">{lab.title}</h1>
+          <h1 className="font-lab text-2xl font-extrabold text-[#1B1B1B] sm:text-3xl">{lab.title}</h1>
         </div>
       </div>
 
@@ -104,7 +104,7 @@ export default function LabRunner({ lab, course, courseId, moduleId }) {
       <div className="rounded-3xl border border-ink/12 bg-white p-5 shadow-sm sm:p-7" key={stageIdx}>
         {!isTerminal && (
           <>
-            <h2 className="font-lab text-xl font-extrabold text-[#16241D] sm:text-2xl">{stage.title}</h2>
+            <h2 className="font-lab text-xl font-extrabold text-[#1B1B1B] sm:text-2xl">{stage.title}</h2>
             {stage.prompt && <p className="mb-5 mt-1 text-ink/65">{stage.prompt}</p>}
           </>
         )}

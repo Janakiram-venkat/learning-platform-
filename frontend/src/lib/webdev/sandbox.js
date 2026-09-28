@@ -39,7 +39,7 @@ const SAMPLE_IMAGES = {
     '<g fill="#5c4033"><path d="M78 62 L66 26 L104 46 Z"/><path d="M162 62 L174 26 L136 46 Z"/>' +
     '<ellipse cx="120" cy="92" rx="56" ry="44"/></g>' +
     '<circle cx="101" cy="84" r="9" fill="#ffffff"/><circle cx="139" cy="84" r="9" fill="#ffffff"/>' +
-    '<circle cx="101" cy="85" r="4" fill="#16241d"/><circle cx="139" cy="85" r="4" fill="#16241d"/>' +
+    '<circle cx="101" cy="85" r="4" fill="#1b1b1b"/><circle cx="139" cy="85" r="4" fill="#1b1b1b"/>' +
     '<path d="M112 103 h16 l-8 9 Z" fill="#ff9aa2"/>' +
     '<g stroke="#ffffff" stroke-width="2"><path d="M66 99 h32 M66 109 h32 M174 99 h-32 M174 109 h-32"/></g>' +
     '<text x="120" y="152" font-family="monospace" font-size="11" fill="#5c4033" text-anchor="middle">cat.jpg</text>' +
@@ -55,7 +55,7 @@ const SAMPLE_IMAGES = {
     '</svg>',
   'logo.png':
     '<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">' +
-    '<rect x="8" y="8" width="144" height="144" rx="28" fill="#16241d"/>' +
+    '<rect x="8" y="8" width="144" height="144" rx="28" fill="#1b1b1b"/>' +
     '<circle cx="80" cy="64" r="26" fill="#9ae66e"/>' +
     '<rect x="44" y="100" width="72" height="12" rx="6" fill="#ffffff"/>' +
     '<text x="80" y="140" font-family="monospace" font-size="11" fill="#ffffff" text-anchor="middle">logo.png</text>' +

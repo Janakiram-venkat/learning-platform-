@@ -144,7 +144,7 @@ export default function TaskPage({ page, sectionId, passed, onPass, onFail, draf
 
       {showHint && page.hint && (
         <div className="animate-slide-up rounded-r-lg border-l-4 border-led bg-led/8 p-5" role="note">
-          <p className="font-lab mb-2 flex items-center gap-2 font-bold text-led">
+          <p className="font-lab mb-2 flex items-center gap-2 font-bold text-led-deep">
             <Lightbulb className="h-5 w-5 shrink-0" aria-hidden="true" /> Hint
           </p>
           <Markdown md={page.hint} className="text-ink" />

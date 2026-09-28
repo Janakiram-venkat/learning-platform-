@@ -22,7 +22,7 @@
  */
 export default function WidgetShell({ title, hint, controls, footer, side, children }) {
   return (
-    <div className="my-8 overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+    <div className="my-8 overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-ink bg-signal px-4 py-3">
         <span className="font-lab text-sm font-bold text-ink">{title}</span>
         {controls}

@@ -140,7 +140,7 @@ game = Game(width=480, height=360, background="#101828")
 star = Sprite("star", x=240, y=180, size=48)
 
 score = 0
-score_label = Text("Score: 0", x=14, y=12, size=20, color="#FFC93C")
+score_label = Text("Score: 0", x=14, y=12, size=20, color="#FFB40A")
 
 
 @game.every_frame
@@ -189,7 +189,7 @@ game.start()`,
     code: `from stage import Game, Sprite, Box
 
 game = Game(width=480, height=360, background="#101828")
-ground = Box(x=0, y=310, width=480, height=50, color="#1F7A5C")
+ground = Box(x=0, y=310, width=480, height=50, color="#5B0DA8")
 hero = Sprite("frog", x=100, y=285, size=46)
 
 GROUND_Y = 285
@@ -269,7 +269,7 @@ def update():
     game.clamp_inside(ship)
 
     if game.clicked():
-        bullets.append(Ball(x=ship.x + 20, y=ship.y, radius=5, color="#FFC93C"))
+        bullets.append(Ball(x=ship.x + 20, y=ship.y, radius=5, color="#FFB40A"))
         game.play("laser")
 
     if game.frame % 70 == 0:
@@ -312,7 +312,7 @@ game.start()`,
 
 game = Game(width=480, height=360, background="#142033")
 gem = Sprite("gem", x=240, y=200, size=52)
-time_label = Text("Time: 30", x=350, y=12, size=20, color="#23B5D3")
+time_label = Text("Time: 30", x=350, y=12, size=20, color="#0097F8")
 
 
 @game.every_frame
@@ -342,7 +342,7 @@ game = Game(width=480, height=360, background="#101828")
 hero = Sprite("panda", x=240, y=200, size=56)
 
 lives = 3
-lives_label = Text("Lives: 3", x=14, y=12, size=20, color="#E8503A")
+lives_label = Text("Lives: 3", x=14, y=12, size=20, color="#E63C22")
 hint = Text("Press space to take a hit", x=120, y=320, size=16)
 
 
@@ -378,7 +378,7 @@ game = Game(width=480, height=360, background="#101828")
 player = Sprite("rocket", x=60, y=180, size=44)
 player.hide()
 
-title = Text("PRESS SPACE", x=120, y=150, size=36, color="#FFC93C")
+title = Text("PRESS SPACE", x=120, y=150, size=36, color="#FFB40A")
 mode = "title"
 
 
@@ -446,7 +446,7 @@ apple = Sprite("apple", x=240, y=-20, size=36)
 
 speed = 3
 score = 0
-label = Text("Score: 0", x=14, y=12, size=20, color="#FFC93C")
+label = Text("Score: 0", x=14, y=12, size=20, color="#FFB40A")
 
 
 @game.every_frame
@@ -532,7 +532,7 @@ const FULL_GAMES = [
 
 game = Game(width=480, height=360, background="#101828")
 
-ground = Box(x=0, y=330, width=480, height=30, color="#1F7A5C")
+ground = Box(x=0, y=330, width=480, height=30, color="#5B0DA8")
 basket = Sprite("basket", x=240, y=305, size=48)
 apple = Sprite("apple", x=240, y=-20, size=36)
 
@@ -540,8 +540,8 @@ score = 0
 lives = 3
 speed = 3
 
-score_label = Text("Score: 0", x=14, y=12, size=20, color="#FFC93C")
-lives_label = Text("Lives: 3", x=370, y=12, size=20, color="#E8503A")
+score_label = Text("Score: 0", x=14, y=12, size=20, color="#FFB40A")
+lives_label = Text("Lives: 3", x=370, y=12, size=20, color="#E63C22")
 
 
 def new_apple():
@@ -580,7 +580,7 @@ def update():
 
         if lives == 0:
             Text("GAME OVER", x=120, y=140, size=42)
-            Text("Final score: " + str(score), x=150, y=190, size=20, color="#FFC93C")
+            Text("Final score: " + str(score), x=150, y=190, size=20, color="#FFB40A")
             game.stop()
 
 
@@ -598,7 +598,7 @@ game = Game(width=480, height=360, background="#0B1020")
 ship = Sprite("rocket", x=70, y=180, size=44)
 rocks = []
 score = 0
-score_label = Text("0", x=16, y=12, size=24, color="#23B5D3")
+score_label = Text("0", x=16, y=12, size=24, color="#0097F8")
 
 
 @game.every_frame
@@ -627,7 +627,7 @@ def update():
         if ship.touching(rock):
             game.play("boom")
             game.shake(16, 9)
-            Text("CRASHED", x=140, y=150, size=40, color="#E8503A")
+            Text("CRASHED", x=140, y=150, size=40, color="#E63C22")
             Text("Dodged " + str(score), x=165, y=200, size=20)
             game.stop()
 
@@ -652,8 +652,8 @@ game = Game(width=480, height=360, background="#142033")
 balloons = []
 score = 0
 
-score_label = Text("Popped: 0", x=14, y=12, size=20, color="#FFC93C")
-time_label = Text("Time: 30", x=350, y=12, size=20, color="#23B5D3")
+score_label = Text("Popped: 0", x=14, y=12, size=20, color="#FFB40A")
+time_label = Text("Time: 30", x=350, y=12, size=20, color="#0097F8")
 
 
 @game.every_frame
@@ -665,7 +665,7 @@ def update():
 
     if seconds_left <= 0:
         Text("TIME UP", x=150, y=140, size=40)
-        Text("You popped " + str(score), x=150, y=190, size=20, color="#FFC93C")
+        Text("You popped " + str(score), x=150, y=190, size=20, color="#FFB40A")
         game.play("win")
         game.stop()
         return
@@ -1248,25 +1248,25 @@ def update():
                   </div>
                   <div>
                     <svg viewBox="0 0 300 235" className="w-full" role="img" aria-label="Map of the stage: 0,0 at the top left, x growing right, y growing down">
-                      <rect x="30" y="25" width="240" height="180" rx="6" fill="#101828" stroke="#16241D" strokeWidth="3" />
+                      <rect x="30" y="25" width="240" height="180" rx="6" fill="#101828" stroke="#1B1B1B" strokeWidth="3" />
                       <text x="38" y="45" fontSize="11" fontFamily="monospace" fill="#FFFFFF" opacity="0.7">(0, 0)</text>
-                      <text x="222" y="222" fontSize="11" fontFamily="monospace" fill="#16241D">(480, 360)</text>
-                      <line x1="30" y1="16" x2="150" y2="16" stroke="#1F7A5C" strokeWidth="2" markerEnd="url(#ar)" />
-                      <text x="156" y="20" fontSize="11" fontFamily="monospace" fill="#1F7A5C">x</text>
-                      <line x1="21" y1="25" x2="21" y2="120" stroke="#E8503A" strokeWidth="2" markerEnd="url(#ar2)" />
-                      <text x="8" y="132" fontSize="11" fontFamily="monospace" fill="#E8503A">y</text>
+                      <text x="222" y="222" fontSize="11" fontFamily="monospace" fill="#1B1B1B">(480, 360)</text>
+                      <line x1="30" y1="16" x2="150" y2="16" stroke="#5B0DA8" strokeWidth="2" markerEnd="url(#ar)" />
+                      <text x="156" y="20" fontSize="11" fontFamily="monospace" fill="#5B0DA8">x</text>
+                      <line x1="21" y1="25" x2="21" y2="120" stroke="#E63C22" strokeWidth="2" markerEnd="url(#ar2)" />
+                      <text x="8" y="132" fontSize="11" fontFamily="monospace" fill="#E63C22">y</text>
                       <defs>
                         <marker id="ar" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
-                          <path d="M0,0 L7,3 L0,6 Z" fill="#1F7A5C" />
+                          <path d="M0,0 L7,3 L0,6 Z" fill="#5B0DA8" />
                         </marker>
                         <marker id="ar2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
-                          <path d="M0,0 L7,3 L0,6 Z" fill="#E8503A" />
+                          <path d="M0,0 L7,3 L0,6 Z" fill="#E63C22" />
                         </marker>
                       </defs>
-                      <circle cx="150" cy="115" r="4" fill="#FFC93C" />
-                      <text x="158" y="119" fontSize="11" fontFamily="monospace" fill="#FFC93C">(240, 180)</text>
-                      <rect x="30" y="185" width="240" height="20" fill="#1F7A5C" opacity="0.85" />
-                      <text x="36" y="199" fontSize="10" fontFamily="monospace" fill="#EDF3EE">Box(x=0, y=330, width=480, height=30)</text>
+                      <circle cx="150" cy="115" r="4" fill="#FFB40A" />
+                      <text x="158" y="119" fontSize="11" fontFamily="monospace" fill="#FFB40A">(240, 180)</text>
+                      <rect x="30" y="185" width="240" height="20" fill="#5B0DA8" opacity="0.85" />
+                      <text x="36" y="199" fontSize="10" fontFamily="monospace" fill="#F7F7F7">Box(x=0, y=330, width=480, height=30)</text>
                     </svg>
                   </div>
                 </div>
@@ -1289,17 +1289,17 @@ def update():
                 <p className="text-ink/80">
                   Anywhere a colour is asked for, any web colour works: a name like{' '}
                   <code className="rounded bg-ink/8 px-1 font-mono text-sm">"red"</code>, or a hex code like{' '}
-                  <code className="rounded bg-ink/8 px-1 font-mono text-sm">"#FFC93C"</code>. A hex code is
+                  <code className="rounded bg-ink/8 px-1 font-mono text-sm">"#FFB40A"</code>. A hex code is
                   three pairs: how much red, how much green, how much blue, each from 00 to FF.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {[
                     ['#101828', 'night sky'],
                     ['#0B1020', 'deep space'],
-                    ['#1F7A5C', 'grass'],
-                    ['#FFC93C', 'gold'],
-                    ['#E8503A', 'danger'],
-                    ['#23B5D3', 'water'],
+                    ['#5B0DA8', 'grass'],
+                    ['#FFB40A', 'gold'],
+                    ['#E63C22', 'danger'],
+                    ['#0097F8', 'water'],
                   ].map(([hex, label]) => (
                     <span key={hex} className="flex items-center gap-2 rounded-lg border-2 border-ink/12 bg-white px-2.5 py-1.5">
                       <span className="h-4 w-4 rounded border border-ink/20" style={{ background: hex }} />
@@ -1348,7 +1348,7 @@ Sprite(CAT, x=100, y=100)       # the constant: from stage import CAT
 Sprite("\u{1F431}", x=100, y=100)      # the emoji itself, if you can paste one`}</CodeBlock>
                 <p className="mt-3 text-ink/75">
                   Anything the pack does not recognise is drawn as it is, so plain text works too:{' '}
-                  <code className="rounded bg-ink/8 px-1 font-mono text-sm">Sprite("1UP", color="#FFC93C")</code>.
+                  <code className="rounded bg-ink/8 px-1 font-mono text-sm">Sprite("1UP", color="#FFB40A")</code>.
                 </p>
                 <div className="mt-4">
                   <PicturePack forceOpen={printing} />

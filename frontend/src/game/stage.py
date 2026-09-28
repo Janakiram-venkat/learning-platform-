@@ -189,7 +189,7 @@ class Sprite(_Thing):
 class Box(_Thing):
     """A rectangle, e.g. Box(x=0, y=200, width=400, height=100, color="green")."""
 
-    def __init__(self, x=0, y=0, width=60, height=40, color="#3FBF7F", name=None):
+    def __init__(self, x=0, y=0, width=60, height=40, color="#00C48C", name=None):
         self.width = width
         self.height = height
         self.color = color
@@ -206,7 +206,7 @@ class Box(_Thing):
 class Ball(_Thing):
     """A circle, e.g. Ball(x=100, y=100, radius=20, color="red")."""
 
-    def __init__(self, x=0, y=0, radius=20, color="#E8503A", name=None):
+    def __init__(self, x=0, y=0, radius=20, color="#E63C22", name=None):
         self.radius = radius
         self.color = color
         super().__init__(x, y, name)

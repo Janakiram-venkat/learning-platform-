@@ -14,12 +14,12 @@
  */
 
 export const SYSTEMS = {
-  power: { label: 'Power', emoji: '⚡', color: '#FFC93C', blurb: 'Stores energy and sends it to everything else.' },
-  brain: { label: 'Brain', emoji: '🧠', color: '#3FBF7F', blurb: 'Reads the sensors and decides what to do.' },
-  movement: { label: 'Movement', emoji: '⚙️', color: '#E8503A', blurb: 'Turns decisions into actual motion.' },
-  senses: { label: 'Senses', emoji: '👁️', color: '#23B5D3', blurb: 'Turns the world into numbers.' },
+  power: { label: 'Power', emoji: '⚡', color: '#FFB40A', blurb: 'Stores energy and sends it to everything else.' },
+  brain: { label: 'Brain', emoji: '🧠', color: '#00C48C', blurb: 'Reads the sensors and decides what to do.' },
+  movement: { label: 'Movement', emoji: '⚙️', color: '#E63C22', blurb: 'Turns decisions into actual motion.' },
+  senses: { label: 'Senses', emoji: '👁️', color: '#0097F8', blurb: 'Turns the world into numbers.' },
   comms: { label: 'Signals', emoji: '📡', color: '#A78BFA', blurb: 'How the robot tells you what it is doing.' },
-  structure: { label: 'Frame', emoji: '🔩', color: '#8FA79A', blurb: 'Holds every other part in the right place.' },
+  structure: { label: 'Frame', emoji: '🔩', color: '#9AA3A7', blurb: 'Holds every other part in the right place.' },
 };
 
 export const SYSTEM_ORDER = ['power', 'brain', 'movement', 'senses', 'comms', 'structure'];
@@ -47,7 +47,7 @@ export const ARIA_PARTS = [
     blurb: 'The flat plate that every other part bolts onto.',
     detail: 'Every part has one job, and the chassis has the job of holding the others still. If the motors could wobble, the two wheels would fight each other instead of working together.',
     explode: [0, -0.55, 0],
-    pieces: [{ shape: 'box', pos: [0, 0.19, 0], size: [0.62, 0.1, 0.46], color: '#1F7A5C', tex: 'paint' }],
+    pieces: [{ shape: 'box', pos: [0, 0.19, 0], size: [0.62, 0.1, 0.46], color: '#5B0DA8', tex: 'paint' }],
   },
   {
     id: 'caster',
@@ -56,7 +56,7 @@ export const ARIA_PARTS = [
     blurb: 'A ball that rolls in any direction, so two driven wheels are enough.',
     detail: 'Your robot only drives two wheels, and two points cannot stand up on their own. The caster is the third leg of the stool. It holds the front up and rolls whichever way it is pushed.',
     explode: [0.7, -0.4, 0],
-    pieces: [{ shape: 'sphere', pos: [0.24, 0.06, 0], size: [0.06], color: '#55655C', metal: 0.6, rough: 0.3 }],
+    pieces: [{ shape: 'sphere', pos: [0.24, 0.06, 0], size: [0.06], color: '#5B6166', metal: 0.6, rough: 0.3 }],
   },
   {
     id: 'battery',
@@ -66,7 +66,7 @@ export const ARIA_PARTS = [
     detail: 'Chemicals inside push electricity out of one end and pull it back in at the other. Every other part depends on this one.',
     explode: [-0.5, 0.8, 0],
     pieces: [
-      { shape: 'box', pos: [-0.16, 0.28, 0], size: [0.24, 0.09, 0.3], color: '#16241D', tex: 'abs' },
+      { shape: 'box', pos: [-0.16, 0.28, 0], size: [0.24, 0.09, 0.3], color: '#1B1B1B', tex: 'abs' },
       { shape: 'cylinder', pos: [-0.16, 0.28, 0.09], size: [0.035, 0.035, 0.22], rot: [0, 0, Math.PI / 2], color: '#4A5D3A', tex: 'abs' },
       { shape: 'cylinder', pos: [-0.16, 0.28, -0.09], size: [0.035, 0.035, 0.22], rot: [0, 0, Math.PI / 2], color: '#4A5D3A', tex: 'abs' },
     ],
@@ -79,8 +79,8 @@ export const ARIA_PARTS = [
     detail: 'A switch does not make electricity. It only decides whether the circuit is joined up. Flick it off and there is a gap in the loop, so nothing flows.',
     explode: [-0.9, 0.45, 0.5],
     pieces: [
-      { shape: 'box', pos: [-0.3, 0.27, 0.16], size: [0.07, 0.06, 0.05], color: '#EDF3EE', tex: 'abs' },
-      { shape: 'box', pos: [-0.3, 0.31, 0.17], size: [0.03, 0.04, 0.02], rot: [0.4, 0, 0], color: '#E8503A', tex: 'abs' },
+      { shape: 'box', pos: [-0.3, 0.27, 0.16], size: [0.07, 0.06, 0.05], color: '#F7F7F7', tex: 'abs' },
+      { shape: 'box', pos: [-0.3, 0.31, 0.17], size: [0.03, 0.04, 0.02], rot: [0.4, 0, 0], color: '#E63C22', tex: 'abs' },
     ],
   },
   {
@@ -96,9 +96,9 @@ export const ARIA_PARTS = [
       { shape: 'cylinder', pos: [0.15, 0.243, 0.02], size: [0.009, 0.009, 0.006], color: '#C9C4B4', rough: 0.6 },
       { shape: 'cylinder', pos: [-0.01, 0.243, 0.16], size: [0.009, 0.009, 0.006], color: '#C9C4B4', rough: 0.6 },
       { shape: 'cylinder', pos: [0.15, 0.243, 0.16], size: [0.009, 0.009, 0.006], color: '#C9C4B4', rough: 0.6 },
-      { shape: 'box', pos: [0.07, 0.29, 0.17], size: [0.18, 0.02, 0.02], color: '#8FA79A', metal: 0.8, rough: 0.3, tex: 'alu' },
-      { shape: 'box', pos: [0.07, 0.29, 0.01], size: [0.18, 0.02, 0.02], color: '#8FA79A', metal: 0.8, rough: 0.3, tex: 'alu' },
-      { shape: 'box', pos: [0.14, 0.29, 0.09], size: [0.05, 0.03, 0.06], color: '#C0CCC4', metal: 0.7, rough: 0.25, tex: 'alu' },
+      { shape: 'box', pos: [0.07, 0.29, 0.17], size: [0.18, 0.02, 0.02], color: '#9AA3A7', metal: 0.8, rough: 0.3, tex: 'alu' },
+      { shape: 'box', pos: [0.07, 0.29, 0.01], size: [0.18, 0.02, 0.02], color: '#9AA3A7', metal: 0.8, rough: 0.3, tex: 'alu' },
+      { shape: 'box', pos: [0.14, 0.29, 0.09], size: [0.05, 0.03, 0.06], color: '#C4C9CC', metal: 0.7, rough: 0.25, tex: 'alu' },
     ],
   },
   {
@@ -114,7 +114,7 @@ export const ARIA_PARTS = [
       { shape: 'cylinder', pos: [0.13, 0.243, -0.19], size: [0.009, 0.009, 0.006], color: '#C9C4B4', rough: 0.6 },
       { shape: 'cylinder', pos: [0.01, 0.243, -0.09], size: [0.009, 0.009, 0.006], color: '#C9C4B4', rough: 0.6 },
       { shape: 'cylinder', pos: [0.13, 0.243, -0.09], size: [0.009, 0.009, 0.006], color: '#C9C4B4', rough: 0.6 },
-      { shape: 'box', pos: [0.07, 0.31, -0.14], size: [0.07, 0.07, 0.05], color: '#8FA79A', metal: 0.8, rough: 0.3, tex: 'alu' },
+      { shape: 'box', pos: [0.07, 0.31, -0.14], size: [0.07, 0.07, 0.05], color: '#9AA3A7', metal: 0.8, rough: 0.3, tex: 'alu' },
     ],
   },
   {
@@ -125,8 +125,8 @@ export const ARIA_PARTS = [
     detail: 'Magnets and coils inside push each other round and round. Send the electricity the other way and it spins backwards, which is how the robot turns.',
     explode: [0, -0.2, -1.0],
     pieces: [
-      { shape: 'cylinder', pos: [-0.05, 0.13, -0.17], size: [0.055, 0.055, 0.14], rot: [Math.PI / 2, 0, 0], color: '#C0CCC4', metal: 0.85, rough: 0.35, tex: 'alu' },
-      { shape: 'cylinder', pos: [-0.05, 0.13, -0.25], size: [0.02, 0.02, 0.05], rot: [Math.PI / 2, 0, 0], color: '#55655C', metal: 0.8, rough: 0.3 },
+      { shape: 'cylinder', pos: [-0.05, 0.13, -0.17], size: [0.055, 0.055, 0.14], rot: [Math.PI / 2, 0, 0], color: '#C4C9CC', metal: 0.85, rough: 0.35, tex: 'alu' },
+      { shape: 'cylinder', pos: [-0.05, 0.13, -0.25], size: [0.02, 0.02, 0.05], rot: [Math.PI / 2, 0, 0], color: '#5B6166', metal: 0.8, rough: 0.3 },
     ],
   },
   {
@@ -137,8 +137,8 @@ export const ARIA_PARTS = [
     detail: 'There is no steering wheel anywhere on this robot. Running the two motors at different speeds is what makes it turn, and you will build exactly that later.',
     explode: [0, -0.2, 1.0],
     pieces: [
-      { shape: 'cylinder', pos: [-0.05, 0.13, 0.17], size: [0.055, 0.055, 0.14], rot: [Math.PI / 2, 0, 0], color: '#C0CCC4', metal: 0.85, rough: 0.35, tex: 'alu' },
-      { shape: 'cylinder', pos: [-0.05, 0.13, 0.25], size: [0.02, 0.02, 0.05], rot: [Math.PI / 2, 0, 0], color: '#55655C', metal: 0.8, rough: 0.3 },
+      { shape: 'cylinder', pos: [-0.05, 0.13, 0.17], size: [0.055, 0.055, 0.14], rot: [Math.PI / 2, 0, 0], color: '#C4C9CC', metal: 0.85, rough: 0.35, tex: 'alu' },
+      { shape: 'cylinder', pos: [-0.05, 0.13, 0.25], size: [0.02, 0.02, 0.05], rot: [Math.PI / 2, 0, 0], color: '#5B6166', metal: 0.8, rough: 0.3 },
     ],
   },
   {
@@ -148,7 +148,7 @@ export const ARIA_PARTS = [
     blurb: 'One full turn of this wheel moves the robot forward by the distance around its rim.',
     detail: 'Wheel size decides how far one turn takes you. A bigger wheel covers more ground per turn, but it needs more push to get moving.',
     explode: [0, 0, -1.5],
-    pieces: [{ shape: 'cylinder', pos: [-0.05, 0.13, -0.3], size: [0.13, 0.13, 0.06], rot: [Math.PI / 2, 0, 0], color: '#16241D', rough: 0.95, tex: 'rubber' }],
+    pieces: [{ shape: 'cylinder', pos: [-0.05, 0.13, -0.3], size: [0.13, 0.13, 0.06], rot: [Math.PI / 2, 0, 0], color: '#1B1B1B', rough: 0.95, tex: 'rubber' }],
   },
   {
     id: 'wheel-right',
@@ -157,7 +157,7 @@ export const ARIA_PARTS = [
     blurb: 'The matching wheel on the other side.',
     detail: 'Both wheels forward and the robot drives straight. One forward and one backward, and it spins on the spot.',
     explode: [0, 0, 1.5],
-    pieces: [{ shape: 'cylinder', pos: [-0.05, 0.13, 0.3], size: [0.13, 0.13, 0.06], rot: [Math.PI / 2, 0, 0], color: '#16241D', rough: 0.95, tex: 'rubber' }],
+    pieces: [{ shape: 'cylinder', pos: [-0.05, 0.13, 0.3], size: [0.13, 0.13, 0.06], rot: [Math.PI / 2, 0, 0], color: '#1B1B1B', rough: 0.95, tex: 'rubber' }],
   },
   {
     id: 'ultrasonic',
@@ -167,10 +167,10 @@ export const ARIA_PARTS = [
     detail: 'The two circles are a speaker and a microphone. It sends out a click too high for you to hear, waits for the click to bounce back, then turns that waiting time into centimetres.',
     explode: [1.3, 0.3, 0],
     pieces: [
-      { shape: 'box', pos: [0.3, 0.31, 0], size: [0.06, 0.12, 0.26], color: '#16241D', tex: 'abs' },
-      { shape: 'box', pos: [0.3, 0.245, 0], size: [0.045, 0.03, 0.18], color: '#8FA79A', metal: 0.85, rough: 0.35, tex: 'alu' },
-      { shape: 'cylinder', pos: [0.335, 0.32, 0.07], size: [0.045, 0.045, 0.03], rot: [0, 0, Math.PI / 2], color: '#23B5D3', glow: 0.5 },
-      { shape: 'cylinder', pos: [0.335, 0.32, -0.07], size: [0.045, 0.045, 0.03], rot: [0, 0, Math.PI / 2], color: '#23B5D3', glow: 0.5 },
+      { shape: 'box', pos: [0.3, 0.31, 0], size: [0.06, 0.12, 0.26], color: '#1B1B1B', tex: 'abs' },
+      { shape: 'box', pos: [0.3, 0.245, 0], size: [0.045, 0.03, 0.18], color: '#9AA3A7', metal: 0.85, rough: 0.35, tex: 'alu' },
+      { shape: 'cylinder', pos: [0.335, 0.32, 0.07], size: [0.045, 0.045, 0.03], rot: [0, 0, Math.PI / 2], color: '#0097F8', glow: 0.5 },
+      { shape: 'cylinder', pos: [0.335, 0.32, -0.07], size: [0.045, 0.045, 0.03], rot: [0, 0, Math.PI / 2], color: '#0097F8', glow: 0.5 },
     ],
   },
   {
@@ -182,8 +182,8 @@ export const ARIA_PARTS = [
     explode: [0.9, -0.7, 0],
     pieces: [
       { shape: 'box', pos: [0.17, 0.13, 0], size: [0.09, 0.02, 0.18], color: '#0F3D2E', tex: 'pcb' },
-      { shape: 'cylinder', pos: [0.17, 0.11, 0.05], size: [0.016, 0.016, 0.02], color: '#E8503A', glow: 0.8 },
-      { shape: 'cylinder', pos: [0.17, 0.11, -0.05], size: [0.016, 0.016, 0.02], color: '#E8503A', glow: 0.8 },
+      { shape: 'cylinder', pos: [0.17, 0.11, 0.05], size: [0.016, 0.016, 0.02], color: '#E63C22', glow: 0.8 },
+      { shape: 'cylinder', pos: [0.17, 0.11, -0.05], size: [0.016, 0.016, 0.02], color: '#E63C22', glow: 0.8 },
     ],
   },
   {
@@ -193,7 +193,7 @@ export const ARIA_PARTS = [
     blurb: 'The robot\'s way of saying "I am awake".',
     detail: 'One LED can say a surprising amount: on, off, slow blink, fast blink. It is the first thing to check when nothing seems to work.',
     explode: [0.4, 1.2, 0.7],
-    pieces: [{ shape: 'sphere', pos: [0.2, 0.301, 0.19], size: [0.03], color: '#23B5D3', glow: 2.2 }],
+    pieces: [{ shape: 'sphere', pos: [0.2, 0.301, 0.19], size: [0.03], color: '#0097F8', glow: 2.2 }],
   },
   {
     id: 'buzzer',
@@ -203,8 +203,8 @@ export const ARIA_PARTS = [
     detail: 'A small disc that vibrates when electricity runs through it. Cheap, loud, and the fastest way for a robot to tell you something is wrong.',
     explode: [0.4, 1.0, -0.7],
     pieces: [
-      { shape: 'cylinder', pos: [0.2, 0.3, -0.17], size: [0.045, 0.045, 0.05], color: '#16241D', tex: 'abs' },
-      { shape: 'cylinder', pos: [0.2, 0.327, -0.17], size: [0.012, 0.012, 0.005], color: '#8FA79A', metal: 0.85, rough: 0.3 },
+      { shape: 'cylinder', pos: [0.2, 0.3, -0.17], size: [0.045, 0.045, 0.05], color: '#1B1B1B', tex: 'abs' },
+      { shape: 'cylinder', pos: [0.2, 0.327, -0.17], size: [0.012, 0.012, 0.005], color: '#9AA3A7', metal: 0.85, rough: 0.3 },
     ],
   },
 ];

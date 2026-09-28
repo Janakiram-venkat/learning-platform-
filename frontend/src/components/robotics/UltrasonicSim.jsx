@@ -66,15 +66,15 @@ export default function UltrasonicSim({ block }) {
   return (
     <WidgetShell title={title} hint={hint}>
       <div ref={ref} className="p-4">
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-[#0B180F]">
-          <circle cx={emitterX} cy={60} r="8" fill="#FFC93C" />
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-well">
+          <circle cx={emitterX} cy={60} r="8" fill="#FFB40A" />
           <line
             x1={wallBaseX} y1={60 - 45 - wallDx} x2={wallBaseX} y2={60 + 45 + wallDx}
-            stroke="#E8503A" strokeWidth="4"
+            stroke="#E63C22" strokeWidth="4"
             transform={`rotate(${wallAngle} ${wallBaseX} 60)`}
           />
           {phase !== 'idle' && phase !== 'done' && (
-            <circle cx={ringX} cy="60" r="10" fill="none" stroke="#23B5D3" strokeWidth="2.5" opacity={phase === 'lost' ? Math.max(0, 1 - progress) : 1} />
+            <circle cx={ringX} cy="60" r="10" fill="none" stroke="#0097F8" strokeWidth="2.5" opacity={phase === 'lost' ? Math.max(0, 1 - progress) : 1} />
           )}
         </svg>
 

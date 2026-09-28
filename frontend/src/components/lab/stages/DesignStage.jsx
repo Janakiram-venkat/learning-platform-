@@ -20,7 +20,7 @@ export default function DesignStage({ stage, onComplete }) {
         <div className="relative overflow-hidden rounded-3xl border-2 border-ink/15 bg-pcb/8 p-6 shadow-lg animate-bounce-in">
           <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-pcb/20 blur-2xl" />
           <p className="mb-1 text-xs font-bold uppercase tracking-wide text-pcb">AI Concept Card</p>
-          <h3 className="mb-4 font-lab text-2xl font-extrabold text-[#16241D]">🤖 {form.name}</h3>
+          <h3 className="mb-4 font-lab text-2xl font-extrabold text-[#1B1B1B]">🤖 {form.name}</h3>
           {stage.fields.filter((f) => f.key !== 'name').map((f) => (
             <div key={f.key} className="mb-3">
               <p className="text-xs font-bold uppercase tracking-wide text-pcb">{f.label}</p>

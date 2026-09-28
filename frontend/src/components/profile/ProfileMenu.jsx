@@ -54,7 +54,7 @@ export default function ProfileMenu({ open, onClose, onOpenSettings }) {
   return (
     <div
       ref={ref}
-      className="absolute right-0 top-12 z-50 w-80 origin-top-right rounded-2xl border-2 border-ink bg-white shadow-[6px_6px_0_rgba(22,36,29,0.9)] animate-[popIn_0.25s_cubic-bezier(0.34,1.56,0.64,1)]"
+      className="absolute right-0 top-12 z-50 w-80 origin-top-right rounded-2xl border-2 border-ink bg-white shadow-[6px_6px_0_rgba(27,27,27,0.9)] animate-[popIn_0.25s_cubic-bezier(0.34,1.56,0.64,1)]"
     >
       {/* Header */}
       <div className="flex items-center gap-3 border-b-2 border-ink/12 p-5">

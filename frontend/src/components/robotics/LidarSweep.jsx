@@ -57,13 +57,13 @@ export default function LidarSweep({ block }) {
   return (
     <WidgetShell title={title} hint={hint}>
       <div ref={ref} className="p-4">
-        <svg viewBox="0 0 220 160" className="mx-auto w-full max-w-[380px] rounded-xl border-2 border-ink/12 bg-[#0B180F]">
+        <svg viewBox="0 0 220 160" className="mx-auto w-full max-w-[380px] rounded-xl border-2 border-ink/12 bg-well">
           <rect x={CX - HX} y={CY - HY} width={HX * 2} height={HY * 2} fill="none" stroke="#ffffff12" strokeWidth="2" />
-          <line x1={CX} y1={CY} x2={rayX} y2={rayY} stroke="#E8503A" strokeWidth="1.5" opacity="0.8" />
+          <line x1={CX} y1={CY} x2={rayX} y2={rayY} stroke="#E63C22" strokeWidth="1.5" opacity="0.8" />
           {points.map((p, i) => (
-            <circle key={i} cx={p.x} cy={p.y} r="2" fill="#23B5D3" opacity={0.4 + 0.6 * (i / points.length)} />
+            <circle key={i} cx={p.x} cy={p.y} r="2" fill="#0097F8" opacity={0.4 + 0.6 * (i / points.length)} />
           ))}
-          <circle cx={CX} cy={CY} r="4" fill="#FFC93C" />
+          <circle cx={CX} cy={CY} r="4" fill="#FFB40A" />
         </svg>
         <p className="mt-3 text-center text-sm font-semibold text-ink/60">
           One spinning laser, one distance reading per degree. Give it one full rotation and the room's shape appears out of nothing.

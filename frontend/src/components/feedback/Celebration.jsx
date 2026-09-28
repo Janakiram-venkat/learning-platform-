@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Award, X, RotateCcw, PartyPopper } from 'lucide-react';
 
 // A small confetti burst rendered with pure CSS — no extra dependencies.
-const CONFETTI_COLORS = ['#FFC93C', '#1F7A5C', '#E8503A', '#23B5D3', '#16241D', '#3FBF7F'];
+const CONFETTI_COLORS = ['#FFB40A', '#5B0DA8', '#E63C22', '#0097F8', '#1B1B1B', '#00C48C'];
 const CONFETTI_PIECES = Array.from({ length: 40 }, (_, i) => i);
 
 export default function Celebration({ open, title, message, badge, onClose, variant = 'success' }) {

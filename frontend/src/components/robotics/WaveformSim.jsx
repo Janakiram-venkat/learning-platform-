@@ -72,10 +72,10 @@ export default function WaveformSim({ block }) {
           </button>
         </div>
 
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full overflow-hidden rounded-xl border-2 border-ink/12 bg-[#0B180F]">
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full overflow-hidden rounded-xl border-2 border-ink/12 bg-well">
           <g style={{ animation: `wavescroll ${scrollDur}s linear infinite` }}>
-            <path d={path} fill="none" stroke="#23B5D3" strokeWidth="2.5" />
-            <path d={path} transform={`translate(${W} 0)`} fill="none" stroke="#23B5D3" strokeWidth="2.5" />
+            <path d={path} fill="none" stroke="#0097F8" strokeWidth="2.5" />
+            <path d={path} transform={`translate(${W} 0)`} fill="none" stroke="#0097F8" strokeWidth="2.5" />
           </g>
         </svg>
 

@@ -50,7 +50,7 @@ const WIDGETS = {
 
 function WidgetSkeleton() {
   return (
-    <div className="my-8 flex h-[360px] items-center justify-center rounded-2xl border-2 border-ink bg-[#0B180F] shadow-[4px_4px_0_rgba(22,36,29,0.9)]">
+    <div className="my-8 flex h-[360px] items-center justify-center rounded-2xl border-2 border-ink bg-well shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
       <p className="animate-pulse font-mono-lab text-sm text-white/50">warming up the bench…</p>
     </div>
   );

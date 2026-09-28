@@ -112,7 +112,7 @@ function PressureLab({ title, hint, object, faces, presets }) {
 
   const side = (
     <div className="space-y-4 p-4">
-      <div className="rounded-xl border-2 border-ink bg-[#0B180F] p-3 text-center">
+      <div className="rounded-xl border-2 border-ink bg-well p-3 text-center">
         <p className="font-mono-lab text-[11px] uppercase tracking-[0.18em] text-white/50">Pressure</p>
         <p className="font-lab text-3xl font-extrabold text-signal">{fmtPressure(pa)}</p>
         <p className="mt-1 font-mono-lab text-xs text-white/60">
@@ -198,7 +198,7 @@ function PressureLab({ title, hint, object, faces, presets }) {
 
   return (
     <WidgetShell title={title} hint={hint} controls={controls} side={side}>
-      <div className="relative bg-[#0B180F] p-3">
+      <div className="relative bg-well p-3">
         <span className="absolute right-4 top-4 rounded bg-white/10 px-2 py-0.5 font-mono-lab text-[10px] text-white/50">
           dent not to scale
         </span>
@@ -207,10 +207,10 @@ function PressureLab({ title, hint, object, faces, presets }) {
           {GRAINS.map((g, i) => (
             <circle key={i} cx={g.x} cy={g.y} r={g.r} fill="#A98652" opacity="0.6" />
           ))}
-          <rect x={CX - half} y={top} width={bw} height={bh} rx="2" fill="#B5472F" stroke="#16241D" strokeWidth="2" />
-          <rect x={CX - half} y={bottom - 3} width={bw} height="3" fill="#FFC93C" />
-          <line x1={CX} y1={top - 4 - arrow} x2={CX} y2={top - 12} stroke="#E8503A" strokeWidth="3" strokeLinecap="round" />
-          <polygon points={`${CX - 7},${top - 12} ${CX + 7},${top - 12} ${CX},${top - 3}`} fill="#E8503A" />
+          <rect x={CX - half} y={top} width={bw} height={bh} rx="2" fill="#B5472F" stroke="#1B1B1B" strokeWidth="2" />
+          <rect x={CX - half} y={bottom - 3} width={bw} height="3" fill="#FFB40A" />
+          <line x1={CX} y1={top - 4 - arrow} x2={CX} y2={top - 12} stroke="#E63C22" strokeWidth="3" strokeLinecap="round" />
+          <polygon points={`${CX - 7},${top - 12} ${CX + 7},${top - 12} ${CX},${top - 3}`} fill="#E63C22" />
           <text x={CX + 14} y={top - 4 - arrow / 2} fontSize="11" fill="#ffffffcc" fontFamily="monospace">
             F = {force} N
           </text>

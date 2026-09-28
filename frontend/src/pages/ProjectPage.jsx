@@ -260,7 +260,7 @@ export default function ProjectPage() {
                       <span className="mr-2 font-sans text-xs font-bold text-ink/50">Bot prints</span>
                       <div className="mt-1 space-y-1">
                         {(problem.example.output || []).map((o, i) => (
-                          <div key={i} className="rounded bg-paper px-2 py-1 text-emerald-700 ring-1 ring-ink/10">{o}</div>
+                          <div key={i} className="rounded bg-paper px-2 py-1 text-mint-deep ring-1 ring-ink/10">{o}</div>
                         ))}
                       </div>
                     </div>
@@ -350,16 +350,16 @@ export default function ProjectPage() {
                     <li
                       key={i}
                       className={`rounded-xl border p-3 ${
-                        passed === true ? 'border-green-200 bg-green-50'
-                          : passed === false ? 'border-rose-200 bg-rose-50'
+                        passed === true ? 'border-mint/30 bg-mint/10'
+                          : passed === false ? 'border-wire/30 bg-wire/10'
                           : 'border-gray-200 bg-gray-50'
                       }`}
                     >
                       <div className="flex items-center gap-2">
                         {passed === true ? (
-                          <CheckCircle2 className="h-5 w-5 shrink-0 text-green-500" />
+                          <CheckCircle2 className="h-5 w-5 shrink-0 text-mint" />
                         ) : passed === false ? (
-                          <XCircle className="h-5 w-5 shrink-0 text-rose-400" />
+                          <XCircle className="h-5 w-5 shrink-0 text-wire-bright" />
                         ) : (
                           <Circle className="h-5 w-5 shrink-0 text-gray-300" />
                         )}
@@ -376,7 +376,7 @@ export default function ProjectPage() {
                           <p className="text-gray-600">
                             <span className="font-semibold">Bot must say:</span>{' '}
                             {t.expect.map((e, j) => (
-                              <code key={j} className="mr-1 rounded bg-white px-1.5 py-0.5 text-emerald-700 ring-1 ring-gray-200">{e}</code>
+                              <code key={j} className="mr-1 rounded bg-white px-1.5 py-0.5 text-mint-deep ring-1 ring-gray-200">{e}</code>
                             ))}
                           </p>
                         )}
@@ -392,13 +392,13 @@ export default function ProjectPage() {
                   return (
                     <li key={i} className="flex items-center gap-3">
                       {passed === true ? (
-                        <CheckCircle2 className="h-5 w-5 shrink-0 text-green-500" />
+                        <CheckCircle2 className="h-5 w-5 shrink-0 text-mint" />
                       ) : passed === false ? (
-                        <Circle className="h-5 w-5 shrink-0 text-rose-300" />
+                        <Circle className="h-5 w-5 shrink-0 text-wire-bright" />
                       ) : (
                         <Circle className="h-5 w-5 shrink-0 text-gray-300" />
                       )}
-                      <span className={`font-medium ${passed === true ? 'text-green-700' : passed === false ? 'text-rose-600' : 'text-gray-600'}`}>
+                      <span className={`font-medium ${passed === true ? 'text-mint-deep' : passed === false ? 'text-wire' : 'text-gray-600'}`}>
                         {c.label}
                       </span>
                     </li>
@@ -408,13 +408,13 @@ export default function ProjectPage() {
             )}
 
             {goalResults && !allPassed && (
-              <p className="mt-4 rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-800 ring-1 ring-amber-100">
+              <p className="mt-4 rounded-xl bg-signal/10 p-3 text-sm font-medium text-signal-deep ring-1 ring-signal/20">
                 Almost! Some goals aren't met yet: tweak your code and check again. 💪
               </p>
             )}
             {allPassed && (
               <div className="mt-4 space-y-3">
-                <p className="flex items-center gap-2 rounded-xl bg-green-50 p-3 text-sm font-bold text-green-700 ring-1 ring-green-100">
+                <p className="flex items-center gap-2 rounded-xl bg-mint/10 p-3 text-sm font-bold text-mint-deep ring-1 ring-mint/20">
                   <Trophy className="h-4 w-4" /> All goals passed. Project complete!
                 </p>
                 {nextLessonId ? (

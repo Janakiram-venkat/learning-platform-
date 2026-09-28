@@ -73,14 +73,14 @@ export default function BlockMaze({ block }) {
     >
       <div className="grid grid-cols-1 gap-4 p-4 @min-[68rem]:grid-cols-[auto_1fr]">
         <div>
-          <svg width={W} height={H} className="rounded-xl border-2 border-ink/12 bg-[#0B180F]">
+          <svg width={W} height={H} className="rounded-xl border-2 border-ink/12 bg-well">
             {maze.grid.map((row, r) => row.map((cell, c) => (
               <rect key={`${r}-${c}`} x={c * CELL} y={r * CELL} width={CELL} height={CELL}
-                fill={cell ? '#16241D' : '#0F2417'} stroke="#ffffff10" />
+                fill={cell ? '#1B1B1B' : '#0F2417'} stroke="#ffffff10" />
             )))}
             <text x={maze.goal.col * CELL + CELL / 2} y={maze.goal.row * CELL + CELL / 2 + 6} textAnchor="middle" fontSize="18">🏁</text>
             <g transform={`translate(${pose.col * CELL + CELL / 2} ${pose.row * CELL + CELL / 2}) rotate(${pose.facing * 90})`}>
-              <polygon points="0,-11 9,9 -9,9" fill="#FFC93C" stroke="#16241D" strokeWidth="1.5" />
+              <polygon points="0,-11 9,9 -9,9" fill="#FFB40A" stroke="#1B1B1B" strokeWidth="1.5" />
             </g>
           </svg>
 

@@ -22,7 +22,7 @@ export default function DetectionReveal({ block }) {
   return (
     <WidgetShell title={title} hint={hint}>
       <div className="p-4">
-        <div className="relative mx-auto aspect-video w-full max-w-md overflow-hidden rounded-xl border-2 border-ink/12 bg-[#0B180F]">
+        <div className="relative mx-auto aspect-video w-full max-w-md overflow-hidden rounded-xl border-2 border-ink/12 bg-well">
           <span className="absolute inset-0 flex items-center justify-center text-6xl opacity-70">{sceneEmoji}</span>
           {boxes.map((b, i) => (
             <div
@@ -30,10 +30,10 @@ export default function DetectionReveal({ block }) {
               className="absolute rounded border-2 transition-opacity duration-300"
               style={{
                 left: `${b.x}%`, top: `${b.y}%`, width: `${b.w}%`, height: `${b.h}%`,
-                borderColor: '#23B5D3', opacity: i < revealed ? 1 : 0,
+                borderColor: '#0097F8', opacity: i < revealed ? 1 : 0,
               }}
             >
-              <span className="absolute -top-5 left-0 whitespace-nowrap rounded bg-[#23B5D3] px-1.5 py-0.5 font-mono-lab text-[10px] font-bold text-[#0B180F]">
+              <span className="absolute -top-5 left-0 whitespace-nowrap rounded bg-[#0097F8] px-1.5 py-0.5 font-mono-lab text-[10px] font-bold text-[#140A22]">
                 {b.label} {b.confidence}%
               </span>
             </div>

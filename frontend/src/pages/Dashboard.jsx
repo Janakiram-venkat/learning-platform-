@@ -74,9 +74,9 @@ function XPRing({ level, intoLevel, perLevel }) {
   return (
     <div className="relative h-[150px] w-[150px] shrink-0">
       <svg viewBox="0 0 140 140" className="h-full w-full -rotate-90">
-        <circle cx="70" cy="70" r={R} fill="none" stroke="rgba(22,36,29,0.14)" strokeWidth="13" />
+        <circle cx="70" cy="70" r={R} fill="none" stroke="rgba(27,27,27,0.14)" strokeWidth="13" />
         <circle
-          cx="70" cy="70" r={R} fill="none" stroke="#FFC93C" strokeWidth="13" strokeLinecap="round"
+          cx="70" cy="70" r={R} fill="none" stroke="#FFB40A" strokeWidth="13" strokeLinecap="round"
           strokeDasharray={C} strokeDashoffset={offset} className="ring-progress"
         />
       </svg>
@@ -172,7 +172,7 @@ export default function Dashboard() {
         </Link>
 
         <span className="mb-4 inline-flex items-center gap-2 rounded-md border-2 border-ink bg-white px-3 py-1 ref-tag text-ink">
-          <span className="led" style={{ color: '#1F7A5C' }} /> Progress bench
+          <span className="led" style={{ color: '#5B0DA8' }} /> Progress bench
         </span>
 
         {/* Profile + XP hero */}

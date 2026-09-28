@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Lock, Sparkles } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import SignInModal from './SignInModal';
-import logo from '../../assets/pocketlab.png';
+import logo from '../../assets/pocketlab-reversed.png';
 
 /**
  * Gates a route behind a signed-in account.

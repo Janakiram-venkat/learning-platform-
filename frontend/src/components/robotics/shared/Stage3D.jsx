@@ -50,7 +50,7 @@ export default function Stage3D({
   return (
     <div
       ref={ref}
-      className={`relative ${height} w-full bg-[#0B180F] ${className}`}
+      className={`relative ${height} w-full bg-well ${className}`}
     >
       {!supported ? (
         <div className="flex h-full flex-col items-center justify-center gap-2 p-6 text-center">
@@ -73,7 +73,7 @@ export default function Stage3D({
             gl.toneMappingExposure = 1.05;
           }}
         >
-          <color attach="background" args={['#0B180F']} />
+          <color attach="background" args={['#140A22']} />
 
           {/*
             A studio built out of light panels, baked once into a cube map. It
@@ -87,13 +87,13 @@ export default function Stage3D({
             each side for the edge highlights that describe an object's shape.
           */}
           <Environment resolution={128}>
-            <Lightformer intensity={2.4} position={[0, 5, 1]} scale={[9, 5, 1]} rotation={[Math.PI / 2, 0, 0]} color="#f3fbf7" />
-            <Lightformer intensity={1.1} position={[-5, 2, 1]} scale={[1, 7, 1]} rotation={[0, Math.PI / 2, 0]} color="#23B5D3" />
+            <Lightformer intensity={2.4} position={[0, 5, 1]} scale={[9, 5, 1]} rotation={[Math.PI / 2, 0, 0]} color="#f6f4fa" />
+            <Lightformer intensity={1.1} position={[-5, 2, 1]} scale={[1, 7, 1]} rotation={[0, Math.PI / 2, 0]} color="#0097F8" />
             <Lightformer intensity={0.9} position={[5, 2, -1]} scale={[1, 7, 1]} rotation={[0, -Math.PI / 2, 0]} color="#9fe8d0" />
-            <Lightformer intensity={0.5} position={[0, -3, 0]} scale={[9, 9, 1]} rotation={[-Math.PI / 2, 0, 0]} color="#0B180F" />
+            <Lightformer intensity={0.5} position={[0, -3, 0]} scale={[9, 9, 1]} rotation={[-Math.PI / 2, 0, 0]} color="#140A22" />
           </Environment>
 
-          <hemisphereLight args={['#cfe8dd', '#0B180F', 0.35]} />
+          <hemisphereLight args={['#ded0f0', '#140A22', 0.35]} />
           <directionalLight
             castShadow
             position={[4, 6, 3]}
@@ -113,7 +113,7 @@ export default function Stage3D({
           />
           {/* Rim light from behind: separates the robot from a dark floor. */}
           <directionalLight position={[-3, 2.5, -4]} intensity={0.9} color="#7fd8f0" />
-          <pointLight position={[-4, 2, -3]} intensity={12} color="#23B5D3" distance={14} />
+          <pointLight position={[-4, 2, -3]} intensity={12} color="#0097F8" distance={14} />
           <Suspense fallback={null}>{children}</Suspense>
           <ContactShadows position={[0, 0.001, 0]} opacity={0.62} blur={1.6} scale={12} far={2.5} resolution={512} />
           {orbit && (

@@ -52,7 +52,7 @@ export default function StepperSim({ block }) {
       <div className="p-4">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <svg viewBox="0 0 160 160" className="w-40 shrink-0">
-            <circle cx="80" cy="80" r="55" fill="none" stroke="#16241D22" strokeWidth="4" />
+            <circle cx="80" cy="80" r="55" fill="none" stroke="#1B1B1B22" strokeWidth="4" />
             {COIL_ANGLES.map((a, i) => {
               const rad = (a * Math.PI) / 180;
               const cx = 80 + 62 * Math.sin(rad);
@@ -61,15 +61,15 @@ export default function StepperSim({ block }) {
               return (
                 <g key={a}>
                   <rect x={cx - 10} y={cy - 8} width="20" height="16" rx="3"
-                    fill={active ? '#1F7A5C' : 'white'} stroke="#16241D" strokeWidth="2" />
+                    fill={active ? '#5B0DA8' : 'white'} stroke="#1B1B1B" strokeWidth="2" />
                 </g>
               );
             })}
             <g style={{ transformOrigin: '80px 80px', transform: `rotate(${angle}deg)` }}>
-              <line x1="80" y1="80" x2="80" y2="35" stroke="#16241D" strokeWidth="5" strokeLinecap="round" />
-              <circle cx="80" cy="35" r="6" fill="#FFC93C" stroke="#16241D" strokeWidth="1.5" />
+              <line x1="80" y1="80" x2="80" y2="35" stroke="#1B1B1B" strokeWidth="5" strokeLinecap="round" />
+              <circle cx="80" cy="35" r="6" fill="#FFB40A" stroke="#1B1B1B" strokeWidth="1.5" />
             </g>
-            <circle cx="80" cy="80" r="8" fill="#16241D" />
+            <circle cx="80" cy="80" r="8" fill="#1B1B1B" />
           </svg>
           <div className="text-center sm:text-left">
             <p className="font-mono-lab text-lg font-extrabold text-pcb">{count} steps</p>

@@ -62,7 +62,7 @@ export default function GameCoursePage() {
       <div className="mx-auto max-w-4xl">
         <div className="mb-10 text-center">
           <span className="mb-4 inline-flex items-center gap-2 rounded-md border-2 border-ink bg-white px-3 py-1 ref-tag text-ink">
-            <span className="led" style={{ color: '#E8503A' }} /> TRK-GAME
+            <span className="led" style={{ color: '#E63C22' }} /> TRK-GAME
           </span>
           <h1 className="font-lab text-3xl font-extrabold text-ink sm:text-4xl">{course.title}</h1>
           <p className="mx-auto mt-3 max-w-xl text-lg text-ink/65">{course.description}</p>

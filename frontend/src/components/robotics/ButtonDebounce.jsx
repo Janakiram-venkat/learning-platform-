@@ -60,14 +60,14 @@ export default function ButtonDebounce({ block }) {
         </button>
 
         <p className="mb-1 text-xs font-bold uppercase tracking-wide text-ink/50">Raw signal (real mechanical bounce)</p>
-        <svg key={`raw-${pressCount}`} viewBox={`0 0 300 ${H}`} className="w-full rounded-lg border-2 border-ink/12 bg-[#0B180F]">
-          <path d={rawPath} fill="none" stroke="#E8503A" strokeWidth="2.5" className="animate-slide-up" />
+        <svg key={`raw-${pressCount}`} viewBox={`0 0 300 ${H}`} className="w-full rounded-lg border-2 border-ink/12 bg-well">
+          <path d={rawPath} fill="none" stroke="#E63C22" strokeWidth="2.5" className="animate-slide-up" />
         </svg>
         <p className="mt-1 text-xs font-semibold text-ink/50">{rawCount} separate HIGH edges: a naive counter would think the button was pressed {rawCount} times.</p>
 
         <p className="mb-1 mt-4 text-xs font-bold uppercase tracking-wide text-ink/50">Debounced signal (what your code should trust)</p>
-        <svg key={`db-${pressCount}-${debounceMs}`} viewBox={`0 0 300 ${H}`} className="w-full rounded-lg border-2 border-ink/12 bg-[#0B180F]">
-          <path d={debouncedPath} fill="none" stroke="#23B5D3" strokeWidth="2.5" className="animate-slide-up" />
+        <svg key={`db-${pressCount}-${debounceMs}`} viewBox={`0 0 300 ${H}`} className="w-full rounded-lg border-2 border-ink/12 bg-well">
+          <path d={debouncedPath} fill="none" stroke="#0097F8" strokeWidth="2.5" className="animate-slide-up" />
         </svg>
 
         <label className="mt-4 block">

@@ -5,7 +5,7 @@ import { X, ArrowLeft, ArrowRight, Sparkles, Check, Rocket } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext';
 import { INTERESTS } from '../../constants/interests';
 import GoogleSignInButton from './GoogleSignInButton';
-import logo from '../../assets/pocketlab.png';
+import logo from '../../assets/pocketlab-reversed.png';
 
 const FIELD =
   'w-full rounded-xl border-2 border-ink/20 bg-paper px-4 py-3 font-semibold text-ink outline-none transition-colors placeholder:text-ink/40 focus:border-pcb focus:bg-white focus:ring-4 focus:ring-pcb/15';

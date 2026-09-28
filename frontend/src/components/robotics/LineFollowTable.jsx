@@ -114,10 +114,10 @@ export default function LineFollowTable({ block }) {
       }
     >
       <div ref={ref} className="p-4">
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-[#0B180F]">
-          <path d={trackPath} fill="none" stroke="#FFC93C" strokeWidth="4" opacity="0.7" />
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border-2 border-ink/12 bg-well">
+          <path d={trackPath} fill="none" stroke="#FFB40A" strokeWidth="4" opacity="0.7" />
           <g transform={`translate(${pose.x} ${pose.y}) rotate(${(pose.heading * 180) / Math.PI})`}>
-            <rect x="-9" y="-7" width="18" height="14" rx="3" fill="#1F7A5C" stroke="#EDF3EE" strokeWidth="1.5" />
+            <rect x="-9" y="-7" width="18" height="14" rx="3" fill="#5B0DA8" stroke="#F7F7F7" strokeWidth="1.5" />
           </g>
         </svg>
 

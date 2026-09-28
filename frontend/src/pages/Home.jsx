@@ -22,14 +22,14 @@ const MODES = {
     file: 'main.py',
     Icon: Terminal,
     accent: 'text-signal',
-    led: '#FFC93C',
+    led: '#FFB40A',
     screen: (
       <>
         <div className="text-white/35">$ run main.py</div>
-        <div><span className="text-[#FF9EC4]">def</span> <span className="text-led">greet</span><span className="text-white/80">(name):</span></div>
-        <div className="pl-4"><span className="text-[#FF9EC4]">return</span> <span className="text-signal">f"Hi {'{name}'}! 👋"</span></div>
+        <div><span className="text-[#E86FE0]">def</span> <span className="text-led">greet</span><span className="text-white/80">(name):</span></div>
+        <div className="pl-4"><span className="text-[#E86FE0]">return</span> <span className="text-signal">f"Hi {'{name}'}! 👋"</span></div>
         <div><span className="text-led">print</span><span className="text-white/80">(greet(</span><span className="text-signal">"Coder"</span><span className="text-white/80">))</span></div>
-        <div className="mt-2 text-emerald-400">→ Hi Coder! 👋</div>
+        <div className="mt-2 text-mint">→ Hi Coder! 👋</div>
       </>
     ),
   },
@@ -38,13 +38,13 @@ const MODES = {
     file: 'vision.py',
     Icon: Cpu,
     accent: 'text-led',
-    led: '#23B5D3',
+    led: '#0097F8',
     screen: (
       <>
         <div className="text-white/35">$ classify photo.jpg</div>
-        <div className="text-white/80">loading model<span className="text-white/40"> ......</span> <span className="text-emerald-400">ok</span></div>
+        <div className="text-white/80">loading model<span className="text-white/40"> ......</span> <span className="text-mint">ok</span></div>
         <div className="text-white/80">scanning pixels <span className="text-led">▓▓▓▓▓▓▓▓</span> 100%</div>
-        <div className="mt-2 text-emerald-400">→ it's a CAT <span className="text-white/50">(0.98 sure)</span> 🐱</div>
+        <div className="mt-2 text-mint">→ it's a CAT <span className="text-white/50">(0.98 sure)</span> 🐱</div>
       </>
     ),
   },
@@ -53,14 +53,14 @@ const MODES = {
     file: 'rover.py',
     Icon: Bot,
     accent: 'text-wire',
-    led: '#E8503A',
+    led: '#E63C22',
     screen: (
       <>
         <div className="text-white/35">$ connect rover</div>
-        <div className="text-white/80">link established <span className="text-emerald-400">●</span></div>
+        <div className="text-white/80">link established <span className="text-mint">●</span></div>
         <div className="text-white/80"><span className="text-led">motor</span>.forward(<span className="text-signal">2s</span>)</div>
         <div className="text-white/80">sensor: wall @ <span className="text-wire">30cm</span></div>
-        <div className="mt-2 text-emerald-400">→ turning left… done 🦾</div>
+        <div className="mt-2 text-mint">→ turning left… done 🦾</div>
       </>
     ),
   },
@@ -79,21 +79,21 @@ function PocketLabDevice() {
       <div className="mb-3 flex items-center justify-between">
         <span className="ref-tag rounded-md bg-ink px-2 py-1 text-signal">POCKET&nbsp;LAB · UNIT&nbsp;01</span>
         <div className="flex items-center gap-1.5">
-          <span className="led led-pulse" style={{ color: '#FFC93C' }} />
-          <span className="led" style={{ color: '#23B5D3' }} />
-          <span className="led" style={{ color: '#E8503A' }} />
+          <span className="led led-pulse" style={{ color: '#FFB40A' }} />
+          <span className="led" style={{ color: '#0097F8' }} />
+          <span className="led" style={{ color: '#E63C22' }} />
         </div>
       </div>
 
       {/* The screen — terminal that re-keys per mode so power-on replays */}
-      <div className="rounded-lg border-2 border-ink bg-[#0B180F] p-4 shadow-inner">
+      <div className="rounded-lg border-2 border-ink bg-well p-4 shadow-inner">
         <div className="mb-2 flex items-center justify-between border-b border-white/10 pb-2">
           <span className="font-mono-lab text-[0.7rem] text-white/45">{active.file}</span>
           <span className={`font-mono-lab text-[0.7rem] ${active.accent}`}>● {active.tag} MODE</span>
         </div>
         <div key={mode} className="power-on min-h-[132px] font-mono-lab text-[0.82rem] leading-relaxed">
           {active.screen}
-          <span className="term-cursor mt-1 inline-block h-4 w-2 bg-emerald-400 align-middle" />
+          <span className="term-cursor mt-1 inline-block h-4 w-2 bg-mint align-middle" />
         </div>
       </div>
 
@@ -157,7 +157,7 @@ function useTimers() {
 // A little dark "screen" like the hero device, shared by the three sims.
 function SimScreen({ file, tag, accent, children }) {
   return (
-    <div className="rounded-lg border-2 border-ink bg-[#0B180F] p-3.5 shadow-inner">
+    <div className="rounded-lg border-2 border-ink bg-well p-3.5 shadow-inner">
       <div className="mb-2 flex items-center justify-between border-b border-white/10 pb-2">
         <span className="font-mono-lab text-[0.68rem] text-white/45">{file}</span>
         <span className={`font-mono-lab text-[0.68rem] ${accent}`}>● {tag}</span>
@@ -205,7 +205,7 @@ function CodeSim() {
     <>
       <SimScreen file="blink.py" tag="CODE" accent="text-signal">
         <div className="text-white/80">
-          <span className="text-[#FF9EC4]">for</span> i <span className="text-[#FF9EC4]">in</span> range(<span className="text-signal">5</span>):
+          <span className="text-[#E86FE0]">for</span> i <span className="text-[#E86FE0]">in</span> range(<span className="text-signal">5</span>):
         </div>
         <div className="pl-4 text-white/80">
           led[i].<span className="text-led">on</span>()
@@ -215,10 +215,10 @@ function CodeSim() {
             <span
               key={i}
               className="led transition-colors duration-150"
-              style={{ color: i < lit ? '#FFC93C' : '#3a4a41' }}
+              style={{ color: i < lit ? '#FFB40A' : '#3a4a41' }}
             />
           ))}
-          <span className="ml-auto text-emerald-400">
+          <span className="ml-auto text-mint">
             {done ? 'all lit ✨' : running ? `i = ${Math.max(lit - 1, 0)}` : ''}
           </span>
         </div>
@@ -271,7 +271,7 @@ function AiSim() {
           <div className="h-full rounded-full bg-led transition-[width] duration-100" style={{ width: `${conf}%` }} />
         </div>
         {phase === 'done' && (
-          <div className="mt-2.5 animate-slide-up text-emerald-400">→ it's a CAT 🐱 <span className="text-white/50">(0.98 sure)</span></div>
+          <div className="mt-2.5 animate-slide-up text-mint">→ it's a CAT 🐱 <span className="text-white/50">(0.98 sure)</span></div>
         )}
       </SimScreen>
       <div className="mt-3">
@@ -312,16 +312,16 @@ function BuildSim() {
               <div key={s.k} className="flex items-center gap-2">
                 <span
                   className={`led transition-colors ${on ? '' : 'opacity-30'}`}
-                  style={{ color: on ? '#3FBF7F' : '#4b5a51' }}
+                  style={{ color: on ? '#00C48C' : '#4b5a51' }}
                 />
                 <span className={on ? 'text-white/85' : 'text-white/40'}>{s.label}</span>
-                {on && <CheckCircle2 className="ml-auto h-3.5 w-3.5 text-emerald-400 animate-slide-up" />}
+                {on && <CheckCircle2 className="ml-auto h-3.5 w-3.5 text-mint animate-slide-up" />}
               </div>
             );
           })}
         </div>
         {done && (
-          <div className="mt-2.5 animate-slide-up text-emerald-400">→ game.py shipped 🎮</div>
+          <div className="mt-2.5 animate-slide-up text-mint">→ game.py shipped 🎮</div>
         )}
       </SimScreen>
       <div className="mt-3"><SimButton running={running} done={done} onRun={build} label="Build it" /></div>
@@ -356,9 +356,9 @@ const KIT = [
 // Accents reuse the hero device's three LED colors so the sequence reads as
 // the same machine booting: signal yellow → LED cyan → wire red.
 const STEPS = [
-  { n: '01', Icon: MousePointerClick, led: '#FFC93C', title: 'Pick a track', desc: 'Choose Python, AI, or Robotics and open your first level. No setup.' },
-  { n: '02', Icon: Code2, led: '#23B5D3', title: 'Write real code', desc: 'Solve playful challenges in the editor and run your code live.' },
-  { n: '03', Icon: Trophy, led: '#E8503A', title: 'Earn XP & badges', desc: 'Level up, collect badges, and unlock new powers as you master each skill.' },
+  { n: '01', Icon: MousePointerClick, led: '#FFB40A', title: 'Pick a track', desc: 'Choose Python, AI, or Robotics and open your first level. No setup.' },
+  { n: '02', Icon: Code2, led: '#0097F8', title: 'Write real code', desc: 'Solve playful challenges in the editor and run your code live.' },
+  { n: '03', Icon: Trophy, led: '#E63C22', title: 'Earn XP & badges', desc: 'Level up, collect badges, and unlock new powers as you master each skill.' },
 ];
 
 // Testimonials as lab-notebook field notes.
@@ -371,7 +371,7 @@ const NOTES = [
 function Eyebrow({ children }) {
   return (
     <span className="mb-4 inline-flex items-center gap-2 rounded-md border-2 border-ink bg-white px-3 py-1 ref-tag text-ink">
-      <span className="led" style={{ color: '#1F7A5C' }} />
+      <span className="led" style={{ color: '#5B0DA8' }} />
       {children}
     </span>
   );
@@ -543,12 +543,12 @@ export default function Home() {
               <span className="font-mono-lab text-[0.72rem] text-white/50">guess.py</span>
               <span className="ref-tag text-signal">PROJECT 01</span>
             </div>
-            <div className="bg-[#0B180F] p-5 font-mono-lab text-[0.82rem] leading-relaxed">
-              <div><span className="text-[#FF9EC4]">import</span> <span className="text-led">random</span></div>
+            <div className="bg-well p-5 font-mono-lab text-[0.82rem] leading-relaxed">
+              <div><span className="text-[#E86FE0]">import</span> <span className="text-led">random</span></div>
               <div>secret <span className="text-white/60">=</span> random.randint(<span className="text-signal">1</span>, <span className="text-signal">10</span>)</div>
-              <div><span className="text-[#FF9EC4]">if</span> guess <span className="text-white/60">==</span> secret:</div>
+              <div><span className="text-[#E86FE0]">if</span> guess <span className="text-white/60">==</span> secret:</div>
               <div className="pl-4"><span className="text-led">print</span>(<span className="text-signal">"You win! 🎉"</span>)</div>
-              <div className="mt-2 text-emerald-400">→ You win! 🎉 <span className="term-cursor inline-block h-4 w-2 bg-emerald-400 align-middle" /></div>
+              <div className="mt-2 text-mint">→ You win! 🎉 <span className="term-cursor inline-block h-4 w-2 bg-mint align-middle" /></div>
             </div>
           </div>
         </div>

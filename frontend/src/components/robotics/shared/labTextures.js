@@ -403,7 +403,7 @@ function pcbSurface(mask) {
     }
 
     // Silkscreen: the white outline and a few component footprints.
-    ctx.strokeStyle = 'rgba(226,236,231,0.75)';
+    ctx.strokeStyle = 'rgba(238,238,242,0.75)';
     ctx.lineWidth = 1.4;
     ctx.strokeRect(7, 7, SIZE - 14, SIZE - 14);
     for (let i = 0; i < 7; i += 1) {

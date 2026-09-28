@@ -15,7 +15,7 @@ function LessonCard({ lesson, number }) {
   return (
     <Link
       to={`/virtual-lab/${lesson.id}`}
-      className="flex items-center gap-3 rounded-xl border-2 border-ink bg-white px-4 py-3 shadow-[4px_4px_0_rgba(22,36,29,0.9)] transition-transform hover:-translate-y-0.5"
+      className="flex items-center gap-3 rounded-xl border-2 border-ink bg-white px-4 py-3 shadow-[4px_4px_0_rgba(27,27,27,0.9)] transition-transform hover:-translate-y-0.5"
     >
       <span className="font-mono-lab text-xs text-ink/50">{String(number).padStart(2, '0')}</span>
       <span className="flex-1 font-lab font-extrabold text-ink">{lesson.title}</span>

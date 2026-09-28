@@ -48,7 +48,7 @@ function ZooScene({ id, playing, spin, replayToken }) {
       </mesh>
       <mesh position={[0, y + 0.002, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.84, 0.93, 48]} />
-        <meshBasicMaterial color="#1F7A5C" toneMapped={false} />
+        <meshBasicMaterial color="#5B0DA8" toneMapped={false} />
       </mesh>
 
       <group ref={group}>
@@ -122,7 +122,7 @@ export default function RobotZoo({ block }) {
                   onClick={() => pick(i)}
                   className={`relative flex flex-col items-center gap-1 rounded-xl border-2 p-2 transition-all active:scale-95 ${
                     active
-                      ? 'border-ink bg-signal/25 shadow-[2px_2px_0_rgba(22,36,29,0.9)]'
+                      ? 'border-ink bg-signal/25 shadow-[2px_2px_0_rgba(27,27,27,0.9)]'
                       : 'border-ink/15 bg-white hover:border-ink/40'
                   }`}
                 >

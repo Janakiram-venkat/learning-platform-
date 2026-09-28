@@ -163,7 +163,7 @@ export default function CodeRunner({
     (active ? 'border-pcb text-pcb' : 'border-transparent text-ink/45 hover:text-ink');
 
   return (
-    <div className={`overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(22,36,29,0.9)] ${className}`}>
+    <div className={`overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(27,27,27,0.9)] ${className}`}>
       {/* Action bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink bg-pcb px-3 py-2">
         <span className="font-lab text-sm font-bold text-white">{label || 'Try it'}</span>

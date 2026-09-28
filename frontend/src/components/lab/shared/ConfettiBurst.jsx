@@ -1,4 +1,4 @@
-const CONFETTI_COLORS = ['#FFC93C', '#1F7A5C', '#E8503A', '#23B5D3', '#16241D', '#3FBF7F'];
+const CONFETTI_COLORS = ['#FFB40A', '#5B0DA8', '#E63C22', '#0097F8', '#1B1B1B', '#00C48C'];
 
 // A one-shot shower of falling confetti, absolutely positioned over its parent.
 export default function ConfettiBurst() {

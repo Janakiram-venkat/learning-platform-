@@ -5,7 +5,7 @@ import WidgetShell from './shared/WidgetShell';
 // Baked in rather than a real image: the teaching point is "pixels have RGB numbers",
 // which a small deliberate grid demonstrates without an asset pipeline.
 const W = 10, H = 7;
-const BG = '#1F7A5C', FG = '#FFC93C', EDGE = '#16241D';
+const BG = '#5B0DA8', FG = '#FFB40A', EDGE = '#1B1B1B';
 const GRID = [
   'BBBBBBBBBB',
   'BBBBFBBBBB',
@@ -34,7 +34,7 @@ export default function CameraPixels({ block }) {
   return (
     <WidgetShell title={title} hint={hint}>
       <div className="p-4">
-        <div className="overflow-auto rounded-xl border-2 border-ink/12 bg-[#0B180F] p-3">
+        <div className="overflow-auto rounded-xl border-2 border-ink/12 bg-well p-3">
           <svg width={cell * W} height={cell * H} className="mx-auto block">
             {GRID.map((row, y) => row.map((color, x) => (
               <rect

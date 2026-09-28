@@ -71,8 +71,8 @@ function Coordinates({ look = '🐱' }) {
       >
         <Stage>
           <Grid />
-          <line x1="0" y1={pos.y} x2={W} y2={pos.y} stroke="#FFC93C66" strokeDasharray="4 4" />
-          <line x1={pos.x} y1="0" x2={pos.x} y2={H} stroke="#FFC93C66" strokeDasharray="4 4" />
+          <line x1="0" y1={pos.y} x2={W} y2={pos.y} stroke="#FFB40A66" strokeDasharray="4 4" />
+          <line x1={pos.x} y1="0" x2={pos.x} y2={H} stroke="#FFB40A66" strokeDasharray="4 4" />
           <text x={pos.x} y={pos.y} fontSize="30" textAnchor="middle" dominantBaseline="central">{look}</text>
           <text x="6" y="16" fill="#ffffff80" fontSize="11" fontFamily="monospace">0,0 is the top-left corner</text>
         </Stage>
@@ -241,8 +241,8 @@ function Collision() {
       >
         <Stage>
           <Grid />
-          <circle cx={target.x} cy={target.y} r={target.r} fill="none" stroke={touching ? '#3FBF7F' : '#ffffff35'} strokeWidth="2" strokeDasharray="5 4" />
-          <circle cx={pos.x} cy={pos.y} r={r} fill="none" stroke={touching ? '#3FBF7F' : '#ffffff35'} strokeWidth="2" strokeDasharray="5 4" />
+          <circle cx={target.x} cy={target.y} r={target.r} fill="none" stroke={touching ? '#00C48C' : '#ffffff35'} strokeWidth="2" strokeDasharray="5 4" />
+          <circle cx={pos.x} cy={pos.y} r={r} fill="none" stroke={touching ? '#00C48C' : '#ffffff35'} strokeWidth="2" strokeDasharray="5 4" />
           <text x={target.x} y={target.y} fontSize="30" textAnchor="middle" dominantBaseline="central">🍎</text>
           <text x={pos.x} y={pos.y} fontSize="30" textAnchor="middle" dominantBaseline="central">🧺</text>
         </Stage>
@@ -287,7 +287,7 @@ function Gravity() {
   return (
     <div>
       <Stage>
-        <rect x="0" y="168" width={W} height="32" fill="#1F7A5C" />
+        <rect x="0" y="168" width={W} height="32" fill="#5B0DA8" />
         <text ref={frogRef} x={W / 2} y="150" fontSize="28" textAnchor="middle" dominantBaseline="central">🐸</text>
       </Stage>
       <div className="mt-3 space-y-2">
@@ -350,7 +350,7 @@ function ListLoop({ mode = 'move', look = '🪨' }) {
             const shown = building ? n <= active || done : true;
             return (
               <g key={n} opacity={shown ? 1 : 0.12}>
-                {on && <circle cx={r.x} cy={r.y + (building ? 0 : 12)} r="22" fill="#FFC93C22" stroke="#FFC93C" strokeWidth="2" />}
+                {on && <circle cx={r.x} cy={r.y + (building ? 0 : 12)} r="22" fill="#FFB40A22" stroke="#FFB40A" strokeWidth="2" />}
                 <text
                   x={r.x}
                   y={r.y + (on && !building ? 12 : 0)}
@@ -456,7 +456,7 @@ function Juice({ look = '🐸' }) {
       <Stage>
         <g ref={groupRef}>
           <Grid />
-          <rect x="0" y="168" width={W} height="32" fill="#1F7A5C" />
+          <rect x="0" y="168" width={W} height="32" fill="#5B0DA8" />
           <text ref={frogRef} x="0" y="0" fontSize="28" textAnchor="middle" dominantBaseline="central">{look}</text>
         </g>
       </Stage>
@@ -486,7 +486,7 @@ function Screens() {
         <Grid />
         {state === 'start' && (
           <g>
-            <text x={W / 2} y="80" fontSize="20" fontWeight="bold" textAnchor="middle" fill="#FFC93C">MAZE ESCAPE</text>
+            <text x={W / 2} y="80" fontSize="20" fontWeight="bold" textAnchor="middle" fill="#FFB40A">MAZE ESCAPE</text>
             <text x={W / 2} y="106" fontSize="12" textAnchor="middle" fill="#ffffffb0">Press SPACE to start</text>
           </g>
         )}
@@ -495,7 +495,7 @@ function Screens() {
         )}
         {state === 'over' && (
           <g>
-            <text x={W / 2} y="90" fontSize="18" fontWeight="bold" textAnchor="middle" fill="#3FBF7F">You escaped!</text>
+            <text x={W / 2} y="90" fontSize="18" fontWeight="bold" textAnchor="middle" fill="#00C48C">You escaped!</text>
             <text x={W / 2} y="114" fontSize="12" textAnchor="middle" fill="#ffffffb0">Stars: 2</text>
           </g>
         )}

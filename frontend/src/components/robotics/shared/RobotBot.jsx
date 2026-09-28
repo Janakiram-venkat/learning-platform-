@@ -129,7 +129,7 @@ function Wheel({ innerRef, z }) {
             position={[Math.cos(a) * 0.048, out * (RIM_FACE - 0.002), Math.sin(a) * 0.048]}
           >
             <cylinderGeometry args={[0.015, 0.015, 0.006, 12]} />
-            <meshStandardMaterial color="#0d1512" roughness={0.8} />
+            <meshStandardMaterial color="#14101c" roughness={0.8} />
           </mesh>
         );
       })}
@@ -155,7 +155,7 @@ function Transducer({ z }) {
       {/* Crimped rim around the face. */}
       <mesh position={[0, 0.014, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.042, 0.005, 8, 24]} />
-        <meshStandardMaterial color="#8d9791" metalness={0.85} roughness={0.4} />
+        <meshStandardMaterial color="#8f8f96" metalness={0.85} roughness={0.4} />
       </mesh>
       {/* The dark mesh face, recessed a hair below the rim. */}
       <mesh position={[0, 0.0155, 0]}>
@@ -170,13 +170,13 @@ function Transducer({ z }) {
   );
 }
 
-export default function RobotBot({ speedRef, turnRef, led = '#23B5D3', scale = 1 }) {
+export default function RobotBot({ speedRef, turnRef, led = '#0097F8', scale = 1 }) {
   const leftWheel = useRef();
   const rightWheel = useRef();
   const ledMat = useRef();
 
-  const shell = paintedShell('#1F7A5C');
-  const battery = mouldedPlastic('#16241D');
+  const shell = paintedShell('#5B0DA8');
+  const battery = mouldedPlastic('#1B1B1B');
   const housing = mouldedPlastic('#1a2622');
   const board = circuitBoard();
   const alu = brushedAlu();
@@ -235,7 +235,7 @@ export default function RobotBot({ speedRef, turnRef, led = '#23B5D3', scale = 1
       {[[-0.26, -0.18], [-0.26, 0.18], [0.26, -0.18], [0.26, 0.18]].map(([x, z]) => (
         <mesh key={`${x},${z}`} position={[x, DECK_TOP + 0.002, z]}>
           <cylinderGeometry args={[0.014, 0.016, 0.008, 12]} />
-          <meshStandardMaterial color="#b9c2bd" metalness={0.95} roughness={0.25} envMapIntensity={1.4} />
+          <meshStandardMaterial color="#bdbdc4" metalness={0.95} roughness={0.25} envMapIntensity={1.4} />
         </mesh>
       ))}
 
@@ -255,11 +255,11 @@ export default function RobotBot({ speedRef, turnRef, led = '#23B5D3', scale = 1
           which is why it is fractionally taller and deeper than the pack. */}
       <mesh position={[-0.12, BATTERY_Y + 0.002, 0]} castShadow>
         <boxGeometry args={[0.055, BATTERY_H + 0.008, 0.306]} />
-        <meshStandardMaterial color="#0d1512" roughness={0.95} metalness={0} />
+        <meshStandardMaterial color="#14101c" roughness={0.95} metalness={0} />
       </mesh>
       <mesh position={[-0.12, BATTERY_Y + BATTERY_H / 2 + 0.005, 0]}>
         <boxGeometry args={[0.032, 0.008, 0.03]} />
-        <meshStandardMaterial color="#8d9791" metalness={0.9} roughness={0.35} />
+        <meshStandardMaterial color="#8f8f96" metalness={0.9} roughness={0.35} />
       </mesh>
 
       {/*
@@ -304,7 +304,7 @@ export default function RobotBot({ speedRef, turnRef, led = '#23B5D3', scale = 1
       {[-0.1, 0.1].map((z) => (
         <mesh key={z} position={[0.14, BOARD_TOP + 0.006, z]} castShadow>
           <boxGeometry args={[0.17, 0.012, 0.014]} />
-          <meshStandardMaterial color="#0d1512" roughness={0.55} metalness={0.15} />
+          <meshStandardMaterial color="#14101c" roughness={0.55} metalness={0.15} />
         </mesh>
       ))}
 
@@ -313,7 +313,7 @@ export default function RobotBot({ speedRef, turnRef, led = '#23B5D3', scale = 1
         <sphereGeometry args={[0.016, 16, 16]} />
         <meshStandardMaterial
           ref={ledMat}
-          color={led || '#16241D'}
+          color={led || '#1B1B1B'}
           emissive={led || '#000000'}
           emissiveIntensity={led ? 2.2 : 0}
           toneMapped={false}
@@ -357,7 +357,7 @@ export default function RobotBot({ speedRef, turnRef, led = '#23B5D3', scale = 1
         {[-0.11, 0.11].map((bz) => (
           <mesh key={bz} position={[0, -(HEAD_H / 2 + HEAD_LIFT - 0.004), bz]}>
             <cylinderGeometry args={[0.011, 0.012, 0.008, 10]} />
-            <meshStandardMaterial color="#b9c2bd" metalness={0.95} roughness={0.25} envMapIntensity={1.4} />
+            <meshStandardMaterial color="#bdbdc4" metalness={0.95} roughness={0.25} envMapIntensity={1.4} />
           </mesh>
         ))}
 

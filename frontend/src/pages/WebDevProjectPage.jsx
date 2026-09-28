@@ -98,7 +98,7 @@ export default function WebDevProjectPage() {
       </div>
 
       <main className="bench-grid min-w-0 flex-1 overflow-y-auto p-4 sm:p-8">
-        <div className="mx-auto w-full max-w-5xl rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(22,36,29,0.9)] sm:p-10">
+        <div className="mx-auto w-full max-w-5xl rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(27,27,27,0.9)] sm:p-10">
           {known ? (
             <ProjectPager
               project={project}

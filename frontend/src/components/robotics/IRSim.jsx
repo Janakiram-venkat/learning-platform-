@@ -25,7 +25,7 @@ export default function IRSim({ block }) {
             <div
               key={s.from}
               className="absolute top-0 h-full"
-              style={{ left: `${s.from}%`, width: `${s.to - s.from}%`, backgroundColor: s.color === 'white' ? '#EDF3EE' : '#16241D' }}
+              style={{ left: `${s.from}%`, width: `${s.to - s.from}%`, backgroundColor: s.color === 'white' ? '#F7F7F7' : '#1B1B1B' }}
             />
           ))}
           <div className="absolute top-0 h-full w-1 bg-wire" style={{ left: `${pos}%` }} />

@@ -54,10 +54,10 @@ export default function ServoDial({ block }) {
       <div ref={ref} className="p-4">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <svg viewBox="0 0 140 90" className="w-56 shrink-0">
-            <path d="M10 78 A60 60 0 0 1 130 78" fill="none" stroke="#16241D22" strokeWidth="6" />
-            <circle cx="70" cy="78" r="10" fill="#16241D" />
-            <line x1="70" y1="78" x2={hx} y2={hy} stroke="#1F7A5C" strokeWidth="6" strokeLinecap="round" />
-            <circle cx={hx} cy={hy} r="5" fill="#FFC93C" stroke="#16241D" strokeWidth="1.5" />
+            <path d="M10 78 A60 60 0 0 1 130 78" fill="none" stroke="#1B1B1B22" strokeWidth="6" />
+            <circle cx="70" cy="78" r="10" fill="#1B1B1B" />
+            <line x1="70" y1="78" x2={hx} y2={hy} stroke="#5B0DA8" strokeWidth="6" strokeLinecap="round" />
+            <circle cx={hx} cy={hy} r="5" fill="#FFB40A" stroke="#1B1B1B" strokeWidth="1.5" />
           </svg>
           <div className="text-center sm:text-left">
             <p className="font-mono-lab text-lg font-extrabold text-pcb">{Math.round(current)}°</p>

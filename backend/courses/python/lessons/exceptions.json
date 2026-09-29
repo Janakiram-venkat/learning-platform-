@@ -1,7 +1,7 @@
 {
   "lessonId": "exceptions",
   "title": "Handling Errors",
-  "description": "Use try and except to catch errors so your program doesn't crash.",
+  "description": "Use try and except to catch problems so your program keeps running.",
   "difficulty": "Advanced",
   "content": [
     {
@@ -10,36 +10,88 @@
     },
     {
       "type": "paragraph",
-      "value": "Sometimes code hits a problem it can't handle, like dividing a number by zero, or turning the word 'hello' into a number. When that happens, the program stops with an error. To keep it running, Python gives you `try` and `except`."
-    },
-    {
-      "type": "heading",
-      "value": "How to Catch an Error"
+      "value": "Some problems cannot be spotted while you are writing the code, because they depend on what happens when it runs. Dividing by a number that turns out to be zero, turning the word \"hello\" into a number, reading a dictionary key that is not there: each of those stops the program dead and prints an error at the user."
     },
     {
       "type": "paragraph",
-      "value": "You put the risky code inside a `try` block. Right below it, you write an `except` block. If the code in `try` causes an error, Python doesn't crash. Instead, it jumps to the `except` block and runs that code."
+      "value": "You have already met several of these by name. The name matters, because it tells you what kind of thing went wrong."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "try:\n    # Dividing by zero causes an error:\n    result = 10 / 0\n    print(result)\nexcept:\n    print(\"Oops! You can't divide by zero. Please try again.\")"
+      "value": "10 / 0                  # ZeroDivisionError: division by zero\nint(\"hello\")            # ValueError: invalid literal for int()\n[1, 2, 3][5]            # IndexError: list index out of range\n{\"a\": 1}[\"b\"]           # KeyError: 'b'"
     },
     {
       "type": "heading",
-      "value": "Why This Is Useful"
+      "value": "Catching It with try and except"
     },
     {
       "type": "paragraph",
-      "value": "Without `try` and `except`, one bad input could stop your whole program and show a confusing error. With them, you can show a friendly message instead and keep the program running."
+      "value": "Put the risky code inside a `try` block, and write an `except` block underneath it. If everything in the `try` works, the `except` is skipped entirely. If something fails, Python abandons the rest of the `try` and runs the `except` instead, and the program carries on afterwards."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "try:\n    result = 10 / 0\n    print(result)\nexcept:\n    print(\"Something went wrong.\")\n\nprint(\"The program is still running.\")"
+    },
+    {
+      "type": "paragraph",
+      "value": "Notice that `print(result)` never runs. The try block gives up at the line that failed, and everything below it inside the block is abandoned. Change the numbers below and watch which lines survive."
+    },
+    {
+      "type": "widget",
+      "kind": "error-catcher"
+    },
+    {
+      "type": "heading",
+      "value": "Naming the Error"
+    },
+    {
+      "type": "paragraph",
+      "value": "A bare `except` catches absolutely everything, which sounds helpful and is usually not. It cannot tell a typo from a divide by zero, so the best it can offer is one vague message, and it will happily hide bugs you would rather know about."
+    },
+    {
+      "type": "paragraph",
+      "value": "Write the error's name after `except` and that block only runs for that kind of problem. You can have several, and Python uses the first one that matches."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "try:\n    a = int(input(\"First number: \"))\n    b = int(input(\"Second number: \"))\n    print(\"Answer:\", a / b)\nexcept ValueError:\n    print(\"Please type whole numbers.\")\nexcept ZeroDivisionError:\n    print(\"You cannot divide by zero.\")"
+    },
+    {
+      "type": "tip",
+      "value": "Keep the try block short. Only the lines that might actually fail belong inside it, so that a surprise error somewhere else is not quietly swallowed by your handler."
+    },
+    {
+      "type": "heading",
+      "value": "Asking Again Until It Works"
+    },
+    {
+      "type": "paragraph",
+      "value": "Catching the error is most useful when you do something about it. Put the `try` inside a loop and you can keep asking until the answer makes sense. The `break` only runs when the risky line succeeded, because a failure jumps to the `except` and never reaches it."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "while True:\n    try:\n        age = int(input(\"How old are you? \"))\n        break\n    except ValueError:\n        print(\"Whole numbers only, please. Try again.\")\n\nprint(\"Thanks! You are\", age)"
+    },
+    {
+      "type": "paragraph",
+      "value": "That is the difference between a program that crashes on a typo and one that simply asks again. The error handling is what makes it feel finished."
     }
   ],
-  "editorCode": "try:\n    number = int(\"not_a_number\")\n    print(number)\nexcept:\n    print(\"That is not a valid number!\")",
+  "editorCode": "try:\n    number = int(\"not_a_number\")\n    print(number)\nexcept ValueError:\n    print(\"That is not a valid number!\")\n\nprint(\"Still running.\")",
   "practice": [
     {
       "id": 1,
-      "question": "Wrap the division below in a try/except block. If it works, print the result. If it fails, print 'Division failed!'",
-      "starterCode": "numerator = 10\ndenominator = 0\n\n# Add a try/except block to handle the division safely\nresult = numerator / denominator\nprint(result)"
+      "question": "Wrap the division in a try/except so a zero denominator prints 'Division failed!' instead of crashing.",
+      "starterCode": "numerator = 10\ndenominator = 0\n\n# Put the division inside a try block, and print 'Division failed!' in the except\nresult = numerator / denominator\nprint(result)"
+    },
+    {
+      "id": 2,
+      "question": "This catches everything with a bare except. Change it to catch only ValueError.",
+      "starterCode": "try:\n    number = int(\"twelve\")\n    print(number)\nexcept:\n    print(\"Whole numbers only, please.\")"
     }
   ],
   "quiz": [
@@ -48,20 +100,33 @@
       "options": [
         "except",
         "try",
-        "catch"
+        "catch",
+        "finally"
       ],
       "answer": 1,
-      "explain": "The `try` block holds the risky code. If it causes an error, the `except` block catches it."
+      "explain": "The try block holds the risky lines. If one of them fails, the except block underneath runs instead."
     },
     {
-      "question": "What happens if the code in a 'try' block works with no errors?",
+      "question": "What happens if the code in a try block works with no errors?",
       "options": [
-        "The 'except' block runs anyway.",
-        "The 'except' block is skipped.",
-        "The program restarts."
+        "The except block runs anyway",
+        "The except block is skipped",
+        "The program restarts",
+        "The try block runs a second time"
       ],
       "answer": 1,
-      "explain": "If the `try` code works fine, there's no error to catch, so Python skips the `except` block."
+      "explain": "There is no error to catch, so the except block is skipped completely and the program carries on below it."
+    },
+    {
+      "question": "In this code, what is printed?  try:  /  print(\"A\")  /  print(10 / 0)  /  print(\"B\")  /  except:  /  print(\"C\")",
+      "options": [
+        "A, then C",
+        "A, then B, then C",
+        "C only",
+        "A, then B"
+      ],
+      "answer": 0,
+      "explain": "A prints, then the division fails, so the rest of the try block is abandoned. B never runs and Python jumps straight to C."
     }
   ]
 }

@@ -21,9 +21,12 @@ export default function LessonSimulation({ sim }) {
 
 function Shell({ title, code, onPlay, playing, onReset, children }) {
   return (
-    <div className="my-8 overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
+    // `container-type` so the layouts inside measure this widget's own width.
+    // These sims render beside a 600px editor, where a viewport breakpoint
+    // would flip them to two columns long before there is room for two.
+    <div className="my-8 overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(27,27,27,0.9)] [container-type:inline-size]">
       <div className="flex items-center justify-between gap-3 border-b-2 border-ink bg-signal px-4 py-3">
-        <span className="font-lab text-sm font-bold text-ink">🎬 {title}</span>
+        <span className="font-lab text-sm font-bold text-ink">{title}</span>
         <div className="flex items-center gap-2">
           <button
             onClick={onReset}
@@ -71,7 +74,10 @@ function VariableSim({ sim }) {
 
   return (
     <Shell title="Storing in a variable" code={code} onPlay={play} playing={stage === 1} onReset={reset}>
-      <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
+      {/* Both columns share one row height (`items-end` against a fixed h-24
+          panel) so the box and the screen sit on the same baseline, and their
+          captions line up under them instead of stepping. */}
+      <div className="flex flex-col items-center gap-6 @min-[26rem]:flex-row @min-[26rem]:items-end @min-[26rem]:justify-center @min-[26rem]:gap-8">
         {/* The labelled box */}
         <div className="flex flex-col items-center">
           <div className={`flex h-24 w-28 items-center justify-center rounded-xl border-4 transition-all duration-500 ${stage >= 1 ? 'border-pcb bg-pcb/10' : 'border-dashed border-ink/25 bg-ink/5'}`}>
@@ -79,7 +85,7 @@ function VariableSim({ sim }) {
               {value}
             </span>
           </div>
-          <span className="mt-2 rounded-md border-2 border-ink bg-ink px-3 py-1 font-mono-lab text-sm font-bold text-white">{name}</span>
+          <span className="mt-2 ref-tag text-ink/55">{name}</span>
         </div>
 
         {/* The screen / print output */}
@@ -87,7 +93,7 @@ function VariableSim({ sim }) {
           <div className="flex h-24 w-44 items-center justify-center rounded-xl border-2 border-ink bg-well px-3 font-mono-lab text-xl text-mint shadow-inner">
             {stage >= 2 ? <span className="animate-bounce-in">{value}</span> : <span className="text-white/35">screen…</span>}
           </div>
-          <span className="mt-2 text-xs font-semibold text-ink/50">print output</span>
+          <span className="mt-2 ref-tag text-ink/55">print output</span>
         </div>
       </div>
       <p className="mt-5 text-center text-sm font-medium text-ink/70">
@@ -129,21 +135,27 @@ function LoopSim({ sim }) {
 
   return (
     <Shell title="A loop repeating" code={code} onPlay={play} playing={running} onReset={reset}>
-      <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:justify-center sm:gap-10">
+      {/* The output stack grows as the loop runs, so both columns get a
+          caption and align on their top edge. Without the matching caption the
+          right column used to float half a line higher than the left. */}
+      <div className="flex flex-col items-center gap-5 @min-[26rem]:flex-row @min-[26rem]:items-start @min-[26rem]:justify-center @min-[26rem]:gap-10">
         {/* Spinning counter */}
         <div className="flex flex-col items-center">
           <div className={`flex h-24 w-24 items-center justify-center rounded-full border-4 border-ink bg-signal text-3xl font-extrabold text-ink ${running ? 'animate-pop' : ''}`}>
             {count}
           </div>
-          <span className="mt-2 text-xs font-semibold text-ink/50">times looped</span>
+          <span className="mt-2 ref-tag text-ink/55">times looped</span>
         </div>
         {/* Output stack */}
-        <div className="min-h-24 w-52 rounded-xl border-2 border-ink bg-well p-3 font-mono-lab text-sm text-mint shadow-inner">
-          {outputs.length === 0 ? (
-            <span className="text-white/35">screen…</span>
-          ) : (
-            outputs.map((line, i) => <div key={i} className="animate-slide-up">{line}</div>)
-          )}
+        <div className="flex flex-col items-center">
+          <div className="min-h-24 w-52 rounded-xl border-2 border-ink bg-well p-3 font-mono-lab text-sm text-mint shadow-inner">
+            {outputs.length === 0 ? (
+              <span className="text-white/35">screen…</span>
+            ) : (
+              outputs.map((line, i) => <div key={i} className="animate-slide-up">{line}</div>)
+            )}
+          </div>
+          <span className="mt-2 ref-tag text-ink/55">print output</span>
         </div>
       </div>
       <p className="mt-5 text-center text-sm font-medium text-ink/70">

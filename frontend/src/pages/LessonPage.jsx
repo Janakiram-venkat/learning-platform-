@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { courseService, quizService } from '../services/api';
 import Sidebar from '../components/layout/Sidebar';
@@ -13,10 +13,11 @@ import { getUnlockedLessonIds, awardXPOnce, lessons as completedLessons } from '
 import LessonSimulation from '../components/lesson/LessonSimulation';
 import LessonWidget from '../components/lesson/LessonWidget';
 import LessonImage from '../components/lesson/LessonImage';
+import RichText from '../components/lesson/RichText';
 import LabRunner from '../components/lab/LabRunner';
 import SignInModal from '../components/auth/SignInModal';
 import { useAuth } from '../context/AuthContext';
-import { Play, CheckCircle2, XCircle, Lightbulb, Menu, X, Lock } from 'lucide-react';
+import { Play, CheckCircle2, XCircle, Lightbulb, Menu, X, Lock, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function LessonPage() {
   const { courseId, lessonId } = useParams();
@@ -41,6 +42,49 @@ export default function LessonPage() {
   const [signInOpen, setSignInOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [lab, setLab] = useState(null); // { data, moduleKey } — embedded in the right panel for no-code courses
+  const [activeTab, setActiveTab] = useState(0);
+
+  // Group content blocks into tabs by `heading`. Each heading starts a new
+  // section; anything before the first heading becomes an intro tab. Lessons
+  // with no headings collapse to a single tab and the tab strip hides itself.
+  // Practice and Knowledge Check are appended as their own tabs at the end so
+  // the teaching content gets the whole sheet width instead of being pushed up
+  // by long practice/quiz blocks.
+  const showEditor = course?.hasEditor !== false;
+  const hasPracticeTab = showEditor && !!(lesson?.practice && lesson.practice.length > 0);
+  const hasQuizTab = !!(lesson?.quiz && lesson.quiz.length > 0);
+
+  const sections = useMemo(() => {
+    const blocks = lesson?.content || [];
+    const out = [];
+    let current = null;
+    blocks.forEach((b) => {
+      if (b.type === 'heading') {
+        current = { title: b.value, blocks: [] };
+        out.push(current);
+      } else {
+        if (!current) {
+          current = { title: 'Overview', blocks: [] };
+          out.push(current);
+        }
+        current.blocks.push(b);
+      }
+    });
+    if (hasPracticeTab) out.push({ title: 'Practice', kind: 'practice' });
+    if (hasQuizTab) out.push({ title: 'Knowledge Check', kind: 'quiz' });
+    return out;
+  }, [lesson, hasPracticeTab, hasQuizTab]);
+
+  // Reset to the first tab whenever the lesson changes.
+  useEffect(() => {
+    setActiveTab(0);
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [lessonId]);
+
+  const gotoTab = (i) => {
+    setActiveTab(i);
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // --- Resizable split between the lesson and the right panel (editor/lab) ---
   // `splitPct` is the lesson column's width as a % of the row; the right panel
@@ -271,8 +315,9 @@ export default function LessonPage() {
 
   // No-code courses (e.g. AI Fundamentals) opt out of the Python editor panel
   // via "hasEditor": false in course.json. Coding courses default to showing it.
-  const showEditor = course?.hasEditor !== false;
+  // `showEditor` is derived above (needed for the tab list).
   const showRightPanel = showEditor || (!showEditor && !!lab);
+  const activeSection = sections[activeTab];
 
   // Apply the draggable split only on desktop, and only when a right panel
   // exists. The 3px offsets leave room for the divider so the row stays at 100%.
@@ -368,18 +413,154 @@ export default function LessonPage() {
             <p className="text-base text-ink/65 sm:text-lg">{lesson.description}</p>
           </header>
 
-          <div className="space-y-8 mb-16">
-            {lesson.content?.map((block, idx) => {
-              // Prose runs the full width of the sheet. Long lines are the
-              // trade for filling the page, so the type stays large and
-              // leading-relaxed keeps the rows apart enough to track back to
-              // the start of the next one.
-              if (block.type === 'heading') return <h2 key={idx} className="font-lab text-2xl font-bold text-ink mt-10 mb-4">{block.value}</h2>;
-              if (block.type === 'paragraph') return <p key={idx} className="text-ink/75 leading-relaxed text-lg">{block.value}</p>;
+          {/* Tabbed lesson content. Content blocks are grouped into sections
+              by heading (see `sections` memo). The tab strip only appears when
+              there's more than one section — shorter lessons still render as a
+              single scrollable panel. */}
+          {sections.length > 1 && (() => {
+            // Divider between the reading tabs and the do-it tabs (Practice /
+            // Check). Rendered as a thin vertical rule + a small silkscreen
+            // label so students see the shape: read → practice → check.
+            const firstSpecial = sections.findIndex(s => s.kind === 'practice' || s.kind === 'quiz');
+            return (
+              <div className="mb-6 flex flex-wrap items-center gap-2 border-b-2 border-ink/10 pb-3">
+                {sections.map((s, i) => {
+                  const active = i === activeTab;
+                  const isPractice = s.kind === 'practice';
+                  const isQuiz = s.kind === 'quiz';
+                  let cls;
+                  if (isPractice) cls = active ? 'bg-pcb text-white border-ink' : 'bg-white text-ink border-pcb hover:bg-pcb/10';
+                  else if (isQuiz) cls = active ? 'bg-signal text-ink border-ink' : 'bg-white text-ink border-signal hover:bg-signal/15';
+                  else cls = active ? 'bg-ink text-white border-ink' : 'bg-white text-ink border-ink hover:bg-pcb/10';
+                  const tagCls = active
+                    ? (isQuiz ? 'text-ink/60' : 'text-white/70')
+                    : 'text-ink/45';
+                  return (
+                    <div key={i} className="flex items-center gap-2">
+                      {firstSpecial > 0 && i === firstSpecial && (
+                        <span className="mx-1 h-6 w-px bg-ink/20" aria-hidden />
+                      )}
+                      <button
+                        onClick={() => gotoTab(i)}
+                        className={`inline-flex items-center gap-2 rounded-lg border-2 px-4 py-2 font-lab font-extrabold text-sm transition-colors ${cls}`}
+                      >
+                        <span className={`ref-tag ${tagCls}`}>
+                          {isPractice ? 'PRAC' : isQuiz ? 'CHECK' : String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span>{s.title}</span>
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+
+          <div className="space-y-8 mb-8">
+            {/* Practice tab — coding exercises */}
+            {activeSection?.kind === 'practice' && (
+              <div className="border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
+                <div className="bg-pcb px-5 py-4 border-b-2 border-ink sm:px-8 sm:py-5">
+                  <h3 className="font-lab font-bold text-white text-lg">Practice Exercises</h3>
+                </div>
+                <div className="p-5 bg-white sm:p-8 space-y-6">
+                  {lesson.practice.map(p => (
+                    <div key={p.id}>
+                      <p className="font-medium text-ink text-lg mb-4">Task: {p.question}</p>
+                      <button
+                        onClick={() => setCode(p.starterCode)}
+                        className="inline-flex items-center justify-center border-2 border-ink text-ink hover:bg-pcb hover:text-white px-4 py-2 rounded-lg font-bold transition-colors"
+                      >
+                        Load Starter Code ➔
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Knowledge Check tab — quiz */}
+            {activeSection?.kind === 'quiz' && (
+              <div className="border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
+                <div className="bg-signal px-5 py-4 border-b-2 border-ink sm:px-8 sm:py-5">
+                  <h3 className="font-lab font-bold text-ink text-lg">Knowledge Check</h3>
+                </div>
+                <div className="p-5 bg-white space-y-8 sm:p-8 sm:space-y-10">
+                  {lesson.quiz.map((q, qIdx) => {
+                    const result = quizResult?.results?.[qIdx];
+                    const graded = !!result;
+                    return (
+                      <div key={qIdx}>
+                        <p className="font-bold text-ink text-lg mb-5">{q.question}</p>
+                        <div className="grid grid-cols-1 items-start gap-3 @min-[68rem]:grid-cols-2">
+                          {q.options.map((opt, oIdx) => {
+                            const chosen = quizAnswers[qIdx] === oIdx;
+                            let cls = chosen ? 'border-pcb bg-pcb/8' : 'border-ink/15 hover:bg-ink/5';
+                            if (graded) {
+                              if (oIdx === result.correctIndex) cls = 'border-pcb bg-pcb/10';
+                              else if (chosen) cls = 'border-wire bg-wire/8';
+                              else cls = 'border-ink/15 opacity-70';
+                            }
+                            return (
+                              <label key={oIdx} className={`flex items-center space-x-4 p-4 border-2 rounded-xl transition-colors cursor-pointer ${cls}`}>
+                                <input
+                                  type="radio"
+                                  name={`quiz-${qIdx}`}
+                                  className="w-5 h-5 accent-pcb"
+                                  checked={chosen}
+                                  onChange={() => {
+                                    setQuizAnswers(prev => ({ ...prev, [qIdx]: oIdx }));
+                                    if (quizResult) setQuizResult(null);
+                                  }}
+                                />
+                                <span className="text-ink font-medium flex-1">{opt}</span>
+                                {graded && oIdx === result.correctIndex && <CheckCircle2 className="w-5 h-5 text-pcb shrink-0" />}
+                                {graded && chosen && oIdx !== result.correctIndex && <XCircle className="w-5 h-5 text-wire shrink-0" />}
+                              </label>
+                            );
+                          })}
+                        </div>
+
+                        {graded && (
+                          <div className={`mt-4 flex items-start gap-3 rounded-xl p-4 border-2 animate-slide-up ${result.correct ? 'bg-pcb/8 border-pcb/30 text-ink' : 'bg-signal/15 border-signal text-ink'}`}>
+                            <Lightbulb className="mt-0.5 h-5 w-5 shrink-0" />
+                            <p className="text-sm font-medium leading-relaxed">
+                              <span className="font-bold">{result.correct ? 'Correct! ' : 'Not quite. '}</span>
+                              {q.explain ? <RichText value={q.explain} /> : (result.correct
+                                ? 'Nice work!'
+                                : `The right answer is "${q.options[result.correctIndex]}".`)}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-t-2 border-ink/10 pt-6">
+                    <button
+                      onClick={handleQuizSubmit}
+                      className="lab-btn bg-pcb text-white border-2 border-ink px-8 py-3 rounded-xl font-extrabold"
+                    >
+                      {quizResult ? 'Submit Again' : 'Submit Quiz'}
+                    </button>
+                    {quizResult && (
+                      <span className={`font-lab font-extrabold flex items-center text-xl px-4 py-2 rounded-lg border-2 border-ink ${quizResult.score === quizResult.total ? 'text-ink bg-pcb/20' : 'text-ink bg-signal/25'}`}>
+                        <CheckCircle2 className="w-6 h-6 mr-2" />
+                        Score: {quizResult.score} / {quizResult.total}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Regular content tab — teaching blocks */}
+            {!activeSection?.kind && (activeSection?.blocks || []).map((block, idx) => {
+              if (block.type === 'paragraph') return <p key={idx} className="text-ink/75 leading-relaxed text-lg"><RichText value={block.value} /></p>;
               if (block.type === 'tip') return (
                 <div key={idx} className="bg-pcb/8 border-l-4 border-pcb p-6 rounded-r-lg text-ink">
                   <strong className="font-lab flex items-center mb-2 text-pcb"><CheckCircle2 className="w-5 h-5 mr-2" />Tip</strong>
-                  <span className="text-lg">{block.value}</span>
+                  <span className="text-lg"><RichText value={block.value} /></span>
                 </div>
               );
               if (block.type === 'code') return (
@@ -387,9 +568,6 @@ export default function LessonPage() {
                   {block.value}
                 </pre>
               );
-              // The visual blocks take the whole sheet. A 3D bench or an
-              // eight-photo grid is the one thing on the page that a wide
-              // window actually helps.
               if (block.type === 'simulation') return <LessonSimulation key={idx} sim={block} />;
               if (block.type === 'widget') return <LessonWidget key={idx} block={block} />;
               if (block.type === 'image') return <LessonImage key={idx} block={block} />;
@@ -397,119 +575,45 @@ export default function LessonPage() {
             })}
           </div>
 
-          {/* Practice Section — coding exercises, only for courses with the editor */}
-          {showEditor && lesson.practice && lesson.practice.length > 0 && (
-            <div className="mb-16 border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
-              <div className="bg-pcb px-5 py-4 border-b-2 border-ink sm:px-8 sm:py-5">
-                <h3 className="font-lab font-bold text-white text-lg">Practice Exercises</h3>
-              </div>
-              <div className="p-5 bg-white sm:p-8">
-                {lesson.practice.map(p => (
-                  <div key={p.id} className="mb-6 last:mb-0">
-                    <p className="font-medium text-ink text-lg mb-4">Task: {p.question}</p>
-                    <button
-                      onClick={() => setCode(p.starterCode)}
-                      className="inline-flex items-center justify-center border-2 border-ink text-ink hover:bg-pcb hover:text-white px-4 py-2 rounded-lg font-bold transition-colors"
-                    >
-                      Load Starter Code ➔
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Quiz Section */}
-          {lesson.quiz && lesson.quiz.length > 0 && (
-            <div className="mb-16 border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
-              <div className="bg-signal px-5 py-4 border-b-2 border-ink sm:px-8 sm:py-5">
-                <h3 className="font-lab font-bold text-ink text-lg">Knowledge Check</h3>
-              </div>
-              <div className="p-5 bg-white space-y-8 sm:p-8 sm:space-y-10">
-                {lesson.quiz.map((q, qIdx) => {
-                  const result = quizResult?.results?.[qIdx];
-                  const graded = !!result;
-                  return (
-                    <div key={qIdx}>
-                      <p className="font-bold text-ink text-lg mb-5">{q.question}</p>
-                      {/* Two up once there's room. `items-start` is deliberate:
-                          a grid would otherwise stretch every option in a row to
-                          the height of the wordiest one, which reads as though
-                          the short answers are somehow bigger targets. */}
-                      <div className="grid grid-cols-1 items-start gap-3 @min-[68rem]:grid-cols-2">
-                        {q.options.map((opt, oIdx) => {
-                          const chosen = quizAnswers[qIdx] === oIdx;
-                          // After grading, paint the correct option green and a
-                          // wrongly-chosen option red; otherwise normal selection.
-                          let cls = chosen ? 'border-pcb bg-pcb/8' : 'border-ink/15 hover:bg-ink/5';
-                          if (graded) {
-                            if (oIdx === result.correctIndex) cls = 'border-pcb bg-pcb/10';
-                            else if (chosen) cls = 'border-wire bg-wire/8';
-                            else cls = 'border-ink/15 opacity-70';
-                          }
-                          return (
-                            <label key={oIdx} className={`flex items-center space-x-4 p-4 border-2 rounded-xl transition-colors cursor-pointer ${cls}`}>
-                              <input
-                                type="radio"
-                                name={`quiz-${qIdx}`}
-                                className="w-5 h-5 accent-pcb"
-                                checked={chosen}
-                                onChange={() => {
-                                  setQuizAnswers(prev => ({ ...prev, [qIdx]: oIdx }));
-                                  // Changing an answer starts a fresh attempt — clear
-                                  // the previous grading so the student can retry.
-                                  if (quizResult) setQuizResult(null);
-                                }}
-                              />
-                              <span className="text-ink font-medium flex-1">{opt}</span>
-                              {graded && oIdx === result.correctIndex && <CheckCircle2 className="w-5 h-5 text-pcb shrink-0" />}
-                              {graded && chosen && oIdx !== result.correctIndex && <XCircle className="w-5 h-5 text-wire shrink-0" />}
-                            </label>
-                          );
-                        })}
-                      </div>
-
-                      {/* Why-it's-wrong / why-it's-right explanation */}
-                      {graded && (
-                        <div className={`mt-4 flex items-start gap-3 rounded-xl p-4 border-2 animate-slide-up ${result.correct ? 'bg-pcb/8 border-pcb/30 text-ink' : 'bg-signal/15 border-signal text-ink'}`}>
-                          <Lightbulb className="mt-0.5 h-5 w-5 shrink-0" />
-                          <p className="text-sm font-medium leading-relaxed">
-                            <span className="font-bold">{result.correct ? 'Correct! ' : 'Not quite. '}</span>
-                            {q.explain || (result.correct
-                              ? 'Nice work!'
-                              : `The right answer is "${q.options[result.correctIndex]}".`)}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-
-                <div className="flex flex-wrap items-center justify-between gap-3 border-t-2 border-ink/10 pt-6">
-                  <button
-                    onClick={handleQuizSubmit}
-                    className="lab-btn bg-pcb text-white border-2 border-ink px-8 py-3 rounded-xl font-extrabold"
-                  >
-                    {quizResult ? 'Submit Again' : 'Submit Quiz'}
-                  </button>
-                  {quizResult && (
-                    <span className={`font-lab font-extrabold flex items-center text-xl px-4 py-2 rounded-lg border-2 border-ink ${quizResult.score === quizResult.total ? 'text-ink bg-pcb/20' : 'text-ink bg-signal/25'}`}>
-                      <CheckCircle2 className="w-6 h-6 mr-2" />
-                      Score: {quizResult.score} / {quizResult.total}
-                    </span>
-                  )}
-                </div>
-              </div>
+          {sections.length > 1 && (
+            <div className="mb-16 flex items-center justify-between border-t-2 border-ink/10 pt-6">
+              <button
+                onClick={() => gotoTab(Math.max(0, activeTab - 1))}
+                disabled={activeTab === 0}
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-white px-5 py-2.5 font-extrabold text-ink transition-colors hover:bg-pcb/10 disabled:cursor-not-allowed disabled:border-ink/20 disabled:text-ink/40"
+              >
+                <ChevronLeft className="h-4 w-4" /> Previous
+              </button>
+              <span className="ref-tag text-ink/55">
+                {activeTab + 1} / {sections.length}
+              </span>
+              <button
+                onClick={() => gotoTab(Math.min(sections.length - 1, activeTab + 1))}
+                disabled={activeTab === sections.length - 1}
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-ink px-5 py-2.5 font-extrabold text-white transition-colors hover:bg-pcb disabled:cursor-not-allowed disabled:border-ink/20 disabled:bg-ink/20 disabled:text-white/60"
+              >
+                Next <ChevronRight className="h-4 w-4" />
+              </button>
             </div>
           )}
 
           <div className="border-t-2 border-ink/10 pt-10 flex flex-col items-end gap-3">
-            {!quizPassed && (
-              <p className="flex items-center gap-2 text-sm font-semibold text-wire">
-                <Lock className="h-4 w-4 shrink-0" />
-                Answer every Knowledge Check question correctly to finish this chapter.
-              </p>
-            )}
+            {!quizPassed && (() => {
+              const quizIdx = sections.findIndex(s => s.kind === 'quiz');
+              const onQuizTab = activeSection?.kind === 'quiz';
+              return (
+                <button
+                  onClick={() => { if (quizIdx >= 0 && !onQuizTab) gotoTab(quizIdx); }}
+                  disabled={onQuizTab}
+                  className="flex items-center gap-2 text-sm font-semibold text-wire hover:text-ink disabled:cursor-default"
+                >
+                  <Lock className="h-4 w-4 shrink-0" />
+                  {onQuizTab
+                    ? 'Answer every question correctly to finish this chapter.'
+                    : 'Open the Knowledge Check tab and answer every question to finish.'}
+                </button>
+              );
+            })()}
             <button
               onClick={handleMarkComplete}
               disabled={!quizPassed}

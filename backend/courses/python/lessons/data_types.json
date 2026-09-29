@@ -1,50 +1,41 @@
 {
   "lessonId": "data_types",
   "title": "Data Types",
-  "description": "The three basic kinds of values in Python: whole numbers, decimal numbers, and text.",
+  "description": "The kinds of values in Python: numbers, text, and yes/no answers.",
   "difficulty": "Beginner",
   "content": [
     {
       "type": "heading",
-      "value": "Different Kinds of Values"
+      "value": "Kinds of Values"
     },
     {
       "type": "paragraph",
-      "value": "Values in Python come in different kinds, called data types. The kind of a value tells Python what it is and what you can do with it. Let's look at the three most common ones: integers, floats, and strings."
+      "value": "Every value in Python has a kind, called its data type. The type tells Python what the value is and what you can do with it. Click any chip below to see what Python calls each value."
+    },
+    {
+      "type": "widget",
+      "kind": "type-explorer"
     },
     {
       "type": "heading",
-      "value": "1. Integers (Whole Numbers)"
+      "value": "Numbers: int and float"
     },
     {
       "type": "paragraph",
-      "value": "An integer is a whole number, with no decimal point. Like the number of apples you have, or your age."
+      "value": "Whole numbers are called integers, or `int`. Numbers with a decimal point are called floats (the name comes from 'floating-point', because the decimal can float anywhere in the number). Use an int for counts and ages. Use a float when you need decimals."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "apples = 5\nage = 10"
+      "value": "apples = 5      # int\ncookies = 2.5   # float\nheight = 4.2    # float"
     },
     {
       "type": "heading",
-      "value": "2. Floats (Decimal Numbers)"
+      "value": "Text: str"
     },
     {
       "type": "paragraph",
-      "value": "A float is a number with a decimal point. You use it when a value isn't a whole number, like half a cookie (2.5) or a height (4.2)."
-    },
-    {
-      "type": "code",
-      "language": "python",
-      "value": "cookies = 2.5\nheight = 4.2"
-    },
-    {
-      "type": "heading",
-      "value": "3. Strings (Text)"
-    },
-    {
-      "type": "paragraph",
-      "value": "A string is text: words, names, or sentences. To make a string, you wrap the text in quotation marks. If you forget the quotation marks, Python won't know it's text and will give an error."
+      "value": "A string (`str`) is text: words, names, or sentences. Wrap it in quotation marks. You can use double quotes or single quotes, as long as you use the same one at the start and the end. Without quotes, Python thinks the word is a variable name and gives an error."
     },
     {
       "type": "code",
@@ -53,15 +44,33 @@
     },
     {
       "type": "tip",
-      "value": "You can use double quotes (\") or single quotes ('). Both work, as long as you use the same one at the start and the end."
+      "value": "Watch out: the number 7 is an int, but \"7\" (with quotes) is a str. Same digit, different type. You can add 7 + 3 but not \"7\" + 3."
+    },
+    {
+      "type": "heading",
+      "value": "Yes or No: bool"
+    },
+    {
+      "type": "paragraph",
+      "value": "A boolean (`bool`) has only two possible values: `True` or `False`. Python uses booleans to answer yes/no questions like 'is the door open?' or 'did the player win?'. Notice the capital letter. Writing `true` with a small t is not the same thing, and Python will give an error."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "game_over = False\nlogged_in = True"
     }
   ],
-  "editorCode": "apples = 5\ncookies = 2.5\nhero = \"Spiderman\"\n\nprint(apples)\nprint(cookies)\nprint(hero)",
+  "editorCode": "apples = 5\ncookies = 2.5\nhero = \"Spiderman\"\ngame_over = False\n\nprint(apples)\nprint(cookies)\nprint(hero)\nprint(game_over)",
   "practice": [
     {
       "id": 1,
-      "question": "Make a string variable called 'pet_name' with the name of a pet (real or imaginary), then print it.",
+      "question": "Make a string variable called 'pet_name' with the name of a pet, then print it.",
       "starterCode": "pet_name = \nprint(pet_name)"
+    },
+    {
+      "id": 2,
+      "question": "Make a boolean called 'is_sunny' and set it to True. Print it.",
+      "starterCode": "is_sunny = \nprint(is_sunny)"
     }
   ],
   "quiz": [
@@ -84,6 +93,16 @@
       ],
       "answer": 1,
       "explain": "Text must be wrapped in quotation marks. Without them, Python thinks `Batman` is a variable name and gives an error."
+    },
+    {
+      "question": "What type is the value `\"7\"` (with quotes)?",
+      "options": [
+        "int",
+        "float",
+        "str"
+      ],
+      "answer": 2,
+      "explain": "The quotation marks make it text (a string). Without the quotes, `7` would be an int."
     }
   ]
 }

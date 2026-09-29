@@ -10,46 +10,55 @@
     },
     {
       "type": "paragraph",
-      "value": "Sometimes a decision depends on more than one thing. For example, you can go to the park only if it is sunny AND your homework is done. Python lets you combine conditions with three keywords: `and`, `or`, and `not`."
+      "value": "Sometimes a decision depends on more than one thing. You can go to the park only if it is sunny and your homework is done. Python combines conditions with three keywords: `and`, `or`, and `not`. Flip the switches below to see what each one does."
+    },
+    {
+      "type": "widget",
+      "kind": "logic-bench",
+      "labelA": "sunny",
+      "labelB": "homework_done",
+      "a": true,
+      "b": true
     },
     {
       "type": "heading",
-      "value": "1. and"
+      "value": "and, or, not"
     },
     {
       "type": "paragraph",
-      "value": "`and` is True only when BOTH sides are True. If even one side is False, the whole thing is False."
+      "value": "`and` is True only when both sides are True, so a single False makes the whole thing False. `or` is True when at least one side is True, and is False only when both sides are False. `not` takes a single value and flips it to the opposite."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "sunny = True\nhomework_done = True\nif sunny and homework_done:\n    print(\"You can go to the park!\")"
-    },
-    {
-      "type": "heading",
-      "value": "2. or"
-    },
-    {
-      "type": "paragraph",
-      "value": "`or` is True when AT LEAST ONE side is True. It is False only when both sides are False."
+      "value": "sunny = True\nhomework_done = True\n\nif sunny and homework_done:\n    print(\"You can go to the park!\")"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "has_cookie = True\nhas_cake = False\nif has_cookie or has_cake:\n    print(\"You have a sweet treat!\")"
-    },
-    {
-      "type": "heading",
-      "value": "3. not"
-    },
-    {
-      "type": "paragraph",
-      "value": "`not` flips a value to its opposite. It turns True into False, and False into True."
+      "value": "has_cookie = True\nhas_cake = False\n\nif has_cookie or has_cake:\n    print(\"You have a sweet treat!\")"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "raining = False\nprint(not raining)  # Prints True"
+      "value": "raining = False\nprint(not raining)    # True"
+    },
+    {
+      "type": "tip",
+      "value": "A variable that already holds True or False does not need `== True`. Writing `if sunny:` is the same as `if sunny == True:`, and it reads better."
+    },
+    {
+      "type": "heading",
+      "value": "Putting Them Together"
+    },
+    {
+      "type": "paragraph",
+      "value": "You can mix these keywords with the comparisons you learned earlier, and combine more than two at once. Use parentheses when you want to be sure which part is worked out first."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "age = 15\nhas_ticket = True\n\nif age >= 12 and has_ticket:\n    print(\"Enjoy the film!\")\n\nraining = True\nhas_umbrella = False\n\nif raining and not has_umbrella:\n    print(\"You will get wet!\")"
     }
   ],
   "editorCode": "raining = True\nhas_umbrella = False\nif raining and not has_umbrella:\n    print(\"You will get wet!\")",
@@ -58,6 +67,11 @@
       "id": 1,
       "question": "Fill in the condition so it prints 'Access Granted!' only when both 'has_key' is True and 'knows_password' is True.",
       "starterCode": "has_key = True\nknows_password = True\nif :\n    print(\"Access Granted!\")\nelse:\n    print(\"Access Denied!\")"
+    },
+    {
+      "id": 2,
+      "question": "Change the condition so the message prints when the player has EITHER a coin or a ticket.",
+      "starterCode": "has_coin = False\nhas_ticket = True\nif has_coin and has_ticket:\n    print(\"You may ride!\")"
     }
   ],
   "quiz": [
@@ -66,20 +80,33 @@
       "options": [
         "or",
         "and",
-        "not"
+        "not",
+        "=="
       ],
       "answer": 1,
-      "explain": "`and` needs both sides to be True. `or` needs only one side, and `not` flips a single value."
+      "explain": "and needs both sides to be True. or needs only one side, and not flips a single value."
     },
     {
       "question": "If raining = True, what does 'not raining' give you?",
       "options": [
         "True",
         "False",
-        "Error"
+        "raining",
+        "An error"
       ],
       "answer": 1,
-      "explain": "`not` flips the value. Since raining is True, `not raining` becomes False."
+      "explain": "not flips the value. Since raining is True, not raining becomes False."
+    },
+    {
+      "question": "What is the result of: False or True",
+      "options": [
+        "True",
+        "False",
+        "Both",
+        "An error"
+      ],
+      "answer": 0,
+      "explain": "or only needs one side to be True. The right side is True, so the whole thing is True."
     }
   ]
 }

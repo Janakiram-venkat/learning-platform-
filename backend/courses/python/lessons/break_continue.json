@@ -10,41 +10,70 @@
     },
     {
       "type": "paragraph",
-      "value": "Sometimes you want to stop a loop early, or skip just one turn. Python gives you two keywords for this: `break` and `continue`."
-    },
-    {
-      "type": "heading",
-      "value": "1. break (stop the loop)"
+      "value": "Normally a loop runs every turn from start to finish. Two keywords let you change that. `break` stops the loop completely, and `continue` skips the rest of the current turn and moves on to the next one. Both are usually written inside an `if`, so they only happen in the case you care about."
     },
     {
       "type": "paragraph",
-      "value": "`break` stops the loop right away, even if there were more turns to go. As soon as Python reaches `break`, it leaves the loop completely."
+      "value": "The two are easy to mix up, so the widget below runs the same loop with each keyword. Switch between them and watch what changes in the trace."
+    },
+    {
+      "type": "widget",
+      "kind": "loop-flow",
+      "from": 1,
+      "to": 6,
+      "at": 3,
+      "mode": "break"
+    },
+    {
+      "type": "heading",
+      "value": "break stops the loop"
+    },
+    {
+      "type": "paragraph",
+      "value": "As soon as Python reaches `break`, it leaves the loop entirely. The turns that were still to come never happen at all."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "for cookie in range(1, 6):\n    if cookie == 4:\n        print(\"Stop! Something's wrong with cookie 4.\")\n        break\n    print(\"Eating cookie\", cookie)"
-    },
-    {
-      "type": "heading",
-      "value": "2. continue (skip one turn)"
+      "value": "for cookie in range(1, 6):\n    if cookie == 4:\n        print(\"Stop! Something is wrong with cookie 4.\")\n        break\n    print(\"Eating cookie\", cookie)"
     },
     {
       "type": "paragraph",
-      "value": "`continue` doesn't stop the loop. It skips the rest of the current turn and jumps straight to the next one."
+      "value": "That loop eats cookies 1, 2 and 3, then hits the break on cookie 4 and stops. Cookie 5 is never reached."
+    },
+    {
+      "type": "heading",
+      "value": "continue skips one turn"
+    },
+    {
+      "type": "paragraph",
+      "value": "`continue` does not stop the loop. It jumps straight to the next turn, skipping whatever was left in the current one. The loop still runs to the end, but one turn does less work than the others."
     },
     {
       "type": "code",
       "language": "python",
       "value": "for floor in range(1, 6):\n    if floor == 3:\n        print(\"Skipping floor 3\")\n        continue\n    print(\"Visiting floor\", floor)"
+    },
+    {
+      "type": "paragraph",
+      "value": "That loop visits floors 1, 2, 4 and 5. Floor 3 is skipped, but the lift still carries on to the top."
+    },
+    {
+      "type": "tip",
+      "value": "A quick way to remember it: break leaves the building, continue skips a floor."
     }
   ],
   "editorCode": "for i in range(1, 6):\n    if i == 3:\n        break\n    print(i)",
   "practice": [
     {
       "id": 1,
-      "question": "Change the code to print the numbers 1 to 5, but skip the number 3 using continue.",
-      "starterCode": "for i in range(1, 6):\n    if i == 3:\n        # Write continue here\n    print(i)"
+      "question": "Change the code to print the numbers 1 to 5 but skip the number 3. Replace pass with the right keyword.",
+      "starterCode": "for i in range(1, 6):\n    if i == 3:\n        pass    # replace this line\n    print(i)"
+    },
+    {
+      "id": 2,
+      "question": "Make this loop stop completely once it reaches 4, so it only prints 1, 2 and 3.",
+      "starterCode": "for i in range(1, 7):\n    if i == 4:\n        pass    # replace this line\n    print(i)"
     }
   ],
   "quiz": [
@@ -53,20 +82,33 @@
       "options": [
         "continue",
         "break",
-        "pass"
+        "pass",
+        "return"
       ],
       "answer": 1,
-      "explain": "`break` leaves the loop completely and stops it. `continue` only skips one turn, and `pass` does nothing."
+      "explain": "break leaves the loop completely. continue only skips one turn, and pass does nothing at all."
     },
     {
       "question": "What does 'continue' do inside a loop?",
       "options": [
         "Stops the loop forever.",
         "Skips the rest of this turn and starts the next one.",
-        "Speeds up the loop."
+        "Speeds up the loop.",
+        "Starts the loop again from the beginning."
       ],
       "answer": 1,
-      "explain": "`continue` skips whatever is left in the current turn and jumps to the next one."
+      "explain": "continue skips whatever is left in the current turn and jumps to the next one. The loop itself keeps going."
+    },
+    {
+      "question": "What does this print?  for i in range(1, 5):  /  if i == 2: continue  /  print(i)",
+      "options": [
+        "1, 3, 4",
+        "1",
+        "1, 2, 3, 4",
+        "3, 4"
+      ],
+      "answer": 0,
+      "explain": "continue skips only the turn where i is 2. Every other turn prints as normal, so you get 1, 3, 4."
     }
   ]
 }

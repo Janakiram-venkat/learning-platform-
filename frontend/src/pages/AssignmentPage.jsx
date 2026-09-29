@@ -362,7 +362,7 @@ export default function AssignmentPage() {
             {[1, 2, 3].map((s) => (
               <Star
                 key={s}
-                className={`h-14 w-14 animate-star-pop ${s <= stars ? 'fill-signal text-signal' : 'fill-gray-200 text-gray-200'}`}
+                className={`h-14 w-14 animate-star-pop ${s <= stars ? 'fill-signal text-signal' : 'fill-ink/15 text-ink/15'}`}
                 style={{ animationDelay: `${s * 0.15}s` }}
               />
             ))}
@@ -453,7 +453,7 @@ export default function AssignmentPage() {
         <h2 className="mb-5 font-lab text-xl font-bold text-ink sm:text-2xl">{round.prompt}</h2>
 
         {round.code && (
-          <pre className="mb-6 overflow-x-auto rounded-2xl bg-gray-900 p-5 font-mono text-sm text-gray-100 shadow-inner">
+          <pre className="mb-6 overflow-x-auto rounded-2xl bg-well p-5 font-mono-lab text-sm text-white/90 shadow-inner">
             {round.code}
           </pre>
         )}
@@ -469,7 +469,7 @@ export default function AssignmentPage() {
               if (locked) {
                 if (isAnswer) { style = 'border-mint bg-mint/10 text-mint-deep'; anim = 'animate-correct'; }
                 else if (isChosen) { style = 'border-wire/50 bg-wire/10 text-wire'; anim = 'animate-shake'; }
-                else style = 'border-gray-200 bg-white opacity-60';
+                else style = 'border-ink/15 bg-white opacity-60';
               }
               return (
                 <button
@@ -519,7 +519,7 @@ export default function AssignmentPage() {
                         <span className="whitespace-pre">{block.text}</span>
                       </button>
                     ) : (
-                      <span className="flex-1 text-sm font-semibold text-gray-300">drop a line here…</span>
+                      <span className="flex-1 text-sm font-semibold text-ink/35">drop a line here…</span>
                     )}
                   </div>
                 );
@@ -533,7 +533,7 @@ export default function AssignmentPage() {
               onDrop={handleDrop((p) => p.from === 'slot' && returnOrderBlock(p.slotIndex))}
               className="flex min-h-[3rem] flex-wrap gap-2 rounded-2xl border-2 border-dashed border-signal/30 bg-signal/8 p-3"
             >
-              {orderPool.length === 0 && <span className="px-1 py-2 text-sm font-semibold text-gray-400">All blocks placed 👍</span>}
+              {orderPool.length === 0 && <span className="px-1 py-2 text-sm font-semibold text-ink/45">All blocks placed 👍</span>}
               {orderPool.map((item) => (
                 <button
                   key={item.id}
@@ -606,7 +606,7 @@ export default function AssignmentPage() {
                           {assigned.text}
                         </button>
                       ) : (
-                        <span className="flex-1 text-xs font-semibold text-gray-300">drop the answer here…</span>
+                        <span className="flex-1 text-xs font-semibold text-ink/35">drop the answer here…</span>
                       )}
                       {correct && <Check className="h-4 w-4 shrink-0 text-mint-deep" />}
                       {wrong && <X className="h-4 w-4 shrink-0 text-wire" />}
@@ -641,7 +641,7 @@ export default function AssignmentPage() {
               className="flex min-h-[3rem] flex-wrap gap-2 rounded-2xl border-2 border-dashed border-signal/30 bg-signal/8 p-3"
             >
               {matchRight.every(r => Object.values(matchAssign).includes(r.id)) && (
-                <span className="px-1 py-2 text-sm font-semibold text-gray-400">All answers placed 👍</span>
+                <span className="px-1 py-2 text-sm font-semibold text-ink/45">All answers placed 👍</span>
               )}
               {matchRight.map((r) => {
                 if (Object.values(matchAssign).includes(r.id)) return null;

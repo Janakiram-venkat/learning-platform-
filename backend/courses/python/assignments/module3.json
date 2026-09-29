@@ -1,43 +1,81 @@
 {
   "moduleId": 3,
-  "title": "Loop Runner Arcade",
-  "intro": "Loops repeat your code over and over! Predict the runs, fix the loops, and stack the blocks. First-try wins earn ⭐⭐⭐!",
+  "title": "Loop Runner Checkpoint",
+  "intro": "You have learned for loops, range, while loops, and the break and continue keywords. Time to prove it. Eleven rounds, one from every idea in this module. Get them right on the first try to earn ⭐⭐⭐!",
   "emoji": "🔁",
   "rounds": [
     {
       "type": "predict",
       "prompt": "What does this loop print?",
       "code": "for i in range(3):\n    print(i)",
-      "options": ["0 1 2", "1 2 3", "0 1 2 3"],
+      "options": ["0 1 2", "1 2 3", "0 1 2 3", "3 3 3"],
       "answer": 0,
-      "explain": "range(3) counts 0, 1, 2, it starts at 0 and stops before 3."
+      "explain": "range(3) counts 0, 1, 2. It starts at 0 and stops before 3."
     },
     {
       "type": "concept",
       "prompt": "How many times does range(5) repeat?",
-      "options": ["5 times", "4 times", "6 times"],
+      "options": ["5 times", "4 times", "6 times", "It depends"],
       "answer": 0,
-      "explain": "range(5) gives 0,1,2,3,4, that's 5 numbers, so 5 loops."
+      "explain": "range(5) gives 0, 1, 2, 3, 4. That is five numbers, so the loop runs five times."
+    },
+    {
+      "type": "predict",
+      "prompt": "range can take two numbers. What does this print?",
+      "code": "for i in range(2, 5):\n    print(i)",
+      "options": ["2 3 4", "2 3 4 5", "0 1 2 3 4", "2 5"],
+      "answer": 0,
+      "explain": "With two numbers, range starts at the first and stops before the second. So you get 2, 3, 4."
     },
     {
       "type": "bug",
-      "prompt": "This while loop runs forever! Pick the fix.",
+      "prompt": "This loop gives an error. Pick the fix.",
+      "code": "for i in range(3):\nprint(i)",
+      "options": [
+        "Indent the print line so it sits inside the loop",
+        "Remove the colon from the for line",
+        "Change range(3) to range(0, 3)",
+        "Put print on the same line as for"
+      ],
+      "answer": 0,
+      "explain": "The indentation is what tells Python which lines belong inside the loop. Without it, Python does not know what to repeat."
+    },
+    {
+      "type": "bug",
+      "prompt": "This while loop runs forever. Pick the fix.",
       "code": "count = 0\nwhile count < 3:\n    print(count)",
       "options": [
         "Add count = count + 1 inside the loop",
         "Remove the print line",
-        "Change < to ="
+        "Change < to =",
+        "Change while to for"
       ],
       "answer": 0,
-      "explain": "Without changing count, the condition stays True forever. Increase it so the loop can end."
+      "explain": "Nothing inside the loop changes count, so the condition stays True forever. Something has to move it toward False."
+    },
+    {
+      "type": "predict",
+      "prompt": "How many times does this print?",
+      "code": "n = 3\nwhile n > 0:\n    print(\"Go!\")\n    n -= 1",
+      "options": ["3 times", "2 times", "4 times", "Forever"],
+      "answer": 0,
+      "explain": "n is 3, then 2, then 1 on the three passes that print. On the next check n is 0, which is not greater than 0, so the loop ends."
     },
     {
       "type": "predict",
       "prompt": "What is the LAST number printed?",
       "code": "for n in range(5):\n    if n == 3:\n        break\n    print(n)",
-      "options": ["2", "3", "4"],
+      "options": ["2", "3", "4", "Nothing is printed"],
       "answer": 0,
-      "explain": "break stops the loop when n is 3, so the last printed number is 2."
+      "explain": "break stops the loop the moment n reaches 3, before the print runs. So the last number that made it out was 2."
+    },
+    {
+      "type": "predict",
+      "prompt": "Same loop, one keyword changed. What prints now?",
+      "code": "for n in range(5):\n    if n == 3:\n        continue\n    print(n)",
+      "options": ["0 1 2 4", "0 1 2", "0 1 2 3 4", "4"],
+      "answer": 0,
+      "explain": "continue skips only the turn where n is 3. The loop carries on to the end, so there is a gap but nothing is cut short."
     },
     {
       "type": "concept",
@@ -45,16 +83,35 @@
       "options": [
         "Skips to the next turn of the loop",
         "Stops the loop completely",
-        "Starts the loop over from zero"
+        "Starts the loop over from zero",
+        "Nothing at all"
       ],
       "answer": 0,
-      "explain": "continue skips the rest of THIS turn and jumps straight to the next one. (break stops it.)"
+      "explain": "continue skips the rest of THIS turn and jumps straight to the next one. break is the one that stops the loop."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each piece to what it does.",
+      "pairs": [
+        { "left": "for", "right": "Repeat a set number of times" },
+        { "left": "while", "right": "Repeat as long as a condition is True" },
+        { "left": "range(4)", "right": "Gives 0, 1, 2, 3" },
+        { "left": "range(1, 4)", "right": "Gives 1, 2, 3" },
+        { "left": "break", "right": "Leave the loop immediately" },
+        { "left": "continue", "right": "Skip the rest of this turn" }
+      ],
+      "explain": "for and while are the two kinds of loop, range decides which numbers a for loop gets, and break and continue change the flow once it is running."
     },
     {
       "type": "order",
-      "prompt": "Build a loop that prints each number from 0 to 2.",
-      "solution": ["for i in range(3):", "    print(i)"],
-      "explain": "The for line sets up the loop, and the indented print runs each turn."
+      "prompt": "Build a countdown: start at 3, print each number, and step down until it stops.",
+      "solution": [
+        "count = 3",
+        "while count > 0:",
+        "    print(count)",
+        "    count -= 1"
+      ],
+      "explain": "Create the counter before the loop, check it in the while condition, print inside, and lower it on every pass so the condition eventually turns False."
     }
   ]
 }

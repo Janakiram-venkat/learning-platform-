@@ -2,15 +2,35 @@
   "moduleId": 5,
   "title": "Treasure Bag",
   "emoji": "🎒",
-  "brief": "A list lets you keep many things in one variable, all in order. Your Treasure Bag starts with two items, then you'll add a new one with .append(), count everything with len(), and show the whole bag. Fill in the three lines, then press Check Project!",
+  "brief": "A list keeps many things in one variable, all in order. Your Treasure Bag starts with two items, takes a new one from the player, and then reports what it is carrying.",
+  "problem": {
+    "goal": "Add the player's treasure to the bag, then print how many items the bag holds, the item in the first slot, and the whole bag.",
+    "example": {
+      "typed": ["potion"],
+      "output": ["Items in bag: 3", "First slot: sword", "['sword', 'shield', 'potion']"]
+    },
+    "rules": [
+      "The new treasure goes on the end of the bag, after the ones already there.",
+      "The count must come from len(bag), not from typing the number 3 yourself.",
+      "The first slot is read with an index, and the first index is 0.",
+      "The starting items and the input line stay exactly as they are."
+    ]
+  },
   "steps": [
-    "The bag already holds \"sword\" and \"shield\", and the program asks the user for a new treasure.",
-    "Add the new item to the end of the list using bag.append(new_item).",
-    "Print how many items are in the bag now using len(bag).",
-    "Print the whole bag with print(bag).",
-    "Run it, add a treasure, then press Check Project."
+    "The bag already holds \"sword\" and \"shield\", and the program asks the player for a new treasure.",
+    "Add the new item to the end of the list with bag.append(new_item).",
+    "Print how many items the bag holds now, using len(bag).",
+    "Print the item in the first slot, using its index.",
+    "Print the whole bag, then press Check project."
   ],
-  "starterCode": "# 🎒 Treasure Bag, collect items in a list!\n\nbag = [\"sword\", \"shield\"]\n\nnew_item = input(\"What treasure do you want to add? \")\n\n# 1) Add new_item to the end of the bag using .append()\n# bag.append(new_item)\n\n# 2) Print how many items are in the bag now (use len):\n# print(\"Items in bag:\", len(bag))\n\n# 3) Print the whole bag:\n# print(bag)\n",
+  "starterCode": "# 🎒 Treasure Bag: collect items in a list!\n\nbag = [\"sword\", \"shield\"]\n\nnew_item = input(\"What treasure do you want to add? \")\n\n# 1) Add new_item to the end of the bag with .append()\n\n\n# 2) Print how many items are in the bag now, using len(bag)\n\n\n# 3) Print the item in the FIRST slot of the bag\n\n\n# 4) Print the whole bag\n",
+  "hints": [
+    "Run it before changing anything. It asks for a treasure and then prints nothing, because none of the four steps are written yet.",
+    "Step 1 is one line on its own: bag.append(new_item). Do not write bag = bag.append(new_item), because .append hands nothing back and that would leave bag as None.",
+    "For step 2, len(bag) gives the number. Putting it in a print with a label reads nicely: print(\"Items in bag:\", len(bag)).",
+    "The first slot is index 0, not 1. So step 3 is print(\"First slot:\", bag[0]).",
+    "Step 4 is just print(bag). Printing the list itself shows the square brackets and quotes, which is what the tests look for."
+  ],
   "inputPlaceholder": "potion",
   "inputHint": "Type one treasure to add to the bag.",
   "tests": [
@@ -25,5 +45,5 @@
       "expect": ["3", "sword", "shield", "map"]
     }
   ],
-  "successMessage": "Nice haul! 🎒 Your list grows with .append(), counts itself with len(), and keeps everything in order. That's exactly what lists are made for!"
+  "successMessage": "Nice haul! Your list grows with .append(), counts itself with len(), and reads any slot by index. That is exactly what lists are made for."
 }

@@ -10,19 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Imagine you had to write 'I will not throw paper airplanes' 100 times. That would take a long time by hand. A computer can do it instantly. A loop lets you repeat an action as many times as you want, using just a couple of lines."
-    },
-    {
-      "type": "heading",
-      "value": "The for Loop"
-    },
-    {
-      "type": "paragraph",
-      "value": "The most common loop is the `for` loop. You use it together with `range()`, which tells the loop how many times to repeat."
-    },
-    {
-      "type": "paragraph",
-      "value": "For example, to print 'Hello!' three times:"
+      "value": "Imagine having to write 'I will not throw paper airplanes' one hundred times. By hand that takes an afternoon. A loop lets you write the action once and tell Python how many times to repeat it. The most common one is the `for` loop, which you use together with `range()`."
     },
     {
       "type": "code",
@@ -30,20 +18,30 @@
       "value": "for i in range(3):\n    print(\"Hello!\")"
     },
     {
+      "type": "simulation",
+      "kind": "loop",
+      "times": 3,
+      "say": "I love Python!"
+    },
+    {
       "type": "heading",
-      "value": "The Space in Front (Indentation)"
+      "value": "Indentation"
     },
     {
       "type": "paragraph",
-      "value": "Notice the space before `print`. That's called indentation. In Python, you press Tab (or a few spaces) to push a line inward. The indented lines are the ones that get repeated. Indentation is how Python knows which lines belong inside the loop."
+      "value": "Notice the space in front of `print`. That is called indentation, and you make it by pressing Tab or typing four spaces. The indented lines are the ones that get repeated, so indentation is how Python knows which lines belong inside the loop."
     },
     {
       "type": "tip",
-      "value": "If you forget to indent the line inside the loop, Python gives an error, because it can't tell what you want to repeat."
+      "value": "If you forget to indent the line inside the loop, Python stops with an error, because it cannot tell which lines you meant to repeat."
+    },
+    {
+      "type": "heading",
+      "value": "The Counter Variable"
     },
     {
       "type": "paragraph",
-      "value": "The `i` in the loop keeps track of which repeat you're on. It starts counting at 0, so the values go 0, 1, 2, and so on."
+      "value": "The `i` in the loop is a variable that holds which turn you are on. Python fills it in for you on every repeat. It starts at 0, so for `range(5)` the values go 0, 1, 2, 3, 4. You can print it like any other variable."
     },
     {
       "type": "code",
@@ -51,18 +49,45 @@
       "value": "for i in range(5):\n    print(\"Repeat number:\", i)"
     },
     {
-      "type": "simulation",
-      "kind": "loop",
-      "times": 3,
-      "say": "I love Python!"
+      "type": "tip",
+      "value": "The counter does not have to be called `i`. Any variable name works, and a clear one often reads better: `for floor in range(5):`."
+    },
+    {
+      "type": "heading",
+      "value": "Choosing Where to Start and Stop"
+    },
+    {
+      "type": "paragraph",
+      "value": "`range()` can take more than one number. With two numbers it starts at the first and stops before the second, so `range(1, 6)` gives 1, 2, 3, 4, 5. With a third number it counts in steps, and a negative step counts backwards. Turn the dials below to see exactly which numbers come out."
+    },
+    {
+      "type": "widget",
+      "kind": "range-explorer",
+      "start": 0,
+      "stop": 5,
+      "step": 1
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "for i in range(1, 6):\n    print(i)        # 1 2 3 4 5\n\nfor i in range(0, 10, 2):\n    print(i)        # 0 2 4 6 8"
+    },
+    {
+      "type": "tip",
+      "value": "range always stops before the stop number, never on it. That is why range(5) gives five numbers but the last one is 4."
     }
   ],
   "editorCode": "for i in range(5):\n    print(\"I am learning so fast!\")",
   "practice": [
     {
       "id": 1,
-      "question": "Use a for loop to print your favorite food 4 times.",
-      "starterCode": "for i in range(4):\n    # Add your print line below (don't forget to indent it)"
+      "question": "Use a for loop to print your favourite food 4 times. Replace the pass line with your print.",
+      "starterCode": "for i in range(4):\n    pass    # replace this line with your print"
+    },
+    {
+      "id": 2,
+      "question": "Print the numbers 1 to 10 using range with two numbers.",
+      "starterCode": "for i in range(1, 11):\n    pass    # replace this line with print(i)"
     }
   ],
   "quiz": [
@@ -71,20 +96,33 @@
       "options": [
         "It deletes all your code.",
         "It repeats an action over and over.",
-        "It makes the computer shut down."
+        "It makes the computer shut down.",
+        "It stores a value."
       ],
       "answer": 1,
-      "explain": "A loop repeats the same action again and again, so you don't have to copy and paste the code."
+      "explain": "A loop repeats the same action again and again, so you do not have to copy and paste the code."
     },
     {
       "question": "Why do we indent the line inside a loop?",
       "options": [
         "To make the code look pretty.",
         "To tell Python which line should be repeated.",
-        "To slow down the computer."
+        "To slow down the computer.",
+        "Python ignores indentation."
       ],
       "answer": 1,
       "explain": "The indentation tells Python exactly which lines belong inside the loop and should be repeated."
+    },
+    {
+      "question": "Which numbers does range(1, 4) give you?",
+      "options": [
+        "1, 2, 3",
+        "1, 2, 3, 4",
+        "0, 1, 2, 3",
+        "1, 4"
+      ],
+      "answer": 0,
+      "explain": "With two numbers, range starts at the first and stops before the second. So range(1, 4) gives 1, 2, 3."
     }
   ]
 }

@@ -1,59 +1,122 @@
 {
   "moduleId": 5,
-  "title": "Collection Keeper Arcade",
-  "intro": "Lists, tuples, and dictionaries all hold many values at once! Grab the right items and store them well. First-try wins earn ⭐⭐⭐!",
+  "title": "Collection Keeper Checkpoint",
+  "intro": "Lists, tuples and dictionaries all hold many values at once, and each one is good at a different job. Eleven rounds covering all three. Get them right on the first try to earn ⭐⭐⭐!",
   "emoji": "🎒",
   "rounds": [
     {
       "type": "predict",
       "prompt": "What does this print?",
       "code": "fruits = [\"apple\", \"banana\", \"cherry\"]\nprint(fruits[0])",
-      "options": ["apple", "banana", "1"],
+      "options": ["apple", "banana", "cherry", "0"],
       "answer": 0,
-      "explain": "Lists start counting at 0, so fruits[0] is the first item: apple."
+      "explain": "Lists count from 0, so fruits[0] is the first item."
+    },
+    {
+      "type": "predict",
+      "prompt": "Negative indexes count back from the end. What prints?",
+      "code": "fruits = [\"apple\", \"banana\", \"cherry\"]\nprint(fruits[-1])",
+      "options": ["cherry", "apple", "banana", "An error"],
+      "answer": 0,
+      "explain": "Index -1 is the last item, -2 is the one before it, and so on. It saves working out len(fruits) - 1 yourself."
+    },
+    {
+      "type": "bug",
+      "prompt": "This stops with an IndexError. The list has 3 items. Pick the fix.",
+      "code": "colors = [\"red\", \"green\", \"blue\"]\nprint(colors[3])",
+      "options": [
+        "Use a valid index such as colors[2]",
+        "Add more print lines",
+        "Remove the square brackets",
+        "Change the list into a tuple"
+      ],
+      "answer": 0,
+      "explain": "Three items use the indexes 0, 1 and 2. The last index is always the length minus one, so 3 is already past the end."
+    },
+    {
+      "type": "predict",
+      "prompt": "What is the length after this runs?",
+      "code": "bag = [\"sword\", \"shield\"]\nbag.append(\"potion\")\nprint(len(bag))",
+      "options": ["3", "2", "1", "4"],
+      "answer": 0,
+      "explain": ".append() puts one item on the end, so a list of two becomes a list of three."
+    },
+    {
+      "type": "predict",
+      "prompt": "A for loop can walk through a list directly. What does this print?",
+      "code": "pets = [\"cat\", \"dog\"]\nfor pet in pets:\n    print(pet)",
+      "options": [
+        "cat, then dog",
+        "0, then 1",
+        "pet, then pet",
+        "[\"cat\", \"dog\"]"
+      ],
+      "answer": 0,
+      "explain": "Looping over a list hands you the items themselves, one per turn. No indexes needed."
     },
     {
       "type": "concept",
-      "prompt": "Which collection CANNOT be changed after you make it?",
-      "options": ["A tuple", "A list", "A dictionary"],
+      "prompt": "Which collection cannot be changed after you make it?",
+      "options": ["A tuple", "A list", "A dictionary", "All three can change"],
       "answer": 0,
-      "explain": "A tuple can't be changed after you make it, its values stay the same."
+      "explain": "A tuple is locked once created, which is exactly why you use one for values that should never move."
+    },
+    {
+      "type": "bug",
+      "prompt": "This crashes. Pick the fix that keeps the append working.",
+      "code": "sizes = (\"small\", \"medium\")\nsizes.append(\"large\")",
+      "options": [
+        "Make sizes a list with square brackets",
+        "Remove the quotes around the items",
+        "Rename sizes to size",
+        "Use sizes.add(\"large\") instead"
+      ],
+      "answer": 0,
+      "explain": "A tuple has no .append() at all. If the collection needs to grow, it should have been a list from the start."
     },
     {
       "type": "predict",
       "prompt": "What prints here?",
       "code": "ages = {\"Sam\": 9, \"Mia\": 11}\nprint(ages[\"Mia\"])",
-      "options": ["11", "9", "Mia"],
+      "options": ["11", "9", "Mia", "1"],
       "answer": 0,
-      "explain": "A dictionary looks up a value by its key. The key \"Mia\" points to 11."
+      "explain": "A dictionary looks a value up by its key, not by a position. The key \"Mia\" points at 11."
     },
     {
-      "type": "bug",
-      "prompt": "This crashes! The list only has 3 items. Pick the fix.",
-      "code": "colors = [\"red\", \"green\", \"blue\"]\nprint(colors[3])",
+      "type": "predict",
+      "prompt": "The key is not in the dictionary. What happens?",
+      "code": "ages = {\"Sam\": 9}\nprint(ages[\"Mia\"])",
       "options": [
-        "Use a valid index like colors[2]",
-        "Add more print lines",
-        "Remove the square brackets"
+        "It stops with a KeyError",
+        "It prints None",
+        "It prints an empty line",
+        "It adds Mia to the dictionary"
       ],
       "answer": 0,
-      "explain": "3 items use indexes 0, 1, 2. Index 3 doesn't exist, so it errors out."
+      "explain": "Reading a missing key is an error. ages.get(\"Mia\") is the version that hands back None instead of crashing."
     },
     {
-      "type": "concept",
-      "prompt": "How do you add a new item to the end of a list called bag?",
-      "options": ["bag.append(\"sword\")", "bag.add(\"sword\")", "bag + \"sword\""],
-      "answer": 0,
-      "explain": ".append() drops a new item neatly onto the end of the list."
+      "type": "match",
+      "prompt": "Match each collection or piece of syntax to what it is for.",
+      "pairs": [
+        { "left": "[ ]", "right": "A list, ordered and changeable" },
+        { "left": "( )", "right": "A tuple, ordered and locked" },
+        { "left": "{ }", "right": "A dictionary, looked up by key" },
+        { "left": "len(x)", "right": "How many items are in it" },
+        { "left": ".append()", "right": "Add one item to the end of a list" },
+        { "left": ".get()", "right": "Read a key without risking a crash" }
+      ],
+      "explain": "The three bracket types are the three collections, and the three tools are the ones you reach for most: measure it, grow it, or read from it safely."
     },
     {
       "type": "order",
-      "prompt": "Build a list of two pets, then print the first one.",
+      "prompt": "Build a list of two pets, add a third, then print how many there are.",
       "solution": [
         "pets = [\"cat\", \"dog\"]",
-        "print(pets[0])"
+        "pets.append(\"otter\")",
+        "print(len(pets))"
       ],
-      "explain": "Create the list first, then use index [0] to grab the first pet."
+      "explain": "The list has to exist before you can append to it, and len() has to come after the append or it would report the old count."
     }
   ]
 }

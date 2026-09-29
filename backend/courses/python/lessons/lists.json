@@ -1,7 +1,7 @@
 {
   "lessonId": "lists",
   "title": "Lists",
-  "description": "Store many values in order inside a single variable using a list.",
+  "description": "Store many values in order inside a single variable, then read and change them.",
   "difficulty": "Intermediate",
   "content": [
     {
@@ -10,54 +10,85 @@
     },
     {
       "type": "paragraph",
-      "value": "So far, a variable held one value at a time. A list lets you store many values in one variable, kept in order. Think of it like a numbered row of slots, each holding one item."
-    },
-    {
-      "type": "heading",
-      "value": "Making a List"
+      "value": "So far every variable held one value. If you wanted to keep three toys you needed three variables, and ten toys meant ten variables and ten print lines. A list fixes that: one variable holds as many values as you like, kept in the order you put them in."
     },
     {
       "type": "paragraph",
-      "value": "You make a list by putting the items inside square brackets `[ ]`, separated by commas."
+      "value": "You make a list by putting the items inside square brackets, separated by commas. The items can be strings, numbers, or a mix of both."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\nprint(toys)"
+      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\nscores = [10, 25, 3]\nprint(toys)\nprint(len(toys))   # 3, the number of items"
     },
     {
       "type": "heading",
-      "value": "Getting an Item (Indexing)"
+      "value": "Reading One Item"
     },
     {
       "type": "paragraph",
-      "value": "To get one item, you use its position number, called its index. Important: Python starts counting at 0. So index 0 is the first item, index 1 is the second, and so on."
+      "value": "To get a single item you use its position number, called its index. The catch is that Python starts counting at 0, so the first item is at index 0, the second at index 1, and the last one is always at `len(toys) - 1`."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\nprint(toys[0])  # Prints Lego\nprint(toys[2])  # Prints Action Figure"
-    },
-    {
-      "type": "heading",
-      "value": "Adding an Item (.append)"
+      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\nprint(toys[0])    # Lego\nprint(toys[2])    # Action Figure\nprint(toys[-1])   # Action Figure again, counting back from the end"
     },
     {
       "type": "paragraph",
-      "value": "To add a new item to the end of a list, use `.append()`."
+      "value": "Ask for an index that does not exist and Python stops with an `IndexError`. Try it in the lab below: three items means the only valid indexes are 0, 1 and 2, and index 3 is already past the end."
+    },
+    {
+      "type": "widget",
+      "kind": "list-lab",
+      "mode": "list"
+    },
+    {
+      "type": "heading",
+      "value": "Changing a List"
+    },
+    {
+      "type": "paragraph",
+      "value": "A list can be changed after you make it. `.append()` adds one item to the end, `.pop()` removes the last item, and assigning to an index replaces whatever was in that slot."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "toys = [\"Lego\", \"Teddy Bear\"]\ntoys.append(\"Water Gun\")\nprint(toys)  # Prints: ['Lego', 'Teddy Bear', 'Water Gun']"
+      "value": "toys = [\"Lego\", \"Teddy Bear\"]\ntoys.append(\"Water Gun\")     # ['Lego', 'Teddy Bear', 'Water Gun']\ntoys[0] = \"Robot\"            # ['Robot', 'Teddy Bear', 'Water Gun']\ntoys.pop()                   # ['Robot', 'Teddy Bear']\nprint(toys)"
+    },
+    {
+      "type": "tip",
+      "value": "`.append()` changes the list in place and hands nothing back. Writing `toys = toys.append(\"Ball\")` throws the list away and leaves you with None, so call it on its own line."
+    },
+    {
+      "type": "heading",
+      "value": "Looping Over a List"
+    },
+    {
+      "type": "paragraph",
+      "value": "In Module 3 your `for` loops counted through numbers from `range()`. A `for` loop can walk straight through a list instead, handing you one item at a time. You do not need the indexes at all, and it works no matter how long the list is."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\n\nfor toy in toys:\n    print(\"I packed my\", toy)"
+    },
+    {
+      "type": "paragraph",
+      "value": "This is the pairing that makes lists worth having. One list plus one loop replaces however many copied print lines you would otherwise write, and adding a fourth toy needs no new code at all."
     }
   ],
-  "editorCode": "my_shopping_list = [\"Apples\", \"Cookies\", \"Milk\"]\nmy_shopping_list.append(\"Juice\")\nprint(my_shopping_list[1])\nprint(my_shopping_list)",
+  "editorCode": "shopping = [\"Apples\", \"Cookies\", \"Milk\"]\nshopping.append(\"Juice\")\n\nprint(\"First item:\", shopping[0])\nprint(\"Items:\", len(shopping))\n\nfor item in shopping:\n    print(\"-\", item)",
   "practice": [
     {
       "id": 1,
-      "question": "Make a list called 'colors' with 'red', 'green', and 'blue'. Then append 'yellow' and print the full list.",
-      "starterCode": "# Make the list, append 'yellow', and print it below"
+      "question": "Make a list called 'colors' holding 'red', 'green' and 'blue'. Append 'yellow', then print the whole list and its length.",
+      "starterCode": "# 1) Make the list\ncolors = []\n\n# 2) Append 'yellow'\n\n# 3) Print the list and len(colors)\n"
+    },
+    {
+      "id": 2,
+      "question": "Loop over the animals list and print each one on its own line.",
+      "starterCode": "animals = [\"cat\", \"dog\", \"otter\"]\n\n# Write a for loop that prints each animal\nfor animal in animals:\n    pass    # replace this line"
     }
   ],
   "quiz": [
@@ -66,20 +97,33 @@
       "options": [
         "1",
         "0",
-        "-1"
+        "-1",
+        "It depends on the list"
       ],
       "answer": 1,
-      "explain": "Python counts from 0, so the first item is at index 0, the second at index 1, and so on."
+      "explain": "Python counts from 0, so the first item is at index 0 and the second at index 1."
     },
     {
-      "question": "Which method adds an item to the end of a list?",
+      "question": "A list has 4 items. Which index gives the LAST one?",
       "options": [
-        "add()",
-        "append()",
-        "insert()"
+        "4",
+        "3",
+        "5",
+        "0"
       ],
       "answer": 1,
-      "explain": "`append()` adds an item to the end of a list. `insert()` adds at a chosen position, and `add()` isn't a list method."
+      "explain": "Four items use the indexes 0, 1, 2, 3. The last index is always the length minus one, so index 4 would be an IndexError."
+    },
+    {
+      "question": "Which line adds 'Ball' to the end of a list called toys?",
+      "options": [
+        "toys.add(\"Ball\")",
+        "toys.append(\"Ball\")",
+        "toys.insert(\"Ball\")",
+        "toys + \"Ball\""
+      ],
+      "answer": 1,
+      "explain": ".append() puts one item on the end. Lists have no .add(), and .insert() needs a position as well as the item."
     }
   ]
 }

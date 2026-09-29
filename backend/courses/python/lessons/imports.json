@@ -1,63 +1,94 @@
 {
   "lessonId": "imports",
   "title": "Using Modules",
-  "description": "Bring in ready-made code from Python's built-in modules using import.",
+  "description": "Bring in ready-made code from Python's built-in modules with import.",
   "difficulty": "Advanced",
   "content": [
     {
       "type": "heading",
-      "value": "Using Code Others Wrote"
+      "value": "Using Code Other People Wrote"
     },
     {
       "type": "paragraph",
-      "value": "You don't have to write everything yourself. Python comes with lots of ready-made code, grouped into modules. You bring a module into your program with the `import` keyword, and then you can use the tools inside it."
-    },
-    {
-      "type": "heading",
-      "value": "1. The random Module"
-    },
-    {
-      "type": "paragraph",
-      "value": "The `random` module helps when you need something unpredictable, like rolling a dice or picking a random option in a game."
+      "value": "You do not have to build everything from scratch. Python arrives with a large pile of ready-made code, sorted into modules, and each module is a collection of tools for one job. Bringing one in takes a single line at the top of your file."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "import random\n\n# Roll a 6-sided dice:\ndice_roll = random.randint(1, 6)\nprint(\"You rolled a:\", dice_roll)"
-    },
-    {
-      "type": "heading",
-      "value": "2. The math Module"
+      "value": "import random\n\ndice = random.randint(1, 6)\nprint(\"You rolled a\", dice)"
     },
     {
       "type": "paragraph",
-      "value": "The `math` module gives you extra math tools, like square roots (`math.sqrt`) and the value of Pi."
+      "value": "After the import, you reach a tool by writing the module's name, a dot, then the tool's name. Without the import the name `random` means nothing at all, and Python stops with a `NameError`. Switch the import off in the explorer below to see exactly that."
+    },
+    {
+      "type": "widget",
+      "kind": "import-explorer"
+    },
+    {
+      "type": "heading",
+      "value": "random, for Anything Unpredictable"
+    },
+    {
+      "type": "paragraph",
+      "value": "The `random` module is what you reach for when a program should not do the same thing every time: rolling dice, shuffling a deck, picking a prize. `randint(a, b)` gives a whole number between the two, including both ends, and `choice()` picks one item out of a list."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "import math\nprint(math.pi)          # Prints 3.141592653589793\nprint(math.sqrt(25))    # Prints 5.0"
+      "value": "import random\n\nprint(random.randint(1, 6))                       # 1 to 6, either end possible\nprint(random.choice([\"rock\", \"paper\", \"scissors\"]))"
+    },
+    {
+      "type": "tip",
+      "value": "`randint(1, 6)` includes 6, unlike `range(1, 6)`, which stops at 5. The two look alike and behave differently, so it is worth reading twice."
     },
     {
       "type": "heading",
-      "value": "3. The time Module"
+      "value": "math, for the Trickier Sums"
     },
     {
       "type": "paragraph",
-      "value": "The `time` module can make the program pause before running the next line, using `time.sleep()`."
+      "value": "The everyday operators cover most arithmetic. The `math` module covers the rest: square roots, rounding in a chosen direction, and stored values such as pi. Note that `math.pi` is a value rather than a function, so it takes no parentheses."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "import time\nprint(\"Starting timer...\")\ntime.sleep(1)\nprint(\"1 second passed!\")"
+      "value": "import math\n\nprint(math.sqrt(25))     # 5.0, always a float\nprint(math.pi)           # 3.141592653589793\nprint(math.floor(4.8))   # 4, rounded down"
+    },
+    {
+      "type": "heading",
+      "value": "time, and Another Way to Import"
+    },
+    {
+      "type": "paragraph",
+      "value": "The `time` module can pause your program, which is handy for letting a countdown land one line at a time instead of all at once."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "import time\n\nprint(\"Starting...\")\ntime.sleep(1)\nprint(\"One second later!\")"
+    },
+    {
+      "type": "paragraph",
+      "value": "There is a second form of import that pulls one tool out of a module by name. You then use it on its own, without the module name in front. It is shorter, but the module name is a useful reminder of where a tool came from, so use it for the handful of tools you call constantly."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "from random import randint\n\nprint(randint(1, 6))   # no random. in front this time"
     }
   ],
-  "editorCode": "import random\nimport math\n\nprint(\"Random number between 10 and 20:\", random.randint(10, 20))\nprint(\"Square root of 81:\", math.sqrt(81))",
+  "editorCode": "import random\nimport math\n\nprint(\"Dice roll:\", random.randint(1, 6))\nprint(\"Pick one:\", random.choice([\"rock\", \"paper\", \"scissors\"]))\nprint(\"Square root of 81:\", math.sqrt(81))\nprint(\"Rounded down:\", math.floor(9.7))",
   "practice": [
     {
       "id": 1,
-      "question": "Import the 'random' module and print a random whole number between 1 and 100.",
-      "starterCode": "# Import random and print a random number between 1 and 100 below"
+      "question": "Import the random module and print a random whole number between 1 and 100.",
+      "starterCode": "# 1) Import random at the top\n\n# 2) Print a random number between 1 and 100\n"
+    },
+    {
+      "id": 2,
+      "question": "This crashes with a NameError. Add the one missing line.",
+      "starterCode": "print(\"The square root of 49 is\", math.sqrt(49))"
     }
   ],
   "quiz": [
@@ -66,20 +97,33 @@
       "options": [
         "load",
         "import",
-        "borrow"
+        "include",
+        "use"
       ],
       "answer": 1,
-      "explain": "`import` loads a ready-made module so you can use its tools without writing them yourself."
+      "explain": "import loads a ready-made module so you can use its tools without writing them yourself."
     },
     {
-      "question": "Which module would you use to make a random number?",
+      "question": "What happens if you call random.randint(1, 6) without importing random first?",
       "options": [
-        "math",
-        "random",
-        "time"
+        "It works anyway",
+        "Python stops with a NameError",
+        "It always returns 1",
+        "Python imports it for you"
       ],
       "answer": 1,
-      "explain": "The `random` module makes random numbers. `math` is for calculations and `time` is for clocks and delays."
+      "explain": "Until the import line runs, the name random does not exist, so Python has no idea what you are referring to."
+    },
+    {
+      "question": "Which of these can randint(1, 6) never return?",
+      "options": [
+        "1",
+        "6",
+        "0",
+        "3"
+      ],
+      "answer": 2,
+      "explain": "randint includes both ends, so 1 and 6 are both possible. 0 is outside the range entirely."
     }
   ]
 }

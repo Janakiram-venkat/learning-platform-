@@ -10,32 +10,57 @@
     },
     {
       "type": "paragraph",
-      "value": "A Boolean is a special data type that can only be one of two values: True or False. It's a simple way to answer yes-or-no questions. (Booleans are named after a mathematician, George Boole.)"
-    },
-    {
-      "type": "heading",
-      "value": "Comparing Things"
-    },
-    {
-      "type": "paragraph",
-      "value": "You can ask the computer to compare two values using comparison operators. The answer is always a Boolean: either True or False."
-    },
-    {
-      "type": "heading",
-      "value": "The Comparison Operators"
-    },
-    {
-      "type": "paragraph",
-      "value": "- `>`: Is the left side greater than the right?\n- `<`: Is the left side less than the right?\n- `==`: Are the two sides exactly equal? (Use two equals signs `==` to compare. A single `=` is for storing a value in a variable.)\n- `!=`: Are the two sides not equal?"
+      "value": "A Boolean is a data type that can only be one of two values: True or False. It is how Python answers a yes-or-no question. You met booleans in the last module, and now you will start making them yourself."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "print(5 > 3)    # Prints True\nprint(2 == 4)   # Prints False\nprint(10 != 9)  # Prints True"
+      "value": "game_over = False\nlogged_in = True"
     },
     {
       "type": "tip",
-      "value": "In Python, True and False must start with a capital letter. Writing 'true' or 'false' in all lowercase will cause an error."
+      "value": "True and False must start with a capital letter. Writing 'true' or 'false' in lowercase gives an error, and \"True\" in quotes is a string, not a boolean."
+    },
+    {
+      "type": "heading",
+      "value": "Comparing Two Values"
+    },
+    {
+      "type": "paragraph",
+      "value": "You can ask Python to compare two values using a comparison operator. The answer is always a Boolean. Try the lab below: change the numbers, change the operator, and watch the answer flip between True and False."
+    },
+    {
+      "type": "widget",
+      "kind": "comparison-lab",
+      "a": 5,
+      "b": 3,
+      "op": ">"
+    },
+    {
+      "type": "paragraph",
+      "value": "There are six comparison operators. Greater than and less than ask which number is bigger. Adding an equals sign to either one (>= and <=) also counts the case where the two sides match. Then == asks whether the two sides are exactly the same, and != asks whether they are different."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "print(5 > 3)     # True\nprint(2 == 4)    # False\nprint(10 != 9)   # True\nprint(7 >= 7)    # True, because they are equal"
+    },
+    {
+      "type": "tip",
+      "value": "Watch the equals signs carefully. One equals sign (=) stores a value in a variable. Two equals signs (==) ask whether two values match. Mixing them up is the most common beginner mistake in this module."
+    },
+    {
+      "type": "heading",
+      "value": "Saving an Answer"
+    },
+    {
+      "type": "paragraph",
+      "value": "A comparison gives back True or False, and like any other value you can store it in a variable. That lets you work out an answer once and use it later."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "score = 12\npassed = score >= 10\nprint(passed)    # True"
     }
   ],
   "editorCode": "print(12 > 15)\nprint(7 == 7)\nprint(4 != 5)",
@@ -44,6 +69,11 @@
       "id": 1,
       "question": "Make a variable called 'my_guess' that checks whether 8 is equal to 8. Then print it.",
       "starterCode": "my_guess = 8 == 8\nprint(my_guess)"
+    },
+    {
+      "id": 2,
+      "question": "Store a score of 7 in a variable, then make a boolean called 'passed' that checks whether the score is 10 or more. Print it.",
+      "starterCode": "score = 7\npassed = \nprint(passed)"
     }
   ],
   "quiz": [
@@ -52,20 +82,33 @@
       "options": [
         "=",
         "==",
-        "!="
+        "!=",
+        ">="
       ],
       "answer": 1,
-      "explain": "Use a double equals sign `==` to compare two values. A single `=` stores a value in a variable, and `!=` means 'not equal'."
+      "explain": "Use a double equals sign == to compare two values. A single = stores a value in a variable, and != means 'not equal'."
     },
     {
-      "question": "What does '5 != 5' give you?",
+      "question": "What does 5 != 5 give you?",
       "options": [
         "True",
         "False",
-        "Error"
+        "5",
+        "An error"
       ],
       "answer": 1,
-      "explain": "`!=` means 'not equal'. Since 5 IS equal to 5, '5 != 5' is False."
+      "explain": "!= means 'not equal'. Since 5 is equal to 5, the answer is False."
+    },
+    {
+      "question": "What does 7 >= 7 give you?",
+      "options": [
+        "True",
+        "False",
+        "7",
+        "An error"
+      ],
+      "answer": 0,
+      "explain": ">= means 'greater than or equal to'. The two sides are equal, so it is True."
     }
   ]
 }

@@ -6,55 +6,45 @@
   "content": [
     {
       "type": "heading",
-      "value": "What is a Variable?"
+      "value": "Storing a Value"
     },
     {
       "type": "paragraph",
-      "value": "A variable is a way to store a value and give it a name. Think of it like a labeled box: you put something inside, write a name on the label, and later you can find it again by that name."
-    },
-    {
-      "type": "paragraph",
-      "value": "We use variables so the computer can remember values while the program runs. Instead of typing the same number or word again and again, you store it once and use its name."
-    },
-    {
-      "type": "heading",
-      "value": "Making a Variable"
-    },
-    {
-      "type": "paragraph",
-      "value": "To make a variable, write the name you want, then an equals sign `=`, then the value you want to store."
+      "value": "A variable is a way to store a value and give it a name, like a labeled box. To make one, write the name you want, an equals sign `=`, then the value. Now the name and the value are linked: whenever you use the name, Python gives you back the value."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "toys = 10\nname = \"Alex\""
-    },
-    {
-      "type": "paragraph",
-      "value": "Now `toys` holds the number 10, and `name` holds the text \"Alex\". Whenever you use `toys`, Python gives you back 10."
-    },
-    {
-      "type": "tip",
-      "value": "Give variables clear names. `x` doesn't tell you much, but `score` tells you exactly what it holds."
-    },
-    {
-      "type": "heading",
-      "value": "Using a Variable"
-    },
-    {
-      "type": "paragraph",
-      "value": "To see what a variable holds, put its name inside `print`. Notice there are no quotation marks around the name, because you want the value inside, not the word itself."
-    },
-    {
-      "type": "code",
-      "language": "python",
-      "value": "score = 100\nprint(score)"
+      "value": "toys = 10\nname = \"Alex\"\nscore = 100\n\nprint(score)"
     },
     {
       "type": "simulation",
       "kind": "variable",
       "name": "score",
       "value": "100"
+    },
+    {
+      "type": "tip",
+      "value": "Names can have letters, digits and underscores, but they can't start with a digit or have spaces. `player_score` works; `2ndScore` and `player score` do not."
+    },
+    {
+      "type": "heading",
+      "value": "Changing a Variable"
+    },
+    {
+      "type": "paragraph",
+      "value": "A variable can hold a new value later. When you write `score = 250`, Python throws away the old value and stores the new one. The name stays the same; only the value inside the box changes."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "score = 100\nprint(score)\nscore = 250\nprint(score)"
+    },
+    {
+      "type": "simulation",
+      "kind": "variable",
+      "name": "score",
+      "value": "250"
     }
   ],
   "editorCode": "score = 100\nprint(score)",

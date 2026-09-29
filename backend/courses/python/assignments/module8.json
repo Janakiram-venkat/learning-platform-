@@ -1,65 +1,131 @@
 {
   "moduleId": 8,
-  "title": "Bug Catcher Arcade",
-  "intro": "Catch errors before they crash your program, and import powerful modules! First-try wins earn ⭐⭐⭐!",
+  "title": "Bug Catcher Checkpoint",
+  "intro": "Catch errors before they crash your program, and pull in modules other people already wrote. Eleven rounds across both lessons. Get them right on the first try to earn ⭐⭐⭐!",
   "emoji": "🐞",
   "rounds": [
     {
       "type": "concept",
-      "prompt": "Which pair safely handles code that might cause an error?",
-      "options": ["try / except", "if / else", "for / while"],
+      "prompt": "Which pair safely handles code that might fail?",
+      "options": ["try / except", "if / else", "for / while", "def / return"],
       "answer": 0,
-      "explain": "try runs the risky code; except catches the error so your program doesn't crash."
+      "explain": "try runs the risky code and except catches the error, so the program keeps going instead of stopping."
     },
     {
       "type": "predict",
       "prompt": "What does this print?",
-      "code": "try:\n    print(10 / 0)\nexcept:\n    print(\"Oops, can't divide by zero!\")",
-      "options": ["Oops, can't divide by zero!", "0", "10"],
+      "code": "try:\n    print(10 / 0)\nexcept:\n    print(\"Cannot divide by zero!\")",
+      "options": [
+        "Cannot divide by zero!",
+        "0",
+        "10",
+        "Both lines"
+      ],
       "answer": 0,
-      "explain": "Dividing by zero causes an error, so Python jumps to except and prints the safe message."
+      "explain": "The division fails, so Python abandons the try block and runs the except block instead."
+    },
+    {
+      "type": "predict",
+      "prompt": "Which lines actually print here?",
+      "code": "try:\n    print(\"A\")\n    print(10 / 0)\n    print(\"B\")\nexcept:\n    print(\"C\")",
+      "options": [
+        "A, then C",
+        "A, then B, then C",
+        "A, then B",
+        "C only"
+      ],
+      "answer": 0,
+      "explain": "The try block gives up at the failing line. B is inside the block below it, so it never runs at all."
+    },
+    {
+      "type": "predict",
+      "prompt": "The try block works perfectly. What prints?",
+      "code": "try:\n    print(10 / 2)\nexcept:\n    print(\"Failed\")",
+      "options": [
+        "5.0",
+        "5.0, then Failed",
+        "Failed",
+        "5"
+      ],
+      "answer": 0,
+      "explain": "With no error there is nothing to catch, so the except block is skipped. Dividing with / always gives a float, hence 5.0."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which error does int(\"hello\") raise?",
+      "options": [
+        "ValueError",
+        "ZeroDivisionError",
+        "NameError",
+        "IndexError"
+      ],
+      "answer": 0,
+      "explain": "The value is the wrong sort of thing to turn into a number, so it is a ValueError. Naming it lets you give the user a useful message."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why is  except ValueError:  usually better than a bare  except:  ?",
+      "options": [
+        "It only catches that one problem, so other bugs are not hidden",
+        "It runs faster",
+        "It catches more kinds of error",
+        "It stops the program sooner"
+      ],
+      "answer": 0,
+      "explain": "A bare except swallows everything, including mistakes you would rather find out about, and can only offer one vague message."
     },
     {
       "type": "predict",
       "prompt": "What number is printed?",
       "code": "import math\nprint(math.sqrt(16))",
-      "options": ["4.0", "16", "256"],
+      "options": ["4.0", "16", "256", "4"],
       "answer": 0,
-      "explain": "math.sqrt finds the square root. The square root of 16 is 4.0."
+      "explain": "math.sqrt finds the square root and always hands back a float, so it prints 4.0 rather than 4."
     },
     {
       "type": "bug",
-      "prompt": "We want to use random but forgot something. Pick the fix.",
+      "prompt": "This stops with a NameError. Pick the fix.",
       "code": "print(random.randint(1, 6))",
       "options": [
         "Add import random at the top",
         "Remove the numbers",
-        "Change print to return"
+        "Change print to return",
+        "Rename random to rand"
       ],
       "answer": 0,
-      "explain": "Before using a toolkit like random, you must import it first."
+      "explain": "Until the import line runs, the name random does not exist. Import lines belong at the very top of the file."
     },
     {
       "type": "concept",
-      "prompt": "Why do we use except in a try block?",
-      "options": [
-        "To run a backup plan when something goes wrong",
-        "To make the code run faster",
-        "To repeat the code forever"
-      ],
+      "prompt": "Which of these can random.randint(1, 6) never give you?",
+      "options": ["0", "1", "6", "4"],
       "answer": 0,
-      "explain": "except is your safety net, it catches problems and lets the program keep going."
+      "explain": "randint includes both ends, so 1 and 6 are both possible. This is where it differs from range(1, 6), which stops at 5."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each piece to what it does.",
+      "pairs": [
+        { "left": "try", "right": "Holds the code that might fail" },
+        { "left": "except", "right": "Runs only when something went wrong" },
+        { "left": "ValueError", "right": "Raised by int(\"hello\")" },
+        { "left": "ZeroDivisionError", "right": "Raised by 10 / 0" },
+        { "left": "random", "right": "Dice rolls and random picks" },
+        { "left": "math", "right": "Square roots and pi" }
+      ],
+      "explain": "The first four are the error-handling half of the module and the last two are the ready-made code half."
     },
     {
       "type": "order",
-      "prompt": "Build a try/except that warns when dividing by zero.",
+      "prompt": "Build a try/except that warns when dividing by zero, and prints a message afterwards either way.",
       "solution": [
         "try:",
         "    print(5 / 0)",
-        "except:",
-        "    print(\"Cannot divide by zero\")"
+        "except ZeroDivisionError:",
+        "    print(\"Cannot divide by zero\")",
+        "print(\"Done\")"
       ],
-      "explain": "Risky code goes under try, and the rescue message goes under except."
+      "explain": "The risky line goes under try, the rescue under except, and the final line sits outside both so it runs whatever happened."
     }
   ]
 }

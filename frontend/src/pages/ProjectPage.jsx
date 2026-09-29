@@ -222,163 +222,190 @@ export default function ProjectPage() {
         <Sidebar course={course} currentProjectKey={moduleId} onNavigate={() => setSidebarOpen(false)} />
       </div>
 
-      {/* Brief + checklist */}
-      <div className="min-w-0 flex-1 overflow-y-auto bg-paper p-4 sm:p-8">
-        <div className="mx-auto max-w-2xl">
-          <div className="mb-6 flex items-center gap-3">
-            <span className="text-4xl">{project.emoji || '🛠️'}</span>
-            <div>
-              <p className="ref-tag text-pcb">Mini Project</p>
+      {/* Brief + checklist.
+          Layout: on wide screens, the pane splits into a two-column grid so
+          the problem spec sits beside steps+hints, and the goals panel spans
+          the full width below. The whole pane uses `container-type: inline-size`
+          so it measures its own width, not the viewport's (there's a 600px
+          editor beside it that would otherwise skew a viewport-based query). */}
+      <div className="bench-grid min-w-0 flex-1 overflow-y-auto p-4 sm:p-8 [container-type:inline-size]">
+        <div className="mx-auto w-full max-w-[86rem]">
+          {/* Header: chip + title + brief blurb sit inline so wide screens don't
+              waste vertical space with a stacked heading block. */}
+          <div className="mb-6 flex flex-wrap items-center gap-4 border-b-2 border-ink/10 pb-6">
+            <span className="flex h-14 w-14 items-center justify-center rounded-xl border-2 border-ink bg-white text-3xl shadow-[3px_3px_0_rgba(27,27,27,0.9)]">
+              {project.emoji || '🛠️'}
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="ref-tag text-pcb">Mini Project · {moduleId.toUpperCase()}</p>
               <h1 className="font-lab text-2xl font-extrabold text-ink sm:text-3xl">{project.title}</h1>
             </div>
+            <p className="w-full text-ink/75 leading-relaxed @min-[42rem]:w-auto @min-[42rem]:max-w-md @min-[42rem]:text-base">
+              {project.brief}
+            </p>
           </div>
 
-          <p className="mb-8 lab-panel p-5 text-lg leading-relaxed text-ink/75">
-            {project.brief}
-          </p>
+          {/* Two-column area for problem vs steps+hints. With a problem spec,
+              it takes 3/5 (denser reading) and steps+hints take 2/5. Projects
+              that ship no problem block let steps+hints use the whole row
+              rather than leaving 3/5 of it empty. Below the breakpoint
+              everything stacks. */}
+          <div className="mb-6 grid grid-cols-1 gap-6 @min-[64rem]:grid-cols-5">
+            {/* Left: The problem spec (dense reading, so it gets the room) */}
+            {problem && (
+              <div className="lab-panel p-5 sm:p-6 @min-[64rem]:col-span-3">
+                <h3 className="mb-3 flex items-center gap-2 font-lab font-bold text-ink">
+                  <Target className="h-5 w-5 text-pcb" /> The problem
+                </h3>
+                <p className="text-lg leading-relaxed text-ink/80">{problem.goal}</p>
 
-          {/* The problem statement: what to build, one worked example, and the
-              exact wording rules — so nothing about "done" is a guess. */}
-          {problem && (
-            <div className="mb-8 lab-panel p-5 sm:p-6">
-              <h3 className="mb-3 flex items-center gap-2 font-lab font-bold text-ink">
-                <Target className="h-5 w-5 text-wire" /> The problem
-              </h3>
-              <p className="text-lg leading-relaxed text-ink/80">{problem.goal}</p>
-
-              {problem.example && (
-                <div className="mt-4 rounded-xl border-2 border-ink/15 bg-white p-4">
-                  <p className="mb-2 text-xs font-extrabold uppercase tracking-wide text-ink/45">Example</p>
-                  <div className="space-y-2 font-mono text-sm">
-                    <div>
-                      <span className="mr-2 font-sans text-xs font-bold text-ink/50">Person types</span>
-                      {(problem.example.typed || []).map((t, i) => (
-                        <code key={i} className="mr-1 rounded bg-paper px-1.5 py-0.5 text-pcb ring-1 ring-ink/15">{t}</code>
-                      ))}
-                    </div>
-                    <div>
-                      <span className="mr-2 font-sans text-xs font-bold text-ink/50">Bot prints</span>
-                      <div className="mt-1 space-y-1">
-                        {(problem.example.output || []).map((o, i) => (
-                          <div key={i} className="rounded bg-paper px-2 py-1 text-mint-deep ring-1 ring-ink/10">{o}</div>
-                        ))}
+                {problem.example && (
+                  <div className="mt-4 rounded-xl border-2 border-ink/15 bg-white p-4">
+                    <p className="ref-tag mb-3 text-ink/45">Example</p>
+                    <div className="grid grid-cols-1 gap-4 @min-[36rem]:grid-cols-2">
+                      <div>
+                        <p className="ref-tag mb-2 text-ink/55">Person types</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {(problem.example.typed || []).map((t, i) => (
+                            <code key={i} className="rounded-md bg-paper px-2 py-1 font-mono-lab text-sm text-pcb ring-2 ring-ink/15">{t}</code>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <p className="ref-tag mb-2 text-ink/55">Bot prints</p>
+                        <div className="space-y-1">
+                          {(problem.example.output || []).map((o, i) => (
+                            <div key={i} className="rounded-md bg-well px-2 py-1 font-mono-lab text-sm text-white/90">{o}</div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
+                )}
+
+                {problem.rules?.length > 0 && (
+                  <ul className="mt-4 space-y-2">
+                    {problem.rules.map((r, i) => (
+                      <li key={i} className="flex items-start gap-2 text-ink/75">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-pcb" />
+                        <span>{r}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+
+            {/* Right: Steps + Hints. Compact beside a problem spec, but they
+                spread into two side-by-side panels when they own the row. */}
+            {/* Full class strings, never interpolated: Tailwind only sees
+                classes it can find literally in the source. */}
+            <div className={
+              problem
+                ? 'flex flex-col gap-6 @min-[64rem]:col-span-2'
+                : 'grid grid-cols-1 gap-6 @min-[48rem]:grid-cols-2 @min-[64rem]:col-span-5'
+            }>
+              {project.steps?.length > 0 && (
+                <div className="lab-panel p-5 sm:p-6">
+                  <h3 className="mb-4 flex items-center gap-2 font-lab font-bold text-ink">
+                    <Hammer className="h-5 w-5 text-pcb" /> Your mission
+                  </h3>
+                  <ol className="space-y-3">
+                    {project.steps.map((s, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 border-ink bg-signal text-xs font-extrabold text-ink">{i + 1}</span>
+                        <span className="text-ink/75">{s}</span>
+                      </li>
+                    ))}
+                  </ol>
                 </div>
               )}
 
-              {problem.rules?.length > 0 && (
-                <ul className="mt-4 space-y-2">
-                  {problem.rules.map((r, i) => (
-                    <li key={i} className="flex items-start gap-2 text-ink/75">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-wire" />
-                      <span>{r}</span>
-                    </li>
-                  ))}
-                </ul>
+              {hints.length > 0 && (
+                <div className="lab-panel p-5 sm:p-6">
+                  <h3 className="mb-1 flex items-center gap-2 font-lab font-bold text-ink">
+                    <Lightbulb className="h-5 w-5 fill-signal text-ink" /> Stuck? Take a hint
+                  </h3>
+                  <p className="mb-4 text-sm text-ink/55">
+                    Try it on your own first. Hints are here whenever you want one.
+                  </p>
+
+                  <ol className="space-y-3">
+                    {hints.slice(0, hintsShown).map((h, i) => (
+                      <li key={i} className="flex items-start gap-3 rounded-xl border-2 border-ink/15 bg-white p-3">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 border-ink bg-signal text-xs font-extrabold text-ink">
+                          {i + 1}
+                        </span>
+                        <span className="text-ink/80">{h}</span>
+                      </li>
+                    ))}
+                  </ol>
+
+                  {hintsShown < hints.length ? (
+                    <button
+                      onClick={() => setHintsShown(n => n + 1)}
+                      className={`lab-btn flex items-center gap-2 rounded-xl border-2 border-ink bg-white px-4 py-2.5 font-extrabold text-ink ${hintsShown > 0 ? 'mt-3' : ''}`}
+                    >
+                      <Lightbulb className="h-4 w-4" />
+                      {hintsShown === 0 ? 'Show a hint' : 'Show another hint'}
+                      <span className="text-ink/45">({hints.length - hintsShown} left)</span>
+                    </button>
+                  ) : (
+                    <p className="mt-3 text-sm font-semibold text-ink/50">That's every hint: you've got this!</p>
+                  )}
+                </div>
               )}
             </div>
-          )}
+          </div>
 
-          {/* Steps */}
-          {project.steps?.length > 0 && (
-            <div className="mb-8 lab-panel p-5 sm:p-6">
-              <h3 className="mb-4 flex items-center gap-2 font-lab font-bold text-ink">
-                <Hammer className="h-5 w-5 text-wire" /> Your mission, step by step
-              </h3>
-              <ol className="space-y-3">
-                {project.steps.map((s, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 border-ink bg-signal text-xs font-extrabold text-ink">{i + 1}</span>
-                    <span className="text-ink/75">{s}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          )}
-
-          {/* Hints: opt-in and revealed one at a time, so a stuck learner gets
-              the smallest nudge that unblocks them instead of the answer. */}
-          {hints.length > 0 && (
-            <div className="mb-8 lab-panel p-5 sm:p-6">
-              <h3 className="mb-1 flex items-center gap-2 font-lab font-bold text-ink">
-                <Lightbulb className="h-5 w-5 fill-signal text-ink" /> Stuck? Take a hint
-              </h3>
-              <p className="mb-4 text-sm text-ink/55">
-                Try it on your own first: hints are here whenever you want one.
-              </p>
-
-              <ol className="space-y-3">
-                {hints.slice(0, hintsShown).map((h, i) => (
-                  <li key={i} className="flex items-start gap-3 rounded-xl border-2 border-ink/15 bg-white p-3">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 border-ink bg-signal text-xs font-extrabold text-ink">
-                      {i + 1}
-                    </span>
-                    <span className="text-ink/80">{h}</span>
-                  </li>
-                ))}
-              </ol>
-
-              {hintsShown < hints.length ? (
-                <button
-                  onClick={() => setHintsShown(n => n + 1)}
-                  className={`lab-btn flex items-center gap-2 rounded-xl border-2 border-ink bg-white px-4 py-2.5 font-extrabold text-ink ${hintsShown > 0 ? 'mt-3' : ''}`}
-                >
-                  <Lightbulb className="h-4 w-4" />
-                  {hintsShown === 0 ? 'Show a hint' : 'Show another hint'}
-                  <span className="text-ink/45">({hints.length - hintsShown} left)</span>
-                </button>
-              ) : (
-                <p className="mt-3 text-sm font-semibold text-ink/50">That's every hint: you've got this! 💪</p>
-              )}
-            </div>
-          )}
-
-          {/* Goals: test cases (new) or legacy substring checks */}
+          {/* Goals / test cases — full width. This is the panel a student
+              lives in while iterating, so it gets the horizontal room to lay
+              its cases out side by side once there is space. */}
           <div className="lab-panel p-5 sm:p-6">
             <h3 className="mb-4 flex items-center gap-2 font-lab font-bold text-ink">
               <ListChecks className="h-5 w-5 text-pcb" />
-              {hasTests ? 'Test Cases: your bot must pass them all' : 'Goals to pass'}
+              {hasTests ? 'Test cases · your bot must pass them all' : 'Goals to pass'}
             </h3>
 
             {hasTests ? (
-              <ul className="space-y-3">
+              <ul className="grid grid-cols-1 gap-3 @min-[48rem]:grid-cols-2 @min-[80rem]:grid-cols-3">
                 {project.tests.map((t, i) => {
                   const passed = testResults?.[i];
+                  const paint = passed === true
+                    ? 'border-pcb bg-pcb/8'
+                    : passed === false
+                      ? 'border-wire bg-wire/8'
+                      : 'border-ink/15 bg-white';
                   return (
-                    <li
-                      key={i}
-                      className={`rounded-xl border p-3 ${
-                        passed === true ? 'border-mint/30 bg-mint/10'
-                          : passed === false ? 'border-wire/30 bg-wire/10'
-                          : 'border-gray-200 bg-gray-50'
-                      }`}
-                    >
+                    <li key={i} className={`rounded-xl border-2 p-4 ${paint}`}>
                       <div className="flex items-center gap-2">
                         {passed === true ? (
-                          <CheckCircle2 className="h-5 w-5 shrink-0 text-mint" />
+                          <CheckCircle2 className="h-5 w-5 shrink-0 text-pcb" />
                         ) : passed === false ? (
-                          <XCircle className="h-5 w-5 shrink-0 text-wire-bright" />
+                          <XCircle className="h-5 w-5 shrink-0 text-wire" />
                         ) : (
-                          <Circle className="h-5 w-5 shrink-0 text-gray-300" />
+                          <Circle className="h-5 w-5 shrink-0 text-ink/30" />
                         )}
-                        <span className="font-bold text-gray-800">Test {i + 1}: {t.name}</span>
+                        <span className="font-lab font-extrabold text-ink">Test {i + 1}: {t.name}</span>
                       </div>
-                      <div className="mt-2 space-y-1 pl-7 text-sm">
-                        <p className="text-gray-600">
-                          <span className="font-semibold">We type:</span>{' '}
-                          <code className="rounded bg-white px-1.5 py-0.5 text-pcb ring-1 ring-ink/15">
-                            {(t.input || []).join(' → ')}
-                          </code>
-                        </p>
-                        {Array.isArray(t.expect) && (
-                          <p className="text-gray-600">
-                            <span className="font-semibold">Bot must say:</span>{' '}
-                            {t.expect.map((e, j) => (
-                              <code key={j} className="mr-1 rounded bg-white px-1.5 py-0.5 text-mint-deep ring-1 ring-gray-200">{e}</code>
+                      <div className="mt-3 space-y-2 text-sm">
+                        <div>
+                          <p className="ref-tag mb-1 text-ink/55">We type</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {(t.input || []).map((val, j) => (
+                              <code key={j} className="rounded-md bg-paper px-2 py-0.5 font-mono-lab text-pcb ring-2 ring-ink/15">{val}</code>
                             ))}
-                          </p>
+                          </div>
+                        </div>
+                        {Array.isArray(t.expect) && (
+                          <div>
+                            <p className="ref-tag mb-1 text-ink/55">Bot must say</p>
+                            <div className="space-y-1">
+                              {t.expect.map((e, j) => (
+                                <div key={j} className="rounded-md bg-well px-2 py-1 font-mono-lab text-xs text-white/90">{e}</div>
+                              ))}
+                            </div>
+                          </div>
                         )}
                       </div>
                     </li>
@@ -386,21 +413,23 @@ export default function ProjectPage() {
                 })}
               </ul>
             ) : (
-              <ul className="space-y-3">
+              <ul className="grid grid-cols-1 gap-3 @min-[48rem]:grid-cols-2">
                 {(project.checks || []).map((c, i) => {
                   const passed = checkResults?.[i];
                   return (
-                    <li key={i} className="flex items-center gap-3">
+                    <li key={i} className={`flex items-center gap-3 rounded-xl border-2 p-3 ${
+                      passed === true ? 'border-pcb bg-pcb/8'
+                        : passed === false ? 'border-wire bg-wire/8'
+                        : 'border-ink/15 bg-white'
+                    }`}>
                       {passed === true ? (
-                        <CheckCircle2 className="h-5 w-5 shrink-0 text-mint" />
+                        <CheckCircle2 className="h-5 w-5 shrink-0 text-pcb" />
                       ) : passed === false ? (
-                        <Circle className="h-5 w-5 shrink-0 text-wire-bright" />
+                        <XCircle className="h-5 w-5 shrink-0 text-wire" />
                       ) : (
-                        <Circle className="h-5 w-5 shrink-0 text-gray-300" />
+                        <Circle className="h-5 w-5 shrink-0 text-ink/30" />
                       )}
-                      <span className={`font-medium ${passed === true ? 'text-mint-deep' : passed === false ? 'text-wire' : 'text-gray-600'}`}>
-                        {c.label}
-                      </span>
+                      <span className="font-medium text-ink">{c.label}</span>
                     </li>
                   );
                 })}
@@ -408,28 +437,28 @@ export default function ProjectPage() {
             )}
 
             {goalResults && !allPassed && (
-              <p className="mt-4 rounded-xl bg-signal/10 p-3 text-sm font-medium text-signal-deep ring-1 ring-signal/20">
-                Almost! Some goals aren't met yet: tweak your code and check again. 💪
+              <p className="mt-4 rounded-xl border-2 border-signal bg-signal/15 p-3 text-sm font-semibold text-ink">
+                Almost! Some goals aren't met yet. Tweak your code and check again.
               </p>
             )}
             {allPassed && (
-              <div className="mt-4 space-y-3">
-                <p className="flex items-center gap-2 rounded-xl bg-mint/10 p-3 text-sm font-bold text-mint-deep ring-1 ring-mint/20">
-                  <Trophy className="h-4 w-4" /> All goals passed. Project complete!
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                <p className="flex items-center gap-2 rounded-xl border-2 border-pcb bg-pcb/10 px-3 py-2 text-sm font-bold text-ink">
+                  <Trophy className="h-4 w-4 text-pcb" /> All goals passed. Project complete!
                 </p>
                 {nextLessonId ? (
                   <Link
                     to={`/course/${courseId}/lesson/${nextLessonId}`}
-                    className="lab-btn flex w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-3 font-extrabold text-ink"
+                    className="lab-btn flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-3 font-extrabold text-ink"
                   >
-                    Continue Learning <ArrowRight className="h-5 w-5" />
+                    Continue learning <ArrowRight className="h-5 w-5" />
                   </Link>
                 ) : (
                   <Link
                     to="/"
-                    className="lab-btn flex w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-3 font-extrabold text-ink"
+                    className="lab-btn flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-3 font-extrabold text-ink"
                   >
-                    Back to Quests <ArrowRight className="h-5 w-5" />
+                    Back to quests <ArrowRight className="h-5 w-5" />
                   </Link>
                 )}
               </div>
@@ -439,12 +468,12 @@ export default function ProjectPage() {
       </div>
 
       {/* Editor + output */}
-      <div className="z-10 flex w-full flex-col border-t border-gray-200 bg-white shadow-2xl lg:h-full lg:w-[600px] lg:border-l lg:border-t-0">
-        <div className="flex h-[55vh] flex-col border-b border-gray-200 bg-gray-50 p-4 sm:p-5 lg:h-[60%]">
+      <div className="z-10 flex w-full flex-col border-t-2 border-ink bg-paper shadow-2xl lg:h-full lg:w-[600px] lg:border-l-2 lg:border-l-ink lg:border-t-0">
+        <div className="flex h-[55vh] flex-col border-b-2 border-ink/15 bg-paper p-4 sm:p-5 lg:h-[60%]">
           <div className="mb-4 flex shrink-0 items-center justify-between">
             <h3 className="flex items-center font-lab text-lg font-extrabold text-ink">
-              <span className="mr-2 h-3 w-3 rounded-full bg-pcb"></span>
-              Build Here
+              <span className="mr-2 h-3 w-3 rounded-full bg-pcb ring-2 ring-ink/20"></span>
+              Build here
             </h3>
             <div className="flex gap-2">
               <button
@@ -453,7 +482,7 @@ export default function ProjectPage() {
                 title="Run (Ctrl/Cmd + Enter)"
                 className="lab-btn flex items-center rounded-lg border-2 border-ink bg-white px-4 py-2.5 font-extrabold text-ink disabled:opacity-60"
               >
-                <Play className="mr-2 h-5 w-5" /> {runner.running ? 'Running...' : 'Run'}
+                <Play className="mr-2 h-5 w-5" /> {runner.running ? 'Running…' : 'Run'}
               </button>
               <button
                 onClick={handleCheck}
@@ -461,7 +490,7 @@ export default function ProjectPage() {
                 className="lab-btn flex items-center rounded-lg border-2 border-ink bg-signal px-4 py-2.5 font-extrabold text-ink disabled:opacity-60"
               >
                 {checking ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <CheckCircle2 className="mr-2 h-5 w-5" />}
-                Check Project
+                Check project
               </button>
             </div>
           </div>
@@ -470,8 +499,8 @@ export default function ProjectPage() {
           </div>
         </div>
 
-        <div className="flex h-[40vh] flex-col gap-3 bg-gray-50 p-4 sm:p-5 lg:h-[40%]">
-          <div className="min-h-0 flex-1 overflow-hidden rounded-xl border border-gray-300 shadow-inner">
+        <div className="flex h-[40vh] flex-col gap-3 bg-paper p-4 sm:p-5 lg:h-[40%]">
+          <div className="min-h-0 flex-1 overflow-hidden rounded-xl border-2 border-ink">
             <Terminal
               lines={runner.lines}
               running={runner.running}

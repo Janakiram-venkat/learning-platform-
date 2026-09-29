@@ -10,66 +10,70 @@
     },
     {
       "type": "paragraph",
-      "value": "Computers are very good at math. Python has symbols, called operators, that let you do calculations. Let's go through them."
+      "value": "Computers are very good at math. Python has symbols, called operators, that let you do calculations. Try the playground below: pick two numbers and an operator, and see the Python line and its result appear live."
+    },
+    {
+      "type": "widget",
+      "kind": "math-playground",
+      "a": 7,
+      "b": 3,
+      "op": "+"
     },
     {
       "type": "heading",
-      "value": "1. The Basic Operators (+, -, *, /)"
+      "value": "The Basic Operators"
     },
     {
       "type": "paragraph",
-      "value": "Addition `+` and subtraction `-` work just like in school. For multiplication you use a star `*`, and for division you use a forward slash `/`."
+      "value": "Addition `+` and subtraction `-` work just like in school. Multiplication uses a star `*`, and division uses a forward slash `/`. One thing to watch: in Python, `/` always gives a decimal answer, even when the division is exact. That means `10 / 2` prints `5.0`, not `5`."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "print(5 + 3)\nprint(10 - 4)\nprint(3 * 4)\nprint(10 / 2)"
+      "value": "print(5 + 3)     # 8\nprint(10 - 4)    # 6\nprint(3 * 4)     # 12\nprint(10 / 2)    # 5.0"
     },
     {
       "type": "heading",
-      "value": "2. The Remainder Operator (%)"
+      "value": "Remainder and Powers"
     },
     {
       "type": "paragraph",
-      "value": "The `%` operator (called modulo) gives you the remainder after dividing. For example, if you share 7 cookies among 3 friends, each friend gets 2 cookies and 1 is left over. `7 % 3` gives you that leftover 1."
+      "value": "The `%` operator (modulo) gives the remainder after dividing. If you share 7 cookies among 3 friends, each gets 2 and 1 is left over, so `7 % 3` is `1`. The `**` operator raises a number to a power: `2 ** 3` means 2 × 2 × 2, which is 8."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "print(7 % 3)  # Prints 1, because 7 divided by 3 leaves a remainder of 1"
-    },
-    {
-      "type": "heading",
-      "value": "3. Powers (**)"
-    },
-    {
-      "type": "paragraph",
-      "value": "The `**` operator raises a number to a power (multiplies it by itself). For example, `2 ** 3` means 2 times 2 times 2, which is 8."
-    },
-    {
-      "type": "code",
-      "language": "python",
-      "value": "print(2 ** 3)  # Prints 8\nprint(5 ** 2)  # Prints 25"
+      "value": "print(7 % 3)     # 1, the remainder\nprint(2 ** 3)    # 8, which is 2 x 2 x 2\nprint(5 ** 2)    # 25"
     },
     {
       "type": "tip",
-      "value": "There is also `//`, called floor division. It divides and throws away the decimal part, giving a whole number. Try `7 // 3` in the editor."
+      "value": "There is also `//`, called floor division. It divides and throws away the decimal part: `7 // 3` is `2`, not `2.333`."
     },
     {
-      "type": "simulation",
-      "kind": "print",
-      "lines": [
-        "10 + 5 = 15",
-        "10 % 3 = 1"
-      ]
+      "type": "heading",
+      "value": "Order Matters"
+    },
+    {
+      "type": "paragraph",
+      "value": "Python follows the same order of operations as math class: powers first, then multiplication and division, then addition and subtraction. Use parentheses `()` to change the order."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "print(2 + 3 * 4)     # 14, multiplication happens first\nprint((2 + 3) * 4)   # 20, parentheses happen first"
     }
   ],
-  "editorCode": "print(10 + 5)\nprint(3 * 3)\nprint(15 % 4)",
+  "editorCode": "print(10 + 5)\nprint(3 * 3)\nprint(15 % 4)\nprint(2 ** 8)",
   "practice": [
     {
       "id": 1,
       "question": "Find the remainder when 15 is divided by 4 using the % operator, and print it.",
       "starterCode": "# Use the modulo operator (%) to find the remainder of 15 divided by 4\nprint()"
+    },
+    {
+      "id": 2,
+      "question": "Print 2 to the power of 10 using the ** operator.",
+      "starterCode": "print()"
     }
   ],
   "quiz": [
@@ -92,6 +96,16 @@
       ],
       "answer": 1,
       "explain": "`**` means 'to the power of'. So 3 ** 2 is 3 times 3, which is 9."
+    },
+    {
+      "question": "What does 10 / 4 print in Python?",
+      "options": [
+        "2",
+        "2.5",
+        "2.0"
+      ],
+      "answer": 1,
+      "explain": "`/` always gives a decimal answer in Python 3. 10 divided by 4 is 2.5."
     }
   ]
 }

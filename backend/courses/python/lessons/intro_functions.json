@@ -1,50 +1,93 @@
 {
   "lessonId": "intro_functions",
   "title": "Creating Functions",
-  "description": "Group steps together with a name so you can reuse them whenever you want.",
+  "description": "Group steps together under a name so you can reuse them whenever you want.",
   "difficulty": "Intermediate",
   "content": [
     {
       "type": "heading",
-      "value": "What is a Function?"
+      "value": "Why Functions Exist"
     },
     {
       "type": "paragraph",
-      "value": "A function is a group of steps with a name. It's like a recipe: you write the steps once, give the recipe a name, and then whenever you want those steps done, you just use the name. This saves you from writing the same code over and over."
-    },
-    {
-      "type": "heading",
-      "value": "Defining a Function"
-    },
-    {
-      "type": "paragraph",
-      "value": "You create a function with the keyword `def` (short for 'define'). After `def`, you write the function's name, a pair of parentheses `()`, and a colon `:`. Then you indent the steps underneath."
+      "value": "Imagine your program cheers for three different teams. Without functions you would write the same two print lines three times over. If you later wanted to change the wording, you would have to find and fix every copy, and miss one."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "def sing_song():\n    print(\"Happy birthday to you!\")\n    print(\"Happy birthday to you!\")"
-    },
-    {
-      "type": "heading",
-      "value": "Calling a Function"
+      "value": "print(\"Go!\")\nprint(\"Team!\")\n\nprint(\"Go!\")\nprint(\"Team!\")\n\nprint(\"Go!\")\nprint(\"Team!\")"
     },
     {
       "type": "paragraph",
-      "value": "Defining a function does not run it. It only tells Python what the function does. To actually run it, you 'call' it by writing its name followed by parentheses. You can call it as many times as you like."
+      "value": "A function is a group of steps with a name. You write the steps once, give them a name, and from then on you just use the name. It is the same idea as a recipe: the instructions live in one place, and you follow them whenever you need them."
+    },
+    {
+      "type": "heading",
+      "value": "Writing Your Own"
+    },
+    {
+      "type": "paragraph",
+      "value": "You create a function with the keyword `def`, which is short for define. After `def` comes the function's name, a pair of parentheses, and a colon. The steps go underneath, indented, exactly like the body of a loop."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "def sing_song():\n    print(\"Happy birthday to you!\")\n\n# Call it twice:\nsing_song()\nsing_song()"
+      "value": "def cheer():\n    print(\"Go!\")\n    print(\"Team!\")"
+    },
+    {
+      "type": "tip",
+      "value": "Function names follow the same rules as variable names: lowercase, words joined by underscores, and no spaces. A name that says what the function does, like `cheer` or `show_score`, saves you reading the body later."
+    },
+    {
+      "type": "heading",
+      "value": "Defining Is Not Running"
+    },
+    {
+      "type": "paragraph",
+      "value": "This is the part that surprises everyone. Running a `def` line does not run the steps inside it. It only teaches Python what the name means, and Python puts it aside for later. To actually run the steps you have to call the function: write its name followed by parentheses."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "def cheer():\n    print(\"Go!\")\n    print(\"Team!\")\n\nprint(\"Start\")\ncheer()\nprint(\"End\")"
+    },
+    {
+      "type": "paragraph",
+      "value": "Step through the tracer below to watch the order Python really uses. The definition lights up once and prints nothing. The call is what jumps into the body, and when the body runs out, Python comes back to exactly where it left off."
+    },
+    {
+      "type": "widget",
+      "kind": "call-tracer"
+    },
+    {
+      "type": "heading",
+      "value": "Calling It Again and Again"
+    },
+    {
+      "type": "paragraph",
+      "value": "Once a function is defined you can call it as many times as you like, and every call runs the whole body again. That is where the saving comes in: three cheers now cost one definition and three short lines, and changing the wording means editing one place."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "def cheer():\n    print(\"Go!\")\n    print(\"Team!\")\n\ncheer()\ncheer()\ncheer()"
+    },
+    {
+      "type": "tip",
+      "value": "Define a function before you call it. Python reads your file from top to bottom, so a call written above the `def` fails with a NameError: at that moment the name does not exist yet."
     }
   ],
-  "editorCode": "def greet():\n    print(\"Welcome!\")\n    print(\"Let's write some code!\")\n\ngreet()",
+  "editorCode": "def greet():\n    print(\"Welcome!\")\n    print(\"Let's write some code!\")\n\ngreet()\ngreet()",
   "practice": [
     {
       "id": 1,
       "question": "Create a function named 'greet' that prints 'Hello, Explorer!'. Then call it twice below the definition.",
-      "starterCode": "# Define the function 'greet' here\n\n# Call greet() twice below"
+      "starterCode": "# 1) Define the function 'greet' here\ndef greet():\n    pass    # replace this line with the print\n\n# 2) Call greet() twice below\n"
+    },
+    {
+      "id": 2,
+      "question": "This program prints nothing at all. Add the one line that fixes it.",
+      "starterCode": "def countdown():\n    print(3)\n    print(2)\n    print(1)\n\n# The function is defined but never called. Call it below.\n"
     }
   ],
   "quiz": [
@@ -53,20 +96,33 @@
       "options": [
         "function",
         "def",
-        "create"
+        "create",
+        "new"
       ],
       "answer": 1,
-      "explain": "`def` (short for 'define') starts a new function. `function` and `create` are not Python keywords."
+      "explain": "`def` is short for define. `function`, `create` and `new` are not Python keywords at all."
     },
     {
       "question": "What does calling a function mean?",
       "options": [
         "Renaming the function.",
-        "Telling Python to run the function's code.",
-        "Deleting the function."
+        "Telling Python to run the code inside it.",
+        "Deleting the function.",
+        "Writing the def line."
       ],
       "answer": 1,
-      "explain": "Calling a function means telling Python to run the code inside it, by writing its name followed by `()`."
+      "explain": "Calling means running it, and you do it by writing the function's name followed by parentheses."
+    },
+    {
+      "question": "How many lines does this program print?  def hello():  /  print(\"Hi\")",
+      "options": [
+        "One",
+        "None, because the function is never called",
+        "Two",
+        "It causes an error"
+      ],
+      "answer": 1,
+      "explain": "Defining a function only stores it for later. Without a call like hello() underneath, the print inside never runs."
     }
   ]
 }

@@ -2,15 +2,35 @@
   "moduleId": 3,
   "title": "Countdown Machine",
   "emoji": "🚀",
-  "brief": "Time to make the computer do the boring, repetitive work! Your Countdown Machine asks for a starting number, then uses a loop to count all the way down to 1 and shout \"Blast off!\". A while loop repeats as long as its condition is True, so it's perfect for counting down. Fill in the two print lines, then press Check Project to launch!",
+  "brief": "Make the computer do the repetitive work. Your Countdown Machine asks for a starting number, counts all the way down to 1, and then launches.",
+  "problem": {
+    "goal": "Write a program that asks for a starting number, prints every number from there down to 1 on its own line, and then prints Blast off! once at the end.",
+    "example": {
+      "typed": ["3"],
+      "output": ["3", "2", "1", "Blast off!"]
+    },
+    "rules": [
+      "Each number gets its own line, counting downwards.",
+      "The countdown stops at 1. Zero is never printed.",
+      "Blast off! prints once, after the loop has finished, not inside it.",
+      "The loop must end on its own. Nothing should run forever."
+    ]
+  },
   "steps": [
-    "The first line is done for you: int(input(...)) asks for a starting number.",
-    "The while loop is set up to keep going while count is above 0 (it subtracts 1 each time so it always stops).",
-    "Inside the loop, add print(count) to show each number as it counts down.",
-    "After the loop, add print(\"Blast off!\").",
-    "Run it and try a few numbers, then press Check Project."
+    "The first line is done for you: it asks for a number, and int() turns the typed text into a number you can compare.",
+    "The while loop is already set up to keep going while count is above 0, and it steps down by 1 each pass so it always stops.",
+    "Inside the loop, replace the pass line with print(count) to show each number.",
+    "After the loop, add print(\"Blast off!\") with no indent, so it runs once at the end.",
+    "Press Run to try a few numbers, then press Check project."
   ],
-  "starterCode": "# 🚀 Countdown Machine, it counts down and then blasts off!\n\nstart = int(input(\"Count down from what number? \"))\n\n# We count down using a while loop. It keeps going while count is above 0.\ncount = start\nwhile count > 0:\n    # 1) Print the current number:\n    # print(count)\n    count = count - 1   # step down by 1 (this is what stops the loop!)\n\n# 2) After the loop finishes, print the blast off message:\n# print(\"Blast off!\")\n",
+  "starterCode": "# 🚀 Countdown Machine: it counts down and then launches.\n\nstart = int(input(\"Count down from what number? \"))\n\n# We count down with a while loop. It keeps going while count is above 0.\ncount = start\nwhile count > 0:\n    # 1) Replace this line with a print that shows the current number:\n    pass\n    count = count - 1   # steps down by 1, this is what stops the loop\n\n# 2) After the loop, print the blast off message here.\n#    Careful: no indent, so it runs once at the end rather than every pass.\n",
+  "hints": [
+    "Run the code before changing anything. You will see it ask for a number and then print nothing at all, because the loop body is just pass, which does nothing.",
+    "Inside the loop you want print(count), not print(start). count is the one that changes on every pass, so it is the one that counts down.",
+    "Indentation decides where a line belongs. A line indented by four spaces is inside the loop and runs every pass. A line with no indent is outside it and runs once, after the loop has ended.",
+    "The blast off line goes at the very bottom with no indent. If you indent it, you will get one Blast off! for every number, which the tests will not accept.",
+    "The loop stops when count reaches 0, because 0 is not greater than 0. That is why the countdown ends at 1 and never prints zero."
+  ],
   "inputPlaceholder": "5",
   "inputHint": "Type one number: the number to start counting down from.",
   "tests": [
@@ -23,7 +43,12 @@
       "name": "Count down from 3",
       "input": ["3"],
       "expect": ["3", "2", "1", "blast off"]
+    },
+    {
+      "name": "Count down from 1",
+      "input": ["1"],
+      "expect": ["1", "blast off"]
     }
   ],
-  "successMessage": "Blast off! 🚀 Your Countdown Machine loops all the way down and launches, that's the power of loops: you write the steps once and let Python do the repeating!"
+  "successMessage": "Blast off! Your Countdown Machine loops all the way down and launches. That is the power of loops: you write the steps once and let Python do the repeating."
 }

@@ -1,66 +1,128 @@
 {
   "moduleId": 7,
-  "title": "Blueprint Builder Arcade",
-  "intro": "Classes are blueprints for building objects! Design them, create them, and pass down family traits. First-try wins earn ⭐⭐⭐!",
+  "title": "Blueprint Builder Checkpoint",
+  "intro": "A class is a blueprint, an object is a thing made from it, and inheritance lets one blueprint build on another. Eleven rounds across both lessons. Get them right on the first try to earn ⭐⭐⭐!",
   "emoji": "🏗️",
   "rounds": [
     {
       "type": "concept",
-      "prompt": "Which keyword creates a blueprint (a class)?",
-      "options": ["class", "object", "blueprint"],
+      "prompt": "Which keyword creates a blueprint?",
+      "options": ["class", "object", "blueprint", "def"],
       "answer": 0,
-      "explain": "We use the class keyword to design a new type of object."
+      "explain": "class defines a new kind of thing. def defines a function or a method inside one."
+    },
+    {
+      "type": "concept",
+      "prompt": "What is __init__ for?",
+      "options": [
+        "It runs when an object is made and stores its starting values",
+        "It deletes an object",
+        "It prints the object",
+        "It is the name of the class"
+      ],
+      "answer": 0,
+      "explain": "Python calls __init__ automatically the moment you create an object, which is why it is where the attributes get set."
     },
     {
       "type": "predict",
       "prompt": "What does this print?",
       "code": "class Dog:\n    def __init__(self, name):\n        self.name = name\n\nd = Dog(\"Rex\")\nprint(d.name)",
-      "options": ["Rex", "Dog", "name"],
+      "options": ["Rex", "Dog", "name", "self.name"],
       "answer": 0,
-      "explain": "We built a Dog named Rex, and d.name reads back the name we stored."
+      "explain": "\"Rex\" was passed in and stored on the object as self.name, so reading d.name gives it back."
+    },
+    {
+      "type": "predict",
+      "prompt": "Two objects, one class. What does the second line print?",
+      "code": "class Cat:\n    def __init__(self, name):\n        self.name = name\n\na = Cat(\"Luna\")\nb = Cat(\"Sky\")\nprint(b.name)",
+      "options": ["Sky", "Luna", "Cat", "An error"],
+      "answer": 0,
+      "explain": "Every object keeps its own attributes. Making b did not touch a, and the two names never mix."
     },
     {
       "type": "bug",
-      "prompt": "This method is missing something important. Pick the fix.",
-      "code": "class Cat:\n    def speak():\n        print(\"Meow\")",
+      "prompt": "This method is missing something. Pick the fix.",
+      "code": "class Cat:\n    def speak():\n        print(\"Meow\")\n\nCat().speak()",
       "options": [
         "Add self: def speak(self):",
         "Remove the print line",
-        "Rename the class to cat"
+        "Rename the class to cat",
+        "Call it as Cat.speak(Cat)"
       ],
       "answer": 0,
-      "explain": "Methods inside a class need self as their first input so they know which object they belong to."
-    },
-    {
-      "type": "concept",
-      "prompt": "Inheritance lets a new class...",
-      "options": [
-        "Reuse the traits and methods of another class",
-        "Delete an old class",
-        "Run faster than normal"
-      ],
-      "answer": 0,
-      "explain": "Inheritance passes down 'family traits', a child class gets the parent's abilities for free."
+      "explain": "Python passes the object in as the first argument automatically, so the method has to have a parameter waiting for it."
     },
     {
       "type": "predict",
       "prompt": "What does this print?",
       "code": "class Hero:\n    def shout(self):\n        print(\"For glory!\")\n\nh = Hero()\nh.shout()",
-      "options": ["For glory!", "shout", "Hero"],
+      "options": ["For glory!", "shout", "Hero", "Nothing"],
       "answer": 0,
-      "explain": "We made a Hero object and called its shout() method, which prints the message."
+      "explain": "A class does not need an __init__ if it has no data to store. Making the object and calling the method is enough."
+    },
+    {
+      "type": "concept",
+      "prompt": "Inheritance lets a new class...",
+      "options": [
+        "Reuse the attributes and methods of another class",
+        "Delete an old class",
+        "Run faster than normal",
+        "Have more than one name"
+      ],
+      "answer": 0,
+      "explain": "The child starts with everything the parent has, so the shared code is written once instead of copied."
+    },
+    {
+      "type": "concept",
+      "prompt": "How do you write a class Car that inherits from Vehicle?",
+      "options": [
+        "class Car(Vehicle):",
+        "class Vehicle(Car):",
+        "class Car inherits Vehicle:",
+        "class Car = Vehicle:"
+      ],
+      "answer": 0,
+      "explain": "The parent goes in the parentheses. The second option says the opposite, making Vehicle the child."
+    },
+    {
+      "type": "predict",
+      "prompt": "Dog has no eat() of its own. What happens?",
+      "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n    def eat(self):\n        print(self.name + \" is eating!\")\n\nclass Dog(Animal):\n    def bark(self):\n        print(\"Woof!\")\n\nDog(\"Buddy\").eat()",
+      "options": [
+        "Buddy is eating!",
+        "An error, because Dog has no eat method",
+        "Woof!",
+        "Nothing is printed"
+      ],
+      "answer": 0,
+      "explain": "Python does not find eat on Dog, so it looks at the parent and finds it there. Both __init__ and eat were inherited."
+    },
+    {
+      "type": "predict",
+      "prompt": "Both classes define speak(). Which one runs?",
+      "code": "class Animal:\n    def speak(self):\n        print(\"Some sound.\")\n\nclass Dog(Animal):\n    def speak(self):\n        print(\"Woof!\")\n\nDog().speak()",
+      "options": [
+        "Woof!",
+        "Some sound.",
+        "Both lines, in order",
+        "An error, because the name is used twice"
+      ],
+      "answer": 0,
+      "explain": "Python checks the child first and stops as soon as it finds a match, so the child's version overrides the parent's."
     },
     {
       "type": "order",
-      "prompt": "Build a simple class, create an object from it, and call its method.",
+      "prompt": "Build a class that stores a name, make an object from it, and call its method.",
       "solution": [
         "class Robot:",
+        "    def __init__(self, name):",
+        "        self.name = name",
         "    def beep(self):",
-        "        print(\"Beep!\")",
-        "r = Robot()",
+        "        print(self.name + \" says Beep!\")",
+        "r = Robot(\"Bolt\")",
         "r.beep()"
       ],
-      "explain": "Define the class and its method first, then create an object and call the method on it."
+      "explain": "The whole class body comes first, indented under the class line. Only then can you create an object and call a method on it."
     }
   ]
 }

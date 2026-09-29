@@ -1,64 +1,132 @@
 {
   "moduleId": 4,
-  "title": "Function Maker Arcade",
-  "intro": "Functions are reusable blocks of code! Define them, feed them inputs, and read their outputs. First-try wins earn ⭐⭐⭐!",
+  "title": "Function Builder Checkpoint",
+  "intro": "You have learned how to define a function, call it, pass values in, and get a result back out. Time to prove it. Eleven rounds, one from every idea in this module. Get them right on the first try to earn ⭐⭐⭐!",
   "emoji": "🪄",
   "rounds": [
     {
       "type": "concept",
-      "prompt": "Which keyword creates a new function?",
-      "options": ["def", "func", "make"],
+      "prompt": "Which keyword defines a new function?",
+      "options": ["def", "func", "make", "function"],
       "answer": 0,
-      "explain": "In Python we use def (short for 'define') to create a function."
+      "explain": "Python uses def, short for define. The other three look reasonable but none of them are Python keywords."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this program print?",
+      "code": "def greet():\n    print(\"Hi there!\")",
+      "options": [
+        "Nothing at all",
+        "Hi there!",
+        "greet",
+        "An error"
+      ],
+      "answer": 0,
+      "explain": "The function is defined but never called. Defining only stores the steps for later, so nothing runs."
+    },
+    {
+      "type": "predict",
+      "prompt": "Now a call has been added. What prints, and in what order?",
+      "code": "def cheer():\n    print(\"Go!\")\n\nprint(\"Start\")\ncheer()",
+      "options": [
+        "Start, then Go!",
+        "Go!, then Start",
+        "Only Start",
+        "Only Go!"
+      ],
+      "answer": 0,
+      "explain": "Python skips over the definition, runs print(\"Start\"), and only then does the call jump into the body."
     },
     {
       "type": "predict",
       "prompt": "What does this print?",
-      "code": "def greet():\n    print(\"Hi there!\")\n\ngreet()",
-      "options": ["Hi there!", "greet()", "Nothing"],
-      "answer": 0,
-      "explain": "Defining greet doesn't run it, calling greet() does, which prints the message."
-    },
-    {
-      "type": "bug",
-      "prompt": "This function never runs. Pick the fix.",
-      "code": "def add(a, b):\n    return a + b\n\nadd(2, 3)\nprint(result)",
+      "code": "def greet(name):\n    print(\"Hello, \" + name)\n\ngreet(\"Sam\")",
       "options": [
-        "Save and print it: result = add(2, 3) then print(result)",
-        "Remove the return line",
-        "Rename add to sum"
+        "Hello, Sam",
+        "Hello, name",
+        "Hello, \"Sam\"",
+        "Sam"
       ],
       "answer": 0,
-      "explain": "The function returns a value, but you must store it in a variable to use it later."
+      "explain": "The argument \"Sam\" is handed to the parameter name, so inside the function name holds \"Sam\"."
+    },
+    {
+      "type": "predict",
+      "prompt": "Arguments fill the parameters in order. What is printed?",
+      "code": "def subtract(a, b):\n    print(a - b)\n\nsubtract(10, 3)",
+      "options": ["7", "-7", "13", "103"],
+      "answer": 0,
+      "explain": "The first argument goes into the first parameter: a is 10 and b is 3, so a - b is 7. Swapping the arguments would give -7."
     },
     {
       "type": "predict",
       "prompt": "What number is printed?",
       "code": "def double(n):\n    return n * 2\n\nprint(double(4))",
-      "options": ["8", "4", "24"],
+      "options": ["8", "4", "24", "None"],
       "answer": 0,
-      "explain": "double(4) sends 4 in as n, returns 4 * 2 = 8, which then prints."
+      "explain": "double(4) sends 4 in as n and returns 4 * 2, which is 8. print then shows the returned value."
     },
     {
-      "type": "concept",
-      "prompt": "What's the difference between return and print?",
+      "type": "predict",
+      "prompt": "This function prints instead of returning. What does 'total' hold?",
+      "code": "def add(a, b):\n    print(a + b)\n\ntotal = add(2, 3)\nprint(total)",
       "options": [
-        "return hands a value back to your code; print just shows it on screen",
-        "They do exactly the same thing",
-        "return shows text and print hides it"
+        "None",
+        "5",
+        "\"5\"",
+        "Nothing is printed"
       ],
       "answer": 0,
-      "explain": "return gives a value you can reuse; print only displays text and gives nothing back."
+      "explain": "5 appears on screen from the print inside the function, but nothing is returned, so total is None and the second print shows None."
+    },
+    {
+      "type": "bug",
+      "prompt": "This crashes with a NameError. Pick the fix.",
+      "code": "say_hi()\n\ndef say_hi():\n    print(\"Hi!\")",
+      "options": [
+        "Move the def above the call",
+        "Remove the parentheses from the call",
+        "Rename the function to hi",
+        "Add a return to the function"
+      ],
+      "answer": 0,
+      "explain": "Python reads top to bottom. At the moment the call runs, the name say_hi has not been defined yet, so define it first."
+    },
+    {
+      "type": "bug",
+      "prompt": "Only the first line ever prints. Pick the fix.",
+      "code": "def report(score):\n    return score\n    print(\"Score was\", score)\n\nprint(report(9))",
+      "options": [
+        "Move the print above the return",
+        "Delete the return line entirely",
+        "Indent the print line further",
+        "Change return to print"
+      ],
+      "answer": 0,
+      "explain": "A function stops the instant it hits return, so any line written after it inside the function is unreachable."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each piece to what it does.",
+      "pairs": [
+        { "left": "def", "right": "Starts a new function definition" },
+        { "left": "name()", "right": "Runs the function's steps" },
+        { "left": "parameter", "right": "The name waiting inside the def line" },
+        { "left": "argument", "right": "The value you send in when you call" },
+        { "left": "return", "right": "Hands a value back to your code" },
+        { "left": "print", "right": "Shows a value and gives nothing back" }
+      ],
+      "explain": "def and the call are the two halves of using a function, parameters and arguments are the two halves of passing information in, and return and print are the two very different ways of getting something out."
     },
     {
       "type": "order",
-      "prompt": "Build a function that returns a number squared, then print it for 5.",
+      "prompt": "Build a function that returns a number squared, then print the result for 5.",
       "solution": [
         "def square(n):",
         "    return n * n",
         "print(square(5))"
       ],
-      "explain": "Define the function first, then call it inside print to show the result."
+      "explain": "The definition has to come first, the return sits indented inside it, and the call goes inside print so the returned value gets shown."
     }
   ]
 }

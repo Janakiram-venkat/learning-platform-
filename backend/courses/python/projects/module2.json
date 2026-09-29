@@ -2,17 +2,37 @@
   "moduleId": 2,
   "title": "Age Checker",
   "emoji": "🚦",
-  "brief": "Build a smart program that asks for an age and decides what to say back! You'll use if, elif, and else, the decision-making tools from Module 2. Your checker gives THREE different answers: adult, teenager, or kid, depending on the age. The first case is written for you as an example, then you add the other two. Run it to try it yourself, then press Check Project to test all three ages!",
+  "brief": "Build a program that asks for an age and decides what to say back, using the if, elif and else tools from this module.",
+  "problem": {
+    "goal": "Write a program that asks for an age and prints one of three messages: adult for 18 and over, teenager for 13 to 17, and kid for anyone younger.",
+    "example": {
+      "typed": ["15"],
+      "output": ["You are a teenager!"]
+    },
+    "rules": [
+      "An age of 18 or more must print: You are an adult!",
+      "An age of 13 to 17 must print: You are a teenager!",
+      "Any age below 13 must print: You are a kid!",
+      "Exactly one message prints each time, never two."
+    ]
+  },
   "steps": [
-    "The first line is done for you: age = int(input(\"...\")) asks for an age and int() turns the typed text into a real number.",
-    "The first case is also done as an example: if age >= 18: print(\"You are an adult!\").",
-    "Add an elif age >= 13: line that prints \"You are a teenager!\" for teenagers.",
-    "Add an else: line that prints \"You are a kid!\" for everyone younger.",
-    "Run it and type different ages, then press Check Project to test all three."
+    "The first line is done for you: it asks for an age, and int() turns the typed text into a number you can compare.",
+    "The first branch is done too, as an example: if age >= 18 prints the adult message.",
+    "Add an elif age >= 13: branch that prints \"You are a teenager!\".",
+    "Add an else: branch that prints \"You are a kid!\".",
+    "Press Run to try a few ages yourself, then press Check project to test all three."
   ],
-  "starterCode": "# 🚦 Age Checker, it decides what to say based on an age!\n\n# Ask for an age. int() turns the typed text into a number so we can compare it.\nage = int(input(\"How old are you? \"))\n\n# We check the age and print a different message for each case.\n# The FIRST case is done for you as an example:\nif age >= 18:\n    print(\"You are an adult!\")\n\n# 👇 Your turn! Add the other two cases:\n\n# 1) If age is 13 or more (but less than 18), print:  You are a teenager!\n# elif age >= 13:\n#     print(\"You are a teenager!\")\n\n# 2) Otherwise (else), print:  You are a kid!\n# else:\n#     print(\"You are a kid!\")\n",
+  "starterCode": "# 🚦 Age Checker: it decides what to say based on an age.\n\n# Ask for an age. int() turns the typed text into a number so we can compare it.\nage = int(input(\"How old are you? \"))\n\n# We check the age and print a different message for each case.\n# The FIRST branch is done for you as an example:\nif age >= 18:\n    print(\"You are an adult!\")\n\n# 👇 Your turn. Add the other two branches:\n\n# 1) If age is 13 or more (but under 18), print:  You are a teenager!\n\n\n# 2) Otherwise, print:  You are a kid!\n\n",
+  "hints": [
+    "Start by running the code as it is. Type 20 and you will see the adult message. Type 15 and nothing prints at all, because there is no branch for that yet.",
+    "An elif line looks exactly like the if line, just with a different keyword and a different number: elif age >= 13:",
+    "Every branch line ends with a colon, and the print below it must be indented by four spaces. If the indent is missing, Python does not know the line belongs to that branch.",
+    "The else line takes no condition at all. It is just else: on its own, and it catches everything the branches above did not.",
+    "Order matters. Because Python stops at the first True branch, the 18 check has to come before the 13 check. If 13 came first, a 20 year old would be called a teenager."
+  ],
   "inputPlaceholder": "10",
-  "inputHint": "Your checker asks 1 question, so type 1 answer: an age (a number).",
+  "inputHint": "Your checker asks 1 question, so type 1 answer: an age.",
   "tests": [
     {
       "name": "20 is an adult",
@@ -30,5 +50,5 @@
       "expect": ["kid"]
     }
   ],
-  "successMessage": "Nice work! Your Age Checker makes its own decisions now. 🚦 It looks at any age and picks the right message using if, elif, and else, that's the real power of decision-making in Python!"
+  "successMessage": "Nice work! Your Age Checker makes its own decisions now. It looks at any age and picks the right message using if, elif and else, which is the real power of branching in Python."
 }

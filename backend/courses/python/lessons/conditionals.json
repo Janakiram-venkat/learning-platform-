@@ -10,28 +10,15 @@
     },
     {
       "type": "paragraph",
-      "value": "Programs often need to make decisions. For example: if it's raining, take an umbrella; otherwise, leave it at home. Python does this with `if`, `elif` (short for 'else if'), and `else`."
+      "value": "Programs often need to choose. If it is raining, take an umbrella. Otherwise, leave it at home. Python makes these choices with `if`, `elif` (short for 'else if'), and `else`, and each one is followed by a Boolean condition of the kind you just learned to write."
     },
     {
       "type": "heading",
-      "value": "1. if"
+      "value": "if and else"
     },
     {
       "type": "paragraph",
-      "value": "You write `if` followed by a condition and a colon `:`. If the condition is True, the indented lines below it run. If it's False, they are skipped."
-    },
-    {
-      "type": "code",
-      "language": "python",
-      "value": "score = 10\nif score >= 10:\n    print(\"You win a gold medal!\")"
-    },
-    {
-      "type": "heading",
-      "value": "2. else"
-    },
-    {
-      "type": "paragraph",
-      "value": "Use `else` to say what should happen when the `if` condition is False. The `else` block runs only when the `if` did not."
+      "value": "Write `if`, then a condition, then a colon. The indented lines below it run only when the condition is True. Add `else` to say what should happen when it is False. Exactly one of the two blocks runs, never both."
     },
     {
       "type": "code",
@@ -39,12 +26,29 @@
       "value": "score = 5\nif score >= 10:\n    print(\"You win a gold medal!\")\nelse:\n    print(\"Keep trying!\")"
     },
     {
+      "type": "tip",
+      "value": "Two things to remember: end each `if`, `elif` and `else` line with a colon, and indent the lines below it. The indent is what tells Python which lines belong to that branch."
+    },
+    {
       "type": "heading",
-      "value": "3. elif"
+      "value": "elif for More Options"
     },
     {
       "type": "paragraph",
-      "value": "When there are more than two options, use `elif` to check another condition. Python checks each one in order and runs the first one that is True."
+      "value": "When there are more than two outcomes, add `elif` branches in between. Python checks them from top to bottom and runs the first one that is True, then skips the rest. Turn the dial below to see which branch wins for each score."
+    },
+    {
+      "type": "widget",
+      "kind": "branch-tracer",
+      "variable": "score",
+      "value": 7,
+      "min": 0,
+      "max": 20,
+      "branches": [
+        { "op": ">=", "n": 10, "say": "Gold Medal!" },
+        { "op": ">=", "n": 5, "say": "Silver Medal!" }
+      ],
+      "fallback": "Bronze Medal!"
     },
     {
       "type": "code",
@@ -52,8 +56,17 @@
       "value": "score = 7\nif score >= 10:\n    print(\"Gold Medal!\")\nelif score >= 5:\n    print(\"Silver Medal!\")\nelse:\n    print(\"Bronze Medal!\")"
     },
     {
-      "type": "tip",
-      "value": "Two things to remember: end each `if`, `elif`, and `else` line with a colon `:`, and indent the lines below it so Python knows they belong to that condition."
+      "type": "heading",
+      "value": "Order Matters"
+    },
+    {
+      "type": "paragraph",
+      "value": "Because Python stops at the first True branch, the order of your conditions changes the answer. If the Silver check came first, a score of 12 would print Silver and never reach the Gold check, because 12 is also 5 or more. Put the strictest condition at the top."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "# Wrong order: a score of 12 prints Silver, not Gold\nscore = 12\nif score >= 5:\n    print(\"Silver Medal!\")\nelif score >= 10:\n    print(\"Gold Medal!\")"
     }
   ],
   "editorCode": "temp = 25\nif temp > 30:\n    print(\"It's hot!\")\nelif temp > 20:\n    print(\"It's warm!\")\nelse:\n    print(\"It's cold!\")",
@@ -62,6 +75,11 @@
       "id": 1,
       "question": "The score below is 3, so it prints 'Bronze!'. Add an elif that prints 'Silver!' when the score is 5 or more.",
       "starterCode": "score = 3\nif score >= 10:\n    print(\"Gold!\")\nelse:\n    print(\"Bronze!\")"
+    },
+    {
+      "id": 2,
+      "question": "This chain is in the wrong order, so a temp of 35 prints the wrong message. Swap the two conditions to fix it.",
+      "starterCode": "temp = 35\nif temp > 20:\n    print(\"Warm\")\nelif temp > 30:\n    print(\"Hot\")"
     }
   ],
   "quiz": [
@@ -70,20 +88,33 @@
       "options": [
         "Elephant life",
         "Else if",
-        "Elves logic"
+        "Elves logic",
+        "Element if"
       ],
       "answer": 1,
-      "explain": "`elif` is short for 'else if'. It checks another condition when the first `if` turned out False."
+      "explain": "elif is short for 'else if'. It checks another condition when the branches above it turned out False."
     },
     {
       "question": "What must you put at the end of an 'if' line?",
       "options": [
         "A period (.)",
         "A colon (:)",
-        "A semicolon (;)"
+        "A semicolon (;)",
+        "Nothing"
       ],
       "answer": 1,
-      "explain": "Every `if` line ends with a colon `:`. It tells Python the indented block below belongs to that `if`."
+      "explain": "Every if line ends with a colon. It tells Python that the indented block below belongs to that if."
+    },
+    {
+      "question": "If two conditions in a chain are both True, which one runs?",
+      "options": [
+        "The first one",
+        "The last one",
+        "Both of them",
+        "Neither, it is an error"
+      ],
+      "answer": 0,
+      "explain": "Python checks from top to bottom and stops at the first True condition. The rest are never checked."
     }
   ]
 }

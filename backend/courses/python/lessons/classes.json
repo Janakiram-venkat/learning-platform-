@@ -10,20 +10,45 @@
     },
     {
       "type": "paragraph",
-      "value": "A class is a blueprint for making things. Think of a cookie cutter: you make the cutter once, then use it to stamp out many cookies that all share the same shape. In Python, the blueprint is a class, and each thing you make from it is an object."
-    },
-    {
-      "type": "heading",
-      "value": "Defining a Class"
+      "value": "Say you are keeping track of three dogs. With what you know so far you would need a variable for each name and each breed, or a dictionary for every dog, and a separate function for making them bark. The data lives in one place and the actions live in another, and nothing holds them together."
     },
     {
       "type": "paragraph",
-      "value": "You create a class with the `class` keyword. Inside, you can store data (called attributes) and define actions (called methods, which are just functions that belong to the class)."
+      "value": "A class fixes that by letting you describe a whole kind of thing in one place: what it knows, and what it can do. Think of a cookie cutter. You make the cutter once, then stamp out as many cookies as you like, all the same shape but each its own cookie. The cutter is the class, and each cookie is an object."
+    },
+    {
+      "type": "heading",
+      "value": "Writing a Class"
+    },
+    {
+      "type": "paragraph",
+      "value": "You start with the `class` keyword and a name, written with a capital letter by convention. Inside it goes a special method called `__init__`, which Python runs automatically every time a new object is made. Its job is to store that object's own data."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "class Dog:\n    # This special method sets up the data for each new dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n    \n    # An action the dog can do:\n    def bark(self):\n        print(self.name + \" says Woof!\")"
+      "value": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed"
+    },
+    {
+      "type": "paragraph",
+      "value": "The word `self` means this particular object, the one being worked on right now. So `self.name = name` reads as: take the name that was passed in, and store it on this object. Values stored on an object like that are called attributes."
+    },
+    {
+      "type": "tip",
+      "value": "Every method inside a class takes `self` as its first parameter, and Python fills it in for you. You never pass it yourself: you write `buddy.bark()`, not `buddy.bark(buddy)`."
+    },
+    {
+      "type": "heading",
+      "value": "Adding Actions"
+    },
+    {
+      "type": "paragraph",
+      "value": "A function written inside a class is called a method, and it is the class's way of doing something. Because it receives `self`, it can reach the attributes of whichever object it was called on."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n\n    def bark(self):\n        print(self.name + \" says Woof!\")\n\n    def describe(self):\n        print(self.name + \" is a \" + self.breed)"
     },
     {
       "type": "heading",
@@ -31,46 +56,68 @@
     },
     {
       "type": "paragraph",
-      "value": "To make an object from a class, write the class name with parentheses and pass in the data. Each object is separate and keeps its own values."
+      "value": "To build an object, write the class name with parentheses and pass in the values `__init__` is expecting. Each object you make is completely separate, with its own attributes, even though they all came from the same class."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "dog1 = Dog(\"Buddy\", \"Golden Retriever\")\ndog2 = Dog(\"Max\", \"Pug\")\n\nprint(dog1.name)  # Prints Buddy\ndog2.bark()       # Prints Max says Woof!"
+      "value": "dog1 = Dog(\"Buddy\", \"Golden Retriever\")\ndog2 = Dog(\"Max\", \"Pug\")\n\nprint(dog1.name)   # Buddy\ndog2.bark()        # Max says Woof!\ndog1.describe()    # Buddy is a Golden Retriever"
     },
     {
-      "type": "tip",
-      "value": "Notice the word `self` in the methods. Python uses `self` to mean 'this particular object', so each dog can use its own name and breed."
+      "type": "paragraph",
+      "value": "Change the names in the two cards below and press the buttons. The method is written once, so both cards share it, and yet each one prints its own line. That is `self` doing its job."
+    },
+    {
+      "type": "widget",
+      "kind": "object-builder"
     }
   ],
-  "editorCode": "class Cat:\n    def __init__(self, name, color):\n        self.name = name\n        self.color = color\n    def meow(self):\n        print(self.name + \" says Meow!\")\n\nmy_cat = Cat(\"Luna\", \"Black\")\nmy_cat.meow()",
+  "editorCode": "class Cat:\n    def __init__(self, name, color):\n        self.name = name\n        self.color = color\n\n    def meow(self):\n        print(self.name + \" says Meow!\")\n\ncat1 = Cat(\"Luna\", \"black\")\ncat2 = Cat(\"Sky\", \"grey\")\n\ncat1.meow()\ncat2.meow()\nprint(cat2.color)",
   "practice": [
     {
       "id": 1,
-      "question": "Using the Dog class below, make a Dog object named 'rover' with breed 'Labrador', then call rover.bark().",
-      "starterCode": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n    def bark(self):\n        print(self.name + \" says Woof!\")\n\n# Make 'rover' and call bark() below"
+      "question": "Using the Dog class below, make a Dog called 'rover' with the breed 'Labrador', then call rover.bark().",
+      "starterCode": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n\n    def bark(self):\n        print(self.name + \" says Woof!\")\n\n# Make 'rover' and call bark() below\n"
+    },
+    {
+      "id": 2,
+      "question": "The speak method is missing its self parameter, so calling it fails. Fix it.",
+      "starterCode": "class Robot:\n    def __init__(self, name):\n        self.name = name\n\n    def speak():\n        print(\"Beep!\")\n\nr = Robot(\"Bolt\")\nr.speak()"
     }
   ],
   "quiz": [
     {
       "question": "What is a class in Python?",
       "options": [
-        "A type of school room.",
-        "A blueprint for making objects.",
-        "A math calculator."
+        "A blueprint for making objects",
+        "A kind of loop",
+        "Another name for a list",
+        "A function with no inputs"
       ],
-      "answer": 1,
-      "explain": "A class is a blueprint. From one blueprint you can make many objects, like one cookie cutter makes many cookies."
+      "answer": 0,
+      "explain": "A class describes a kind of thing. One class can stamp out as many separate objects as you need."
     },
     {
-      "question": "What do we call the actions defined inside a class?",
+      "question": "What does 'self' mean inside a method?",
       "options": [
-        "Attributes",
-        "Methods",
-        "Lessons"
+        "The class itself",
+        "This particular object, the one the method was called on",
+        "The name of the method",
+        "Nothing, it is optional"
       ],
       "answer": 1,
-      "explain": "Actions inside a class are called methods. The data it stores (like a name or color) are called attributes."
+      "explain": "self is how a method reaches the attributes of whichever object it was called on, which is why one method can print a different name for every object."
+    },
+    {
+      "question": "Which method runs automatically when you make a new object?",
+      "options": [
+        "__init__",
+        "__start__",
+        "main",
+        "new"
+      ],
+      "answer": 0,
+      "explain": "__init__ runs the moment an object is created, and its job is to store that object's own starting values."
     }
   ]
 }

@@ -10,15 +10,26 @@
     },
     {
       "type": "paragraph",
-      "value": "A `for` loop repeats a set number of times. But sometimes you don't know how many times you'll need. For example, you keep chewing while there is still food in your mouth. A `while` loop repeats as long as a condition is True."
+      "value": "A `for` loop repeats a set number of times, decided before it starts. Sometimes you do not know that number in advance. You keep chewing while there is still food in your mouth, however many bites that takes. A `while` loop repeats for as long as its condition stays True, and its condition is exactly the kind of comparison you wrote back in Module 2."
     },
     {
       "type": "heading",
-      "value": "How It Works"
+      "value": "Check, Run, Update"
     },
     {
       "type": "paragraph",
-      "value": "A `while` loop checks its condition first. If the condition is True, it runs the indented lines, then checks the condition again. It keeps doing this until the condition becomes False."
+      "value": "A while loop follows the same three beats every time round. It checks the condition. If the condition is True it runs the indented lines. Then it goes back and checks again. The loop only ends when a check comes back False. Step through the tracer below to watch one full run."
+    },
+    {
+      "type": "widget",
+      "kind": "while-tracer",
+      "variable": "energy",
+      "start": 3,
+      "op": ">",
+      "limit": 0,
+      "say": "Jumping jack!",
+      "stepBy": -1,
+      "after": "Out of energy, time to rest!"
     },
     {
       "type": "code",
@@ -26,24 +37,46 @@
       "value": "energy = 3\nwhile energy > 0:\n    print(\"Jumping jack!\")\n    energy = energy - 1\nprint(\"Out of energy, time to rest!\")"
     },
     {
+      "type": "tip",
+      "value": "You can write `energy -= 1` as a shortcut for `energy = energy - 1`. There is a matching `+=` for adding. Both do the same job with less typing."
+    },
+    {
       "type": "heading",
       "value": "Watch Out for Infinite Loops"
     },
     {
       "type": "paragraph",
-      "value": "If the condition never becomes False, the loop runs forever. This is called an infinite loop. In the example above, if you forget the line `energy = energy - 1`, energy stays at 3 and the loop never stops. Always make sure something inside the loop moves it toward stopping."
+      "value": "The condition only changes because something inside the loop changes it. Take out the line that lowers `energy` and it stays at 3 forever, the check is True every single time, and the loop never ends. That is called an infinite loop. Switch off the update line in the tracer above to see it happen."
     },
     {
       "type": "tip",
-      "value": "You can write `energy -= 1` as a shortcut for `energy = energy - 1`. It does the same thing with less typing."
+      "value": "Before you run a while loop, find the line that moves the condition toward False. If you cannot point at one, the loop will not stop."
+    },
+    {
+      "type": "heading",
+      "value": "Counting With While"
+    },
+    {
+      "type": "paragraph",
+      "value": "A while loop can count just like a for loop, but you have to do the bookkeeping yourself: create the counter before the loop, and change it inside. When you already know how many repeats you need, a for loop is usually the simpler choice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "count = 1\nwhile count <= 5:\n    print(\"Count is:\", count)\n    count += 1"
     }
   ],
   "editorCode": "count = 1\nwhile count <= 5:\n    print(\"Count is:\", count)\n    count += 1",
   "practice": [
     {
       "id": 1,
-      "question": "Write a while loop that counts down from 5 to 1. Remember to subtract 1 from count each time, or it will loop forever.",
-      "starterCode": "count = 5\nwhile count > 0:\n    print(count)\n    # Subtract 1 from count below"
+      "question": "Write a while loop that counts down from 5 to 1. Replace the pass line with the step that lowers count, or it will loop forever.",
+      "starterCode": "count = 5\nwhile count > 0:\n    print(count)\n    pass    # replace this line: subtract 1 from count"
+    },
+    {
+      "id": 2,
+      "question": "This loop never stops. Add the missing line so it ends.",
+      "starterCode": "lives = 3\nwhile lives > 0:\n    print(\"Still playing\")\n    pass    # replace this line"
     }
   ],
   "quiz": [
@@ -52,20 +85,33 @@
       "options": [
         "After exactly 10 repeats.",
         "When its condition becomes False.",
-        "When the computer is shut down."
+        "When the computer is shut down.",
+        "It never stops."
       ],
       "answer": 1,
-      "explain": "A while loop keeps going as long as its condition is True, and stops the moment the condition becomes False."
+      "explain": "A while loop keeps going as long as its condition is True, and stops the moment a check comes back False."
     },
     {
       "question": "What happens if a while loop's condition is always True?",
       "options": [
         "It stops immediately.",
         "It runs forever (an infinite loop).",
-        "It changes itself to False."
+        "It changes itself to False.",
+        "Python skips the loop."
       ],
       "answer": 1,
-      "explain": "If the condition never becomes False, the loop never stops. That's called an infinite loop."
+      "explain": "If nothing inside the loop moves the condition toward False, the loop never ends. That is an infinite loop."
+    },
+    {
+      "question": "How many times does this loop print?  n = 3  /  while n > 0:  print(n)  /  n -= 1",
+      "options": [
+        "3 times",
+        "4 times",
+        "Forever",
+        "Not at all"
+      ],
+      "answer": 0,
+      "explain": "n is 3, 2, then 1 on the three passes that print. On the fourth check n is 0, which is not greater than 0, so the loop ends."
     }
   ]
 }

@@ -10,11 +10,7 @@
     },
     {
       "type": "paragraph",
-      "value": "Python is a programming language. A programming language is just a way to give a computer instructions, one step at a time. The computer follows those steps exactly, in order, from top to bottom."
-    },
-    {
-      "type": "paragraph",
-      "value": "Python is popular because it is easy to read. Many of the instructions look almost like plain English. People use Python to build websites, make games, work with data, and much more."
+      "value": "Python is a programming language: a way to give a computer instructions, one step at a time. The computer follows those steps exactly, in order, from top to bottom. Python is popular because many of its instructions look almost like plain English. People use it to build websites, make games, work with data, and more."
     },
     {
       "type": "heading",
@@ -22,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "value": "The most common first instruction is `print`. It tells the computer to show something on the screen. You write `print`, then a pair of parentheses `()`, and put your message inside quotation marks."
+      "value": "The most common first instruction is `print`. It tells the computer to show something on the screen. You write `print`, then a pair of parentheses `()`, and put your message inside quotation marks. Each `print` sends one line to the terminal, in order."
     },
     {
       "type": "code",
@@ -30,19 +26,15 @@
       "value": "print(\"Hello, World!\")\nprint(\"I am learning Python!\")"
     },
     {
-      "type": "paragraph",
-      "value": "Each `print` line shows one message. The two lines above show two lines of text, one after the other."
-    },
-    {
       "type": "tip",
-      "value": "Text that you want shown on screen always needs quotation marks around it (\" \"). Without them, Python doesn't know it's text and gives an error."
+      "value": "Text always needs quotation marks (\" \"). Without them, Python doesn't know it's text and gives an error."
     },
     {
       "type": "simulation",
       "kind": "print",
       "lines": [
         "Hello, World!",
-        "Python is fun!"
+        "I am learning Python!"
       ]
     }
   ],

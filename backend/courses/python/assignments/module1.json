@@ -1,67 +1,111 @@
 {
   "moduleId": 1,
-  "title": "Python Basics Arcade",
-  "intro": "Time to test what you've learned! Predict outputs, fix broken code, and build code blocks. Get them right on the first try to earn ⭐⭐⭐!",
+  "title": "Python Basics Checkpoint",
+  "intro": "You have learned print, variables, data types and math. Time to prove it. Eleven rounds, one from every idea in this module. Get them right on the first try to earn ⭐⭐⭐!",
   "emoji": "🐍",
   "rounds": [
     {
       "type": "predict",
       "prompt": "Run this line. What shows up on the screen?",
       "code": "print(\"Hello there!\")",
-      "options": ["Hello there!", "print(Hello there!)", "Nothing happens"],
+      "options": ["Hello there!", "print(Hello there!)", "\"Hello there!\"", "Nothing happens"],
       "answer": 0,
-      "explain": "print shows whatever is inside the quotation marks."
+      "explain": "print shows whatever is inside the quotation marks. The quotes themselves are not printed."
     },
     {
       "type": "bug",
-      "prompt": "This line is broken! Pick the fix.",
+      "prompt": "This line is broken. Pick the fix.",
       "code": "print(\"Coding is fun)",
       "options": [
         "Add the missing closing quote: print(\"Coding is fun\")",
         "Remove the word print",
+        "Swap the brackets for curly ones",
         "Add a number at the end"
       ],
       "answer": 0,
-      "explain": "Every opening quote needs a closing quote, or Python gets confused!"
+      "explain": "Every opening quote needs a closing quote. Without it Python keeps looking for where the text ends and runs off the line."
     },
     {
       "type": "concept",
-      "prompt": "Which line stores the number 7 in a box called score?",
-      "options": ["score = 7", "7 = score", "print(score = 7)"],
+      "prompt": "Which line stores the number 7 in a variable called score?",
+      "options": ["score = 7", "7 = score", "score == 7", "print(score = 7)"],
       "answer": 0,
-      "explain": "Variables work like labelled boxes: the name goes on the left, the value on the right."
+      "explain": "The name goes on the left of the equals sign and the value goes on the right. Python reads it as: put 7 into score."
     },
     {
       "type": "predict",
-      "prompt": "What number will this print?",
-      "code": "x = 5\ny = 3\nprint(x + y)",
-      "options": ["8", "53", "x + y"],
+      "prompt": "A variable can be given a new value. What does this print?",
+      "code": "lives = 3\nlives = 1\nprint(lives)",
+      "options": ["1", "3", "4", "3 1"],
       "answer": 0,
-      "explain": "x is 5 and y is 3, so x + y becomes 8."
+      "explain": "The second line replaces the value. Python keeps only the newest one, so lives holds 1 by the time print runs."
     },
     {
       "type": "concept",
       "prompt": "What kind of data is \"42\" (with the quotation marks)?",
-      "options": ["A string (text)", "A number you can add", "A True/False value"],
+      "options": [
+        "A string, because of the quotes",
+        "An int you can do math with",
+        "A float",
+        "A True or False value"
+      ],
       "answer": 0,
-      "explain": "Quotation marks turn anything into text, a string, even if it looks like a number."
+      "explain": "Quotation marks make a value text, even when it looks like a number. Without the quotes, 42 would be an int."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which of these is a valid boolean in Python?",
+      "options": ["True", "true", "\"True\"", "Yes"],
+      "answer": 0,
+      "explain": "A boolean is written True or False with a capital letter. Lowercase true is not defined, and \"True\" in quotes is a string, not a boolean."
+    },
+    {
+      "type": "predict",
+      "prompt": "Careful with division. What does this print?",
+      "code": "print(10 / 4)",
+      "options": ["2.5", "2", "3", "2.0"],
+      "answer": 0,
+      "explain": "The / operator always gives a decimal answer in Python. 10 divided by 4 is 2.5. If you wanted the whole-number part only, you would use //."
+    },
+    {
+      "type": "predict",
+      "prompt": "What is the remainder here?",
+      "code": "print(7 % 3)",
+      "options": ["1", "2", "2.33", "21"],
+      "answer": 0,
+      "explain": "The % operator gives what is left over after dividing. 3 goes into 7 twice with 1 left over, so the answer is 1."
+    },
+    {
+      "type": "predict",
+      "prompt": "Order of operations. What does this print?",
+      "code": "print(2 + 3 * 4)",
+      "options": ["14", "20", "9", "24"],
+      "answer": 0,
+      "explain": "Multiplication happens before addition, so Python works out 3 * 4 first to get 12, then adds 2. Wrapping (2 + 3) in parentheses would give 20 instead."
     },
     {
       "type": "match",
       "prompt": "Match each Python piece to what it does.",
       "pairs": [
-        { "left": "print()", "right": "Shows text on the screen" },
+        { "left": "print()", "right": "Shows something on the screen" },
         { "left": "=", "right": "Puts a value into a variable" },
         { "left": "\"hi\"", "right": "A string (text)" },
-        { "left": "7", "right": "A whole number (int)" }
+        { "left": "7", "right": "A whole number (int)" },
+        { "left": "2.5", "right": "A decimal number (float)" },
+        { "left": "False", "right": "A yes or no value (bool)" }
       ],
-      "explain": "print() displays things, = stores a value in a variable, quotes make a string, and a bare number like 7 is an int."
+      "explain": "These six pieces cover everything in this module: showing output, storing values, and the four basic data types."
     },
     {
       "type": "order",
-      "prompt": "Build the code: store a name, then greet it.",
-      "solution": ["name = \"Mia\"", "print(\"Hi \" + name)"],
-      "explain": "First create the variable, then you can use it on the next line."
+      "prompt": "Build the program: store a price, store a tax, add them up, then show the total.",
+      "solution": [
+        "price = 20",
+        "tax = 5",
+        "total = price + tax",
+        "print(total)"
+      ],
+      "explain": "Create each variable before you use it. The third line reads price and tax, adds them, and stores the answer in total. Only then can print show it."
     }
   ]
 }

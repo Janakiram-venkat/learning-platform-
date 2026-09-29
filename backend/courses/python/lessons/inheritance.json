@@ -1,7 +1,7 @@
 {
   "lessonId": "inheritance",
   "title": "Inheritance",
-  "description": "Let one class reuse the attributes and methods of another class.",
+  "description": "Let one class build on another instead of copying its code.",
   "difficulty": "Advanced",
   "content": [
     {
@@ -10,63 +10,110 @@
     },
     {
       "type": "paragraph",
-      "value": "Suppose you have an `Animal` class with a `name` and an `eat()` method. Now you want a `Dog` class that has all of that, plus a `bark()` method. Instead of copying the shared code, you can have `Dog` inherit from `Animal`. Inheriting means the new class automatically gets everything the other class has."
-    },
-    {
-      "type": "heading",
-      "value": "How Inheritance Works"
+      "value": "Imagine you write a `Dog` class and then a `Cat` class. Both store a name, both eat, both sleep. You would be copying the same three methods into every animal you add, and fixing a bug in `eat` would mean fixing it in every copy."
     },
     {
       "type": "paragraph",
-      "value": "You put the parent class name in parentheses when you define the child class. The child gets the parent's attributes and methods, and can add its own on top."
+      "value": "Inheritance is the way out. You write the shared parts once in a parent class, and each child class says which parent it builds on. The child starts out with everything the parent has, and then adds whatever makes it different."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "class Animal:\n    def __init__(self, name):\n        self.name = name\n    \n    def eat(self):\n        print(self.name + \" is eating!\")\n\n# Dog inherits from Animal:\nclass Dog(Animal):\n    def bark(self):\n        print(self.name + \" says Woof!\")"
-    },
-    {
-      "type": "heading",
-      "value": "Using Inherited Methods"
+      "value": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\n    def eat(self):\n        print(self.name + \" is eating!\")\n\n\nclass Dog(Animal):\n    def fetch(self):\n        print(self.name + \" brings the ball back!\")"
     },
     {
       "type": "paragraph",
-      "value": "Even though `Dog` has no `eat` method of its own, it inherited one from `Animal`. So you can call `eat()` on a dog and it just works, alongside its own `bark()`."
+      "value": "The parent's name goes in parentheses after the child's name. `Dog` has no `__init__` and no `eat` of its own, and it does not need them: both came from `Animal`."
+    },
+    {
+      "type": "heading",
+      "value": "Using What You Inherited"
+    },
+    {
+      "type": "paragraph",
+      "value": "A `Dog` object is built exactly like any other object, and the parent's `__init__` runs to store the name. From then on you can call the parent's methods and the child's own methods on it, and there is nothing to tell them apart at the call."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "my_dog = Dog(\"Buddy\")\nmy_dog.eat()   # Prints: Buddy is eating!\nmy_dog.bark()  # Prints: Buddy says Woof!"
+      "value": "buddy = Dog(\"Buddy\")\n\nbuddy.eat()     # Buddy is eating!   (borrowed from Animal)\nbuddy.fetch()   # Buddy brings the ball back!   (Dog's own)"
+    },
+    {
+      "type": "paragraph",
+      "value": "When you call a method, Python looks in the child class first. If it is not there, it looks at the parent. Press the buttons below to watch that search happen, and notice which box lights up each time."
+    },
+    {
+      "type": "widget",
+      "kind": "inheritance-tree"
+    },
+    {
+      "type": "heading",
+      "value": "Overriding a Method"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sometimes the parent's version is not right for a particular child. Because Python checks the child first, you can simply write a method with the same name in the child, and that one wins. This is called overriding."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "class Animal:\n    def speak(self):\n        print(\"Some sound.\")\n\nclass Dog(Animal):\n    def speak(self):\n        print(\"Woof!\")\n\nclass Cow(Animal):\n    pass\n\nDog().speak()   # Woof!       (Dog's own version)\nCow().speak()   # Some sound. (nothing to override it, so the parent's)"
+    },
+    {
+      "type": "paragraph",
+      "value": "Switch the override on in the widget above and call `speak()` again. The same call now lands in the child instead of the parent, and the parent's version is never reached."
+    },
+    {
+      "type": "tip",
+      "value": "`pass` is Python's way of saying there is deliberately nothing here. `Cow` inherits everything and adds nothing, and the body of a class or function is never allowed to be empty."
     }
   ],
-  "editorCode": "class Bird:\n    def fly(self):\n        print(\"I am flying high!\")\n\nclass Parrot(Bird):\n    def speak(self):\n        print(\"Polly wants a cracker!\")\n\nmy_parrot = Parrot()\nmy_parrot.fly()\nmy_parrot.speak()",
+  "editorCode": "class Bird:\n    def __init__(self, name):\n        self.name = name\n\n    def fly(self):\n        print(self.name + \" is flying high!\")\n\n    def speak(self):\n        print(self.name + \" makes a sound.\")\n\n\nclass Parrot(Bird):\n    def speak(self):\n        print(self.name + \" wants a cracker!\")\n\n\npolly = Parrot(\"Polly\")\npolly.fly()     # inherited from Bird\npolly.speak()   # Parrot's own version wins",
   "practice": [
     {
       "id": 1,
-      "question": "Make a Dog object named 'rover' (Dog inherits from Animal) and call its eat() method.",
-      "starterCode": "class Animal:\n    def __init__(self, name):\n        self.name = name\n    def eat(self):\n        print(self.name + \" is eating!\")\n\nclass Dog(Animal):\n    def bark(self):\n        print(self.name + \" barks!\")\n\n# Make 'rover' and call eat() below"
+      "question": "Make a Dog called 'rover' and call its eat() method, which Dog inherits from Animal.",
+      "starterCode": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\n    def eat(self):\n        print(self.name + \" is eating!\")\n\nclass Dog(Animal):\n    def bark(self):\n        print(self.name + \" barks!\")\n\n# Make 'rover' and call eat() below\n"
+    },
+    {
+      "id": 2,
+      "question": "Give Cat its own speak() method that prints a meow, so it overrides the one from Animal.",
+      "starterCode": "class Animal:\n    def speak(self):\n        print(\"Some sound.\")\n\nclass Cat(Animal):\n    pass    # replace this with a speak method of Cat's own\n\nCat().speak()"
     }
   ],
   "quiz": [
     {
       "question": "What does a child class get through inheritance?",
       "options": [
-        "It deletes the parent class.",
-        "It gets the parent class's attributes and methods.",
-        "It hides the parent class."
+        "It replaces the parent class",
+        "It gets the parent's attributes and methods",
+        "It hides the parent class",
+        "It gets a copy that never updates"
       ],
       "answer": 1,
-      "explain": "A child class automatically gets (inherits) all the attributes and methods of its parent, then can add its own."
+      "explain": "The child starts with everything the parent has and can then add its own, without any of the parent's code being copied."
     },
     {
       "question": "How do you define a class 'Car' that inherits from 'Vehicle'?",
       "options": [
         "class Car(Vehicle):",
         "class Car inherits Vehicle:",
-        "class Vehicle(Car):"
+        "class Vehicle(Car):",
+        "class Car = Vehicle:"
       ],
       "answer": 0,
-      "explain": "You put the parent's name in parentheses: `class Car(Vehicle):` means Car inherits from Vehicle."
+      "explain": "The parent's name goes in parentheses after the child's. Writing it the other way round would make Vehicle the child."
+    },
+    {
+      "question": "Both Animal and Dog define speak(). Which one runs for a Dog object?",
+      "options": [
+        "Dog's, because Python checks the child class first",
+        "Animal's, because the parent always wins",
+        "Both of them, one after the other",
+        "Neither, it causes an error"
+      ],
+      "answer": 0,
+      "explain": "Python searches the child first and stops as soon as it finds the method. That is what makes overriding possible."
     }
   ]
 }

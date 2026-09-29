@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet, useParams } from 'react-router-dom';
 import Home from '../pages/Home';
 import RequireAuth from '../components/auth/RequireAuth';
 import { useAuth } from '../context/AuthContext';
@@ -24,8 +24,8 @@ const GameManual = lazy(() => import('../pages/GameManual'));
 const AdminPage = lazy(() => import('../pages/AdminPage'));
 const ContestListPage = lazy(() => import('../pages/ContestListPage'));
 const ContestPage = lazy(() => import('../pages/ContestPage'));
-const VirtualLabPage = lazy(() => import('../pages/VirtualLabPage'));
-const VirtualLabExperiment = lazy(() => import('../pages/VirtualLabExperiment'));
+const PhysicsCoursePage = lazy(() => import('../pages/PhysicsCoursePage'));
+const PhysicsExperimentPage = lazy(() => import('../pages/PhysicsExperimentPage'));
 
 function RouteFallback() {
   return (
@@ -33,6 +33,14 @@ function RouteFallback() {
       Loading…
     </div>
   );
+}
+
+// Physics used to live at /virtual-lab as its own product. It is a course now,
+// so the old paths forward to the new ones, carrying the experiment id across
+// so a bookmarked experiment still lands on that experiment.
+function LegacyVirtualLabExperiment() {
+  const { experimentId } = useParams();
+  return <Navigate to={`/course/physics/${experimentId}`} replace />;
 }
 
 // Keeps the admin dashboard out of a student's way. Nested inside RequireAuth,
@@ -55,8 +63,15 @@ export default function AppRoutes() {
             who have not worked through the course, so "read the manual first" is
             only fair advice if reading it does not need an account. */}
         <Route path="/manual" element={<GameManual />} />
-        <Route path="/virtual-lab" element={<VirtualLabPage />} />
-        <Route path="/virtual-lab/:experimentId" element={<VirtualLabExperiment />} />
+        {/* Physics is public on purpose, exactly as the Virtual Lab it grew
+            out of was: its experiments are browser-only widgets that touch no
+            API, so an account would buy the student nothing. That is why these
+            two sit here rather than under RequireAuth with the other courses. */}
+        <Route path="/course/physics" element={<PhysicsCoursePage />} />
+        <Route path="/course/physics/:experimentId" element={<PhysicsExperimentPage />} />
+        {/* Retired /virtual-lab addresses, kept alive as redirects. */}
+        <Route path="/virtual-lab" element={<Navigate to="/course/physics" replace />} />
+        <Route path="/virtual-lab/:experimentId" element={<LegacyVirtualLabExperiment />} />
         {/* The catalogue is public too: a visitor should see what they would be
             signing up for. Opening a track still hits RequireAuth below. */}
         <Route path="/courses" element={<CoursesPage />} />

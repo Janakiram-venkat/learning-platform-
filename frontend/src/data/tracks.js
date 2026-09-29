@@ -23,6 +23,13 @@ export const TRACKS = [
     traits: { code: 3, puzzles: 3, brandNew: 3, foundation: 3, ai: 1, games: 1 },
   },
   {
+    ref: 'TRK-JAVA', title: 'Java', tagline: 'Strict, and worth it',
+    line: 'Beginner friendly',
+    desc: 'The language behind Android, Minecraft and half the world’s servers. Compile it, run it, build real programs with it.',
+    status: 'NEW', led: '#E76F00', to: '/course/java/lesson/java_intro',
+    traits: { code: 3, foundation: 2, puzzles: 2, games: 1, machines: 1 },
+  },
+  {
     ref: 'TRK-AI', title: 'AI & Machine Learning', tagline: 'Teach a machine to see',
     line: 'Explorer',
     desc: 'Train smart models, show them examples, then ask them to guess. AI you can actually poke at.',

@@ -1,0 +1,27 @@
+{
+  "moduleId": 12,
+  "title": "Algorithms and Problem Solving",
+  "lessons": [
+    {
+      "lessonId": "java_searching",
+      "title": "Searching",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_sorting",
+      "title": "Sorting",
+      "duration": "25 min"
+    },
+    {
+      "lessonId": "java_recursion",
+      "title": "Recursion",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_complexity",
+      "title": "How Fast Is My Code?",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

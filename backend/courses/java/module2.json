@@ -1,0 +1,32 @@
+{
+  "moduleId": 2,
+  "title": "Variables and Data Types",
+  "lessons": [
+    {
+      "lessonId": "java_variables",
+      "title": "Variables",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_primitive_types",
+      "title": "Primitive Data Types",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_strings_intro",
+      "title": "Strings",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_type_casting",
+      "title": "Type Casting",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_constants",
+      "title": "Constants and Naming",
+      "duration": "10 min"
+    }
+  ],
+  "hasProject": true
+}

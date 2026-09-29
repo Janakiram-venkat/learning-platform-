@@ -1,0 +1,32 @@
+{
+  "moduleId": 3,
+  "title": "Input and Operators",
+  "lessons": [
+    {
+      "lessonId": "java_scanner",
+      "title": "Reading Input with Scanner",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_arithmetic",
+      "title": "Arithmetic Operators",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_assignment_ops",
+      "title": "Assignment and Increment",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_comparison_ops",
+      "title": "Comparison Operators",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_logical_ops",
+      "title": "Logical Operators",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

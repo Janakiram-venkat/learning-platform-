@@ -1,0 +1,108 @@
+{
+  "lessonId": "java_jdk_jvm",
+  "title": "The JDK and the JVM",
+  "description": "What happens between pressing Run and seeing output: compiling to bytecode, then running it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Two Steps, Not One"
+    },
+    {
+      "type": "paragraph",
+      "value": "When you press Run, your Java code does not go straight to the computer. It takes two steps. First it is compiled: a program called `javac` reads your text and translates it. Then it is executed: a program called `java` actually runs the translation."
+    },
+    {
+      "type": "paragraph",
+      "value": "That is why Java can catch mistakes before anything runs. Compiling is a checking step. If you misspell a word or forget a semicolon, `javac` stops and tells you, and step two never happens."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "// What happens when you press Run:\n//\n//   Main.java        your code, text you can read\n//        |\n//        |   javac  (the compiler: checks and translates)\n//        v\n//   Main.class       bytecode, instructions for the JVM\n//        |\n//        |   java   (the JVM: runs the bytecode)\n//        v\n//   output in the terminal\n\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Compiled, then run.\");\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "value": "Bytecode and the JVM"
+    },
+    {
+      "type": "paragraph",
+      "value": "What `javac` produces is not instructions for your particular computer. It is bytecode: instructions for an imaginary computer called the Java Virtual Machine, or JVM. The JVM is a real program that pretends to be that computer, and there is a version of it for Windows, Mac, Linux and Android."
+    },
+    {
+      "type": "paragraph",
+      "value": "This is the trick behind \"write once, run anywhere\". Your bytecode file does not care what machine it is on. Whatever the machine, its JVM knows how to run that same bytecode. Compile on a laptop, run on a server, no changes needed."
+    },
+    {
+      "type": "tip",
+      "value": "Bytecode lives in a `.class` file. Your source code lives in a `.java` file. You write the `.java`; `javac` writes the `.class` for you."
+    },
+    {
+      "type": "heading",
+      "value": "JDK, JRE, JVM"
+    },
+    {
+      "type": "paragraph",
+      "value": "Three names that sound alike and mean different things. The JVM is the engine that runs bytecode. The JRE (Java Runtime Environment) is the JVM plus the standard library of ready made code that comes with Java. The JDK (Java Development Kit) is the JRE plus the developer tools, including the `javac` compiler."
+    },
+    {
+      "type": "paragraph",
+      "value": "The short version: to run a Java program you need the JRE. To write one you need the JDK, because only the JDK can compile. On this platform the JDK is already installed for you on the server, so pressing Run is all you have to do."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "//  +--------------------------- JDK ---------------------------+\n//  |  javac (compiler), and other developer tools              |\n//  |                                                           |\n//  |  +----------------------- JRE ----------------------+     |\n//  |  |  the standard library (System, Scanner, String)   |     |\n//  |  |                                                   |     |\n//  |  |  +---------------- JVM ----------------+          |     |\n//  |  |  |  runs your bytecode                 |          |     |\n//  |  |  +-------------------------------------+          |     |\n//  |  +---------------------------------------------------+     |\n//  +-----------------------------------------------------------+\n\npublic class Main {\n    public static void main(String[] args) {\n        // System.out.println comes from the standard library in the JRE.\n        System.out.println(\"Hello from inside the JVM.\");\n    }\n}"
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Compiled by javac.\");\n        System.out.println(\"Run by the JVM.\");\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write a program that prints the two steps in order: one line saying Step 1: compile, and one saying Step 2: run.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `javac` do?",
+      "options": [
+        "Checks your code and translates it into bytecode.",
+        "Runs your program and shows the output.",
+        "Installs Java on your computer."
+      ],
+      "answer": 0,
+      "explain": "`javac` is the compiler. It reads your `.java` file, reports any mistakes, and writes a `.class` file of bytecode."
+    },
+    {
+      "question": "What runs the bytecode?",
+      "options": [
+        "The JVM, the Java Virtual Machine.",
+        "The compiler.",
+        "The text editor."
+      ],
+      "answer": 0,
+      "explain": "The JVM is the engine that executes bytecode. Because every operating system has its own JVM, the same bytecode runs on all of them."
+    },
+    {
+      "question": "You want to write and compile Java programs. Which do you need installed?",
+      "options": [
+        "The JDK, because only it includes the compiler.",
+        "The JRE, because it includes everything.",
+        "Only the JVM."
+      ],
+      "answer": 0,
+      "explain": "The JRE can run a finished program but cannot compile one. The JDK adds `javac`, so a developer needs the JDK."
+    },
+    {
+      "question": "Why can the same Java program run on Windows, Mac and Android?",
+      "options": [
+        "Bytecode targets the JVM, and each system has its own JVM.",
+        "Java rewrites itself for each machine as it runs.",
+        "It cannot: you have to write it again for each system."
+      ],
+      "answer": 0,
+      "explain": "Your code is compiled for the JVM rather than for a specific machine. Each system supplies a JVM that knows how to run that bytecode."
+    }
+  ]
+}

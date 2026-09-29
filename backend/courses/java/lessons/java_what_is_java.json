@@ -1,0 +1,103 @@
+{
+  "lessonId": "java_what_is_java",
+  "title": "What Is Java?",
+  "description": "Where Java came from, what it is used for, and what makes it strict.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "One Language, Many Machines"
+    },
+    {
+      "type": "paragraph",
+      "value": "Java is a programming language, one of the most widely used in the world. It was built around a simple promise: write your program once, and run it on any machine, whether that is a Windows laptop, a Mac, a Linux server or an Android phone. You will see how that works in the next lesson."
+    },
+    {
+      "type": "paragraph",
+      "value": "Java is everywhere, even when you cannot see it. Android apps, Minecraft, banking systems, airline booking, and the servers behind large websites are all built with it. Learning Java means learning the language a great deal of the world actually runs on."
+    },
+    {
+      "type": "heading",
+      "value": "Java Is Strict, and That Helps"
+    },
+    {
+      "type": "paragraph",
+      "value": "Java is a strict language. It insists that you say what kind of value you are storing, it insists on a semicolon `;` at the end of every instruction, and it refuses to run at all if anything is out of place. That feels annoying for about a week, and then it starts saving you."
+    },
+    {
+      "type": "paragraph",
+      "value": "The reason: Java catches mistakes before your program runs, not while your user is in the middle of it. A misspelled name is an error you see immediately, not a crash a customer finds later."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Java runs everywhere.\");\n        System.out.println(\"Every line ends with a semicolon.\");\n    }\n}"
+    },
+    {
+      "type": "tip",
+      "value": "Forgetting a semicolon is the single most common beginner error in Java. When an error mentions `';' expected`, look at the end of the line above the one it names."
+    },
+    {
+      "type": "heading",
+      "value": "How Java Code Is Shaped"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every Java program lives inside a class, and every instruction lives inside a method. You have already seen both: `class Main` is the class, and `main` is the method. The curly braces `{` and `}` mark where each one begins and ends, like nested boxes."
+    },
+    {
+      "type": "paragraph",
+      "value": "Java calls this arrangement object-oriented, and in Module 8 you will find out why it is such a powerful idea. For now, treat the class and the method as the wrapper your instructions go inside, and write your code between the innermost braces."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {            // the class: the outer box\n    public static void main(String[] args) {   // the method: the inner box\n        System.out.println(\"I go inside both boxes.\");\n    }\n}"
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Java runs everywhere.\");\n        System.out.println(\"Every line ends with a semicolon.\");\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Add a third line that prints one place Java is used, for example: Android apps are written in Java. Remember the semicolon.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Java runs everywhere.\");\n        System.out.println(\"Every line ends with a semicolon.\");\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Delete a semicolon on purpose and press Run. Read the error, then put it back. Getting used to error messages now will save you hours later.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Take my semicolon away\");\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does every Java instruction end with?",
+      "options": [
+        "A semicolon `;`",
+        "A full stop `.`",
+        "Nothing at all"
+      ],
+      "answer": 0,
+      "explain": "The semicolon tells Java that the instruction is finished. Leave it out and the compiler keeps reading onto the next line and reports an error."
+    },
+    {
+      "question": "Why is Java described as strict?",
+      "options": [
+        "It checks your code carefully and refuses to run until mistakes are fixed.",
+        "It only allows short programs.",
+        "It can only run on one kind of computer."
+      ],
+      "answer": 0,
+      "explain": "Java checks your code before running it. That means you meet your mistakes early, which is far cheaper than meeting them in front of a user."
+    },
+    {
+      "question": "Where do the instructions of a Java program live?",
+      "options": [
+        "Inside a method, which is inside a class.",
+        "Anywhere in the file, in any order.",
+        "Inside the file name."
+      ],
+      "answer": 0,
+      "explain": "Java code is always nested: instructions go in a method, and a method goes in a class. The braces show where each box starts and ends."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "moduleId": 6,
+  "title": "Methods",
+  "lessons": [
+    {
+      "lessonId": "java_methods_intro",
+      "title": "Writing Your First Method",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_parameters",
+      "title": "Parameters",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_return",
+      "title": "Returning a Value",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_overloading",
+      "title": "Method Overloading",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_scope",
+      "title": "Scope and Local Variables",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

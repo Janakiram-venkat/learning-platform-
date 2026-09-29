@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { runPythonInBrowser } from './pyodide';
+import { runJava } from './java';
 
 // The backend serves every route under an `/api` prefix. Normalise whatever is
 // configured so the base URL always ends with `/api`, even if the deploy env var
@@ -69,6 +70,21 @@ export const compilerService = {
     const result = await runPythonInBrowser(code, stdin);
     return { data: result };
   },
+
+  // Java can't run in the browser, so it goes to the API. Same { data } wrapper
+  // and the same { output, needs_input } payload as runPython.
+  runJava: async (code, stdin = '') => {
+    const result = await runJava(code, stdin);
+    return { data: result };
+  },
+
+  // Run in whatever language a course is taught in. Callers that know the
+  // course (lesson pages, project grading) use this rather than picking a
+  // runner themselves, so adding a language is one entry here.
+  run: async (language, code, stdin = '') =>
+    (language === 'java'
+      ? compilerService.runJava(code, stdin)
+      : compilerService.runPython(code, stdin)),
 };
 
 export const quizService = {

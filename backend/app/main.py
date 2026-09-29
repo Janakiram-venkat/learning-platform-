@@ -6,7 +6,7 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 from sqlalchemy import text
 from app.core.limiter import limiter, rate_limit_exceeded_handler
-from app.api import admin, contests, courses, lessons, quiz, users, feedback
+from app.api import admin, compiler, contests, courses, lessons, quiz, users, feedback
 from app.core.security import get_current_user
 from app.db import Base, engine
 from app.models import user as _user_model          # noqa: F401
@@ -66,6 +66,7 @@ app.add_middleware(
 _signed_in = [Depends(get_current_user)]
 
 app.include_router(courses.router, prefix="/api", tags=["Courses"], dependencies=_signed_in)
+app.include_router(compiler.router, prefix="/api", tags=["Compiler"], dependencies=_signed_in)
 app.include_router(lessons.router, prefix="/api", tags=["Lessons"], dependencies=_signed_in)
 app.include_router(quiz.router, prefix="/api", tags=["Quiz"], dependencies=_signed_in)
 app.include_router(users.router, prefix="/api", tags=["Users"])

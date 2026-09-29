@@ -1,0 +1,32 @@
+{
+  "moduleId": 8,
+  "title": "Classes and Objects",
+  "lessons": [
+    {
+      "lessonId": "java_classes",
+      "title": "Classes",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_objects",
+      "title": "Objects",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_constructors",
+      "title": "Constructors",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_encapsulation",
+      "title": "Encapsulation",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_static",
+      "title": "static Fields and Methods",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

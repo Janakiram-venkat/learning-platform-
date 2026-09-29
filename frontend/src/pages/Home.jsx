@@ -709,36 +709,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ Final CTA ============ */}
-      <section className="w-full bg-paper pb-24 pt-4">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="lab-panel-pcb relative overflow-hidden px-8 py-14 text-center sm:py-16">
-            {/* faint board traces */}
-            <div className="pointer-events-none absolute inset-0 opacity-15"
-              style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)', backgroundSize: '28px 28px' }} />
-            <div className="relative">
-              <span className="mb-4 inline-flex items-center gap-2 rounded-md border-2 border-ink bg-signal px-3 py-1 ref-tag text-ink">
-                <Power className="h-3.5 w-3.5" /> Power on
-              </span>
-              <h2 className="font-lab mb-3 text-3xl font-extrabold text-white sm:text-4xl">
-                Which bench boots first?
-              </h2>
-              <p className="mx-auto mb-8 max-w-xl text-lg font-semibold text-white/85">
-                Jump in free and pick your subject. Python, AI, web, games, or
-                robotics — the workbench is powered up and waiting.
-              </p>
-              <Link
-                to="/courses"
-                className="lab-btn inline-flex items-center gap-2 rounded-xl border-2 border-ink bg-signal px-8 py-3.5 text-lg font-extrabold text-ink"
-              >
-                <Sparkles className="h-5 w-5" /> Explore the labs
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ============ Footer ============ */}
       <footer className="w-full border-t-2 border-ink bg-white">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-12 sm:flex-row sm:justify-between">

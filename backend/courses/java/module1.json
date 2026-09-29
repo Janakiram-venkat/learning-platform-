@@ -1,0 +1,37 @@
+{
+  "moduleId": 1,
+  "title": "Meet Java",
+  "lessons": [
+    {
+      "lessonId": "java_intro",
+      "title": "What Is Programming?",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "java_what_is_java",
+      "title": "What Is Java?",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "java_jdk_jvm",
+      "title": "The JDK and the JVM",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_first_program",
+      "title": "Your First Program",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_printing",
+      "title": "Printing and Comments",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_reading_errors",
+      "title": "Editors and Reading Errors",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

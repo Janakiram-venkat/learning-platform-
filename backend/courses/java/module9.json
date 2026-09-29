@@ -1,0 +1,32 @@
+{
+  "moduleId": 9,
+  "title": "Inheritance and Polymorphism",
+  "lessons": [
+    {
+      "lessonId": "java_inheritance",
+      "title": "Inheritance",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_overriding",
+      "title": "Overriding Methods",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_polymorphism",
+      "title": "Polymorphism",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_abstract",
+      "title": "Abstract Classes",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_interfaces",
+      "title": "Interfaces",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

@@ -111,11 +111,11 @@ export default function CoursesPage() {
         <div className="mx-auto max-w-6xl px-6">
           <span className="mb-4 inline-flex items-center gap-2 rounded-md border-2 border-ink bg-white px-3 py-1 ref-tag text-ink">
             <Sparkles className="h-3.5 w-3.5" />
-            The workshop · eight benches
+            The workshop · nine benches
           </span>
           <h1 className="font-lab mb-3 text-3xl font-extrabold sm:text-5xl">Every subject, one bench</h1>
           <p className="mb-12 max-w-2xl text-lg font-semibold text-ink/65">
-            Pick any door: Python, AI, web, games, robotics, or physics.
+            Pick any door: Python, Java, AI, web, games, robotics, or physics.
             Chemistry and biology are wired up next. The tools, the editor, and
             the live preview travel with you between subjects.
           </p>

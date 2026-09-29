@@ -4,6 +4,7 @@ import { compilerService } from '../services/api';
 import CodeEditor from '../components/editor/CodeEditor';
 import Terminal from '../components/editor/Terminal';
 import { useCodeRunner } from '../hooks/useCodeRunner';
+import { courseLanguage, languageMeta, editorFilename } from '../constants/languages';
 import { useCourseContent } from '../hooks/useCourseContent';
 import { useCompletionFlow } from '../hooks/useCompletionFlow';
 import Celebration from '../components/feedback/Celebration';
@@ -58,7 +59,9 @@ export default function ProjectPage() {
 
   const [code, setCode] = useState('');
   const [starterCode, setStarterCode] = useState('');
-  const runner = useCodeRunner();
+  // The course decides the language; the editor and both runners follow it.
+  const language = courseLanguage(course);
+  const runner = useCodeRunner(language);
 
   const [checkResults, setCheckResults] = useState(null); // legacy checks: array of bool | null
   const [testResults, setTestResults] = useState(null);   // test cases: array of bool | null
@@ -92,12 +95,12 @@ export default function ProjectPage() {
   // to grade each test case against its own input.
   const runOnce = useCallback(async (stdin) => {
     try {
-      const res = await compilerService.runPython(code, stdin);
+      const res = await compilerService.run(language, code, stdin);
       return res.data.output;
     } catch {
       return null;
     }
-  }, [code]);
+  }, [code, language]);
 
   const handleCheck = async () => {
     setChecking(true);
@@ -495,7 +498,14 @@ export default function ProjectPage() {
             </div>
           </div>
           <div className="min-h-0 flex-1">
-            <CodeEditor code={code} onChange={setCode} onRun={runCode} starterCode={starterCode} filename="project.py" />
+            <CodeEditor
+              code={code}
+              onChange={setCode}
+              onRun={runCode}
+              starterCode={starterCode}
+              language={languageMeta(language).monaco}
+              filename={editorFilename(language, 'project')}
+            />
           </div>
         </div>
 

@@ -1,0 +1,37 @@
+{
+  "moduleId": 10,
+  "title": "Real Java: Errors, Lists and Files",
+  "lessons": [
+    {
+      "lessonId": "java_packages",
+      "title": "Packages and Imports",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_exceptions",
+      "title": "Exceptions and try-catch",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_arraylist",
+      "title": "ArrayList",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_hashmap",
+      "title": "HashMap",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_generics",
+      "title": "Generics",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_files",
+      "title": "Files and Date-Time",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

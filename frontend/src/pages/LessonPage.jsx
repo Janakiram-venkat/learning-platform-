@@ -6,6 +6,7 @@ import CodeEditor from '../components/editor/CodeEditor';
 import Terminal from '../components/editor/Terminal';
 import { useCodeRunner } from '../hooks/useCodeRunner';
 import { useCourseContent } from '../hooks/useCourseContent';
+import { courseLanguage, languageMeta, editorFilename } from '../constants/languages';
 import { useCompletionFlow } from '../hooks/useCompletionFlow';
 import Celebration from '../components/feedback/Celebration';
 import FeedbackModal from '../components/feedback/FeedbackModal';
@@ -32,7 +33,10 @@ export default function LessonPage() {
 
   const [code, setCode] = useState('');
   const [starterCode, setStarterCode] = useState('');
-  const runner = useCodeRunner();
+  // The course decides the language, so the editor, the toolbar label and the
+  // runner all follow it rather than each assuming Python.
+  const language = courseLanguage(course);
+  const runner = useCodeRunner(language);
   // `runner` is a fresh object every render; `reset` is the stable callback
   // effects can safely depend on.
   const resetRunner = runner.reset;
@@ -647,7 +651,7 @@ export default function LessonPage() {
           <div className="flex justify-between items-center mb-4 shrink-0">
             <h3 className="font-lab font-extrabold text-ink text-lg flex items-center">
               <span className="w-3 h-3 bg-pcb rounded-full mr-2 ring-2 ring-ink/20"></span>
-              Python Editor
+              {languageMeta(language).label} Editor
             </h3>
             <button
               onClick={handleRunCode}
@@ -660,7 +664,14 @@ export default function LessonPage() {
             </button>
           </div>
           <div className="flex-1 min-h-0">
-            <CodeEditor code={code} onChange={setCode} onRun={handleRunCode} starterCode={starterCode} />
+            <CodeEditor
+              code={code}
+              onChange={setCode}
+              onRun={handleRunCode}
+              starterCode={starterCode}
+              language={languageMeta(language).monaco}
+              filename={editorFilename(language, 'main')}
+            />
           </div>
         </div>
 

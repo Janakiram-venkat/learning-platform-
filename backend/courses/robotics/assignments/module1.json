@@ -1,0 +1,86 @@
+{
+  "moduleId": 1,
+  "title": "Robot Spotter Arcade",
+  "intro": "Six quick rounds on the sense, think, act loop. Get them right first try to earn ⭐⭐⭐!",
+  "emoji": "🦾",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What is the one test that separates a robot from a machine?",
+      "options": [
+        "Does it change its plan based on what it senses?",
+        "Is it made of metal?",
+        "Does it have a motor inside?"
+      ],
+      "answer": 0,
+      "explain": "Toasters have motors and metal too. Only a robot decides for itself, using what it senses."
+    },
+    {
+      "type": "concept",
+      "prompt": "A drone flies a route you typed in and never changes it. Robot?",
+      "options": [
+        "No, because it never changes its plan from what it senses",
+        "Yes, because it flies without a pilot",
+        "Yes, because all drones are robots"
+      ],
+      "answer": 0,
+      "explain": "It follows a fixed list of points, exactly the way a washing machine follows a fixed cycle."
+    },
+    {
+      "type": "concept",
+      "prompt": "Your distance sensor reads 8 and the robot stops. Which part of that was the THINK step?",
+      "options": [
+        "Deciding that 8 is too close to keep going",
+        "The number 8 arriving from the sensor",
+        "The wheels stopping"
+      ],
+      "answer": 0,
+      "explain": "Sensing brings the number in. Acting stops the wheels. Thinking is the rule in between the two."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each robot family to the job only it can do.",
+      "pairs": [
+        {
+          "left": "Mars rover",
+          "right": "Works where radio takes minutes to arrive"
+        },
+        {
+          "left": "Surgical robot",
+          "right": "Takes the shake out of a surgeon's hand"
+        },
+        {
+          "left": "Bomb disposal",
+          "right": "Takes the risk so a person does not have to"
+        },
+        {
+          "left": "Quadcopter",
+          "right": "Sees a whole field from above, cheaply"
+        }
+      ],
+      "explain": "Each family's shape comes straight from its job. That is why no two of them look alike."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which change would turn a fixed-route delivery drone into a robot?",
+      "options": [
+        "Adding a camera that makes it fly around obstacles it spots",
+        "Making it fly twice as fast",
+        "Giving it a friendlier paint job"
+      ],
+      "answer": 0,
+      "explain": "That completes the loop. It senses something new, decides, and changes what it does."
+    },
+    {
+      "type": "concept",
+      "prompt": "A robot vacuum meets a chair leg. In what order do these happen?",
+      "options": [
+        "Sensor reads 12 cm → 12 is under 20, so something is in the way → stop and turn",
+        "Stop and turn → sensor reads 12 cm → 12 is under 20, so something is in the way",
+        "12 is under 20, so something is in the way → stop and turn → sensor reads 12 cm"
+      ],
+      "answer": 0,
+      "explain": "Sense, then think, then act, and then straight back to sensing again."
+    }
+  ]
+}

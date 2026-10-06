@@ -1,0 +1,30 @@
+{
+  "moduleId": 1,
+  "title": "What Is a Robot?",
+  "emoji": "🦾",
+  "tagline": "Learn the one loop every robot on Earth runs: sense, think, act.",
+  "lessons": [
+    {
+      "lessonId": "robot-intro",
+      "title": "Sense, Think, Act",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-machine-vs-robot",
+      "title": "Machine or Robot?",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-history",
+      "title": "A Short History of Robots",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-zoo",
+      "title": "The Robot Zoo",
+      "duration": "12 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

@@ -1,0 +1,55 @@
+{
+  "moduleId": 8,
+  "title": "Safe Calculator",
+  "emoji": "🛟",
+  "brief": "Real programs do not crash when something goes wrong, they handle it. Your Safe Calculator divides two numbers, and keeps its footing when the second one is zero or the user types a word.",
+  "problem": {
+    "goal": "Print the result of dividing the first number by the second. If anything goes wrong, print a friendly message starting with Oops instead of letting the program crash.",
+    "example": {
+      "typed": ["10", "2"],
+      "output": ["Answer: 5.0"]
+    },
+    "rules": [
+      "A normal division prints the answer.",
+      "Dividing by zero prints the friendly message, not a ZeroDivisionError.",
+      "Typing a word instead of a number prints the friendly message, not a ValueError.",
+      "The message must start with the word Oops so the tests can recognise it.",
+      "The program must never stop with a red error."
+    ]
+  },
+  "steps": [
+    "The try block already asks for two numbers with int(input(...)).",
+    "Inside try, print the division result, for example: Answer: 5.0",
+    "Inside except, print a friendly message beginning with Oops.",
+    "Run it with two ordinary numbers, then run it again with 0 as the second number.",
+    "Press Check project to test all three cases at once."
+  ],
+  "starterCode": "# 🛟 Safe Calculator: it divides two numbers without ever crashing!\n\ntry:\n    a = int(input(\"First number: \"))\n    b = int(input(\"Second number: \"))\n\n    # 1) Divide a by b and print it, like:  Answer: 5.0\n    pass    # replace this line\n\nexcept:\n    # 2) Print a friendly message starting with Oops\n    pass    # replace this line\n",
+  "hints": [
+    "Run it before changing anything. It asks for both numbers and then prints nothing, because both blocks are still just pass.",
+    "The first line is print(\"Answer:\", a / b). Use a single slash: a // b would round the answer down and give 5 instead of 5.0.",
+    "The except line is any print you like, as long as it starts with Oops, for example: print(\"Oops! Use numbers, and do not divide by zero.\")",
+    "Both lines must stay indented inside their blocks. A print that drifts out to the left of try would run before the numbers even exist.",
+    "Test it yourself with 0 as the second number. The friendly message should appear and the program should finish normally, with no red error underneath."
+  ],
+  "inputPlaceholder": "10\n2",
+  "inputHint": "Type two numbers, one on each line.",
+  "tests": [
+    {
+      "name": "10 divided by 2",
+      "input": ["10", "2"],
+      "expect": ["answer", "5"]
+    },
+    {
+      "name": "Dividing by 0 is caught",
+      "input": ["10", "0"],
+      "expect": ["oops"]
+    },
+    {
+      "name": "A word instead of a number is caught",
+      "input": ["hello", "5"],
+      "expect": ["oops"]
+    }
+  ],
+  "successMessage": "Rock solid! Your calculator handles divide by zero and bad input without ever crashing. That is what try and except are for: keeping a program friendly when the world hands it something unexpected."
+}

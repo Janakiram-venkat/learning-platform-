@@ -1,0 +1,17 @@
+{
+  "moduleId": 7,
+  "title": "Classes and Objects",
+  "lessons": [
+    {
+      "lessonId": "classes",
+      "title": "Classes and Objects",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "inheritance",
+      "title": "Inheritance",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

@@ -1,0 +1,40 @@
+{
+  "moduleId": 4,
+  "title": "The Brain",
+  "emoji": "🧠",
+  "tagline": "Meet the tiny computer that turns ARIA's sensor numbers into decisions.",
+  "lessons": [
+    {
+      "lessonId": "robot-microcontroller",
+      "title": "The Brain",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-esp32",
+      "title": "ESP32: The Hero Chip",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-arduino",
+      "title": "Arduino: The Simpler Cousin",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-gpio",
+      "title": "GPIO: General Purpose Pins",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-digital-signals",
+      "title": "Digital Signals: HIGH and LOW",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-pwm",
+      "title": "PWM: Faking In-Between Values",
+      "duration": "12 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

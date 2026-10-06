@@ -1,0 +1,69 @@
+{
+  "moduleId": 1,
+  "title": "ID Card Printer",
+  "emoji": "🪪",
+  "brief": "Print a tidy ID card straight to the terminal. No input, no maths, just careful printing: the border, the labels lined up with tabs, and a quote with real quotation marks in it.",
+  "problem": {
+    "goal": "Write a program that prints a six line ID card: a border line, a name line, a role line, a language line, a quote line, and a closing border line.",
+    "example": {
+      "typed": [],
+      "output": [
+        "=========================",
+        "Name:\tAmara",
+        "Role:\tJava Learner",
+        "Language:\tJava",
+        "Motto:\t\"I read my errors.\"",
+        "========================="
+      ]
+    },
+    "rules": [
+      "The first and last lines must each be exactly 25 equals signs.",
+      "The four middle lines must start with Name:, Role:, Language: and Motto: and use a tab after the colon.",
+      "The Motto line must have real double quotation marks around the motto text.",
+      "Put your own name on the Name line. Everything else can match the example."
+    ]
+  },
+  "steps": [
+    "Line 1: print 25 equals signs. Count them, or copy the one in the example.",
+    "Lines 2 to 4: print each label, a tab, then the value. The tab is `\\t`.",
+    "Line 5: print the Motto line. The quotation marks around the motto need escaping as `\\\"`.",
+    "Line 6: print the same border as line 1.",
+    "Press Run to see your card, then press Check Project to have it tested."
+  ],
+  "starterCode": "// 🪪 ID Card Printer\n\npublic class Main {\n    public static void main(String[] args) {\n        // TODO 1: print the top border: 25 equals signs\n\n\n        // TODO 2: print   Name:   then a tab, then your name\n        //         Use \\t for the tab.\n\n\n        // TODO 3: print the Role: and Language: lines the same way\n        //         Role is  Java Learner  and Language is  Java\n\n\n        // TODO 4: print the Motto line. It must show the quotation marks:\n        //           Motto:  \"I read my errors.\"\n        //         Use \\\" for each quotation mark.\n\n\n        // TODO 5: print the bottom border, the same as the top\n\n\n    }\n}\n",
+  "hints": [
+    "Start with one line. Add `System.out.println(\"=========================\");` and press Run. If a border appears, your program works and the rest is more of the same.",
+    "A tab is written `\\t` inside the quotes. `System.out.println(\"Name:\\tAmara\");` prints Name: then a tab then Amara, all on one line.",
+    "Each line of the card is its own `System.out.println`. Six lines of output means six instructions, in the order you want them to appear.",
+    "For the Motto line, a quotation mark inside text has to be escaped with a backslash: `\\\"`. So the whole instruction is `System.out.println(\"Motto:\\t\\\"I read my errors.\\\"\");`",
+    "If the borders come out different lengths, count the equals signs. It is easier to write the first border, then copy that whole instruction and paste it at the end."
+  ],
+  "inputPlaceholder": "",
+  "inputHint": "This program asks no questions, so leave this empty and just press Run.",
+  "tests": [
+    {
+      "name": "The card has both borders",
+      "input": [],
+      "expect": [
+        "=========================",
+        "========================="
+      ]
+    },
+    {
+      "name": "The labels are lined up with tabs",
+      "input": [],
+      "expect": [
+        "Role:\tJava Learner",
+        "Language:\tJava"
+      ]
+    },
+    {
+      "name": "The motto keeps its quotation marks",
+      "input": [],
+      "expect": [
+        "Motto:\t\"I read my errors.\""
+      ]
+    }
+  ],
+  "successMessage": "Your ID card prints perfectly! 🪪 You wrote a class, a main method, six instructions in the right order, and you escaped a quotation mark inside a piece of text. That is Module 1 finished: next up, storing values in variables."
+}

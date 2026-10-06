@@ -1,0 +1,126 @@
+{
+  "labId": "module7",
+  "title": "Future of AI Lab",
+  "emoji": "🚀",
+  "tagline": "Explore AI careers and build the future",
+  "difficulty": "Beginner",
+  "duration": "15 to 20 min",
+  "badge": "Future Builder",
+  "objectives": [
+    "Discover exciting AI careers",
+    "See how AI transforms every field",
+    "Match AI jobs to what they do",
+    "Sort AI project ideas by difficulty",
+    "Know what a good AI solution needs"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Build the Future!",
+      "xp": 10,
+      "narration": "AI is creating exciting new careers and changing almost every field. You don't have to wait until you're grown up to start exploring, let's look at the future you could help build!",
+      "steps": [
+        { "emoji": "🤖", "text": "AI is opening brand-new jobs…" },
+        { "emoji": "🏥", "text": "It's transforming healthcare, space, and farming." },
+        { "emoji": "💡", "text": "Real problems are waiting for smart solutions." },
+        { "emoji": "🚀", "text": "And you could be the one who builds them!" }
+      ],
+      "cta": "Explore the Future"
+    },
+    {
+      "type": "choose",
+      "title": "Match the AI Job",
+      "xp": 20,
+      "prompt": "Different people build AI. Who does each job?",
+      "options": [
+        { "id": "engineer", "label": "AI Engineer", "emoji": "🤖" },
+        { "id": "data", "label": "Data Scientist", "emoji": "📊" },
+        { "id": "robot", "label": "Robotics Engineer", "emoji": "🦾" }
+      ],
+      "tasks": [
+        { "id": "apps", "label": "Builds AI-powered apps and systems", "emoji": "🤖", "answer": "engineer", "explain": "AI Engineers design and build the AI systems we use." },
+        { "id": "patterns", "label": "Digs through data to find hidden patterns", "emoji": "📈", "answer": "data", "explain": "Data Scientists find insights and patterns in data." },
+        { "id": "robots", "label": "Designs robots that sense and move", "emoji": "🦾", "answer": "robot", "explain": "Robotics Engineers create intelligent robots." },
+        { "id": "clean", "label": "Cleans and analyzes huge datasets", "emoji": "🧹", "answer": "data", "explain": "Working with big datasets is a Data Scientist's specialty." },
+        { "id": "arm", "label": "Programs a robot arm to sort parcels", "emoji": "📦", "answer": "robot", "explain": "Making robots act in the real world is robotics engineering." }
+      ]
+    },
+    {
+      "type": "explore",
+      "title": "AI Across Every Field",
+      "xp": 15,
+      "prompt": "AI isn't just for tech companies. Tap each field to see how AI helps. Visit them all!",
+      "locations": [
+        { "id": "health", "label": "Healthcare", "emoji": "🏥", "info": "AI spots diseases early by reading scans and patient data." },
+        { "id": "space", "label": "Space", "emoji": "🚀", "info": "AI guides rovers on Mars and plans safe routes across other worlds." },
+        { "id": "edu", "label": "Education", "emoji": "🎓", "info": "Personal AI tutors help students learn at their own pace." },
+        { "id": "farm", "label": "Agriculture", "emoji": "🌾", "info": "AI helps farmers grow more food and catch crop problems early." },
+        { "id": "env", "label": "Environment", "emoji": "🌍", "info": "AI tracks climate change and helps protect wildlife." }
+      ]
+    },
+    {
+      "type": "sort",
+      "title": "Pick Your Project Level",
+      "xp": 20,
+      "prompt": "Ready to build? Sort these AI project ideas by how tricky they are to make.",
+      "pass": 0.8,
+      "note": "Start small, then level up! Every expert began with a beginner project.",
+      "columns": [
+        { "id": "beginner", "label": "Beginner Project", "emoji": "🟢" },
+        { "id": "advanced", "label": "Advanced Project", "emoji": "🔴" }
+      ],
+      "cards": [
+        { "id": "quizbot", "label": "AI Quiz Bot", "emoji": "❓", "column": "beginner" },
+        { "id": "flashcards", "label": "Smart Flashcards", "emoji": "🃏", "column": "beginner" },
+        { "id": "story", "label": "AI Story Generator", "emoji": "📖", "column": "beginner" },
+        { "id": "assistant", "label": "Virtual Study Assistant", "emoji": "🧑‍🏫", "column": "advanced" },
+        { "id": "recommender", "label": "Recommendation System", "emoji": "🎯", "column": "advanced" }
+      ]
+    },
+    {
+      "type": "pick",
+      "title": "Design an AI Solution",
+      "xp": 15,
+      "prompt": "You're designing an AI to solve a real problem. Tap everything a good AI solution needs.",
+      "items": [
+        { "id": "problem", "label": "A real problem to solve", "emoji": "🎯", "isAI": true },
+        { "id": "data", "label": "The right data to learn from", "emoji": "📊", "isAI": true },
+        { "id": "goal", "label": "A clear goal", "emoji": "✅", "isAI": true },
+        { "id": "users", "label": "People who will use it", "emoji": "👥", "isAI": true },
+        { "id": "magic", "label": "Magic with no plan", "emoji": "🪄", "isAI": false },
+        { "id": "nothing", "label": "Zero information", "emoji": "🚫", "isAI": false }
+      ],
+      "feedback": {
+        "correct": "Yes! Great AI solutions start with a real problem and the right data.",
+        "incorrect": "An AI can't run on this, it needs a real problem, data, and a clear goal."
+      }
+    },
+    {
+      "type": "quiz",
+      "title": "Future Builder Final Test",
+      "xp": 30,
+      "prompt": "Score at least 80% to earn your Future Builder badge and finish the course!",
+      "pass": 0.8,
+      "questions": [
+        { "q": "Which is an AI-related career?", "options": ["Data Scientist", "Bus driver"], "answer": 0, "explain": "A Data Scientist finds patterns in data, one of many AI careers." },
+        { "q": "Which field can AI help improve?", "options": ["Healthcare, farming, space, and education", "Only video games"], "answer": 0, "explain": "AI is transforming many fields across the real world." },
+        { "q": "What's a good first step to design an AI solution?", "options": ["Pick a real problem and think about the data it needs", "Wait for someone else to do it"], "answer": 0, "explain": "Great AI projects start with a real problem and the right data." },
+        { "q": "A Robotics Engineer mainly...", "options": ["Designs intelligent robots", "Cooks food in a restaurant"], "answer": 0, "explain": "Robotics Engineers build robots that sense and move." },
+        { "q": "A Data Scientist mainly...", "options": ["Finds patterns in data", "Drives a bus"], "answer": 0, "explain": "Data Scientists dig through data to find useful patterns." },
+        { "q": "AI in the future will most likely...", "options": ["Create new jobs and transform many fields", "Disappear completely"], "answer": 0, "explain": "AI keeps opening new careers and reshaping industries." },
+        { "q": "A good beginner AI project is...", "options": ["An AI Quiz Bot", "A full self-driving car from scratch"], "answer": 0, "explain": "Start small, an AI Quiz Bot is a perfect first build." }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Course Complete!",
+      "xp": 30,
+      "badge": "Future Builder",
+      "messages": [
+        "🏆 You earned the Future Builder Badge",
+        "You completed The Future of AI",
+        "🎉 You finished the entire AI course!"
+      ]
+    }
+  ]
+}

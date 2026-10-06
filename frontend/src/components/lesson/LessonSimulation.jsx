@@ -1,0 +1,205 @@
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { Play, RotateCcw } from 'lucide-react';
+
+/**
+ * Animated, kid-friendly "watch the code run" widgets for lessons.
+ *
+ * Driven by a JSON block in a lesson's `content` array:
+ *   { "type": "simulation", "kind": "variable", "name": "score", "value": "100" }
+ *   { "type": "simulation", "kind": "loop", "times": 3, "say": "Hello!" }
+ *   { "type": "simulation", "kind": "print", "lines": ["Hi!", "Bye!"] }
+ *
+ * Each one shows the code on top and animates what Python "does" below when
+ * the child presses Play. No real interpreter — just a friendly illustration.
+ */
+export default function LessonSimulation({ sim }) {
+  if (!sim) return null;
+  if (sim.kind === 'loop') return <LoopSim sim={sim} />;
+  if (sim.kind === 'print') return <PrintSim sim={sim} />;
+  return <VariableSim sim={sim} />;
+}
+
+function Shell({ title, code, onPlay, playing, onReset, children }) {
+  return (
+    // `container-type` so the layouts inside measure this widget's own width.
+    // These sims render beside a 600px editor, where a viewport breakpoint
+    // would flip them to two columns long before there is room for two.
+    <div className="my-8 overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(27,27,27,0.9)] [container-type:inline-size]">
+      <div className="flex items-center justify-between gap-3 border-b-2 border-ink bg-signal px-4 py-3">
+        <span className="font-lab text-sm font-bold text-ink">{title}</span>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={onReset}
+            className="rounded-lg border-2 border-ink/20 p-1.5 text-ink/60 transition-colors hover:border-ink hover:bg-ink/10 hover:text-ink"
+            title="Reset"
+          >
+            <RotateCcw className="h-4 w-4" />
+          </button>
+          <button
+            onClick={onPlay}
+            disabled={playing}
+            className="lab-btn inline-flex items-center gap-1.5 rounded-lg border-2 border-ink bg-pcb px-4 py-1.5 text-sm font-bold text-white disabled:opacity-50"
+          >
+            <Play className="h-4 w-4" /> {playing ? 'Running...' : 'Run it!'}
+          </button>
+        </div>
+      </div>
+      {code && (
+        <pre className="overflow-x-auto border-b-2 border-ink bg-well px-4 py-3 font-mono-lab text-sm text-white/90">{code}</pre>
+      )}
+      <div className="p-5">{children}</div>
+    </div>
+  );
+}
+
+/* ---- Variable: a value drops into a labelled box, then prints ---- */
+function VariableSim({ sim }) {
+  const name = sim.name || 'score';
+  const value = String(sim.value ?? '100');
+  const [stage, setStage] = useState(0); // 0 empty, 1 value in box, 2 printed
+  const timers = useRef([]);
+
+  const clear = () => { timers.current.forEach(clearTimeout); timers.current = []; };
+  useEffect(() => () => clear(), []);
+
+  const play = () => {
+    clear();
+    setStage(0);
+    timers.current.push(setTimeout(() => setStage(1), 400));
+    timers.current.push(setTimeout(() => setStage(2), 1400));
+  };
+  const reset = () => { clear(); setStage(0); };
+
+  const code = `${name} = ${value}\nprint(${name})`;
+
+  return (
+    <Shell title="Storing in a variable" code={code} onPlay={play} playing={stage === 1} onReset={reset}>
+      {/* Both columns share one row height (`items-end` against a fixed h-24
+          panel) so the box and the screen sit on the same baseline, and their
+          captions line up under them instead of stepping. */}
+      <div className="flex flex-col items-center gap-6 @min-[26rem]:flex-row @min-[26rem]:items-end @min-[26rem]:justify-center @min-[26rem]:gap-8">
+        {/* The labelled box */}
+        <div className="flex flex-col items-center">
+          <div className={`flex h-24 w-28 items-center justify-center rounded-xl border-4 transition-all duration-500 ${stage >= 1 ? 'border-pcb bg-pcb/10' : 'border-dashed border-ink/25 bg-ink/5'}`}>
+            <span className={`font-mono-lab text-2xl font-extrabold text-pcb transition-all duration-500 ${stage >= 1 ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
+              {value}
+            </span>
+          </div>
+          <span className="mt-2 ref-tag text-ink/55">{name}</span>
+        </div>
+
+        {/* The screen / print output */}
+        <div className="flex flex-col items-center">
+          <div className="flex h-24 w-44 items-center justify-center rounded-xl border-2 border-ink bg-well px-3 font-mono-lab text-xl text-mint shadow-inner">
+            {stage >= 2 ? <span className="animate-bounce-in">{value}</span> : <span className="text-white/35">screen…</span>}
+          </div>
+          <span className="mt-2 ref-tag text-ink/55">print output</span>
+        </div>
+      </div>
+      <p className="mt-5 text-center text-sm font-medium text-ink/70">
+        {stage === 0 && 'Press “Run it!” to watch the value go into the box.'}
+        {stage === 1 && `We put ${value} into the box labelled ${name} 📦`}
+        {stage === 2 && `print(${name}) opens the box and shows ${value} on the screen! ✨`}
+      </p>
+    </Shell>
+  );
+}
+
+/* ---- Loop: a counter repeats an action N times ---- */
+function LoopSim({ sim }) {
+  const times = Math.min(Math.max(parseInt(sim.times, 10) || 3, 1), 8);
+  const say = sim.say || 'Hello!';
+  const [count, setCount] = useState(0);
+  const [outputs, setOutputs] = useState([]);
+  const [running, setRunning] = useState(false);
+  const timers = useRef([]);
+
+  const clear = useCallback(() => { timers.current.forEach(clearTimeout); timers.current = []; }, []);
+  useEffect(() => () => clear(), [clear]);
+
+  const reset = () => { clear(); setCount(0); setOutputs([]); setRunning(false); };
+
+  const play = () => {
+    clear();
+    setCount(0); setOutputs([]); setRunning(true);
+    for (let i = 1; i <= times; i++) {
+      timers.current.push(setTimeout(() => {
+        setCount(i);
+        setOutputs(o => [...o, say]);
+        if (i === times) setRunning(false);
+      }, i * 700));
+    }
+  };
+
+  const code = `for i in range(${times}):\n    print("${say}")`;
+
+  return (
+    <Shell title="A loop repeating" code={code} onPlay={play} playing={running} onReset={reset}>
+      {/* The output stack grows as the loop runs, so both columns get a
+          caption and align on their top edge. Without the matching caption the
+          right column used to float half a line higher than the left. */}
+      <div className="flex flex-col items-center gap-5 @min-[26rem]:flex-row @min-[26rem]:items-start @min-[26rem]:justify-center @min-[26rem]:gap-10">
+        {/* Spinning counter */}
+        <div className="flex flex-col items-center">
+          <div className={`flex h-24 w-24 items-center justify-center rounded-full border-4 border-ink bg-signal text-3xl font-extrabold text-ink ${running ? 'animate-pop' : ''}`}>
+            {count}
+          </div>
+          <span className="mt-2 ref-tag text-ink/55">times looped</span>
+        </div>
+        {/* Output stack */}
+        <div className="flex flex-col items-center">
+          <div className="min-h-24 w-52 rounded-xl border-2 border-ink bg-well p-3 font-mono-lab text-sm text-mint shadow-inner">
+            {outputs.length === 0 ? (
+              <span className="text-white/35">screen…</span>
+            ) : (
+              outputs.map((line, i) => <div key={i} className="animate-slide-up">{line}</div>)
+            )}
+          </div>
+          <span className="mt-2 ref-tag text-ink/55">print output</span>
+        </div>
+      </div>
+      <p className="mt-5 text-center text-sm font-medium text-ink/70">
+        The loop runs the indented line {times} times, so “{say}” is printed {times} times!
+      </p>
+    </Shell>
+  );
+}
+
+/* ---- Print: lines appear one by one like a typewriter ---- */
+function PrintSim({ sim }) {
+  const lines = Array.isArray(sim.lines) ? sim.lines : ['Hello!'];
+  const [shown, setShown] = useState(0);
+  const [running, setRunning] = useState(false);
+  const timers = useRef([]);
+
+  const clear = useCallback(() => { timers.current.forEach(clearTimeout); timers.current = []; }, []);
+  useEffect(() => () => clear(), [clear]);
+
+  const reset = () => { clear(); setShown(0); setRunning(false); };
+  const play = () => {
+    clear(); setShown(0); setRunning(true);
+    lines.forEach((_, i) => {
+      timers.current.push(setTimeout(() => {
+        setShown(i + 1);
+        if (i === lines.length - 1) setRunning(false);
+      }, (i + 1) * 600));
+    });
+  };
+
+  const code = lines.map(l => `print("${l}")`).join('\n');
+
+  return (
+    <Shell title="Showing output" code={code} onPlay={play} playing={running} onReset={reset}>
+      <div className="min-h-20 rounded-xl border-2 border-ink bg-well p-4 font-mono-lab text-base text-mint shadow-inner">
+        {shown === 0 ? (
+          <span className="text-white/35">screen…</span>
+        ) : (
+          lines.slice(0, shown).map((line, i) => <div key={i} className="animate-slide-up">{line}</div>)
+        )}
+      </div>
+      <p className="mt-4 text-center text-sm font-medium text-ink/70">
+        Each print line shows up on the screen, one after another.
+      </p>
+    </Shell>
+  );
+}

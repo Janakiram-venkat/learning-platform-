@@ -1,0 +1,134 @@
+{
+  "lessonId": "string_methods",
+  "title": "String Methods",
+  "description": "Built-in tools for measuring, cleaning and reshaping text.",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Text Has Built-in Tools"
+    },
+    {
+      "type": "paragraph",
+      "value": "Strings are not only for showing on screen. Every string in Python comes with a set of tools attached to it, and you reach them by writing a dot after the text, then the tool's name and a pair of parentheses. Tools that work this way are called methods."
+    },
+    {
+      "type": "paragraph",
+      "value": "One measuring tool is written differently. `len()` wraps around the string rather than following a dot, and it counts every character, including spaces and punctuation."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "message = \"Hello World\"\n\nprint(len(message))      # 11: five letters, a space, five letters\nprint(message.upper())   # HELLO WORLD"
+    },
+    {
+      "type": "heading",
+      "value": "Changing How Text Looks"
+    },
+    {
+      "type": "paragraph",
+      "value": "`.upper()` turns every letter into a capital and `.lower()` turns every letter small. `.title()` capitalises the first letter of each word, which is handy for tidying up a name somebody typed in a hurry."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "name = \"aDA loVElace\"\n\nprint(name.upper())   # ADA LOVELACE\nprint(name.lower())   # ada lovelace\nprint(name.title())   # Ada Lovelace"
+    },
+    {
+      "type": "paragraph",
+      "value": "Lowercasing is the usual trick for comparing what a user typed. `answer.lower() == \"yes\"` is True for \"yes\", \"Yes\" and \"YES\" alike, which saves writing a condition for every spelling."
+    },
+    {
+      "type": "widget",
+      "kind": "string-workbench",
+      "text": "python is fun"
+    },
+    {
+      "type": "heading",
+      "value": "Cleaning Up and Swapping"
+    },
+    {
+      "type": "paragraph",
+      "value": "`.strip()` removes spaces from the very start and end of a string, and leaves the ones in the middle alone. It is worth using on anything a person typed, because a stray space at the end is invisible and still breaks a comparison."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "typed = \"  yes  \"\nprint(typed == \"yes\")            # False, because of the spaces\nprint(typed.strip() == \"yes\")    # True"
+    },
+    {
+      "type": "paragraph",
+      "value": "`.replace()` swaps one piece of text for another. You give it two things: what to look for, and what to put in its place. Every match is swapped, not just the first."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "sentence = \"I like apples and apples\"\nprint(sentence.replace(\"apples\", \"cookies\"))\n# I like cookies and cookies"
+    },
+    {
+      "type": "heading",
+      "value": "Methods Hand Back New Text"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here is the part that catches people out. A string method never changes the string it was called on. It builds a new string and hands that back, leaving the original exactly as it was. So calling a method on its own line achieves nothing at all."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "message = \"hello\"\n\nmessage.upper()        # the result is built, then thrown away\nprint(message)         # still hello\n\nmessage = message.upper()   # store it to keep it\nprint(message)         # HELLO"
+    },
+    {
+      "type": "tip",
+      "value": "If a string method seems to do nothing, check whether you stored the result. Either use it straight away inside a `print`, or assign it back to the variable."
+    }
+  ],
+  "editorCode": "secret = \"  python is awesome  \"\n\nprint(\"Length:\", len(secret))\nprint(secret.strip().upper())\nprint(secret.replace(\"python\", \"coding\").strip())\nprint(\"Original is unchanged:\", secret)",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Print the length of the word below, and then the word in capitals.",
+      "starterCode": "word = \"Supercalifragilistic\"\n\n# 1) Print len(word)\n\n# 2) Print the word in capitals\n"
+    },
+    {
+      "id": 2,
+      "question": "This prints the original text instead of the tidied version. Fix it so the capitals actually stick.",
+      "starterCode": "name = \"ada lovelace\"\nname.title()\nprint(name)"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which tool gives the number of characters in a string?",
+      "options": [
+        "length()",
+        "len()",
+        "count()",
+        ".size()"
+      ],
+      "answer": 1,
+      "explain": "len() counts the characters, spaces included. It wraps around the string rather than following a dot."
+    },
+    {
+      "question": "What does  \"  hi  \".strip()  give you?",
+      "options": [
+        "\"hi\"",
+        "\"  hi  \"",
+        "\"HI\"",
+        "\"h i\""
+      ],
+      "answer": 0,
+      "explain": ".strip() removes the spaces at the start and end only. Spaces in the middle of the text are left alone."
+    },
+    {
+      "question": "What is printed?  message = \"hello\"  /  message.upper()  /  print(message)",
+      "options": [
+        "HELLO",
+        "hello",
+        "Nothing",
+        "An error"
+      ],
+      "answer": 1,
+      "explain": "The capitals were built and then thrown away, because the result was never stored. message itself never changed."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "moduleId": 5,
+  "title": "Making Things Move",
+  "emoji": "🛞",
+  "tagline": "Wire up motors, drive them safely, and steer with nothing but two wheel speeds.",
+  "lessons": [
+    {
+      "lessonId": "robot-motors-intro",
+      "title": "Electricity + Magnets = Spin",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-dc-motor",
+      "title": "DC Motor: The Workhorse",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-motor-driver",
+      "title": "Motor Driver: The H-Bridge",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-why-not-direct",
+      "title": "Why Not Wire It Direct?",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-wheels-chassis",
+      "title": "Wheels and Chassis",
+      "duration": "8 min"
+    },
+    {
+      "lessonId": "robot-differential-drive",
+      "title": "Differential Drive",
+      "duration": "12 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

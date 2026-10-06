@@ -1,0 +1,61 @@
+{
+  "lessonId": "intro",
+  "title": "Introduction to Python",
+  "description": "What Python is and how to make the computer show a message on the screen.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What is Python?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Python is a programming language: a way to give a computer instructions, one step at a time. The computer follows those steps exactly, in order, from top to bottom. Python is popular because many of its instructions look almost like plain English. People use it to build websites, make games, work with data, and more."
+    },
+    {
+      "type": "heading",
+      "value": "Your First Instruction: print"
+    },
+    {
+      "type": "paragraph",
+      "value": "The most common first instruction is `print`. It tells the computer to show something on the screen. You write `print`, then a pair of parentheses `()`, and put your message inside quotation marks. Each `print` sends one line to the terminal, in order."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "print(\"Hello, World!\")\nprint(\"I am learning Python!\")"
+    },
+    {
+      "type": "tip",
+      "value": "Text always needs quotation marks (\" \"). Without them, Python doesn't know it's text and gives an error."
+    },
+    {
+      "type": "simulation",
+      "kind": "print",
+      "lines": [
+        "Hello, World!",
+        "I am learning Python!"
+      ]
+    }
+  ],
+  "editorCode": "print(\"Hello, World!\")",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Use print to make the computer show your name.",
+      "starterCode": "print(\"My name is ...\")"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `print` do?",
+      "options": [
+        "It prints paper from a printer.",
+        "It shows text on the screen.",
+        "It turns the computer off."
+      ],
+      "answer": 1,
+      "explain": "`print` shows text or numbers on the screen. It has nothing to do with a paper printer."
+    }
+  ]
+}

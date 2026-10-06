@@ -1,0 +1,163 @@
+{
+  "lessonId": "robot-body-systems",
+  "title": "Six Body Systems",
+  "description": "Fourteen parts is too many to think about at once. Six systems is not, and each system lines up with the loop you already know.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Nobody Thinks About Fourteen Things"
+    },
+    {
+      "type": "paragraph",
+      "value": "Your body has a lot of parts too, and you never think about them one by one. You think in systems. The bones hold you up, the blood feeds you, the nerves carry signals."
+    },
+    {
+      "type": "paragraph",
+      "value": "Robots are grouped in exactly the same way. ARIA's fourteen parts fall into six systems, and each system has one job."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "⚡ POWER      battery, switch            energy for everything else\n🧠 BRAIN      controller board           reads sensors, makes decisions\n⚙️ MOVEMENT   motors, wheels, driver     turns decisions into motion\n👁️ SENSES     distance + line sensors    turns the world into numbers\n📡 SIGNALS    LED, buzzer                tells you what it's thinking\n🔩 FRAME      chassis, caster            holds everything in place"
+    },
+    {
+      "type": "paragraph",
+      "value": "Tap a system below and every other part fades out. That is the fastest way to see which part belongs to which system."
+    },
+    {
+      "type": "widget",
+      "kind": "robot-bench",
+      "title": "🎛️ Six systems, one robot",
+      "hint": "Tap each system in turn. Which one has the most parts? Which one has the fewest?",
+      "controls": [
+        "systems"
+      ]
+    },
+    {
+      "type": "image",
+      "value": "One real part from each system",
+      "columns": 4,
+      "ratio": "1 / 1",
+      "items": [
+        {
+          "src": "/course-images/robotics/robot-body-systems/power-battery-pack.jpg",
+          "want": "A battery pack with its leads, of the kind that drives a small robot",
+          "alt": "A battery pack with two wire leads",
+          "caption": "⚡ Power",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-body-systems/brain-controller.jpg",
+          "want": "The controller board on its own, pins visible",
+          "alt": "A microcontroller board with header pins",
+          "caption": "🧠 Brain",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-body-systems/senses-distance-sensor.jpg",
+          "want": "The ultrasonic distance sensor, face on",
+          "alt": "An ultrasonic distance sensor seen face on",
+          "caption": "👁️ Senses",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-body-systems/movement-motor-and-wheel.jpg",
+          "want": "A geared motor with its wheel fitted, from the side",
+          "alt": "A geared motor with a wheel attached, seen from the side",
+          "caption": "🦿 Movement",
+          "credit": ""
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "value": "These are the same three boxes"
+    },
+    {
+      "type": "paragraph",
+      "value": "Look at that list again. It is the sense, think, act loop from Module 1, this time made out of hardware."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "SENSE  →  👁️ Senses          distance sensor, line sensors\nTHINK  →  🧠 Brain            controller board\nACT    →  ⚙️ Movement         motors, wheels\n          📡 Signals          LED, buzzer\n\nand two systems that make all of it possible:\n          ⚡ Power            nothing runs without it\n          🔩 Frame            nothing stays put without it"
+    },
+    {
+      "type": "paragraph",
+      "value": "Signals sits under ACT for a reason worth pausing on. Lighting an LED changes the world, just as turning a wheel does. It is a small act, but it is still an act."
+    },
+    {
+      "type": "heading",
+      "value": "Power and Frame are the boring heroes"
+    },
+    {
+      "type": "paragraph",
+      "value": "Neither of them senses, thinks or acts. They simply have to work. When they do not, nothing else gets a chance to."
+    },
+    {
+      "type": "paragraph",
+      "value": "A flat battery looks exactly like a broken brain from the outside. A loose chassis looks exactly like a broken motor. That is why an experienced builder always asks the same first question: is it actually getting power?"
+    },
+    {
+      "type": "tip",
+      "value": "Remember this when things go wrong later. Check power and frame before you suspect anything clever. Most robots that \"will not work\" turn out to be a loose wire or a dead battery."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: six systems, each with one job. Senses, Brain and Movement are the loop itself. Power and Frame are what let the loop happen at all."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which system does the controller board belong to, and which step of the loop is that?",
+      "options": [
+        "Brain, which is the THINK step",
+        "Signals, which is the ACT step",
+        "Senses, which is the SENSE step"
+      ],
+      "answer": 0,
+      "explain": "The controller board reads sensor numbers and decides what to do with them. That is thinking, built out of hardware."
+    },
+    {
+      "question": "Why is the status LED grouped under Signals rather than Senses?",
+      "options": [
+        "Because it is small",
+        "Because it sends information out to you, rather than bringing information in",
+        "Because LEDs need power"
+      ],
+      "answer": 1,
+      "explain": "Direction is what separates them. Senses bring information in. Signals send information out. Lighting up is a small act."
+    },
+    {
+      "question": "Power and Frame do not sense, think or act. So why are they still systems?",
+      "options": [
+        "To make the number of systems even",
+        "They are leftovers that did not fit anywhere else",
+        "Nothing else works without them. No energy means no motion, and no frame means nothing stays lined up"
+      ],
+      "answer": 2,
+      "explain": "They have to be working before the loop can run at all. That is exactly why they are the first thing to check when a robot misbehaves."
+    },
+    {
+      "question": "Your robot is completely dead. No LED, no movement, nothing at all. Which system do you check first?",
+      "options": [
+        "Power",
+        "Brain",
+        "Senses"
+      ],
+      "answer": 0,
+      "explain": "A flat battery or a switch left off looks identical to a broken brain from the outside. Always rule out power first, because it is the quickest and cheapest check."
+    },
+    {
+      "question": "Which system has the most parts on ARIA?",
+      "options": [
+        "Senses",
+        "Movement, with two motors, two wheels and a driver",
+        "Signals"
+      ],
+      "answer": 1,
+      "explain": "Movement is five of her fourteen parts. Actually moving something takes more hardware than deciding to move."
+    }
+  ]
+}

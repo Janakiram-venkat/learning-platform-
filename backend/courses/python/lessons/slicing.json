@@ -1,0 +1,116 @@
+{
+  "lessonId": "slicing",
+  "title": "Slicing Strings",
+  "description": "Grab a single letter or a whole section out of a string.",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Getting One Letter"
+    },
+    {
+      "type": "paragraph",
+      "value": "A string is a row of characters in order, exactly like a list of items, and it is numbered the same way. The first letter is at index 0, and negative numbers count back from the end, so index -1 is always the last letter."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "word = \"Python\"\n\nprint(word[0])     # P\nprint(word[2])     # t\nprint(word[-1])    # n"
+    },
+    {
+      "type": "tip",
+      "value": "Six letters means the valid indexes are 0 to 5. Asking for `word[6]` raises an IndexError, the same error a list gives when you go past the end."
+    },
+    {
+      "type": "heading",
+      "value": "Getting a Section"
+    },
+    {
+      "type": "paragraph",
+      "value": "To take several letters at once you use a slice: a start index, a colon, and a stop index. The rule to hold on to is that the slice runs up to the stop index but does not include it. So `word[0:2]` gives the letters at 0 and 1, and stops just short of 2."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "word = \"Python\"\n\nprint(word[0:2])   # Py\nprint(word[2:5])   # tho"
+    },
+    {
+      "type": "paragraph",
+      "value": "Move the two handles below and watch which tiles light up. The stop number is the first letter left out, and the number of letters you get is always stop minus start."
+    },
+    {
+      "type": "widget",
+      "kind": "slice-viewer",
+      "word": "Python"
+    },
+    {
+      "type": "heading",
+      "value": "Leaving a Number Out"
+    },
+    {
+      "type": "paragraph",
+      "value": "Either number can be left out, and Python fills in the obvious answer. Leave out the start and it begins at the beginning. Leave out the stop and it runs to the end. Leave out both and you get the whole string back."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "word = \"Python\"\n\nprint(word[:2])    # Py, from the start\nprint(word[2:])    # thon, to the end\nprint(word[-3:])   # hon, the last three letters"
+    },
+    {
+      "type": "paragraph",
+      "value": "Because slicing never changes the original, `word` still holds \"Python\" after all of those. A slice hands you a new string, just like the methods in the last lesson."
+    },
+    {
+      "type": "tip",
+      "value": "A slice never raises an IndexError. Ask for `word[2:99]` and Python quietly stops at the end of the string, and if start and stop have crossed over you get an empty string back rather than a crash."
+    }
+  ],
+  "editorCode": "secret = \"AbraCadabra\"\n\nprint(secret[0:4])    # Abra\nprint(secret[4:])     # Cadabra\nprint(secret[-1])     # a\nprint(\"Unchanged:\", secret)",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Slice the word below so it prints only the first four letters, 'Mine'.",
+      "starterCode": "game = \"Minecraft\"\n\n# Print the first four letters using a slice\n"
+    },
+    {
+      "id": 2,
+      "question": "Print the last three letters of the word below, without counting its length yourself.",
+      "starterCode": "word = \"television\"\n\n# Print the last three letters (a negative start helps here)\n"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "If word = 'Magic', what does word[0] print?",
+      "options": [
+        "M",
+        "a",
+        "c",
+        "Magic"
+      ],
+      "answer": 0,
+      "explain": "Counting starts at 0, so index 0 is the very first letter."
+    },
+    {
+      "question": "For word = 'Python', what does word[1:4] give?",
+      "options": [
+        "yth",
+        "ytho",
+        "Pyt",
+        "tho"
+      ],
+      "answer": 0,
+      "explain": "It takes indexes 1, 2 and 3 and stops before 4, giving three letters: y, t and h."
+    },
+    {
+      "question": "Which slice gives the LAST two letters of any string?",
+      "options": [
+        "word[2:]",
+        "word[-2:]",
+        "word[:2]",
+        "word[-2]"
+      ],
+      "answer": 1,
+      "explain": "A negative start counts back from the end, so [-2:] means from two before the end onwards. word[-2] would give just one letter."
+    }
+  ]
+}

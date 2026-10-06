@@ -1,0 +1,27 @@
+{
+  "moduleId": 1,
+  "title": "Python Basics",
+  "lessons": [
+    {
+      "lessonId": "intro",
+      "title": "Introduction to Python",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "variables",
+      "title": "Variables",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "data_types",
+      "title": "Data Types",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "math_magic",
+      "title": "Doing Math",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

@@ -1,0 +1,17 @@
+{
+  "moduleId": 8,
+  "title": "Errors & Python's Built-in Libraries",
+  "lessons": [
+    {
+      "lessonId": "exceptions",
+      "title": "Handling Errors",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "imports",
+      "title": "Using Modules",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

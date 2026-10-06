@@ -1,0 +1,134 @@
+{
+  "lessonId": "java_first_program",
+  "title": "Your First Program",
+  "description": "Every word in a Java program explained, line by line, so none of it is magic.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Smallest Java Program"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here is a complete Java program. It prints one line. Every other program you write this year starts from this shape, so it is worth taking apart properly."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, world!\");\n    }\n}"
+    },
+    {
+      "type": "simulation",
+      "kind": "print",
+      "lines": ["Hello, world!"]
+    },
+    {
+      "type": "heading",
+      "value": "Line by Line"
+    },
+    {
+      "type": "paragraph",
+      "value": "`public class Main {` starts the class. A class is a named container for code, and this one is called `Main`. `public` means anything is allowed to use it. The `{` opens the container; the last `}` in the file closes it."
+    },
+    {
+      "type": "paragraph",
+      "value": "`public static void main(String[] args) {` starts the method named `main`. This name is special: when the JVM starts your program it looks for `main` and begins there. Get the name wrong and your program compiles but refuses to start, because nothing told the JVM where to begin."
+    },
+    {
+      "type": "paragraph",
+      "value": "The other words on that line each have a job. `static` means the method belongs to the class itself, so the JVM can call it without building anything first. `void` means the method hands nothing back when it finishes. `String[] args` is a place for words typed on the command line; you will not need it for a while, but `main` must have it."
+    },
+    {
+      "type": "paragraph",
+      "value": "`System.out.println(\"Hello, world!\");` is the one real instruction. `System.out` is the screen, `println` means \"print this, then move to a new line\", and the text in double quotes is what gets printed. The semicolon ends the instruction."
+    },
+    {
+      "type": "tip",
+      "value": "Read `System.out.println` as a path: in the `System`, find its `out` (the screen), and tell it to `println`. Java is full of these dotted paths, and they always read left to right like that."
+    },
+    {
+      "type": "heading",
+      "value": "The File Name Rule"
+    },
+    {
+      "type": "paragraph",
+      "value": "Java insists that a file holding a `public class Main` is named `Main.java`. The name in the code and the name of the file have to match, letter for letter, including capitals. Rename the class and you must rename the file too."
+    },
+    {
+      "type": "paragraph",
+      "value": "In this editor the file is already called `Main.java`, so keep your class named `Main` and you never have to think about it. If you do rename the class, the compiler will tell you at once, which is Java being strict on your behalf again."
+    },
+    {
+      "type": "heading",
+      "value": "Braces Come in Pairs"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every `{` needs a matching `}`. The class opens one pair and the method opens another inside it, so a one-line program still ends with two closing braces. The indentation, those four spaces before each inner line, is not required by Java but it shows the nesting at a glance and every Java programmer uses it."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {                              // opens the class\n    public static void main(String[] args) {      // opens the method\n        System.out.println(\"Line one.\");\n        System.out.println(\"Line two.\");\n    }                                            // closes the method\n}                                                // closes the class"
+    },
+    {
+      "type": "paragraph",
+      "value": "Try it in the editor. Add a third `System.out.println` of your own between the existing ones and run it: your line appears exactly where you put it, because instructions run top to bottom."
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, world!\");\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Print your own name on one line, then your favourite food on a second line. Two instructions inside `main`.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Print a three line message: Java is strict. / Braces come in pairs. / And I am fine with that. Each on its own line.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Where does the JVM start running your program?",
+      "options": [
+        "At the method called `main`.",
+        "At the first line of the file.",
+        "At whichever method is shortest."
+      ],
+      "answer": 0,
+      "explain": "The JVM looks for `main` by name and starts there. That is why the spelling of `main` matters so much."
+    },
+    {
+      "question": "Your class is `public class Player`. What must the file be called?",
+      "options": [
+        "Player.java",
+        "player.java",
+        "Main.java"
+      ],
+      "answer": 0,
+      "explain": "The file name must match the public class exactly, capitals included. `Player` goes in `Player.java`."
+    },
+    {
+      "question": "What does `println` do that plain printing would not?",
+      "options": [
+        "It moves to a new line after printing.",
+        "It prints in a larger size.",
+        "It prints the text twice."
+      ],
+      "answer": 0,
+      "explain": "The `ln` stands for line: it prints your text and then starts a new line, so the next output appears underneath."
+    },
+    {
+      "question": "How many closing braces does the smallest program need?",
+      "options": [
+        "Two: one for the method and one for the class.",
+        "One, at the very end.",
+        "None, if the program is short enough."
+      ],
+      "answer": 0,
+      "explain": "Each `{` needs its own `}`. The class opens one and the method opens another, so two must be closed."
+    }
+  ]
+}

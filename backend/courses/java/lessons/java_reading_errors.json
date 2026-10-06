@@ -1,0 +1,153 @@
+{
+  "lessonId": "java_reading_errors",
+  "title": "Editors and Reading Errors",
+  "description": "What an IDE does for you, and how to read a Java error message instead of fearing it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What an IDE Gives You"
+    },
+    {
+      "type": "paragraph",
+      "value": "You could write Java in any plain text editor and compile it by hand. Most people do not, because an IDE (Integrated Development Environment) does the boring parts for you. IntelliJ IDEA, Eclipse and VS Code are the popular ones for Java."
+    },
+    {
+      "type": "paragraph",
+      "value": "An IDE colours your code so text, numbers and keywords look different. It highlights a missing brace before you compile. It suggests what comes after a dot, so typing `System.out.` offers you `println`. And it compiles and runs with one keypress."
+    },
+    {
+      "type": "paragraph",
+      "value": "The editor beside this lesson is a small IDE of exactly that kind. It has the colouring and the suggestions, and the Run button does the compile and run step for you. Ctrl and Enter together run your code without reaching for the mouse."
+    },
+    {
+      "type": "tip",
+      "value": "An IDE makes mistakes cheaper to find, not impossible to make. Reading the message is still the skill that matters, which is what the rest of this lesson is about."
+    },
+    {
+      "type": "heading",
+      "value": "Compile Errors: Caught Before Running"
+    },
+    {
+      "type": "paragraph",
+      "value": "A compile error means `javac` refused to translate your code, so nothing ran at all. The message names the file, the line number and what it expected. Read it in that order: where, then what."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "// This program is missing a semicolon:\n//\n//     System.out.println(\"Hi\")\n//\n// and javac says:\n//\n//     Main.java:3: error: ';' expected\n//             System.out.println(\"Hi\")\n//                                     ^\n//     1 error\n//\n// Line 3, and the ^ points at the exact spot. Add the ; and it compiles.\n\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hi\");\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "value": "Three compile errors account for most of a beginner's week. `';' expected` means a missing semicolon. `cannot find symbol` means a name Java does not recognise, usually a typo or a wrong capital letter. `reached end of file while parsing` means a `}` is missing at the end."
+    },
+    {
+      "type": "tip",
+      "value": "Fix the first error and recompile. One missing brace can produce a dozen complaints, and the later ones often vanish on their own once the first is fixed."
+    },
+    {
+      "type": "heading",
+      "value": "Runtime Errors: It Started, Then Stopped"
+    },
+    {
+      "type": "paragraph",
+      "value": "A runtime error is different. The code compiled fine, the program started, and then something went wrong part way through. You can tell them apart by the output: if some of your printing appeared before the error, it was a runtime error."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "// A program that compiles, runs, and then breaks:\n//\n//     Starting up.\n//     Exception in thread \"main\" java.lang.ArithmeticException: / by zero\n//             at Main.main(Main.java:4)\n//\n// \"Starting up.\" printed, so line 3 worked. Line 4 is the problem:\n// dividing by zero is something Java cannot do.\n\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Starting up.\");\n        System.out.println(10 / 0);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "value": "The word after `java.lang.` is the kind of problem, and the line beginning `at Main.main` is where it happened. Those two pieces, the kind and the line, are all you usually need. Everything else in a long error message is detail you can ignore at first."
+    },
+    {
+      "type": "heading",
+      "value": "A Habit Worth Building"
+    },
+    {
+      "type": "paragraph",
+      "value": "When an error appears, do these three things in order. Read the line number and go there. Read the last part of the message, which says what Java wanted. Then change one thing and run again."
+    },
+    {
+      "type": "paragraph",
+      "value": "Changing one thing at a time is the important half. If you change four things and the error goes away, you have learned nothing about which one mattered. Programmers who work quickly are not the ones who avoid errors; they are the ones who read them properly the first time."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        // Run this as it is: it works.\n        // Then break it on purpose, one change at a time, and read each error:\n        //   1. delete the semicolon on the line below\n        //   2. put it back, then change println to printline\n        //   3. put it back, then delete the last } in the file\n        System.out.println(\"Break me, then read the message.\");\n    }\n}"
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Break me, then read the message.\");\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "This program has a missing semicolon. Run it first, read the error and note the line number, then fix it.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"One\");\n        System.out.println(\"Two\")\n        System.out.println(\"Three\");\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "This one has a misspelled name. Run it, find the `cannot find symbol` message, and correct the spelling.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.printline(\"Nearly right.\");\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "This one is missing a closing brace. Run it to see what Java says about the end of the file, then add the brace back.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Where does this end?\");\n"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is a compile error?",
+      "options": [
+        "A mistake found before the program runs, so nothing runs.",
+        "A mistake that only happens on slow computers.",
+        "A mistake that appears halfway through running."
+      ],
+      "answer": 0,
+      "explain": "`javac` checks first. If it reports an error, no bytecode is produced and the program never starts."
+    },
+    {
+      "question": "Java says `Main.java:7: error: ';' expected`. Where do you look?",
+      "options": [
+        "Line 7, and the end of line 6 above it.",
+        "The first line of the file.",
+        "Anywhere: the line number is a rough guess."
+      ],
+      "answer": 0,
+      "explain": "The line number is exact. A missing semicolon is often reported on the line after the one that is missing it, so check the line above too."
+    },
+    {
+      "question": "Your program prints two lines and then shows an error. What kind of error is it?",
+      "options": [
+        "A runtime error: it compiled and started, then broke.",
+        "A compile error: the code never compiled.",
+        "Both at once."
+      ],
+      "answer": 0,
+      "explain": "Output appearing proves the code compiled and the JVM started it. Anything that goes wrong after that is a runtime error."
+    },
+    {
+      "question": "You have fifteen errors after one small change. What is the best next step?",
+      "options": [
+        "Fix the first one and compile again.",
+        "Fix the last one, since it is the newest.",
+        "Undo everything you have written today."
+      ],
+      "answer": 0,
+      "explain": "Errors cascade: one missing brace confuses everything after it. Fixing the first often clears most of the rest."
+    },
+    {
+      "question": "What does an IDE do for you?",
+      "options": [
+        "Colours code, spots mistakes early, suggests names, and runs your program.",
+        "Writes the program so you do not have to.",
+        "Makes errors impossible."
+      ],
+      "answer": 0,
+      "explain": "An IDE shortens the loop between writing and finding out. The thinking, and the reading of error messages, is still yours."
+    }
+  ]
+}

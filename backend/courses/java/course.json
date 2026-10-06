@@ -1,0 +1,72 @@
+{
+  "courseId": "java",
+  "title": "Java Programming",
+  "description": "Learn Java from your first line of code to real object-oriented programs and projects.",
+  "level": "Beginner",
+  "estimatedHours": 40,
+  "emoji": "☕",
+  "thumbnail": "/images/java.png",
+  "language": "java",
+  "modules": [
+    {
+      "id": 1,
+      "title": "Meet Java",
+      "file": "module1.json"
+    },
+    {
+      "id": 2,
+      "title": "Variables and Data Types",
+      "file": "module2.json"
+    },
+    {
+      "id": 3,
+      "title": "Input and Operators",
+      "file": "module3.json"
+    },
+    {
+      "id": 4,
+      "title": "Making Decisions",
+      "file": "module4.json"
+    },
+    {
+      "id": 5,
+      "title": "Loops and Repetition",
+      "file": "module5.json"
+    },
+    {
+      "id": 6,
+      "title": "Methods",
+      "file": "module6.json"
+    },
+    {
+      "id": 7,
+      "title": "Arrays and Strings",
+      "file": "module7.json"
+    },
+    {
+      "id": 8,
+      "title": "Classes and Objects",
+      "file": "module8.json"
+    },
+    {
+      "id": 9,
+      "title": "Inheritance and Polymorphism",
+      "file": "module9.json"
+    },
+    {
+      "id": 10,
+      "title": "Real Java: Errors, Lists and Files",
+      "file": "module10.json"
+    },
+    {
+      "id": 11,
+      "title": "Modern Java: Lambdas and Streams",
+      "file": "module11.json"
+    },
+    {
+      "id": 12,
+      "title": "Algorithms and Problem Solving",
+      "file": "module12.json"
+    }
+  ]
+}

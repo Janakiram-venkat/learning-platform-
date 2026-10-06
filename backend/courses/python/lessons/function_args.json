@@ -1,0 +1,128 @@
+{
+  "lessonId": "function_args",
+  "title": "Inputs and Outputs",
+  "description": "Pass information into a function with arguments, and get a result back with return.",
+  "difficulty": "Intermediate",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Giving a Function Information"
+    },
+    {
+      "type": "paragraph",
+      "value": "The `cheer()` function from the last lesson always did exactly the same thing. Functions get far more useful when you can hand them something to work with. You write a name inside the parentheses of the `def` line, and that name becomes a variable that only exists inside the function."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "def greet_user(name):\n    print(\"Hello, \" + name + \"!\")\n\ngreet_user(\"Alex\")\ngreet_user(\"Sarah\")"
+    },
+    {
+      "type": "paragraph",
+      "value": "That prints `Hello, Alex!` and then `Hello, Sarah!`. The name in the `def` line is called a parameter. The value you actually send in when you call it is called an argument. One function, two different results, because the argument changed."
+    },
+    {
+      "type": "heading",
+      "value": "More Than One Input"
+    },
+    {
+      "type": "paragraph",
+      "value": "You can list several parameters, separated by commas, and pass the same number of arguments when you call it. Order matters: the first argument goes into the first parameter, the second into the second, and so on."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "def rectangle_area(width, height):\n    print(width * height)\n\nrectangle_area(4, 3)   # 12\nrectangle_area(3, 4)   # 12 as well, but width and height swapped over"
+    },
+    {
+      "type": "paragraph",
+      "value": "Use the machine below to send different values in and watch each step. The row that matters is the second one, where the parameter takes the value you passed."
+    },
+    {
+      "type": "widget",
+      "kind": "function-machine",
+      "preset": "double"
+    },
+    {
+      "type": "heading",
+      "value": "Getting a Result Back"
+    },
+    {
+      "type": "paragraph",
+      "value": "So far the functions printed their answers. That is fine for showing something once, but it is a dead end if you want to use the answer again. The `return` keyword hands the value back out to whoever called the function, so you can store it in a variable."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "def double_number(number):\n    return number * 2\n\nresult = double_number(10)\nprint(result)          # 20\nprint(result + 5)      # 25, because result really is a number"
+    },
+    {
+      "type": "tip",
+      "value": "A function stops the instant it reaches `return`. Any lines written after it inside the function never run, which is worth remembering when a function seems to ignore its last few lines."
+    },
+    {
+      "type": "heading",
+      "value": "return or print?"
+    },
+    {
+      "type": "paragraph",
+      "value": "These two look interchangeable, because a function that prints and a function that returns can produce the same thing on screen. They are not the same. `print` shows a value and gives nothing back, so the variable ends up holding `None`. `return` gives the value back and shows nothing. Switch between them below and watch what the variable holds."
+    },
+    {
+      "type": "widget",
+      "kind": "return-vs-print"
+    },
+    {
+      "type": "paragraph",
+      "value": "A good rule: let the function work out the answer and `return` it, then let the code that called it decide whether to print it, save it, or feed it into something else. That keeps the function useful in more than one place."
+    }
+  ],
+  "editorCode": "def make_full_name(first, last):\n    return first + \" \" + last\n\nfull_name = make_full_name(\"Ada\", \"Lovelace\")\nprint(full_name)\nprint(\"Letters:\", len(full_name))",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Create a function called 'double' that takes a number, multiplies it by 2, and returns the result.",
+      "starterCode": "# Define 'double(number)' here so it RETURNS number * 2\ndef double(number):\n    pass    # replace this line\n\nresult = double(5)\nprint(result)"
+    },
+    {
+      "id": 2,
+      "question": "This function prints instead of returning, so 'total' ends up as None. Change it to return the sum.",
+      "starterCode": "def add(a, b):\n    print(a + b)\n\ntotal = add(3, 4)\nprint(\"Total is\", total)"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What do we call the values you pass into a function's parentheses?",
+      "options": [
+        "Parameters",
+        "Arguments",
+        "Attributes",
+        "Keywords"
+      ],
+      "answer": 1,
+      "explain": "The values you pass in are arguments. The names waiting for them in the def line are parameters."
+    },
+    {
+      "question": "Which keyword sends a result back out of a function?",
+      "options": [
+        "send",
+        "return",
+        "output",
+        "print"
+      ],
+      "answer": 1,
+      "explain": "`return` hands the value back so the rest of your program can use it. `print` only puts it on the screen."
+    },
+    {
+      "question": "What does 'total' hold?  def add(a, b):  /  print(a + b)  /  total = add(2, 3)",
+      "options": [
+        "5",
+        "None",
+        "\"5\"",
+        "add(2, 3)"
+      ],
+      "answer": 1,
+      "explain": "The function prints 5 on screen but never returns anything, and a function with no return hands back None."
+    }
+  ]
+}

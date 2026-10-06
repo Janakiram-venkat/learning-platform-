@@ -1,0 +1,121 @@
+{
+  "moduleId": 1,
+  "title": "Meet Java Checkpoint",
+  "intro": "You have met the JVM, written a class with a main method, printed text and read your first error messages. Eleven rounds, one from every idea in this module. Get them right first time to earn three stars!",
+  "emoji": "☕",
+  "rounds": [
+    {
+      "type": "predict",
+      "prompt": "Run this program. What appears on the screen?",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, world!\");\n    }\n}",
+      "options": ["Hello, world!", "\"Hello, world!\"", "System.out.println", "Nothing: it needs a semicolon"],
+      "answer": 0,
+      "explain": "`println` prints whatever is inside the double quotes. The quotes mark where the text starts and ends, so they are not printed themselves."
+    },
+    {
+      "type": "concept",
+      "prompt": "Where does the JVM start running a Java program?",
+      "options": [
+        "At the method called `main`",
+        "At the first line of the file",
+        "At the class name",
+        "At whichever line prints something"
+      ],
+      "answer": 0,
+      "explain": "The JVM looks for a method named `main` and begins there. Misspell it and the program compiles but never starts, because nothing tells the JVM where to begin."
+    },
+    {
+      "type": "bug",
+      "prompt": "This line will not compile. Pick the fix.",
+      "code": "System.out.println(\"Almost there\")",
+      "options": [
+        "Add a semicolon: System.out.println(\"Almost there\");",
+        "Remove the brackets",
+        "Change println to printline",
+        "Put the whole line in curly braces"
+      ],
+      "answer": 0,
+      "explain": "Every Java instruction ends with a semicolon. Without it `javac` keeps reading onto the next line and reports `';' expected`."
+    },
+    {
+      "type": "concept",
+      "prompt": "Your file contains `public class Player`. What must the file be named?",
+      "options": ["Player.java", "player.java", "Main.java", "Player.class"],
+      "answer": 0,
+      "explain": "The file name must match the public class exactly, capital letters included. `.class` is the bytecode file that `javac` writes for you, not the one you write."
+    },
+    {
+      "type": "predict",
+      "prompt": "Careful: one of these does not start a new line. What is the output?",
+      "code": "System.out.print(\"Pocket\");\nSystem.out.println(\"Lab\");",
+      "options": ["PocketLab", "Pocket Lab", "Pocket\nLab", "Lab Pocket"],
+      "answer": 0,
+      "explain": "`print` stays on the same line, so `Lab` continues straight after `Pocket` with no space. Only the `println` ends the line."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "System.out.println(\"Score: \" + 10);",
+      "options": ["Score: 10", "Score: + 10", "Score: \"10\"", "Nothing: you cannot join a number to text"],
+      "answer": 0,
+      "explain": "`+` joins the pieces together, and Java turns the number 10 into the character `1` followed by `0` so it can be part of the text."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which escape sequence prints a double quote?",
+      "options": ["\\\"", "\\n", "\\t", "\\\\"],
+      "answer": 0,
+      "explain": "`\\n` is a new line, `\\t` is a tab and `\\\\` is a single backslash. `\\\"` prints a double quote without ending the text."
+    },
+    {
+      "type": "bug",
+      "prompt": "This program compiles and prints nothing at all. Why?",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        // System.out.println(\"Where did I go?\");\n    }\n}",
+      "options": [
+        "The `//` turned the instruction into a comment, so Java ignores it",
+        "`println` cannot be used twice in one program",
+        "The text is too long",
+        "`main` is missing"
+      ],
+      "answer": 0,
+      "explain": "Anything after `//` is a note for humans. Commenting out a line switches it off without deleting it, which is a handy way to test what a line was doing."
+    },
+    {
+      "type": "concept",
+      "prompt": "Your program prints two lines and then shows an error. What kind of error is it?",
+      "options": [
+        "A runtime error: it compiled, started, then broke",
+        "A compile error: `javac` refused to translate it",
+        "Both a compile and a runtime error",
+        "Not an error: programs always print two lines first"
+      ],
+      "answer": 0,
+      "explain": "Output appearing proves the code compiled and the JVM started it, so whatever went wrong happened while the program was running."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each piece of Java to what it does.",
+      "pairs": [
+        { "left": "javac", "right": "Checks your code and makes bytecode" },
+        { "left": "JVM", "right": "Runs the bytecode" },
+        { "left": "main", "right": "Where the program starts" },
+        { "left": "println", "right": "Prints, then moves to a new line" },
+        { "left": ";", "right": "Marks the end of an instruction" },
+        { "left": "//", "right": "Starts a note Java ignores" }
+      ],
+      "explain": "These six cover the whole module: the two steps that run your code, the starting point, printing, and the two bits of punctuation you will type most often."
+    },
+    {
+      "type": "order",
+      "prompt": "Build the smallest working program: open the class, open main, print a greeting, then close both.",
+      "solution": [
+        "public class Main {",
+        "    public static void main(String[] args) {",
+        "        System.out.println(\"Hi!\");",
+        "    }",
+        "}"
+      ],
+      "explain": "The class is the outer box and `main` is the inner one, so the instruction sits inside both and the braces close in the opposite order to how they opened: method first, then class."
+    }
+  ]
+}

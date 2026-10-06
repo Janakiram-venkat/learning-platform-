@@ -1,0 +1,128 @@
+{
+  "labId": "module6",
+  "title": "Responsible AI Lab",
+  "emoji": "🛡️",
+  "tagline": "Use AI fairly, safely, and honestly",
+  "difficulty": "Beginner",
+  "duration": "15 to 20 min",
+  "badge": "AI Guardian",
+  "objectives": [
+    "Explain what responsible AI means",
+    "Name AI risks: bias, privacy, misinformation, deepfakes",
+    "Understand where bias comes from",
+    "Tell fair training data from unfair data",
+    "Make responsible choices when using AI"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "With Great Power…",
+      "xp": 10,
+      "narration": "AI can do amazing things, but it can also cause harm if used carelessly. Being responsible means thinking about what is fair, honest, and safe. Let's become AI Guardians!",
+      "steps": [
+        { "emoji": "🤖", "text": "AI is powerful and everywhere…" },
+        { "emoji": "⚖️", "text": "But it can be unfair or make mistakes." },
+        { "emoji": "🧐", "text": "Responsible users spot the risks." },
+        { "emoji": "🛡️", "text": "And use AI safely and fairly." }
+      ],
+      "cta": "Take the Oath"
+    },
+    {
+      "type": "pick",
+      "title": "Spot Responsible AI Use",
+      "xp": 15,
+      "prompt": "Tap every choice that is a responsible, fair, and safe way to use AI.",
+      "items": [
+        { "id": "check", "label": "Double-check the AI's answers", "emoji": "✅", "isAI": true },
+        { "id": "privacy", "label": "Protect people's private data", "emoji": "🔒", "isAI": true },
+        { "id": "credit", "label": "Give credit when AI helps you", "emoji": "🙏", "isAI": true },
+        { "id": "question", "label": "Question shocking videos", "emoji": "🧐", "isAI": true },
+        { "id": "believe", "label": "Believe everything AI says", "emoji": "🙈", "isAI": false },
+        { "id": "share", "label": "Share someone's private photos", "emoji": "📤", "isAI": false },
+        { "id": "trick", "label": "Use AI to trick friends", "emoji": "🎭", "isAI": false }
+      ],
+      "feedback": {
+        "correct": "Yes! That's a responsible, fair, and safe way to use AI.",
+        "incorrect": "That can cause harm, a responsible AI user avoids this."
+      }
+    },
+    {
+      "type": "choose",
+      "title": "Name the AI Risk",
+      "xp": 20,
+      "prompt": "Every scenario shows an AI problem. Name the risk it fits best.",
+      "options": [
+        { "id": "bias", "label": "Bias", "emoji": "⚖️" },
+        { "id": "privacy", "label": "Privacy", "emoji": "🔒" },
+        { "id": "misinfo", "label": "Misinformation", "emoji": "📰" },
+        { "id": "deepfake", "label": "Deepfake", "emoji": "🎭" }
+      ],
+      "tasks": [
+        { "id": "hiring", "label": "A hiring AI trained mostly on men keeps rejecting women", "emoji": "👩‍💼", "answer": "bias", "explain": "Unfair data makes the AI treat one group unfairly, that's bias." },
+        { "id": "photos", "label": "An app sells your personal photos without asking", "emoji": "📸", "answer": "privacy", "explain": "Using personal data without permission is a privacy problem." },
+        { "id": "fact", "label": "An AI states a made-up 'fact' with total confidence", "emoji": "🤥", "answer": "misinfo", "explain": "Confident but wrong information is misinformation." },
+        { "id": "video", "label": "A fake video shows a leader saying things they never said", "emoji": "🎬", "answer": "deepfake", "explain": "An AI-made fake video that looks real is a deepfake." },
+        { "id": "faces", "label": "A face system fails for some skin tones because of its data", "emoji": "🙁", "answer": "bias", "explain": "One-sided training data leads to biased, unfair results." }
+      ]
+    },
+    {
+      "type": "sort",
+      "title": "Fair vs Unfair Data",
+      "xp": 20,
+      "prompt": "AI learns from data. Balanced, varied data is fair; one-sided data creates bias. Sort each dataset.",
+      "pass": 0.8,
+      "note": "Fair AI needs varied, balanced data. One-sided data teaches the AI to be biased.",
+      "columns": [
+        { "id": "fair", "label": "Fair Data", "emoji": "🤝" },
+        { "id": "unfair", "label": "Unfair Data", "emoji": "⚠️" }
+      ],
+      "cards": [
+        { "id": "all", "label": "Faces of all skin tones, ages, and genders", "emoji": "🌍", "column": "fair" },
+        { "id": "one", "label": "Photos of just one group of people", "emoji": "👤", "column": "unfair" },
+        { "id": "many", "label": "Examples collected from many countries", "emoji": "🗺️", "column": "fair" },
+        { "id": "hood", "label": "Reviews from only one neighborhood", "emoji": "🏘️", "column": "unfair" },
+        { "id": "voices", "label": "A balanced mix of voices and accents", "emoji": "🗣️", "column": "fair" }
+      ]
+    },
+    {
+      "type": "explore",
+      "title": "Ethics Checkpoints",
+      "xp": 15,
+      "prompt": "Tap each place to learn how to use AI responsibly there. Visit them all!",
+      "locations": [
+        { "id": "school", "label": "School", "emoji": "🏫", "info": "Give credit when AI helps with your homework, honesty keeps learning fair." },
+        { "id": "hospital", "label": "Hospital", "emoji": "🏥", "info": "AI must protect patient privacy and keep medical data safe and secret." },
+        { "id": "news", "label": "News", "emoji": "📰", "info": "Always fact-check AI claims, it can sound sure but still be wrong." },
+        { "id": "social", "label": "Social Media", "emoji": "📱", "info": "Deepfakes spread fast, question videos that seem shocking or too perfect." },
+        { "id": "company", "label": "Tech Company", "emoji": "🏢", "info": "Responsible teams test AI on all kinds of people before releasing it." }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Guardian's Final Test",
+      "xp": 30,
+      "prompt": "Score at least 80% to earn your AI Guardian badge.",
+      "pass": 0.8,
+      "questions": [
+        { "q": "What does 'bias' in AI mean?", "options": ["The AI is unfair, often from unfair data", "The AI runs too fast"], "answer": 0, "explain": "Bias means the AI treats some groups unfairly, usually from unbalanced data." },
+        { "q": "What is a deepfake?", "options": ["A fake image or video made by AI that looks real", "A very deep swimming pool"], "answer": 0, "explain": "Deepfakes are AI-generated fakes designed to look real." },
+        { "q": "Where does AI bias usually come from?", "options": ["Unbalanced or unfair training data", "Using too much battery"], "answer": 0, "explain": "If the data is one-sided, the AI learns to be unfair too." },
+        { "q": "Which is a responsible way to use AI?", "options": ["Double-check answers and protect privacy", "Believe everything it says"], "answer": 0, "explain": "Responsible users verify answers, protect privacy, and give credit." },
+        { "q": "Why can AI misinformation be dangerous?", "options": ["It can sound confident but be wrong", "It makes files smaller"], "answer": 0, "explain": "AI can state wrong things convincingly, so always fact-check." },
+        { "q": "How do we make AI fairer?", "options": ["Train it on varied, balanced data", "Give it a bigger screen"], "answer": 0, "explain": "Fair, diverse data helps the AI treat everyone fairly." },
+        { "q": "If AI helps with your project, you should...", "options": ["Give it credit and check its work", "Pretend you did it all and never check"], "answer": 0, "explain": "Honesty and checking are part of responsible AI use." }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Lab Complete!",
+      "xp": 30,
+      "badge": "AI Guardian",
+      "messages": [
+        "🏆 You earned the AI Guardian Badge",
+        "You learned to use AI fairly, safely, and honestly",
+        "Module 6 completed"
+      ]
+    }
+  ]
+}

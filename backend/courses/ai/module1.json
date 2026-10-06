@@ -1,0 +1,19 @@
+{
+  "moduleId": 1,
+  "title": "Introduction to AI",
+  "lessons": [
+    {
+      "lessonId": "intro",
+      "title": "What is AI?",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "types_of_ai",
+      "title": "Types of AI",
+      "duration": "10 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": true,
+  "labTitle": "AI Explorer Lab"
+}

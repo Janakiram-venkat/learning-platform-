@@ -1,0 +1,30 @@
+{
+  "moduleId": 12,
+  "title": "Build & Compete",
+  "emoji": "🏆",
+  "tagline": "The final exam, the debug lab, the arena, and a robot of your own design.",
+  "lessons": [
+    {
+      "lessonId": "robot-full-assembly",
+      "title": "The Final Exam, and It's a Game",
+      "duration": "12 min"
+    },
+    {
+      "lessonId": "robot-debug-lab",
+      "title": "The Debug Lab",
+      "duration": "14 min"
+    },
+    {
+      "lessonId": "robot-arena",
+      "title": "The Arena",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "robot-capstone",
+      "title": "Capstone: Design Your Own Robot",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

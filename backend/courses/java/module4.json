@@ -1,0 +1,32 @@
+{
+  "moduleId": 4,
+  "title": "Making Decisions",
+  "lessons": [
+    {
+      "lessonId": "java_if",
+      "title": "The if Statement",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_else",
+      "title": "else and else if",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_nested_if",
+      "title": "Nested Conditions",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_switch",
+      "title": "The switch Statement",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_ternary",
+      "title": "The Ternary Operator",
+      "duration": "10 min"
+    }
+  ],
+  "hasProject": true
+}

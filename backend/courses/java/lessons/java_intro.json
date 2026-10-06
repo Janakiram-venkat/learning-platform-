@@ -1,0 +1,98 @@
+{
+  "lessonId": "java_intro",
+  "title": "What Is Programming?",
+  "description": "What a program actually is, and why a computer needs such exact instructions.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Computer Follows Orders"
+    },
+    {
+      "type": "paragraph",
+      "value": "A computer is fast but it never guesses. It does exactly what it is told, in the exact order it is told, and nothing more. Programming is the job of writing those orders down. A program is just a list of instructions, written in a language the computer can be made to understand."
+    },
+    {
+      "type": "paragraph",
+      "value": "Think about making toast. You would tell a friend \"put in the bread, push the lever, wait, take it out\". A friend can fill in the gaps. A computer cannot. If you leave out \"push the lever\", it will stand there forever with cold bread. Every step has to be there, and in the right order."
+    },
+    {
+      "type": "tip",
+      "value": "Most bugs (mistakes in a program) are not the computer being difficult. They are the computer doing exactly what you wrote instead of what you meant."
+    },
+    {
+      "type": "heading",
+      "value": "Instructions Run Top to Bottom"
+    },
+    {
+      "type": "paragraph",
+      "value": "Unless you tell it otherwise, a program runs one line at a time, starting at the top and working down. That single rule explains most of what you will see in this course. Here is a program with three instructions. Read them in order and you already know what it will do."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Bread in.\");\n        System.out.println(\"Lever down.\");\n        System.out.println(\"Toast!\");\n    }\n}"
+    },
+    {
+      "type": "simulation",
+      "kind": "print",
+      "lines": ["Bread in.", "Lever down.", "Toast!"]
+    },
+    {
+      "type": "paragraph",
+      "value": "Three instructions, three lines of output, same order. Do not worry about the words `public class Main` yet. For now, notice only that each instruction sits on its own line and that the order is kept."
+    },
+    {
+      "type": "heading",
+      "value": "Why Learn to Program?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Because it turns you from someone who uses software into someone who makes it. The apps on your phone, the games you play and the sites you visit are all lists of instructions somebody wrote. By the end of this course you will have written a quiz game, a bank machine and a program that keeps track of money, all in Java."
+    },
+    {
+      "type": "paragraph",
+      "value": "Press Run on the editor beside this lesson to see the toast program work. You cannot break anything: the worst that happens is an error message, and you will learn to read those too."
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Bread in.\");\n        System.out.println(\"Lever down.\");\n        System.out.println(\"Toast!\");\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Change the three instructions so the program describes brushing your teeth instead: three steps, in the right order.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Bread in.\");\n        System.out.println(\"Lever down.\");\n        System.out.println(\"Toast!\");\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is a program?",
+      "options": [
+        "A list of instructions for a computer to follow.",
+        "A machine that thinks for itself.",
+        "A picture of what an app should look like."
+      ],
+      "answer": 0,
+      "explain": "A program is instructions, nothing more. The computer supplies the speed; you supply the thinking."
+    },
+    {
+      "question": "In what order does a program normally run its instructions?",
+      "options": [
+        "Top to bottom, one line at a time.",
+        "All at once, in any order.",
+        "Bottom to top."
+      ],
+      "answer": 0,
+      "explain": "By default each line runs after the one above it. Later you will learn how to change that order on purpose, with decisions and loops."
+    },
+    {
+      "question": "Your program prints the steps of making toast in the wrong order. Whose mistake is it?",
+      "options": [
+        "Yours: the computer ran the order you wrote.",
+        "The computer's: it should have worked out the right order.",
+        "Nobody's: order does not matter."
+      ],
+      "answer": 0,
+      "explain": "The computer never rearranges your instructions to be helpful. If the order is wrong, the order in your code is wrong."
+    }
+  ]
+}

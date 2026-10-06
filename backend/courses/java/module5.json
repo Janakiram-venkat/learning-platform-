@@ -1,0 +1,32 @@
+{
+  "moduleId": 5,
+  "title": "Loops and Repetition",
+  "lessons": [
+    {
+      "lessonId": "java_for",
+      "title": "The for Loop",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_while",
+      "title": "The while Loop",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_do_while",
+      "title": "The do-while Loop",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_break_continue",
+      "title": "break and continue",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_nested_loops",
+      "title": "Nested Loops and Patterns",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

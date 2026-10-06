@@ -1,0 +1,32 @@
+{
+  "moduleId": 7,
+  "title": "Arrays and Strings",
+  "lessons": [
+    {
+      "lessonId": "java_arrays",
+      "title": "Arrays",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_array_loops",
+      "title": "Looping Over an Array",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_string_methods",
+      "title": "String Methods",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_string_building",
+      "title": "Building Strings",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "java_2d_arrays",
+      "title": "2D Arrays",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

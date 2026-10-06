@@ -1,0 +1,80 @@
+import os
+from fastapi import Depends, FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
+from sqlalchemy import text
+from app.core.limiter import limiter, rate_limit_exceeded_handler
+from app.api import admin, compiler, contests, courses, lessons, quiz, users, feedback
+from app.core.security import get_current_user
+from app.db import Base, engine
+from app.models import user as _user_model          # noqa: F401
+from app.models import feedback as _feedback_model  # noqa: F401
+from app.models import quiz_attempt as _quiz_attempt_model  # noqa: F401
+from app.models import contest as _contest_model  # noqa: F401
+
+# ---------------------------------------------------------------------------
+# Database — create missing tables and columns on startup.
+# create_all only creates missing *tables*, never missing columns, so columns
+# added after a table already exists need a nudge.  There's no migration tool
+# in this project yet; when a second batch of these shows up that's the signal
+# to add Alembic rather than extend this list.
+# ---------------------------------------------------------------------------
+Base.metadata.create_all(bind=engine)
+
+with engine.begin() as conn:
+    conn.execute(
+        text("ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN NOT NULL DEFAULT FALSE")
+    )
+    conn.execute(
+        text("ALTER TABLE users ADD COLUMN IF NOT EXISTS token_version INTEGER NOT NULL DEFAULT 0")
+    )
+    conn.execute(
+        text("ALTER TABLE contests ADD COLUMN IF NOT EXISTS invite_only BOOLEAN NOT NULL DEFAULT FALSE")
+    )
+
+# Rate limiter is configured in app.core.limiter (see its docstring for the
+# limits and env vars). app.state is where slowapi looks for it.
+
+app = FastAPI(title="Student Coding Platform API")
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)
+
+# Applies the application + default limits to every route without its own
+# @limiter.limit. Added before CORS so CORS wraps it — otherwise a 429 goes out
+# without CORS headers and the browser reports a network error instead.
+app.add_middleware(SlowAPIMiddleware)
+
+# Allowed frontend origins. Set CORS_ORIGINS on Render to your Vercel URL
+# (comma-separated for multiple). Falls back to local dev origins.
+_default_origins = "http://localhost:5173,http://localhost:3000"
+allowed_origins = [o.strip() for o in os.getenv("CORS_ORIGINS", _default_origins).split(",") if o.strip()]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Course content is for signed-in students only. The dependency sits on the
+# router mount rather than on each route so a new content endpoint is gated by
+# default — the frontend guard in RequireAuth is convenience, this is the real
+# check. Anonymous callers get a 401 from HTTPBearer.
+_signed_in = [Depends(get_current_user)]
+
+app.include_router(courses.router, prefix="/api", tags=["Courses"], dependencies=_signed_in)
+app.include_router(compiler.router, prefix="/api", tags=["Compiler"], dependencies=_signed_in)
+app.include_router(lessons.router, prefix="/api", tags=["Lessons"], dependencies=_signed_in)
+app.include_router(quiz.router, prefix="/api", tags=["Quiz"], dependencies=_signed_in)
+app.include_router(users.router, prefix="/api", tags=["Users"])
+app.include_router(feedback.router, prefix="/api", tags=["Feedback"])
+app.include_router(admin.router, prefix="/api", tags=["Admin"])
+app.include_router(contests.router, prefix="/api", tags=["Contests"], dependencies=_signed_in)
+app.include_router(contests.admin_router, prefix="/api", tags=["Admin"])
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to Student Coding Platform API"}

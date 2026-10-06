@@ -1,0 +1,151 @@
+{
+  "lessonId": "robot-part-hunt",
+  "title": "Part Hunt",
+  "description": "Six parts and a clock. Find them on the robot and you will not have to look them up again.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Knowing Where Things Are"
+    },
+    {
+      "type": "paragraph",
+      "value": "You can read a parts list a hundred times and still freeze when someone says \"pass me the motor driver\". Knowing a name is not the same as knowing where that part lives."
+    },
+    {
+      "type": "paragraph",
+      "value": "So this lesson is a game. A part gets named, you click it on the robot, six times over. Spin and zoom as much as you like. The clock is there for fun, not for marks."
+    },
+    {
+      "type": "heading",
+      "value": "Two things worth knowing before you start"
+    },
+    {
+      "type": "paragraph",
+      "value": "A wrong click is not wasted. Whatever you hit will shake and tell you its own name, so even a miss teaches you a part."
+    },
+    {
+      "type": "paragraph",
+      "value": "If you miss the same target twice, its system colour appears. That narrows fourteen parts down to two or three, without handing you the answer."
+    },
+    {
+      "type": "widget",
+      "kind": "part-hunt",
+      "xpKey": "robotics-m2-part-hunt"
+    },
+    {
+      "type": "heading",
+      "value": "Stuck on one?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Ask what the part is for, then ask where it would have to sit to do that job. That is almost always enough."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "value": "Line sensors    look at the floor      →  underneath, at the front\nDistance sensor looks ahead            →  front face, pointing forward\nWheels          touch the ground       →  widest points, both sides\nCaster          holds the front up     →  underneath, front centre\nBattery         heavy, needs balance   →  low and central on the deck\nBuzzer / LED    you must see and hear  →  on top, out in the open"
+    },
+    {
+      "type": "image",
+      "value": "Where they actually sit",
+      "columns": 3,
+      "ratio": "4 / 3",
+      "items": [
+        {
+          "src": "/course-images/robotics/robot-part-hunt/underside-line-sensors.jpg",
+          "want": "The underside of the built robot, showing the line sensors facing the floor",
+          "alt": "The underside of a small robot, showing downward-facing line sensors",
+          "caption": "Underneath and at the front, because they read the floor.",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-part-hunt/front-distance-sensor.jpg",
+          "want": "The front of the built robot at eye level, distance sensor pointing at the camera",
+          "alt": "The front of a small robot with its distance sensor facing forward",
+          "caption": "At the front and high up, because it looks where she is going.",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-part-hunt/deck-wiring.jpg",
+          "want": "The robot deck from above, with the controller wired to the motor driver",
+          "alt": "The top deck of a small robot, showing a controller board wired to a motor driver",
+          "caption": "On the deck, where the wires stay short and everything is easy to reach.",
+          "credit": ""
+        }
+      ]
+    },
+    {
+      "type": "tip",
+      "value": "That way of reasoning is the real skill. On a robot you have never seen before, you can still guess where the distance sensor is, because it has to face the way the robot drives."
+    },
+    {
+      "type": "heading",
+      "value": "You've finished Module 2"
+    },
+    {
+      "type": "paragraph",
+      "value": "You can now spin ARIA round, name her six systems, take her apart, and put your finger on any part she has."
+    },
+    {
+      "type": "paragraph",
+      "value": "Next comes the part everyone waits for: electricity. In Module 3 you will wire up her chassis, battery and switch, then light her status LED for the first time."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: where a part sits is decided by the job it does. That means you can work out a robot's layout even when nobody tells you."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "You are shown a robot you have never seen and asked to point at its distance sensor. What is the best way to reason it out?",
+      "options": [
+        "It will be the biggest part",
+        "It has to face the direction the robot drives, so look at the front",
+        "It will be on top, where it is easiest to see"
+      ],
+      "answer": 1,
+      "explain": "Position follows job. A sensor measuring what is ahead has to point ahead, and that is true of every robot, not just ARIA."
+    },
+    {
+      "question": "In the hunt, you click the wrong part. What happens?",
+      "options": [
+        "You lose a life and the hunt ends",
+        "It shakes and tells you its own name, so you learn a part anyway",
+        "Nothing at all"
+      ],
+      "answer": 1,
+      "explain": "A wrong answer is still a chance to learn a name. That is why the part you hit introduces itself instead of just buzzing at you."
+    },
+    {
+      "question": "Why are the line sensors underneath rather than on the deck?",
+      "options": [
+        "To keep them out of the way",
+        "Because there is no room on top",
+        "They have to see the floor to tell a black line from a white surface"
+      ],
+      "answer": 2,
+      "explain": "Their whole question is about the floor directly beneath the robot, so that is where they have to point."
+    },
+    {
+      "question": "Which pairing of part and system is correct?",
+      "options": [
+        "Motor driver belongs to Movement",
+        "Buzzer belongs to Senses",
+        "Caster ball belongs to Power"
+      ],
+      "answer": 0,
+      "explain": "The driver exists to get enough current to the motors, so it belongs with Movement. The buzzer sends sound out, so it is Signals. The caster holds her up, so it is Frame."
+    },
+    {
+      "question": "What is coming in Module 3?",
+      "options": [
+        "Writing Python for the robot",
+        "Electricity: wiring the chassis, battery and switch, then lighting the LED for the first time",
+        "Adding a camera"
+      ],
+      "answer": 1,
+      "explain": "Power comes before everything else, because nothing on the robot works without it."
+    }
+  ]
+}

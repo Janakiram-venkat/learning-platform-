@@ -1,0 +1,22 @@
+{
+  "moduleId": 5,
+  "title": "Lists and Collections",
+  "lessons": [
+    {
+      "lessonId": "lists",
+      "title": "Lists",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "tuples",
+      "title": "Tuples",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "dictionaries",
+      "title": "Dictionaries",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

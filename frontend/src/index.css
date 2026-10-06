@@ -1,0 +1,507 @@
+@import "tailwindcss";
+
+@theme {
+  /* Legacy tokens, repointed to the Pocket Lab logo palette so any older
+     component still using them (text-primary, text-secondary, bg-accent, …)
+     inherits the brand look automatically. */
+  --color-primary: #1B1B1B;     /* ink — the wordmark black */
+  --color-secondary: #5C5C60;   /* neutral graphite for secondary text */
+  --color-accent: #5B0DA8;      /* brand violet */
+  --color-accent2: #FFB40A;     /* signal amber */
+  --color-accent3: #0097F8;     /* LED azure */
+  --color-accent4: #CE3117;     /* wire red-orange */
+  --color-background: #F7F7F7;
+  --color-sidebar: #F0F0F2;
+  --color-border: #DFDFE3;
+
+  /* --- Pocket Lab identity, sampled from the logo ---------------------- */
+  /* The mark is a full hue wheel on a neutral field: red-orange → amber,   */
+  /* spring green → teal, azure, indigo → magenta, with a black wordmark.   */
+  /* The page keeps the logo's own composition — neutral ground, one burst  */
+  /* of colour — so the spectrum stays loud by staying rare.                */
+  --color-paper: #F7F7F7;    /* the logo's field — page ground */
+  --color-ink: #1B1B1B;      /* the wordmark black — text, rules, chassis */
+  --color-pcb: #5B0DA8;      /* the mark's violet stroke — structure */
+  --color-signal: #FFB40A;   /* amber, from the mark's warm face — action */
+  --color-wire: #CE3117;     /* red-orange, the warm face's hot end — alert */
+  --color-led: #0097F8;      /* azure — information */
+  --color-mint: #00C48C;     /* spring green → teal — success */
+  --color-magenta: #BD16BB;  /* the violet face's hot end — accent */
+
+  /* Dark surfaces (terminals, stages, code) carry the violet cast of the
+     mark rather than a neutral black, so they read as the same object. */
+  --color-well: #140A22;
+  --color-mute: #A6A6A6;     /* the logo's tagline grey — de-emphasis only */
+
+  /* Darkened siblings for the two accents that are too bright to be read as
+     text on paper. Same hue, enough contrast for body copy (4.5:1+). */
+  --color-led-deep: #0A6FBE;
+  --color-mint-deep: #007A55;
+  --color-signal-deep: #8A5800;
+
+  /* The wire red darkened for body text loses its bite on a dark well, so the
+     logo's untouched hot red-orange stays available for those surfaces. */
+  --color-wire-bright: #FF4C35;
+
+  --font-sans: 'Nunito', 'Segoe UI', sans-serif;
+  --font-display: 'Fredoka', 'Nunito', sans-serif;
+  --font-lab: 'Bricolage Grotesque', 'Nunito', sans-serif;
+  --font-mono-lab: 'Space Mono', ui-monospace, monospace;
+}
+
+@layer base {
+  .bg-well,
+  .bg-ink {
+    color: rgba(255, 255, 255, 0.86);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Match the workbench paper so overscroll / rubber-band never flashes the
+     old lavender behind the app shell. */
+  background-color: var(--color-paper);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-primary);
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* --- Celebration animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.7) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes badgePop {
+  0% { transform: scale(0) rotate(-30deg); }
+  60% { transform: scale(1.15) rotate(8deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(-10vh) rotateZ(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotateZ(720deg); opacity: 0.8; }
+}
+
+/* --- Game-like UI animations --- */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.6) translateY(30px); }
+  60% { opacity: 1; transform: scale(1.05) translateY(-4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(91, 13, 168, 0.4); }
+  50% { box-shadow: 0 0 28px 6px rgba(91, 13, 168, 0.35); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+/* Gentle bob + sway for the brand logo */
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0) rotate(-1.2deg); }
+  50% { transform: translateY(-14px) rotate(1.2deg); }
+}
+
+.animate-logo-float { animation: logoFloat 5s ease-in-out infinite; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-float-slow { animation: float 6s ease-in-out infinite; }
+.animate-wiggle { animation: wiggle 2.5s ease-in-out infinite; }
+.animate-bounce-in { animation: bounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.animate-glow { animation: glowPulse 2.8s ease-in-out infinite; }
+.animate-pop { animation: pop 0.5s ease-out; }
+
+/* Hover lift used on game cards */
+.game-card {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+.game-card:hover {
+  transform: translateY(-8px) rotate(-1deg);
+}
+
+/* Rainbow gradient text */
+.gradient-text {
+  background: linear-gradient(90deg, #5B0DA8, #BD16BB, #E63C22, #FFB40A, #00C48C, #0097F8, #5B0DA8);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 9s linear infinite;
+}
+
+/* --- Arcade game feedback animations --- */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+@keyframes correctPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes starPop {
+  0% { opacity: 0; transform: scale(0) rotate(-40deg); }
+  60% { opacity: 1; transform: scale(1.25) rotate(8deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* Example card flying into the model brain while training */
+@keyframes feedFly {
+  0% { opacity: 0; transform: translateY(36px) scale(0.85); }
+  35% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-120px) scale(0.35); }
+}
+.animate-feed-fly { animation: feedFly 0.7s cubic-bezier(0.4, 0, 0.6, 1) forwards; }
+
+.animate-shake { animation: shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+.animate-correct { animation: correctPop 0.4s ease-out; }
+.animate-slide-up { animation: slideUp 0.35s ease-out both; }
+.animate-star-pop { animation: starPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float, .animate-float-slow, .animate-wiggle, .animate-glow, .animate-logo-float, .gradient-text,
+  .animate-shake, .animate-correct, .animate-slide-up, .animate-star-pop, .animate-feed-fly {
+    animation: none;
+  }
+}
+
+/* ====================================================================== */
+/*  Pocket Lab — "Workbench" identity utilities (Home page)               */
+/*  Font roles: .font-lab (Bricolage Grotesque display),                  */
+/*  .font-mono-lab (Space Mono — the device's voice). Kept additive so    */
+/*  the rest of the app's Fredoka/Nunito system is untouched.             */
+/* ====================================================================== */
+.font-lab      { font-family: var(--font-lab); }
+.font-mono-lab { font-family: var(--font-mono-lab); }
+
+/* Engineering graph-paper canvas — faint ink ruling over PCB-tinted paper.
+   Two grids (fine + major) like a real notebook sheet. */
+.bench-grid {
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(rgba(27, 27, 27, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 27, 27, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(27, 27, 27, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 27, 27, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+  background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+}
+
+/* A physical panel sitting on the bench: hard edge, offset "shadow" like a
+   silkscreened board, no soft blur. Deliberately square-ish, not rounded-3xl. */
+.lab-panel {
+  border: 2px solid var(--color-ink);
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 5px 5px 0 rgba(27, 27, 27, 0.9);
+}
+.lab-panel-pcb {
+  border: 2px solid var(--color-ink);
+  border-radius: 14px;
+  background: var(--color-pcb);
+  box-shadow: 5px 5px 0 rgba(27, 27, 27, 0.9);
+}
+
+/* Hover: the panel "presses" toward the bench (shadow shrinks). */
+.lab-lift { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+.lab-lift:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 rgba(27, 27, 27, 0.9);
+}
+
+/* A pressable bench button: hard offset shadow that shrinks as it's pressed. */
+.lab-btn {
+  box-shadow: 5px 5px 0 rgba(27, 27, 27, 0.9);
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+.lab-btn:hover  { transform: translate(2px, 2px); box-shadow: 3px 3px 0 rgba(27, 27, 27, 0.9); }
+.lab-btn:active { transform: translate(4px, 4px); box-shadow: 1px 1px 0 rgba(27, 27, 27, 0.9); }
+.lab-btn:focus-visible { outline: 3px solid var(--color-pcb); outline-offset: 3px; }
+
+/* Mono reference tag used as an eyebrow: like a component label on a board. */
+.ref-tag {
+  font-family: var(--font-mono-lab);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Status LED — a small glowing indicator. */
+.led {
+  width: 10px; height: 10px; border-radius: 999px;
+  box-shadow: 0 0 0 2px rgba(27,27,27,0.25), 0 0 8px 1px currentColor;
+  background: currentColor;
+}
+.led-pulse { animation: ledPulse 1.6s ease-in-out infinite; }
+@keyframes ledPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* The device screen powers on: brief flicker then steady. */
+.power-on { animation: powerOn 0.9s ease-out both; }
+@keyframes powerOn {
+  0%   { opacity: 0; filter: brightness(2.5); }
+  8%   { opacity: 1; }
+  12%  { opacity: 0.4; }
+  18%  { opacity: 1; filter: brightness(1.4); }
+  24%  { opacity: 0.7; }
+  100% { opacity: 1; filter: brightness(1); }
+}
+
+/* Blinking terminal cursor. */
+.term-cursor { animation: termBlink 1.1s step-end infinite; }
+@keyframes termBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* Toggle-switch travel when the active track changes. */
+.switch-knob { transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .led-pulse, .power-on, .term-cursor { animation: none; }
+  .lab-lift:hover { transform: none; box-shadow: 5px 5px 0 rgba(27,27,27,0.9); }
+}
+
+/* --- Student dashboard: badges + gauges ------------------------------- */
+
+/* Badge tile pops into place; stagger via inline animation-delay. */
+.badge-pop { animation: badgePop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+/* A light sweep across an earned badge medal. */
+.badge-shine { position: relative; overflow: hidden; }
+.badge-shine::after {
+  content: '';
+  position: absolute;
+  top: -60%; left: -120%;
+  width: 60%; height: 220%;
+  background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%);
+  transform: rotate(8deg);
+  animation: badgeShine 3.4s ease-in-out infinite;
+}
+@keyframes badgeShine {
+  0%, 65% { left: -120%; }
+  100% { left: 160%; }
+}
+
+/* The XP ring sweeps from empty to its value on mount. */
+.ring-progress {
+  transition: stroke-dashoffset 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge-pop, .badge-shine::after { animation: none; }
+  .ring-progress { transition: none; }
+}
+
+
+/* --- Browser surfaces ------------------------------------------------- */
+/* Selection, caret, scrollbars and the focus ring ship with defaults that
+   belong to no palette. Point them at the logo so the chrome the browser
+   draws reads as part of the same object as the parts we draw. */
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-ink);
+}
+/* On the dark wells (terminal, stage, code) amber-on-black is unreadable as
+   a selection, so those surfaces select in violet with light text. */
+.bg-well ::selection,
+.bg-ink ::selection,
+pre ::selection,
+code ::selection {
+  background: var(--color-pcb);
+  color: #ffffff;
+}
+
+input, textarea, [contenteditable] {
+  caret-color: var(--color-pcb);
+}
+
+/* One focus ring for the whole app, not just .lab-btn. Azure reads as
+   "the browser is talking to you" against every brand surface. */
+:focus-visible {
+  outline: 3px solid var(--color-led);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* On violet chassis the azure ring muddies; go to amber there. */
+.bg-pcb :focus-visible,
+.lab-panel-pcb :focus-visible,
+.bg-ink :focus-visible,
+.bg-well :focus-visible {
+  outline-color: var(--color-signal);
+}
+
+/* Scrollbars: a thin ink track that darkens on hover, not the OS grey slab. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(27, 27, 27, 0.28) transparent;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(27, 27, 27, 0.28);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(27, 27, 27, 0.5); background-clip: content-box; }
+::-webkit-scrollbar-corner { background: transparent; }
+/* Inside a dark well the same scrollbar inverts. */
+.bg-well ::-webkit-scrollbar-thumb,
+.bg-ink ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  background-clip: content-box;
+}
+
+/* Scores, timers, XP and leaderboards line up column-wise and stop
+   shivering as digits change. */
+.tabular, time, .ref-tag {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Links inside prose sit on the brand violet and keep their descenders clear. */
+.prose a, .markdown a {
+  color: var(--color-pcb);
+  text-decoration-color: color-mix(in srgb, var(--color-pcb) 40%, transparent);
+  text-underline-offset: 3px;
+}
+.prose a:hover, .markdown a:hover {
+  text-decoration-color: var(--color-pcb);
+}
+
+/* --- Printing (the manual's "Download as PDF" button) ------------------- */
+/* The page prints itself: the PDF button expands every collapsed panel and
+   then calls print(), so "Save as PDF" in the browser's own dialog produces
+   the whole manual. Here we only strip the things that make no sense on
+   paper, and stop panels being sliced in half across a page break. */
+@media print {
+  /* Chrome's own dark-background printing is unreliable, and a black code
+     block costs a fortune in ink, so code goes to paper as ink on light. */
+  :root { --color-paper: #ffffff; }
+
+  .no-print,
+  nav.sticky {
+    display: none !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+  }
+
+  .bench-grid {
+    background-image: none !important;
+    background-color: #ffffff !important;
+    padding: 0 !important;
+  }
+
+  .lab-panel,
+  .lab-panel-pcb,
+  .lab-btn {
+    box-shadow: none !important;
+  }
+
+  .lab-panel-pcb {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Keep a panel, a code block or a list item whole on one sheet. */
+  .lab-panel,
+  .lab-panel-pcb,
+  pre,
+  li,
+  dl > div,
+  section > div > div {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Each numbered section starts a fresh sheet, so the PDF reads like a book. */
+  section[id] {
+    break-before: page;
+    page-break-before: always;
+  }
+  section[id]:first-of-type {
+    break-before: auto;
+    page-break-before: auto;
+  }
+
+  h1, h2, h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Long lines wrap instead of being cut off at the paper's edge. */
+  pre {
+    white-space: pre-wrap !important;
+    word-break: break-word;
+    background: #f4f4f6 !important;
+    color: #1B1B1B !important;
+    border: 1px solid #d6d6dc !important;
+  }
+  pre code,
+  pre * {
+    color: #1B1B1B !important;
+  }
+
+  /* Sticky positioning pins an element to a viewport that does not exist on
+     paper, which silently swallows whatever it covers. */
+  .lg\:sticky,
+  [class*="sticky"] {
+    position: static !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #5C5C60;
+  }
+}

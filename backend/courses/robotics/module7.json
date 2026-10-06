@@ -1,0 +1,40 @@
+{
+  "moduleId": 7,
+  "title": "Giving It Senses",
+  "emoji": "📡",
+  "tagline": "Wire up real sensors, and build a robot that reacts to what it actually finds.",
+  "lessons": [
+    {
+      "lessonId": "robot-senses-intro",
+      "title": "Real Hardware for SENSE",
+      "duration": "6 min"
+    },
+    {
+      "lessonId": "robot-ultrasonic",
+      "title": "Ultrasonic: Measuring With Sound",
+      "duration": "12 min"
+    },
+    {
+      "lessonId": "robot-ir-sensor",
+      "title": "IR Sensor: Reading the Floor",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "robot-line-following",
+      "title": "Line Following: Building the Behaviour",
+      "duration": "14 min"
+    },
+    {
+      "lessonId": "robot-temperature",
+      "title": "Temperature: Sensors Aren't Only Distance",
+      "duration": "6 min"
+    },
+    {
+      "lessonId": "robot-buttons",
+      "title": "Buttons: The Noisy Truth About a Simple Switch",
+      "duration": "10 min"
+    }
+  ],
+  "hasProject": false,
+  "hasLab": false
+}

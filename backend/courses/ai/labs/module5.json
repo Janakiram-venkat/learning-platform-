@@ -1,0 +1,128 @@
+{
+  "labId": "module5",
+  "title": "Generative AI Lab",
+  "emoji": "✨",
+  "tagline": "Create with AI and master prompts",
+  "difficulty": "Beginner",
+  "duration": "15 to 20 min",
+  "badge": "Creative Genius",
+  "objectives": [
+    "Explain what Generative AI is",
+    "Tell creating apart from analyzing",
+    "Know what text, image, and music AI make",
+    "Tell weak prompts from strong ones",
+    "Recognize famous generative AI tools"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "AI That Creates!",
+      "xp": 10,
+      "narration": "Most AI analyzes things, it sorts or understands. Generative AI is different: it creates brand-new content that never existed before. Let's make something!",
+      "steps": [
+        { "emoji": "💭", "text": "You describe an idea in words…" },
+        { "emoji": "🧠", "text": "The AI uses patterns it learned from human work." },
+        { "emoji": "✨", "text": "It generates something brand new." },
+        { "emoji": "🎨", "text": "A story, a picture, or a song appears!" }
+      ],
+      "cta": "Start Creating"
+    },
+    {
+      "type": "pick",
+      "title": "Generative or Not?",
+      "xp": 15,
+      "prompt": "Tap every task where the AI CREATES something brand new.",
+      "items": [
+        { "id": "poem", "label": "Write a poem", "emoji": "✍️", "isAI": true },
+        { "id": "art", "label": "Draw art from a description", "emoji": "🎨", "isAI": true },
+        { "id": "music", "label": "Compose a melody", "emoji": "🎵", "isAI": true },
+        { "id": "video", "label": "Make a short animation", "emoji": "🎬", "isAI": true },
+        { "id": "sort", "label": "Sort photos into folders", "emoji": "🗂️", "isAI": false },
+        { "id": "spam", "label": "Detect spam email", "emoji": "🚫", "isAI": false },
+        { "id": "face", "label": "Unlock a phone with your face", "emoji": "🔐", "isAI": false }
+      ],
+      "feedback": {
+        "correct": "Yes! This makes brand-new content, that's Generative AI.",
+        "incorrect": "This analyzes or sorts things that already exist, it doesn't create something new."
+      }
+    },
+    {
+      "type": "choose",
+      "title": "What Will It Create?",
+      "xp": 20,
+      "prompt": "Generative AI can make text, images, or music. Pick what each request would create.",
+      "options": [
+        { "id": "text", "label": "Text", "emoji": "✍️" },
+        { "id": "image", "label": "Image", "emoji": "🎨" },
+        { "id": "music", "label": "Music", "emoji": "🎵" }
+      ],
+      "tasks": [
+        { "id": "essay", "label": "\"Write an essay about space\"", "emoji": "📄", "answer": "text", "explain": "Words on a page, that's text generation." },
+        { "id": "dragon", "label": "\"A painting of a dragon surfing\"", "emoji": "🐉", "answer": "image", "explain": "A picture from a description is image generation." },
+        { "id": "melody", "label": "\"A new upbeat melody\"", "emoji": "🎶", "answer": "music", "explain": "An original tune is music generation." },
+        { "id": "poem", "label": "\"A funny poem about cricket\"", "emoji": "🏏", "answer": "text", "explain": "A poem is made of words, so it's text." },
+        { "id": "cover", "label": "\"Album cover art for a band\"", "emoji": "💿", "answer": "image", "explain": "Artwork from a prompt is an image." }
+      ]
+    },
+    {
+      "type": "sort",
+      "title": "Weak vs Strong Prompts",
+      "xp": 20,
+      "prompt": "A prompt is what you ask the AI. Strong prompts are specific about audience, topic, format, and tone. Sort each prompt.",
+      "pass": 0.8,
+      "note": "Weak prompts are vague. Strong prompts add details: who it's for, the topic, the format, and the tone.",
+      "columns": [
+        { "id": "weak", "label": "Weak Prompt", "emoji": "👎" },
+        { "id": "strong", "label": "Strong Prompt", "emoji": "👍" }
+      ],
+      "cards": [
+        { "id": "space", "label": "\"Tell me about space.\"", "emoji": "🌫️", "column": "weak" },
+        { "id": "dogs", "label": "\"Dogs.\"", "emoji": "🐕", "column": "weak" },
+        { "id": "something", "label": "\"Write something.\"", "emoji": "❓", "column": "weak" },
+        { "id": "blackhole", "label": "\"Explain black holes to a 12-year-old using cricket examples.\"", "emoji": "🕳️", "column": "strong" },
+        { "id": "photosynthesis", "label": "\"Summarize photosynthesis in 3 bullets for a 10-year-old.\"", "emoji": "🌱", "column": "strong" },
+        { "id": "rain", "label": "\"Write a funny 4-line poem about rainy days.\"", "emoji": "🌧️", "column": "strong" }
+      ]
+    },
+    {
+      "type": "explore",
+      "title": "Famous Generative AI Tools",
+      "xp": 15,
+      "prompt": "Tap each tool to see what it can create. Visit them all!",
+      "locations": [
+        { "id": "chat", "label": "ChatGPT / Claude", "emoji": "💬", "info": "Chat assistants that generate text, answer questions, and help you write and think." },
+        { "id": "dalle", "label": "DALL·E", "emoji": "🎨", "info": "Creates brand-new images from a written description, just type what you imagine." },
+        { "id": "gemini", "label": "Gemini", "emoji": "🔮", "info": "Works with text and pictures together to create, explain, and answer." },
+        { "id": "musicai", "label": "Music AI", "emoji": "🎵", "info": "Generates original melodies and beats from a short prompt." },
+        { "id": "videoai", "label": "Video AI", "emoji": "🎬", "info": "Turns a text idea into a short animated video clip. They all learned from huge amounts of human-made work." }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Creator's Final Test",
+      "xp": 30,
+      "prompt": "Score at least 80% to earn your Creative Genius badge.",
+      "pass": 0.8,
+      "questions": [
+        { "q": "What makes Generative AI special?", "options": ["It creates brand-new content", "It only deletes files"], "answer": 0, "explain": "Generative AI makes new text, images, music, or video." },
+        { "q": "Which is a generative AI tool?", "options": ["DALL·E (makes images from text)", "A ruler"], "answer": 0, "explain": "DALL·E generates images from a written description." },
+        { "q": "How did generative AI learn to create?", "options": ["By studying huge amounts of human-made content", "It was born knowing everything"], "answer": 0, "explain": "It learned patterns from enormous datasets, then uses them to make new things." },
+        { "q": "What is a prompt?", "options": ["The instruction you give an AI", "The AI's power supply"], "answer": 0, "explain": "A prompt is what you ask or tell the AI to do." },
+        { "q": "Which is the STRONGER prompt?", "options": ["Explain black holes to a 12-year-old with cricket examples", "Tell me about space"], "answer": 0, "explain": "It's specific about audience, topic, and style, so the AI gives a focused answer." },
+        { "q": "What makes a prompt strong?", "options": ["Clear audience, topic, format, and tone", "Being as vague as possible"], "answer": 0, "explain": "Details guide the AI to a much better response." },
+        { "q": "Generative AI can create...", "options": ["Text, images, music, and video", "Only spreadsheets"], "answer": 0, "explain": "It generates many kinds of brand-new content." }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Lab Complete!",
+      "xp": 30,
+      "badge": "Creative Genius",
+      "messages": [
+        "🏆 You earned the Creative Genius Badge",
+        "You created with AI and mastered prompts",
+        "Module 5 completed"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "moduleId": 7,
+  "title": "Build-A-Pet",
+  "emoji": "🐾",
+  "brief": "Design your own kind of thing with a class. The blueprint stores a name and a sound, and every pet you stamp out of it can talk. The __init__ is written for you.",
+  "problem": {
+    "goal": "Finish the speak() method so it prints the pet's name and sound, then create a Pet from the name the player types and make it speak.",
+    "example": {
+      "typed": ["Buddy"],
+      "output": ["Buddy says Woof!"]
+    },
+    "rules": [
+      "speak() must use the object's own attributes, not the word Buddy typed into the method.",
+      "The pet is created with the name the player typed and the sound \"Woof\".",
+      "Creating the object is not enough on its own: nothing prints until speak() is called.",
+      "Leave __init__ exactly as it is."
+    ]
+  },
+  "steps": [
+    "The Pet class already stores a name and a sound in __init__, which is done for you.",
+    "Finish the speak() method so it prints, for example: Buddy says Woof!",
+    "Below the class, the program asks the player to name their pet.",
+    "Make a Pet called my_pet using that name and the sound \"Woof\".",
+    "Call my_pet.speak(), then press Check project."
+  ],
+  "starterCode": "# 🐾 Build-A-Pet: make your own pet that can talk!\n\nclass Pet:\n    # __init__ stores each pet's name and sound (done for you):\n    def __init__(self, name, sound):\n        self.name = name\n        self.sound = sound\n\n    # 1) Finish this method so it prints, for example:  Buddy says Woof!\n    def speak(self):\n        pass    # replace this line\n\n\nname = input(\"Name your pet: \")\n\n# 2) Make a Pet called my_pet with that name and the sound \"Woof\"\n\n\n# 3) Make it speak\n",
+  "hints": [
+    "Inside speak(), the pet's own values are self.name and self.sound. Using the plain word name in there would reach for the wrong thing entirely.",
+    "You can join text with plus signs: print(self.name + \" says \" + self.sound + \"!\"). Mind the spaces inside the quotes, or the words run together.",
+    "Step 2 creates the object: my_pet = Pet(name, \"Woof\"). The order matters, because __init__ expects the name first and the sound second.",
+    "Step 3 is a call on the object you just made: my_pet.speak(). You do not pass self yourself, because Python fills that in for you.",
+    "If nothing prints at all, check that you actually called speak(). Creating the object only runs __init__, which stores values silently."
+  ],
+  "inputPlaceholder": "Buddy",
+  "inputHint": "Type a name for your pet.",
+  "tests": [
+    {
+      "name": "A pet named Buddy",
+      "input": ["Buddy"],
+      "expect": ["buddy says woof"]
+    },
+    {
+      "name": "A pet named Rex",
+      "input": ["Rex"],
+      "expect": ["rex says woof"]
+    }
+  ],
+  "successMessage": "It is alive! You wrote a class, gave it a method that uses its own attributes, and stamped a real object out of your blueprint. That is object oriented programming in miniature."
+}

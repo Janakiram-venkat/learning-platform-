@@ -1,0 +1,76 @@
+{
+  "courseId": "gamedev",
+  "title": "Game Development",
+  "description": "Build real games you can play, in Python. One game per level, playable from your very first line of code.",
+  "level": "Intermediate",
+  "estimatedHours": 20,
+  "emoji": "🎮",
+  "thumbnail": "/images/gamedev.png",
+  "format": "game",
+  "prerequisite": {
+    "courseId": "python",
+    "courseTitle": "Python",
+    "courseEmoji": "🐍",
+    "startPath": "/course/python/lesson/intro",
+    "modulesRequired": 5,
+    "note": "You'll need variables, if/else, loops, functions and lists, which is Python Modules 1 to 5."
+  },
+  "modules": [
+    {
+      "moduleId": 1,
+      "title": "Scene Builder",
+      "emoji": "🎨",
+      "tagline": "Get your first picture on the screen, and learn how the computer finds any spot on it.",
+      "stepCount": 4
+    },
+    {
+      "moduleId": 2,
+      "title": "Bouncing Ball",
+      "emoji": "🏀",
+      "tagline": "Make something move, and meet the game loop that powers every game ever made.",
+      "stepCount": 4
+    },
+    {
+      "moduleId": 3,
+      "title": "Catch the Fruit",
+      "emoji": "🧺",
+      "tagline": "Take control with the arrow keys, catch falling fruit, and keep score.",
+      "stepCount": 5
+    },
+    {
+      "moduleId": 4,
+      "title": "Space Dodger",
+      "emoji": "🚀",
+      "tagline": "Dodge a whole asteroid field using lists, so you get many enemies from just a few lines.",
+      "stepCount": 5
+    },
+    {
+      "moduleId": 5,
+      "title": "Jump Quest",
+      "emoji": "🐸",
+      "tagline": "Gravity, jumping and platforms. Build a real little platformer.",
+      "stepCount": 5
+    },
+    {
+      "moduleId": 6,
+      "title": "Juice It",
+      "emoji": "✨",
+      "tagline": "Squash, stretch, sparks and screen shake. The polish that makes a game feel great.",
+      "stepCount": 4
+    },
+    {
+      "moduleId": 7,
+      "title": "Levels & Menus",
+      "emoji": "🗺️",
+      "tagline": "Start screens, game over, and levels drawn on a grid.",
+      "stepCount": 4
+    },
+    {
+      "moduleId": 8,
+      "title": "Your Own Game",
+      "emoji": "🏆",
+      "tagline": "Pick an idea, build it start to finish, and share it with a friend.",
+      "stepCount": 1
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+import { Suspense, lazy } from 'react';
+
+/**
+ * Interactive lesson blocks, looked up by `kind`.
+ *
+ * A lesson's content array can hold `{ "type": "widget", "kind": "robot-zoo" }`
+ * and the rest of the block is handed to the component as `block` — so the
+ * copy inside a widget still lives in the course JSON, not in the bundle.
+ *
+ * Every entry is lazy: the robotics widgets pull in three.js, and a Python
+ * lesson must never pay for that. Adding a widget is one line here.
+ */
+const WIDGETS = {
+  'sense-think-act': lazy(() => import('../robotics/SenseThinkActLoop')),
+  'robot-zoo': lazy(() => import('../robotics/RobotZoo')),
+  'machine-vs-robot': lazy(() => import('../robotics/MachineVsRobot')),
+  'robot-timeline': lazy(() => import('../robotics/RobotTimeline')),
+  'robot-bench': lazy(() => import('../robotics/RobotBenchWidget')),
+  'part-hunt': lazy(() => import('../robotics/PartHunt')),
+  'sort-bins': lazy(() => import('../robotics/SortBins')),
+  classify: lazy(() => import('../robotics/ClassifyParts')),
+  'design-card': lazy(() => import('../robotics/DesignCard')),
+  'water-circuit': lazy(() => import('../robotics/WaterCircuit')),
+  'circuit-sandbox': lazy(() => import('../robotics/CircuitSandbox')),
+  'gpio-pinout': lazy(() => import('../robotics/GpioPinout')),
+  'digital-signal': lazy(() => import('../robotics/DigitalSignal')),
+  'pwm-sim': lazy(() => import('../robotics/PwmSim')),
+  'h-bridge': lazy(() => import('../robotics/HBridge')),
+  'motor-bench': lazy(() => import('../robotics/MotorBench')),
+  'drive-trainer': lazy(() => import('../robotics/DriveTrainer')),
+  'servo-dial': lazy(() => import('../robotics/ServoDial')),
+  'stepper-sim': lazy(() => import('../robotics/StepperSim')),
+  'gear-ratio': lazy(() => import('../robotics/GearRatio')),
+  'ultrasonic-sim': lazy(() => import('../robotics/UltrasonicSim')),
+  'ir-sim': lazy(() => import('../robotics/IRSim')),
+  'line-follow-table': lazy(() => import('../robotics/LineFollowTable')),
+  'button-debounce': lazy(() => import('../robotics/ButtonDebounce')),
+  'camera-pixels': lazy(() => import('../robotics/CameraPixels')),
+  'lidar-sweep': lazy(() => import('../robotics/LidarSweep')),
+  'waveform-sim': lazy(() => import('../robotics/WaveformSim')),
+  'rgb-mix': lazy(() => import('../robotics/RgbMix')),
+  'block-maze': lazy(() => import('../robotics/BlockMaze')),
+  'robot-code': lazy(() => import('../robotics/RobotCode')),
+  'rules-vs-learning': lazy(() => import('../robotics/RulesVsLearning')),
+  'training-lab': lazy(() => import('../robotics/TrainingLab')),
+  'detection-reveal': lazy(() => import('../robotics/DetectionReveal')),
+  'pipeline-stages': lazy(() => import('../robotics/PipelineStages')),
+  'force-arena': lazy(() => import('../science/ForceArena')),
+  'type-explorer': lazy(() => import('../python/TypeExplorer')),
+  'math-playground': lazy(() => import('../python/MathPlayground')),
+  'comparison-lab': lazy(() => import('../python/ComparisonLab')),
+  'logic-bench': lazy(() => import('../python/LogicBench')),
+  'branch-tracer': lazy(() => import('../python/BranchTracer')),
+  'range-explorer': lazy(() => import('../python/RangeExplorer')),
+  'while-tracer': lazy(() => import('../python/WhileTracer')),
+  'loop-flow': lazy(() => import('../python/LoopFlow')),
+  'call-tracer': lazy(() => import('../python/CallTracer')),
+  'function-machine': lazy(() => import('../python/FunctionMachine')),
+  'return-vs-print': lazy(() => import('../python/ReturnVsPrint')),
+  'list-lab': lazy(() => import('../python/ListLab')),
+  'dict-lookup': lazy(() => import('../python/DictLookup')),
+  'string-workbench': lazy(() => import('../python/StringWorkbench')),
+  'slice-viewer': lazy(() => import('../python/SliceViewer')),
+  'object-builder': lazy(() => import('../python/ObjectBuilder')),
+  'inheritance-tree': lazy(() => import('../python/InheritanceTree')),
+  'error-catcher': lazy(() => import('../python/ErrorCatcher')),
+  'import-explorer': lazy(() => import('../python/ImportExplorer')),
+};
+
+function WidgetSkeleton() {
+  return (
+    <div className="my-8 flex h-[360px] items-center justify-center rounded-2xl border-2 border-ink bg-well shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
+      <p className="animate-pulse font-mono-lab text-sm text-white/50">warming up the bench…</p>
+    </div>
+  );
+}
+
+export default function LessonWidget({ block }) {
+  const Widget = WIDGETS[block?.kind];
+  // An unknown kind is a content bug, not a crash: skip it and keep reading.
+  if (!Widget) return null;
+
+  return (
+    <Suspense fallback={<WidgetSkeleton />}>
+      <Widget block={block} />
+    </Suspense>
+  );
+}

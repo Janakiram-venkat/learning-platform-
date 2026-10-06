@@ -1,0 +1,17 @@
+{
+  "moduleId": 6,
+  "title": "Working with Text (Strings)",
+  "lessons": [
+    {
+      "lessonId": "string_methods",
+      "title": "String Methods",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "slicing",
+      "title": "Slicing Strings",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

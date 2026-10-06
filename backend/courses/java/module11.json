@@ -1,0 +1,27 @@
+{
+  "moduleId": 11,
+  "title": "Modern Java: Lambdas and Streams",
+  "lessons": [
+    {
+      "lessonId": "java_lambda",
+      "title": "Lambda Expressions",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_functional_interfaces",
+      "title": "Functional Interfaces",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "java_streams",
+      "title": "Streams",
+      "duration": "25 min"
+    },
+    {
+      "lessonId": "java_optional",
+      "title": "Optional",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

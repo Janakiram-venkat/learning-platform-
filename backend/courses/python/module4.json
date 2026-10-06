@@ -1,0 +1,17 @@
+{
+  "moduleId": 4,
+  "title": "Functions",
+  "lessons": [
+    {
+      "lessonId": "intro_functions",
+      "title": "Creating Functions",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "function_args",
+      "title": "Inputs and Outputs",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

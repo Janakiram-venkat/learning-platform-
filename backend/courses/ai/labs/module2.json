@@ -1,0 +1,143 @@
+{
+  "labId": "module2",
+  "title": "Machine Learning Lab",
+  "emoji": "🧠",
+  "tagline": "Train your very own AI model",
+  "difficulty": "Beginner",
+  "duration": "15 to 20 min",
+  "badge": "Model Trainer",
+  "objectives": [
+    "Understand how machines learn from examples",
+    "Train a model and watch its accuracy grow",
+    "Tell supervised, unsupervised, and reinforcement learning apart",
+    "See why data quality decides how smart a model becomes",
+    "Sort training data from testing data"
+  ],
+  "stages": [
+    {
+      "type": "welcome",
+      "title": "Become an AI Trainer!",
+      "xp": 10,
+      "narration": "Machines don't follow hand written rules. They learn from examples, just like you. Today, you'll train one yourself!",
+      "steps": [
+        { "emoji": "📸", "text": "You show the model lots of labeled photos." },
+        { "emoji": "🧠", "text": "It hunts for patterns hidden in the examples." },
+        { "emoji": "📈", "text": "With every example, it gets a little smarter." },
+        { "emoji": "❓", "text": "Then it predicts things it has never seen before." }
+      ],
+      "cta": "Enter the Lab"
+    },
+    {
+      "type": "train",
+      "title": "Train Your First Model",
+      "xp": 30,
+      "prompt": "Feed labeled photos to the model one by one. Watch the accuracy bar climb as it learns the pattern!",
+      "modelName": "Cat vs Dog Classifier",
+      "needed": 8,
+      "classes": [
+        { "emoji": "🐱", "label": "Cat" },
+        { "emoji": "🐶", "label": "Dog" }
+      ],
+      "examples": [
+        { "emoji": "🐱", "label": "Cat" },
+        { "emoji": "🐶", "label": "Dog" },
+        { "emoji": "🐈", "label": "Cat" },
+        { "emoji": "🐕", "label": "Dog" },
+        { "emoji": "🐱", "label": "Cat" },
+        { "emoji": "🐩", "label": "Dog" },
+        { "emoji": "🐈‍⬛", "label": "Cat" },
+        { "emoji": "🦮", "label": "Dog" }
+      ],
+      "test": {
+        "emoji": "🐈",
+        "prompt": "A brand new photo arrives. What will YOUR model predict?",
+        "options": ["Cat", "Dog"],
+        "answer": 0
+      },
+      "explain": "More labeled examples mean a smarter model. Notice the accuracy jumps fast at first, then slows down as it nears the top."
+    },
+    {
+      "type": "choose",
+      "title": "Which Way Did It Learn?",
+      "xp": 20,
+      "prompt": "Every example below uses a different style of learning. Pick the right one for each.",
+      "options": [
+        { "id": "supervised", "label": "Supervised", "emoji": "🏷️" },
+        { "id": "unsupervised", "label": "Unsupervised", "emoji": "🔍" },
+        { "id": "reinforcement", "label": "Reinforcement", "emoji": "🎮" }
+      ],
+      "tasks": [
+        { "id": "spam", "label": "Learning from emails labeled 'spam' or 'safe'", "emoji": "📧", "answer": "supervised", "explain": "Labeled answers are given, so this is supervised learning." },
+        { "id": "groups", "label": "Grouping shoppers by habits, with no labels given", "emoji": "🛒", "answer": "unsupervised", "explain": "No labels, just finding hidden groups. That's unsupervised learning." },
+        { "id": "game", "label": "A robot earning points for winning a game", "emoji": "🤖", "answer": "reinforcement", "explain": "Learning by reward and trial is reinforcement learning." },
+        { "id": "photos", "label": "Sorting photos already tagged 'cat' or 'dog'", "emoji": "🐾", "answer": "supervised", "explain": "The tags are labels, so the model learns with supervision." },
+        { "id": "songs", "label": "Bundling similar songs with no genre labels", "emoji": "🎵", "answer": "unsupervised", "explain": "It discovers clusters on its own, with no labels to copy." }
+      ]
+    },
+    {
+      "type": "dataquality",
+      "title": "Garbage In, Garbage Out",
+      "xp": 25,
+      "prompt": "Some training cards are mislabeled and will confuse the model. Tap the bad ones to toss them out, and keep the good ones. Watch the accuracy meter react!",
+      "meterLabel": "Model Accuracy",
+      "cards": [
+        { "id": "c1", "emoji": "🍎", "label": "Apple", "bad": false },
+        { "id": "c2", "emoji": "🍌", "label": "Apple", "bad": true },
+        { "id": "c3", "emoji": "🍎", "label": "Apple", "bad": false },
+        { "id": "c4", "emoji": "🍇", "label": "Banana", "bad": true },
+        { "id": "c5", "emoji": "🍌", "label": "Banana", "bad": false },
+        { "id": "c6", "emoji": "🍌", "label": "Banana", "bad": false },
+        { "id": "c7", "emoji": "🍎", "label": "Banana", "bad": true },
+        { "id": "c8", "emoji": "🍌", "label": "Banana", "bad": false }
+      ],
+      "note": "Clean, correctly labeled data is the secret to a smart model. Feed it junk, and it learns junk.",
+      "explain": "When you removed every wrong label and kept the good ones, accuracy hit 100%. Quality data beats lots of data."
+    },
+    {
+      "type": "sort",
+      "title": "Training Data vs Testing Data",
+      "xp": 20,
+      "prompt": "A model studies with training data, then we check it with fresh testing data it has never seen. Sort each card.",
+      "pass": 1,
+      "note": "We always test on new, unseen data. Otherwise the model could just memorize the answers instead of truly learning.",
+      "columns": [
+        { "id": "train", "label": "Training Data", "emoji": "📚" },
+        { "id": "test", "label": "Testing Data", "emoji": "📝" }
+      ],
+      "cards": [
+        { "id": "t1", "label": "1,000 labeled photos used to teach", "emoji": "🖼️", "column": "train" },
+        { "id": "t2", "label": "New photos the model never saw", "emoji": "🆕", "column": "test" },
+        { "id": "t3", "label": "Examples shown again and again to learn", "emoji": "🔁", "column": "train" },
+        { "id": "t4", "label": "A surprise quiz to check real skill", "emoji": "✅", "column": "test" }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Trainer's Final Test",
+      "xp": 30,
+      "prompt": "Score at least 80% to earn your Model Trainer badge.",
+      "pass": 0.8,
+      "questions": [
+        { "q": "How does a machine learning model learn?", "options": ["From examples in data", "From hand written rules"], "answer": 0, "explain": "ML finds patterns in example data instead of following fixed rules." },
+        { "q": "What usually makes a model more accurate?", "options": ["More good quality examples", "A bigger screen"], "answer": 0, "explain": "More high quality labeled data helps the model learn better." },
+        { "q": "Learning from data that has labels is called...", "options": ["Supervised learning", "Unsupervised learning"], "answer": 0, "explain": "Labels act like an answer key, so it's supervised learning." },
+        { "q": "Why do we test on new, unseen data?", "options": ["To check it really learned", "To make it slower"], "answer": 0, "explain": "Fresh data proves the model learned the pattern, not just memorized." },
+        { "q": "What happens if you train on bad, messy data?", "options": ["The model makes poor predictions", "The model becomes perfect"], "answer": 0, "explain": "Garbage in, garbage out. Bad data leads to a bad model." },
+        { "q": "Finding hidden groups with no labels is...", "options": ["Unsupervised learning", "Supervised learning"], "answer": 0, "explain": "With no labels, the model groups data on its own. That's unsupervised." },
+        { "q": "A robot that learns by earning rewards is using...", "options": ["Reinforcement learning", "Supervised learning"], "answer": 0, "explain": "Reward based trial and error is reinforcement learning." },
+        { "q": "What is a 'label' in training data?", "options": ["The correct answer for an example", "The file size"], "answer": 0, "explain": "A label tells the model the right answer for that example." }
+      ]
+    },
+    {
+      "type": "rewards",
+      "title": "Lab Complete!",
+      "xp": 30,
+      "badge": "Model Trainer",
+      "messages": [
+        "🏆 You earned the Model Trainer Badge",
+        "You trained a model and reached 98% accuracy",
+        "Module 2 completed"
+      ]
+    }
+  ]
+}

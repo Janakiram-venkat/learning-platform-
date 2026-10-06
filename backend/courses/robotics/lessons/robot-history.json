@@ -1,0 +1,231 @@
+{
+  "lessonId": "robot-history",
+  "title": "A Short History of Robots",
+  "description": "From a mechanical knight in 1495 to a rover driving on Mars today. Five hundred years, and one idea that keeps coming back.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Long Before Computers"
+    },
+    {
+      "type": "paragraph",
+      "value": "In 1495 Leonardo da Vinci built a knight in armour that could sit up, wave its arms and move its jaw. Inside it were cables and pulleys, wound up by hand."
+    },
+    {
+      "type": "paragraph",
+      "value": "It sensed nothing and decided nothing, so by our test it was a machine. But it started a habit that never stopped: building things that move like living creatures."
+    },
+    {
+      "type": "heading",
+      "value": "The word itself"
+    },
+    {
+      "type": "paragraph",
+      "value": "The word \"robot\" is only about a hundred years old. It comes from a Czech play written by Karel Čapek in 1920. He took it from robota, a word meaning hard, forced work."
+    },
+    {
+      "type": "paragraph",
+      "value": "So the word never meant \"metal person\". From the very first day it meant \"the thing that does the boring, heavy job\". That is still the best description of most real robots."
+    },
+    {
+      "type": "heading",
+      "value": "The timeline"
+    },
+    {
+      "type": "widget",
+      "kind": "robot-timeline",
+      "items": [
+        {
+          "year": "1495",
+          "emoji": "🛡️",
+          "title": "Da Vinci's mechanical knight",
+          "text": "Cables and pulleys inside a suit of armour. It sat up, waved and moved its jaw, all powered by hand-wound springs."
+        },
+        {
+          "year": "1920",
+          "emoji": "📖",
+          "title": "The word is invented",
+          "text": "A Czech play borrows the word robota, meaning hard, forced work. The name was about the job, never about metal."
+        },
+        {
+          "year": "1954",
+          "emoji": "🏭",
+          "title": "Unimate, the first robot arm",
+          "text": "George Devol patents an arm that lifts red-hot metal. For the first time, dangerous work moves off people and onto a machine."
+        },
+        {
+          "year": "1961",
+          "emoji": "🚗",
+          "title": "First factory job",
+          "text": "Unimate starts work on a General Motors production line, stacking hot metal parts all day without a break."
+        },
+        {
+          "year": "1969",
+          "emoji": "🦿",
+          "title": "The Stanford Cart",
+          "text": "A computer looks through a camera and steers around obstacles by itself. For the first time the whole loop runs inside the machine."
+        },
+        {
+          "year": "1997",
+          "emoji": "🔴",
+          "title": "Sojourner reaches Mars",
+          "text": "A radio message takes minutes to reach Mars, so nobody can drive it live. Distance forces the robot to decide for itself."
+        },
+        {
+          "year": "2002",
+          "emoji": "🧹",
+          "title": "A robot in the house",
+          "text": "The Roomba brings sense, think and act to ordinary living-room floors, for about the price of a washing machine."
+        },
+        {
+          "year": "2004",
+          "emoji": "🛺",
+          "title": "The DARPA Grand Challenge",
+          "text": "A desert race for driverless cars. Every single entrant fails in the first year, and self-driving is born anyway."
+        },
+        {
+          "year": "2012",
+          "emoji": "🚁",
+          "title": "Drones for everyone",
+          "text": "Cheap motors, cheap tilt sensors, cheap batteries. Flying robots stop being military hardware and turn into toys."
+        },
+        {
+          "year": "2021",
+          "emoji": "🌌",
+          "title": "Ingenuity flies on Mars",
+          "text": "The first powered flight on another world, in air a hundred times thinner than ours."
+        },
+        {
+          "year": "2026",
+          "emoji": "🤖",
+          "title": "Your turn",
+          "text": "Robots that see, listen and learn, running on a controller that costs ₹450. You are about to build one."
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "value": "Four of those moments, photographed",
+      "columns": 4,
+      "ratio": "1 / 1",
+      "items": [
+        {
+          "src": "/course-images/robotics/robot-history/1495-mechanical-knight.jpg",
+          "want": "A museum reconstruction of Leonardo's mechanical knight (no original survives). Wikimedia Commons has freely licensed shots",
+          "alt": "A museum reconstruction of Leonardo da Vinci's mechanical knight in armour",
+          "caption": "1495: the mechanical knight, wound up by hand.",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-history/1961-unimate-at-gm.jpg",
+          "want": "A press photo of the Unimate arm working on the General Motors line. Prefer a public-domain or CC-licensed archive scan",
+          "alt": "The Unimate industrial robot arm at work on a General Motors assembly line",
+          "caption": "1961: Unimate takes over the dangerous job.",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-history/1969-stanford-cart.jpg",
+          "want": "A photo of the Stanford Cart with its camera mast. Stanford and Wikimedia both host copies",
+          "alt": "The Stanford Cart, a wheeled robot with a camera on a mast",
+          "caption": "1969: the whole loop moves inside the machine.",
+          "credit": ""
+        },
+        {
+          "src": "/course-images/robotics/robot-history/1997-sojourner-on-mars.jpg",
+          "want": "NASA/JPL image of the Sojourner rover on the Martian surface. NASA imagery is public domain",
+          "alt": "The Sojourner rover on the surface of Mars",
+          "caption": "1997: too far away for anyone to drive it live.",
+          "credit": "NASA/JPL"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "value": "Three turning points"
+    },
+    {
+      "type": "paragraph",
+      "value": "1954, Unimate. George Devol's arm lifted red-hot metal in a car factory. It was the first time dangerous, repetitive work moved off people and onto a machine."
+    },
+    {
+      "type": "paragraph",
+      "value": "1969, the Stanford Cart. A computer looked through a camera and steered around obstacles, with no person deciding. This is the first time the full sense, think, act loop ran inside the machine itself."
+    },
+    {
+      "type": "paragraph",
+      "value": "1997, Sojourner. A radio message to Mars takes minutes each way, so nobody could drive it live. It had to make its own small decisions. Distance is what forced real independence."
+    },
+    {
+      "type": "heading",
+      "value": "Why now?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Robots have become dramatically cheaper. The brain you will use later in this course is a controller board called an ESP32. It costs about ₹450, and it is far more powerful than the computer that flew Apollo to the Moon."
+    },
+    {
+      "type": "image",
+      "src": "/course-images/robotics/robot-history/esp32-in-hand.jpg",
+      "ratio": "16 / 9",
+      "want": "An ESP32 board held in a hand or beside a ₹10 coin, so the size really lands",
+      "alt": "An ESP32 microcontroller board held in a person’s hand for scale",
+      "caption": "About ₹450, and more powerful than the computer that flew Apollo to the Moon.",
+      "credit": ""
+    },
+    {
+      "type": "paragraph",
+      "value": "Sensors went the same way. A distance sensor that once cost a fortune is now about ₹120. That is why a school student can build in a week what a whole laboratory needed in 1970."
+    },
+    {
+      "type": "tip",
+      "value": "Notice the pattern. Every jump forward came from making one of the three steps cheaper. Cheap motors gave us factory arms. Cheap computers gave us thinking. Cheap cameras gave us seeing."
+    },
+    {
+      "type": "paragraph",
+      "value": "Key takeaway: robots went from hand-wound puppets to machines that decide for themselves. The parts are now cheap enough that the next builder is you."
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Where does the word \"robot\" come from?",
+      "options": [
+        "A Czech play from 1920, from a word meaning hard, forced work",
+        "The name of the first factory arm",
+        "A Greek word meaning metal man"
+      ],
+      "answer": 0,
+      "explain": "Karel Čapek's play used the word robota, meaning hard labour. The name was about the job, never about being made of metal."
+    },
+    {
+      "question": "Why was the Stanford Cart (1969) a bigger deal than da Vinci's knight (1495)?",
+      "options": [
+        "It was much faster",
+        "The whole sense-think-act loop ran inside the machine",
+        "It was the first one made of metal"
+      ],
+      "answer": 1,
+      "explain": "The knight was wound by hand and decided nothing. The Cart looked through a camera and chose its own way around obstacles."
+    },
+    {
+      "question": "Why did the Mars rover Sojourner have to make its own decisions?",
+      "options": [
+        "Nobody knew how to build a remote control that far",
+        "Radio takes minutes to reach Mars, so live driving is impossible",
+        "It was built to be a toy"
+      ],
+      "answer": 1,
+      "explain": "By the time a command saying \"stop\" arrived, the rover would already be in the crater. Distance forced it to be independent."
+    },
+    {
+      "question": "What is the main reason a student can build a real robot today but not in 1970?",
+      "options": [
+        "People are cleverer now",
+        "Robots are simpler than they used to be",
+        "Brains and sensors became very cheap, and a controller now costs about ₹450"
+      ],
+      "answer": 2,
+      "explain": "Most of the ideas were worked out decades ago. What changed is the price of the parts."
+    }
+  ]
+}

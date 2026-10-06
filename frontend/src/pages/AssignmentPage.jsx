@@ -1,0 +1,695 @@
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useCourseContent } from '../hooks/useCourseContent';
+import { useCompletionFlow } from '../hooks/useCompletionFlow';
+import {
+  isAssignmentUnlocked,
+  getAssignmentKey,
+  markAssignmentComplete,
+  getNextLessonAfterModule,
+} from '../lib/progress';
+import {
+  Sparkles, Bug, Wand2, Brain, Blocks, Flame, Check, X,
+  ArrowRight, RotateCcw, Star, Trophy, Lightbulb, Link2,
+} from 'lucide-react';
+
+// Visual identity for each round type — drives the chip label and icon.
+const ROUND_META = {
+  predict: { label: 'Predict the Output', icon: Wand2, chip: 'bg-pcb/10 text-pcb' },
+  bug:     { label: 'Fix the Bug',         icon: Bug,   chip: 'bg-wire/15 text-wire' },
+  concept: { label: 'Quick Thinking',      icon: Brain, chip: 'bg-mint/15 text-mint-deep' },
+  order:   { label: 'Build the Code',      icon: Blocks, chip: 'bg-signal/15 text-signal-deep' },
+  match:   { label: 'Match the Pairs',     icon: Link2, chip: 'bg-led/15 text-led-deep' },
+};
+
+const CONFETTI_COLORS = ['#34d399', '#60a5fa', '#fbbf24', '#f472b6', '#a78bfa', '#f87171'];
+
+// Fisher–Yates shuffle that guarantees the result differs from the input
+// (so an ordering puzzle never starts already solved).
+function shuffleDistinct(arr) {
+  if (arr.length < 2) return [...arr];
+  let out;
+  do {
+    out = [...arr];
+    for (let i = out.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [out[i], out[j]] = [out[j], out[i]];
+    }
+  } while (out.every((v, i) => v.id === arr[i].id));
+  return out;
+}
+
+export default function AssignmentPage() {
+  const { courseId, moduleId } = useParams(); // moduleId e.g. "module1"
+  const navigate = useNavigate();
+
+  const { course, item: assignment, loading } = useCourseContent(courseId, 'assignment', moduleId);
+  // The arcade renders its own results screen, so only the recording half of
+  // the completion flow is used here.
+  const { complete } = useCompletionFlow();
+
+  // --- Game state ---
+  const [index, setIndex] = useState(0);
+  const [selected, setSelected] = useState(null);   // chosen option (mcq)
+  const [locked, setLocked] = useState(false);       // round answered correctly / revealed
+  const [wrongThisRound, setWrongThisRound] = useState(false);
+  const [streak, setStreak] = useState(0);
+  const [firstTryCorrect, setFirstTryCorrect] = useState(0);
+  const [finished, setFinished] = useState(false);
+  const [stars, setStars] = useState(0);
+  const [xpGained, setXpGained] = useState(0);
+
+  // --- Ordering-puzzle state (drag blocks into numbered slots) ---
+  const [orderPool, setOrderPool] = useState([]);   // unplaced blocks [{id, text}]
+  const [orderSlots, setOrderSlots] = useState([]); // array length N of block|null
+  const [orderSel, setOrderSel] = useState(null);   // tap-selected pool block id
+  const [orderShake, setOrderShake] = useState(false);
+
+  // --- Match-the-following state (drag answers into each left slot) ---
+  const [matchRight, setMatchRight] = useState([]);   // shuffled right items [{id, text}]
+  const [matchSel, setMatchSel] = useState(null);     // tap-selected right id
+  const [matchAssign, setMatchAssign] = useState({}); // { leftIndex: rightId }
+  const [matchShake, setMatchShake] = useState(false);
+  const [matchFeedback, setMatchFeedback] = useState(null); // per-left bool after a wrong check
+
+  // Drag payload (same-window DnD) + the slot currently hovered, for highlight.
+  const dragRef = useRef(null);
+  const [dragOver, setDragOver] = useState(null); // { kind: 'order'|'match'|'pool', idx }
+
+  const rounds = assignment?.rounds || [];
+  const round = rounds[index];
+  const total = rounds.length;
+  // The lesson to send students back to when they finish — the next module's
+  // first lesson, so they continue with content instead of the course list.
+  const nextLessonId = getNextLessonAfterModule(course, moduleId.replace('module', ''));
+
+  // Don't let students jump into the arcade before finishing the module.
+  useEffect(() => {
+    if (!course) return;
+    const numericId = moduleId.replace('module', '');
+    const mod = course.modules?.find(m => String(m.moduleId ?? m.id) === numericId);
+    if (!mod || !isAssignmentUnlocked(mod)) navigate('/', { replace: true });
+  }, [course, moduleId, navigate]);
+
+  // Reset per-round state whenever we move to a new round.
+  useEffect(() => {
+    if (!round) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentionally reset per-round UI state when we advance to a new round
+    setSelected(null);
+    setLocked(false);
+    setWrongThisRound(false);
+    setOrderShake(false);
+    setMatchShake(false);
+    setMatchSel(null);
+    setMatchAssign({});
+    setMatchFeedback(null);
+    setOrderSel(null);
+    setDragOver(null);
+    dragRef.current = null;
+    if (round.type === 'order') {
+      const blocks = round.solution.map((text, i) => ({ id: i, text }));
+      setOrderPool(shuffleDistinct(blocks));
+      setOrderSlots(Array(round.solution.length).fill(null));
+    }
+    if (round.type === 'match') {
+      // Right-hand options keep their pair index as id, but appear shuffled.
+      const rights = round.pairs.map((p, i) => ({ id: i, text: p.right }));
+      setMatchRight(shuffleDistinct(rights));
+    }
+  }, [index, round]);
+
+  const handleSelect = (i) => {
+    if (locked) return;
+    setSelected(i);
+    setLocked(true);
+    if (i === round.answer) {
+      setStreak(s => s + 1);
+      if (!wrongThisRound) setFirstTryCorrect(n => n + 1);
+    } else {
+      setStreak(0);
+      setWrongThisRound(true);
+    }
+  };
+
+  // ---------- Ordering puzzle: drop a block into slot `slotIndex` ----------
+  // Works for both drag (block carried via dragRef) and tap (selected pool id).
+  const placeOrderBlock = (blockId, slotIndex) => {
+    if (locked || blockId == null) return;
+    setOrderSlots(prevSlots => {
+      const slots = [...prevSlots];
+      // Remove the block from wherever it currently lives.
+      const fromSlot = slots.findIndex(b => b && b.id === blockId);
+      let block = fromSlot >= 0 ? slots[fromSlot] : orderPool.find(b => b.id === blockId);
+      if (!block) return prevSlots;
+      if (fromSlot >= 0) slots[fromSlot] = null;
+      const displaced = slots[slotIndex];        // block already sitting in target
+      slots[slotIndex] = block;
+      // Update the pool: take the placed block out, return any displaced block.
+      setOrderPool(pool => {
+        let next = pool.filter(b => b.id !== blockId);
+        if (displaced && displaced.id !== blockId) next = [...next, displaced];
+        return next;
+      });
+      return slots;
+    });
+    setOrderSel(null);
+  };
+
+  // Pull a block out of a slot back into the pool.
+  const returnOrderBlock = (slotIndex) => {
+    if (locked) return;
+    setOrderSlots(prevSlots => {
+      const slots = [...prevSlots];
+      const block = slots[slotIndex];
+      if (!block) return prevSlots;
+      slots[slotIndex] = null;
+      setOrderPool(pool => [...pool, block]);
+      return slots;
+    });
+  };
+
+  // Tapping a pool block drops it into the first empty slot.
+  const tapOrderPool = (blockId) => {
+    if (locked) return;
+    const firstEmpty = orderSlots.findIndex(s => s === null);
+    if (firstEmpty >= 0) placeOrderBlock(blockId, firstEmpty);
+    else setOrderSel(id => (id === blockId ? null : blockId));
+  };
+
+  const checkOrder = () => {
+    const filled = orderSlots.every(Boolean);
+    const correct = filled && orderSlots.map(b => b.text).join('\n') === round.solution.join('\n');
+    if (correct) {
+      setLocked(true);
+      setStreak(s => s + 1);
+      if (!wrongThisRound) setFirstTryCorrect(n => n + 1);
+    } else {
+      setStreak(0);
+      setWrongThisRound(true);
+      setOrderShake(true);
+      setTimeout(() => setOrderShake(false), 500);
+    }
+  };
+
+  // ---------- Match the following: drop right item onto left slot ----------
+  const assignRight = (rightId, leftIndex) => {
+    if (locked || rightId == null || leftIndex == null) return;
+    setMatchFeedback(null); // editing clears the last check's hints
+    setMatchAssign(prev => {
+      const next = {};
+      // Each answer can sit in only one slot — drop it from any other.
+      for (const [k, v] of Object.entries(prev)) {
+        if (v !== rightId) next[k] = v;
+      }
+      next[leftIndex] = rightId;
+      return next;
+    });
+    setMatchSel(null);
+  };
+
+  // Tapping a pool answer fills the first empty left slot.
+  const tapMatchPool = (rightId) => {
+    if (locked) return;
+    const firstEmpty = round.pairs.findIndex((_, i) => matchAssign[i] === undefined);
+    if (firstEmpty >= 0) assignRight(rightId, firstEmpty);
+    else setMatchSel(id => (id === rightId ? null : rightId));
+  };
+
+  const returnMatch = (leftIndex) => {
+    if (locked) return;
+    setMatchFeedback(null);
+    setMatchAssign(prev => {
+      const next = { ...prev };
+      delete next[leftIndex];
+      return next;
+    });
+  };
+
+  const checkMatch = () => {
+    const pairs = round.pairs;
+    const allAssigned = pairs.every((_, i) => matchAssign[i] !== undefined);
+    // Per-left correctness: chosen answer text must equal its true partner.
+    const correctness = pairs.map((p, i) => {
+      const chosen = matchRight.find(r => r.id === matchAssign[i]);
+      return !!(chosen && chosen.text === p.right);
+    });
+    const allCorrect = allAssigned && correctness.every(Boolean);
+    if (allCorrect) {
+      setLocked(true);
+      setMatchFeedback(null);
+      setStreak(s => s + 1);
+      if (!wrongThisRound) setFirstTryCorrect(n => n + 1);
+    } else {
+      setStreak(0);
+      setWrongThisRound(true);
+      setMatchShake(true);
+      setTimeout(() => setMatchShake(false), 500);
+      // Show which boxes are right (green) and which are wrong (red) so the
+      // student knows exactly what to rearrange.
+      setMatchFeedback(correctness);
+    }
+  };
+
+  // --- HTML5 drag-and-drop plumbing (tap fallbacks handled above) ---
+  const onDragStart = (payload) => (e) => {
+    if (locked) return;
+    dragRef.current = payload;
+    e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', String(payload.id)); } catch { /* some browsers */ }
+  };
+  const onDragEnd = () => { dragRef.current = null; setDragOver(null); };
+  const allowDrop = (over) => (e) => {
+    if (locked || !dragRef.current) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setDragOver(over);
+  };
+  const handleDrop = (handler) => (e) => {
+    e.preventDefault();
+    // eslint-disable-next-line react-hooks/refs -- this runs inside the drop event handler, not during render
+    const payload = dragRef.current;
+    setDragOver(null);
+    dragRef.current = null;
+    if (payload) handler(payload);
+  };
+
+  const finish = useCallback(() => {
+    const ratio = total > 0 ? firstTryCorrect / total : 0;
+    const earnedStars = ratio === 1 ? 3 : ratio >= 0.6 ? 2 : 1;
+    setStars(earnedStars);
+
+    // Completion is recorded with the star score attached (best score wins), so
+    // it goes through markAssignmentComplete rather than the generic path.
+    markAssignmentComplete(
+      getAssignmentKey({ moduleId: moduleId.replace('module', '') }),
+      earnedStars,
+    );
+
+    // The arcade shows its own results screen instead of the shared celebration
+    // modal, so this just awards the XP + badge and hands back the XP figure.
+    const { xpGained: gained } = complete({
+      // XP: 20 per first-try-correct round + a star bonus. Once per module.
+      xpKey: `arcade-${moduleId}`,
+      xp: firstTryCorrect * 20 + earnedStars * 10,
+      badge: {
+        id: `arcade-${moduleId}`,
+        name: `${assignment.title} Champion`,
+        type: 'arcade',
+      },
+    });
+    setXpGained(gained);
+
+    setFinished(true);
+  }, [total, firstTryCorrect, moduleId, assignment, complete]);
+
+  const next = () => {
+    if (index + 1 >= total) finish();
+    else setIndex(i => i + 1);
+  };
+
+  const playAgain = () => {
+    setFinished(false);
+    setIndex(0);
+    setStreak(0);
+    setFirstTryCorrect(0);
+    setStars(0);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24">
+        <div className="animate-float text-5xl">🎮</div>
+        <p className="font-lab text-lg font-semibold text-ink/65">Loading the arcade...</p>
+      </div>
+    );
+  }
+
+  if (!assignment) {
+    return (
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 py-24 text-center">
+        <span className="text-5xl">🚧</span>
+        <p className="font-lab text-lg font-semibold text-ink/65">This challenge isn't ready yet.</p>
+        <Link to="/" className="lab-btn rounded-xl border-2 border-ink bg-signal px-5 py-2.5 font-extrabold text-ink">Back to Quests</Link>
+      </div>
+    );
+  }
+
+  // ---------- Results screen ----------
+  if (finished) {
+    return (
+      <div className="relative mx-auto flex w-full max-w-2xl flex-col items-center px-6 py-16 text-center">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          {Array.from({ length: 50 }).map((_, i) => (
+            <span
+              key={i}
+              className="absolute top-0 block h-3 w-2 rounded-sm"
+              style={{
+                left: `${(i / 50) * 100}%`,
+                backgroundColor: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+                animation: `confettiFall ${2 + (i % 5) * 0.4}s linear ${(i % 7) * 0.12}s forwards`,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="relative">
+          <div className="mb-4 animate-bounce-in text-6xl">{assignment.emoji || '🏆'}</div>
+          <h1 className="font-lab mb-2 text-3xl font-extrabold text-ink">Challenge Complete!</h1>
+          <p className="mb-6 font-semibold text-ink/65">{assignment.title}</p>
+
+          {/* Stars */}
+          <div className="mb-6 flex items-center justify-center gap-3">
+            {[1, 2, 3].map((s) => (
+              <Star
+                key={s}
+                className={`h-14 w-14 animate-star-pop ${s <= stars ? 'fill-signal text-signal' : 'fill-ink/15 text-ink/15'}`}
+                style={{ animationDelay: `${s * 0.15}s` }}
+              />
+            ))}
+          </div>
+
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
+            <span className="inline-flex items-center gap-2 rounded-md border-2 border-ink bg-white px-5 py-2.5 font-bold text-ink">
+              <Trophy className="h-5 w-5 text-signal" />
+              {firstTryCorrect} / {total} nailed on the first try
+            </span>
+            {xpGained > 0 && (
+              <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-signal to-signal px-5 py-2.5 font-extrabold text-white shadow">
+                <Sparkles className="h-5 w-5" /> +{xpGained} XP
+              </span>
+            )}
+          </div>
+
+          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <button
+              onClick={playAgain}
+              className="lab-btn inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-white px-6 py-3 font-extrabold text-ink"
+            >
+              <RotateCcw className="h-5 w-5" /> Play Again
+            </button>
+            {nextLessonId ? (
+              <Link
+                to={`/course/${courseId}/lesson/${nextLessonId}`}
+                className="lab-btn inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-3 font-extrabold text-ink"
+              >
+                Continue Learning <ArrowRight className="h-5 w-5" />
+              </Link>
+            ) : (
+              <Link
+                to="/"
+                className="lab-btn inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-3 font-extrabold text-ink"
+              >
+                Back to Quests <ArrowRight className="h-5 w-5" />
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ---------- Active round ----------
+  const meta = ROUND_META[round.type] || ROUND_META.concept;
+  const RoundIcon = meta.icon;
+  const isOrder = round.type === 'order';
+  const isMatch = round.type === 'match';
+  const orderSolved = locked && isOrder;
+
+  return (
+    <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:py-10">
+      {/* Header: title + streak */}
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="text-2xl">{assignment.emoji || '🎮'}</span>
+          <h1 className="font-lab text-lg font-bold text-ink sm:text-xl">{assignment.title}</h1>
+        </div>
+        {streak >= 2 && (
+          <span className="inline-flex animate-correct items-center gap-1.5 rounded-full bg-signal/15 px-3 py-1.5 text-sm font-extrabold text-signal-deep">
+            <Flame className="h-4 w-4" /> {streak} streak!
+          </span>
+        )}
+      </div>
+
+      {/* Progress bar + dots */}
+      <div className="mb-6">
+        <div className="mb-2 flex items-center justify-between text-xs font-bold text-ink/65">
+          <span>Round {index + 1} of {total}</span>
+          <span>{Math.round((index / total) * 100)}% done</span>
+        </div>
+        <div className="h-3 w-full overflow-hidden rounded-full border-2 border-ink bg-ink/10">
+          <div
+            className="h-full rounded-full bg-pcb transition-all duration-500"
+            style={{ width: `${(index / total) * 100}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Round card */}
+      <div key={index} className="lab-panel animate-slide-up p-5 sm:p-8">
+        <span className={`mb-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-extrabold ${meta.chip}`}>
+          <RoundIcon className="h-3.5 w-3.5" /> {meta.label}
+        </span>
+
+        <h2 className="mb-5 font-lab text-xl font-bold text-ink sm:text-2xl">{round.prompt}</h2>
+
+        {round.code && (
+          <pre className="mb-6 overflow-x-auto rounded-2xl bg-well p-5 font-mono-lab text-sm text-white/90 shadow-inner">
+            {round.code}
+          </pre>
+        )}
+
+        {/* --- Multiple choice --- */}
+        {!isOrder && !isMatch && (
+          <div className="space-y-3">
+            {round.options.map((opt, i) => {
+              const isChosen = selected === i;
+              const isAnswer = i === round.answer;
+              let style = 'border-ink/15 bg-white hover:border-pcb hover:bg-pcb/5';
+              let anim = '';
+              if (locked) {
+                if (isAnswer) { style = 'border-mint bg-mint/10 text-mint-deep'; anim = 'animate-correct'; }
+                else if (isChosen) { style = 'border-wire/50 bg-wire/10 text-wire'; anim = 'animate-shake'; }
+                else style = 'border-ink/15 bg-white opacity-60';
+              }
+              return (
+                <button
+                  key={i}
+                  onClick={() => handleSelect(i)}
+                  disabled={locked}
+                  className={`flex w-full items-center justify-between gap-3 rounded-2xl border-2 px-5 py-4 text-left font-semibold transition-all active:scale-[0.98] ${style} ${anim}`}
+                >
+                  <span className="font-mono text-sm sm:text-base">{opt}</span>
+                  {locked && isAnswer && <Check className="h-5 w-5 shrink-0 text-mint-deep" />}
+                  {locked && isChosen && !isAnswer && <X className="h-5 w-5 shrink-0 text-wire" />}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* --- Ordering puzzle (drag blocks into numbered slots) --- */}
+        {isOrder && (
+          <div className="space-y-5">
+            <p className="text-sm font-semibold text-ink/65">Drag the blocks into the right order, or tap a block to drop it in the next slot.</p>
+
+            {/* The program: numbered slots */}
+            <div className={`space-y-2 rounded-2xl border-2 border-dashed p-3 transition-colors ${orderShake ? 'animate-shake border-wire/50 bg-wire/10' : orderSolved ? 'border-mint/50 bg-mint/10' : 'border-ink/20 bg-ink/[0.03]'}`}>
+              {orderSlots.map((block, slotIndex) => {
+                const isOver = dragOver?.kind === 'order' && dragOver.idx === slotIndex;
+                return (
+                  <div
+                    key={slotIndex}
+                    onDragOver={allowDrop({ kind: 'order', idx: slotIndex })}
+                    onDragLeave={() => setDragOver(null)}
+                    onDrop={handleDrop((p) => placeOrderBlock(p.id, slotIndex))}
+                    className={`flex items-center gap-3 rounded-xl border-2 px-3 py-2 transition-all ${
+                      block ? 'border-ink/20 bg-white' : isOver ? 'border-signal/50 bg-signal/10' : 'border-dashed border-ink/20 bg-white/50'
+                    }`}
+                  >
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 border-ink bg-signal text-xs font-extrabold text-ink">{slotIndex + 1}</span>
+                    {block ? (
+                      <button
+                        draggable={!locked}
+                        onDragStart={onDragStart({ id: block.id, from: 'slot', slotIndex })}
+                        onDragEnd={onDragEnd}
+                        onClick={() => returnOrderBlock(slotIndex)}
+                        disabled={locked}
+                        className="flex-1 cursor-grab rounded-lg bg-ink/5 px-3 py-1.5 text-left font-mono text-sm text-ink transition-transform active:cursor-grabbing active:scale-[0.98] disabled:cursor-default"
+                      >
+                        <span className="whitespace-pre">{block.text}</span>
+                      </button>
+                    ) : (
+                      <span className="flex-1 text-sm font-semibold text-ink/35">drop a line here…</span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Pool of code blocks (also a drop target to put blocks back) */}
+            <div
+              onDragOver={allowDrop({ kind: 'pool', idx: -1 })}
+              onDragLeave={() => setDragOver(null)}
+              onDrop={handleDrop((p) => p.from === 'slot' && returnOrderBlock(p.slotIndex))}
+              className="flex min-h-[3rem] flex-wrap gap-2 rounded-2xl border-2 border-dashed border-signal/30 bg-signal/8 p-3"
+            >
+              {orderPool.length === 0 && <span className="px-1 py-2 text-sm font-semibold text-ink/45">All blocks placed 👍</span>}
+              {orderPool.map((item) => (
+                <button
+                  key={item.id}
+                  draggable={!locked}
+                  onDragStart={onDragStart({ id: item.id, from: 'pool' })}
+                  onDragEnd={onDragEnd}
+                  onClick={() => tapOrderPool(item.id)}
+                  disabled={locked}
+                  className={`cursor-grab rounded-xl border-2 px-4 py-2.5 font-mono text-sm shadow-sm transition-transform hover:scale-105 active:cursor-grabbing active:scale-95 ${orderSel === item.id ? 'border-signal bg-signal/15 text-signal-deep ring-2 ring-signal/25' : 'border-signal/30 bg-signal/10 text-signal-deep'}`}
+                >
+                  <span className="whitespace-pre">{item.text}</span>
+                </button>
+              ))}
+            </div>
+
+            {!locked && (
+              <button
+                onClick={checkOrder}
+                disabled={orderSlots.some(s => s === null)}
+                className="lab-btn w-full rounded-xl border-2 border-ink bg-signal px-6 py-3.5 font-extrabold text-ink disabled:opacity-40"
+              >
+                Check My Code
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* --- Match the following (drag answers into each box) --- */}
+        {isMatch && (
+          <div className="space-y-5">
+            <p className="text-sm font-semibold text-ink/65">Drag each answer into its box, or tap an answer, then tap a box.</p>
+
+            {/* Prompt + placeholder slot rows */}
+            <div className={`space-y-3 ${matchShake ? 'animate-shake' : ''}`}>
+              {round.pairs.map((p, i) => {
+                const assignedId = matchAssign[i];
+                const assigned = assignedId !== undefined ? matchRight.find(r => r.id === assignedId) : null;
+                // Green/red comes either from the final solved state (locked) or
+                // from the hint feedback after a wrong "Check".
+                const fb = matchFeedback?.[i];
+                const correct = (locked && assigned && assigned.text === p.right) || fb === true;
+                const wrong = (locked && assigned && assigned.text !== p.right) || (fb === false && !!assigned);
+                const isOver = dragOver?.kind === 'match' && dragOver.idx === i;
+                let slotStyle = 'border-dashed border-led/30 bg-led/8';
+                if (correct) slotStyle = 'border-mint/50 bg-mint/10';
+                else if (wrong) slotStyle = 'border-wire/50 bg-wire/10';
+                else if (isOver) slotStyle = 'border-signal/50 bg-signal/10';
+                else if (assigned) slotStyle = 'border-led/40 bg-white';
+                return (
+                  <div key={i} className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-2/5 shrink-0 rounded-2xl border-2 border-ink/15 bg-white px-3 py-3 font-mono text-sm font-bold text-ink">
+                      {p.left}
+                    </div>
+                    <Link2 className="h-4 w-4 shrink-0 text-led" />
+                    <div
+                      onDragOver={allowDrop({ kind: 'match', idx: i })}
+                      onDragLeave={() => setDragOver(null)}
+                      onDrop={handleDrop((pl) => assignRight(pl.id, i))}
+                      className={`flex min-h-[3.25rem] flex-1 items-center gap-2 rounded-2xl border-2 px-3 py-2 transition-all ${slotStyle}`}
+                    >
+                      {assigned ? (
+                        <button
+                          draggable={!locked}
+                          onDragStart={onDragStart({ id: assigned.id, from: 'slot', leftIndex: i })}
+                          onDragEnd={onDragEnd}
+                          onClick={() => returnMatch(i)}
+                          disabled={locked}
+                          className={`flex-1 cursor-grab text-left font-mono text-sm active:cursor-grabbing disabled:cursor-default ${wrong ? 'text-wire' : correct ? 'text-mint-deep' : 'text-led-deep'}`}
+                        >
+                          {assigned.text}
+                        </button>
+                      ) : (
+                        <span className="flex-1 text-xs font-semibold text-ink/35">drop the answer here…</span>
+                      )}
+                      {correct && <Check className="h-4 w-4 shrink-0 text-mint-deep" />}
+                      {wrong && <X className="h-4 w-4 shrink-0 text-wire" />}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Hint shown after a wrong check — points out what to rearrange */}
+            {matchFeedback && !locked && (() => {
+              const wrongCount = matchFeedback.filter(v => v === false).length;
+              return (
+                <div className="flex items-start gap-3 rounded-2xl bg-signal/10 p-4 text-signal-deep ring-1 ring-signal/20 animate-slide-up">
+                  <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-signal" />
+                  <p className="text-sm font-medium leading-relaxed">
+                    <span className="font-bold">Almost! </span>
+                    The boxes in <span className="font-bold text-mint-deep">green</span> are correct: leave those.
+                    {wrongCount === 1
+                      ? ' 1 box is still wrong (in red). Drag that answer out and try a different one!'
+                      : ` ${wrongCount} boxes are still wrong (in red). Drag those answers out and swap them around!`}
+                  </p>
+                </div>
+              );
+            })()}
+
+            {/* Answer pool (drop here to take an answer back out) */}
+            <div
+              onDragOver={allowDrop({ kind: 'pool', idx: -1 })}
+              onDragLeave={() => setDragOver(null)}
+              onDrop={handleDrop((pl) => pl.from === 'slot' && returnMatch(pl.leftIndex))}
+              className="flex min-h-[3rem] flex-wrap gap-2 rounded-2xl border-2 border-dashed border-signal/30 bg-signal/8 p-3"
+            >
+              {matchRight.every(r => Object.values(matchAssign).includes(r.id)) && (
+                <span className="px-1 py-2 text-sm font-semibold text-ink/45">All answers placed 👍</span>
+              )}
+              {matchRight.map((r) => {
+                if (Object.values(matchAssign).includes(r.id)) return null;
+                return (
+                  <button
+                    key={r.id}
+                    draggable={!locked}
+                    onDragStart={onDragStart({ id: r.id, from: 'pool' })}
+                    onDragEnd={onDragEnd}
+                    onClick={() => tapMatchPool(r.id)}
+                    disabled={locked}
+                    className={`cursor-grab rounded-xl border-2 px-4 py-2.5 font-mono text-sm shadow-sm transition-transform hover:scale-105 active:cursor-grabbing active:scale-95 ${matchSel === r.id ? 'border-signal bg-signal/15 text-signal-deep ring-2 ring-signal/25' : 'border-signal/30 bg-signal/10 text-signal-deep'}`}
+                  >
+                    {r.text}
+                  </button>
+                );
+              })}
+            </div>
+
+            {!locked && (
+              <button
+                onClick={checkMatch}
+                disabled={round.pairs.some((_, i) => matchAssign[i] === undefined)}
+                className="lab-btn w-full rounded-xl border-2 border-ink bg-signal px-6 py-3.5 font-extrabold text-ink disabled:opacity-40"
+              >
+                Check My Matches
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Explanation + Next */}
+        {locked && (
+          <div className="mt-6 animate-slide-up">
+            <div className="flex items-start gap-3 rounded-2xl border-2 border-led/30 bg-led/10 p-4 text-ink">
+              <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-led-deep" />
+              <p className="text-sm font-medium leading-relaxed">{round.explain}</p>
+            </div>
+            <button
+              onClick={next}
+              className="lab-btn mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-6 py-3.5 font-extrabold text-ink"
+            >
+              {index + 1 >= total ? 'See My Results' : 'Next Round'}
+              {index + 1 >= total ? <Sparkles className="h-5 w-5" /> : <ArrowRight className="h-5 w-5" />}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

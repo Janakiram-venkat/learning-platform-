@@ -1,0 +1,80 @@
+{
+  "lessonId": "variables",
+  "title": "Variables",
+  "description": "How to store a value and give it a name so you can use it later.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Storing a Value"
+    },
+    {
+      "type": "paragraph",
+      "value": "A variable is a way to store a value and give it a name, like a labeled box. To make one, write the name you want, an equals sign `=`, then the value. Now the name and the value are linked: whenever you use the name, Python gives you back the value."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "toys = 10\nname = \"Alex\"\nscore = 100\n\nprint(score)"
+    },
+    {
+      "type": "simulation",
+      "kind": "variable",
+      "name": "score",
+      "value": "100"
+    },
+    {
+      "type": "tip",
+      "value": "Names can have letters, digits and underscores, but they can't start with a digit or have spaces. `player_score` works; `2ndScore` and `player score` do not."
+    },
+    {
+      "type": "heading",
+      "value": "Changing a Variable"
+    },
+    {
+      "type": "paragraph",
+      "value": "A variable can hold a new value later. When you write `score = 250`, Python throws away the old value and stores the new one. The name stays the same; only the value inside the box changes."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "score = 100\nprint(score)\nscore = 250\nprint(score)"
+    },
+    {
+      "type": "simulation",
+      "kind": "variable",
+      "name": "score",
+      "value": "250"
+    }
+  ],
+  "editorCode": "score = 100\nprint(score)",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Make a variable named 'age', store your age in it (like 10 or 12), and print it.",
+      "starterCode": "age = \nprint()"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is a variable?",
+      "options": [
+        "A type of computer mouse.",
+        "A named place to store a value.",
+        "A secret code to hack games."
+      ],
+      "answer": 1,
+      "explain": "A variable is a name that stores a value, so the computer can remember it and use it later."
+    },
+    {
+      "question": "How do you store the number 5 in a variable named 'apples'?",
+      "options": [
+        "apples = 5",
+        "5 = apples",
+        "box apples 5"
+      ],
+      "answer": 0,
+      "explain": "The name goes on the left and the value goes on the right: `apples = 5`. You can't put the number on the left of the `=`."
+    }
+  ]
+}

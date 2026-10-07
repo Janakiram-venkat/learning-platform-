@@ -26,6 +26,8 @@ const ContestListPage = lazy(() => import('../pages/ContestListPage'));
 const ContestPage = lazy(() => import('../pages/ContestPage'));
 const PhysicsCoursePage = lazy(() => import('../pages/PhysicsCoursePage'));
 const PhysicsExperimentPage = lazy(() => import('../pages/PhysicsExperimentPage'));
+const ChemistryCoursePage = lazy(() => import('../pages/ChemistryCoursePage'));
+const ChemistryExperimentPage = lazy(() => import('../pages/ChemistryExperimentPage'));
 
 function RouteFallback() {
   return (
@@ -69,6 +71,8 @@ export default function AppRoutes() {
             two sit here rather than under RequireAuth with the other courses. */}
         <Route path="/course/physics" element={<PhysicsCoursePage />} />
         <Route path="/course/physics/:experimentId" element={<PhysicsExperimentPage />} />
+        <Route path="/course/chemistry" element={<ChemistryCoursePage />} />
+        <Route path="/course/chemistry/:experimentId" element={<ChemistryExperimentPage />} />
         {/* Retired /virtual-lab addresses, kept alive as redirects. */}
         <Route path="/virtual-lab" element={<Navigate to="/course/physics" replace />} />
         <Route path="/virtual-lab/:experimentId" element={<LegacyVirtualLabExperiment />} />

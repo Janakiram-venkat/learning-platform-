@@ -3,16 +3,9 @@ import { CheckCircle2, XCircle, RotateCcw, Lightbulb } from 'lucide-react';
 import { awardXPOnce } from '../../lib/progress';
 import WidgetShell from './shared/WidgetShell';
 
-/**
- * Sort every card into one of two bins, then check the lot at once.
- *
- * Deliberately not graded per card as you go: the student has to commit to a
- * whole set of judgements before finding out, which is what makes the hard
- * cards (a thermostat, a sensorless factory arm) worth arguing about. Getting
- * one wrong costs nothing but a retry.
- */
+
 export default function SortBins({ block }) {
-  const { columns = [], cards = [], pass = 1, note, prompt, xp = 20, xpKey } = block || {};
+  const { title = '🗂️ Robot or Not?', columns = [], cards = [], pass = 1, note, prompt, xp = 20, xpKey } = block || {};
   const [placements, setPlacements] = useState({});
   const [picked, setPicked] = useState(null);
   const [dragId, setDragId] = useState(null);
@@ -53,7 +46,7 @@ export default function SortBins({ block }) {
 
   return (
     <WidgetShell
-      title="🗂️ Robot or Not?"
+      title={title}
       hint={prompt}
       footer={
         checked && (

@@ -6,6 +6,24 @@ import WidgetShell from './shared/WidgetShell';
 const LED_VF = 2; // forward voltage drop, volts
 const LED_RATED_MA = 20;
 
+/* `tester` mode: the conductivity tester from the Class 8 chemistry course.
+   Each material carries the current (mA) it lets through. These are
+   illustrative numbers for teaching, not measurements. A lesson overrides the
+   list with `materials` in its block. `ma: 0` means insulator. The three
+   indicators have different sensitivity: a bulb needs a strong current, an
+   LED a weak one, a compass needle detects weaker still. */
+const TESTER_MATERIALS = [
+  { id: 'touch', label: 'Touch the ends', emoji: '🤝', ma: 220 },
+  { id: 'key', label: 'Key', emoji: '🔑', ma: 200 },
+  { id: 'coin', label: 'Coin', emoji: '🪙', ma: 200 },
+  { id: 'lead', label: 'Pencil lead', emoji: '✏️', ma: 45 },
+  { id: 'eraser', label: 'Eraser', emoji: '🧽', ma: 0 },
+  { id: 'ruler', label: 'Wooden ruler', emoji: '📏', ma: 0 },
+];
+const BULB_MIN_MA = 20; // below this a filament bulb shows nothing
+const COMPASS_MIN_MA = 0.2; // below this even the needle stays put
+const compassDeflection = (ma) => (ma < COMPASS_MIN_MA ? 0 : Math.min(60, 10 + ma * 1.5));
+
 /** I = (V - Vf) / R, clamped to 0 when the path can't carry current. */
 function currentMa(voltage, ohms, { closed = true, shorted = false, reversed = false } = {}) {
   if (!closed || shorted || reversed || ohms <= 0) return 0;
@@ -48,6 +66,7 @@ export default function CircuitSandbox({ block }) {
     hint,
     mode = 'basic',
     voltage = 9,
+    materials = TESTER_MATERIALS,
     xp = 15,
     xpKey,
   } = block || {};
@@ -56,6 +75,8 @@ export default function CircuitSandbox({ block }) {
   const [resistance, setResistance] = useState(300);
   const [scenario, setScenario] = useState('normal'); // normal | shorted | reversed
   const [wiring, setWiring] = useState('series'); // series | parallel
+  const [material, setMaterial] = useState(null); // tester: id between the probes, null = open gap
+  const [indicator, setIndicator] = useState('bulb'); // tester: bulb | led | compass
   const [visited, setVisited] = useState(() => new Set(mode === 'basic' ? [] : []));
   const [earned, setEarned] = useState(0);
 
@@ -63,6 +84,7 @@ export default function CircuitSandbox({ block }) {
 
   const requiredMilestones = mode === 'short-reverse' ? ['normal', 'shorted', 'reversed']
     : mode === 'series-parallel' ? ['series', 'parallel']
+    : mode === 'tester' ? ['bulb', 'led', 'compass']
     : ['lit'];
   const allVisited = requiredMilestones.every((m) => visited.has(m));
 
@@ -98,6 +120,24 @@ export default function CircuitSandbox({ block }) {
     if (next && ma / LED_RATED_MA > 0.85) markVisited('lit');
   };
   const onScenario = (s) => { setScenario(s); markVisited(s); };
+  const onIndicator = (i) => { setIndicator(i); markVisited(i); };
+
+  // ---- tester mode ----
+  const testerMat = materials.find((m) => m.id === material) || null;
+  const testerMa = testerMat ? testerMat.ma : 0;
+  const testerLive = testerMa > 0;
+  // What each indicator can actually show at this current.
+  const bulbMa = testerMa >= BULB_MIN_MA ? Math.min(LED_RATED_MA, testerMa / 10) : 0;
+  const ledMa = Math.min(LED_RATED_MA, testerMa);
+  const needle = compassDeflection(testerMa);
+  const touching = material === 'touch';
+  const tipA = !testerMat ? 165 : touching ? 130 : 160;
+  const tipB = !testerMat ? 95 : touching ? 130 : 100;
+  let testerNote = 'Gap open: no path for current, so nothing happens';
+  if (testerMat && testerMa <= 0) testerNote = `${testerMat.label}: 0 mA. Nothing flows, so it is an insulator`;
+  else if (testerMat && indicator === 'bulb' && testerMa < BULB_MIN_MA)
+    testerNote = `${testerMa} mA flows, but too weak to light a bulb. Try the LED or the compass`;
+  else if (testerMat) testerNote = `${testerMa} mA flows through the ${testerMat.label.toLowerCase()}`;
   const onWiring = (w) => { setWiring(w); markVisited(w); };
 
   const footer = xpKey && (
@@ -197,6 +237,89 @@ export default function CircuitSandbox({ block }) {
                   {s.label}
                 </button>
               ))}
+            </div>
+          </>
+        )}
+
+        {mode === 'tester' && (
+          <>
+            <svg viewBox="0 0 260 150" className="mx-auto w-full max-w-[440px]" role="img"
+              aria-label="A battery, an indicator and two probe ends with a gap between them">
+              <rect x="14" y="45" width="16" height="40" rx="2" fill="none" stroke="#1B1B1B" strokeWidth="3" />
+              <rect x="16" y="65" width="12" height="18" fill="#FFB40A" />
+              <text x="22" y="40" textAnchor="middle" fontSize="10" fontWeight="700" fill="#1B1B1B">+</text>
+              <Wire d="M22 45 L22 15 L215 15 L215 43" live={testerLive} ma={testerMa} />
+              {indicator === 'compass' ? (
+                <g>
+                  <circle cx="215" cy="60" r="17" fill="#fff" stroke="#1B1B1B" strokeWidth="2" />
+                  <g style={{ transform: `rotate(${needle}deg)`, transformOrigin: '215px 60px', transition: 'transform .3s' }}>
+                    <polygon points="215,46 211,60 219,60" fill="#E63C22" />
+                    <polygon points="215,74 211,60 219,60" fill="#1B1B1B" />
+                  </g>
+                </g>
+              ) : (
+                <Led x={215} y={60} brightness={indicator === 'bulb' ? bulbMa : ledMa} dead={!testerLive} />
+              )}
+              <Wire d={`M215 77 L215 120 L${tipA} 120`} live={testerLive} ma={testerMa} />
+              <Wire d={`M${tipB} 120 L22 120 L22 85`} live={testerLive} ma={testerMa} />
+              {testerMat && !touching && (
+                <g>
+                  <rect x="100" y="106" width="60" height="28" rx="4" fill="#fff" stroke="#1B1B1B" strokeWidth="2" />
+                  <text x="130" y="126" textAnchor="middle" fontSize="16">{testerMat.emoji}</text>
+                </g>
+              )}
+              {!testerMat && (
+                <line x1={tipB + 6} y1="120" x2={tipA - 6} y2="120" stroke="#1B1B1B" strokeOpacity="0.35" strokeWidth="2" strokeDasharray="3 4" />
+              )}
+              <circle cx={tipA} cy="120" r="3.5" fill="#E63C22" />
+              <circle cx={tipB} cy="120" r="3.5" fill="#1B1B1B" />
+            </svg>
+            <p className="mt-2 text-center font-mono-lab text-sm font-bold text-pcb" aria-live="polite">{testerNote}</p>
+
+            <div className="mt-4">
+              <p className="mb-1 text-xs font-bold uppercase tracking-wide text-ink/60">Indicator</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { id: 'bulb', label: '💡 Bulb' },
+                  { id: 'led', label: '🔴 LED' },
+                  { id: 'compass', label: '🧭 Compass' },
+                ].map((o) => (
+                  <button
+                    key={o.id}
+                    type="button"
+                    aria-pressed={indicator === o.id}
+                    onClick={() => onIndicator(o.id)}
+                    className={`rounded-xl border-2 border-ink px-3 py-2 text-sm font-bold ${indicator === o.id ? 'bg-signal text-ink' : 'bg-white text-ink/70'}`}
+                  >
+                    {o.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <p className="mb-1 text-xs font-bold uppercase tracking-wide text-ink/60">Put between the probes</p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  aria-pressed={material === null}
+                  onClick={() => setMaterial(null)}
+                  className={`rounded-full border-2 px-3 py-1 text-xs font-bold ${material === null ? 'border-ink bg-ink text-white' : 'border-ink/30 bg-white text-ink/70'}`}
+                >
+                  Nothing
+                </button>
+                {materials.map((m) => (
+                  <button
+                    key={m.id}
+                    type="button"
+                    aria-pressed={material === m.id}
+                    onClick={() => setMaterial(m.id)}
+                    className={`rounded-full border-2 px-3 py-1 text-xs font-bold ${material === m.id ? 'border-ink bg-ink text-white' : 'border-ink/30 bg-white text-ink/70'}`}
+                  >
+                    {m.emoji} {m.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </>
         )}

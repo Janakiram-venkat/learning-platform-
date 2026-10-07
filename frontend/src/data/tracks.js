@@ -68,9 +68,10 @@ export const TRACKS = [
   },
   {
     ref: 'TRK-CHEM', title: 'Chemistry', tagline: 'On the workbench',
-    line: 'Wiring soon',
-    desc: 'Mix virtual reagents, watch reactions run, and build molecules atom by atom.',
-    soon: true,
+    line: 'Class 8 · no code needed',
+    desc: 'Mix virtual reagents, watch reactions run, and see the particles underneath.',
+    status: 'NEW', led: '#00B3A4', to: '/course/chemistry',
+    traits: { science: 3, noCode: 3 },
   },
   {
     ref: 'TRK-BIO', title: 'Biology', tagline: 'On the workbench',

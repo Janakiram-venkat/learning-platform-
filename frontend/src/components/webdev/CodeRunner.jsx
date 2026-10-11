@@ -86,6 +86,7 @@ export default function CodeRunner({
 
   const {
     iframeRef, srcDoc, frameKey, lines, running, title,
+    measureFrames, setMeasureRef,
     run, stop, reset: resetRunner, handleFrameLoad,
   } = useWebRunner({ onChecks: onCheckResults });
 
@@ -163,7 +164,7 @@ export default function CodeRunner({
     (active ? 'border-pcb text-pcb' : 'border-transparent text-ink/45 hover:text-ink');
 
   return (
-    <div className={`overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(27,27,27,0.9)] ${className}`}>
+    <div className={`relative overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(27,27,27,0.9)] ${className}`}>
       {/* Action bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink bg-pcb px-3 py-2">
         <span className="font-lab text-sm font-bold text-white">{label || 'Try it'}</span>
@@ -353,6 +354,35 @@ export default function CodeRunner({
           </div>
         </div>
       </div>
+
+      {/* Measure frames — the same page, rendered again at a fixed width so a
+          check can ask what it looks like on a phone. Not a second preview: a
+          media query responds to the viewport, so the only way to read the
+          mobile branch of one is to be in a viewport that narrow.
+
+          Off-screen rather than display:none, and with real pixel dimensions,
+          because a hidden frame has no layout to measure — getBoundingClientRect
+          would answer zero for everything and every check would fail.
+          aria-hidden and tabIndex keep it out of the page for anyone reading
+          with a screen reader or a keyboard. */}
+      {measureFrames.length > 0 && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-[9999px] top-0 h-0 overflow-hidden"
+        >
+          {measureFrames.map(({ width, srcDoc: doc, key }) => (
+            <iframe
+              key={key}
+              ref={(el) => setMeasureRef(key, el)}
+              title={`Measuring your page at ${width} pixels wide`}
+              srcDoc={doc}
+              sandbox="allow-scripts"
+              tabIndex={-1}
+              style={{ width: `${width}px`, height: '900px', border: 0 }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

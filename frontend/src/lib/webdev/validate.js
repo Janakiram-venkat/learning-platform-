@@ -12,7 +12,11 @@
 
 const PAGE_TYPES = ['content', 'task', 'quiz'];
 const BLOCK_TYPES = ['text', 'tip', 'warning', 'example'];
-const CHECK_TYPES = ['dom', 'console', 'style', 'link', 'every'];
+const CHECK_TYPES = ['dom', 'console', 'style', 'link', 'every', 'layout', 'cssRule'];
+/** The ways a style/layout check can describe a value. */
+const VALUE_MODES = ['value', 'not', 'min', 'max', 'approx'];
+const BOXES = ['width', 'height'];
+const RELATIONS = ['sameRow', 'stacked'];
 const FILE_KEYS = ['html', 'css', 'js'];
 
 const isNonEmptyString = (v) => typeof v === 'string' && v.trim().length > 0;
@@ -181,10 +185,96 @@ function validateCheck(check, at, bad) {
   if (check.type === 'style') {
     if (!isNonEmptyString(check.selector)) bad(`${at} (style) has no "selector".`);
     if (!isNonEmptyString(check.prop)) bad(`${at} (style) has no CSS "prop".`);
-    if (!isNonEmptyString(check.value)) bad(`${at} (style) has no expected "value".`);
-    if (check.prop && /[A-Z]/.test(check.prop)) {
-      bad(`${at} (style) prop "${check.prop}" should be CSS spelling (background-color), not JavaScript (backgroundColor).`);
+    validateValueModes(check, `${at} (style)`, bad);
+    validateCssProp(check, `${at} (style)`, bad);
+  }
+
+  // "How big is it, and where did it end up" — geometry, not a computed value.
+  if (check.type === 'layout') {
+    if (!isNonEmptyString(check.selector)) bad(`${at} (layout) has no "selector".`);
+
+    const ways = ['prop', 'box', 'rel'].filter((k) => check[k] != null);
+    if (ways.length === 0) {
+      bad(`${at} (layout) must measure something — give it a "prop", a "box" (${BOXES.join('/')}) or a "rel" (${RELATIONS.join('/')}).`);
+    } else if (ways.length > 1) {
+      bad(`${at} (layout) sets ${ways.join(' and ')} — a layout check measures one thing, so split it into ${ways.length} checks.`);
     }
+
+    if (check.box != null && !BOXES.includes(check.box)) {
+      bad(`${at} (layout) has box "${check.box}" — expected ${BOXES.join(' or ')}.`);
+    }
+    if (check.rel != null && !RELATIONS.includes(check.rel)) {
+      bad(`${at} (layout) has rel "${check.rel}" — expected ${RELATIONS.join(' or ')}.`);
+    }
+    // A relation compares positions, so it has no value to compare against.
+    if (check.rel != null) {
+      const stray = VALUE_MODES.filter((k) => check[k] != null);
+      if (stray.length) {
+        bad(`${at} (layout) has rel "${check.rel}" and also ${stray.join('/')}, which a relation ignores.`);
+      }
+    } else {
+      validateValueModes(check, `${at} (layout)`, bad);
+    }
+    if (check.prop != null) validateCssProp(check, `${at} (layout)`, bad);
+    // A box is a number of pixels, so only the numeric modes can describe it.
+    if (check.box != null && (check.value != null || check.not != null)) {
+      bad(`${at} (layout) measures a "box" in pixels — use min/max/approx rather than value/not.`);
+    }
+  }
+
+  // "Did you write this rule?" — read from the student's CSS source, for the
+  // states (:hover) and conditions (@media) nothing computed can report.
+  if (check.type === 'cssRule') {
+    if (!isNonEmptyString(check.selector)) bad(`${at} (cssRule) has no "selector".`);
+    if (!isNonEmptyString(check.prop)) bad(`${at} (cssRule) has no CSS "prop".`);
+    validateCssProp(check, `${at} (cssRule)`, bad);
+    if (check.media != null && !isNonEmptyString(check.media)) {
+      bad(`${at} (cssRule) has an empty "media" condition — drop it, or write one like "max-width: 600px".`);
+    }
+    // These describe a value read off the page, which this check never does.
+    const unsupported = ['not', 'min', 'max', 'approx'].filter((k) => check[k] != null);
+    if (unsupported.length) {
+      bad(`${at} (cssRule) sets ${unsupported.join('/')}, which it ignores — it can only look for a property, optionally with a "value".`);
+    }
+  }
+
+  // Available on style, layout and dom: "measure this at a viewport that wide".
+  if (check.at != null) {
+    if (!['style', 'layout', 'dom', 'every'].includes(check.type)) {
+      bad(`${at} (${check.type}) has "at", which only a style, layout, dom or every check is measured with.`);
+    }
+    if (typeof check.at !== 'number' || !Number.isFinite(check.at) || check.at <= 0) {
+      bad(`${at} has at "${check.at}" — expected a viewport width in pixels, like 375.`);
+    }
+  }
+}
+
+/** Exactly one of value/not/min/max/approx — they describe the same property. */
+function validateValueModes(check, at, bad) {
+  const modes = VALUE_MODES.filter((k) => check[k] != null);
+  if (modes.length === 0) {
+    bad(`${at} has nothing to compare against — add one of ${VALUE_MODES.join(', ')}.`);
+    return;
+  }
+  // min+max is the one legitimate pair: a range.
+  const isRange = modes.length === 2 && modes.includes('min') && modes.includes('max');
+  if (modes.length > 1 && !isRange) {
+    bad(`${at} sets ${modes.join(' and ')} — only min+max combine, so split the rest into separate checks.`);
+  }
+  if (check.tolerance != null && check.approx == null) {
+    bad(`${at} has a "tolerance" but no "approx" — tolerance is how far from approx still counts.`);
+  }
+  ['min', 'max', 'approx', 'tolerance'].forEach((k) => {
+    if (check[k] != null && typeof check[k] !== 'number') {
+      bad(`${at} has ${k} "${check[k]}" — expected a plain number of pixels, not a string.`);
+    }
+  });
+}
+
+/** CSS spelling, not JavaScript: background-color, never backgroundColor. */
+function validateCssProp(check, at, bad) {
+  if (check.prop && /[A-Z]/.test(check.prop)) {
+    bad(`${at} prop "${check.prop}" should be CSS spelling (background-color), not JavaScript (backgroundColor).`);
   }
 }
 

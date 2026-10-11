@@ -416,5 +416,11 @@ test('MiniDOM reads attributes and text the way the checks expect', () => {
 });
 
 test('MiniDOM refuses a selector it cannot honestly evaluate', () => {
-  assert.throws(() => ctxFor('<p></p>').queryAll('p.intro'), /MiniDOM only understands/);
+  // `p.intro` used to be on this list and is now supported — Module 2's checks
+  // name classes and ids constantly, so MiniDOM learned them (see miniDom.mjs,
+  // and the selector tests in lib/webdev/checkers.test.mjs). What matters here
+  // is unchanged: a selector it cannot evaluate must throw rather than match
+  // nothing, because matching nothing turns a broken check into a green test.
+  assert.throws(() => ctxFor('<p></p>').queryAll('p:first-child'), /MiniDOM/);
+  assert.throws(() => ctxFor('<p></p>').queryAll('a[href]'), /MiniDOM/);
 });

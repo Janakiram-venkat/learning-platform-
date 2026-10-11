@@ -27,6 +27,18 @@ const ContestPage = lazy(() => import('../pages/ContestPage'));
 const PhysicsCoursePage = lazy(() => import('../pages/PhysicsCoursePage'));
 const PhysicsExperimentPage = lazy(() => import('../pages/PhysicsExperimentPage'));
 
+// TEMPORARY — delete with the page itself before Module 2 ships (Phase 11).
+// Proves the browser-only half of the CSS checkers; see the page's own header.
+//
+// The ternary is load-bearing. Gating only the <Route> below leaves this
+// `lazy(() => import(…))` at the top level, where the bundler must still emit
+// the page as a chunk nobody can ever reach. Here `import.meta.env.DEV` is
+// replaced with `false` in a production build, which makes the import
+// unreachable code and drops the chunk entirely.
+const WebDevCheckerSelfTest = import.meta.env.DEV
+  ? lazy(() => import('../pages/WebDevCheckerSelfTest'))
+  : null;
+
 function RouteFallback() {
   return (
     <div className="flex flex-1 items-center justify-center bg-paper py-24 font-lab font-bold text-ink/60">
@@ -75,6 +87,11 @@ export default function AppRoutes() {
         {/* The catalogue is public too: a visitor should see what they would be
             signing up for. Opening a track still hits RequireAuth below. */}
         <Route path="/courses" element={<CoursesPage />} />
+
+        {/* TEMPORARY — the CSS checker self-test, deleted in Phase 11. */}
+        {import.meta.env.DEV && WebDevCheckerSelfTest && (
+          <Route path="/webdev-checks" element={<WebDevCheckerSelfTest />} />
+        )}
 
         {/* Everything course-related needs an account. Grouping them under one
             pathless route means a new course page is gated by default. */}

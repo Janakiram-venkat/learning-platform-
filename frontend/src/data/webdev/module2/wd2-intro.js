@@ -177,7 +177,7 @@ const section = {
             ].join('\n'),
           },
           caption:
-            'Try adding a fourth declaration inside the braces — `text-align: center;` — and press Run. Then try deleting the semicolon at the end of the color line and run it again, to see what that costs you.',
+            'Try adding a fourth declaration inside the braces, text-align: center; and press Run. Then try deleting the semicolon at the end of the color line and run it again, to see what that costs you.',
         },
         {
           type: 'warning',
@@ -540,7 +540,7 @@ const section = {
             ].join('\n'),
           },
           caption:
-            'The paragraph is plain black, because its rule is inside a comment. Delete the `/*` and the `*/` and press Run to switch it back on.',
+            'The paragraph is plain black, because its rule is inside a comment. Delete the /* and the */ and press Run to switch it back on.',
         },
         {
           type: 'warning',

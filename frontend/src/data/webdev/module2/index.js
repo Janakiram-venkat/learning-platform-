@@ -9,13 +9,15 @@
 // This module is NOT visible in a production build yet — see MODULE_2_RELEASED
 // in ../index.js, which is the one line Phase 11 flips.
 
+import wd2Intro from './wd2-intro';
+
 /**
  * Every section in the module, written or not.
  *
  * @type {Array<{ id: string, title: string, duration: string, section: object|null }>}
  */
 export const SECTIONS = [
-  { id: 'wd2-intro', title: 'Intro to CSS', duration: '25 min', section: null },
+  { id: 'wd2-intro', title: 'Intro to CSS', duration: '25 min', section: wd2Intro },
   { id: 'wd2-selectors', title: 'Selectors and the Cascade', duration: '30 min', section: null },
   { id: 'wd2-text-colors', title: 'Text, Colors and Backgrounds', duration: '30 min', section: null },
   { id: 'wd2-box-model', title: 'The Box Model', duration: '30 min', section: null },

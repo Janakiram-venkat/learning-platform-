@@ -1117,10 +1117,34 @@ const RUNTIME = `
 })();
 `;
 
-/** The tail script that grades the task, if there is one. */
-function checksScript(checks, runId) {
+/**
+ * How long a measure frame will wait for the embedder to give it its width
+ * before it refuses to grade.
+ *
+ * Comfortably under the parent's own CHECKS_TIMEOUT_MS (6000): the frame should
+ * always be the one to report the bad news, because it is the only place that
+ * knows what width it actually had. The parent's timeout stays as the backstop
+ * for a frame that never loaded at all.
+ */
+export const MEASURE_READY_TIMEOUT_MS = 2500;
+
+/**
+ * The tail script that grades the task, if there is one.
+ *
+ * @param {Array<object>|null} checks
+ * @param {number|string} runId
+ * @param {number|null} [measureWidth] The viewport width this document was
+ *        mounted at, when it is a measure frame. `null` for the visible
+ *        preview, which grades at whatever width it happens to have — and
+ *        which may legitimately have no layout at all, because CodeRunner
+ *        keeps the preview mounted under `display: none` while the terminal
+ *        pane is open. Only `dom`, `console` and `link` checks are ever graded
+ *        there, and none of them can be changed by a width.
+ */
+function checksScript(checks, runId, measureWidth = null) {
   if (!checks || !checks.length) return '';
   const payload = escapeScript(JSON.stringify(checks));
+  const want = measureWidth == null ? 'null' : String(Number(measureWidth));
   // Wait for load so images/late scripts have settled, then give the event
   // loop one tick — enough for a student's `setTimeout(…, 0)` to have fired.
   // Independent of the runtime script above: if that one failed to parse,
@@ -1130,7 +1154,40 @@ function checksScript(checks, runId) {
   return `<script>
 (function () {
   var checks = ${payload};
+  // The width this frame was mounted at, or null in the visible preview.
+  var WANT_WIDTH = ${want};
+  var DEADLINE_MS = ${MEASURE_READY_TIMEOUT_MS};
+
+  // Post every check as failed, with one shared reason. Used both when the
+  // runtime is missing and when this frame never got a width to measure at:
+  // a verdict must always be posted, and a wrong verdict is worse than none.
+  function postAllFailed(reason) {
+    try {
+      parent.postMessage({
+        source: "${RUNNER_SOURCE}",
+        runId: "${runId}",
+        kind: "checks",
+        results: checks.map(function (c, i) {
+          return {
+            index: c && c.__index != null ? c.__index : i,
+            passed: false,
+            message: c && c.message,
+            detail: reason,
+          };
+        })
+      }, "*");
+    } catch (ignored) { /* frame detached */ }
+  }
+
+  // Exactly one verdict per frame. The wait below has two ways to finish (the
+  // resize shortcut and the poll), and a frame that posted twice would make
+  // the parent think another frame had reported - so a three-frame task would
+  // hand over a partial result list as if it were complete.
+  var reported = false;
+
   function report() {
+    if (reported) return;
+    reported = true;
     try {
       if (typeof window.__webdevRunChecks === "function") {
         window.__webdevRunChecks(checks);
@@ -1138,25 +1195,91 @@ function checksScript(checks, runId) {
       }
       throw new Error("the sandbox runtime did not load");
     } catch (e) {
-      var reason = e && e.message ? e.message : String(e);
-      try {
-        parent.postMessage({
-          source: "${RUNNER_SOURCE}",
-          runId: "${runId}",
-          kind: "checks",
-          results: checks.map(function (c, i) {
-            return {
-              index: c && c.__index != null ? c.__index : i,
-              passed: false,
-              message: c && c.message,
-              detail: reason,
-            };
-          })
-        }, "*");
-      } catch (ignored) { /* frame detached */ }
+      postAllFailed(e && e.message ? e.message : String(e));
     }
   }
-  var run = function () { setTimeout(report, 30); };
+
+  // A measure frame exists to answer "what does this look like at N pixels",
+  // and until the embedder has actually sized it, it cannot. An unsized frame
+  // reports innerWidth 0, and at 0 EVERY answer is wrong in the same silent
+  // way: getBoundingClientRect returns zeroes, so a flex row reads as stacked
+  // and a 300px box measures 0 - and every "max-width" media query is active,
+  // so the mobile branch of the student's CSS is what gets graded. Both look
+  // exactly like a student mistake. So: wait for the width, and if it never
+  // comes, say so instead of grading.
+  // Whether anything in this frame asks a question about real geometry. A
+  // "box" or "rel" check reads getBoundingClientRect; everything else reads
+  // computed style, which is correct as soon as the frame has its width
+  // (because that is what the media queries resolve against) and does not
+  // need the page to have been laid out.
+  var NEEDS_LAYOUT = (function () {
+    for (var i = 0; i < checks.length; i++) {
+      if (checks[i] && (checks[i].box || checks[i].rel)) return true;
+    }
+    return false;
+  })();
+
+  function widthIsReady() {
+    // Fractional device pixel ratios can land a 1100px frame on 1099.6.
+    return Math.abs(window.innerWidth - WANT_WIDTH) <= 1;
+  }
+
+  // Having a width is not the same as having been laid out. Chrome does not
+  // run the rendering lifecycle for a frame it is not rendering, and a frame
+  // in that state answers getBoundingClientRect with zeroes while still
+  // reporting the right innerWidth. Zero boxes are the dangerous kind of
+  // wrong: every element lands at top 0 with height 0, so no two of them
+  // overlap, and "are these cards in a row" comes back "no, they are stacked"
+  // over a page that is plainly a row. The body having a real box is the
+  // cheapest proof that layout has actually run.
+  function layoutIsReady() {
+    if (!NEEDS_LAYOUT) return true;
+    return !!document.body && document.body.getBoundingClientRect().width > 0;
+  }
+
+  function isReady() {
+    return widthIsReady() && layoutIsReady();
+  }
+
+  function reportWhenSized() {
+    var started = Date.now();
+
+    // setTimeout, deliberately not requestAnimationFrame. An off-screen frame
+    // can have its rendering throttled, and a throttled frame's rAF callback
+    // may never run at all - which would hang this wait instead of timing it
+    // out. Timers still fire.
+    function poll() {
+      if (isReady()) { report(); return; }
+      if (Date.now() - started >= DEADLINE_MS) {
+        if (reported) return;
+        reported = true;
+        // Say which of the two went wrong. "It never got its width" and "it
+        // had the width but was never laid out" have different causes, and
+        // whoever reads this is debugging the lesson engine, not the CSS.
+        var saw = Math.round(window.innerWidth);
+        postAllFailed(
+          "this check could not be measured: the hidden frame grading your page at " +
+          WANT_WIDTH + "px " +
+          (widthIsReady()
+            ? "was never laid out, so every element measured 0 by 0"
+            : "never got that width (it reported " + saw + "px)") +
+          ". Nothing was graded, because a measurement taken then would be wrong " +
+          "rather than merely missing. This is a bug in the lesson, not in your code."
+        );
+        return;
+      }
+      setTimeout(poll, 16);
+    }
+
+    // The frame is usually ready within a tick or two of load; resize is just
+    // a shortcut so the common case does not sit out a 16ms poll.
+    window.addEventListener("resize", function () { if (isReady()) report(); });
+    poll();
+  }
+
+  var run = function () {
+    setTimeout(WANT_WIDTH == null ? report : reportWhenSized, 30);
+  };
   if (document.readyState === "complete") run();
   else window.addEventListener("load", run);
 })();
@@ -1177,9 +1300,13 @@ function checksScript(checks, runId) {
  * @param {string} [options.js]
  * @param {Array<object>} [options.checks] Task checks, graded inside the frame.
  * @param {number|string} options.runId    Echoed back on every message.
+ * @param {number|null} [options.measureWidth] The width this document is being
+ *        mounted at, when it is one of the hidden measure frames. Passing it
+ *        makes the frame refuse to grade until it really has that width — see
+ *        {@link MEASURE_READY_TIMEOUT_MS}. Omit for the visible preview.
  * @returns {string} A complete HTML document for `<iframe srcDoc>`.
  */
-export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId = 0 }) {
+export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId = 0, measureWidth = null }) {
   const runtime = RUNTIME
     .replace('__RUN_ID__', String(runId))
     .replace('__SOURCE__', RUNNER_SOURCE)
@@ -1199,7 +1326,7 @@ export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId
 
   const tail =
     (js.trim() ? `<script>\n${escapeScript(js)}\n</script>` : '') +
-    checksScript(checks, runId);
+    checksScript(checks, runId, measureWidth);
 
   const body = String(html ?? '').replace(/<!doctype[^>]*>/i, '');
 

@@ -212,7 +212,12 @@ export function useWebRunner({ onChecks } = {}) {
     setMeasureFrames(groups.map(({ width, checks: at }) => ({
       width,
       key: `${nextId}-${width}`,
-      srcDoc: buildSrcDoc({ ...files, checks: at, runId: nextId }),
+      // measureWidth is what makes the frame wait for its own width before
+      // grading, and refuse to grade if it never arrives. Without it a frame
+      // the browser has not sized yet reads 0px wide, where every geometry is
+      // zero and every max-width media query is active — so the verdicts come
+      // back confidently wrong rather than visibly broken.
+      srcDoc: buildSrcDoc({ ...files, checks: at, runId: nextId, measureWidth: width }),
     })));
   }, [clearTimer]);
 

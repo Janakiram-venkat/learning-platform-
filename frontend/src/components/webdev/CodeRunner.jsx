@@ -360,15 +360,30 @@ export default function CodeRunner({
           media query responds to the viewport, so the only way to read the
           mobile branch of one is to be in a viewport that narrow.
 
-          Off-screen rather than display:none, and with real pixel dimensions,
-          because a hidden frame has no layout to measure — getBoundingClientRect
-          would answer zero for everything and every check would fail.
-          aria-hidden and tabIndex keep it out of the page for anyone reading
-          with a screen reader or a keyboard. */}
+          Hidden with `opacity: 0`, and positioned `fixed` inside the viewport,
+          which looks like a strange way to hide something and is the whole
+          point. Chrome does not run the rendering lifecycle for a cross-origin
+          frame it is not rendering — and a sandboxed frame is cross-origin by
+          design here. Any of `display: none`, zero height, `visibility:
+          hidden` or parking it at `left: -9999px` puts the frame in exactly
+          that state, where it still reports the right `innerWidth` but answers
+          getBoundingClientRect with zeroes. That is the worst possible failure
+          for this component: every element measures 0x0, so no two of them
+          overlap, and "are these cards in a row?" comes back "no" over a page
+          that is obviously a row. `opacity: 0` is the one way to make
+          something invisible that keeps it rendered, and `fixed` keeps it in
+          the viewport even when the task itself has been scrolled past.
+
+          So it is an invisible overlay while a run is in flight. `inert` is
+          what makes that safe: no pointer events, no focus, and out of the
+          accessibility tree, so neither a mouse, the Tab key nor a screen
+          reader can reach it. */}
       {measureFrames.length > 0 && (
         <div
+          // `inert` is a standard HTML attribute; React 19 passes it through.
+          inert={true}
           aria-hidden="true"
-          className="pointer-events-none absolute -left-[9999px] top-0 h-0 overflow-hidden"
+          className="pointer-events-none fixed left-0 top-0 opacity-0"
         >
           {measureFrames.map(({ width, srcDoc: doc, key }) => (
             <iframe

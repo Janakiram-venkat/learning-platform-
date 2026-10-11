@@ -21,6 +21,7 @@ import assert from 'node:assert/strict';
 
 import {
   DEFAULT_GRADING_WIDTH,
+  MEASURE_READY_TIMEOUT_MS,
   WIDTH_SENSITIVE_CHECKS,
   buildSrcDoc,
   compareStyleValue,
@@ -496,6 +497,68 @@ test('a check carrying __index reports under that index, not its payload slot', 
     runId: 1,
   });
   assert.match(doc, /__index/, 'the fallback reporter does not honour __index');
+});
+
+// --- The measure-frame readiness gate ---------------------------------------
+// A measure frame that grades before the browser has sized and laid it out
+// reports innerWidth 0, where getBoundingClientRect answers zero for every
+// element and every max-width media query is active. Both produce confident,
+// plausible, WRONG verdicts: a flex row reads as stacked, a 300px box measures
+// 0, and the mobile branch of the student's CSS is what gets graded. These
+// tests pin the gate that stops it. The browser half is /webdev-checks.
+
+test('a measure frame is told the width it must reach before it grades', () => {
+  const doc = buildSrcDoc({
+    html: '<div class="row"><div class="card">a</div><div class="card">b</div></div>',
+    css: '.row { display: flex }',
+    checks: [{ type: 'layout', selector: '.card', rel: 'sameRow', message: 'm' }],
+    runId: 1,
+    measureWidth: 375,
+  });
+  assert.match(doc, /WANT_WIDTH = 375/, 'the frame was not told which width it is measuring at');
+  assert.match(doc, /widthIsReady/, 'there is no width gate');
+  assert.match(doc, /layoutIsReady/, 'there is no layout gate');
+});
+
+test('the preview frame is NOT gated, because it may legitimately have no layout', () => {
+  // CodeRunner keeps the preview mounted under `display: none` while the
+  // terminal pane is open. Only dom/console/link checks are ever graded there
+  // and none of them can be changed by a width, so gating it would turn a
+  // working console check into a timeout.
+  const doc = buildSrcDoc({
+    html: '<p>hi</p>',
+    checks: [{ type: 'console', contains: 'hi', message: 'm' }],
+    runId: 1,
+  });
+  assert.match(doc, /WANT_WIDTH = null/, 'the preview frame should carry no target width');
+});
+
+test('a frame that never gets its width reports failures, not verdicts', () => {
+  const doc = buildSrcDoc({
+    checks: [{ type: 'layout', selector: '.card', box: 'width', approx: 300, message: 'm' }],
+    runId: 1,
+    measureWidth: 1100,
+  });
+  // The deadline has to stay under the parent's own CHECKS_TIMEOUT_MS, or the
+  // parent reports the generic "press Run to try again" first and the specific
+  // reason — which width, and whether it was size or layout that was missing —
+  // is lost.
+  assert.ok(MEASURE_READY_TIMEOUT_MS < 6000, 'the in-frame deadline must beat the parent timeout');
+  assert.match(doc, /postAllFailed/, 'there is no path that fails every check loudly');
+  assert.match(doc, /could not be measured/, 'the loud failure carries no reason');
+});
+
+test('the gated shim still parses', () => {
+  const doc = buildSrcDoc({
+    html: '<p>hi</p>',
+    checks: [{ type: 'layout', selector: 'p', rel: 'stacked', message: 'm' }],
+    runId: 3,
+    measureWidth: 900,
+  });
+  const scripts = [...doc.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+  for (const [i, code] of scripts.entries()) {
+    assert.doesNotThrow(() => new Function(code), `script #${i + 1} does not parse`);
+  }
 });
 
 // --- The validator ----------------------------------------------------------

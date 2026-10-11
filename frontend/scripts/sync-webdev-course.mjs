@@ -18,20 +18,20 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const COURSE_DIR = resolve(HERE, '../../backend/courses/webdev');
-const DATA_FILE = resolve(HERE, '../src/data/webdev/module1/index.js');
+const DATA_DIR = resolve(HERE, '../src/data/webdev');
+const REGISTRY_FILE = resolve(DATA_DIR, 'index.js');
 
 const check = process.argv.includes('--check');
 
-// The data file imports React-flavoured modules, so rather than executing it we
-// read the two plain-object literals it exports. They're authored as simple
+// The data files import React-flavoured modules, so rather than executing them
+// we read the plain-object literals they export. They're authored as simple
 // arrays/objects precisely so this stays a regex away, not a bundler away.
-const source = readFileSync(DATA_FILE, 'utf8');
-
-function extract(name) {
-  // `\r?\n` because core.autocrlf checks this file out with CRLF endings on
+function extract(file, name) {
+  const source = readFileSync(file, 'utf8');
+  // `\r?\n` because core.autocrlf checks these files out with CRLF endings on
   // Windows, and a bare `\n` then matches nothing and throws below.
   const m = source.match(new RegExp(`export const ${name} = ([\\s\\S]*?);\\r?\\n`));
-  if (!m) throw new Error(`Could not find "export const ${name}" in ${DATA_FILE}`);
+  if (!m) throw new Error(`Could not find "export const ${name}" in ${file}`);
   // The literals contain only strings, numbers, booleans, null and identifiers
   // used as `section:` values — strip those identifiers to null before parsing.
   const body = m[1].replace(/section:\s*[A-Za-z_$][\w$]*/g, 'section: null');
@@ -39,31 +39,56 @@ function extract(name) {
   return new Function(`return (${body});`)();
 }
 
-const SECTIONS = extract('SECTIONS');
-const MODULE = extract('MODULE');
-const COURSE = extract('COURSE');
+const COURSE = extract(REGISTRY_FILE, 'COURSE');
+
+// Which modules are public. An unreleased module is left out of the backend
+// stubs entirely, so the dashboard's course list cannot advertise a module the
+// sidebar refuses to draw — the two have to agree, and this is the one place
+// that decides. MODULE_2_RELEASED is a plain boolean literal in the registry
+// for exactly this reason; `import.meta.env.DEV` is a frontend-only concern and
+// deliberately invisible here, because a dev server is not a release.
+const MODULE_2_RELEASED = extract(REGISTRY_FILE, 'MODULE_2_RELEASED');
+
+const MODULE_DIRS = [
+  { dir: 'module1', released: true },
+  { dir: 'module2', released: MODULE_2_RELEASED },
+];
+
+const modules = MODULE_DIRS
+  .filter((m) => m.released)
+  .map(({ dir }) => {
+    const file = resolve(DATA_DIR, dir, 'index.js');
+    return { MODULE: extract(file, 'MODULE'), SECTIONS: extract(file, 'SECTIONS') };
+  });
+
+if (!modules.length) throw new Error('No released modules — the course list would be empty.');
 
 const courseJson = {
   ...COURSE,
   // The web-dev lesson page renders its own runners per block, so it opts out
   // of the shared Python editor panel.
   hasEditor: false,
-  modules: [{ id: MODULE.moduleId, title: MODULE.title, file: `module${MODULE.moduleId}.json` }],
-};
-
-const moduleJson = {
-  moduleId: MODULE.moduleId,
-  title: MODULE.title,
-  emoji: MODULE.emoji,
-  tagline: MODULE.tagline,
-  lessons: SECTIONS.map((s) => ({ lessonId: s.id, title: s.title, duration: s.duration })),
-  hasProject: MODULE.hasProject,
-  hasLab: false,
+  modules: modules.map(({ MODULE }) => ({
+    id: MODULE.moduleId,
+    title: MODULE.title,
+    file: `module${MODULE.moduleId}.json`,
+  })),
 };
 
 const targets = [
   [resolve(COURSE_DIR, 'course.json'), courseJson],
-  [resolve(COURSE_DIR, `module${MODULE.moduleId}.json`), moduleJson],
+  ...modules.map(({ MODULE, SECTIONS }) => [
+    resolve(COURSE_DIR, `module${MODULE.moduleId}.json`),
+    {
+      moduleId: MODULE.moduleId,
+      title: MODULE.title,
+      emoji: MODULE.emoji,
+      tagline: MODULE.tagline,
+      lessons: SECTIONS.map((s) => ({ lessonId: s.id, title: s.title, duration: s.duration })),
+      hasProject: MODULE.hasProject,
+      hasLab: false,
+    },
+  ]),
 ];
 
 let stale = 0;

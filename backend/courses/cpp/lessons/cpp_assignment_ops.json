@@ -1,0 +1,347 @@
+{
+  "lessonId": "cpp_assignment_ops",
+  "title": "Assignment and Increment",
+  "description": "Shorthand for changing a variable, and the difference between count++ and ++count.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Changing a Variable by a Bit"
+    },
+    {
+      "type": "paragraph",
+      "value": "In Module 2 you wrote `coins = coins + 5;`: read the value, add, store it back. C++ has a shorthand for that: `coins += 5;` means exactly the same."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "The long way",
+          "tone": "neutral",
+          "code": "coins = coins + 5;",
+          "text": "Read `coins`, add 5, store the answer back."
+        },
+        {
+          "title": "The shorthand",
+          "tone": "good",
+          "code": "coins += 5;",
+          "text": "Does exactly the same work, with less typing."
+        }
+      ],
+      "title": "Two ways, one result"
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 100;\n    score += 50;\n    score -= 20;\n    score *= 2;\n    score /= 4;\n    score %= 10;\n    cout << score << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Start at 100.",
+          "vars": {
+            "score": "100"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`+=` adds: 100 + 50.",
+          "vars": {
+            "score": "150"
+          }
+        },
+        {
+          "line": 7,
+          "note": "`-=` subtracts: 150 - 20.",
+          "vars": {
+            "score": "130"
+          }
+        },
+        {
+          "line": 8,
+          "note": "`*=` multiplies: 130 * 2.",
+          "vars": {
+            "score": "260"
+          }
+        },
+        {
+          "line": 9,
+          "note": "`/=` divides: 260 / 4.",
+          "vars": {
+            "score": "65"
+          }
+        },
+        {
+          "line": 10,
+          "note": "`%=` keeps the remainder: 65 % 10.",
+          "vars": {
+            "score": "5"
+          }
+        },
+        {
+          "line": 11,
+          "note": "Print what is left.",
+          "out": [
+            "5"
+          ]
+        }
+      ],
+      "title": "Every operator has a shorthand",
+      "outro": "Each one takes the variable, applies the operator with the value on the right, and stores the answer back."
+    },
+    {
+      "type": "warning",
+      "value": "The variable must already exist. `int score += 50;` is an error: a shorthand reads the old value first, and a brand new variable has none."
+    },
+    {
+      "type": "heading",
+      "value": "Adding One: ++ and --"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🔢",
+      "real": "A tally counter clicker",
+      "concept": "`++` and `--`",
+      "code": "count++;\ncount--;",
+      "text": "Each click adds exactly one. `count++` adds 1 and `count--` takes 1 away. The language is even named after it: C++ is C with one added."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int lives = 3;\n\n    lives--;\n    cout << \"Lives: \" << lives << endl;\n\n    int score = 0;\n    score++;\n    score++;\n    cout << \"Score: \" << score << endl;\n    return 0;\n}",
+      "output": [
+        "Lives: 2",
+        "Score: 2"
+      ],
+      "caption": "You will see `++` in almost every loop you write from Module 5 onwards."
+    },
+    {
+      "type": "points",
+      "items": [
+        "`score = score + 1;`",
+        "`score += 1;`",
+        "`score++;`"
+      ],
+      "title": "Three ways to add one, all identical. Use `++` for one, `+=` for anything else."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "7",
+        "6",
+        "5",
+        "9"
+      ],
+      "answer": 2,
+      "explain": "Two `--` steps take 7 down to 5.",
+      "code": "int n = 7;\nn--;\nn--;\ncout << n << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Before or After"
+    },
+    {
+      "type": "paragraph",
+      "value": "`++` can go before the name too: `++count`. On a line of its own, both are the same. The difference shows only when the value is used in the same instruction."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    cout << a++ << endl;\n    cout << a << endl;\n\n    int b = 5;\n    cout << ++b << endl;\n    cout << b << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "`a` starts at 5.",
+          "vars": {
+            "a": "5"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`a++`: hand back the **old** value (5) to print, **then** add one.",
+          "vars": {
+            "a": "6"
+          },
+          "out": [
+            "5"
+          ]
+        },
+        {
+          "line": 7,
+          "note": "Now `a` holds 6.",
+          "out": [
+            "6"
+          ]
+        },
+        {
+          "line": 9,
+          "note": "`b` starts at 5.",
+          "vars": {
+            "b": "5"
+          }
+        },
+        {
+          "line": 10,
+          "note": "`++b`: add one **first**, then hand back the new value (6).",
+          "vars": {
+            "b": "6"
+          },
+          "out": [
+            "6"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "`b` holds 6 as well.",
+          "out": [
+            "6"
+          ]
+        }
+      ],
+      "title": "Old value or new value?",
+      "outro": "If the `++` comes after, the adding comes after. Both end at 6; only what was printed differs."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "4",
+        "2",
+        "3",
+        "Nothing, it is an error"
+      ],
+      "answer": 2,
+      "explain": "`x++` hands back the old value, 3, and only then adds one.",
+      "code": "int x = 3;\ncout << x++ << endl;"
+    },
+    {
+      "type": "tip",
+      "value": "Keep increments on their own line. `total += count++;` is legal but hard to read. Two simple lines beat one clever line that needs a lesson to explain."
+    },
+    {
+      "type": "heading",
+      "value": "Shorthand on Text and Input"
+    },
+    {
+      "type": "paragraph",
+      "value": "`+=` works on a `string` too, because `+` joins text. Each `+=` adds to the end. A single `char` works as well."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "📝",
+          "label": "\"Hello\"",
+          "detail": "Starting value"
+        },
+        {
+          "icon": "➕",
+          "label": "\"Hello, \"",
+          "detail": "after `+= \", \"`"
+        },
+        {
+          "icon": "➕",
+          "label": "\"Hello, world\"",
+          "detail": "after `+= \"world\"`"
+        },
+        {
+          "icon": "✅",
+          "label": "\"Hello, world!\"",
+          "detail": "after `+= '!'`"
+        }
+      ],
+      "title": "Building text in stages"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string message = \"Hello\";\n\n    message += \", \";\n    message += \"world\";\n    message += '!';            // a single char works too\n\n    cout << message << endl;\n    cout << \"Length: \" << message.length() << endl;\n    return 0;\n}",
+      "output": [
+        "Hello, world!",
+        "Length: 13"
+      ],
+      "caption": "Building text with `+=` is quick in C++, so it is the normal way to grow a `string` piece by piece, even inside loops."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 0;\n    int price;\n\n    cout << \"First price? \";\n    cin >> price;\n    total += price;\n\n    cout << \"Second price? \";\n    cin >> price;\n    total += price;\n\n    cout << \"Total so far: \" << total << endl;\n    return 0;\n}",
+      "caption": "Sample run: type `40` then `25` and it prints `Total so far: 65`. One `price` variable is reused: each `cin` overwrites it with the next answer."
+    },
+    {
+      "type": "warning",
+      "value": "Start every total at 0. C++ will not stop you forgetting `= 0`: the variable then holds whatever was left in memory (garbage), and `+=` adds to that.",
+      "title": "Start at zero"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 100;\n\n    score += 50;\n    score -= 20;\n    score++;\n\n    cout << \"Score: \" << score << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Start with `int health = 100;` then take away 30 with `-=`, take away 25 more, and print the result after each change.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int health = 100;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Predict what this prints before you run it, then run it and check.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 7;\n\n    cout << x++ << endl;\n    cout << x << endl;\n    cout << ++x << endl;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Build the sentence `I am learning C++!` in a `string` using `+=` three times, then print it and its length.",
+      "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string sentence = \"I am \";\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `coins += 5;` mean?",
+      "options": [
+        "coins = coins + 5;",
+        "coins = 5;",
+        "Declare a new variable called coins holding 5."
+      ],
+      "answer": 0,
+      "explain": "A shorthand reads the current value, applies the operator, and stores the answer back in the same variable."
+    },
+    {
+      "question": "`int score = 20;` then `score *= 3;`. What does score hold?",
+      "options": [
+        "23",
+        "3",
+        "60"
+      ],
+      "answer": 2,
+      "explain": "`*=` multiplies the variable by the value on the right, so 20 becomes 60."
+    },
+    {
+      "question": "Which three lines all do the same thing?",
+      "options": [
+        "score = 1;  ·  score += 1;  ·  score++;",
+        "score = score + 1;  ·  score += 1;  ·  score++;",
+        "score++;  ·  score--;  ·  score += 1;"
+      ],
+      "answer": 1,
+      "explain": "All three add one to the variable. `score++` is the usual way to write it when the amount is exactly one."
+    },
+    {
+      "question": "`int a = 5;` What does `cout << a++;` print?",
+      "options": [
+        "6, because the increment happens first",
+        "5, and a becomes 6 afterwards",
+        "5, and a stays 5"
+      ],
+      "answer": 1,
+      "explain": "With the `++` written after the name, the old value is handed back first and the increment happens after. `++a` would print 6."
+    },
+    {
+      "question": "Why should a running total start with `int total = 0;` rather than `int total;`?",
+      "options": [
+        "Without a value it holds leftover garbage, and `+=` adds to that.",
+        "`+=` only works on variables that equal zero.",
+        "C++ refuses to compile `int total;`."
+      ],
+      "answer": 0,
+      "explain": "C++ compiles `int total;` happily, but the variable starts with whatever was in memory. Every shorthand reads the old value, so give it a real one first."
+    }
+  ]
+}

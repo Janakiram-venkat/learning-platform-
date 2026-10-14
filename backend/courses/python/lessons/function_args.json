@@ -9,34 +9,160 @@
       "value": "Giving a Function Information"
     },
     {
-      "type": "paragraph",
-      "value": "The `cheer()` function from the last lesson always did exactly the same thing. Functions get far more useful when you can hand them something to work with. You write a name inside the parentheses of the `def` line, and that name becomes a variable that only exists inside the function."
+      "type": "points",
+      "items": [
+        "`cheer()` from the last lesson always did exactly the same thing.",
+        "Functions get far more useful when you hand them something to work with.",
+        "Write a name inside the `()` of the `def` line. That name becomes a variable that only exists **inside** the function."
+      ]
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "def greet_user(name):\n    print(\"Hello, \" + name + \"!\")\n\ngreet_user(\"Alex\")\ngreet_user(\"Sarah\")"
+      "type": "analogy",
+      "emoji": "📮",
+      "real": "A letter in an envelope",
+      "concept": "An argument going into a parameter",
+      "code": "greet_user(\"Alex\")",
+      "text": "The envelope has a label: `name`. That is the **parameter**. The letter you put inside, `\"Alex\"`, is the **argument**. The function opens the envelope and uses whatever it finds."
     },
     {
-      "type": "paragraph",
-      "value": "That prints `Hello, Alex!` and then `Hello, Sarah!`. The name in the `def` line is called a parameter. The value you actually send in when you call it is called an argument. One function, two different results, because the argument changed."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Parameter",
+          "tone": "neutral",
+          "code": "def greet_user(name):\n    print(name)",
+          "text": "The name in the `def` line. A placeholder waiting for a value."
+        },
+        {
+          "title": "Argument",
+          "tone": "neutral",
+          "code": "greet_user(\"Alex\")",
+          "text": "The real value you send in when you call the function."
+        }
+      ],
+      "title": "Two words to know"
+    },
+    {
+      "type": "stepper",
+      "code": "def greet_user(name):\n    print(\"Hello, \" + name + \"!\")\n\ngreet_user(\"Alex\")\ngreet_user(\"Sarah\")",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Python learns the function. Nothing runs yet.",
+          "vars": {
+            "greet_user": "function"
+          }
+        },
+        {
+          "line": 4,
+          "note": "A call with the argument `\"Alex\"`. Python jumps into the function."
+        },
+        {
+          "line": 1,
+          "note": "The parameter `name` is filled with the argument.",
+          "vars": {
+            "name": "\"Alex\""
+          }
+        },
+        {
+          "line": 2,
+          "note": "The body uses `name`, so it prints the greeting for Alex.",
+          "out": [
+            "Hello, Alex!"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "Back outside, `name` is gone: it only lived inside the function. Now a second call, with `\"Sarah\"`.",
+          "vars": {
+            "name": null
+          }
+        },
+        {
+          "line": 1,
+          "note": "A fresh `name` box, this time holding `\"Sarah\"`.",
+          "vars": {
+            "name": "\"Sarah\""
+          }
+        },
+        {
+          "line": 2,
+          "note": "Same body, different value inside the box.",
+          "out": [
+            "Hello, Sarah!"
+          ]
+        }
+      ],
+      "title": "Watch the argument travel in",
+      "outro": "The parameter gets a new value on every call."
+    },
+    {
+      "type": "check",
+      "question": "In `greet_user(\"Sam\")`, what is `\"Sam\"`?",
+      "options": [
+        "The parameter",
+        "The argument",
+        "The function name",
+        "The return value"
+      ],
+      "answer": 1,
+      "explain": "The value you send in when you call is the argument. The name in the `def` line is the parameter."
     },
     {
       "type": "heading",
       "value": "More Than One Input"
     },
     {
-      "type": "paragraph",
-      "value": "You can list several parameters, separated by commas, and pass the same number of arguments when you call it. Order matters: the first argument goes into the first parameter, the second into the second, and so on."
+      "type": "points",
+      "items": [
+        "List several parameters, separated by commas.",
+        "Pass the same number of arguments when you call it.",
+        "**Order matters:** the first argument goes into the first parameter, the second into the second, and so on."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "rectangle_area"
+        },
+        {
+          "code": "("
+        },
+        {
+          "code": "4",
+          "label": "1st",
+          "note": "Goes into the first parameter, `width`."
+        },
+        {
+          "code": ", "
+        },
+        {
+          "code": "3",
+          "label": "2nd",
+          "note": "Goes into the second parameter, `height`."
+        },
+        {
+          "code": ")"
+        }
+      ],
+      "title": "Arguments line up in order"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "def rectangle_area(width, height):\n    print(width * height)\n\nrectangle_area(4, 3)   # 12\nrectangle_area(3, 4)   # 12 as well, but width and height swapped over"
+      "value": "def rectangle_area(width, height):\n    print(width * height)\n\nrectangle_area(4, 3)\nrectangle_area(3, 4)",
+      "output": [
+        "12",
+        "12"
+      ],
+      "caption": "Both print `12`, but in the second call `width` and `height` are swapped over."
     },
     {
       "type": "paragraph",
-      "value": "Use the machine below to send different values in and watch each step. The row that matters is the second one, where the parameter takes the value you passed."
+      "value": "Send different values into the machine below and watch each step. The row that matters is the second one, where the parameter takes the value you passed."
     },
     {
       "type": "widget",
@@ -44,37 +170,160 @@
       "preset": "double"
     },
     {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "3",
+        "10",
+        "7",
+        "4"
+      ],
+      "answer": 2,
+      "explain": "`10` goes into `a` and `3` goes into `b`, so the body works out `10 - 3`.",
+      "code": "def subtract(a, b):\n    print(a - b)\n\nsubtract(10, 3)"
+    },
+    {
       "type": "heading",
       "value": "Getting a Result Back"
     },
     {
-      "type": "paragraph",
-      "value": "So far the functions printed their answers. That is fine for showing something once, but it is a dead end if you want to use the answer again. The `return` keyword hands the value back out to whoever called the function, so you can store it in a variable."
+      "type": "points",
+      "items": [
+        "Printing an answer shows it once. Then it is gone: a dead end.",
+        "The `return` keyword **hands the value back** to whoever called the function.",
+        "The call is then replaced by that value, so you can store it in a variable."
+      ]
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "def double_number(number):\n    return number * 2\n\nresult = double_number(10)\nprint(result)          # 20\nprint(result + 5)      # 25, because result really is a number"
+      "type": "analogy",
+      "emoji": "🏧",
+      "real": "A vending machine",
+      "concept": "A function that returns",
+      "code": "result = double_number(10)",
+      "text": "You put something in, and the machine hands something back out into your hand. What you do with it next is up to you. `return` is the machine's tray."
+    },
+    {
+      "type": "stepper",
+      "code": "def double_number(number):\n    return number * 2\n\nresult = double_number(10)\nprint(result)\nprint(result + 5)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Python learns `double_number`. Nothing runs yet.",
+          "vars": {
+            "double_number": "function"
+          }
+        },
+        {
+          "line": 4,
+          "note": "To work out the right side of `=`, Python must call the function. It jumps in with `10`."
+        },
+        {
+          "line": 1,
+          "note": "The parameter `number` gets the argument.",
+          "vars": {
+            "number": "10"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`number * 2` is `20`. `return` hands `20` back and leaves the function."
+        },
+        {
+          "line": 4,
+          "note": "Back at the call. It is replaced by `20`, which is stored in `result`. `number` is gone.",
+          "vars": {
+            "number": null,
+            "result": "20"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Print the box: `20`.",
+          "out": [
+            "20"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "`result` really is a number, so you can keep using it: `20 + 5`.",
+          "out": [
+            "25"
+          ]
+        }
+      ],
+      "title": "Watch the value come back",
+      "outro": "The returned value lands in `result`, ready to use again."
     },
     {
       "type": "tip",
-      "value": "A function stops the instant it reaches `return`. Any lines written after it inside the function never run, which is worth remembering when a function seems to ignore its last few lines."
+      "value": "A function stops the instant it reaches `return`. Any lines after it inside the function never run. Remember this when a function seems to ignore its last few lines.",
+      "title": "return ends the function"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "9",
+        "8 then Done",
+        "8",
+        "Done"
+      ],
+      "answer": 2,
+      "explain": "`return` hands back `8` and leaves the function straight away, so the `print(\"Done\")` inside never runs.",
+      "code": "def add_one(n):\n    return n + 1\n    print(\"Done\")\n\nprint(add_one(7))"
     },
     {
       "type": "heading",
       "value": "return or print?"
     },
     {
+      "type": "points",
+      "items": [
+        "They can look the same on screen. They are **not** the same.",
+        "`print` **shows** a value and gives nothing back.",
+        "`return` **gives back** a value and shows nothing."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "print",
+          "tone": "bad",
+          "code": "def double(n):\n    print(n * 2)\n\nx = double(4)\nprint(x)",
+          "text": "Shows `8`, then `None`. The function gave nothing back, so `x` holds `None`."
+        },
+        {
+          "title": "return",
+          "tone": "good",
+          "code": "def double(n):\n    return n * 2\n\nx = double(4)\nprint(x)",
+          "text": "Shows `8` once. `x` really holds `8`, so you can use it again."
+        }
+      ],
+      "title": "Same look, different result",
+      "caption": "Let the function work out the answer and `return` it. Then the code that called it decides: print it, save it, or feed it into something else. That keeps the function useful in more than one place."
+    },
+    {
       "type": "paragraph",
-      "value": "These two look interchangeable, because a function that prints and a function that returns can produce the same thing on screen. They are not the same. `print` shows a value and gives nothing back, so the variable ends up holding `None`. `return` gives the value back and shows nothing. Switch between them below and watch what the variable holds."
+      "value": "Switch between `print` and `return` below and watch what the variable holds."
     },
     {
       "type": "widget",
       "kind": "return-vs-print"
     },
     {
-      "type": "paragraph",
-      "value": "A good rule: let the function work out the answer and `return` it, then let the code that called it decide whether to print it, save it, or feed it into something else. That keeps the function useful in more than one place."
+      "type": "check",
+      "question": "What does `x` hold after this runs?",
+      "options": [
+        "8",
+        "None",
+        "4",
+        "\"8\""
+      ],
+      "answer": 1,
+      "explain": "`show` prints `8` but has no `return`, so it gives nothing back. `x` ends up holding `None`.",
+      "code": "def show(n):\n    print(n * 2)\n\nx = show(4)"
     }
   ],
   "editorCode": "def make_full_name(first, last):\n    return first + \" \" + last\n\nfull_name = make_full_name(\"Ada\", \"Lovelace\")\nprint(full_name)\nprint(\"Letters:\", len(full_name))",

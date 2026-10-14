@@ -9,34 +9,137 @@
       "value": "Text Has Built-in Tools"
     },
     {
-      "type": "paragraph",
-      "value": "Strings are not only for showing on screen. Every string in Python comes with a set of tools attached to it, and you reach them by writing a dot after the text, then the tool's name and a pair of parentheses. Tools that work this way are called methods."
+      "type": "analogy",
+      "emoji": "🧰",
+      "real": "A pocket knife",
+      "concept": "String methods",
+      "code": "message.upper()",
+      "text": "A pocket knife carries its tools with it. Every string does too. You open a tool with a dot, then its name and `()`. Tools that work this way are called **methods**."
     },
     {
-      "type": "paragraph",
-      "value": "One measuring tool is written differently. `len()` wraps around the string rather than following a dot, and it counts every character, including spaces and punctuation."
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "message",
+          "label": "the string",
+          "note": "The text you want to work on."
+        },
+        {
+          "code": ".",
+          "label": "dot",
+          "note": "Means: use one of this string's tools."
+        },
+        {
+          "code": "upper",
+          "label": "method",
+          "note": "The tool's name."
+        },
+        {
+          "code": "()",
+          "label": "call",
+          "note": "Parentheses run the tool. Some methods take values inside them."
+        }
+      ],
+      "title": "Anatomy of a method call"
+    },
+    {
+      "type": "points",
+      "items": [
+        "One measuring tool is written differently: `len()`.",
+        "It **wraps around** the string instead of following a dot.",
+        "It counts **every** character, including spaces and punctuation."
+      ],
+      "title": "Counting with len()"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "message = \"Hello World\"\n\nprint(len(message))      # 11: five letters, a space, five letters\nprint(message.upper())   # HELLO WORLD"
+      "value": "message = \"Hello World\"\n\nprint(len(message))      # five letters, a space, five letters\nprint(message.upper())",
+      "output": [
+        "11",
+        "HELLO WORLD"
+      ]
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "3",
+        "2",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "explain": "`len()` counts every character. `\"Hi! \"` has `H`, `i`, `!` and a space at the end, so the answer is `4`.",
+      "code": "print(len(\"Hi! \"))"
     },
     {
       "type": "heading",
       "value": "Changing How Text Looks"
     },
     {
-      "type": "paragraph",
-      "value": "`.upper()` turns every letter into a capital and `.lower()` turns every letter small. `.title()` capitalises the first letter of each word, which is handy for tidying up a name somebody typed in a hurry."
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔠",
+          "text": "`.upper()`",
+          "sub": "EVERY LETTER CAPITAL"
+        },
+        {
+          "icon": "🔡",
+          "text": "`.lower()`",
+          "sub": "every letter small"
+        },
+        {
+          "icon": "🏷️",
+          "text": "`.title()`",
+          "sub": "First Letter Of Each Word Capital"
+        }
+      ],
+      "title": "Three case tools"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "name = \"aDA loVElace\"\n\nprint(name.upper())   # ADA LOVELACE\nprint(name.lower())   # ada lovelace\nprint(name.title())   # Ada Lovelace"
+      "value": "name = \"aDA loVElace\"\n\nprint(name.upper())\nprint(name.lower())\nprint(name.title())",
+      "output": [
+        "ADA LOVELACE",
+        "ada lovelace",
+        "Ada Lovelace"
+      ],
+      "caption": "`.title()` is handy for tidying a name somebody typed in a hurry."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "User types `YeS`",
+          "detail": "People type in all sorts of ways."
+        },
+        {
+          "icon": "🔡",
+          "label": "`.lower()` gives `yes`",
+          "detail": "Every spelling becomes the same."
+        },
+        {
+          "icon": "⚖️",
+          "label": "`== \"yes\"`",
+          "detail": "One comparison covers `yes`, `Yes` and `YES`."
+        },
+        {
+          "icon": "✅",
+          "label": "`True`",
+          "detail": "No need for a condition per spelling."
+        }
+      ],
+      "title": "Comparing what a user typed"
     },
     {
       "type": "paragraph",
-      "value": "Lowercasing is the usual trick for comparing what a user typed. `answer.lower() == \"yes\"` is True for \"yes\", \"Yes\" and \"YES\" alike, which saves writing a condition for every spelling."
+      "value": "Type some text below and try each tool on it."
     },
     {
       "type": "widget",
@@ -44,43 +147,187 @@
       "text": "python is fun"
     },
     {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "False",
+        "YES",
+        "True",
+        "yes"
+      ],
+      "answer": 2,
+      "explain": "`.lower()` turns `YES` into `yes`, which equals `\"yes\"`.",
+      "code": "answer = \"YES\"\nprint(answer.lower() == \"yes\")"
+    },
+    {
       "type": "heading",
-      "value": "Cleaning Up and Swapping"
+      "value": "Trimming Spaces"
     },
     {
-      "type": "paragraph",
-      "value": "`.strip()` removes spaces from the very start and end of a string, and leaves the ones in the middle alone. It is worth using on anything a person typed, because a stray space at the end is invisible and still breaks a comparison."
+      "type": "points",
+      "items": [
+        "`.strip()` removes spaces from the very **start** and **end**.",
+        "Spaces in the middle are left alone.",
+        "Use it on anything a person typed: a stray space at the end is invisible, but still breaks a comparison."
+      ],
+      "title": "strip()"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Without strip",
+          "tone": "bad",
+          "code": "typed = \"  yes  \"\nprint(typed == \"yes\")",
+          "text": "`False`. The extra spaces make the strings different."
+        },
+        {
+          "title": "With strip",
+          "tone": "good",
+          "code": "typed = \"  yes  \"\nprint(typed.strip() == \"yes\")",
+          "text": "`True`. The outer spaces are gone."
+        }
+      ],
+      "title": "An invisible problem"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "[  hi  ]",
+        "[hi  ]",
+        "[hi]",
+        "[  hi]"
+      ],
+      "answer": 2,
+      "explain": "`.strip()` removes the spaces at both ends, so only `hi` is left between the brackets.",
+      "code": "print(\"[\" + \"  hi  \".strip() + \"]\")"
+    },
+    {
+      "type": "heading",
+      "value": "Swapping Text"
+    },
+    {
+      "type": "points",
+      "items": [
+        "`.replace()` swaps one piece of text for another.",
+        "Give it two things: what to look for, and what to put in its place.",
+        "**Every** match is swapped, not just the first."
+      ],
+      "title": "replace()"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "s"
+        },
+        {
+          "code": ".replace("
+        },
+        {
+          "code": "\"apples\"",
+          "label": "find",
+          "note": "The text to look for."
+        },
+        {
+          "code": ", "
+        },
+        {
+          "code": "\"cookies\"",
+          "label": "put instead",
+          "note": "The text that goes in its place."
+        },
+        {
+          "code": ")"
+        }
+      ],
+      "title": "Anatomy of replace"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "typed = \"  yes  \"\nprint(typed == \"yes\")            # False, because of the spaces\nprint(typed.strip() == \"yes\")    # True"
+      "value": "sentence = \"I like apples and apples\"\nprint(sentence.replace(\"apples\", \"cookies\"))",
+      "output": [
+        "I like cookies and cookies"
+      ]
     },
     {
-      "type": "paragraph",
-      "value": "`.replace()` swaps one piece of text for another. You give it two things: what to look for, and what to put in its place. Every match is swapped, not just the first."
-    },
-    {
-      "type": "code",
-      "language": "python",
-      "value": "sentence = \"I like apples and apples\"\nprint(sentence.replace(\"apples\", \"cookies\"))\n# I like cookies and cookies"
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "b-nana",
+        "banana",
+        "b-n-n-",
+        "-anana"
+      ],
+      "answer": 2,
+      "explain": "`.replace()` swaps **every** `a`, not just the first one.",
+      "code": "print(\"banana\".replace(\"a\", \"-\"))"
     },
     {
       "type": "heading",
       "value": "Methods Hand Back New Text"
     },
     {
-      "type": "paragraph",
-      "value": "Here is the part that catches people out. A string method never changes the string it was called on. It builds a new string and hands that back, leaving the original exactly as it was. So calling a method on its own line achieves nothing at all."
+      "type": "warning",
+      "value": "A string method **never changes** the string it was called on. It builds a new string and hands it back. Calling a method on its own line achieves nothing. If a method seems to do nothing, check that you stored the result or used it inside `print`.",
+      "title": "This catches people out"
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "message = \"hello\"\n\nmessage.upper()        # the result is built, then thrown away\nprint(message)         # still hello\n\nmessage = message.upper()   # store it to keep it\nprint(message)         # HELLO"
+      "type": "stepper",
+      "code": "message = \"hello\"\nmessage.upper()\nprint(message)\nmessage = message.upper()\nprint(message)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Store `hello` in `message`.",
+          "vars": {
+            "message": "\"hello\""
+          }
+        },
+        {
+          "line": 2,
+          "note": "`.upper()` builds `\"HELLO\"`, but nothing stores it, so it is thrown away. `message` is unchanged."
+        },
+        {
+          "line": 3,
+          "note": "Print the box: still lowercase.",
+          "out": [
+            "hello"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "This time the new string is assigned back to `message`, so it is kept.",
+          "vars": {
+            "message": "\"HELLO\""
+          }
+        },
+        {
+          "line": 5,
+          "note": "Now the box holds the capital version.",
+          "out": [
+            "HELLO"
+          ]
+        }
+      ],
+      "title": "Kept or thrown away?",
+      "outro": "Store the result, or use it straight away inside `print`."
     },
     {
-      "type": "tip",
-      "value": "If a string method seems to do nothing, check whether you stored the result. Either use it straight away inside a `print`, or assign it back to the variable."
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "CAT",
+        "Cat",
+        "cat",
+        "Nothing, it is an error"
+      ],
+      "answer": 2,
+      "explain": "Line 2 builds `CAT` but never stores it, so `pet` still holds `cat`.",
+      "code": "pet = \"cat\"\npet.upper()\nprint(pet)"
     }
   ],
   "editorCode": "secret = \"  python is awesome  \"\n\nprint(\"Length:\", len(secret))\nprint(secret.strip().upper())\nprint(secret.replace(\"python\", \"coding\").strip())\nprint(\"Original is unchanged:\", secret)",

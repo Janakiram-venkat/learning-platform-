@@ -1,0 +1,455 @@
+{
+  "lessonId": "cpp_parameters",
+  "title": "Parameters",
+  "description": "Hand values to a function so one function can do the job many ways.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Telling a Function What to Work With"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A function with empty brackets always does exactly the same thing.",
+        "Put a variable declaration inside the brackets, like `int count`. That is a **parameter**: a variable that gets its value from the call.",
+        "The value the caller hands over, like the `3` in `printStars(3)`, is an **argument**."
+      ]
+    },
+    {
+      "type": "analogy",
+      "emoji": "📮",
+      "real": "A labelled envelope and the letter inside",
+      "concept": "A parameter and its argument",
+      "code": "greet(\"Amara\");",
+      "text": "The envelope's label, `name`, is the parameter: the slot. The letter you put in, `\"Amara\"`, is the argument: what goes in the slot."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\n#include <string>\nusing namespace std;\n\nvoid greet(string name) {\n    cout << \"Hello, \" << name << \"!\" << endl;\n}\n\nint main() {\n    greet(\"Amara\");\n    greet(\"Sam\");\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 10,
+          "note": "A call with the argument `\"Amara\"`. C++ jumps into `greet`."
+        },
+        {
+          "line": 5,
+          "note": "The parameter `name` is created and filled with the argument.",
+          "vars": {
+            "name": "\"Amara\""
+          }
+        },
+        {
+          "line": 6,
+          "note": "The body uses `name`.",
+          "out": [
+            "Hello, Amara!"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "Back in `main`. `name` is gone: it only lived inside the function. Now a second call.",
+          "vars": {
+            "name": null
+          }
+        },
+        {
+          "line": 5,
+          "note": "A fresh `name`, this time holding `\"Sam\"`.",
+          "vars": {
+            "name": "\"Sam\""
+          }
+        },
+        {
+          "line": 6,
+          "note": "Same body, different value.",
+          "out": [
+            "Hello, Sam!"
+          ]
+        },
+        {
+          "line": 7,
+          "note": "The function ends and `name` disappears again.",
+          "vars": {
+            "name": null
+          }
+        }
+      ],
+      "title": "Watch the argument travel in",
+      "outro": "The parameter gets a new value on every call."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nvoid printStars(int count) {\n    for (int i = 1; i <= count; i++) {\n        cout << \"*\";\n    }\n    cout << endl;\n}\n\nint main() {\n    printStars(3);\n    printStars(7);\n    printStars(1);\n    return 0;\n}",
+      "output": [
+        "***",
+        "*******",
+        "*"
+      ],
+      "caption": "One function, three different results. A function without parameters can only be reused. One with parameters can be adapted."
+    },
+    {
+      "type": "check",
+      "question": "In `printStars(7)`, what is `7`?",
+      "options": [
+        "The argument",
+        "The parameter",
+        "The function name",
+        "The return type"
+      ],
+      "answer": 0,
+      "explain": "The value you hand over at the call is the argument. `int count` in the header is the parameter that receives it."
+    },
+    {
+      "type": "heading",
+      "value": "More Than One Parameter"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Separate parameters with commas.",
+        "Each one needs its **own type**, even when two in a row share a type.",
+        "Arguments match parameters by **position**, not by name: first to first, second to second."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "void greet("
+        },
+        {
+          "code": "string name",
+          "label": "1st parameter",
+          "note": "Gets the first argument. Its type is `string`."
+        },
+        {
+          "code": ", "
+        },
+        {
+          "code": "int times",
+          "label": "2nd parameter",
+          "note": "Gets the second argument. It needs its own type, `int`."
+        },
+        {
+          "code": ")"
+        }
+      ],
+      "title": "A header with two parameters"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nvoid printBar(string name, int length) {\n    cout << name << \" | \";\n    for (int i = 1; i <= length; i++) {\n        cout << \"#\";\n    }\n    cout << endl;\n}\n\nvoid greet(string name, int times) {\n    for (int i = 1; i <= times; i++) {\n        cout << \"Hello, \" << name << \"!\" << endl;\n    }\n}\n\nint main() {\n    printBar(\"Amara\", 9);\n    printBar(\"Sam\", 4);\n    greet(\"Mia\", 3);\n    return 0;\n}",
+      "output": [
+        "Amara | #########",
+        "Sam | ####",
+        "Hello, Mia!",
+        "Hello, Mia!",
+        "Hello, Mia!"
+      ],
+      "caption": "Name parameters for what they mean inside the function, whatever the caller's variables are called."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "printBar(\"Amara\", 9);",
+          "text": "A `string` into `name`, an `int` into `length`."
+        },
+        {
+          "title": "Does not compile",
+          "tone": "bad",
+          "code": "printBar(9, \"Amara\");",
+          "text": "Text cannot go into an `int` slot. C++'s type checking catches it."
+        }
+      ],
+      "title": "Order matters",
+      "caption": "Between number types C++ is more relaxed: `printStars(3.9)` compiles and the `double` is chopped to the int 3 on the way in. If decimals matter, make the parameter a `double`."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "-7",
+        "13",
+        "7",
+        "103"
+      ],
+      "answer": 2,
+      "explain": "`10` goes into `a` and `3` goes into `b`, so the body works out `10 - 3`.",
+      "code": "void subtract(int a, int b) {\n    cout << a - b << endl;\n}\n\n// in main:\nsubtract(10, 3);"
+    },
+    {
+      "type": "heading",
+      "value": "Passing In What You Read"
+    },
+    {
+      "type": "points",
+      "items": [
+        "An argument does not have to be typed into your code.",
+        "Anything that gives a value of the right type works: a variable, a calculation, or something `cin` just read.",
+        "The function never knows where its values came from. That is what makes it reusable."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "Read",
+          "detail": "`cin` reads `score`: 72"
+        },
+        {
+          "icon": "🧮",
+          "label": "Work out",
+          "detail": "`score / 10` gives 7"
+        },
+        {
+          "icon": "📥",
+          "label": "Arrive",
+          "detail": "7 lands in `length`"
+        },
+        {
+          "icon": "📊",
+          "label": "Draw",
+          "detail": "`printBar` draws 7 `#`"
+        }
+      ],
+      "title": "Where the argument comes from"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nvoid printBar(string label, int length) {\n    cout << label << \" | \";\n    for (int i = 1; i <= length; i++) {\n        cout << \"#\";\n    }\n    cout << endl;\n}\n\nvoid describe(int score) {\n    if (score >= 75) {\n        cout << \"Excellent.\" << endl;\n    } else if (score >= 40) {\n        cout << \"A pass.\" << endl;\n    } else {\n        cout << \"Needs work.\" << endl;\n    }\n}\n\nint main() {\n    cout << \"Name? \";\n    string name;\n    getline(cin, name);\n\n    cout << \"Score out of 100? \";\n    int score;\n    cin >> score;\n\n    printBar(name, score / 10);\n    describe(score);\n    return 0;\n}",
+      "caption": "Sample run: type `Mia` and `72`. It prints `Mia | #######` then `A pass.`"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nvoid askAndDouble(string label) {\n    cout << label << \"? \";\n    int n;\n    cin >> n;\n    cout << label << \" doubled is \" << n * 2 << endl;\n}\n\nint main() {\n    askAndDouble(\"First number\");\n    askAndDouble(\"Second number\");\n    return 0;\n}",
+      "caption": "`cin` and `cout` work in every function, not just `main`. Both calls read from the same keyboard: whichever reads next carries on where the last read stopped. The `getline` trap still applies: after `cin >>`, call `cin.ignore()` before the next `getline`, in any function. Sample run: type `4` and `9`, it prints `First number doubled is 8` and `Second number doubled is 18`."
+    },
+    {
+      "type": "heading",
+      "value": "A Parameter Is a Copy"
+    },
+    {
+      "type": "paragraph",
+      "value": "When you pass a variable, the function gets a **copy** of its value. Changing the copy does nothing to the original. This is called **pass by value**."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nvoid addTen(int number) {\n    number = number + 10;\n    cout << \"Inside the function: \" << number << endl;\n}\n\nint main() {\n    int score = 50;\n    cout << \"Before the call:     \" << score << endl;\n    addTen(score);\n    cout << \"After the call:      \" << score << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 10,
+          "note": "`main` has `score`.",
+          "vars": {
+            "score": "50"
+          }
+        },
+        {
+          "line": 11,
+          "note": "Print it.",
+          "out": [
+            "Before the call:     50"
+          ]
+        },
+        {
+          "line": 12,
+          "note": "Call `addTen`, handing over the value of `score`."
+        },
+        {
+          "line": 4,
+          "note": "A new variable `number` starts as a copy: 50.",
+          "vars": {
+            "number": "50"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Only the copy changes.",
+          "vars": {
+            "number": "60"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Inside the function it really is 60.",
+          "out": [
+            "Inside the function: 60"
+          ]
+        },
+        {
+          "line": 13,
+          "note": "The function ended, so `number` vanished. `score` never moved.",
+          "vars": {
+            "number": null
+          },
+          "out": [
+            "After the call:      50"
+          ]
+        }
+      ],
+      "title": "Watch the copy change, not the original",
+      "outro": "So `addTen(score);` on its own is almost always a bug. To get a value back, return it (next lesson). To really change the caller's variable, C++ has a way too, two lessons from now."
+    },
+    {
+      "type": "tip",
+      "value": "The copy rule makes functions safe. A function cannot reach out and quietly change your variables, so a bug in one function stays in that function.",
+      "title": "Why this is good"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "0",
+        "50",
+        "5",
+        "Nothing, it does not compile"
+      ],
+      "answer": 2,
+      "explain": "`n` is a copy of `x`. Setting the copy to `0` leaves `x` at 5.",
+      "code": "void reset(int n) {\n    n = 0;\n}\n\n// in main:\nint x = 5;\nreset(x);\ncout << x << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Default Values"
+    },
+    {
+      "type": "paragraph",
+      "value": "C++ lets a parameter have a **default value**. If the caller leaves that argument out, the default fills the slot."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nvoid printBar(int length, char symbol = '*') {\n    for (int i = 1; i <= length; i++) {\n        cout << symbol;\n    }\n    cout << endl;\n}\n\nint main() {\n    printBar(7);          // symbol uses its default, '*'\n    printBar(7, '#');     // symbol is '#' this time\n    printBar(3, '=');\n    return 0;\n}",
+      "output": [
+        "*******",
+        "#######",
+        "==="
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Does not compile",
+          "tone": "bad",
+          "code": "void printBar(char symbol = '*', int length)",
+          "text": "`length` comes after a default but has none."
+        },
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "void printBar(int length, char symbol = '*')",
+          "text": "The parameter with a default is last."
+        }
+      ],
+      "title": "Defaults go at the end",
+      "caption": "Once one parameter has a default, every parameter after it needs one too."
+    },
+    {
+      "type": "points",
+      "items": [
+        "With a prototype, write the default in the **prototype only**, not again in the definition.",
+        "Keep parameter lists short. One or two is comfortable, three is fine. Five is a function that wants splitting up."
+      ]
+    },
+    {
+      "type": "check",
+      "question": "Using the `printBar` above, what does `printBar(4);` print?",
+      "options": [
+        "4",
+        "####",
+        "****",
+        "Nothing, it does not compile"
+      ],
+      "answer": 2,
+      "explain": "`symbol` was left out, so it takes its default, `'*'`, and four of them are drawn."
+    }
+  ],
+  "editorCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nvoid printBar(string name, int length) {\n    cout << name << \" | \";\n\n    for (int i = 1; i <= length; i++) {\n        cout << \"#\";\n    }\n\n    cout << endl;\n}\n\nint main() {\n    printBar(\"Amara\", 9);\n    printBar(\"Sam\", 4);\n    printBar(\"Mia\", 7);\n\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write printRow(char symbol, int count) that prints that symbol that many times on one line, then call it three times with different symbols.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "These three lines are the same code with different numbers. Replace them with one function plus three calls.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"7 x 3 = \" << 7 * 3 << endl;\n    cout << \"7 x 4 = \" << 7 * 4 << endl;\n    cout << \"7 x 5 = \" << 7 * 5 << endl;\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Write times(int a, int b) that prints a line like `3 x 4 = 12`, then use a loop in main to call it for the whole 6 times table.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "This prints 50 both times. Add a comment explaining why the function cannot change main's variable.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nvoid addTen(int number) {\n    number = number + 10;\n}\n\nint main() {\n    int score = 50;\n\n    addTen(score);\n    cout << score << endl;\n\n    addTen(score);\n    cout << score << endl;\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is the difference between a parameter and an argument?",
+      "options": [
+        "The parameter is the slot in the function, the argument is the value passed in",
+        "They are two words for the same thing",
+        "A parameter has a type, an argument does not"
+      ],
+      "answer": 0,
+      "explain": "`void printStars(int count)` declares the parameter. `printStars(7)` supplies the argument."
+    },
+    {
+      "question": "How does C++ decide which argument goes into which parameter?",
+      "options": [
+        "By matching the variable names",
+        "By position, left to right",
+        "By matching the types in any order"
+      ],
+      "answer": 1,
+      "explain": "The first argument fills the first parameter. Swap a number and a string and it will not compile, which is the good outcome."
+    },
+    {
+      "question": "A function changes the value of its plain `int` parameter. What happens to the caller's variable?",
+      "options": [
+        "It changes to match",
+        "It becomes 0",
+        "Nothing: the function was working on a copy"
+      ],
+      "answer": 2,
+      "explain": "That is pass by value. The parameter is a separate variable that started with the same value, and it disappears when the function ends."
+    },
+    {
+      "question": "Can a function other than main use `cin`?",
+      "options": [
+        "Yes: every function can read, and the input carries on where the last read stopped",
+        "No, only main can read input",
+        "Yes, but each function gets its own fresh copy of the input"
+      ],
+      "answer": 0,
+      "explain": "There is one stream of input for the whole program. Whichever function reads next takes the next value."
+    },
+    {
+      "question": "Given `void printBar(int length, char symbol = '*')`, what does `printBar(4);` print?",
+      "options": [
+        "Nothing, it does not compile without a second argument",
+        "****",
+        "4*"
+      ],
+      "answer": 1,
+      "explain": "The missing argument is filled in by the default value, so symbol is '*' for this call."
+    }
+  ]
+}

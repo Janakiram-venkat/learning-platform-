@@ -1,0 +1,191 @@
+{
+  "lessonId": "cpp_intro",
+  "title": "What Is Programming?",
+  "description": "What a program actually is, and why a computer needs such exact instructions.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Computer Follows Orders"
+    },
+    {
+      "type": "paragraph",
+      "value": "A computer is fast, but it never guesses. It does exactly what it is told, in the exact order it is told, and nothing more."
+    },
+    {
+      "type": "analogy",
+      "emoji": "🍞",
+      "real": "Telling a friend how to make toast",
+      "concept": "Writing a program",
+      "text": "A friend fills in the gaps. A computer cannot. Leave out \"push the lever\" and it stands there forever with cold bread. Every step must be there, in the right order."
+    },
+    {
+      "type": "points",
+      "items": [
+        "**Programming** is the job of writing those orders down.",
+        "A **program** is a list of instructions in a language the computer can be made to understand.",
+        "A **bug** is a mistake in a program: usually the computer doing what you wrote, not what you meant."
+      ],
+      "title": "Key ideas"
+    },
+    {
+      "type": "check",
+      "question": "Your program skips a step you forgot to write. What does the computer do?",
+      "options": [
+        "Exactly what you wrote, without the missing step",
+        "Guesses the missing step",
+        "Asks you what you meant",
+        "Refuses to turn on"
+      ],
+      "answer": 0,
+      "explain": "A computer never fills in gaps. It follows the instructions you wrote, even when one is missing."
+    },
+    {
+      "type": "heading",
+      "value": "Instructions Run Top to Bottom"
+    },
+    {
+      "type": "paragraph",
+      "value": "Unless you say otherwise, a program runs one line at a time, starting at the top and working down. That one rule explains most of what you will see."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Bread in.\" << endl;\n    cout << \"Lever down.\" << endl;\n    cout << \"Toast!\" << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "The first instruction runs first. It prints `Bread in.`",
+          "out": [
+            "Bread in."
+          ]
+        },
+        {
+          "line": 6,
+          "note": "Then the next line down prints `Lever down.`",
+          "out": [
+            "Lever down."
+          ]
+        },
+        {
+          "line": 7,
+          "note": "Last line, last output: `Toast!`",
+          "out": [
+            "Toast!"
+          ]
+        }
+      ],
+      "title": "Watch the order",
+      "intro": "Ignore `#include`, `using namespace std;` and `int main()` for now: a later lesson takes each one apart. Watch only the three `cout` lines.",
+      "outro": "Each `cout` line is one instruction. Three instructions, three lines of output, same order."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "`A`, then `B` on the next line",
+        "`AB`",
+        "`B`, then `A` on the next line",
+        "`BA`"
+      ],
+      "answer": 2,
+      "explain": "Lines run top to bottom, so `B` prints first. Each `endl` ends its line, so `A` goes on the next one.",
+      "code": "cout << \"B\" << endl;\ncout << \"A\" << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Why Learn to Program?"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "📱",
+          "text": "Apps, games and websites",
+          "sub": "All of them are lists of instructions somebody wrote."
+        },
+        {
+          "icon": "🛠️",
+          "text": "From user to maker",
+          "sub": "Programming lets you build software, not just use it."
+        },
+        {
+          "icon": "⚡",
+          "text": "What you will build in C++",
+          "sub": "Small games, programs that work with your computer's memory, and your own types of objects."
+        }
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "✏️",
+          "label": "Write",
+          "detail": "type instructions in the editor"
+        },
+        {
+          "icon": "▶️",
+          "label": "Run",
+          "detail": "press Run"
+        },
+        {
+          "icon": "🖥️",
+          "label": "See output",
+          "detail": "read what printed"
+        },
+        {
+          "icon": "🔁",
+          "label": "Change",
+          "detail": "fix or improve, then run again"
+        }
+      ],
+      "title": "How you will work",
+      "caption": "You cannot break anything. The worst that happens is an error message, and you will learn to read those too."
+    },
+    {
+      "type": "paragraph",
+      "value": "Press Run on the editor beside this lesson to see the toast program work."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Bread in.\" << endl;\n    cout << \"Lever down.\" << endl;\n    cout << \"Toast!\" << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Change the three instructions so the program describes brushing your teeth instead: three steps, in the right order.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Bread in.\" << endl;\n    cout << \"Lever down.\" << endl;\n    cout << \"Toast!\" << endl;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is a program?",
+      "options": [
+        "A list of instructions for a computer to follow.",
+        "A machine that thinks for itself.",
+        "A picture of what an app should look like."
+      ],
+      "answer": 0,
+      "explain": "A program is instructions, nothing more. The computer supplies the speed; you supply the thinking."
+    },
+    {
+      "question": "In what order does a program normally run its instructions?",
+      "options": [
+        "All at once, in any order.",
+        "Top to bottom, one line at a time.",
+        "Bottom to top."
+      ],
+      "answer": 1,
+      "explain": "By default each line runs after the one above it. Later you will learn how to change that order on purpose, with decisions and loops."
+    },
+    {
+      "question": "Your program prints the steps of making toast in the wrong order. Whose mistake is it?",
+      "options": [
+        "The computer's: it should have worked out the right order.",
+        "Nobody's: order does not matter.",
+        "Yours: the computer ran the order you wrote."
+      ],
+      "answer": 2,
+      "explain": "The computer never rearranges your instructions to be helpful. If the order is wrong, the order in your code is wrong."
+    }
+  ]
+}

@@ -1,0 +1,440 @@
+{
+  "lessonId": "java_parameters",
+  "title": "Parameters",
+  "description": "Hand values to a method so one method can do the job many ways.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Telling a Method What to Work With"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A method with empty brackets always does exactly the same thing.",
+        "Put a variable declaration inside the brackets, like `int count`. That is a **parameter**.",
+        "The value the caller hands over, like the `3` in `printStars(3)`, is an **argument**."
+      ]
+    },
+    {
+      "type": "analogy",
+      "emoji": "📮",
+      "real": "A labelled envelope and the letter inside",
+      "concept": "A parameter and its argument",
+      "code": "greet(\"Amara\");",
+      "text": "The envelope's label, `name`, is the parameter: the slot. The letter you put in, `\"Amara\"`, is the argument: what goes in the slot."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        greet(\"Amara\");\n        greet(\"Sam\");\n    }\n\n    static void greet(String name) {\n        System.out.println(\"Hello, \" + name + \"!\");\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "A call with the argument `\"Amara\"`. Java jumps into `greet`."
+        },
+        {
+          "line": 7,
+          "note": "The parameter `name` is created and filled with the argument.",
+          "vars": {
+            "name": "\"Amara\""
+          }
+        },
+        {
+          "line": 8,
+          "note": "The body uses `name`.",
+          "out": [
+            "Hello, Amara!"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "Back in `main`. `name` is gone: it only lived inside the method. Now a second call.",
+          "vars": {
+            "name": null
+          }
+        },
+        {
+          "line": 7,
+          "note": "A fresh `name`, this time holding `\"Sam\"`.",
+          "vars": {
+            "name": "\"Sam\""
+          }
+        },
+        {
+          "line": 8,
+          "note": "Same body, different value.",
+          "out": [
+            "Hello, Sam!"
+          ]
+        },
+        {
+          "line": 9,
+          "note": "The method ends and `name` disappears again.",
+          "vars": {
+            "name": null
+          }
+        }
+      ],
+      "title": "Watch the argument travel in",
+      "outro": "The parameter gets a new value on every call."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        printStars(3);\n        printStars(7);\n        printStars(1);\n    }\n\n    static void printStars(int count) {\n        for (int i = 1; i <= count; i++) {\n            System.out.print(\"*\");\n        }\n        System.out.println();\n    }\n}",
+      "output": [
+        "***",
+        "*******",
+        "*"
+      ],
+      "caption": "One method, three different results. A method without parameters can only be reused. One with parameters can be adapted."
+    },
+    {
+      "type": "check",
+      "question": "In `printStars(7)`, what is `7`?",
+      "options": [
+        "The argument",
+        "The parameter",
+        "The method name",
+        "The return type"
+      ],
+      "answer": 0,
+      "explain": "The value you hand over at the call is the argument. `int count` in the header is the parameter that receives it."
+    },
+    {
+      "type": "heading",
+      "value": "More Than One Parameter"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Separate parameters with commas.",
+        "Each one needs its **own type**, even when two in a row share a type.",
+        "Arguments match parameters by **position**, not by name: first to first, second to second."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "static void greet("
+        },
+        {
+          "code": "String name",
+          "label": "1st parameter",
+          "note": "Gets the first argument. Its type is `String`."
+        },
+        {
+          "code": ", "
+        },
+        {
+          "code": "int times",
+          "label": "2nd parameter",
+          "note": "Gets the second argument. It needs its own type, `int`."
+        },
+        {
+          "code": ")"
+        }
+      ],
+      "title": "A header with two parameters"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        printBar(\"Amara\", 9);\n        printBar(\"Sam\", 4);\n        greet(\"Mia\", 3);\n    }\n\n    static void printBar(String name, int length) {\n        System.out.print(name + \" | \");\n        for (int i = 1; i <= length; i++) {\n            System.out.print(\"#\");\n        }\n        System.out.println();\n    }\n\n    static void greet(String name, int times) {\n        for (int i = 1; i <= times; i++) {\n            System.out.println(\"Hello, \" + name + \"!\");\n        }\n    }\n}",
+      "output": [
+        "Amara | #########",
+        "Sam | ####",
+        "Hello, Mia!",
+        "Hello, Mia!",
+        "Hello, Mia!"
+      ],
+      "caption": "Name parameters for what they mean inside the method, whatever the caller's variables happen to be called."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "printBar(\"Amara\", 9);",
+          "text": "A `String` into `name`, an `int` into `length`."
+        },
+        {
+          "title": "Does not compile",
+          "tone": "bad",
+          "code": "printBar(9, \"Amara\");",
+          "text": "An `int` cannot go into a `String` slot. Java's type checking catches it."
+        }
+      ],
+      "title": "Order matters"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "-7",
+        "13",
+        "7",
+        "103"
+      ],
+      "answer": 2,
+      "explain": "`10` goes into `a` and `3` goes into `b`, so the body works out `10 - 3`.",
+      "code": "static void subtract(int a, int b) {\n    System.out.println(a - b);\n}\n\n// in main:\nsubtract(10, 3);"
+    },
+    {
+      "type": "heading",
+      "value": "Passing In What You Read"
+    },
+    {
+      "type": "points",
+      "items": [
+        "An argument does not have to be typed into your code.",
+        "Anything that gives a value of the right type works: a variable, a calculation, or something a `Scanner` just read.",
+        "The method never knows where its values came from. That is what makes it reusable."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "Read",
+          "detail": "`score` is read: 72"
+        },
+        {
+          "icon": "🧮",
+          "label": "Work out",
+          "detail": "`score / 10` gives 7"
+        },
+        {
+          "icon": "📥",
+          "label": "Arrive",
+          "detail": "7 lands in `length`"
+        },
+        {
+          "icon": "📊",
+          "label": "Draw",
+          "detail": "`printBar` draws 7 `#`"
+        }
+      ],
+      "title": "Where the argument comes from"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Name? \");\n        String name = scanner.nextLine();\n\n        System.out.print(\"Score out of 100? \");\n        int score = scanner.nextInt();\n\n        printBar(name, score / 10);\n        describe(score);\n    }\n\n    static void printBar(String label, int length) {\n        System.out.print(label + \" | \");\n        for (int i = 1; i <= length; i++) {\n            System.out.print(\"#\");\n        }\n        System.out.println();\n    }\n\n    static void describe(int score) {\n        if (score >= 75) {\n            System.out.println(\"Excellent.\");\n        } else if (score >= 40) {\n            System.out.println(\"A pass.\");\n        } else {\n            System.out.println(\"Needs work.\");\n        }\n    }\n}",
+      "caption": "Sample run: type `Mia` and `72`. It prints `Mia | #######` then `A pass.`"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        askAndDouble(scanner, \"First number\");\n        askAndDouble(scanner, \"Second number\");\n    }\n\n    static void askAndDouble(Scanner scanner, String label) {\n        System.out.print(label + \"? \");\n        int n = scanner.nextInt();\n        System.out.println(label + \" doubled is \" + n * 2);\n    }\n}",
+      "caption": "A parameter can be any type, even a `Scanner`. Both calls read from the same keyboard: what is passed is the same scanner, not a copy (Module 8 explains why). Create the `Scanner` once, in `main`, and pass it on: a second one on `System.in` causes confusing input bugs. Sample run: type `4` and `9`, it prints `First number doubled is 8` and `Second number doubled is 18`."
+    },
+    {
+      "type": "heading",
+      "value": "A Parameter Is a Copy"
+    },
+    {
+      "type": "paragraph",
+      "value": "When you pass a number, the method gets a **copy** of it. Changing the copy does nothing to the original."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int score = 50;\n        System.out.println(\"Before the call:    \" + score);\n        addTen(score);\n        System.out.println(\"After the call:     \" + score);\n    }\n\n    static void addTen(int number) {\n        number = number + 10;\n        System.out.println(\"Inside the method:  \" + number);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "`main` has `score`.",
+          "vars": {
+            "score": "50"
+          }
+        },
+        {
+          "line": 4,
+          "note": "Print it.",
+          "out": [
+            "Before the call:    50"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "Call `addTen`, handing over the value of `score`."
+        },
+        {
+          "line": 9,
+          "note": "A new variable `number` starts as a copy: 50.",
+          "vars": {
+            "number": "50"
+          }
+        },
+        {
+          "line": 10,
+          "note": "Only the copy changes.",
+          "vars": {
+            "number": "60"
+          }
+        },
+        {
+          "line": 11,
+          "note": "Inside the method it really is 60.",
+          "out": [
+            "Inside the method:  60"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "The method ended, so `number` vanished. `score` never moved.",
+          "vars": {
+            "number": null
+          },
+          "out": [
+            "After the call:     50"
+          ]
+        }
+      ],
+      "title": "Watch the copy change, not the original",
+      "outro": "So `addTen(score);` on its own is almost always a bug. To get a worked-out value back, the method must hand it back: that is the next lesson."
+    },
+    {
+      "type": "tip",
+      "value": "The copy rule makes methods safe. A method cannot reach out and quietly change your variables, so a bug in one method stays in that method.",
+      "title": "Why this is good"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "0",
+        "50",
+        "5",
+        "Nothing, it does not compile"
+      ],
+      "answer": 2,
+      "explain": "`n` is a copy of `x`. Setting the copy to `0` leaves `x` at 5.",
+      "code": "static void reset(int n) {\n    n = 0;\n}\n\n// in main:\nint x = 5;\nreset(x);\nSystem.out.println(x);"
+    },
+    {
+      "type": "heading",
+      "value": "Java Has No Default Values"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Not Java",
+          "tone": "bad",
+          "code": "static void printStars(int count = 3)",
+          "text": "Some languages let an argument be optional like this. Java does not compile it."
+        },
+        {
+          "title": "Java",
+          "tone": "good",
+          "code": "printStars(3);\nprintStars(5);",
+          "text": "Every call gives a value for every parameter."
+        }
+      ],
+      "title": "Every parameter needs a value"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Java's answer: a second method with the same name and fewer parameters. That is **overloading**, two lessons from here.",
+        "Keep parameter lists short. One or two is comfortable, three is fine. Five is a method that wants splitting up."
+      ]
+    },
+    {
+      "type": "check",
+      "question": "How many arguments must every call to this method give?",
+      "options": [
+        "1",
+        "0 or more",
+        "2",
+        "As many as you like"
+      ],
+      "answer": 2,
+      "explain": "There are two parameters and Java has no default values, so every call gives exactly two arguments, in order.",
+      "code": "static void printBar(String name, int length)"
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        printBar(\"Amara\", 9);\n        printBar(\"Sam\", 4);\n        printBar(\"Mia\", 7);\n    }\n\n    static void printBar(String name, int length) {\n        System.out.print(name + \" | \");\n\n        for (int i = 1; i <= length; i++) {\n            System.out.print(\"#\");\n        }\n\n        System.out.println();\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write printRow(char symbol, int count) that prints that symbol that many times on one line, then call it three times with different symbols.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n\n}"
+    },
+    {
+      "id": 2,
+      "question": "These three blocks are the same code with different numbers. Replace them with one method plus three calls.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"7 x 3 = \" + (7 * 3));\n        System.out.println(\"7 x 4 = \" + (7 * 4));\n        System.out.println(\"7 x 5 = \" + (7 * 5));\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Write times(int a, int b) that prints a line like `3 x 4 = 12`, then use a loop in main to call it for the whole 6 times table.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n\n}"
+    },
+    {
+      "id": 4,
+      "question": "This prints 50 both times. Add a comment explaining why the method cannot change main's variable.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int score = 50;\n\n        addTen(score);\n        System.out.println(score);\n\n        addTen(score);\n        System.out.println(score);\n    }\n\n    static void addTen(int number) {\n        number = number + 10;\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is the difference between a parameter and an argument?",
+      "options": [
+        "The parameter is the slot in the method, the argument is the value passed in",
+        "They are two words for the same thing",
+        "A parameter has a type, an argument does not"
+      ],
+      "answer": 0,
+      "explain": "`static void printStars(int count)` declares the parameter. `printStars(7)` supplies the argument."
+    },
+    {
+      "question": "How does Java decide which argument goes into which parameter?",
+      "options": [
+        "By position, left to right",
+        "By matching the variable names",
+        "By matching the types in any order"
+      ],
+      "answer": 0,
+      "explain": "The first argument fills the first parameter. Swap two of different types and it will not compile, which is the good outcome."
+    },
+    {
+      "question": "A method changes the value of its int parameter. What happens to the caller's variable?",
+      "options": [
+        "Nothing: the method was working on a copy",
+        "It changes to match",
+        "It becomes 0"
+      ],
+      "answer": 0,
+      "explain": "The parameter is a separate variable that started with the same value, and it disappears when the method ends."
+    },
+    {
+      "question": "Can you pass a Scanner to a method?",
+      "options": [
+        "Yes, and both the method and main then read from the same input",
+        "No, Scanner can only be used in main",
+        "Yes, but each method gets its own fresh copy of the input"
+      ],
+      "answer": 0,
+      "explain": "Create one Scanner in `main` and pass it around. A second Scanner on System.in while the first is alive causes hard-to-find input bugs."
+    },
+    {
+      "question": "How do you write a method whose argument is optional in Java?",
+      "options": [
+        "You cannot: you write a second method with the same name and fewer parameters",
+        "Give the parameter a default with `= value`",
+        "Leave the parameter's type off"
+      ],
+      "answer": 0,
+      "explain": "Java has no default parameter values. Overloading, coming up shortly, is the replacement."
+    }
+  ]
+}

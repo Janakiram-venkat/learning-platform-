@@ -1,0 +1,354 @@
+{
+  "lessonId": "java_overloading",
+  "title": "Method Overloading",
+  "description": "Several methods sharing one name, told apart by what you pass them.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Two Methods, One Name"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Java lets several methods share a name, as long as they take different things.",
+        "At each call, Java picks the one whose parameters match the arguments. This is **overloading**.",
+        "Without it you would need `greet`, `greetName` and `greetNameTimes`, and have to remember which is which."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        greet();\n        greet(\"Amara\");\n        greet(\"Sam\", 3);\n    }\n\n    static void greet() {\n        System.out.println(\"Hello!\");\n    }\n\n    static void greet(String name) {\n        System.out.println(\"Hello, \" + name + \"!\");\n    }\n\n    static void greet(String name, int times) {\n        for (int i = 1; i <= times; i++) {\n            System.out.println(\"Hello, \" + name + \"!\");\n        }\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "No arguments. Only one `greet` takes nothing."
+        },
+        {
+          "line": 8,
+          "note": "So Java jumps into that one."
+        },
+        {
+          "line": 9,
+          "note": "Its body runs.",
+          "out": [
+            "Hello!"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "One `String` argument. That matches `greet(String name)`."
+        },
+        {
+          "line": 12,
+          "note": "Java picks the one-parameter version.",
+          "vars": {
+            "name": "\"Amara\""
+          }
+        },
+        {
+          "line": 13,
+          "note": "It prints the greeting.",
+          "out": [
+            "Hello, Amara!"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "A `String` and an `int`. Only the third version matches.",
+          "vars": {
+            "name": null
+          }
+        },
+        {
+          "line": 16,
+          "note": "Into the two-parameter version.",
+          "vars": {
+            "name": "\"Sam\"",
+            "times": "3"
+          }
+        },
+        {
+          "line": 18,
+          "note": "The loop prints the greeting three times.",
+          "out": [
+            "Hello, Sam!",
+            "Hello, Sam!",
+            "Hello, Sam!"
+          ]
+        }
+      ],
+      "title": "Watch Java pick by the arguments",
+      "outro": "Three separate methods, one name between them."
+    },
+    {
+      "type": "check",
+      "question": "Which `greet` runs for `greet(\"Mia\")`?",
+      "options": [
+        "greet()",
+        "greet(String name, int times)",
+        "greet(String name)",
+        "None: it does not compile"
+      ],
+      "answer": 2,
+      "explain": "One `String` argument matches the version with one `String` parameter."
+    },
+    {
+      "type": "heading",
+      "value": "What Has to Be Different"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A method's **signature** is its name plus its parameter list: how many, what types, in what order.",
+        "Two methods may share a name only if their signatures differ: a different number, type or order of parameters.",
+        "Different parameter **names** do not count. Neither does a different **return type**."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Does not compile",
+          "tone": "bad",
+          "code": "static int size(String text)\nstatic double size(String text)",
+          "text": "Same parameters. `error: method size(String) is already defined in class Main`."
+        },
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "static int half(int n)\nstatic double half(double n)",
+          "text": "Different parameter types, so every call matches exactly one."
+        }
+      ],
+      "title": "Return type alone is not enough",
+      "caption": "At the call `size(\"hello\")` there would be no way to know which one you meant, so javac rejects it."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(half(9));\n        System.out.println(half(9.0));\n    }\n\n    static int half(int n) {\n        System.out.print(\"int version: \");\n        return n / 2;\n    }\n\n    static double half(double n) {\n        System.out.print(\"double version: \");\n        return n / 2;\n    }\n}",
+      "output": [
+        "int version: 4",
+        "double version: 4.5"
+      ],
+      "caption": "`9` is an int, so it goes to the int version, and whole-number division drops the half. `9.0` is a double, so it goes to the other. Java makes this choice when it compiles, from the types written in your code."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "double version: 3.5",
+        "int version: 3.5",
+        "int version: 3",
+        "double version: 3.0"
+      ],
+      "answer": 2,
+      "explain": "`7` is an int, so the int version runs, and `7 / 2` in whole numbers is 3.",
+      "code": "// using the two half methods above\nSystem.out.println(half(7));"
+    },
+    {
+      "type": "heading",
+      "value": "You Have Used It All Along"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🔑",
+      "real": "One word, \"open\", for a door, a jar or a book",
+      "concept": "One overloaded method name",
+      "code": "System.out.println(42);\nSystem.out.println(\"text\");",
+      "text": "You say \"open\" and the thing in your hand decides how. `println` works the same way: the argument's type picks the version."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(42);\n        System.out.println(3.5);\n        System.out.println(true);\n        System.out.println('A');\n        System.out.println(\"text\");\n    }\n}",
+      "output": [
+        "42",
+        "3.5",
+        "true",
+        "A",
+        "text"
+      ],
+      "caption": "`println` has a version for an int, a double, a boolean, a char, a String and more, all sharing one name."
+    },
+    {
+      "type": "paragraph",
+      "value": "You never had to think about which print to use. That is the point of overloading: the library author took the trouble so you did not have to."
+    },
+    {
+      "type": "heading",
+      "value": "The Missing Default Value"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Java has no default parameter values. Overloading is the replacement.",
+        "The standard pattern: the short method fills in the default and hands over to the long one.",
+        "Only one method holds the real work. Never copy the same loop into both overloads."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "📞",
+          "label": "printBar(7)",
+          "detail": "The short version is called"
+        },
+        {
+          "icon": "➡️",
+          "label": "printBar(7, '*')",
+          "detail": "It adds the default symbol"
+        },
+        {
+          "icon": "🔁",
+          "label": "The loop",
+          "detail": "Draws 7 stars"
+        }
+      ],
+      "title": "The short one hands over"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        printBar(7);\n        printBar(7, '#');\n        printBar(3, '=');\n    }\n\n    // The short version: supplies the default, then hands over.\n    static void printBar(int length) {\n        printBar(length, '*');\n    }\n\n    // The long version: the only place the real work lives.\n    static void printBar(int length, char symbol) {\n        for (int i = 1; i <= length; i++) {\n            System.out.print(symbol);\n        }\n        System.out.println();\n    }\n}",
+      "output": [
+        "*******",
+        "#######",
+        "==="
+      ],
+      "caption": "This pattern scales: `printBar(int)` calls `printBar(int, char)`, which could call `printBar(int, char, String)`. Each overload adds one decision and passes the rest along."
+    },
+    {
+      "type": "heading",
+      "value": "When Not To Overload"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Same idea",
+          "tone": "good",
+          "code": "report(\"Amara\", 92);\nreport(\"Sam\", 92, true);",
+          "text": "Both print a score line. One just has an extra detail."
+        },
+        {
+          "title": "Different jobs",
+          "tone": "bad",
+          "code": "process(total);    // prints a total\nprocess(file);     // deletes a file",
+          "text": "Same name, unrelated behaviour. A cruel trap for the next reader."
+        }
+      ],
+      "title": "A shared name is a promise"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Overload only when the methods really do the same job.",
+        "Take care with overloads that differ only by `int` and `double`, like `half`. `half(9)` and `half(9.0)` look alike but act differently. Two names may be kinder."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        report(\"Amara\", 92);\n        report(\"Sam\", 92, true);\n        report(\"Mia\", 150);\n    }\n\n    // Two arguments: assume it is not a retake.\n    static void report(String name, int score) {\n        report(name, score, false);\n    }\n\n    static void report(String name, int score, boolean retake) {\n        if (!isValid(score)) {\n            System.out.println(name + \": \" + score + \" is not a valid score\");\n            return;\n        }\n        String line = name + \": \" + score;\n        if (retake) {\n            line = line + \" (retake)\";\n        }\n        System.out.println(line);\n    }\n\n    static boolean isValid(int score) {\n        return score >= 0 && score <= 100;\n    }\n}",
+      "output": [
+        "Amara: 92",
+        "Sam: 92 (retake)",
+        "Mia: 150 is not a valid score"
+      ],
+      "caption": "The whole lesson in one program: three calls, two overloads, and one place where the work actually happens, with a boolean helper doing the checking."
+    },
+    {
+      "type": "check",
+      "question": "Which pair can NOT both be in one class?",
+      "options": [
+        "int area(int s) and int area(int w, int h)",
+        "int area(int s) and double area(int s)",
+        "int area(int s) and double area(double s)",
+        "void show() and void show(String t)"
+      ],
+      "answer": 1,
+      "explain": "Those two have the same parameter list. A different return type alone does not make a different signature."
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        printBar(7);\n        printBar(7, '#');\n        printBar(3, '=');\n    }\n\n    static void printBar(int length) {\n        printBar(length, '*');\n    }\n\n    static void printBar(int length, char symbol) {\n        for (int i = 1; i <= length; i++) {\n            System.out.print(symbol);\n        }\n\n        System.out.println();\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write two overloads of area: one taking a single side for a square, one taking a width and a height. Call both.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Uncomment these once both methods exist.\n        // System.out.println(area(5));\n        // System.out.println(area(4, 6));\n    }\n\n}"
+    },
+    {
+      "id": 2,
+      "question": "Write max(int a, int b) and then max(int a, int b, int c). The three-number version must call the two-number one rather than repeating its logic.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Uncomment these once both methods exist.\n        // System.out.println(max(17, 42));\n        // System.out.println(max(17, 42, 8));\n    }\n\n}"
+    },
+    {
+      "id": 3,
+      "question": "Add a one-argument overload of printRow so that printRow(5) draws five stars, while printRow(5, '#') still works.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        printRow(5);\n        printRow(5, '#');\n    }\n\n    static void printRow(int count) {\n\n    }\n\n    static void printRow(int count, char symbol) {\n        for (int i = 1; i <= count; i++) {\n            System.out.print(symbol);\n        }\n\n        System.out.println();\n    }\n}"
+    },
+    {
+      "id": 4,
+      "question": "This does not compile. Read the error, then fix it by giving one of the methods a different parameter list or a different name.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(size(\"hello\"));\n    }\n\n    static int size(String text) {\n        return text.length();\n    }\n\n    static double size(String text) {\n        return text.length();\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is method overloading?",
+      "options": [
+        "Several methods with the same name but different parameter lists",
+        "Calling a method too many times",
+        "A method that calls itself"
+      ],
+      "answer": 0,
+      "explain": "Java picks the right one from the arguments at the call site."
+    },
+    {
+      "question": "Which of these is NOT enough to tell two overloads apart?",
+      "options": [
+        "A different return type",
+        "A different number of parameters",
+        "Different parameter types"
+      ],
+      "answer": 0,
+      "explain": "The signature is the name plus the parameter list. `int size(String)` and `double size(String)` clash, and javac says the method is already defined."
+    },
+    {
+      "question": "Given `int half(int)` and `double half(double)`, what does `half(9)` give?",
+      "options": [
+        "4, because 9 is an int and whole-number division chops the half off",
+        "4.5, because that is the true answer",
+        "It is ambiguous and will not compile"
+      ],
+      "answer": 0,
+      "explain": "The type you write decides the overload. `half(9.0)` would give 4.5."
+    },
+    {
+      "question": "How do you get the effect of an optional argument in Java?",
+      "options": [
+        "Write a shorter overload that fills in the default and calls the longer one",
+        "Write `int count = 3` in the parameter list",
+        "Pass null and check for it"
+      ],
+      "answer": 0,
+      "explain": "Only the long version holds the logic. The short one is a single delegating line."
+    },
+    {
+      "question": "When is overloading a bad idea?",
+      "options": [
+        "When the methods do genuinely different jobs, because the shared name lies",
+        "When there are more than two of them",
+        "When the parameters have different types"
+      ],
+      "answer": 0,
+      "explain": "A shared name promises a shared idea. If the behaviour differs, two clear names are kinder to the reader."
+    }
+  ]
+}

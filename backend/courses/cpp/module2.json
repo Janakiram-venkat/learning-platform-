@@ -1,0 +1,32 @@
+{
+  "moduleId": 2,
+  "title": "Variables and Data Types",
+  "lessons": [
+    {
+      "lessonId": "cpp_variables",
+      "title": "Variables",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "cpp_fundamental_types",
+      "title": "Fundamental Types",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_strings_intro",
+      "title": "Strings",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "cpp_type_casting",
+      "title": "Converting Between Types",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_constants",
+      "title": "Constants and auto",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

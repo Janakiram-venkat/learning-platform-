@@ -1,0 +1,372 @@
+{
+  "lessonId": "cpp_printing",
+  "title": "Printing and Comments",
+  "description": "Ending lines with endl and \\n, chaining with <<, escape sequences, and notes that C++ ignores.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Ending a Line"
+    },
+    {
+      "type": "paragraph",
+      "value": "`cout` never moves to a new line by itself. It prints exactly what you send and stays put, so the next print carries straight on."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "With endl",
+          "tone": "neutral",
+          "code": "cout << \"Hi\" << endl;\ncout << \"Bye\" << endl;",
+          "text": "`Hi` and `Bye` on **two lines**."
+        },
+        {
+          "title": "Without endl",
+          "tone": "neutral",
+          "code": "cout << \"Hi\";\ncout << \"Bye\";",
+          "text": "`HiBye` on **one line**."
+        }
+      ],
+      "title": "With and without endl"
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello, \";\n    cout << \"world\";\n    cout << \"!\" << endl;\n    cout << \"A brand new line.\" << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "`Hello, ` is printed, and the line stays open."
+        },
+        {
+          "line": 6,
+          "note": "`world` carries straight on, on the same line."
+        },
+        {
+          "line": 7,
+          "note": "`!` is added, then `endl` finishes the line.",
+          "out": [
+            "Hello, world!"
+          ]
+        },
+        {
+          "line": 8,
+          "note": "A fresh line starts.",
+          "out": [
+            "A brand new line."
+          ]
+        }
+      ],
+      "title": "Building one line",
+      "outro": "Four instructions, two lines of output."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "`A`, `B` and `C` on three lines",
+        "`ABC` on one line",
+        "`AB` on one line, then `C` on the next",
+        "`A` on one line, then `BC`"
+      ],
+      "answer": 2,
+      "explain": "No `endl` after `A`, so `B` follows it. `endl` then ends that line, so `C` starts a new one.",
+      "code": "cout << \"A\";\ncout << \"B\" << endl;\ncout << \"C\";"
+    },
+    {
+      "type": "heading",
+      "value": "endl or \\n?"
+    },
+    {
+      "type": "paragraph",
+      "value": "A second way to end a line: put `\\n` inside the text, or send `\"\\n\"` on its own. A backslash and `n` together mean \"new line\"."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "cout << "
+        },
+        {
+          "code": "\"Line one"
+        },
+        {
+          "code": "\\n",
+          "label": "new line",
+          "note": "Two characters in the code, one line break in the output."
+        },
+        {
+          "code": "\";"
+        }
+      ],
+      "title": "A new line inside the text"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Line one\\n\";\n    cout << \"Line two\" << \"\\n\";\n    cout << \"Line three\" << endl;\n    return 0;\n}",
+      "output": [
+        "Line one",
+        "Line two",
+        "Line three"
+      ],
+      "caption": "Leaving the line open is useful too: in Module 3 you will ask a question and let the user type on the same line."
+    },
+    {
+      "type": "paragraph",
+      "value": "The difference is small. `endl` also **flushes**: it pushes everything to the screen straight away. `\"\\n\"` only ends the line, so it is a little faster. Either is fine here."
+    },
+    {
+      "type": "heading",
+      "value": "Chaining with <<"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "cout"
+        },
+        {
+          "code": " << "
+        },
+        {
+          "code": "\"Pocket\"",
+          "label": "text"
+        },
+        {
+          "code": " << "
+        },
+        {
+          "code": "\" \"",
+          "label": "a space",
+          "note": "The only space in the result comes from here."
+        },
+        {
+          "code": " << "
+        },
+        {
+          "code": "\"Lab\"",
+          "label": "text"
+        },
+        {
+          "code": " << "
+        },
+        {
+          "code": "endl",
+          "label": "end line"
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "One cout, many pieces",
+      "caption": "Pieces come out in order with nothing added between them. Want a space? Put it inside quotes."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Pocket\" << \"Lab\" << endl;\n    cout << \"Pocket\" << \" \" << \"Lab\" << endl;\n    cout << \"2 + 2 is \" << 2 + 2 << endl;\n    return 0;\n}",
+      "output": [
+        "PocketLab",
+        "Pocket Lab",
+        "2 + 2 is 4"
+      ],
+      "caption": "`cout` prints numbers too. Text in quotes prints exactly as written, while `2 + 2` without quotes is maths, worked out first. More in Module 2."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "`Hi there`",
+        "`Hi << there`",
+        "`Hithere`",
+        "An error"
+      ],
+      "answer": 2,
+      "explain": "`<<` adds no space. To get `Hi there`, put a space inside one of the quotes.",
+      "code": "cout << \"Hi\" << \"there\" << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Printing Awkward Characters"
+    },
+    {
+      "type": "paragraph",
+      "value": "Text starts and ends with a double quote, so how do you print one? You **escape** it. A backslash `\\` means \"treat the next character specially\"."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "❝",
+          "text": "`\\\"`",
+          "sub": "a double quote, without ending the text"
+        },
+        {
+          "icon": "↵",
+          "text": "`\\n`",
+          "sub": "a new line"
+        },
+        {
+          "icon": "⇥",
+          "text": "`\\t`",
+          "sub": "a tab: jumps to the next tab stop"
+        },
+        {
+          "icon": "⧵",
+          "text": "`\\\\`",
+          "sub": "a single backslash"
+        }
+      ],
+      "title": "Escape sequences worth knowing"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "\"She said "
+        },
+        {
+          "code": "\\\"",
+          "label": "a quote",
+          "note": "Printed as `\"`, and the text keeps going."
+        },
+        {
+          "code": "hello"
+        },
+        {
+          "code": "\\\"",
+          "label": "a quote"
+        },
+        {
+          "code": "\""
+        }
+      ],
+      "title": "A quote inside the text"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"She said \\\"hello\\\" and left.\" << endl;\n    cout << \"Name:\\tAmara\" << endl;\n    cout << \"Top\\nBottom\" << endl;\n    return 0;\n}",
+      "output": [
+        "She said \"hello\" and left.",
+        "Name:\tAmara",
+        "Top",
+        "Bottom"
+      ],
+      "caption": "Tabs are handy for lining up labels in columns. You will use one in this module's project."
+    },
+    {
+      "type": "heading",
+      "value": "Comments: Notes C++ Ignores"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🗒️",
+      "real": "A sticky note on a recipe",
+      "concept": "A comment in your code",
+      "text": "The cook reads the recipe and ignores the note. The compiler does the same: a **comment** is a note for humans, skipped completely."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // This line is a note, and it does nothing.\n    cout << \"I run.\" << endl;   // notes can also sit after code\n\n    /* A longer note,\n       spread over two lines. */\n\n    // cout << \"I do not run.\" << endl;\n    return 0;\n}",
+      "output": [
+        "I run."
+      ],
+      "caption": "`//` starts a note that runs to the end of the line. `/*` and `*/` wrap a note over several lines."
+    },
+    {
+      "type": "tip",
+      "value": "Putting `//` in front of a real instruction switches it off without deleting it. This is **commenting out**, a quick way to test which line causes a problem. Explain **why** in comments: `// bonus point for a fast answer` beats `// add 1 to score`.",
+      "title": "Two good habits"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "`A`, `B` and `C`",
+        "`A` and `B`",
+        "`B`",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "The `A` line is commented out with `//` and the `C` line sits inside `/* */`. Only `B` runs.",
+      "code": "// cout << \"A\" << endl;\ncout << \"B\" << endl;\n/* cout << \"C\" << endl; */"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello, \";\n    cout << \"world!\" << endl;\n    cout << \"Name:\\tAmara\" << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Use three separate `cout` instructions so the output is exactly one line reading: C++ is fun! Only the last one should end the line.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Print this exactly, quotes included: My teacher said \"well done\" today.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Print a two line shopping list using a single `cout` with `\\n` in the middle: Bread on the first line, Milk on the second. Add a comment above it saying what it is.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What happens if you print with `cout` and never send `endl` or `\\n`?",
+      "options": [
+        "C++ adds a new line for you anyway.",
+        "The program refuses to compile.",
+        "The next output carries on along the same line."
+      ],
+      "answer": 2,
+      "explain": "`cout` only moves to a new line when you tell it to, with `endl` or `\\n`."
+    },
+    {
+      "question": "What does this print?  `cout << \"Game\" << \"Over\" << endl;`",
+      "options": [
+        "Game Over",
+        "GameOver",
+        "Game << Over"
+      ],
+      "answer": 1,
+      "explain": "`<<` sends the pieces one after another with nothing in between. A space has to be written inside the quotes: `\"Game\" << \" \" << \"Over\"`."
+    },
+    {
+      "question": "How do you print a double quote inside a piece of text?",
+      "options": [
+        "Escape it as `\\\"`",
+        "Use two double quotes in a row.",
+        "You cannot print a double quote."
+      ],
+      "answer": 0,
+      "explain": "The backslash tells C++ the next character is part of the text rather than the end of it, so `\\\"` prints a quote."
+    },
+    {
+      "question": "What happens to a line starting with `//`?",
+      "options": [
+        "It is printed as a message.",
+        "The compiler reports an error.",
+        "The compiler ignores it completely."
+      ],
+      "answer": 2,
+      "explain": "`//` starts a comment: a note for people reading the code. The compiler skips straight past it."
+    },
+    {
+      "question": "Which escape sequence starts a new line?",
+      "options": [
+        "`\\t`",
+        "`\\n`",
+        "`\\\\`"
+      ],
+      "answer": 1,
+      "explain": "`\\n` is a new line, `\\t` is a tab, and `\\\\` prints a single backslash."
+    }
+  ]
+}

@@ -9,8 +9,37 @@
       "value": "Checking More Than One Thing"
     },
     {
+      "type": "analogy",
+      "emoji": "🌳",
+      "real": "Going to the park",
+      "concept": "Combining conditions",
+      "code": "if sunny and homework_done:",
+      "text": "You can go to the park only if it is sunny **and** your homework is done. Some decisions depend on more than one thing."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🤝",
+          "text": "`and`",
+          "sub": "Both must be True."
+        },
+        {
+          "icon": "🙌",
+          "text": "`or`",
+          "sub": "At least one must be True."
+        },
+        {
+          "icon": "🔄",
+          "text": "`not`",
+          "sub": "Flips True to False, and False to True."
+        }
+      ],
+      "title": "Three keywords that combine conditions"
+    },
+    {
       "type": "paragraph",
-      "value": "Sometimes a decision depends on more than one thing. You can go to the park only if it is sunny and your homework is done. Python combines conditions with three keywords: `and`, `or`, and `not`. Flip the switches below to see what each one does."
+      "value": "Flip the switches below to see what each one does."
     },
     {
       "type": "widget",
@@ -21,44 +50,206 @@
       "b": true
     },
     {
+      "type": "check",
+      "question": "It is sunny, but your homework is not done. Is `sunny and homework_done` True?",
+      "options": [
+        "No, it is False",
+        "Yes, it is True",
+        "It gives an error",
+        "It depends on the weather"
+      ],
+      "answer": 0,
+      "explain": "`and` needs both sides to be True. One False makes the whole thing False."
+    },
+    {
       "type": "heading",
-      "value": "and, or, not"
+      "value": "and, or"
     },
     {
-      "type": "paragraph",
-      "value": "`and` is True only when both sides are True, so a single False makes the whole thing False. `or` is True when at least one side is True, and is False only when both sides are False. `not` takes a single value and flips it to the opposite."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "and",
+          "tone": "neutral",
+          "code": "True and True    # True\nTrue and False   # False\nFalse and False  # False",
+          "text": "True only when **both** sides are True. A single False makes the whole thing False."
+        },
+        {
+          "title": "or",
+          "tone": "neutral",
+          "code": "True or True     # True\nTrue or False    # True\nFalse or False   # False",
+          "text": "True when **at least one** side is True. False only when both are False."
+        }
+      ],
+      "title": "How each one decides"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "sunny = True\nhomework_done = True\n\nif sunny and homework_done:\n    print(\"You can go to the park!\")"
+      "value": "sunny = True\nhomework_done = True\n\nif sunny and homework_done:\n    print(\"You can go to the park!\")\n\nhas_cookie = True\nhas_cake = False\n\nif has_cookie or has_cake:\n    print(\"You have a sweet treat!\")",
+      "output": [
+        "You can go to the park!",
+        "You have a sweet treat!"
+      ]
+    },
+    {
+      "type": "check",
+      "question": "What does `True or False` give?",
+      "options": [
+        "True",
+        "False",
+        "An error",
+        "None"
+      ],
+      "answer": 0,
+      "explain": "`or` needs just one side to be True, and the left side is."
+    },
+    {
+      "type": "heading",
+      "value": "not"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "print("
+        },
+        {
+          "code": "not",
+          "label": "flip",
+          "note": "Takes a single value and turns it into the opposite."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "raining",
+          "label": "value",
+          "note": "Holds `False`, so `not raining` is `True`."
+        },
+        {
+          "code": ")"
+        }
+      ],
+      "title": "not takes one value"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "has_cookie = True\nhas_cake = False\n\nif has_cookie or has_cake:\n    print(\"You have a sweet treat!\")"
+      "value": "raining = False\nprint(not raining)",
+      "output": [
+        "True"
+      ]
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "raining = False\nprint(not raining)    # True"
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Works, but wordy",
+          "tone": "neutral",
+          "code": "if sunny == True:",
+          "text": "Compares a boolean to `True`. Extra work."
+        },
+        {
+          "title": "Cleaner",
+          "tone": "good",
+          "code": "if sunny:",
+          "text": "`sunny` already holds True or False. This means the same thing and reads better."
+        }
+      ],
+      "title": "No need for == True"
     },
     {
-      "type": "tip",
-      "value": "A variable that already holds True or False does not need `== True`. Writing `if sunny:` is the same as `if sunny == True:`, and it reads better."
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "False",
+        "has_key",
+        "True",
+        "Error"
+      ],
+      "answer": 2,
+      "explain": "`or` needs only one True side. `has_key` is True, so the whole thing is `True`.",
+      "code": "has_key = True\nknows_code = False\nprint(has_key or knows_code)"
     },
     {
       "type": "heading",
       "value": "Putting Them Together"
     },
     {
-      "type": "paragraph",
-      "value": "You can mix these keywords with the comparisons you learned earlier, and combine more than two at once. Use parentheses when you want to be sure which part is worked out first."
+      "type": "points",
+      "items": [
+        "Mix `and`, `or`, `not` with the comparisons from earlier.",
+        "You can combine more than two at once.",
+        "Use parentheses `( )` when you want to be sure which part is worked out first."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "raining = True\nhas_umbrella = False\nif raining and not has_umbrella:\n    print(\"You will get wet!\")",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Store `True` in `raining`.",
+          "vars": {
+            "raining": "True"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Store `False` in `has_umbrella`.",
+          "vars": {
+            "has_umbrella": "False"
+          }
+        },
+        {
+          "line": 3,
+          "note": "Work out `not has_umbrella` first: `not False` is `True`. Then `True and True` is True."
+        },
+        {
+          "line": 4,
+          "note": "The condition was True, so the block runs.",
+          "out": [
+            "You will get wet!"
+          ]
+        }
+      ],
+      "title": "Work out the condition",
+      "outro": "`not` is applied to its value before `and` combines the two sides."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "age = 15\nhas_ticket = True\n\nif age >= 12 and has_ticket:\n    print(\"Enjoy the film!\")\n\nraining = True\nhas_umbrella = False\n\nif raining and not has_umbrella:\n    print(\"You will get wet!\")"
+      "value": "age = 15\nhas_ticket = True\n\nif age >= 12 and has_ticket:\n    print(\"Enjoy the film!\")\n\nraining = True\nhas_umbrella = False\n\nif raining and not has_umbrella:\n    print(\"You will get wet!\")",
+      "output": [
+        "Enjoy the film!",
+        "You will get wet!"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "money = 3\nis_member = True\nprint((money >= 5) or is_member)",
+      "output": [
+        "True"
+      ],
+      "caption": "Parentheses make it clear the comparison is worked out first."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Go out",
+        "Go out then Stay home",
+        "Stay home",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`age >= 12` is True, but `has_ticket` is False. `and` needs both, so the condition is False and `else` runs.",
+      "code": "age = 13\nhas_ticket = False\nif age >= 12 and has_ticket:\n    print(\"Go out\")\nelse:\n    print(\"Stay home\")"
     }
   ],
   "editorCode": "raining = True\nhas_umbrella = False\nif raining and not has_umbrella:\n    print(\"You will get wet!\")",

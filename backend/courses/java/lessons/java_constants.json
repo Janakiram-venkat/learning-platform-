@@ -1,0 +1,325 @@
+{
+  "lessonId": "java_constants",
+  "title": "Constants and Naming",
+  "description": "Values that must never change, and the naming conventions every Java programmer follows.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Value That Must Not Change"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🔒",
+      "real": "A rule written in permanent ink",
+      "concept": "A `final` variable",
+      "code": "final int MAX_LIVES = 3;",
+      "text": "Some values are decided once: starting lives, a tax rate. `final` locks the value so nothing can overwrite it."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Normal variable",
+          "tone": "good",
+          "code": "int lives = 3;\nlives = 5;   // fine",
+          "text": "A normal variable can change any time."
+        },
+        {
+          "title": "final variable",
+          "tone": "bad",
+          "code": "final int MAX_LIVES = 3;\nMAX_LIVES = 5;   // error",
+          "text": "Compile error: `cannot assign a value to final variable MAX_LIVES`."
+        }
+      ],
+      "title": "Changing a normal vs a final variable",
+      "caption": "Java catches the mistake before the program ever runs."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        final int MAX_LIVES = 3;\n        final double TAX_RATE = 0.18;\n\n        System.out.println(\"You get \" + MAX_LIVES + \" lives.\");\n        System.out.println(\"Tax rate: \" + TAX_RATE);\n    }\n}",
+      "output": [
+        "You get 3 lives.",
+        "Tax rate: 0.18"
+      ],
+      "caption": "A `final` variable is called a **constant**. Give it its value when you declare it."
+    },
+    {
+      "type": "paragraph",
+      "value": "`final` does not make the program faster. It states your intention, so a mistake becomes an error instead of a hidden bug."
+    },
+    {
+      "type": "heading",
+      "value": "Constants Are Written in Capitals"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "final",
+          "label": "lock",
+          "note": "The value can never be changed after this."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "int",
+          "label": "type",
+          "note": "Same types as any variable."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "MAX_LIVES",
+          "label": "name",
+          "note": "UPPER_SNAKE_CASE: capitals, underscores between words."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "3",
+          "label": "value",
+          "note": "Set once, right here."
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "Anatomy of a constant"
+    },
+    {
+      "type": "paragraph",
+      "value": "Capitals are a convention, not a rule: `final int maxLives = 3;` compiles. But capitals signal \"decided once, never changed\" to anyone reading."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        final int SECONDS_PER_MINUTE = 60;\n        final int MINUTES_PER_HOUR = 60;\n\n        int hours = 3;\n        int seconds = hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;\n\n        System.out.println(hours + \" hours is \" + seconds + \" seconds.\");\n    }\n}",
+      "output": [
+        "3 hours is 10800 seconds."
+      ]
+    },
+    {
+      "type": "check",
+      "question": "Which name follows the convention for a constant?",
+      "options": [
+        "TAX_RATE",
+        "taxRate",
+        "TaxRate",
+        "tax rate"
+      ],
+      "answer": 0,
+      "explain": "Constants use capitals with underscores between words."
+    },
+    {
+      "type": "heading",
+      "value": "Why Not Just Write the Number?"
+    },
+    {
+      "type": "paragraph",
+      "value": "A bare number in the middle of your code is a **magic number**: it works, but nothing says what it means."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Magic numbers",
+          "tone": "bad",
+          "code": "price + price * 0.18 + 40",
+          "text": "What are 0.18 and 40 supposed to be?"
+        },
+        {
+          "title": "Named constants",
+          "tone": "good",
+          "code": "price + price * GST_RATE\n      + DELIVERY_FEE",
+          "text": "Reads like a sentence. Change the rate on one line."
+        }
+      ],
+      "title": "Magic numbers vs named constants",
+      "caption": "Both give the same total. Only one explains itself."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int price = 500;\n        final double GST_RATE = 0.18;\n        final int DELIVERY_FEE = 40;\n        double total = price + price * GST_RATE + DELIVERY_FEE;\n        System.out.println(\"Total: \" + total);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "A normal variable: the price could change.",
+          "vars": {
+            "price": "500"
+          }
+        },
+        {
+          "line": 4,
+          "note": "A constant with a name that says what 0.18 is.",
+          "vars": {
+            "GST_RATE": "0.18"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Another constant: the delivery fee.",
+          "vars": {
+            "DELIVERY_FEE": "40"
+          }
+        },
+        {
+          "line": 6,
+          "note": "500 + 90.0 + 40. One side is a `double`, so the result is 630.0.",
+          "vars": {
+            "total": "630.0"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Print the total.",
+          "out": [
+            "Total: 630.0"
+          ]
+        }
+      ],
+      "title": "The named version, step by step",
+      "outro": "When the tax rate changes, you edit one line, instead of hunting for every 0.18."
+    },
+    {
+      "type": "heading",
+      "value": "The Naming Conventions"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🏛️",
+          "text": "**PascalCase** for classes: `Main`, `Player`, `BankAccount`."
+        },
+        {
+          "icon": "🐫",
+          "text": "**camelCase** for variables and methods: `playerScore`, `println`."
+        },
+        {
+          "icon": "📢",
+          "text": "**UPPER_SNAKE_CASE** for constants: `MAX_PLAYERS`."
+        }
+      ],
+      "title": "Which style says what"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {                      // PascalCase: a class\n    public static void main(String[] args) {\n        int playerScore = 0;              // camelCase: a variable\n        final int MAX_PLAYERS = 4;        // UPPER_SNAKE_CASE: a constant\n\n        System.out.println(playerScore + \" / \" + MAX_PLAYERS);\n    }\n}",
+      "output": [
+        "0 / 4"
+      ],
+      "caption": "Java compiles almost any name. These styles let a reader tell a class from a variable from a constant at a glance."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Hard to read",
+          "tone": "bad",
+          "code": "int n = 24;\ndouble p = 45.5;\ndouble t = n * p;",
+          "text": "What are n, p and t?"
+        },
+        {
+          "title": "Reads aloud",
+          "tone": "good",
+          "code": "int quantity = 24;\ndouble unitPrice = 45.5;\ndouble totalCost = quantity * unitPrice;",
+          "text": "A good name makes a comment unnecessary."
+        }
+      ],
+      "title": "Names that say what they mean",
+      "caption": "Short names like `i` are fine for a two-line counter (Module 5), and almost nowhere else."
+    },
+    {
+      "type": "check",
+      "question": "Which name is written as a class name?",
+      "options": [
+        "bankAccount",
+        "BANK_ACCOUNT",
+        "bank_account",
+        "BankAccount"
+      ],
+      "answer": 3,
+      "explain": "Class names use PascalCase: a capital at the start of every word."
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        final int MAX_LIVES = 3;\n        final double TAX_RATE = 0.18;\n\n        int price = 500;\n        double total = price + price * TAX_RATE;\n\n        System.out.println(\"Lives: \" + MAX_LIVES);\n        System.out.println(\"Total: \" + total);\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Declare a constant `PI` holding 3.14159, then use it to print the area of a circle with radius 5. The area is PI times radius times radius.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int radius = 5;\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Try to change a `final` variable and read the error Java gives you. Then comment that line out so the program runs.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        final int MAX_SCORE = 100;\n        MAX_SCORE = 200;\n\n        System.out.println(MAX_SCORE);\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Rewrite this program with two named constants so no magic numbers are left, keeping the same answer.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int nights = 3;\n        double total = nights * 1200 + 250;\n\n        System.out.println(\"Total: \" + total);\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `final` do to a variable?",
+      "options": [
+        "Locks its value, so changing it later is a compile error.",
+        "Deletes it when the program ends.",
+        "Makes the program run faster."
+      ],
+      "answer": 0,
+      "explain": "`final` makes the variable a constant. You set the value where you declare it, and Java refuses any later assignment."
+    },
+    {
+      "question": "How are constant names written by convention?",
+      "options": [
+        "UPPER_SNAKE_CASE, like MAX_LIVES",
+        "camelCase, like maxLives",
+        "PascalCase, like MaxLives"
+      ],
+      "answer": 0,
+      "explain": "Capitals with underscores mark a constant at a glance. Java would compile other styles, but every Java codebase uses this one."
+    },
+    {
+      "question": "What is a magic number?",
+      "options": [
+        "A bare value in the code with nothing to say what it means.",
+        "A number too large for an int.",
+        "A number that changes while the program runs."
+      ],
+      "answer": 0,
+      "explain": "A `0.18` sitting in the middle of a calculation tells the reader nothing. Naming it `GST_RATE` explains it and gives you one place to change it."
+    },
+    {
+      "question": "Which naming style does a class name use?",
+      "options": [
+        "PascalCase, like BankAccount",
+        "camelCase, like bankAccount",
+        "UPPER_SNAKE_CASE, like BANK_ACCOUNT"
+      ],
+      "answer": 0,
+      "explain": "Classes start with a capital and capitalise each word. That is why your class is `Main`, not `main`, which is the method."
+    },
+    {
+      "question": "Why is `double totalCost` better than `double t`?",
+      "options": [
+        "A reader knows what it holds without hunting for an explanation.",
+        "Longer names make the program run more accurately.",
+        "Java requires names of at least five characters."
+      ],
+      "answer": 0,
+      "explain": "Both compile identically. A good name carries the meaning the code cannot, which matters most when you come back to it weeks later."
+    }
+  ]
+}

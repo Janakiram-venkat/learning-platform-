@@ -1,0 +1,378 @@
+{
+  "lessonId": "cpp_fundamental_types",
+  "title": "Fundamental Types",
+  "description": "The built-in types, the four you will actually use, and the printing surprises each one has.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why C++ Wants a Type"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every C++ variable states its type. That lets C++ check your code before it runs, and know how much memory each box needs."
+    },
+    {
+      "type": "paragraph",
+      "value": "Types built into the language are called **fundamental types**: everything else is built from them. Four cover almost everything you will write."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int lives = 3;              // whole numbers\n    double price = 4.50;        // numbers with a decimal point\n    bool gameOver = false;      // true or false, nothing else\n    char grade = 'A';           // exactly one character\n\n    cout << \"Lives:     \" << lives << endl;\n    cout << \"Price:     \" << price << endl;\n    cout << \"Game over: \" << gameOver << endl;\n    cout << \"Grade:     \" << grade << endl;\n    return 0;\n}",
+      "output": [
+        "Lives:     3",
+        "Price:     4.5",
+        "Game over: 0",
+        "Grade:     A"
+      ],
+      "caption": "`4.50` printed as `4.5`: a `double` stores the number, not how you typed it. And `false` printed as `0`. More on that below."
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "lives",
+          "value": "3",
+          "type": "int"
+        },
+        {
+          "name": "price",
+          "value": "4.5",
+          "type": "float"
+        },
+        {
+          "name": "gameOver",
+          "value": "false",
+          "type": "bool"
+        },
+        {
+          "name": "grade",
+          "value": "'A'",
+          "type": "str"
+        }
+      ],
+      "title": "Four boxes, four types",
+      "caption": "Each box only accepts its own kind of value."
+    },
+    {
+      "type": "heading",
+      "value": "Numbers: int and double"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔢",
+          "text": "`int`: whole numbers, about minus 2 billion to plus 2 billion.",
+          "sub": "Too big a value does not stop C++: it stores a wrong number (**overflow**). `g++` usually warns."
+        },
+        {
+          "icon": "🌍",
+          "text": "`long long`: much bigger whole numbers.",
+          "sub": "Like the population of the world."
+        },
+        {
+          "icon": "💲",
+          "text": "`double`: numbers with a decimal point, about 15 digits.",
+          "sub": "Not perfectly exact: `0.1 + 0.2` is really 0.30000000000000004."
+        },
+        {
+          "icon": "🪶",
+          "text": "`float`: a smaller, older decimal type. The value ends in `f`."
+        }
+      ],
+      "title": "Number types"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int temperature = -5;\n    long long worldPopulation = 8100000000;\n    double price = 249.99;\n    float smaller = 2.5f;\n    double pi = 3.14159265;\n\n    cout << temperature << \" and \" << worldPopulation << endl;\n    cout << price << \" and \" << smaller << endl;\n    cout << pi << endl;\n    return 0;\n}",
+      "output": [
+        "-5 and 8100000000",
+        "249.99 and 2.5",
+        "3.14159"
+      ],
+      "caption": "`pi` holds 3.14159265 in full, but `cout` shows at most 6 significant digits. Only the printing is shortened."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "int",
+          "tone": "neutral",
+          "code": "int lives = 3;",
+          "text": "If you would never want half of one, use `int`."
+        },
+        {
+          "title": "double",
+          "tone": "neutral",
+          "code": "double average = 7.5;",
+          "text": "If it can have a fractional part, use `double`. It is C++'s default for decimals."
+        }
+      ],
+      "title": "int or double?"
+    },
+    {
+      "type": "check",
+      "question": "Which type should hold the number 8100000000?",
+      "options": [
+        "long long",
+        "int",
+        "char",
+        "bool"
+      ],
+      "answer": 0,
+      "explain": "It is a whole number, but too big for an `int`. A `long long` holds it."
+    },
+    {
+      "type": "heading",
+      "value": "bool and char"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "✅",
+          "text": "`bool`: exactly `true` or `false`.",
+          "sub": "Lower case, no quotes. `cout` prints it as `1` or `0` unless you send `boolalpha`."
+        },
+        {
+          "icon": "🔤",
+          "text": "`char`: exactly one character in single quotes.",
+          "sub": "`'A'`, `'7'`, `'?'`. For a whole word you need `string`, the next lesson."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    bool hasKey = true;\n    char grade = 'A';\n\n    cout << \"Has key? \" << hasKey << endl;\n    cout << boolalpha;   // from here on, print bools as words\n    cout << \"Has key? \" << hasKey << endl;\n    cout << \"Grade: \" << grade << endl;\n    return 0;\n}",
+      "output": [
+        "Has key? 1",
+        "Has key? true",
+        "Grade: A"
+      ],
+      "caption": "Booleans drive every decision in Module 4."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "bool hasKey = true;\nchar grade = 'A';",
+          "text": "Lower case `true`. One character in single quotes."
+        },
+        {
+          "title": "Error",
+          "tone": "bad",
+          "code": "bool done = True;\nchar grade = \"A\";",
+          "text": "`True` is the wrong case. Double quotes make text, not a `char`."
+        }
+      ],
+      "title": "Compiles vs error"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "false",
+        "False",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "explain": "Without `boolalpha`, `cout` prints `false` as `0` and `true` as `1`.",
+      "code": "bool gameOver = false;\ncout << gameOver << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "How Big Is Each Box?"
+    },
+    {
+      "type": "analogy",
+      "emoji": "📏",
+      "real": "Containers that come in fixed sizes",
+      "concept": "`sizeof`",
+      "code": "sizeof(int)",
+      "text": "Each type takes a fixed amount of memory, measured in **bytes**. A byte is 8 bits: eight tiny on or off switches."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"int:       \" << sizeof(int) << \" bytes\" << endl;\n    cout << \"long long: \" << sizeof(long long) << \" bytes\" << endl;\n    cout << \"double:    \" << sizeof(double) << \" bytes\" << endl;\n    cout << \"bool:      \" << sizeof(bool) << \" byte\" << endl;\n    cout << \"char:      \" << sizeof(char) << \" byte\" << endl;\n    return 0;\n}",
+      "output": [
+        "int:       4 bytes",
+        "long long: 8 bytes",
+        "double:    8 bytes",
+        "bool:      1 byte",
+        "char:      1 byte"
+      ],
+      "caption": "C++ lets you ask because C++ programmers often care. In Module 8 you work with memory directly."
+    },
+    {
+      "type": "check",
+      "question": "Which type uses more memory?",
+      "options": [
+        "int",
+        "long long",
+        "char",
+        "bool"
+      ],
+      "answer": 1,
+      "explain": "A `long long` takes 8 bytes, twice an `int`. That is how it fits much bigger numbers."
+    },
+    {
+      "type": "heading",
+      "value": "Choosing a Type"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Whole number? Use `int`.",
+        "Needs a decimal point? Use `double`.",
+        "Yes or no? Use `bool`.",
+        "One single character? Use `char`."
+      ],
+      "title": "Four questions"
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int quantity = 24;\n    double unitPrice = 45.50;\n    bool inStock = true;\n    char sizeCode = 'M';\n    cout << boolalpha;\n    cout << \"Quantity: \" << quantity << endl;\n    cout << \"Price: \" << unitPrice << \"  Size: \" << sizeCode << endl;\n    cout << \"In stock: \" << inStock << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "A count of items: a whole number, so `int`.",
+          "vars": {
+            "quantity": "24"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Money needs decimals, so `double`. It stores 45.5.",
+          "vars": {
+            "unitPrice": "45.5"
+          }
+        },
+        {
+          "line": 7,
+          "note": "In stock or not: a yes or no, so `bool`.",
+          "vars": {
+            "inStock": "true"
+          }
+        },
+        {
+          "line": 8,
+          "note": "One size letter: `char`, in single quotes.",
+          "vars": {
+            "sizeCode": "'M'"
+          }
+        },
+        {
+          "line": 9,
+          "note": "Ask `cout` to print bools as words from now on."
+        },
+        {
+          "line": 10,
+          "note": "Print the count.",
+          "out": [
+            "Quantity: 24"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "The double prints without its trailing zero.",
+          "out": [
+            "Price: 45.5  Size: M"
+          ]
+        },
+        {
+          "line": 12,
+          "note": "Thanks to `boolalpha`, the bool prints as a word.",
+          "out": [
+            "In stock: true"
+          ]
+        }
+      ],
+      "title": "One shop item, the right type for each value"
+    },
+    {
+      "type": "paragraph",
+      "value": "The others, like `long long`, `float` and `short`, are for when size matters. Until you need them, `int` and `double` are the right defaults."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int lives = 3;\n    double price = 4.50;\n    bool gameOver = false;\n    char grade = 'A';\n\n    cout << lives << endl;\n    cout << price << endl;\n    cout << gameOver << endl;\n    cout << grade << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Declare one variable of each of the four main types to describe a book: an `int` for pages, a `double` for price, a `bool` for whether you have read it, and a `char` for its shelf letter. Print all four with labels, with the bool shown as a word.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "This program compiles, but two of the values print wrong: C++ quietly squeezed them into the wrong type. Run it, spot which, and change the types so each value is stored properly.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int price = 4.99;\n    int average = 7.5;\n    char grade = 'B';\n\n    cout << price << \" \" << average << \" \" << grade << endl;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Print the result of `0.1 + 0.2` and see how `cout` rounds it. Then print `1.0 / 3.0` as well and count the digits you get.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which type would you use for the number of students in a class?",
+      "options": [
+        "double, because numbers are usually decimals",
+        "int, because it is a whole count",
+        "char, because it is short"
+      ],
+      "answer": 1,
+      "explain": "You would never have half a student, so a whole number type is right. `int` covers counts up to about two billion."
+    },
+    {
+      "question": "Which type holds a price like 249.99?",
+      "options": [
+        "double",
+        "int",
+        "bool"
+      ],
+      "answer": 0,
+      "explain": "An `int` cannot hold a decimal point, so the fractional part would be lost. `double` is the normal choice for a number with decimals."
+    },
+    {
+      "question": "What does `bool ready = true; cout << ready << endl;` print?",
+      "options": [
+        "true",
+        "\"true\"",
+        "1"
+      ],
+      "answer": 2,
+      "explain": "`cout` prints a bool as 1 or 0 unless you send it `boolalpha` first. After `cout << boolalpha;` it would print true."
+    },
+    {
+      "question": "What is the difference between `'A'` and `\"A\"`?",
+      "options": [
+        "`'A'` is a char (one character) and `\"A\"` is text.",
+        "There is no difference in C++.",
+        "`'A'` is text and `\"A\"` is a char."
+      ],
+      "answer": 0,
+      "explain": "Single quotes make a `char`, which holds exactly one character. Double quotes make text, which can hold any number of characters."
+    },
+    {
+      "question": "Which type should hold the number 8100000000?",
+      "options": [
+        "int",
+        "char",
+        "long long"
+      ],
+      "answer": 2,
+      "explain": "An `int` only reaches about two billion, so 8.1 billion would overflow. `long long` holds whole numbers far bigger than that."
+    }
+  ]
+}

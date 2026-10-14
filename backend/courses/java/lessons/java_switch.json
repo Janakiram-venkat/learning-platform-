@@ -1,0 +1,419 @@
+{
+  "lessonId": "java_switch",
+  "title": "The switch Statement",
+  "description": "Choosing one of many fixed values, the break you must not forget, and the modern arrow form.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "One Value, Many Cases"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🛗",
+      "real": "Lift buttons",
+      "concept": "A switch",
+      "code": "switch (floor) {\n    case 3: ...\n}",
+      "text": "Press 3 and the lift goes straight to floor 3. A `switch` takes one value and jumps straight to the matching case, instead of asking `day == 1`, `day == 2`... one by one."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🎯",
+          "text": "`switch (day)`",
+          "sub": "The one value being tested."
+        },
+        {
+          "icon": "🏷️",
+          "text": "`case 3:`",
+          "sub": "A value to match."
+        },
+        {
+          "icon": "🛑",
+          "text": "`break;`",
+          "sub": "Ends the switch."
+        },
+        {
+          "icon": "🛟",
+          "text": "`default:`",
+          "sub": "The catch-all, like the final `else` in a chain."
+        }
+      ],
+      "title": "Four parts"
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int day = 3;\n\n        switch (day) {\n            case 1:\n                System.out.println(\"Monday\");\n                break;\n            case 2:\n                System.out.println(\"Tuesday\");\n                break;\n            case 3:\n                System.out.println(\"Wednesday\");\n                break;\n            default:\n                System.out.println(\"Some other day\");\n        }\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Store `3` in `day`.",
+          "vars": {
+            "day": "3"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Look at `day` once: it is 3. Jump to the matching case."
+        },
+        {
+          "line": 12,
+          "note": "Here is `case 3:`. Cases 1 and 2 were never run."
+        },
+        {
+          "line": 13,
+          "note": "Run its line.",
+          "out": [
+            "Wednesday"
+          ]
+        },
+        {
+          "line": 14,
+          "note": "`break` ends the switch. `default` is skipped."
+        }
+      ],
+      "title": "Jump to the match",
+      "outro": "`day` is written once, not on every line like an `else if` chain."
+    },
+    {
+      "type": "check",
+      "question": "What prints if `day` is `9`?",
+      "options": [
+        "Some other day",
+        "Wednesday",
+        "Nothing",
+        "Monday"
+      ],
+      "answer": 0,
+      "explain": "No case matches 9, so `default` runs."
+    },
+    {
+      "type": "heading",
+      "value": "The break You Must Not Forget"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "With break",
+          "tone": "good",
+          "code": "case 1:\n    System.out.println(\"Monday\");\n    break;\ncase 2:\n    System.out.println(\"Tuesday\");\n    break;",
+          "text": "Day 1 prints only Monday."
+        },
+        {
+          "title": "No break",
+          "tone": "bad",
+          "code": "case 1:\n    System.out.println(\"Monday\");\ncase 2:\n    System.out.println(\"Tuesday\");\n    break;",
+          "text": "Day 1 prints Monday, then keeps going into case 2."
+        }
+      ],
+      "title": "With and without break",
+      "caption": "Write `break` on the last case too: the day you add another case below it, it is already correct."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int day = 1;\n\n        switch (day) {\n            case 1:\n                System.out.println(\"Monday\");\n            case 2:\n                System.out.println(\"Tuesday\");\n            case 3:\n                System.out.println(\"Wednesday\");\n                break;\n            default:\n                System.out.println(\"Some other day\");\n        }\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Store `1` in `day`.",
+          "vars": {
+            "day": "1"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Jump to `case 1`."
+        },
+        {
+          "line": 7,
+          "note": "Run it. No `break` follows...",
+          "out": [
+            "Monday"
+          ]
+        },
+        {
+          "line": 9,
+          "note": "...so Java falls into case 2 and runs that too.",
+          "out": [
+            "Tuesday"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "And case 3.",
+          "out": [
+            "Wednesday"
+          ]
+        },
+        {
+          "line": 12,
+          "note": "Finally a `break`. The switch ends."
+        }
+      ],
+      "title": "Fall-through",
+      "outro": "This is called **fall-through**: running on into the next case. It compiles fine, so the output is your only clue."
+    },
+    {
+      "type": "check",
+      "question": "No `break` anywhere, `day = 2`. What prints?",
+      "options": [
+        "Tuesday, Wednesday, Some other day",
+        "Tuesday",
+        "Monday, Tuesday",
+        "Nothing"
+      ],
+      "answer": 0,
+      "explain": "Java jumps to `case 2`, then falls through every case below it, including `default`.",
+      "code": "switch (day) {\n    case 1: System.out.println(\"Monday\");\n    case 2: System.out.println(\"Tuesday\");\n    case 3: System.out.println(\"Wednesday\");\n    default: System.out.println(\"Some other day\");\n}"
+    },
+    {
+      "type": "heading",
+      "value": "Grouping Cases and Text"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int day = 6;\n\n        switch (day) {\n            case 6:\n            case 7:\n                System.out.println(\"Weekend!\");\n                break;\n            case 1:\n            case 2:\n            case 3:\n            case 4:\n            case 5:\n                System.out.println(\"A working day.\");\n                break;\n            default:\n                System.out.println(\"That is not a day number.\");\n        }\n    }\n}",
+      "output": [
+        "Weekend!"
+      ],
+      "caption": "Fall-through on purpose: stacked cases with no code between them share one block. Days 6 and 7 both reach `Weekend!`."
+    },
+    {
+      "type": "points",
+      "items": [
+        "A switch works on an `int`, a `char` or a `String`.",
+        "With a `String` it matches by content, so no `.equals` is needed.",
+        "Text matching is case sensitive: `\"yes\"` and `\"Yes\"` are different cases."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        String choice = \"2\";\n\n        switch (choice) {\n            case \"1\":\n                System.out.println(\"Your balance is 5000.\");\n                break;\n            case \"2\":\n                System.out.println(\"How much would you like to deposit?\");\n                break;\n            case \"3\":\n                System.out.println(\"Goodbye!\");\n                break;\n            default:\n                System.out.println(\"Not a valid option.\");\n        }\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "The user chose option `\"2\"`.",
+          "vars": {
+            "choice": "\"2\""
+          }
+        },
+        {
+          "line": 5,
+          "note": "Compare the text with each case."
+        },
+        {
+          "line": 9,
+          "note": "Match."
+        },
+        {
+          "line": 10,
+          "note": "Run it.",
+          "out": [
+            "How much would you like to deposit?"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "Done."
+        }
+      ],
+      "title": "A menu with a String switch"
+    },
+    {
+      "type": "warning",
+      "value": "A case must be a fixed value. `case age > 18:` is not allowed. For ranges and comparisons, use an `else if` chain."
+    },
+    {
+      "type": "heading",
+      "value": "The Modern Arrow Form"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int day = 6;\n\n        switch (day) {\n            case 1, 2, 3, 4, 5 -> System.out.println(\"A working day.\");\n            case 6, 7 -> System.out.println(\"Weekend!\");\n            default -> System.out.println(\"That is not a day number.\");\n        }\n    }\n}",
+      "output": [
+        "Weekend!"
+      ],
+      "caption": "Write `->` instead of `:`. Each case runs only its own line: no fall-through, so no `break` to forget. Group values with commas."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "String name",
+          "label": "variable",
+          "note": "Receives the chosen value."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "switch (day)",
+          "label": "switch",
+          "note": "The value being tested."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "{",
+          "label": "cases",
+          "note": "Each `case 3 -> \"Wednesday\";` inside gives the value for one match."
+        }
+      ],
+      "title": "A switch that gives a value",
+      "caption": "The arrow form can produce a value. Note the `;` after the closing `}`: it is all one statement."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int day = 3;\n\n        String name = switch (day) {\n            case 1 -> \"Monday\";\n            case 2 -> \"Tuesday\";\n            case 3 -> \"Wednesday\";\n            case 4 -> \"Thursday\";\n            case 5 -> \"Friday\";\n            case 6 -> \"Saturday\";\n            case 7 -> \"Sunday\";\n            default -> \"Unknown\";\n        };\n\n        System.out.println(\"Day \" + day + \" is \" + name);\n    }\n}",
+      "output": [
+        "Day 3 is Wednesday"
+      ],
+      "caption": "One variable, one assignment, every day accounted for. A block in braces also works when a case needs several lines."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "A working day.",
+        "Weekend! then That is not a day number.",
+        "Weekend!",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`7` matches `case 6, 7`. The arrow form never falls through, so only that line runs.",
+      "code": "int day = 7;\nswitch (day) {\n    case 1, 2, 3, 4, 5 -> System.out.println(\"A working day.\");\n    case 6, 7 -> System.out.println(\"Weekend!\");\n    default -> System.out.println(\"That is not a day number.\");\n}"
+    },
+    {
+      "type": "heading",
+      "value": "Which Should You Use?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Both tools pick one path out of many. The deciding question is: fixed values, or ranges?"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "switch",
+          "tone": "good",
+          "code": "switch (option) {\n    case 1 -> ...\n    case 2 -> ...\n}",
+          "text": "One value against a list of **fixed** values: menu options, day numbers, grade letters."
+        },
+        {
+          "title": "else if",
+          "tone": "good",
+          "code": "if (marks >= 75) { ... }\nelse if (marks >= 40) { ... }",
+          "text": "**Ranges** and comparisons, like `marks >= 75`."
+        }
+      ],
+      "title": "switch or else if?",
+      "caption": "You will read both switch forms in real code. When writing new code, prefer the arrow form: less to go wrong."
+    },
+    {
+      "type": "check",
+      "question": "Which tool fits \"temperature above 30 is hot, above 20 is warm\"?",
+      "options": [
+        "A switch",
+        "An else if chain",
+        "A switch with fall-through"
+      ],
+      "answer": 1,
+      "explain": "These are ranges. A switch can only match fixed values, so use an `else if` chain."
+    }
+  ],
+  "editorCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Day number (1 to 7)? \");\n        int day = scanner.nextInt();\n\n        String name = switch (day) {\n            case 1 -> \"Monday\";\n            case 2 -> \"Tuesday\";\n            case 3 -> \"Wednesday\";\n            case 4 -> \"Thursday\";\n            case 5 -> \"Friday\";\n            case 6 -> \"Saturday\";\n            case 7 -> \"Sunday\";\n            default -> \"Not a day number\";\n        };\n\n        System.out.println(\"Day \" + day + \" is \" + name);\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a month number from 1 to 12 and print its name with a classic switch. Add a `default` for anything else.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Month number? \");\n        int month = scanner.nextInt();\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "This prints three lines for a day of 1. Add the missing breaks so it prints only one.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int day = 1;\n\n        switch (day) {\n            case 1:\n                System.out.println(\"Monday\");\n            case 2:\n                System.out.println(\"Tuesday\");\n            case 3:\n                System.out.println(\"Wednesday\");\n                break;\n            default:\n                System.out.println(\"Some other day\");\n        }\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Rewrite this classic switch in the arrow form, so it needs no breaks at all.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        char grade = 'B';\n\n        switch (grade) {\n            case 'A':\n                System.out.println(\"Excellent\");\n                break;\n            case 'B':\n                System.out.println(\"Good\");\n                break;\n            case 'C':\n                System.out.println(\"Fair\");\n                break;\n            default:\n                System.out.println(\"Unknown grade\");\n        }\n    }\n}"
+    },
+    {
+      "id": 4,
+      "question": "Ask for a vowel and print Vowel for a, e, i, o or u, using grouped cases. Print Not a vowel for anything else. Read it with `nextLine()`.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Type one letter: \");\n        String letter = scanner.nextLine();\n\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `break` do inside a switch?",
+      "options": [
+        "Ends the switch, so Java does not run the cases below",
+        "Stops the whole program",
+        "Skips to the default case"
+      ],
+      "answer": 0,
+      "explain": "Without it, Java falls through into the next case and keeps going until it finds a `break` or reaches the end."
+    },
+    {
+      "question": "A switch on `day` matches `case 1`, which has no `break`. What happens?",
+      "options": [
+        "The cases below it also run, until a break is found",
+        "Only case 1 runs",
+        "The program stops with an error"
+      ],
+      "answer": 0,
+      "explain": "This is fall-through. It compiles cleanly, so the wrong output is the only sign that a `break` is missing."
+    },
+    {
+      "question": "What is `default` in a switch?",
+      "options": [
+        "The catch-all, like the final `else` in a chain",
+        "The case that always runs first",
+        "A required label on every case"
+      ],
+      "answer": 0,
+      "explain": "`default` runs when no case matched. Leaving it out means an unexpected value does nothing at all."
+    },
+    {
+      "question": "Which of these can a switch NOT do?",
+      "options": [
+        "Match a range, like `case marks >= 75:`",
+        "Match a String",
+        "Match a char"
+      ],
+      "answer": 0,
+      "explain": "A switch compares against fixed known values only. Ranges and comparisons need an `else if` chain."
+    },
+    {
+      "question": "Why does the arrow form `case 6, 7 -> ...` need no `break`?",
+      "options": [
+        "Each arrow case runs only its own code: there is no fall-through.",
+        "It has an invisible break added by the compiler at run time.",
+        "It does need one, but only for the last case."
+      ],
+      "answer": 0,
+      "explain": "The arrow form was designed to remove the trap. Values that share a block are listed with commas instead of by stacking labels."
+    },
+    {
+      "question": "When switching on a `String`, do you need `.equals`?",
+      "options": [
+        "No: a switch compares text by content already.",
+        "Yes, on every case label.",
+        "Yes, but only in the default case."
+      ],
+      "answer": 0,
+      "explain": "The switch handles the comparison correctly for you. It is still case sensitive, so `\"Yes\"` and `\"yes\"` are separate cases."
+    }
+  ]
+}

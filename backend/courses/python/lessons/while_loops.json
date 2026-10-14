@@ -9,16 +9,86 @@
       "value": "Looping Until Something Changes"
     },
     {
-      "type": "paragraph",
-      "value": "A `for` loop repeats a set number of times, decided before it starts. Sometimes you do not know that number in advance. You keep chewing while there is still food in your mouth, however many bites that takes. A `while` loop repeats for as long as its condition stays True, and its condition is exactly the kind of comparison you wrote back in Module 2."
+      "type": "analogy",
+      "emoji": "🍎",
+      "real": "Chewing while there is food in your mouth",
+      "concept": "A while loop",
+      "code": "while food_left > 0:\n    chew()",
+      "text": "You don't decide how many bites before you start. You just keep chewing **while** there is still food, however many bites that takes."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "for loop",
+          "tone": "neutral",
+          "code": "for i in range(3):\n    print(\"Hi\")",
+          "text": "Repeats a set number of times, decided before it starts."
+        },
+        {
+          "title": "while loop",
+          "tone": "neutral",
+          "code": "while energy > 0:\n    print(\"Hi\")",
+          "text": "Repeats for as long as its condition stays `True`. You may not know the count in advance."
+        }
+      ],
+      "title": "for vs while"
+    },
+    {
+      "type": "points",
+      "items": [
+        "The **condition** of a `while` loop is a comparison, like `energy > 0`.",
+        "It is exactly the kind of comparison you wrote back in Module 2.",
+        "While it is `True`, the loop keeps going."
+      ]
+    },
+    {
+      "type": "check",
+      "question": "When does a while loop stop?",
+      "options": [
+        "When its condition becomes False",
+        "After exactly 10 turns",
+        "When it reaches the end of range()",
+        "Never"
+      ],
+      "answer": 0,
+      "explain": "A `while` loop keeps going as long as its condition is `True`. The first time the check comes back `False`, the loop ends."
     },
     {
       "type": "heading",
       "value": "Check, Run, Update"
     },
     {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "❓",
+          "label": "Check",
+          "detail": "Is the condition `True`?"
+        },
+        {
+          "icon": "▶️",
+          "label": "Run",
+          "detail": "If yes, run the indented lines."
+        },
+        {
+          "icon": "🔄",
+          "label": "Go back",
+          "detail": "Return to the top and check again."
+        },
+        {
+          "icon": "🏁",
+          "label": "End",
+          "detail": "Only when a check is `False`."
+        }
+      ],
+      "title": "The three beats of every turn"
+    },
+    {
       "type": "paragraph",
-      "value": "A while loop follows the same three beats every time round. It checks the condition. If the condition is True it runs the indented lines. Then it goes back and checks again. The loop only ends when a check comes back False. Step through the tracer below to watch one full run."
+      "value": "Step through the tracer below to watch one full run."
     },
     {
       "type": "widget",
@@ -32,38 +102,268 @@
       "after": "Out of energy, time to rest!"
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "energy = 3\nwhile energy > 0:\n    print(\"Jumping jack!\")\n    energy = energy - 1\nprint(\"Out of energy, time to rest!\")"
+      "type": "stepper",
+      "code": "energy = 3\nwhile energy > 0:\n    print(\"Jumping jack!\")\n    energy = energy - 1\nprint(\"Out of energy, time to rest!\")",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Make `energy` and put `3` in it.",
+          "vars": {
+            "energy": "3"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Check: is `3 > 0`? Yes, `True`. Go inside."
+        },
+        {
+          "line": 3,
+          "note": "Run the first indented line.",
+          "out": [
+            "Jumping jack!"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "Update: `energy` goes down by 1. This is what moves the loop toward the end.",
+          "vars": {
+            "energy": "2"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Check again: `2 > 0` is `True`. Another turn."
+        },
+        {
+          "line": 3,
+          "note": "Print.",
+          "out": [
+            "Jumping jack!"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "Update.",
+          "vars": {
+            "energy": "1"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Check: `1 > 0` is `True`. One more turn."
+        },
+        {
+          "line": 3,
+          "note": "Print.",
+          "out": [
+            "Jumping jack!"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "Update. Now `energy` is `0`.",
+          "vars": {
+            "energy": "0"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Check: `0 > 0` is `False`. The loop ends and Python skips past it."
+        },
+        {
+          "line": 5,
+          "note": "This line is not indented, so it runs once, after the loop.",
+          "out": [
+            "Out of energy, time to rest!"
+          ]
+        }
+      ],
+      "title": "Check, run, update, by hand",
+      "outro": "Three `True` checks gave three turns. The fourth check was `False`."
     },
     {
-      "type": "tip",
-      "value": "You can write `energy -= 1` as a shortcut for `energy = energy - 1`. There is a matching `+=` for adding. Both do the same job with less typing."
+      "type": "check",
+      "question": "How many times does this print Go?",
+      "options": [
+        "3",
+        "2",
+        "4",
+        "0"
+      ],
+      "answer": 1,
+      "explain": "`n` starts at 4. Each turn takes 2 away: 4, then 2, then 0. `0 > 0` is `False`, so there are 2 turns.",
+      "code": "n = 4\nwhile n > 0:\n    print(\"Go\")\n    n -= 2"
     },
     {
       "type": "heading",
       "value": "Watch Out for Infinite Loops"
     },
     {
+      "type": "points",
+      "items": [
+        "The condition only changes because something **inside** the loop changes it.",
+        "Take out the line that lowers `energy` and it stays at 3 forever.",
+        "The check is `True` every single time, so the loop never ends.",
+        "That is called an **infinite loop**."
+      ],
+      "title": "A loop that never stops"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Stops",
+          "tone": "good",
+          "code": "energy = 3\nwhile energy > 0:\n    print(\"Jump\")\n    energy -= 1",
+          "text": "`energy` goes 3, 2, 1, 0. The check turns `False` and the loop ends."
+        },
+        {
+          "title": "Never stops",
+          "tone": "bad",
+          "code": "energy = 3\nwhile energy > 0:\n    print(\"Jump\")",
+          "text": "Nothing changes `energy`. It is 3 forever, so `energy > 0` is always `True`."
+        }
+      ],
+      "title": "Spot the missing update"
+    },
+    {
       "type": "paragraph",
-      "value": "The condition only changes because something inside the loop changes it. Take out the line that lowers `energy` and it stays at 3 forever, the check is True every single time, and the loop never ends. That is called an infinite loop. Switch off the update line in the tracer above to see it happen."
+      "value": "Switch off the update line in the tracer on the previous tab to see it happen."
     },
     {
       "type": "tip",
-      "value": "Before you run a while loop, find the line that moves the condition toward False. If you cannot point at one, the loop will not stop."
+      "value": "Before you run a while loop, find the line that moves the condition toward `False`. If you cannot point at one, the loop will not stop."
+    },
+    {
+      "type": "check",
+      "question": "Why does this loop never end?",
+      "options": [
+        "`x` starts at 0",
+        "`print` cannot go inside a loop",
+        "`x` never changes, so `x < 5` stays True",
+        "`<` cannot be used in a while loop"
+      ],
+      "answer": 2,
+      "explain": "Nothing inside the loop changes `x`. It stays `0`, `0 < 5` is always `True`, and the loop runs forever.",
+      "code": "x = 0\nwhile x < 5:\n    print(x)"
     },
     {
       "type": "heading",
       "value": "Counting With While"
     },
     {
-      "type": "paragraph",
-      "value": "A while loop can count just like a for loop, but you have to do the bookkeeping yourself: create the counter before the loop, and change it inside. When you already know how many repeats you need, a for loop is usually the simpler choice."
+      "type": "points",
+      "items": [
+        "A while loop can count, just like a for loop.",
+        "But you do the bookkeeping yourself.",
+        "1. Create the counter **before** the loop.",
+        "2. Change it **inside** the loop.",
+        "Already know how many repeats you need? A `for` loop is usually simpler."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "count = 1\nwhile count <= 3:\n    print(\"Count is:\", count)\n    count += 1",
+      "steps": [
+        {
+          "line": 1,
+          "note": "You create the counter yourself, before the loop.",
+          "vars": {
+            "count": "1"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`1 <= 3` is `True`."
+        },
+        {
+          "line": 3,
+          "note": "Print the count.",
+          "out": [
+            "Count is: 1"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "You change the counter yourself too. `+= 1` adds one.",
+          "vars": {
+            "count": "2"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`2 <= 3` is `True`."
+        },
+        {
+          "line": 3,
+          "note": "Print.",
+          "out": [
+            "Count is: 2"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "Add one.",
+          "vars": {
+            "count": "3"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`3 <= 3` is `True` (equal counts)."
+        },
+        {
+          "line": 3,
+          "note": "Print.",
+          "out": [
+            "Count is: 3"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "Add one.",
+          "vars": {
+            "count": "4"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`4 <= 3` is `False`. Done."
+        }
+      ],
+      "title": "Watch the counter",
+      "outro": "The loop counted 1 to 3, and `count` ended at 4."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "count = 1\nwhile count <= 5:\n    print(\"Count is:\", count)\n    count += 1"
+      "value": "count = 1\nwhile count <= 5:\n    print(\"Count is:\", count)\n    count += 1",
+      "output": [
+        "Count is: 1",
+        "Count is: 2",
+        "Count is: 3",
+        "Count is: 4",
+        "Count is: 5"
+      ]
+    },
+    {
+      "type": "tip",
+      "value": "`count += 1` is a shortcut for `count = count + 1`. There is a matching `-=` for subtracting, like `energy -= 1`.",
+      "title": "Shortcut"
+    },
+    {
+      "type": "check",
+      "question": "How many lines does this print?",
+      "options": [
+        "2",
+        "4",
+        "It never stops",
+        "3"
+      ],
+      "answer": 3,
+      "explain": "`count` goes 1, 2, 3. When it becomes 4, `count <= 3` is False and the loop ends.",
+      "code": "count = 1\nwhile count <= 3:\n    print(\"Count is:\", count)\n    count += 1"
     }
   ],
   "editorCode": "count = 1\nwhile count <= 5:\n    print(\"Count is:\", count)\n    count += 1",

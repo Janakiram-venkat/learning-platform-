@@ -1,0 +1,168 @@
+{
+  "lessonId": "cpp_what_is_cpp",
+  "title": "What Is C++?",
+  "description": "Where C++ came from, what it is used for, and why it is both fast and strict.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Fast, and Close to the Machine"
+    },
+    {
+      "type": "paragraph",
+      "value": "C++ is a programming language, one of the most widely used in the world. Bjarne Stroustrup created it in the 1980s by adding new ideas to an older language called C."
+    },
+    {
+      "type": "analogy",
+      "emoji": "➕",
+      "real": "Version \"plus one\" of something",
+      "concept": "The name C++",
+      "text": "A programmer's joke: in C, `++` means \"add one\". So C++ is \"C, plus one\"."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🎮",
+          "text": "Game engines such as Unreal"
+        },
+        {
+          "icon": "🌐",
+          "text": "Web browsers such as Chrome"
+        },
+        {
+          "icon": "💻",
+          "text": "Parts of Windows and macOS"
+        },
+        {
+          "icon": "🚀",
+          "text": "Robots, cars and even spacecraft"
+        }
+      ],
+      "title": "Built with C++"
+    },
+    {
+      "type": "check",
+      "question": "Why do people usually pick C++ for a program?",
+      "options": [
+        "It never has mistakes",
+        "It needs no semicolons",
+        "It needs to run as fast as possible",
+        "It only runs on phones"
+      ],
+      "answer": 2,
+      "explain": "C++ is chosen when speed matters: it squeezes every bit of power out of a machine."
+    },
+    {
+      "type": "heading",
+      "value": "C++ Is Strict, and That Helps"
+    },
+    {
+      "type": "points",
+      "items": [
+        "You must say what **kind** of value you store.",
+        "Every instruction ends with a semicolon `;`.",
+        "If anything is out of place, C++ refuses to build your program at all."
+      ],
+      "title": "C++ insists"
+    },
+    {
+      "type": "analogy",
+      "emoji": "📝",
+      "real": "A spell-checker that blocks sending until you fix a typo",
+      "concept": "C++ checking your code before it runs",
+      "text": "Annoying for about a week, then it starts saving you. A misspelled name is an error you see right away, not a crash a player finds later."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"C++ is fast.\" << endl;\n    cout << \"Every instruction ends with a semicolon.\" << endl;\n    return 0;\n}",
+      "output": [
+        "C++ is fast.",
+        "Every instruction ends with a semicolon."
+      ],
+      "caption": "A missing semicolon is the most common beginner error. If you see `expected ';'`, check the end of the line just above the spot it points to."
+    },
+    {
+      "type": "heading",
+      "value": "How C++ Code Is Shaped"
+    },
+    {
+      "type": "analogy",
+      "emoji": "📦",
+      "real": "A box with a lid and a bottom",
+      "concept": "The function `main`",
+      "text": "Every instruction lives inside a **function**: a named block of code. `main` is special, because every program starts there. The braces `{ }` mark where it begins and ends."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>     // bring in the tools for printing\nusing namespace std;    // let us write cout instead of std::cout\n\nint main() {            // the function where every program starts\n    cout << \"I go inside main.\" << endl;\n    return 0;           // report that everything went fine\n}",
+      "output": [
+        "I go inside main."
+      ],
+      "caption": "For now, treat the top lines and `main` as the wrapper. Write your instructions between the braces."
+    },
+    {
+      "type": "paragraph",
+      "value": "C++ also lets you build your own types of objects (Module 9) and manage memory yourself (Module 8). That power is why it is fast, and why it asks you to be careful."
+    },
+    {
+      "type": "check",
+      "question": "Where do your instructions go in a C++ program?",
+      "options": [
+        "Above `#include <iostream>`",
+        "Between the braces of `main`",
+        "After the last `}`",
+        "Anywhere in the file"
+      ],
+      "answer": 1,
+      "explain": "Instructions live inside a function, and every program starts in the function called `main`."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"C++ is fast.\" << endl;\n    cout << \"Every instruction ends with a semicolon.\" << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Add a third line that prints one place C++ is used, for example: Game engines are written in C++. Remember the semicolon.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"C++ is fast.\" << endl;\n    cout << \"Every instruction ends with a semicolon.\" << endl;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Delete a semicolon on purpose and press Run. Read the error, then put it back. Getting used to error messages now will save you hours later.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Take my semicolon away\" << endl;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does every C++ instruction end with?",
+      "options": [
+        "A full stop `.`",
+        "Nothing at all",
+        "A semicolon `;`"
+      ],
+      "answer": 2,
+      "explain": "The semicolon tells C++ that the instruction is finished. Leave it out and the compiler keeps reading onto the next line and reports an error."
+    },
+    {
+      "question": "Why is C++ described as strict?",
+      "options": [
+        "It checks your code carefully and refuses to build it until mistakes are fixed.",
+        "It only allows short programs.",
+        "It can only run on one kind of computer."
+      ],
+      "answer": 0,
+      "explain": "C++ checks your code before it runs. That means you meet your mistakes early, which is far cheaper than meeting them in front of a user."
+    },
+    {
+      "question": "Where does every C++ program start running?",
+      "options": [
+        "At the `#include` line.",
+        "In the function called `main`.",
+        "At whichever line is shortest."
+      ],
+      "answer": 1,
+      "explain": "`main` is the starting point. The lines above it set things up, but the first instruction to run is the first one inside `main`."
+    }
+  ]
+}

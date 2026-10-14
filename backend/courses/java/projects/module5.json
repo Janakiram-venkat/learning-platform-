@@ -1,0 +1,133 @@
+{
+  "moduleId": 5,
+  "title": "Score Board",
+  "emoji": "📊",
+  "brief": "Take a pile of test scores, draw each one as a bar of stars, and report on the lot: how many counted, the total, the highest, the lowest, the average and how many passed. Nonsense scores get thrown out on the way past. Every loop idea from this module does a job here.",
+  "problem": {
+    "goal": "Ask how many scores are coming, then read that many. Draw each valid score as a bar of stars and print a six-line summary at the end.",
+    "example": {
+      "typed": [
+        "4",
+        "92",
+        "71",
+        "48",
+        "29"
+      ],
+      "output": [
+        "92 | *********",
+        "71 | *******",
+        "48 | ****",
+        "29 | **",
+        "Scores counted: 4",
+        "Total: 240",
+        "Highest: 92",
+        "Lowest: 29",
+        "Average: 60.0",
+        "Passes: 3"
+      ]
+    },
+    "rules": [
+      "A valid score is 0 to 100. Anything outside that prints \"Ignored: \" and the score, and then counts for nothing at all.",
+      "A bar is the score, then a space, a vertical bar and a space, then one star for every 10 points. 92 gets 9 stars, 29 gets 2.",
+      "A pass is a score of 40 or more.",
+      "The average is a decimal, so cast before you divide.",
+      "If nothing was valid, print \"No valid scores.\" and no summary at all. Without that check the average comes out as NaN and the highest is a nonsense -1."
+    ]
+  },
+  "steps": [
+    "The first question is already written. Everything else is yours.",
+    "Declare the trackers above the loop: total, counted, highest, lowest and passes. Start highest below every possible score and lowest above every possible score, so the first real score always replaces them.",
+    "Write a for loop that runs count times, asking for one score per turn.",
+    "Guard against nonsense first: outside 0 to 100, print the Ignored line and continue, so none of the trackers are touched.",
+    "Update the trackers, then draw the bar with a second loop inside the first one: one star per 10 points.",
+    "After the loop, print the summary. Check counted first: with nothing to average, the division gives NaN and highest and lowest still hold their impossible starting values.",
+    "Press Check Project. The last test feeds you nothing but rubbish, so make sure that path works."
+  ],
+  "starterCode": "// 📊 Score Board\n\nimport java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        // ---- Already done for you ----\n        System.out.print(\"How many scores? \");\n        int count = scanner.nextInt();\n\n        // ---- Your turn ----\n\n        // TODO 1: the six trackers, all declared before the loop so they\n        //         survive it:\n        //           int total = 0;\n        //           int counted = 0;\n        //           int highest = -1;      // lower than any real score\n        //           int lowest = 101;      // higher than any real score\n        //           int passes = 0;\n\n        // TODO 2: a for loop that runs \"count\" times. Inside it, ask\n        //         \"Score 1? \", \"Score 2? \" and so on, and read the number.\n\n        // TODO 3: still inside the loop, reject nonsense first. If the score\n        //         is below 0 or above 100, print \"Ignored: \" + score and\n        //         use continue so it counts for nothing.\n\n        // TODO 4: update the five trackers with this score.\n\n        // TODO 5: print the bar for this score:\n        //           the score, then \" | \", then one star per 10 points.\n        //         The stars need a loop of their own inside the loop.\n\n        // TODO 6: after the loop, print the summary. If counted is 0, print\n        //         \"No valid scores.\" and nothing else. Otherwise print:\n        //           Scores counted: 4\n        //           Total: 240\n        //           Highest: 92\n        //           Lowest: 29\n        //           Average: 60.0\n        //           Passes: 3\n\n\n    }\n}\n",
+  "hints": [
+    "Press Run before you change anything. It asks how many scores and then stops, because the loop is not there yet.",
+    "The reading loop is the standard counted shape: `for (int i = 1; i <= count; i++) {` and inside it `System.out.print(\"Score \" + i + \"? \");` then `int score = scanner.nextInt();`",
+    "Put the rejection at the very top of the loop body, before anything is counted: `if (score < 0 || score > 100) { System.out.println(\"Ignored: \" + score); continue; }`. `continue` jumps to the next turn, so the trackers below are never reached.",
+    "Highest and lowest are two ifs, not a chain: `if (score > highest) { highest = score; }` and `if (score < lowest) { lowest = score; }`. Starting them at -1 and 101 is what makes the first score win both.",
+    "The bar is a nested loop. Print the start of the line with `System.out.print(score + \" | \");`, then `for (int star = 1; star <= score / 10; star++) { System.out.print(\"*\"); }`, then one `System.out.println();` to end the line.",
+    "`score / 10` is whole-number division, so 92 gives 9 and 29 gives 2. That is exactly the bar length you want, no rounding needed.",
+    "The average needs a cast or it comes out as a whole number: `System.out.println(\"Average: \" + (double) total / counted);`",
+    "Wrap the whole summary in `if (counted == 0) { System.out.println(\"No valid scores.\"); } else { ... }`. Without it, a run where everything was ignored prints Average: NaN and Highest: -1, and the last test catches you."
+  ],
+  "inputPlaceholder": "4\n92\n71\n48\n29",
+  "inputHint": "Type how many scores first, then that many scores, one per line.",
+  "tests": [
+    {
+      "name": "Four ordinary scores",
+      "input": [
+        "4",
+        "92",
+        "71",
+        "48",
+        "29"
+      ],
+      "expect": [
+        "92 | *********",
+        "29 | **",
+        "Scores counted: 4",
+        "Total: 240",
+        "Highest: 92",
+        "Lowest: 29",
+        "Average: 60.0",
+        "Passes: 3"
+      ]
+    },
+    {
+      "name": "Nonsense scores are thrown out",
+      "input": [
+        "5",
+        "100",
+        "150",
+        "50",
+        "-3",
+        "30"
+      ],
+      "expect": [
+        "Ignored: 150",
+        "Ignored: -3",
+        "100 | **********",
+        "Scores counted: 3",
+        "Total: 180",
+        "Highest: 100",
+        "Lowest: 30",
+        "Average: 60.0",
+        "Passes: 2"
+      ]
+    },
+    {
+      "name": "A single score on the pass line",
+      "input": [
+        "1",
+        "40"
+      ],
+      "expect": [
+        "40 | ****",
+        "Scores counted: 1",
+        "Total: 40",
+        "Highest: 40",
+        "Lowest: 40",
+        "Average: 40.0",
+        "Passes: 1"
+      ]
+    },
+    {
+      "name": "Everything was rubbish, so there is nothing to average",
+      "input": [
+        "2",
+        "200",
+        "-5"
+      ],
+      "expect": [
+        "Ignored: 200",
+        "Ignored: -5",
+        "No valid scores."
+      ]
+    }
+  ],
+  "successMessage": "The score board is up! 📊 A counted for loop to read, a continue to throw out the rubbish, two ifs to track the extremes, a nested loop to draw every bar and a guard so an empty board does not crash. Your programs can repeat work now, which is most of what makes them useful. Next module you learn to give a block of code a name and call it whenever you like."
+}

@@ -9,42 +9,171 @@
       "value": "Storing a Value"
     },
     {
-      "type": "paragraph",
-      "value": "A variable is a way to store a value and give it a name, like a labeled box. To make one, write the name you want, an equals sign `=`, then the value. Now the name and the value are linked: whenever you use the name, Python gives you back the value."
+      "type": "analogy",
+      "emoji": "📦",
+      "real": "A labeled box",
+      "concept": "A variable",
+      "code": "score = 100",
+      "text": "The label on the box is the variable's name. What's inside is its value. Whenever you use the name, Python opens the box and hands you the value."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "score",
+          "label": "name",
+          "note": "The label you choose. You'll use it to get the value back later."
+        },
+        {
+          "code": " = ",
+          "label": "store",
+          "note": "The assignment sign. It puts the value on the right into the box named on the left."
+        },
+        {
+          "code": "100",
+          "label": "value",
+          "note": "What goes in the box. It can be a number, some text, and more."
+        }
+      ],
+      "title": "Anatomy of a variable"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "toys = 10\nname = \"Alex\"\nscore = 100\n\nprint(score)"
+      "value": "toys = 10\nname = \"Alex\"\nscore = 100\n\nprint(score)",
+      "output": [
+        "100"
+      ]
     },
     {
-      "type": "simulation",
-      "kind": "variable",
-      "name": "score",
-      "value": "100"
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "toys",
+          "value": "10"
+        },
+        {
+          "name": "name",
+          "value": "\"Alex\""
+        },
+        {
+          "name": "score",
+          "value": "100"
+        }
+      ],
+      "title": "What Python is holding now",
+      "caption": "Three variables, three boxes. `print(score)` opens the `score` box and shows `100`."
     },
     {
-      "type": "tip",
-      "value": "Names can have letters, digits and underscores, but they can't start with a digit or have spaces. `player_score` works; `2ndScore` and `player score` do not."
+      "type": "check",
+      "question": "After `apples = 5`, what does `print(apples)` show?",
+      "options": [
+        "apples",
+        "5",
+        "apples = 5",
+        "Nothing"
+      ],
+      "answer": 1,
+      "explain": "`print` opens the box named `apples` and shows what is inside it: `5`."
+    },
+    {
+      "type": "heading",
+      "value": "Choosing a Name"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Good names",
+          "tone": "good",
+          "code": "player_score = 0\nlives = 3\nlevel2 = 5",
+          "text": "Letters, digits and underscores. Start with a letter."
+        },
+        {
+          "title": "Not allowed",
+          "tone": "bad",
+          "code": "2nd_score = 0\nplayer score = 0\nmy-lives = 3",
+          "text": "No starting with a digit, no spaces, no dashes."
+        }
+      ],
+      "title": "Naming rules"
+    },
+    {
+      "type": "check",
+      "question": "Which one is a valid variable name?",
+      "options": [
+        "2nd_score",
+        "player_score",
+        "player score",
+        "player-score"
+      ],
+      "answer": 1,
+      "explain": "`player_score` uses only letters and an underscore. The others start with a digit, have a space, or use a dash."
     },
     {
       "type": "heading",
       "value": "Changing a Variable"
     },
     {
-      "type": "paragraph",
-      "value": "A variable can hold a new value later. When you write `score = 250`, Python throws away the old value and stores the new one. The name stays the same; only the value inside the box changes."
+      "type": "points",
+      "items": [
+        "A variable can get a new value at any time.",
+        "The new value **replaces** the old one. The old one is gone.",
+        "The name stays the same: only what's inside the box changes."
+      ],
+      "title": "Key ideas"
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "score = 100\nprint(score)\nscore = 250\nprint(score)"
+      "type": "stepper",
+      "code": "score = 100\nprint(score)\nscore = 250\nprint(score)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Make a box named `score` and put `100` in it.",
+          "vars": {
+            "score": "100"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Open the `score` box and print what's inside: `100`.",
+          "out": [
+            "100"
+          ]
+        },
+        {
+          "line": 3,
+          "note": "Put `250` in the box. The `100` is thrown away.",
+          "vars": {
+            "score": "250"
+          }
+        },
+        {
+          "line": 4,
+          "note": "Print the box again. This time it holds `250`.",
+          "out": [
+            "250"
+          ]
+        }
+      ],
+      "title": "Watch the box change",
+      "outro": "Same name, two different values, because Python runs the lines in order."
     },
     {
-      "type": "simulation",
-      "kind": "variable",
-      "name": "score",
-      "value": "250"
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "5",
+        "5 then 8",
+        "8",
+        "x"
+      ],
+      "answer": 2,
+      "explain": "Line 2 replaces the `5` with `8`. By the time `print` runs, the box only holds `8`.",
+      "code": "x = 5\nx = 8\nprint(x)"
     }
   ],
   "editorCode": "score = 100\nprint(score)",

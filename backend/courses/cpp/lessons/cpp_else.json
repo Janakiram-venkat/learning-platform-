@@ -1,0 +1,396 @@
+{
+  "lessonId": "cpp_else",
+  "title": "else and else if",
+  "description": "Choosing exactly one path out of several, and why the order of the tests matters.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Other Path"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🍦",
+      "real": "Ice cream or fruit",
+      "concept": "if and else",
+      "code": "if (sunny) {\n    eat(\"ice cream\");\n} else {\n    eat(\"fruit\");\n}",
+      "text": "If it is sunny you get ice cream, otherwise fruit. You always get exactly one of the two, never both and never neither."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 42;\n\n    if (score >= 50) {\n        cout << \"You passed!\" << endl;\n    } else {\n        cout << \"Not this time. Try again.\" << endl;\n    }\n\n    cout << \"Score recorded.\" << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Store `42` in `score`.",
+          "vars": {
+            "score": "42"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Is `42 >= 50`? No, `false`. Skip the `if` block."
+        },
+        {
+          "line": 9,
+          "note": "The condition was false, so C++ takes the `else` path."
+        },
+        {
+          "line": 10,
+          "note": "Run the `else` block.",
+          "out": [
+            "Not this time. Try again."
+          ]
+        },
+        {
+          "line": 13,
+          "note": "After the whole if/else, this always runs.",
+          "out": [
+            "Score recorded."
+          ]
+        }
+      ],
+      "title": "Follow the false path",
+      "outro": "`else` has no condition of its own. It is everything the `if` did not catch."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Two conditions",
+          "tone": "bad",
+          "code": "if (score >= 50) { ... }\nif (score < 50) { ... }",
+          "text": "Works, but you must keep two tests exact opposites."
+        },
+        {
+          "title": "else",
+          "tone": "good",
+          "code": "if (score >= 50) { ... }\nelse { ... }",
+          "text": "One test. Between them they cover every score."
+        }
+      ],
+      "title": "Why not two opposite ifs?",
+      "caption": "Change one condition and forget the other, and some score falls through both. `else` cannot drift out of step."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Big then Small",
+        "Big",
+        "Small",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`7 > 10` is false, so the `else` block runs.",
+      "code": "int n = 7;\nif (n > 10) {\n    cout << \"Big\" << endl;\n} else {\n    cout << \"Small\" << endl;\n}"
+    },
+    {
+      "type": "heading",
+      "value": "The else if Ladder"
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "🅰️",
+          "label": "marks >= 90?",
+          "detail": "Yes: Grade A, stop."
+        },
+        {
+          "icon": "🅱️",
+          "label": "marks >= 75?",
+          "detail": "Yes: Grade B, stop."
+        },
+        {
+          "icon": "©️",
+          "label": "marks >= 60?",
+          "detail": "Yes: Grade C, stop."
+        },
+        {
+          "icon": "🔤",
+          "label": "marks >= 40?",
+          "detail": "Yes: Grade D, stop."
+        },
+        {
+          "icon": "🛟",
+          "label": "else",
+          "detail": "None were true: Grade F."
+        }
+      ],
+      "title": "Checked top to bottom",
+      "caption": "The first true test wins. After that the rest of the chain is never even looked at."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int marks = 80;\n\n    if (marks >= 90) {\n        cout << \"Grade: A\" << endl;\n    } else if (marks >= 75) {\n        cout << \"Grade: B\" << endl;\n    } else if (marks >= 60) {\n        cout << \"Grade: C\" << endl;\n    } else if (marks >= 40) {\n        cout << \"Grade: D\" << endl;\n    } else {\n        cout << \"Grade: F\" << endl;\n    }\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Store `80` in `marks`.",
+          "vars": {
+            "marks": "80"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Is `80 >= 90`? No. Move down the ladder."
+        },
+        {
+          "line": 9,
+          "note": "Is `80 >= 75`? Yes. This branch wins."
+        },
+        {
+          "line": 10,
+          "note": "Run it. The chain is now finished.",
+          "out": [
+            "Grade: B"
+          ]
+        }
+      ],
+      "title": "Which branch wins?",
+      "outro": "80 is also `>= 60` and `>= 40`, but those tests never run. Separate `if`s would check them all; a chain stops at the first true one."
+    },
+    {
+      "type": "check",
+      "question": "What does the ladder print when `marks` is `65`?",
+      "options": [
+        "Grade: B",
+        "Grade: C",
+        "Grade: C then Grade: D",
+        "Grade: D"
+      ],
+      "answer": 1,
+      "explain": "`65 >= 90` and `65 >= 75` are false. `65 >= 60` is true, so `Grade: C` prints and the chain stops."
+    },
+    {
+      "type": "heading",
+      "value": "Order Decides the Answer"
+    },
+    {
+      "type": "paragraph",
+      "value": "Because the first true test wins, the order of a chain is part of its meaning. A wrong order still compiles and runs."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int marks = 95;\n\n    // WRONG: the loosest test comes first\n    if (marks >= 40) {\n        cout << \"Grade: D\" << endl;\n    } else if (marks >= 60) {\n        cout << \"Grade: C\" << endl;\n    } else if (marks >= 90) {\n        cout << \"Grade: A\" << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "Grade: D"
+      ],
+      "caption": "Top marks of 95 came out as a D. Every mark of 40 or more passes the first test, so nothing below it can run. Put the strictest test first."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Says too much",
+          "tone": "neutral",
+          "code": "if (marks >= 90) { ... }\nelse if (marks >= 75 && marks < 90) { ... }",
+          "text": "Works, but `&& marks < 90` is already known. Change a band and you edit two numbers."
+        },
+        {
+          "title": "Just enough",
+          "tone": "good",
+          "code": "if (marks >= 90) { ... }\nelse if (marks >= 75) { ... }",
+          "text": "Anything reaching the second test is below 90 already."
+        }
+      ],
+      "title": "Do not repeat the bound",
+      "caption": "Read a chain aloud with \"otherwise\": if 90 or more, A, otherwise if 75 or more, B. If it makes sense, the order is right."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Hot",
+        "Warm then Hot",
+        "Warm",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`35 > 20` is true first, so `Warm` prints and the `else if` is skipped, even though `35 > 30` is also true.",
+      "code": "int temp = 35;\nif (temp > 20) {\n    cout << \"Warm\" << endl;\n} else if (temp > 30) {\n    cout << \"Hot\" << endl;\n}"
+    },
+    {
+      "type": "heading",
+      "value": "The Final else Is a Safety Net"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🛟",
+          "text": "It catches the unexpected",
+          "sub": "A rating of 0 or -3 still gets an answer instead of silence."
+        },
+        {
+          "icon": "📦",
+          "text": "It lets a chain choose a value",
+          "sub": "Declare the variable first, then assign it in every branch."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int rating = 0;\n\n    if (rating >= 4) {\n        cout << \"Thank you!\" << endl;\n    } else if (rating >= 2) {\n        cout << \"We will do better.\" << endl;\n    } else if (rating == 1) {\n        cout << \"Sorry to hear that.\" << endl;\n    } else {\n        cout << \"That is not a rating from 1 to 5.\" << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "That is not a rating from 1 to 5."
+      ],
+      "caption": "Without the last `else`, a rating of 0 would print nothing and the program would look broken."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int age = 8;\n    string category;\n    int price;\n\n    if (age < 5) {\n        category = \"Infant\";\n        price = 0;\n    } else if (age < 13) {\n        category = \"Child\";\n        price = 120;\n    } else {\n        category = \"Adult\";\n        price = 250;\n    }\n\n    cout << category << \": \" << price << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 6,
+          "note": "Store `8` in `age`.",
+          "vars": {
+            "age": "8"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Declare `category`. A `string` with no value starts empty.",
+          "vars": {
+            "category": "\"\""
+          }
+        },
+        {
+          "line": 8,
+          "note": "Declare `price`. An `int` with no value holds leftover garbage.",
+          "vars": {
+            "price": "(garbage)"
+          }
+        },
+        {
+          "line": 10,
+          "note": "Is `8 < 5`? No."
+        },
+        {
+          "line": 13,
+          "note": "Is `8 < 13`? Yes. This branch wins."
+        },
+        {
+          "line": 14,
+          "note": "Assign the category.",
+          "vars": {
+            "category": "\"Child\""
+          }
+        },
+        {
+          "line": 15,
+          "note": "Assign the price.",
+          "vars": {
+            "price": "120"
+          }
+        },
+        {
+          "line": 21,
+          "note": "Both now have a value, so they can be printed.",
+          "out": [
+            "Child: 120"
+          ]
+        }
+      ],
+      "title": "A chain that picks values"
+    },
+    {
+      "type": "warning",
+      "value": "C++ does not check that every path sets the variable. Swap the last `else` for `else if (age >= 13 && age < 120)` and an age of 150 prints a random garbage price. End the chain with a plain `else`, and start variables with a value, like `int price = 0;`.",
+      "title": "C++ will not catch a missing branch"
+    },
+    {
+      "type": "check",
+      "question": "A chain sets `int price;` in every branch except one. That branch runs. What prints?",
+      "options": [
+        "0",
+        "A compile error",
+        "A garbage number that can change every run",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "An `int` declared with no value holds whatever was left in memory. C++ does not stop you, so give it a starting value."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int marks;\n\n    cout << \"Marks out of 100? \";\n    cin >> marks;\n\n    if (marks >= 90) {\n        cout << \"Grade: A\" << endl;\n    } else if (marks >= 75) {\n        cout << \"Grade: B\" << endl;\n    } else if (marks >= 60) {\n        cout << \"Grade: C\" << endl;\n    } else if (marks >= 40) {\n        cout << \"Grade: D\" << endl;\n    } else {\n        cout << \"Grade: F\" << endl;\n    }\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a number and print whether it is positive, negative, or zero. Use an `if`, an `else if` and an `else`.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n\n    cout << \"Number? \";\n    cin >> n;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "This gives every student a D. Reorder the chain so that 95 prints A and 65 prints C.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int marks = 95;\n\n    if (marks >= 40) {\n        cout << \"Grade: D\" << endl;\n    } else if (marks >= 60) {\n        cout << \"Grade: C\" << endl;\n    } else if (marks >= 90) {\n        cout << \"Grade: A\" << endl;\n    }\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Ask for a month number and print the season: 12, 1 or 2 is Winter, 3 to 5 is Spring, 6 to 8 is Summer, 9 to 11 is Autumn. Add a final `else` for anything that is not 1 to 12.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int month;\n\n    cout << \"Month number? \";\n    cin >> month;\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "Run this: the price for a 70 year old is a number the program never set. Add a final `else` that gives seniors a price of 100, then also start `price` at 0 when you declare it.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 70;\n    int price;\n\n    if (age < 13) {\n        price = 120;\n    } else if (age < 60) {\n        price = 250;\n    }\n\n    cout << \"Price: \" << price << endl;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "In an `if` and `else` pair, how many blocks run?",
+      "options": [
+        "Exactly one, always",
+        "One or both, depending on the condition",
+        "Possibly neither"
+      ],
+      "answer": 0,
+      "explain": "The `else` covers every case the `if` did not, so exactly one of the two always runs."
+    },
+    {
+      "question": "In an `else if` chain, which block runs when three conditions are all true?",
+      "options": [
+        "All three",
+        "Only the last true one",
+        "Only the first true one, and the rest are skipped"
+      ],
+      "answer": 2,
+      "explain": "C++ tests from the top and stops at the first true condition. That is what makes a chain pick exactly one alternative."
+    },
+    {
+      "question": "Why does this chain give 95 a grade of D?  `if (marks >= 40) D else if (marks >= 90) A`",
+      "options": [
+        "95 is not greater than 90.",
+        "The loosest test comes first, so it catches every mark of 40 or more.",
+        "The chain needs a final `else`."
+      ],
+      "answer": 1,
+      "explain": "The first true test wins, and 95 passes `>= 40`. Range tests must be ordered from narrowest to widest."
+    },
+    {
+      "question": "In a chain that already tested `marks >= 90` first, why is `marks >= 75 && marks < 90` more than you need?",
+      "options": [
+        "`&&` cannot be used inside an `else if`.",
+        "Anything reaching the second test is already below 90.",
+        "It is wrong: it would miss a mark of 89."
+      ],
+      "answer": 1,
+      "explain": "The earlier test has already removed everything at 90 or above, so the extra upper bound can only be true. One condition is fewer things to keep in step."
+    },
+    {
+      "question": "`int price;` is set inside a chain, but no branch matches. What does `cout << price;` print?",
+      "options": [
+        "A garbage number left over in memory",
+        "0, always",
+        "Nothing: the program refuses to compile"
+      ],
+      "answer": 0,
+      "explain": "C++ does not check that every path sets a variable. End the chain with a plain `else`, and start variables with a value such as `int price = 0;`."
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "moduleId": 3,
+  "title": "Input and Operators Checkpoint",
+  "intro": "Your programs can now listen to a person, calculate with what they typed, compare values and combine conditions. Twelve rounds, one from every idea in this module. First-try answers earn three stars!",
+  "emoji": "⚙️",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "Which line reads a whole number typed at the keyboard into `int age`?",
+      "options": [
+        "cin >> age;",
+        "cin << age;",
+        "cout >> age;",
+        "age = cin;"
+      ],
+      "answer": 0,
+      "explain": "The arrows point the way the value travels: from `cin` into the variable. `cout <<` is for printing, and `cin << age` does not compile."
+    },
+    {
+      "type": "predict",
+      "prompt": "The person types Amara Okafor. What does this print?",
+      "code": "string name;\ncin >> name;\ncout << name << endl;",
+      "options": [
+        "Amara Okafor",
+        "Okafor",
+        "Nothing",
+        "Amara"
+      ],
+      "answer": 3,
+      "explain": "`cin >>` reads one word and stops at the first space. `getline(cin, name);` would keep the whole line."
+    },
+    {
+      "type": "bug",
+      "prompt": "The Name question is skipped and never waits for an answer. What fixes it?",
+      "code": "cin >> age;\ncout << \"Name? \";\ngetline(cin, name);",
+      "options": [
+        "Include <iostream> a second time",
+        "Change getline(cin, name) to cin << name",
+        "Add cin.ignore(); straight after cin >> age;",
+        "Remove the cout before it"
+      ],
+      "answer": 2,
+      "explain": "`cin >> age` leaves the Enter key in the queue, so the following `getline` reads up to it and returns empty. `cin.ignore()` throws that one character away."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "cout << 17 % 5 << endl;",
+      "options": [
+        "3",
+        "2",
+        "3.4",
+        "85"
+      ],
+      "answer": 1,
+      "explain": "`%` gives the remainder. 5 goes into 17 three times with 2 left over, so `/` would give 3 and `%` gives 2."
+    },
+    {
+      "type": "concept",
+      "prompt": "How do you check whether an `int n` is even?",
+      "options": [
+        "n / 2 == 0",
+        "n % 2 == 0",
+        "n % 10 == 0",
+        "n == 2"
+      ],
+      "answer": 1,
+      "explain": "An even number divides by 2 with nothing left over, so its remainder is 0. Odd numbers leave 1."
+    },
+    {
+      "type": "predict",
+      "prompt": "Splitting a total into units. What does this print?",
+      "code": "int totalSeconds = 3725;\ncout << totalSeconds / 60 << endl;\ncout << totalSeconds % 60 << endl;",
+      "options": [
+        "62 then 5",
+        "61 then 65",
+        "5 then 62",
+        "62.0833 then 5"
+      ],
+      "answer": 0,
+      "explain": "`/ 60` gives the whole minutes (62) and `% 60` gives the seconds left over (5). Divide for the big unit, take the remainder for the rest."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does score hold at the end?",
+      "code": "int score = 100;\nscore += 50;\nscore /= 3;\nscore++;\ncout << score << endl;",
+      "options": [
+        "50",
+        "151",
+        "17",
+        "51"
+      ],
+      "answer": 3,
+      "explain": "150 divided by 3 is 50, then `++` adds one to give 51. Each shorthand reads the current value, applies the operator and stores the answer back."
+    },
+    {
+      "type": "predict",
+      "prompt": "The ++ is written after the name. What does this print?",
+      "code": "int a = 5;\ncout << a++ << endl;\ncout << a << endl;",
+      "options": [
+        "6 then 6",
+        "5 then 5",
+        "5 then 6",
+        "6 then 7"
+      ],
+      "answer": 2,
+      "explain": "With the `++` after the name, the old value is handed back first and the increment happens after. `++a` would print 6 twice."
+    },
+    {
+      "type": "concept",
+      "prompt": "A person typed `yes`, stored in a `string` called `answer`. Which line correctly checks it?",
+      "options": [
+        "answer = \"yes\"",
+        "answer => \"yes\"",
+        "answer == \"yes\"",
+        "answer % \"yes\""
+      ],
+      "answer": 2,
+      "explain": "In C++, `==` on a `string` compares the letters one by one. A single `=` would overwrite `answer` instead of asking anything."
+    },
+    {
+      "type": "predict",
+      "prompt": "Careful with the range. What does this print?",
+      "code": "int n = 15;\ncout << boolalpha << (1 <= n <= 10) << endl;",
+      "options": [
+        "false",
+        "true",
+        "15",
+        "A compile error"
+      ],
+      "answer": 1,
+      "explain": "C++ works out `1 <= n` first, which is true and counts as 1, then checks `1 <= 10`, which is always true. Write a range as `n >= 1 && n <= 10`."
+    },
+    {
+      "type": "bug",
+      "prompt": "This crashes when the person enters 0 people. Which version cannot crash?",
+      "code": "bool ok = bill / people <= 500 && people > 0;",
+      "options": [
+        "bool ok = people > 0 && bill / people <= 500;",
+        "bool ok = bill / people <= 500 || people > 0;",
+        "bool ok = !(bill / people <= 500);",
+        "It cannot be fixed without an if statement."
+      ],
+      "answer": 0,
+      "explain": "`&&` stops as soon as the left side is false, so putting the guard first means the division is never reached when people is 0. Order matters."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each operator to what it does.",
+      "pairs": [
+        {
+          "left": "%",
+          "right": "The remainder after dividing"
+        },
+        {
+          "left": "+=",
+          "right": "Add to a variable and store it back"
+        },
+        {
+          "left": "++",
+          "right": "Add exactly one"
+        },
+        {
+          "left": "==",
+          "right": "Ask whether two values are equal"
+        },
+        {
+          "left": "&&",
+          "right": "True only when both sides are true"
+        },
+        {
+          "left": "||",
+          "right": "True when at least one side is true"
+        }
+      ],
+      "explain": "Six operators across the whole module: one arithmetic, two shorthands, one comparison and two logical."
+    }
+  ]
+}

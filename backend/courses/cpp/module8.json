@@ -1,0 +1,32 @@
+{
+  "moduleId": 8,
+  "title": "Pointers and Memory",
+  "lessons": [
+    {
+      "lessonId": "cpp_memory_addresses",
+      "title": "Memory and Addresses",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_pointers",
+      "title": "Pointers",
+      "duration": "25 min"
+    },
+    {
+      "lessonId": "cpp_pointers_arrays",
+      "title": "Pointers and Arrays",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_dynamic_memory",
+      "title": "new and delete",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_smart_pointers",
+      "title": "Smart Pointers",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

@@ -9,59 +9,309 @@
       "value": "Blueprints and Objects"
     },
     {
-      "type": "paragraph",
-      "value": "Say you are keeping track of three dogs. With what you know so far you would need a variable for each name and each breed, or a dictionary for every dog, and a separate function for making them bark. The data lives in one place and the actions live in another, and nothing holds them together."
+      "type": "analogy",
+      "emoji": "🍪",
+      "real": "A cookie cutter and its cookies",
+      "concept": "A class and its objects",
+      "code": "class Dog:\n    ...\n\ndog1 = Dog(\"Buddy\", \"Pug\")",
+      "text": "Tracking three dogs with plain variables gets messy fast. A **class** is the cookie cutter: you describe the data and the actions once. Each **object** is a cookie stamped from it: same shape, but its own cookie."
     },
     {
-      "type": "paragraph",
-      "value": "A class fixes that by letting you describe a whole kind of thing in one place: what it knows, and what it can do. Think of a cookie cutter. You make the cutter once, then stamp out as many cookies as you like, all the same shape but each its own cookie. The cutter is the class, and each cookie is an object."
+      "type": "points",
+      "items": [
+        {
+          "icon": "📐",
+          "text": "Class",
+          "sub": "Describes a whole kind of thing, in one place."
+        },
+        {
+          "icon": "🧠",
+          "text": "What it knows",
+          "sub": "Data stored on each object, like a name and a breed."
+        },
+        {
+          "icon": "🏃",
+          "text": "What it can do",
+          "sub": "Actions, like `bark()`."
+        },
+        {
+          "icon": "🐶",
+          "text": "Object",
+          "sub": "One real thing made from the class. Make as many as you want."
+        }
+      ],
+      "title": "Key words"
+    },
+    {
+      "type": "check",
+      "question": "In the cookie cutter picture, what is the object?",
+      "options": [
+        "The cookie cutter",
+        "One cookie",
+        "The oven",
+        "The recipe book"
+      ],
+      "answer": 1,
+      "explain": "The cutter is the class (the blueprint). Each cookie stamped out of it is an object."
     },
     {
       "type": "heading",
       "value": "Writing a Class"
     },
     {
-      "type": "paragraph",
-      "value": "You start with the `class` keyword and a name, written with a capital letter by convention. Inside it goes a special method called `__init__`, which Python runs automatically every time a new object is made. Its job is to store that object's own data."
+      "type": "points",
+      "items": [
+        "Start with the `class` keyword and a name.",
+        "By convention the name starts with a capital letter: `Dog`, not `dog`.",
+        "Inside goes a special method called `__init__`.",
+        "Python runs `__init__` **automatically** every time a new object is made.",
+        "Its job: store that object's own data."
+      ],
+      "title": "How a class starts"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed"
+      "value": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed",
+      "caption": "This only defines the blueprint, so nothing prints yet."
     },
     {
-      "type": "paragraph",
-      "value": "The word `self` means this particular object, the one being worked on right now. So `self.name = name` reads as: take the name that was passed in, and store it on this object. Values stored on an object like that are called attributes."
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "self",
+          "label": "this object",
+          "note": "`self` means this particular object, the one being built right now."
+        },
+        {
+          "code": ".name",
+          "label": "attribute",
+          "note": "A value stored on an object is called an **attribute**."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "name",
+          "label": "value passed in",
+          "note": "The name that was handed to `Dog(...)` when the object was made."
+        }
+      ],
+      "title": "Anatomy of an attribute line",
+      "caption": "Read it as: take the name that was passed in, and store it on this object."
     },
     {
       "type": "tip",
-      "value": "Every method inside a class takes `self` as its first parameter, and Python fills it in for you. You never pass it yourself: you write `buddy.bark()`, not `buddy.bark(buddy)`."
+      "value": "Every method inside a class takes `self` as its first parameter, and Python fills it in for you. You never pass it yourself: you write `buddy.bark()`, not `buddy.bark(buddy)`.",
+      "title": "self is automatic"
+    },
+    {
+      "type": "check",
+      "question": "What does `self` mean inside a method?",
+      "options": [
+        "The class name",
+        "Every object ever made",
+        "The first argument you type yourself",
+        "The object the method is working on right now"
+      ],
+      "answer": 3,
+      "explain": "`self` is this particular object. Python passes it in for you, so each object works with its own data."
     },
     {
       "type": "heading",
       "value": "Adding Actions"
     },
     {
-      "type": "paragraph",
-      "value": "A function written inside a class is called a method, and it is the class's way of doing something. Because it receives `self`, it can reach the attributes of whichever object it was called on."
+      "type": "points",
+      "items": [
+        "A function written inside a class is called a **method**.",
+        "Methods are how a class **does** things.",
+        "Because a method gets `self`, it can reach the attributes of whichever object called it."
+      ],
+      "title": "Methods"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n\n    def bark(self):\n        print(self.name + \" says Woof!\")\n\n    def describe(self):\n        print(self.name + \" is a \" + self.breed)"
+      "value": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n\n    def bark(self):\n        print(self.name + \" says Woof!\")\n\n    def describe(self):\n        print(self.name + \" is a \" + self.breed)",
+      "caption": "Two methods added: `bark` and `describe`. Still just the blueprint, so nothing prints yet."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Attributes (what it knows)",
+          "tone": "neutral",
+          "code": "self.name\nself.breed",
+          "text": "Values stored on each object. No parentheses."
+        },
+        {
+          "title": "Methods (what it does)",
+          "tone": "neutral",
+          "code": "def bark(self):\ndef describe(self):",
+          "text": "Functions inside the class. You call them with parentheses."
+        }
+      ],
+      "title": "Data vs actions"
+    },
+    {
+      "type": "check",
+      "question": "What is a function written inside a class called?",
+      "options": [
+        "An attribute",
+        "A method",
+        "An object",
+        "A module"
+      ],
+      "answer": 1,
+      "explain": "Functions that live inside a class are called methods. Values stored on an object are attributes."
     },
     {
       "type": "heading",
       "value": "Making Objects"
     },
     {
-      "type": "paragraph",
-      "value": "To build an object, write the class name with parentheses and pass in the values `__init__` is expecting. Each object you make is completely separate, with its own attributes, even though they all came from the same class."
+      "type": "points",
+      "items": [
+        "Write the class name with parentheses: `Dog(...)`.",
+        "Pass in the values `__init__` expects (but not `self`).",
+        "Each object is completely separate, with its own attributes.",
+        "Use a dot to reach an attribute (`dog1.name`) or call a method (`dog2.bark()`)."
+      ],
+      "title": "Building an object"
+    },
+    {
+      "type": "stepper",
+      "code": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n\n    def bark(self):\n        print(self.name + \" says Woof!\")\n\ndog1 = Dog(\"Buddy\", \"Pug\")\ndog1.bark()",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Python reads the whole class and remembers the blueprint. No object exists yet.",
+          "vars": {
+            "Dog": "class"
+          }
+        },
+        {
+          "line": 9,
+          "note": "`Dog(\"Buddy\", \"Pug\")` asks for a new object. Python makes an empty one and runs `__init__` on it."
+        },
+        {
+          "line": 2,
+          "note": "`self` is the new, empty object. `name` and `breed` hold the values you passed in.",
+          "vars": {
+            "name": "\"Buddy\"",
+            "breed": "\"Pug\""
+          }
+        },
+        {
+          "line": 3,
+          "note": "Store the name on this object as an attribute.",
+          "vars": {
+            "self.name": "\"Buddy\""
+          }
+        },
+        {
+          "line": 4,
+          "note": "Store the breed too. `__init__` is done.",
+          "vars": {
+            "self.breed": "\"Pug\""
+          }
+        },
+        {
+          "line": 9,
+          "note": "The finished object is stored in `dog1`. The temporary `name` and `breed` are gone, but the attributes stay on the object.",
+          "vars": {
+            "name": null,
+            "breed": null,
+            "self.name": null,
+            "self.breed": null,
+            "dog1.name": "\"Buddy\"",
+            "dog1.breed": "\"Pug\""
+          }
+        },
+        {
+          "line": 10,
+          "note": "Call `bark` on `dog1`. Python passes `dog1` in as `self` for you."
+        },
+        {
+          "line": 7,
+          "note": "`self.name` is `dog1.name`, which is `\"Buddy\"`.",
+          "out": [
+            "Buddy says Woof!"
+          ]
+        }
+      ],
+      "title": "Watch an object being built",
+      "outro": "`__init__` ran automatically and stored the data. `bark` used `self` to find that data."
+    },
+    {
+      "type": "check",
+      "question": "After `dog1 = Dog(\"Buddy\", \"Pug\")`, what is `dog1.breed`?",
+      "options": [
+        "\"Pug\"",
+        "\"Buddy\"",
+        "dog1",
+        "self"
+      ],
+      "answer": 0,
+      "explain": "`__init__` stored the second value, `\"Pug\"`, as `self.breed`, and `self` was `dog1`."
+    },
+    {
+      "type": "heading",
+      "value": "Many Objects, One Class"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "dog1 = Dog(\"Buddy\", \"Golden Retriever\")\ndog2 = Dog(\"Max\", \"Pug\")\n\nprint(dog1.name)   # Buddy\ndog2.bark()        # Max says Woof!\ndog1.describe()    # Buddy is a Golden Retriever"
+      "value": "class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed\n\n    def bark(self):\n        print(self.name + \" says Woof!\")\n\n    def describe(self):\n        print(self.name + \" is a \" + self.breed)\n\ndog1 = Dog(\"Buddy\", \"Golden Retriever\")\ndog2 = Dog(\"Max\", \"Pug\")\n\nprint(dog1.name)\ndog2.bark()\ndog1.describe()",
+      "output": [
+        "Buddy",
+        "Max says Woof!",
+        "Buddy is a Golden Retriever"
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "dog1.name",
+          "value": "\"Buddy\"",
+          "type": "str"
+        },
+        {
+          "name": "dog1.breed",
+          "value": "\"Golden Retriever\"",
+          "type": "str"
+        },
+        {
+          "name": "dog2.name",
+          "value": "\"Max\"",
+          "type": "str"
+        },
+        {
+          "name": "dog2.breed",
+          "value": "\"Pug\"",
+          "type": "str"
+        }
+      ],
+      "title": "Two cookies, one cutter",
+      "caption": "Same class, but each object keeps its own attributes."
+    },
+    {
+      "type": "check",
+      "question": "Using the `Dog` class above, what does this print?",
+      "options": [
+        "Max says Woof!",
+        "Rex says Woof!",
+        "self.name says Woof!",
+        "Rex"
+      ],
+      "answer": 1,
+      "explain": "`bark` was called on `pet`, so `self` is `pet` and `self.name` is `\"Rex\"`.",
+      "code": "pet = Dog(\"Rex\", \"Beagle\")\npet.bark()"
     },
     {
       "type": "paragraph",

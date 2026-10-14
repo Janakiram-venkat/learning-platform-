@@ -1,0 +1,32 @@
+{
+  "moduleId": 4,
+  "title": "Making Decisions",
+  "lessons": [
+    {
+      "lessonId": "cpp_if",
+      "title": "The if Statement",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "cpp_else",
+      "title": "else and else if",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_nested_if",
+      "title": "Nested Decisions",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "cpp_switch",
+      "title": "switch",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_ternary",
+      "title": "The Conditional Operator",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

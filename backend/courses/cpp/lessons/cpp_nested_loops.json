@@ -1,0 +1,393 @@
+{
+  "lessonId": "cpp_nested_loops",
+  "title": "Nested Loops",
+  "description": "A loop inside a loop: grids, tables, triangles and charts.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Loop Inside a Loop"
+    },
+    {
+      "type": "paragraph",
+      "value": "A loop body can hold anything, even another loop. Then the inner loop runs **all the way through** on every single turn of the outer one."
+    },
+    {
+      "type": "analogy",
+      "emoji": "🕐",
+      "real": "A clock: the minute hand goes all the way round for each step of the hour hand",
+      "concept": "Nested loops",
+      "code": "for (int hour = 1; hour <= 12; hour++) {\n    for (int min = 0; min < 60; min++) {\n        // tick\n    }\n}",
+      "text": "The outer counter changes slowly, the inner one changes fast."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int row = 1; row <= 2; row++) {\n        for (int col = 1; col <= 3; col++) {\n            cout << row << \"-\" << col << endl;\n        }\n    }\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Outer loop, turn 1.",
+          "vars": {
+            "row": "1"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Inner loop starts: `col` is 1.",
+          "vars": {
+            "col": "1"
+          },
+          "out": [
+            "1-1"
+          ]
+        },
+        {
+          "line": 7,
+          "note": "`col` is 2.",
+          "vars": {
+            "col": "2"
+          },
+          "out": [
+            "1-2"
+          ]
+        },
+        {
+          "line": 7,
+          "note": "`col` is 3.",
+          "vars": {
+            "col": "3"
+          },
+          "out": [
+            "1-3"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "`col` becomes 4. `4 <= 3` is false: the inner loop is finished.",
+          "vars": {
+            "col": "4"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Outer loop, turn 2. The inner `col` is gone; a fresh one starts next.",
+          "vars": {
+            "row": "2",
+            "col": null
+          }
+        },
+        {
+          "line": 7,
+          "note": "Inner loop starts again from 1.",
+          "vars": {
+            "col": "1"
+          },
+          "out": [
+            "2-1"
+          ]
+        },
+        {
+          "line": 7,
+          "note": "`col` is 2.",
+          "vars": {
+            "col": "2"
+          },
+          "out": [
+            "2-2"
+          ]
+        },
+        {
+          "line": 7,
+          "note": "`col` is 3.",
+          "vars": {
+            "col": "3"
+          },
+          "out": [
+            "2-3"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "`col` becomes 4: inner loop finished.",
+          "vars": {
+            "col": "4"
+          }
+        },
+        {
+          "line": 5,
+          "note": "`row` becomes 3. `3 <= 2` is false: everything is done.",
+          "vars": {
+            "row": "3",
+            "col": null
+          }
+        }
+      ],
+      "title": "Watch a 2 x 3 nested loop",
+      "outro": "2 outer turns x 3 inner turns = 6 lines."
+    },
+    {
+      "type": "check",
+      "question": "How many times does this print Hi?",
+      "options": [
+        "7",
+        "4",
+        "12",
+        "3"
+      ],
+      "answer": 2,
+      "explain": "Nesting multiplies: 3 outer turns, each running 4 inner turns. 3 x 4 = 12.",
+      "code": "for (int a = 1; a <= 3; a++) {\n    for (int b = 1; b <= 4; b++) {\n        cout << \"Hi\" << endl;\n    }\n}"
+    },
+    {
+      "type": "tip",
+      "value": "Nesting multiplies the work. Two loops to 1000 is a million turns. Three is a billion, which keeps even a fast C++ program busy for a noticeable time.",
+      "title": "Not free"
+    },
+    {
+      "type": "heading",
+      "value": "Rows and Columns"
+    },
+    {
+      "type": "paragraph",
+      "value": "Anything laid out in rows and columns needs two loops: grids, tables, seating plans, calendars. The trick is where you end each line."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "After the inner loop",
+          "tone": "good",
+          "code": "for (int row = 1; row <= 2; row++) {\n    for (int col = 1; col <= 3; col++) {\n        cout << \"# \";\n    }\n    cout << endl;\n}",
+          "text": "A neat 2 by 3 grid."
+        },
+        {
+          "title": "Inside the inner loop",
+          "tone": "bad",
+          "code": "for (int row = 1; row <= 2; row++) {\n    for (int col = 1; col <= 3; col++) {\n        cout << \"# \";\n        cout << endl;\n    }\n}",
+          "text": "Six short lines, no grid."
+        }
+      ],
+      "title": "Where does endl go?",
+      "caption": "Inside the outer loop but outside the inner one, `cout << endl;` ends the line once per row."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int a = 1; a <= 4; a++) {\n        for (int b = 1; b <= 4; b++) {\n            cout << a * b << \"\\t\";\n        }\n\n        cout << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "1\t2\t3\t4\t",
+        "2\t4\t6\t8\t",
+        "3\t6\t9\t12\t",
+        "4\t8\t12\t16\t"
+      ],
+      "caption": "A times table grid uses both counters at once. The tab `\"\\t\"` lines the columns up. With `\" \"` they drift, because 12 is wider than 3."
+    },
+    {
+      "type": "check",
+      "question": "What is the second line of output?",
+      "options": [
+        "1 2 3",
+        "3 6 9",
+        "2 4 6",
+        "2 3 4"
+      ],
+      "answer": 2,
+      "explain": "On the second outer turn `a` is 2, and the inner loop prints 2 x 1, 2 x 2 and 2 x 3.",
+      "code": "for (int a = 1; a <= 3; a++) {\n    for (int b = 1; b <= 3; b++) {\n        cout << a * b << \" \";\n    }\n    cout << endl;\n}"
+    },
+    {
+      "type": "heading",
+      "value": "Triangles"
+    },
+    {
+      "type": "paragraph",
+      "value": "The inner loop does not have to count to the same number every time. Use the outer counter as the inner limit, and the rows change length."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "for (int star = 1; "
+        },
+        {
+          "code": "star <= row",
+          "label": "limit",
+          "note": "Comes from the **outer** counter."
+        },
+        {
+          "code": "; star++)"
+        }
+      ],
+      "title": "The triangle trick",
+      "caption": "On row 1 the inner loop runs once. On row 5 it runs five times. One word turns a rectangle into a triangle."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int rows = 5;\n\n    for (int row = 1; row <= rows; row++) {\n        for (int star = 1; star <= row; star++) {\n            cout << \"*\";\n        }\n\n        cout << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "*",
+        "**",
+        "***",
+        "****",
+        "*****"
+      ],
+      "caption": "Turn the outer loop around (`row = rows; row >= 1; row--`) and the triangle stands on its head. Print `star << \" \"` instead and you get a number triangle: `1`, `1 2`, `1 2 3`..."
+    },
+    {
+      "type": "paragraph",
+      "value": "A centred pyramid needs **two** inner loops per row. On row `r` of `n`, print `n - r` spaces, then `2 * r - 1` stars: 1, 3, 5, 7."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int rows = 4;\n\n    for (int row = 1; row <= rows; row++) {\n        for (int space = 1; space <= rows - row; space++) {\n            cout << \" \";\n        }\n\n        for (int star = 1; star <= 2 * row - 1; star++) {\n            cout << \"*\";\n        }\n\n        cout << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "   *",
+        "  ***",
+        " *****",
+        "*******"
+      ],
+      "caption": "The two inner loops run one after the other. Each finishes before the next starts, and only the `endl` at the end closes the line."
+    },
+    {
+      "type": "heading",
+      "value": "Charts and Debugging"
+    },
+    {
+      "type": "paragraph",
+      "value": "The same shape does real work. Here the outer loop reads one score per turn, and the inner loop draws it as a bar: a chart."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "Outer",
+          "detail": "Read one score"
+        },
+        {
+          "icon": "⭐",
+          "label": "Inner",
+          "detail": "One star per 10 points"
+        },
+        {
+          "icon": "↩️",
+          "label": "endl",
+          "detail": "End the bar"
+        }
+      ],
+      "title": "One turn of the chart loop"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"How many scores? \";\n    int count;\n    cin >> count;\n\n    for (int i = 1; i <= count; i++) {\n        cout << \"Score \" << i << \"? \";\n        int score;\n        cin >> score;\n\n        cout << score << \" | \";\n\n        for (int star = 1; star <= score / 10; star++) {\n            cout << \"*\";\n        }\n\n        cout << endl;\n    }\n    return 0;\n}",
+      "caption": "Sample run: 2 scores, 73 and 40, draw `73 | *******` and `40 | ****`. Whole-number division `score / 10` rounds each bar down to a sensible length."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "↩️",
+          "text": "Is `endl` in the right place?",
+          "sub": "Inside the inner loop, every item gets its own line."
+        },
+        {
+          "icon": "🔤",
+          "text": "Are the counters separate?",
+          "sub": "If both loops declare `int i`, C++ compiles it, but the inner `i` hides the outer one. Give each loop its own name."
+        },
+        {
+          "icon": "📏",
+          "text": "Should the inner limit use the outer counter?",
+          "sub": "That is the difference between a rectangle and a triangle."
+        },
+        {
+          "icon": "✍️",
+          "text": "Still stuck? Trace it by hand",
+          "sub": "Use tiny numbers, 2 by 3 at most, and write down both counters."
+        }
+      ],
+      "title": "When a nested loop misbehaves"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int rows = 5;\n\n    for (int row = 1; row <= rows; row++) {\n        for (int star = 1; star <= row; star++) {\n            cout << \"*\";\n        }\n\n        cout << endl;\n    }\n\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Print a 5 by 5 square of hash characters using two loops.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int row = 1; row <= 5; row++) {\n\n    }\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Ask for a number of rows and print a right-angled triangle of stars that tall.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Rows? \";\n    int rows;\n    cin >> rows;\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Print the full times tables from 1 to 5, as lines like `3 x 4 = 12`, with a blank line between each table.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int a = 1; a <= 5; a++) {\n\n    }\n\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "This was meant to print 3 rows of 4 stars but prints 12 separate lines. Move one line to fix it.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int row = 1; row <= 3; row++) {\n        for (int col = 1; col <= 4; col++) {\n            cout << \"*\";\n            cout << endl;\n        }\n    }\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "In a nested loop, how often does the inner loop run all the way through?",
+      "options": [
+        "Once for every turn of the outer loop",
+        "Once in total",
+        "Once for every turn of the inner loop"
+      ],
+      "answer": 0,
+      "explain": "The inner loop is an instruction in the outer block, so it starts again from its own first value on every outer turn."
+    },
+    {
+      "question": "Where must `cout << endl;` go to end each row of a grid?",
+      "options": [
+        "Inside the inner loop",
+        "Inside the outer loop but after the inner loop",
+        "After both loops"
+      ],
+      "answer": 1,
+      "explain": "Once per outer turn is once per row. Inside the inner loop it would end the line after every single item."
+    },
+    {
+      "question": "What does `for (int star = 1; star <= row; star++)` give you?",
+      "options": [
+        "A square, because every row is the same length",
+        "An infinite loop",
+        "A row whose length grows with the outer counter, making a triangle"
+      ],
+      "answer": 2,
+      "explain": "The inner limit is the outer counter, so row 1 gets one star and row 5 gets five."
+    },
+    {
+      "question": "How many times does the innermost block run for two loops of 1 to 100 each?",
+      "options": [
+        "10000",
+        "200",
+        "100"
+      ],
+      "answer": 0,
+      "explain": "Nesting multiplies the counts: 100 times 100. It is why nested loops over big ranges get slow quickly."
+    },
+    {
+      "question": "Why do a pyramid's rows need two inner loops?",
+      "options": [
+        "Because a pyramid has two halves",
+        "One prints the leading spaces and the other prints the stars",
+        "Because one loop cannot print spaces"
+      ],
+      "answer": 1,
+      "explain": "They run one after the other on each row: `rows - row` spaces to push it inwards, then `2 * row - 1` stars."
+    }
+  ]
+}

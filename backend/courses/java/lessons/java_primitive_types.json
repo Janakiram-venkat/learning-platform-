@@ -1,0 +1,336 @@
+{
+  "lessonId": "java_primitive_types",
+  "title": "Primitive Data Types",
+  "description": "The eight built-in types, the four you will actually use, and how to pick one.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Why Java Wants a Type"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every Java variable states its type. That lets Java check your code before it runs, and know how much memory each box needs."
+    },
+    {
+      "type": "paragraph",
+      "value": "Java has eight built-in **primitive types**: the simplest pieces a value can be made of. Four cover almost everything you will write."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int lives = 3;              // whole numbers\n        double price = 4.50;        // numbers with a decimal point\n        boolean gameOver = false;   // true or false, nothing else\n        char grade = 'A';           // exactly one character\n\n        System.out.println(\"Lives:     \" + lives);\n        System.out.println(\"Price:     \" + price);\n        System.out.println(\"Game over: \" + gameOver);\n        System.out.println(\"Grade:     \" + grade);\n    }\n}",
+      "output": [
+        "Lives:     3",
+        "Price:     4.5",
+        "Game over: false",
+        "Grade:     A"
+      ],
+      "caption": "You wrote `4.50` but Java printed `4.5`. A `double` stores the number, not how you typed it."
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "lives",
+          "value": "3",
+          "type": "int"
+        },
+        {
+          "name": "price",
+          "value": "4.5",
+          "type": "float"
+        },
+        {
+          "name": "gameOver",
+          "value": "false",
+          "type": "bool"
+        },
+        {
+          "name": "grade",
+          "value": "'A'",
+          "type": "str"
+        }
+      ],
+      "title": "Four boxes, four types",
+      "caption": "Each box only accepts its own kind of value."
+    },
+    {
+      "type": "heading",
+      "value": "Numbers: int and double"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔢",
+          "text": "`int`: whole numbers, about minus 2 billion to plus 2 billion.",
+          "sub": "Scores, lives, ages, counts."
+        },
+        {
+          "icon": "🌍",
+          "text": "`long`: bigger whole numbers. The value ends in `L`.",
+          "sub": "Leave out the L and you get `integer number too large`."
+        },
+        {
+          "icon": "💲",
+          "text": "`double`: numbers with a decimal point.",
+          "sub": "Prices, averages, measurements. Java's default for decimals."
+        },
+        {
+          "icon": "🪶",
+          "text": "`float`: a smaller, older decimal type. The value ends in `f`."
+        }
+      ],
+      "title": "Number types"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int temperature = -5;\n        long worldPopulation = 8100000000L;\n        double price = 249.99;\n        float smaller = 2.5f;\n\n        System.out.println(temperature + \" and \" + worldPopulation);\n        System.out.println(price + \" and \" + smaller);\n        System.out.println(0.1 + 0.2);\n    }\n}",
+      "output": [
+        "-5 and 8100000000",
+        "249.99 and 2.5",
+        "0.30000000000000004"
+      ],
+      "caption": "The last line: a `double` is not perfectly exact. Real programs use a different type for exact money, in Module 10."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "int",
+          "tone": "neutral",
+          "code": "int lives = 3;",
+          "text": "If you would never want half of one, use `int`."
+        },
+        {
+          "title": "double",
+          "tone": "neutral",
+          "code": "double average = 7.5;",
+          "text": "If it can have a fractional part, use `double`."
+        }
+      ],
+      "title": "int or double?"
+    },
+    {
+      "type": "check",
+      "question": "Which type should hold the number 8100000000?",
+      "options": [
+        "long",
+        "int",
+        "double",
+        "char"
+      ],
+      "answer": 0,
+      "explain": "It is a whole number, but too big for an `int`. A `long` holds it, with an `L` on the end."
+    },
+    {
+      "type": "heading",
+      "value": "boolean and char"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "✅",
+          "text": "`boolean`: exactly `true` or `false`.",
+          "sub": "Lower case, no quotes. It answers a yes or no question."
+        },
+        {
+          "icon": "🔤",
+          "text": "`char`: exactly one character in single quotes.",
+          "sub": "`'A'`, `'7'`, `'?'`"
+        }
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "boolean hasKey = true;\nchar grade = 'A';",
+          "text": "Lower case `true`. One character in single quotes."
+        },
+        {
+          "title": "Error",
+          "tone": "bad",
+          "code": "boolean b = \"true\";\nboolean c = True;\nchar d = \"A\";\nchar e = 'AB';",
+          "text": "`\"true\"` is text. `True` is wrong case. Double quotes are not a char. A char holds one character."
+        }
+      ],
+      "title": "Compiles vs error"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        boolean hasKey = true;\n        char grade = 'A';\n        char symbol = '%';\n\n        System.out.println(\"Has key? \" + hasKey);\n        System.out.println(grade);\n        System.out.println(symbol);\n    }\n}",
+      "output": [
+        "Has key? true",
+        "A",
+        "%"
+      ],
+      "caption": "Booleans drive every decision in Module 4. For a whole word you need `String`, the next lesson."
+    },
+    {
+      "type": "check",
+      "question": "Which line compiles?",
+      "options": [
+        "boolean done = \"false\";",
+        "boolean done = false;",
+        "boolean done = False;",
+        "char c = 'no';"
+      ],
+      "answer": 1,
+      "explain": "Booleans are lower case with no quotes. A char holds just one character."
+    },
+    {
+      "type": "heading",
+      "value": "Choosing a Type"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Whole number? Use `int`.",
+        "Needs a decimal point? Use `double`.",
+        "Yes or no? Use `boolean`.",
+        "One single character? Use `char`."
+      ],
+      "title": "Four questions"
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int quantity = 24;\n        double unitPrice = 45.50;\n        boolean inStock = true;\n        char sizeCode = 'M';\n        System.out.println(\"Quantity: \" + quantity);\n        System.out.println(\"Price: \" + unitPrice + \"  Size: \" + sizeCode);\n        System.out.println(\"In stock: \" + inStock);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "A count of items: a whole number, so `int`.",
+          "vars": {
+            "quantity": "24"
+          }
+        },
+        {
+          "line": 4,
+          "note": "Money needs decimals, so `double`. It stores 45.5.",
+          "vars": {
+            "unitPrice": "45.5"
+          }
+        },
+        {
+          "line": 5,
+          "note": "In stock or not: a yes or no, so `boolean`.",
+          "vars": {
+            "inStock": "true"
+          }
+        },
+        {
+          "line": 6,
+          "note": "One size letter: `char`, in single quotes.",
+          "vars": {
+            "sizeCode": "'M'"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Print the count.",
+          "out": [
+            "Quantity: 24"
+          ]
+        },
+        {
+          "line": 8,
+          "note": "The double prints without its trailing zero.",
+          "out": [
+            "Price: 45.5  Size: M"
+          ]
+        },
+        {
+          "line": 9,
+          "note": "A boolean prints as the word `true`.",
+          "out": [
+            "In stock: true"
+          ]
+        }
+      ],
+      "title": "One shop item, the right type for each value"
+    },
+    {
+      "type": "paragraph",
+      "value": "The other primitives, `long`, `float`, `short` and `byte`, are for when size matters. Until then, `int` and `double` are the right defaults."
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        int lives = 3;\n        double price = 4.50;\n        boolean gameOver = false;\n        char grade = 'A';\n\n        System.out.println(lives);\n        System.out.println(price);\n        System.out.println(gameOver);\n        System.out.println(grade);\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Declare one variable of each of the four main types to describe a book: an `int` for pages, a `double` for price, a `boolean` for whether you have read it, and a `char` for its shelf letter. Print all four with labels.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "This program has three type mistakes. Run it, read each error, and fix them one at a time.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int lives = 3.5;\n        boolean ready = \"true\";\n        char first = \"J\";\n\n        System.out.println(lives + \" \" + ready + \" \" + first);\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Print the result of `0.1 + 0.2` and see the surprise for yourself. Then print `1.0 / 3.0` as well.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which type would you use for the number of students in a class?",
+      "options": [
+        "int, because it is a whole count",
+        "double, because numbers are usually decimals",
+        "char, because it is short"
+      ],
+      "answer": 0,
+      "explain": "You would never have half a student, so a whole number type is right. `int` covers counts up to about two billion."
+    },
+    {
+      "question": "Which type holds a price like 249.99?",
+      "options": [
+        "double",
+        "int",
+        "boolean"
+      ],
+      "answer": 0,
+      "explain": "An `int` cannot hold a decimal point, so the fractional part would be lost. `double` is the normal choice for a number with decimals."
+    },
+    {
+      "question": "Which of these is a valid `boolean` value in Java?",
+      "options": [
+        "false",
+        "\"false\"",
+        "False"
+      ],
+      "answer": 0,
+      "explain": "A boolean is `true` or `false`, in lower case and without quotes. With quotes it is text; with a capital letter it is a name Java does not know."
+    },
+    {
+      "question": "What is the difference between `'A'` and `\"A\"`?",
+      "options": [
+        "`'A'` is a char (one character) and `\"A\"` is text.",
+        "There is no difference in Java.",
+        "`'A'` is text and `\"A\"` is a char."
+      ],
+      "answer": 0,
+      "explain": "Single quotes make a `char`, which holds exactly one character. Double quotes make a `String`, which can hold any amount of text."
+    },
+    {
+      "question": "Why does `long worldPopulation = 8100000000;` fail to compile?",
+      "options": [
+        "The number is read as an int first, so it needs an `L` on the end.",
+        "`long` is not a real Java type.",
+        "Variable names cannot be that long."
+      ],
+      "answer": 0,
+      "explain": "Java treats plain digits as an `int` before looking at the type on the left. Writing `8100000000L` tells it the value is a `long`."
+    }
+  ]
+}

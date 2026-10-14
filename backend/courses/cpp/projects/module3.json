@@ -1,0 +1,113 @@
+{
+  "moduleId": 3,
+  "title": "Race Time Splitter",
+  "emoji": "⏱️",
+  "brief": "A stopwatch gives you one big number of seconds. Your program asks the runner's name and their time, then splits those seconds into hours, minutes and seconds, and answers two true or false questions about the run.",
+  "problem": {
+    "goal": "Ask for a name and a number of seconds, then print the name, the time split into hours, minutes and seconds, whether it took over an hour, and whether it was a fast run (under 30 minutes).",
+    "example": {
+      "typed": [
+        "Amara",
+        "3725"
+      ],
+      "output": [
+        "Runner: Amara",
+        "Hours: 1",
+        "Minutes: 2",
+        "Seconds: 5",
+        "Over an hour? true",
+        "Fast run? false"
+      ]
+    },
+    "rules": [
+      "Ask for the name first with getline, then the seconds with cin >>. That order avoids the leftover Enter trap.",
+      "Hours, minutes and seconds must be worked out with / and %, not typed in.",
+      "Minutes means the whole minutes left after the hours are taken out, so 3725 seconds is 1 hour and 2 minutes, not 62 minutes.",
+      "Over an hour? is true when the total is 3600 seconds or more.",
+      "Fast run? is true when the total is under 1800 seconds.",
+      "Print true and false as words. The boolalpha line at the top already takes care of that."
+    ]
+  },
+  "steps": [
+    "The two questions are already written for you. Read them and notice which way of reading each one uses, and why the name comes first.",
+    "Work out the hours: the total divided by 3600, using whole-number division.",
+    "Work out the minutes: take the remainder after the hours, then divide that by 60.",
+    "Work out the seconds left over: the remainder after dividing the total by 60.",
+    "Make two bools with comparison operators: one for 3600 or more, one for under 1800.",
+    "Print the six lines exactly as in the example, then press Check Project."
+  ],
+  "starterCode": "// ⏱️ Race Time Splitter\n\n#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    // ---- Already done for you ----\n    cout << boolalpha;    // print bools as true and false, not 1 and 0\n\n    string name;\n    cout << \"Runner's name? \";\n    getline(cin, name);\n\n    int totalSeconds = 0;\n    cout << \"Time in seconds? \";\n    cin >> totalSeconds;\n\n    // ---- Your turn ----\n\n    // TODO 1: whole hours. How many times does 3600 go into the total?\n\n\n    // TODO 2: the minutes left over after those hours.\n    //         Take what is left after the whole hours, then turn it into minutes.\n\n\n    // TODO 3: the seconds left over after the whole minutes.\n\n\n    // TODO 4: two bools.\n    //         overAnHour is true when the total is 3600 or more.\n    //         fastRun is true when the total is under 1800.\n\n\n    // TODO 5: print the six lines. The first one is done as a model:\n    cout << \"Runner: \" << name << endl;\n\n    //   Hours: 1\n    //   Minutes: 2\n    //   Seconds: 5\n    //   Over an hour? true\n    //   Fast run? false\n\n\n    return 0;\n}\n",
+  "hints": [
+    "Press Run before changing anything. It asks two questions, then prints one line. Type a name, press Enter, type 3725, press Enter: the terminal waits for each answer in turn.",
+    "Think about a smaller unit first. A day has 86400 seconds, so `big / 86400` would count whole days, throwing away the part that does not make a whole day because both values are ints. Hours work the same way with the number of seconds in one hour.",
+    "For the minutes, do it in two steps and print each one while you are learning. First find what did not make up a whole hour: for 3725 seconds that is 125. Then divide that leftover by the number of seconds in a minute.",
+    "Remember `%` gives what is left over. To split 250 minutes into hours and minutes you would write `250 / 60` for the hours and `250 % 60` for the minutes. Your seconds use the same idea.",
+    "A bool can hold the answer to a comparison directly, with no `if` needed. For example `bool tall = height >= 1.80;` stores true or false. Your two bools compare `totalSeconds` with 3600 and with 1800.",
+    "The remaining lines all follow the model line. For example, a line that printed a variable called `laps` with a label would be `cout << \"Laps: \" << laps << endl;`. Check the spacing and the question marks match the example exactly."
+  ],
+  "inputPlaceholder": "Amara\n3725",
+  "inputHint": "Your program asks 2 questions, so type 2 answers: a name on the first line and a number of seconds on the second.",
+  "tests": [
+    {
+      "name": "Amara ran 3725 seconds",
+      "input": [
+        "Amara",
+        "3725"
+      ],
+      "expect": [
+        "Runner: Amara",
+        "Hours: 1",
+        "Minutes: 2",
+        "Seconds: 5",
+        "Over an hour? true",
+        "Fast run? false"
+      ]
+    },
+    {
+      "name": "Sam sprinted for 45 seconds",
+      "input": [
+        "Sam",
+        "45"
+      ],
+      "expect": [
+        "Runner: Sam",
+        "Hours: 0",
+        "Minutes: 0",
+        "Seconds: 45",
+        "Over an hour? false",
+        "Fast run? true"
+      ]
+    },
+    {
+      "name": "Mia ran exactly two hours",
+      "input": [
+        "Mia",
+        "7200"
+      ],
+      "expect": [
+        "Runner: Mia",
+        "Hours: 2",
+        "Minutes: 0",
+        "Seconds: 0",
+        "Over an hour? true",
+        "Fast run? false"
+      ]
+    },
+    {
+      "name": "Ravi Kumar ran 29 minutes 59 seconds",
+      "input": [
+        "Ravi Kumar",
+        "1799"
+      ],
+      "expect": [
+        "Runner: Ravi Kumar",
+        "Hours: 0",
+        "Minutes: 29",
+        "Seconds: 59",
+        "Over an hour? false",
+        "Fast run? true"
+      ]
+    }
+  ],
+  "successMessage": "Your splitter works on every time we threw at it! ⏱️ You read two different kinds of input, split a total into units with / and %, and answered two questions with comparison operators. Next module your programs stop just reporting true or false and start doing something about it."
+}

@@ -9,25 +9,83 @@
       "value": "Values That Should Not Change"
     },
     {
-      "type": "paragraph",
-      "value": "A list is built to be changed. Sometimes that is exactly wrong. The days of the week, the three numbers of a colour, a fixed pair of map coordinates: none of those should ever gain an extra item halfway through your program. For values like that, Python has the tuple."
+      "type": "analogy",
+      "emoji": "🔒",
+      "real": "A sealed box",
+      "concept": "A tuple",
+      "code": "coords = (10, 20)",
+      "text": "A list is built to be changed, but some values never should: the days of the week, a pair of map coordinates. A **tuple** is a sealed box for values like that. You can look through the clear lid and read what's inside, but you cannot add, remove or swap anything once it is sealed."
     },
     {
-      "type": "paragraph",
-      "value": "You make a tuple with round parentheses instead of square brackets. Everything you already know about reading a list still applies: index from 0, count backwards with negative numbers, measure it with `len()`, and loop over it with `for`."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "List",
+          "tone": "neutral",
+          "code": "days = [\"Mon\", \"Tue\"]",
+          "text": "Square brackets `[ ]`. Can change."
+        },
+        {
+          "title": "Tuple",
+          "tone": "neutral",
+          "code": "days = (\"Mon\", \"Tue\")",
+          "text": "Round parentheses `( )`. Locked."
+        }
+      ],
+      "title": "Only the brackets differ"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Index from `0`.",
+        "Count backwards with negative numbers.",
+        "Measure it with `len()`.",
+        "Loop over it with `for`."
+      ],
+      "title": "Reading a tuple works just like reading a list"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "months = (\"January\", \"February\", \"March\")\n\nprint(months[0])      # January\nprint(months[-1])     # March\nprint(len(months))    # 3\n\nfor month in months:\n    print(month)"
+      "value": "months = (\"January\", \"February\", \"March\")\n\nprint(months[0])\nprint(months[-1])\nprint(len(months))\n\nfor month in months:\n    print(month)",
+      "output": [
+        "January",
+        "March",
+        "3",
+        "January",
+        "February",
+        "March"
+      ]
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "10",
+        "20",
+        "30",
+        "IndexError"
+      ],
+      "answer": 2,
+      "explain": "`-1` counts back from the end, just like a list. The last item is `30`.",
+      "code": "nums = (10, 20, 30)\nprint(nums[-1])"
     },
     {
       "type": "heading",
       "value": "Locked After Creation"
     },
     {
+      "type": "points",
+      "items": [
+        "The one thing you cannot do is **change** a tuple.",
+        "There is no `.append()` on a tuple.",
+        "Assigning to an index stops the program with a `TypeError`."
+      ]
+    },
+    {
       "type": "paragraph",
-      "value": "The one thing you cannot do is change it. There is no `.append()` on a tuple, and assigning to an index raises a `TypeError`. Switch the lab below over to tuple and try the buttons to see Python refuse."
+      "value": "Switch the lab below over to tuple and try the buttons to see Python refuse."
     },
     {
       "type": "widget",
@@ -35,25 +93,109 @@
       "mode": "tuple"
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "coords = (10, 20)\n\n# Both of these would stop the program with an error:\n# coords[0] = 5\n# coords.append(30)\n\nprint(coords)"
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "List: works",
+          "tone": "good",
+          "code": "coords = [10, 20]\ncoords[0] = 5\nprint(coords)",
+          "text": "Prints `[5, 20]`."
+        },
+        {
+          "title": "Tuple: TypeError",
+          "tone": "bad",
+          "code": "coords = (10, 20)\ncoords[0] = 5",
+          "text": "Python refuses: a tuple cannot be changed after it is made."
+        }
+      ],
+      "title": "Change a list vs change a tuple",
+      "caption": "That refusal is the feature, not a limitation. If a value is never meant to move, a tuple makes moving it by accident impossible. Anyone reading your code can see at a glance that it is fixed."
     },
     {
-      "type": "paragraph",
-      "value": "That refusal is the feature, not a limitation. If a value is never meant to move, a tuple makes accidentally moving it impossible instead of merely unlikely, and anyone reading your code can see at a glance that it is fixed."
+      "type": "check",
+      "question": "What happens when this runs?",
+      "options": [
+        "It prints (1, 2, 3)",
+        "It prints (1, 2)",
+        "It stops with an error",
+        "It prints [1, 2, 3]"
+      ],
+      "answer": 2,
+      "explain": "Tuples have no `.append()`. Python refuses to change a tuple, so the program stops with an error before reaching `print`.",
+      "code": "nums = (1, 2)\nnums.append(3)\nprint(nums)"
     },
     {
       "type": "heading",
       "value": "Choosing Between Them"
     },
     {
-      "type": "paragraph",
-      "value": "The question to ask is simple: will this collection grow, shrink or change while the program runs? A shopping list, a score history and a bag of collected items all change, so they are lists. A date, a coordinate pair and a set of fixed options do not, so they are tuples."
+      "type": "points",
+      "items": [
+        {
+          "icon": "🛒",
+          "text": "Shopping list",
+          "sub": "Changes: a list."
+        },
+        {
+          "icon": "📈",
+          "text": "Score history",
+          "sub": "Grows: a list."
+        },
+        {
+          "icon": "🎒",
+          "text": "Bag of collected items",
+          "sub": "Changes: a list."
+        },
+        {
+          "icon": "📅",
+          "text": "A date",
+          "sub": "Fixed: a tuple."
+        },
+        {
+          "icon": "📍",
+          "text": "A coordinate pair",
+          "sub": "Fixed: a tuple."
+        },
+        {
+          "icon": "🎛️",
+          "text": "A set of fixed options",
+          "sub": "Fixed: a tuple."
+        }
+      ],
+      "title": "Ask: will it grow, shrink or change? Yes: list. No: tuple."
     },
     {
-      "type": "tip",
-      "value": "A one item tuple needs a trailing comma: `(5,)` is a tuple, while `(5)` is just the number 5 with brackets around it. This one catches almost everybody once."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "A tuple",
+          "tone": "good",
+          "code": "one = (5,)\nprint(one)",
+          "text": "Prints `(5,)`. The trailing comma makes it a tuple."
+        },
+        {
+          "title": "Just a number",
+          "tone": "bad",
+          "code": "one = (5)\nprint(one)",
+          "text": "Prints `5`. Without the comma, the brackets just wrap a number."
+        }
+      ],
+      "title": "The one item tuple trap",
+      "caption": "A one item tuple needs a trailing comma: `(5,)`. This one catches almost everybody once."
+    },
+    {
+      "type": "check",
+      "question": "Which should be a tuple?",
+      "options": [
+        "The red, green and blue numbers of a colour",
+        "Items in a player's backpack",
+        "A list of chat messages",
+        "High scores that grow over time"
+      ],
+      "answer": 0,
+      "explain": "A colour's three numbers never change while the program runs. The others all grow or change, so they should be lists."
     }
   ],
   "editorCode": "months = (\"January\", \"February\", \"March\")\nprint(\"First month:\", months[0])\nprint(\"How many:\", len(months))\n\nfor month in months:\n    print(month)",

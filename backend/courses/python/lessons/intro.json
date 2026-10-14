@@ -9,33 +9,171 @@
       "value": "What is Python?"
     },
     {
-      "type": "paragraph",
-      "value": "Python is a programming language: a way to give a computer instructions, one step at a time. The computer follows those steps exactly, in order, from top to bottom. Python is popular because many of its instructions look almost like plain English. People use it to build websites, make games, work with data, and more."
+      "type": "points",
+      "items": [
+        {
+          "icon": "🗣️",
+          "text": "A language for computers",
+          "sub": "You write instructions. The computer follows them."
+        },
+        {
+          "icon": "🪜",
+          "text": "One step at a time",
+          "sub": "Python runs your lines top to bottom, in order."
+        },
+        {
+          "icon": "📖",
+          "text": "Reads almost like English",
+          "sub": "Words like `print`, `if` and `for`, not secret symbols."
+        },
+        {
+          "icon": "🚀",
+          "text": "Used everywhere",
+          "sub": "Games, websites, robots, science and AI."
+        }
+      ],
+      "title": "The big idea"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🧑‍🍳",
+      "real": "A recipe",
+      "concept": "A program",
+      "code": "print(\"Crack the eggs\")\nprint(\"Stir\")\nprint(\"Bake\")",
+      "text": "A recipe is a list of steps in order. A program is too. The computer is the cook: it follows every step exactly as written, and never guesses what you meant."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "You write code",
+          "detail": "Lines of instructions in the editor."
+        },
+        {
+          "icon": "🐍",
+          "label": "Python reads it",
+          "detail": "One line at a time, from the top."
+        },
+        {
+          "icon": "⚙️",
+          "label": "The computer does it",
+          "detail": "Exactly what each line says."
+        },
+        {
+          "icon": "💬",
+          "label": "You see the result",
+          "detail": "In the output panel."
+        }
+      ],
+      "title": "From your code to the screen"
+    },
+    {
+      "type": "check",
+      "question": "In what order does Python run your instructions?",
+      "options": [
+        "Top to bottom, one line at a time",
+        "In any order it likes",
+        "Bottom to top",
+        "All lines at the same moment"
+      ],
+      "answer": 0,
+      "explain": "Python starts at the first line and works down, one line at a time. That is why the order you write things in matters."
     },
     {
       "type": "heading",
       "value": "Your First Instruction: print"
     },
     {
-      "type": "paragraph",
-      "value": "The most common first instruction is `print`. It tells the computer to show something on the screen. You write `print`, then a pair of parentheses `()`, and put your message inside quotation marks. Each `print` sends one line to the terminal, in order."
+      "type": "points",
+      "items": [
+        "`print` tells the computer: show this on the screen.",
+        "The parentheses `()` hold whatever you want to show.",
+        "Text goes inside quotation marks: `\"like this\"`.",
+        "Every `print` puts its message on a new line."
+      ],
+      "title": "How print works"
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "print(\"Hello, World!\")\nprint(\"I am learning Python!\")"
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "print",
+          "label": "command",
+          "note": "The instruction name. It means: show something on the screen."
+        },
+        {
+          "code": "(",
+          "label": "open",
+          "note": "Opens the box of things you hand to `print`."
+        },
+        {
+          "code": "\"Hello, World!\"",
+          "label": "message",
+          "note": "The text to show. The quotes tell Python this is text, and they do not appear in the output."
+        },
+        {
+          "code": ")",
+          "label": "close",
+          "note": "Closes the box. Every `(` needs a matching `)`."
+        }
+      ],
+      "title": "Anatomy of a print line"
     },
     {
-      "type": "tip",
-      "value": "Text always needs quotation marks (\" \"). Without them, Python doesn't know it's text and gives an error."
+      "type": "stepper",
+      "code": "print(\"Hello, World!\")\nprint(\"I am learning Python!\")",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Python reads line 1. It is a `print`, so the message inside the quotes appears in the output.",
+          "out": [
+            "Hello, World!"
+          ]
+        },
+        {
+          "line": 2,
+          "note": "Line 2 is another `print`. Its message goes on a new line, below the first one.",
+          "out": [
+            "I am learning Python!"
+          ]
+        }
+      ],
+      "title": "Watch it run, line by line",
+      "outro": "Two print lines, two lines of output, in the same order. Press **Try it** to run it yourself."
     },
     {
-      "type": "simulation",
-      "kind": "print",
-      "lines": [
-        "Hello, World!",
-        "I am learning Python!"
-      ]
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Works",
+          "tone": "good",
+          "code": "print(\"Hi\")",
+          "text": "The quotes tell Python that `Hi` is text to show."
+        },
+        {
+          "title": "Error",
+          "tone": "bad",
+          "code": "print(Hi)",
+          "text": "No quotes, so Python looks for something named `Hi`, finds nothing, and stops with a `NameError`."
+        }
+      ],
+      "title": "Quotes make the difference"
+    },
+    {
+      "type": "check",
+      "question": "Which line shows the word Pizza on the screen?",
+      "options": [
+        "print(Pizza)",
+        "\"Pizza\"print",
+        "print(\"Pizza\")",
+        "print \"Pizza\""
+      ],
+      "answer": 2,
+      "explain": "The command comes first, then parentheses, and the text goes inside quotes: `print(\"Pizza\")`."
     }
   ],
   "editorCode": "print(\"Hello, World!\")",

@@ -1,0 +1,278 @@
+{
+  "lessonId": "cpp_compiling",
+  "title": "Compilers and Executables",
+  "description": "What happens between pressing Run and seeing output: compiling to machine code, then running it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Two Steps, Not One"
+    },
+    {
+      "type": "paragraph",
+      "value": "When you press Run, your code does not go straight to the computer. First it is **compiled**: a program called a **compiler** checks it and translates it. Then the translation runs."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "📄",
+          "label": "main.cpp",
+          "detail": "your code, text you can read"
+        },
+        {
+          "icon": "🔍",
+          "label": "g++",
+          "detail": "the compiler: checks and translates"
+        },
+        {
+          "icon": "📦",
+          "label": "main.exe",
+          "detail": "the program file: machine code"
+        },
+        {
+          "icon": "▶️",
+          "label": "Run",
+          "detail": "the computer runs that file"
+        },
+        {
+          "icon": "🖥️",
+          "label": "Output",
+          "detail": "what you see in the terminal"
+        }
+      ],
+      "title": "What happens when you press Run",
+      "caption": "On this platform the compiler is `g++`. If it finds a mistake, it stops and tells you, and the run step never happens."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Compiled, then run.\" << endl;\n    return 0;\n}",
+      "output": [
+        "Compiled, then run."
+      ],
+      "caption": "Even this one line goes through both steps."
+    },
+    {
+      "type": "check",
+      "question": "You forget a semicolon and press Run. What happens?",
+      "options": [
+        "`g++` stops with an error, and nothing runs",
+        "The program runs and skips that line",
+        "The compiler adds the semicolon for you",
+        "It runs, then crashes at the end"
+      ],
+      "answer": 0,
+      "explain": "Compiling is a checking step. A mistake there means step two, running, never happens."
+    },
+    {
+      "type": "heading",
+      "value": "Machine Code and Executables"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔢",
+          "text": "Machine code",
+          "sub": "The processor's own language: raw numbers it understands directly."
+        },
+        {
+          "icon": "📦",
+          "text": "Executable",
+          "sub": "The file of machine code `g++` makes. On Windows it ends in `.exe`; on Mac and Linux it usually has no ending."
+        },
+        {
+          "icon": "📄",
+          "text": "Source code",
+          "sub": "Your `.cpp` file. You write and edit this one, never the executable."
+        }
+      ]
+    },
+    {
+      "type": "analogy",
+      "emoji": "📖",
+      "real": "A book translated into one reader's language",
+      "concept": "An executable built for one kind of machine",
+      "text": "Nothing needs translating while it runs, which is why C++ is so fast. But a Windows executable won't run on a Mac or a phone. To run there, compile the same source code again on that machine."
+    },
+    {
+      "type": "check",
+      "question": "Which file do **you** write and edit?",
+      "options": [
+        "`main.exe`",
+        "The machine code",
+        "`g++`",
+        "`main.cpp`"
+      ],
+      "answer": 3,
+      "explain": "You write the `.cpp` file (source code). The compiler makes the executable for you."
+    },
+    {
+      "type": "heading",
+      "value": "Inside the Compiler: Three Stages"
+    },
+    {
+      "type": "paragraph",
+      "value": "Building an executable really happens in three stages. Knowing them helps you understand error messages."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "📋",
+          "label": "Preprocessor",
+          "detail": "handles `#` lines: `#include <iostream>` pastes in the printing tools"
+        },
+        {
+          "icon": "🔍",
+          "label": "Compiler",
+          "detail": "checks your code and turns it into machine code"
+        },
+        {
+          "icon": "🔗",
+          "label": "Linker",
+          "detail": "joins it to the library code that makes `cout` work"
+        },
+        {
+          "icon": "📦",
+          "label": "main.exe",
+          "detail": "the finished executable"
+        }
+      ],
+      "title": "From main.cpp to main.exe",
+      "caption": "If any stage fails, you get an error and no executable."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Preprocessed, compiled and linked.\" << endl;\n    return 0;\n}",
+      "output": [
+        "Preprocessed, compiled and linked."
+      ],
+      "caption": "Without the `#include` line, the compiler would never have heard of `cout`."
+    },
+    {
+      "type": "check",
+      "question": "Which stage handles the line `#include <iostream>`?",
+      "options": [
+        "The linker",
+        "The processor",
+        "The terminal",
+        "The preprocessor"
+      ],
+      "answer": 3,
+      "explain": "Every line starting with `#` is handled by the preprocessor, before the compiler proper sees your code."
+    },
+    {
+      "type": "heading",
+      "value": "Compilers and Versions"
+    },
+    {
+      "type": "points",
+      "items": [
+        "There is more than one compiler: `g++` (part of a toolset called **GCC**), `clang`, and Microsoft's Visual Studio. They all read the same language.",
+        "C++ comes in versions named after the year they were agreed: C++11, C++14, C++17, C++20. Each adds features.",
+        "This platform compiles your code as **C++17**: modern and supported everywhere."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "g++",
+          "label": "compiler",
+          "note": "The program that builds your code."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "-std=c++17",
+          "label": "version",
+          "note": "Which version of C++ to use."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "main.cpp",
+          "label": "source",
+          "note": "The file you wrote."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "-o main",
+          "label": "output name",
+          "note": "Names the executable `main`."
+        }
+      ],
+      "title": "Step 1 by hand: compile in a terminal",
+      "caption": "Step 2 is typing `./main` to run the executable."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Built with C++17.\" << endl;\n    return 0;\n}",
+      "output": [
+        "Built with C++17."
+      ],
+      "caption": "The Run button types both commands for you."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Compiled by g++.\" << endl;\n    cout << \"Run as machine code.\" << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write a program that prints the two steps in order: one line saying Step 1: compile, and one saying Step 2: run.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `g++` do?",
+      "options": [
+        "Runs your program and shows the output.",
+        "Installs C++ on your computer.",
+        "Checks your code and translates it into an executable."
+      ],
+      "answer": 2,
+      "explain": "`g++` is the compiler. It reads your `.cpp` file, reports any mistakes, and writes an executable full of machine code."
+    },
+    {
+      "question": "What is inside an executable?",
+      "options": [
+        "Machine code: instructions the processor understands directly.",
+        "Your C++ source code, unchanged.",
+        "A list of error messages."
+      ],
+      "answer": 0,
+      "explain": "The compiler translates your C++ into the processor's own language. That is why the executable can run without anything translating it on the fly."
+    },
+    {
+      "question": "You built your program on a Windows laptop. How do you run it on a Mac?",
+      "options": [
+        "Copy the .exe file across; it runs anywhere.",
+        "You cannot: C++ only works on Windows.",
+        "Compile the same source code again for the Mac."
+      ],
+      "answer": 2,
+      "explain": "Machine code is specific to one kind of machine. The source code is the portable part, so you rebuild it for each system."
+    },
+    {
+      "question": "Which stage handles `#include <iostream>`?",
+      "options": [
+        "The linker.",
+        "The preprocessor.",
+        "The program itself, while it runs."
+      ],
+      "answer": 1,
+      "explain": "Lines starting with `#` are handled first, by the preprocessor. `#include` pastes in the declarations the compiler needs to know about `cout`."
+    }
+  ]
+}

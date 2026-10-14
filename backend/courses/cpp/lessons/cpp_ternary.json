@@ -1,0 +1,358 @@
+{
+  "lessonId": "cpp_ternary",
+  "title": "The Conditional Operator",
+  "description": "A one-line if and else that produces a value, and when not to use it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "An if That Gives Back a Value"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "string r",
+          "label": "variable",
+          "note": "Receives the chosen value."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "(age >= 18)",
+          "label": "condition",
+          "note": "A question that is `true` or `false`."
+        },
+        {
+          "code": " ? "
+        },
+        {
+          "code": "\"adult\"",
+          "label": "if true",
+          "note": "Used when the condition is true."
+        },
+        {
+          "code": " : "
+        },
+        {
+          "code": "\"minor\"",
+          "label": "if false",
+          "note": "Used when the condition is false."
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "Anatomy of a ternary",
+      "caption": "Its official name is the **conditional operator**. People call it **ternary** because it takes three parts, where `+` takes two."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "if and else",
+          "tone": "neutral",
+          "code": "string result;\nif (marks >= 40) {\n    result = \"Pass\";\n} else {\n    result = \"Fail\";\n}",
+          "text": "Fine, but long just to choose one word."
+        },
+        {
+          "title": "Ternary",
+          "tone": "good",
+          "code": "string result = marks >= 40 ? \"Pass\" : \"Fail\";",
+          "text": "Condition `?` value if true `:` value if false."
+        }
+      ],
+      "title": "Six lines become one",
+      "caption": "Both versions store `\"Pass\"` when `marks` is 72."
+    },
+    {
+      "type": "tip",
+      "value": "A ternary is an **expression**: it produces a value, so use it. `marks >= 40 ? \"Pass\" : \"Fail\";` on its own line compiles, but the answer goes nowhere. Store it or print it."
+    },
+    {
+      "type": "check",
+      "question": "What is stored in `r` when `age` is `12`?",
+      "options": [
+        "\"minor\"",
+        "\"adult\"",
+        "true",
+        "12"
+      ],
+      "answer": 0,
+      "explain": "`12 >= 18` is false, so the value after the `:` is chosen.",
+      "code": "string r = (age >= 18) ? \"adult\" : \"minor\";"
+    },
+    {
+      "type": "heading",
+      "value": "Where It Reads Well"
+    },
+    {
+      "type": "paragraph",
+      "value": "A ternary shines inside a `cout`, where an `if` and `else` would need four extra lines to pick one word."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int count = 1;\n    cout << \"You have \" << count << (count == 1 ? \" item\" : \" items\") << endl;\n\n    count = 3;\n    cout << \"You have \" << count << (count == 1 ? \" item\" : \" items\") << endl;\n\n    int a = 17;\n    int b = 42;\n    cout << \"The larger is \" << (a > b ? a : b) << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "One item.",
+          "vars": {
+            "count": "1"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`count == 1` is true, so it picks `\" item\"`.",
+          "out": [
+            "You have 1 item"
+          ]
+        },
+        {
+          "line": 8,
+          "note": "Now three items.",
+          "vars": {
+            "count": "3"
+          }
+        },
+        {
+          "line": 9,
+          "note": "`count == 1` is false, so it picks `\" items\"`.",
+          "out": [
+            "You have 3 items"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "Two numbers to compare.",
+          "vars": {
+            "a": "17"
+          }
+        },
+        {
+          "line": 12,
+          "note": "And `42` in `b`.",
+          "vars": {
+            "b": "42"
+          }
+        },
+        {
+          "line": 13,
+          "note": "`17 > 42` is false, so it picks `b`.",
+          "out": [
+            "The larger is 42"
+          ]
+        }
+      ],
+      "title": "Picking a word, picking a number",
+      "outro": "The brackets round a ternary inside `cout` are required. `<<` is worked out before `?`, so without them the line does not compile."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 14;\n    int score = 88;\n    bool member = true;\n\n    int price = age < 13 ? 120 : 250;\n    char grade = score >= 75 ? 'A' : 'B';\n    double discount = member ? 0.10 : 0.0;\n\n    cout << \"Price: \" << price << endl;\n    cout << \"Grade: \" << grade << endl;\n    cout << \"Discount: \" << discount << endl;\n    return 0;\n}",
+      "output": [
+        "Price: 250",
+        "Grade: A",
+        "Discount: 0.1"
+      ],
+      "caption": "Any type works, numbers, `char`, `bool`, text, as long as both sides give the **same** kind of value. A number on one side and text on the other is a compile error."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Grade: A",
+        "Grade: 60",
+        "Grade: B",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`60 >= 75` is false, so the value after `:` is chosen.",
+      "code": "int score = 60;\nchar grade = score >= 75 ? 'A' : 'B';\ncout << \"Grade: \" << grade << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Where It Reads Badly"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🎯",
+          "text": "Only to choose a value",
+          "sub": "If the branches do real work, like several prints, use `if` and `else`."
+        },
+        {
+          "icon": "🚫",
+          "text": "Never nested",
+          "sub": "A ternary inside a ternary is legal, and almost unreadable."
+        }
+      ],
+      "title": "Two rules"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Nested ternary",
+          "tone": "bad",
+          "code": "string grade = marks >= 90 ? \"A\"\n    : marks >= 75 ? \"B\"\n    : marks >= 60 ? \"C\" : \"F\";",
+          "text": "Looks clever today. Costs ten minutes next week."
+        },
+        {
+          "title": "else if chain",
+          "tone": "good",
+          "code": "if (marks >= 90) {\n    grade = \"A\";\n} else if (marks >= 75) {\n    grade = \"B\";\n} else if (marks >= 60) {\n    grade = \"C\";\n} else {\n    grade = \"F\";\n}",
+          "text": "Longer, and instantly clear."
+        }
+      ],
+      "title": "The same grade rule, marks = 82",
+      "caption": "Both give B. If you have to count the `?` and `:` symbols to read a line, it should have been an `if`."
+    },
+    {
+      "type": "check",
+      "question": "You need to pick one of four messages. What fits best?",
+      "options": [
+        "An else if chain or a switch",
+        "A nested ternary",
+        "Four ternaries in a row"
+      ],
+      "answer": 0,
+      "explain": "A ternary chooses between exactly two values. Three or more alternatives belong in a chain or a switch."
+    },
+    {
+      "type": "heading",
+      "value": "Module 4 in One Program"
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "🪜",
+          "label": "else if chain",
+          "detail": "Ranges: age bands."
+        },
+        {
+          "icon": "🔀",
+          "label": "switch",
+          "detail": "Fixed values: day numbers."
+        },
+        {
+          "icon": "🪆",
+          "label": "nested if",
+          "detail": "A detail inside one branch."
+        },
+        {
+          "icon": "❓",
+          "label": "ternary",
+          "detail": "Choosing one of two words."
+        }
+      ],
+      "title": "Four ways to decide",
+      "caption": "Each decision has its own shape, so each gets the tool that fits it."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int age = 10;\n    int day = 6;\n\n    // A chain, because these are ranges.\n    string category;\n    int price = 0;\n    if (age < 5) {\n        category = \"Infant\";\n        price = 0;\n    } else if (age < 13) {\n        category = \"Child\";\n        price = 120;\n    } else {\n        category = \"Adult\";\n        price = 250;\n    }\n\n    // A switch, because these are fixed values.\n    string dayName;\n    switch (day) {\n        case 1: dayName = \"Monday\"; break;\n        case 2: dayName = \"Tuesday\"; break;\n        case 3: dayName = \"Wednesday\"; break;\n        case 4: dayName = \"Thursday\"; break;\n        case 5: dayName = \"Friday\"; break;\n        case 6: dayName = \"Saturday\"; break;\n        case 7: dayName = \"Sunday\"; break;\n        default: dayName = \"Unknown\";\n    }\n\n    // A nested if: the surcharge is only for paying tickets.\n    bool weekend = day == 6 || day == 7;\n    if (price > 0) {\n        if (weekend) {\n            price += 50;\n        }\n    }\n\n    // A ternary, because it only chooses some words.\n    string rate = weekend ? \"weekend rate\" : \"weekday rate\";\n\n    cout << dayName << \", \" << rate << endl;\n    cout << category << \": \" << price << endl;\n    return 0;\n}",
+      "output": [
+        "Saturday, weekend rate",
+        "Child: 170"
+      ],
+      "caption": "The module project in miniature. When each case is one short assignment, the switch fits on one line per case. Change `age` and `day` and predict the output first."
+    },
+    {
+      "type": "check",
+      "question": "With `age = 3` and `day = 6`, what is the second line?",
+      "options": [
+        "Infant: 50",
+        "Infant: 0",
+        "Child: 170",
+        "Adult: 300"
+      ],
+      "answer": 1,
+      "explain": "`3 < 5` makes the price 0, and the surcharge only applies when `price > 0`."
+    }
+  ],
+  "editorCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int marks;\n\n    cout << \"Marks out of 100? \";\n    cin >> marks;\n\n    string result = marks >= 40 ? \"Pass\" : \"Fail\";\n    cout << \"Result: \" << result << endl;\n\n    cout << \"You scored \" << marks << (marks == 1 ? \" mark\" : \" marks\") << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a number and use the conditional operator to print whether it is Even or Odd.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n\n    cout << \"Number? \";\n    cin >> n;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Rewrite this `if` and `else` as a single line using the conditional operator.",
+      "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int temperature = 38;\n    string advice;\n\n    if (temperature > 35) {\n        advice = \"Stay indoors\";\n    } else {\n        advice = \"Enjoy the weather\";\n    }\n\n    cout << advice << endl;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Ask for a number of messages and print it with correct grammar: 1 new message, but 0 new messages and 5 new messages. Use the conditional operator inside the `cout`.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int count;\n\n    cout << \"How many messages? \";\n    cin >> count;\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "This nested conditional is hard to read. Rewrite it as an `else if` chain that gives the same answers.",
+      "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int marks = 82;\n\n    string grade = marks >= 90 ? \"A\" : marks >= 75 ? \"B\" : marks >= 60 ? \"C\" : \"F\";\n\n    cout << grade << endl;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What are the three parts of the conditional operator, in order?",
+      "options": [
+        "The condition, the value if true, the value if false",
+        "The value if true, the condition, the value if false",
+        "Three conditions"
+      ],
+      "answer": 0,
+      "explain": "`condition ? whenTrue : whenFalse`. The `?` separates the question from the answers and the `:` separates the two answers."
+    },
+    {
+      "question": "What does `int price = age < 13 ? 120 : 250;` store when age is 30?",
+      "options": [
+        "120",
+        "13",
+        "250"
+      ],
+      "answer": 2,
+      "explain": "The condition is false for 30, so the value after the `:` is chosen."
+    },
+    {
+      "question": "What happens to `marks >= 40 ? \"Pass\" : \"Fail\";` written on a line of its own?",
+      "options": [
+        "It prints Pass or Fail.",
+        "It works out a value, but the value is thrown away, so nothing happens.",
+        "It stores the answer in `marks`."
+      ],
+      "answer": 1,
+      "explain": "The conditional operator produces a value and nothing more. Store it in a variable or send it to `cout` so the answer has somewhere to go."
+    },
+    {
+      "question": "Why do you need brackets in `cout << \"Larger: \" << (a > b ? a : b);`?",
+      "options": [
+        "The conditional operator always requires brackets.",
+        "`<<` is worked out before `?`, so without them the line does not compile.",
+        "To make the condition true."
+      ],
+      "answer": 1,
+      "explain": "`<<` binds more tightly than `>` and `?`, so C++ would try to send part of the condition to `cout` first. The brackets make the choice happen before printing."
+    },
+    {
+      "question": "When should you NOT use the conditional operator?",
+      "options": [
+        "When the branches do real work, or when there are three or more alternatives",
+        "When choosing between two numbers",
+        "When choosing a word inside a cout"
+      ],
+      "answer": 0,
+      "explain": "It is for choosing one of two values. Work belongs in `if` and `else`, and several alternatives belong in a chain or a switch."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "moduleId": 7,
+  "title": "Arrays, Vectors and Strings",
+  "lessons": [
+    {
+      "lessonId": "cpp_arrays",
+      "title": "Arrays",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_vectors",
+      "title": "Vectors",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_range_for",
+      "title": "Looping Over a Collection",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "cpp_string_functions",
+      "title": "Working with Strings",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_2d_arrays",
+      "title": "2D Arrays",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

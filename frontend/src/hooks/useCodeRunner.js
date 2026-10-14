@@ -14,8 +14,8 @@ import { warmupPyodide, isPyodideReady } from '../services/pyodide';
 // *new* slice of stdout (the delta), giving a smooth line-by-line terminal feel.
 //
 // This is language-agnostic: `language` only decides which runner the call goes
-// to (Pyodide in a Web Worker for Python, the API for Java) and what we say
-// while a runtime is still downloading. Both return { output, needs_input }.
+// to (Pyodide in a Web Worker for Python, the API for Java and C++) and what we
+// say while a runtime is still downloading. All return { output, needs_input }.
 // ---------------------------------------------------------------------------
 
 const idOf = (() => { let n = 0; return () => ++n; })();
@@ -36,8 +36,8 @@ export function useCodeRunner(language = 'python') {
 
   // Start downloading the Python runtime as soon as an editor mounts so the
   // first Run is fast (the ~10MB fetch happens once, then it's cached). Java
-  // compiles on the server, so it has nothing to warm up.
-  useEffect(() => { if (language !== 'java') warmupPyodide(); }, [language]);
+  // and C++ compile on the server, so they have nothing to warm up.
+  useEffect(() => { if (language === 'python') warmupPyodide(); }, [language]);
 
   const push = useCallback((type, text) => {
     if (text === '' && type === 'out') return;
@@ -87,7 +87,7 @@ export function useCodeRunner(language = 'python') {
     shownRef.current = 0;
     setWaiting(false);
     // On Python's very first run the runtime may still be downloading — say so.
-    const booting = languageRef.current !== 'java' && !isPyodideReady();
+    const booting = languageRef.current === 'python' && !isPyodideReady();
     setLines(booting
       ? [{ id: idOf(), type: 'sys', text: 'Booting the Python runtime (one-time download)…' }]
       : []);

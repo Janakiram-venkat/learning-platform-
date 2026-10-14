@@ -1,0 +1,133 @@
+{
+  "moduleId": 5,
+  "title": "Score Board",
+  "emoji": "📊",
+  "brief": "Take a pile of test scores, draw each one as a bar of stars, and report on the lot: how many counted, the total, the highest, the lowest, the average and how many passed. Nonsense scores get thrown out on the way past. Every loop idea from this module does a job here.",
+  "problem": {
+    "goal": "Ask how many scores are coming, then read that many. Draw each valid score as a bar of stars and print a six-line summary at the end.",
+    "example": {
+      "typed": [
+        "4",
+        "92",
+        "71",
+        "48",
+        "30"
+      ],
+      "output": [
+        "92 | *********",
+        "71 | *******",
+        "48 | ****",
+        "30 | ***",
+        "Scores counted: 4",
+        "Total: 241",
+        "Highest: 92",
+        "Lowest: 30",
+        "Average: 60.25",
+        "Passes: 3"
+      ]
+    },
+    "rules": [
+      "A valid score is 0 to 100. Anything outside that prints \"Ignored: \" and the score, and then counts for nothing at all.",
+      "A bar is the score, then a space, a vertical bar and a space, then one star for every 10 points. 92 gets 9 stars, 30 gets 3.",
+      "A pass is a score of 40 or more.",
+      "The average is a decimal, so convert with static_cast<double> before you divide. Print it with a plain cout: C++ shows 60.25 as 60.25 and a whole 40 as just 40.",
+      "If nothing was valid, print \"No valid scores.\" and no summary at all. Without that check you would divide by zero and highest would still hold its impossible starting value."
+    ]
+  },
+  "steps": [
+    "The first question is already written. Everything else is yours.",
+    "Declare the trackers above the loop: total, counted, highest, lowest and passes. Start highest below every possible score and lowest above every possible score, so the first real score always replaces them.",
+    "Write a for loop that runs count times, asking for one score per turn.",
+    "Guard against nonsense first: outside 0 to 100, print the Ignored line and continue, so none of the trackers are touched.",
+    "Update the trackers, then draw the bar with a second loop inside the first one: one star per 10 points.",
+    "After the loop, print the summary. Check counted first: with nothing to average, the division makes no sense and highest and lowest still hold their impossible starting values.",
+    "Press Check Project. The last test feeds you nothing but rubbish, so make sure that path works."
+  ],
+  "starterCode": "// 📊 Score Board\n\n#include <iostream>\nusing namespace std;\n\nint main() {\n    // ---- Already done for you ----\n    cout << \"How many scores? \";\n    int count;\n    cin >> count;\n\n    // ---- Your turn ----\n\n    // TODO 1: declare five trackers before the loop, so they survive it:\n    //         total, counted, highest, lowest and passes.\n    //         Start highest lower than any real score, and lowest higher\n    //         than any real score, so the first valid score replaces both.\n\n    // TODO 2: a for loop that runs \"count\" times. Inside it, ask\n    //         \"Score 1? \", \"Score 2? \" and so on, and read the number.\n\n    // TODO 3: still inside the loop, reject nonsense first. If the score\n    //         is below 0 or above 100, print \"Ignored: \" and the score,\n    //         then skip the rest of this turn so it counts for nothing.\n\n    // TODO 4: update the five trackers with this score.\n\n    // TODO 5: print the bar for this score: the score, then \" | \",\n    //         then one star per 10 points, then end the line.\n    //         The stars need a loop of their own inside the loop.\n\n    // TODO 6: after the loop, print the summary. If nothing was counted,\n    //         print \"No valid scores.\" and nothing else. Otherwise print\n    //         six lines like these:\n    //           Scores counted: 4\n    //           Total: 241\n    //           Highest: 92\n    //           Lowest: 30\n    //           Average: 60.25\n    //           Passes: 3\n\n    return 0;\n}",
+  "hints": [
+    "Press Run before you change anything. It asks how many scores and then stops, because the loop is not there yet.",
+    "The reading loop is the counted shape from the for lesson. Its \"How many numbers?\" example asked `Number 1? `, `Number 2? ` and so on with one `cin` per turn. Yours is the same with the word Score.",
+    "Put the rejection at the very top of the loop body, before anything is counted. Think of the while (true) example from the break and continue lesson, which printed \"Ignoring\" for a negative amount and then used `continue` so nothing was added. Your rule is a range instead: below 0 or above 100.",
+    "Highest and lowest are two separate ifs, not an else if chain, because the very first score has to update both. The pattern is \"if this one beats the record, it becomes the record\", the same as the `biggest` example in the scope of a loop.",
+    "The bar is a nested loop, just like the chart at the end of the Nested Loops lesson: print the start of the line, then an inner loop that prints one star per turn, then one `cout << endl;` after the inner loop.",
+    "`score / 10` is whole-number division, so 92 gives 9 and 30 gives 3. That is exactly the bar length you want, no rounding needed.",
+    "Without a cast, the average is int divided by int and 241 / 4 comes out as 60. Convert the total first, the same way the for lesson's Average line did.",
+    "Wrap the whole summary in an if on counted being 0, with \"No valid scores.\" on one side and the six summary lines in the else. The last test is all rubbish and checks exactly this."
+  ],
+  "inputPlaceholder": "4\n92\n71\n48\n30",
+  "inputHint": "Type how many scores first, then that many scores, one per line.",
+  "tests": [
+    {
+      "name": "Four ordinary scores",
+      "input": [
+        "4",
+        "92",
+        "71",
+        "48",
+        "30"
+      ],
+      "expect": [
+        "92 | *********",
+        "30 | ***",
+        "Scores counted: 4",
+        "Total: 241",
+        "Highest: 92",
+        "Lowest: 30",
+        "Average: 60.25",
+        "Passes: 3"
+      ]
+    },
+    {
+      "name": "Nonsense scores are thrown out",
+      "input": [
+        "5",
+        "100",
+        "150",
+        "55",
+        "-3",
+        "30"
+      ],
+      "expect": [
+        "Ignored: 150",
+        "Ignored: -3",
+        "100 | **********",
+        "Scores counted: 3",
+        "Total: 185",
+        "Highest: 100",
+        "Lowest: 30",
+        "Average: 61.6667",
+        "Passes: 2"
+      ]
+    },
+    {
+      "name": "A single score on the pass line",
+      "input": [
+        "1",
+        "40"
+      ],
+      "expect": [
+        "40 | ****",
+        "Scores counted: 1",
+        "Total: 40",
+        "Highest: 40",
+        "Lowest: 40",
+        "Average: 40",
+        "Passes: 1"
+      ]
+    },
+    {
+      "name": "Everything was rubbish, so there is nothing to average",
+      "input": [
+        "2",
+        "200",
+        "-5"
+      ],
+      "expect": [
+        "Ignored: 200",
+        "Ignored: -5",
+        "No valid scores."
+      ]
+    }
+  ],
+  "successMessage": "The score board is up! 📊 A counted for loop to read, a continue to throw out the rubbish, two ifs to track the extremes, a nested loop to draw every bar and a guard so an empty board makes sense. Your programs can repeat work now, which is most of what makes them useful. Next module you learn to give a block of code a name and call it whenever you like."
+}

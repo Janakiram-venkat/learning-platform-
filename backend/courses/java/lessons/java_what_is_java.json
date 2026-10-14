@@ -10,49 +10,114 @@
     },
     {
       "type": "paragraph",
-      "value": "Java is a programming language, one of the most widely used in the world. It was built around a simple promise: write your program once, and run it on any machine, whether that is a Windows laptop, a Mac, a Linux server or an Android phone. You will see how that works in the next lesson."
+      "value": "Java is a programming language, one of the most widely used in the world."
     },
     {
-      "type": "paragraph",
-      "value": "Java is everywhere, even when you cannot see it. Android apps, Minecraft, banking systems, airline booking, and the servers behind large websites are all built with it. Learning Java means learning the language a great deal of the world actually runs on."
+      "type": "analogy",
+      "emoji": "🎵",
+      "real": "Sheet music any musician can play",
+      "concept": "A Java program any machine can run",
+      "text": "Java's promise: write your program once, and run it on a Windows laptop, a Mac, a Linux server or an Android phone. The next lesson shows how."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🤖",
+          "text": "Android apps"
+        },
+        {
+          "icon": "⛏️",
+          "text": "Minecraft"
+        },
+        {
+          "icon": "🏦",
+          "text": "Banking and airline booking systems"
+        },
+        {
+          "icon": "🌐",
+          "text": "The servers behind large websites"
+        }
+      ],
+      "title": "Built with Java"
+    },
+    {
+      "type": "check",
+      "question": "What is Java's big promise?",
+      "options": [
+        "Programs never have mistakes",
+        "Write once, run on any machine",
+        "No need for semicolons",
+        "It only runs on phones"
+      ],
+      "answer": 1,
+      "explain": "The same Java program runs on Windows, Mac, Linux and Android without changes."
     },
     {
       "type": "heading",
       "value": "Java Is Strict, and That Helps"
     },
     {
-      "type": "paragraph",
-      "value": "Java is a strict language. It insists that you say what kind of value you are storing, it insists on a semicolon `;` at the end of every instruction, and it refuses to run at all if anything is out of place. That feels annoying for about a week, and then it starts saving you."
+      "type": "points",
+      "items": [
+        "You must say what **kind** of value you store.",
+        "Every instruction ends with a semicolon `;`.",
+        "If anything is out of place, Java refuses to run at all."
+      ],
+      "title": "Java insists"
     },
     {
-      "type": "paragraph",
-      "value": "The reason: Java catches mistakes before your program runs, not while your user is in the middle of it. A misspelled name is an error you see immediately, not a crash a customer finds later."
+      "type": "analogy",
+      "emoji": "📝",
+      "real": "A spell-checker that blocks sending until you fix a typo",
+      "concept": "Java checking your code before it runs",
+      "text": "Annoying for about a week, then it starts saving you. A misspelled name is an error you see right away, not a crash a user finds later."
     },
     {
       "type": "code",
       "language": "java",
-      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Java runs everywhere.\");\n        System.out.println(\"Every line ends with a semicolon.\");\n    }\n}"
-    },
-    {
-      "type": "tip",
-      "value": "Forgetting a semicolon is the single most common beginner error in Java. When an error mentions `';' expected`, look at the end of the line above the one it names."
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Java runs everywhere.\");\n        System.out.println(\"Every line ends with a semicolon.\");\n    }\n}",
+      "output": [
+        "Java runs everywhere.",
+        "Every line ends with a semicolon."
+      ],
+      "caption": "Forgetting a semicolon is the most common beginner error. If you see `';' expected`, check the end of the line it names."
     },
     {
       "type": "heading",
       "value": "How Java Code Is Shaped"
     },
     {
-      "type": "paragraph",
-      "value": "Every Java program lives inside a class, and every instruction lives inside a method. You have already seen both: `class Main` is the class, and `main` is the method. The curly braces `{` and `}` mark where each one begins and ends, like nested boxes."
-    },
-    {
-      "type": "paragraph",
-      "value": "Java calls this arrangement object-oriented, and in Module 8 you will find out why it is such a powerful idea. For now, treat the class and the method as the wrapper your instructions go inside, and write your code between the innermost braces."
+      "type": "analogy",
+      "emoji": "📦",
+      "real": "A box inside a box",
+      "concept": "A method inside a class",
+      "text": "Every Java program lives inside a **class** (the outer box). Every instruction lives inside a **method** (the inner box). Curly braces `{ }` mark where each box starts and ends."
     },
     {
       "type": "code",
       "language": "java",
-      "value": "public class Main {            // the class: the outer box\n    public static void main(String[] args) {   // the method: the inner box\n        System.out.println(\"I go inside both boxes.\");\n    }\n}"
+      "value": "public class Main {            // the class: the outer box\n    public static void main(String[] args) {   // the method: the inner box\n        System.out.println(\"I go inside both boxes.\");\n    }\n}",
+      "output": [
+        "I go inside both boxes."
+      ],
+      "caption": "`class Main` is the class and `main` is the method. Write your instructions between the innermost braces."
+    },
+    {
+      "type": "paragraph",
+      "value": "Java calls this way of arranging code **object-oriented**. You will see why it is so powerful in Module 8."
+    },
+    {
+      "type": "check",
+      "question": "Where do your instructions go in a Java program?",
+      "options": [
+        "Above the class",
+        "Inside a method, which sits inside a class",
+        "After the last `}`",
+        "Anywhere in the file"
+      ],
+      "answer": 1,
+      "explain": "Instructions live inside a method (like `main`), and the method lives inside a class (like `Main`)."
     }
   ],
   "editorCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Java runs everywhere.\");\n        System.out.println(\"Every line ends with a semicolon.\");\n    }\n}",

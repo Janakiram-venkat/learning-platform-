@@ -9,8 +9,16 @@
       "value": "Python as a Calculator"
     },
     {
+      "type": "points",
+      "items": [
+        "Computers are great at math, and fast.",
+        "Python uses symbols called **operators** to calculate.",
+        "Put a calculation inside `print()` to see the answer."
+      ]
+    },
+    {
       "type": "paragraph",
-      "value": "Computers are very good at math. Python has symbols, called operators, that let you do calculations. Try the playground below: pick two numbers and an operator, and see the Python line and its result appear live."
+      "value": "Pick two numbers and an operator below. The Python line and its answer update as you go."
     },
     {
       "type": "widget",
@@ -24,43 +32,221 @@
       "value": "The Basic Operators"
     },
     {
-      "type": "paragraph",
-      "value": "Addition `+` and subtraction `-` work just like in school. Multiplication uses a star `*`, and division uses a forward slash `/`. One thing to watch: in Python, `/` always gives a decimal answer, even when the division is exact. That means `10 / 2` prints `5.0`, not `5`."
+      "type": "points",
+      "items": [
+        {
+          "icon": "➕",
+          "text": "`+` add",
+          "sub": "`5 + 3` is `8`"
+        },
+        {
+          "icon": "➖",
+          "text": "`-` subtract",
+          "sub": "`10 - 4` is `6`"
+        },
+        {
+          "icon": "✖️",
+          "text": "`*` multiply",
+          "sub": "A star, not an x: `3 * 4` is `12`"
+        },
+        {
+          "icon": "➗",
+          "text": "`/` divide",
+          "sub": "A forward slash: `10 / 2` is `5.0`"
+        }
+      ],
+      "title": "Four operators you know from school"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "print(5 + 3)     # 8\nprint(10 - 4)    # 6\nprint(3 * 4)     # 12\nprint(10 / 2)    # 5.0"
+      "value": "print(5 + 3)\nprint(10 - 4)\nprint(3 * 4)\nprint(10 / 2)",
+      "output": [
+        "8",
+        "6",
+        "12",
+        "5.0"
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "➗",
+          "label": "`10 / 2`",
+          "detail": "You ask Python to divide."
+        },
+        {
+          "icon": "🐍",
+          "label": "Python divides",
+          "detail": "2 fits into 10 five times."
+        },
+        {
+          "icon": "🎯",
+          "label": "`5.0`",
+          "detail": "The answer comes back as a float."
+        }
+      ],
+      "title": "Division always gives a float",
+      "caption": "`/` always gives a float, even when the division is exact. `10 / 2` is `5.0`, not `5`."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "5",
+        "10 / 2",
+        "5.0",
+        "2"
+      ],
+      "answer": 2,
+      "explain": "Division with `/` always gives a float, so the answer has a `.0` on the end.",
+      "code": "print(10 / 2)"
     },
     {
       "type": "heading",
       "value": "Remainder and Powers"
     },
     {
-      "type": "paragraph",
-      "value": "The `%` operator (modulo) gives the remainder after dividing. If you share 7 cookies among 3 friends, each gets 2 and 1 is left over, so `7 % 3` is `1`. The `**` operator raises a number to a power: `2 ** 3` means 2 × 2 × 2, which is 8."
+      "type": "analogy",
+      "emoji": "🍪",
+      "real": "7 cookies shared by 3 friends",
+      "concept": "The remainder",
+      "code": "print(7 % 3)",
+      "text": "Each friend gets 2 cookies, and 1 is left over. The `%` operator (called modulo) gives you that leftover: `1`."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "/  divide",
+          "tone": "neutral",
+          "code": "print(7 / 3)",
+          "text": "`2.3333333333333335` The exact answer, as a float."
+        },
+        {
+          "title": "//  floor divide",
+          "tone": "neutral",
+          "code": "print(7 // 3)",
+          "text": "`2` How many whole times 3 fits. The decimal part is dropped."
+        },
+        {
+          "title": "%  remainder",
+          "tone": "neutral",
+          "code": "print(7 % 3)",
+          "text": "`1` What is left over after sharing."
+        },
+        {
+          "title": "**  power",
+          "tone": "neutral",
+          "code": "print(2 ** 3)",
+          "text": "`8` Means 2 × 2 × 2. Two stars, no space between them."
+        }
+      ],
+      "title": "Three ways to divide 7 by 3, plus powers"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "print(7 % 3)     # 1, the remainder\nprint(2 ** 3)    # 8, which is 2 x 2 x 2\nprint(5 ** 2)    # 25"
+      "value": "print(7 % 3)     # the remainder\nprint(2 ** 3)    # 2 x 2 x 2\nprint(5 ** 2)    # 5 x 5",
+      "output": [
+        "1",
+        "8",
+        "25"
+      ]
     },
     {
-      "type": "tip",
-      "value": "There is also `//`, called floor division. It divides and throws away the decimal part: `7 // 3` is `2`, not `2.333`."
+      "type": "check",
+      "question": "What is `10 % 4`?",
+      "options": [
+        "2.5",
+        "4",
+        "6",
+        "2"
+      ],
+      "answer": 3,
+      "explain": "4 fits into 10 two whole times (that's 8), and 2 is left over. So `10 % 4` is `2`."
     },
     {
       "type": "heading",
       "value": "Order Matters"
     },
     {
-      "type": "paragraph",
-      "value": "Python follows the same order of operations as math class: powers first, then multiplication and division, then addition and subtraction. Use parentheses `()` to change the order."
+      "type": "points",
+      "items": [
+        {
+          "icon": "1️⃣",
+          "text": "Parentheses `( )`",
+          "sub": "Always worked out first."
+        },
+        {
+          "icon": "2️⃣",
+          "text": "Powers `**`",
+          "sub": "Next."
+        },
+        {
+          "icon": "3️⃣",
+          "text": "`*`  `/`  `//`  `%`",
+          "sub": "Then multiply and divide, left to right."
+        },
+        {
+          "icon": "4️⃣",
+          "text": "`+`  `-`",
+          "sub": "Add and subtract come last."
+        }
+      ],
+      "title": "The same order as math class"
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "🧮",
+          "label": "`2 + 3 * 4`",
+          "detail": "Find the operator that goes first."
+        },
+        {
+          "icon": "✖️",
+          "label": "`3 * 4` is `12`",
+          "detail": "Multiply happens before add."
+        },
+        {
+          "icon": "➕",
+          "label": "`2 + 12`",
+          "detail": "Now only the add is left."
+        },
+        {
+          "icon": "✅",
+          "label": "`14`",
+          "detail": "The final answer."
+        }
+      ],
+      "title": "How Python works out 2 + 3 * 4"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "print(2 + 3 * 4)     # 14, multiplication happens first\nprint((2 + 3) * 4)   # 20, parentheses happen first"
+      "value": "print(2 + 3 * 4)     # multiplication first\nprint((2 + 3) * 4)   # parentheses first",
+      "output": [
+        "14",
+        "20"
+      ]
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "14",
+        "24",
+        "20",
+        "9"
+      ],
+      "answer": 2,
+      "explain": "The parentheses go first: `2 + 3` is `5`, then `5 * 4` is `20`.",
+      "code": "print((2 + 3) * 4)"
     }
   ],
   "editorCode": "print(10 + 5)\nprint(3 * 3)\nprint(15 % 4)\nprint(2 ** 8)",

@@ -1,0 +1,398 @@
+{
+  "lessonId": "cpp_functions_intro",
+  "title": "Writing Functions",
+  "description": "Give a block of code a name so you can run it whenever you like.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "You Have Used One Already"
+    },
+    {
+      "type": "paragraph",
+      "value": "`int main()` is a **function**: a named block of instructions. Write it once, then run it by writing its name and `()`. That is called **calling** the function."
+    },
+    {
+      "type": "analogy",
+      "emoji": "🧑‍🍳",
+      "real": "A recipe card",
+      "concept": "A function",
+      "code": "printBanner();",
+      "text": "A recipe keeps its steps in one place, under one name. You follow it whenever you need it. A function does the same for lines of code."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\n// A function of our own: it takes nothing in and hands nothing back.\nvoid printBanner() {\n    cout << \"=========================\" << endl;\n    cout << \"   POCKET LAB REPORT\" << endl;\n    cout << \"=========================\" << endl;\n}\n\nint main() {\n    cout << \"Starting up.\" << endl;\n    printBanner();\n    cout << \"Doing some work.\" << endl;\n    printBanner();\n    cout << \"Finished.\" << endl;\n    return 0;\n}",
+      "output": [
+        "Starting up.",
+        "=========================",
+        "   POCKET LAB REPORT",
+        "=========================",
+        "Doing some work.",
+        "=========================",
+        "   POCKET LAB REPORT",
+        "=========================",
+        "Finished."
+      ],
+      "caption": "The three banner lines are written once and printed twice. Change the banner and both copies change, because there is only one copy."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🏷️",
+          "text": "A name",
+          "sub": "`printBanner()` says what is about to happen. Three `cout` lines full of `=` do not."
+        },
+        {
+          "icon": "✂️",
+          "text": "No duplication",
+          "sub": "Repeated code has to be fixed in every copy, and one copy always gets missed."
+        },
+        {
+          "icon": "📖",
+          "text": "A shorter main",
+          "sub": "When `main` is a list of calls, you can read the shape of the whole program on one screen."
+        }
+      ],
+      "title": "Why bother"
+    },
+    {
+      "type": "check",
+      "question": "What is the main reason to write a function?",
+      "options": [
+        "To make the program run faster",
+        "Write steps once, then reuse them by name",
+        "To store one number",
+        "To repeat a line for ever"
+      ],
+      "answer": 1,
+      "explain": "A function keeps a group of steps in one place under one name. You call the name instead of copying lines, and a fix only needs one edit."
+    },
+    {
+      "type": "heading",
+      "value": "The Shape of a Function"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "void",
+          "label": "return type",
+          "note": "`void` means \"hands nothing back\"."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "printBanner",
+          "label": "name",
+          "note": "lowerCamelCase, like a variable. It should read as an instruction."
+        },
+        {
+          "code": "()",
+          "label": "parameters",
+          "note": "Empty brackets: the function needs nothing from the caller."
+        }
+      ],
+      "title": "Anatomy of a function header",
+      "caption": "Then the body sits between `{ }`, just like `main`'s."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔁",
+          "text": "`int main()` has the same shape",
+          "sub": "Its return type is `int`, which is why it ends with `return 0;`: it hands 0 back to the system, meaning \"all went well\"."
+        },
+        {
+          "icon": "🏷️",
+          "text": "Name it as an instruction",
+          "sub": "`printBanner`, `drawLine`, `askAge`. If you cannot name it in two or three words, it does too many jobs."
+        },
+        {
+          "icon": "📦",
+          "text": "Outside `main`, never inside",
+          "sub": "In this course, functions sit above `main`. The next tab shows why."
+        }
+      ]
+    },
+    {
+      "type": "tip",
+      "value": "If a function needs a comment to explain what it does, try a better name first. A well named function is the comment.",
+      "title": "Names first"
+    },
+    {
+      "type": "check",
+      "question": "Which line correctly starts a function named `wave` that hands nothing back?",
+      "options": [
+        "void wave {",
+        "void wave() {",
+        "wave() void {",
+        "function wave() {"
+      ],
+      "answer": 1,
+      "explain": "Return type `void`, then the name, then the brackets, then the opening brace: `void wave() {`."
+    },
+    {
+      "type": "heading",
+      "value": "Order Matters in C++"
+    },
+    {
+      "type": "paragraph",
+      "value": "The compiler reads your file once, top to bottom. When it reaches a call, it must already have seen that function's name."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Does not compile",
+          "tone": "bad",
+          "code": "int main() {\n    sayHello();\n    return 0;\n}\n\nvoid sayHello() {\n    cout << \"Hi\" << endl;\n}",
+          "text": "g++ says `'sayHello' was not declared in this scope` and points at the call."
+        },
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "void sayHello() {\n    cout << \"Hi\" << endl;\n}\n\nint main() {\n    sayHello();\n    return 0;\n}",
+          "text": "Fix 1: move the whole function above `main`."
+        }
+      ],
+      "title": "Below main vs above main",
+      "caption": "Nothing is wrong with the function itself. It is simply too far down the file."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\n// Prototypes: promises that these functions exist.\nvoid drawLine();\nvoid sayHello();\n\nint main() {\n    drawLine();\n    sayHello();\n    drawLine();\n    return 0;\n}\n\n// Definitions: the real bodies, below main.\nvoid sayHello() {\n    cout << \"Hello there!\" << endl;\n}\n\nvoid drawLine() {\n    cout << \"-------------------\" << endl;\n}",
+      "output": [
+        "-------------------",
+        "Hello there!",
+        "-------------------"
+      ],
+      "caption": "Fix 2: a **prototype** is the first line of a function with `;` instead of a body. It promises the function exists. The full version with the body is the **definition**, and it can go anywhere below, in any order. The prototype must match the definition exactly."
+    },
+    {
+      "type": "tip",
+      "value": "Wrote a prototype but forgot the definition? The error is `undefined reference to 'sayHello()'`. It comes from the **linker**, the tool that joins the compiled pieces into one program, and means \"you promised this function but never wrote it\".",
+      "title": "A different error"
+    },
+    {
+      "type": "check",
+      "question": "What is the line `void drawLine();` near the top of a file?",
+      "options": [
+        "A call",
+        "A definition",
+        "A prototype",
+        "A variable"
+      ],
+      "answer": 2,
+      "explain": "A function's first line with a semicolon instead of a body is a prototype: a promise that the definition comes later."
+    },
+    {
+      "type": "heading",
+      "value": "Following the Jump"
+    },
+    {
+      "type": "paragraph",
+      "value": "A call is a detour. C++ leaves the line it is on, runs the whole function, then comes back to exactly where it left off."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nvoid step() {\n    cout << \"2: inside the function\" << endl;\n    cout << \"3: still inside the function\" << endl;\n}\n\nint main() {\n    cout << \"1: in main, about to call\" << endl;\n    step();\n    cout << \"4: back in main\" << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 10,
+          "note": "`main` runs first, as always, even though `step` is written above it.",
+          "out": [
+            "1: in main, about to call"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "A call. C++ leaves `main` and jumps into `step`."
+        },
+        {
+          "line": 4,
+          "note": "Inside the function now."
+        },
+        {
+          "line": 5,
+          "note": "Its first line runs.",
+          "out": [
+            "2: inside the function"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "Then its second line.",
+          "out": [
+            "3: still inside the function"
+          ]
+        },
+        {
+          "line": 12,
+          "note": "The function ran out of lines, so C++ returns to `main`, just after the call.",
+          "out": [
+            "4: back in main"
+          ]
+        }
+      ],
+      "title": "Watch C++ jump in and back",
+      "outro": "Nothing is skipped and nothing runs twice. A function written first in the file only runs when it is called."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nvoid drawLine() {\n    cout << \"------------------\" << endl;\n}\n\nvoid printReport() {\n    drawLine();\n    cout << \"  Daily total: 1420\" << endl;\n    drawLine();\n}\n\nint main() {\n    printReport();\n    return 0;\n}",
+      "output": [
+        "------------------",
+        "  Daily total: 1420",
+        "------------------"
+      ],
+      "caption": "A function can call another one. `drawLine` sits above `printReport` for the same reason both sit above `main`: a caller must come after the function, or have a prototype."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "A, C, B",
+        "B, A, C",
+        "A, B, C",
+        "A, C"
+      ],
+      "answer": 2,
+      "explain": "C++ jumps into `hi` at the call, prints `B`, then comes back and carries on with `C`.",
+      "code": "void hi() {\n    cout << \"B\" << endl;\n}\n\nint main() {\n    cout << \"A\" << endl;\n    hi();\n    cout << \"C\" << endl;\n}"
+    },
+    {
+      "type": "heading",
+      "value": "Two Mistakes Worth Seeing"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nvoid printBanner() {\n    cout << \"Banner!\" << endl;\n}\n\nint main() {\n    cout << \"Before.\" << endl;\n    printBanner;          // the brackets are missing\n    cout << \"After.\" << endl;\n    return 0;\n}",
+      "output": [
+        "Before.",
+        "After."
+      ],
+      "caption": "The banner never appears. A bare name only mentions the function, it does not call it, and g++ at most gives a warning that is easy to miss. If a function seems never to run, check the brackets first."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Function inside main",
+          "tone": "bad",
+          "code": "int main() {\n    void printBanner() {\n        cout << \"Hi\" << endl;\n    }\n}",
+          "text": "`a function-definition is not allowed here before '{' token`. Functions are neighbours of `main`, never part of it."
+        },
+        {
+          "title": "Fixed",
+          "tone": "good",
+          "code": "void printBanner() {\n    cout << \"Hi\" << endl;\n}\n\nint main() {\n    printBanner();\n}",
+          "text": "The function moved above `main`, and the call has its `()`."
+        }
+      ],
+      "title": "Calls need brackets, functions live outside main"
+    },
+    {
+      "type": "warning",
+      "value": "One misplaced function can produce several errors. Fix the **first** error and compile again: the rest are usually echoes of it.",
+      "title": "Fix the first error first"
+    },
+    {
+      "type": "check",
+      "question": "A function `beep` is never printing anything. Which line is the likely bug?",
+      "options": [
+        "beep();",
+        "beep;",
+        "void beep() {",
+        "return 0;"
+      ],
+      "answer": 1,
+      "explain": "Without `()` the name is only mentioned, not called. It compiles, so the bug is silent."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nvoid printBanner() {\n    cout << \"=========================\" << endl;\n    cout << \"   POCKET LAB REPORT\" << endl;\n    cout << \"=========================\" << endl;\n}\n\nint main() {\n    printBanner();\n\n    cout << \"  Scores loaded: 4\" << endl;\n    cout << \"  Average:       60.5\" << endl;\n\n    printBanner();\n\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write a function called printGoodbye that prints two lines, then call it twice from main.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Write drawLine so that it prints 20 dashes using a loop, then call it above and below the title in main.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nvoid drawLine() {\n\n}\n\nint main() {\n\n    cout << \"  MENU\" << endl;\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "This does not compile because main calls countToThree before the compiler has seen it. Fix it twice: once by moving the function, then (undo that) by adding a prototype.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    countToThree();\n\n    return 0;\n}\n\nvoid countToThree() {\n    for (int i = 1; i <= 3; i++) {\n        cout << i << endl;\n    }\n}"
+    },
+    {
+      "id": 4,
+      "question": "Write a function runAll that calls drawLine, then sayHello, then drawLine. main should call only runAll.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nvoid sayHello() {\n    cout << \"Hello!\" << endl;\n}\n\nvoid drawLine() {\n    cout << \"--------\" << endl;\n}\n\nvoid runAll() {\n\n}\n\nint main() {\n    runAll();\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is a function?",
+      "options": [
+        "A variable that holds several values",
+        "Another word for a loop",
+        "A named block of instructions you can run by calling its name"
+      ],
+      "answer": 2,
+      "explain": "`main` is one too. Naming a block lets you run it from anywhere, as often as you like."
+    },
+    {
+      "question": "`main` calls `sayHello()`, which is defined below `main` with no prototype. What happens?",
+      "options": [
+        "A compile error: 'sayHello' was not declared in this scope",
+        "It works, because C++ reads the whole file first",
+        "It compiles but sayHello never runs"
+      ],
+      "answer": 0,
+      "explain": "The compiler reads top to bottom. Move the function above main, or put a prototype like `void sayHello();` above it."
+    },
+    {
+      "question": "What does `void` mean in `void printBanner()`?",
+      "options": [
+        "The function takes no values in",
+        "The function hands nothing back to whoever called it",
+        "The function is empty"
+      ],
+      "answer": 1,
+      "explain": "`void` is the return type. The empty brackets are what say it takes nothing in."
+    },
+    {
+      "question": "What happens after a called function finishes?",
+      "options": [
+        "The program ends",
+        "The function runs again",
+        "The program carries on at the line right after the call"
+      ],
+      "answer": 2,
+      "explain": "A call is a detour, not a jump. C++ always comes back to where it left off."
+    },
+    {
+      "question": "What does the line `printBanner;` do?",
+      "options": [
+        "Nothing: without brackets it only mentions the function, it does not call it",
+        "It calls the function, the brackets are optional",
+        "It always stops the program from compiling"
+      ],
+      "answer": 0,
+      "explain": "It compiles, at most with a warning, and quietly does nothing. The round brackets are what make a call."
+    }
+  ]
+}

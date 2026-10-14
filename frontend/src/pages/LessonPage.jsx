@@ -11,9 +11,7 @@ import { useCompletionFlow } from '../hooks/useCompletionFlow';
 import Celebration from '../components/feedback/Celebration';
 import FeedbackModal from '../components/feedback/FeedbackModal';
 import { getUnlockedLessonIds, awardXPOnce, lessons as completedLessons } from '../lib/progress';
-import LessonSimulation from '../components/lesson/LessonSimulation';
-import LessonWidget from '../components/lesson/LessonWidget';
-import LessonImage from '../components/lesson/LessonImage';
+import LessonBlock from '../components/lesson/LessonBlock';
 import RichText from '../components/lesson/RichText';
 import LabRunner from '../components/lab/LabRunner';
 import SignInModal from '../components/auth/SignInModal';
@@ -74,8 +72,12 @@ export default function LessonPage() {
         current.blocks.push(b);
       }
     });
-    if (hasPracticeTab) out.push({ title: 'Practice', kind: 'practice' });
-    if (hasQuizTab) out.push({ title: 'Knowledge Check', kind: 'quiz' });
+    // Practice and the knowledge check share one closing tab: try it, then
+    // prove it. Named for whichever halves this lesson actually has.
+    if (hasPracticeTab || hasQuizTab) {
+      const title = hasPracticeTab && hasQuizTab ? 'Practice & Check' : hasPracticeTab ? 'Practice' : 'Knowledge Check';
+      out.push({ title, kind: 'wrapup', practice: hasPracticeTab, quiz: hasQuizTab });
+    }
     return out;
   }, [lesson, hasPracticeTab, hasQuizTab]);
 
@@ -200,6 +202,14 @@ export default function LessonPage() {
   }, [course, lesson, courseId, lessonId]);
 
   const handleRunCode = () => runner.run(code);
+
+  // "Try it" on a lesson code example: load it into the editor. On narrow
+  // screens the editor sits below the lesson, so bring it into view too.
+  const editorPanelRef = useRef(null);
+  const handleTryCode = useCallback((snippet) => {
+    setCode(snippet);
+    if (!isDesktop) editorPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [isDesktop]);
 
   const handleQuizSubmit = async () => {
     if (!lesson.quiz) return;
@@ -425,19 +435,17 @@ export default function LessonPage() {
             // Divider between the reading tabs and the do-it tabs (Practice /
             // Check). Rendered as a thin vertical rule + a small silkscreen
             // label so students see the shape: read → practice → check.
-            const firstSpecial = sections.findIndex(s => s.kind === 'practice' || s.kind === 'quiz');
+            const firstSpecial = sections.findIndex(s => s.kind === 'wrapup');
             return (
               <div className="mb-6 flex flex-wrap items-center gap-2 border-b-2 border-ink/10 pb-3">
                 {sections.map((s, i) => {
                   const active = i === activeTab;
-                  const isPractice = s.kind === 'practice';
-                  const isQuiz = s.kind === 'quiz';
+                  const isWrapup = s.kind === 'wrapup';
                   let cls;
-                  if (isPractice) cls = active ? 'bg-pcb text-white border-ink' : 'bg-white text-ink border-pcb hover:bg-pcb/10';
-                  else if (isQuiz) cls = active ? 'bg-signal text-ink border-ink' : 'bg-white text-ink border-signal hover:bg-signal/15';
-                  else cls = active ? 'bg-ink text-white border-ink' : 'bg-white text-ink border-ink hover:bg-pcb/10';
+                  if (isWrapup) cls = active ? 'bg-signal text-ink border-ink' : 'bg-white text-ink border-signal hover:bg-signal/15';
+                  else cls = active ? 'bg-ink text-white border-ink' : 'bg-white text-ink border-ink/25 hover:border-ink';
                   const tagCls = active
-                    ? (isQuiz ? 'text-ink/60' : 'text-white/70')
+                    ? (isWrapup ? 'text-ink/60' : 'text-white/70')
                     : 'text-ink/45';
                   return (
                     <div key={i} className="flex items-center gap-2">
@@ -449,7 +457,7 @@ export default function LessonPage() {
                         className={`inline-flex items-center gap-2 rounded-lg border-2 px-4 py-2 font-lab font-extrabold text-sm transition-colors ${cls}`}
                       >
                         <span className={`ref-tag ${tagCls}`}>
-                          {isPractice ? 'PRAC' : isQuiz ? 'CHECK' : String(i + 1).padStart(2, '0')}
+                          {isWrapup ? 'DO' : String(i + 1).padStart(2, '0')}
                         </span>
                         <span>{s.title}</span>
                       </button>
@@ -462,51 +470,50 @@ export default function LessonPage() {
 
           <div className="space-y-8 mb-8">
             {/* Practice tab — coding exercises */}
-            {activeSection?.kind === 'practice' && (
-              <div className="border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
-                <div className="bg-pcb px-5 py-4 border-b-2 border-ink sm:px-8 sm:py-5">
-                  <h3 className="font-lab font-bold text-white text-lg">Practice Exercises</h3>
-                </div>
-                <div className="p-5 bg-white sm:p-8 space-y-6">
-                  {lesson.practice.map(p => (
-                    <div key={p.id}>
-                      <p className="font-medium text-ink text-lg mb-4">Task: {p.question}</p>
+            {activeSection?.practice && (
+              <section>
+                <h3 className="font-lab mb-1 text-xl font-extrabold text-ink">Try it yourself</h3>
+                <p className="mb-5 text-ink/60">Load the starter code, finish it in the editor, then press Run Code.</p>
+                <ol className="space-y-3">
+                  {lesson.practice.map((p, i) => (
+                    <li key={p.id} className="flex flex-wrap items-start gap-4 rounded-xl border border-ink/15 bg-paper/60 p-4">
+                      <span className="font-mono-lab flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-bold text-white">{i + 1}</span>
+                      <p className="min-w-0 flex-1 text-lg text-ink"><RichText value={p.question} /></p>
                       <button
-                        onClick={() => setCode(p.starterCode)}
-                        className="inline-flex items-center justify-center border-2 border-ink text-ink hover:bg-pcb hover:text-white px-4 py-2 rounded-lg font-bold transition-colors"
+                        onClick={() => handleTryCode(p.starterCode)}
+                        className="shrink-0 rounded-lg border-2 border-ink px-3 py-1.5 text-sm font-bold text-ink transition-colors hover:bg-ink hover:text-white"
                       >
-                        Load Starter Code ➔
+                        Load starter code
                       </button>
-                    </div>
+                    </li>
                   ))}
-                </div>
-              </div>
+                </ol>
+              </section>
             )}
 
             {/* Knowledge Check tab — quiz */}
-            {activeSection?.kind === 'quiz' && (
-              <div className="border-2 border-ink rounded-2xl overflow-hidden shadow-[4px_4px_0_rgba(27,27,27,0.9)]">
-                <div className="bg-signal px-5 py-4 border-b-2 border-ink sm:px-8 sm:py-5">
-                  <h3 className="font-lab font-bold text-ink text-lg">Knowledge Check</h3>
-                </div>
-                <div className="p-5 bg-white space-y-8 sm:p-8 sm:space-y-10">
+            {activeSection?.quiz && (
+              <section className={activeSection.practice ? 'border-t-2 border-ink/10 pt-8' : ''}>
+                <h3 className="font-lab mb-1 text-xl font-extrabold text-ink">Check your understanding</h3>
+                <p className="mb-6 text-ink/60">Answer every question correctly to finish this lesson.</p>
+                <div className="space-y-8">
                   {lesson.quiz.map((q, qIdx) => {
                     const result = quizResult?.results?.[qIdx];
                     const graded = !!result;
                     return (
                       <div key={qIdx}>
-                        <p className="font-bold text-ink text-lg mb-5">{q.question}</p>
+                        <p className="font-bold text-ink text-lg mb-4"><span className="font-mono-lab mr-2 text-ink/40">{qIdx + 1}.</span><RichText value={q.question} /></p>
                         <div className="grid grid-cols-1 items-start gap-3 @min-[68rem]:grid-cols-2">
                           {q.options.map((opt, oIdx) => {
                             const chosen = quizAnswers[qIdx] === oIdx;
-                            let cls = chosen ? 'border-pcb bg-pcb/8' : 'border-ink/15 hover:bg-ink/5';
+                            let cls = chosen ? 'border-pcb bg-pcb/8' : 'border-ink/15 hover:border-ink/40';
                             if (graded) {
                               if (oIdx === result.correctIndex) cls = 'border-pcb bg-pcb/10';
                               else if (chosen) cls = 'border-wire bg-wire/8';
                               else cls = 'border-ink/15 opacity-70';
                             }
                             return (
-                              <label key={oIdx} className={`flex items-center space-x-4 p-4 border-2 rounded-xl transition-colors cursor-pointer ${cls}`}>
+                              <label key={oIdx} className={`flex items-center space-x-4 px-4 py-3 border-2 rounded-xl transition-colors cursor-pointer ${cls}`}>
                                 <input
                                   type="radio"
                                   name={`quiz-${qIdx}`}
@@ -517,7 +524,7 @@ export default function LessonPage() {
                                     if (quizResult) setQuizResult(null);
                                   }}
                                 />
-                                <span className="text-ink font-medium flex-1">{opt}</span>
+                                <span className="text-ink font-medium flex-1"><RichText value={opt} /></span>
                                 {graded && oIdx === result.correctIndex && <CheckCircle2 className="w-5 h-5 text-pcb shrink-0" />}
                                 {graded && chosen && oIdx !== result.correctIndex && <XCircle className="w-5 h-5 text-wire shrink-0" />}
                               </label>
@@ -555,28 +562,13 @@ export default function LessonPage() {
                     )}
                   </div>
                 </div>
-              </div>
+              </section>
             )}
 
             {/* Regular content tab — teaching blocks */}
-            {!activeSection?.kind && (activeSection?.blocks || []).map((block, idx) => {
-              if (block.type === 'paragraph') return <p key={idx} className="text-ink/75 leading-relaxed text-lg"><RichText value={block.value} /></p>;
-              if (block.type === 'tip') return (
-                <div key={idx} className="bg-pcb/8 border-l-4 border-pcb p-6 rounded-r-lg text-ink">
-                  <strong className="font-lab flex items-center mb-2 text-pcb"><CheckCircle2 className="w-5 h-5 mr-2" />Tip</strong>
-                  <span className="text-lg"><RichText value={block.value} /></span>
-                </div>
-              );
-              if (block.type === 'code') return (
-                <pre key={idx} className="bg-well text-white/90 p-6 rounded-xl overflow-x-auto text-sm font-mono-lab border-2 border-ink shadow-inner">
-                  {block.value}
-                </pre>
-              );
-              if (block.type === 'simulation') return <LessonSimulation key={idx} sim={block} />;
-              if (block.type === 'widget') return <LessonWidget key={idx} block={block} />;
-              if (block.type === 'image') return <LessonImage key={idx} block={block} />;
-              return null;
-            })}
+            {!activeSection?.kind && (activeSection?.blocks || []).map((block, idx) => (
+              <LessonBlock key={idx} block={block} language={language} onTry={showEditor ? handleTryCode : undefined} />
+            ))}
           </div>
 
           {sections.length > 1 && (
@@ -603,8 +595,8 @@ export default function LessonPage() {
 
           <div className="border-t-2 border-ink/10 pt-10 flex flex-col items-end gap-3">
             {!quizPassed && (() => {
-              const quizIdx = sections.findIndex(s => s.kind === 'quiz');
-              const onQuizTab = activeSection?.kind === 'quiz';
+              const quizIdx = sections.findIndex(s => s.quiz);
+              const onQuizTab = !!activeSection?.quiz;
               return (
                 <button
                   onClick={() => { if (quizIdx >= 0 && !onQuizTab) gotoTab(quizIdx); }}
@@ -614,7 +606,7 @@ export default function LessonPage() {
                   <Lock className="h-4 w-4 shrink-0" />
                   {onQuizTab
                     ? 'Answer every question correctly to finish this chapter.'
-                    : 'Open the Knowledge Check tab and answer every question to finish.'}
+                    : `Open the ${sections[quizIdx]?.title || 'Knowledge Check'} tab and answer every question to finish.`}
                 </button>
               );
             })()}
@@ -644,7 +636,7 @@ export default function LessonPage() {
 
       {/* Compiler Panel — hidden for no-code courses (course.hasEditor === false) */}
       {showEditor && (
-      <div style={panelStyle} className="z-10 flex w-full min-w-0 flex-col border-t-2 border-ink bg-paper shadow-2xl lg:h-full lg:w-[600px] lg:border-l-2 lg:border-l-ink lg:border-t-0">
+      <div ref={editorPanelRef} style={panelStyle} className="z-10 flex w-full min-w-0 flex-col border-t-2 border-ink bg-paper shadow-2xl lg:h-full lg:w-[600px] lg:border-l-2 lg:border-l-ink lg:border-t-0">
 
         {/* Editor Area */}
         <div className="flex h-[55vh] flex-col border-b-2 border-ink/15 bg-paper p-4 sm:p-5 lg:h-[65%]">

@@ -9,8 +9,34 @@
       "value": "Kinds of Values"
     },
     {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔢",
+          "text": "int",
+          "sub": "Whole numbers: `5`, `0`, `-3`"
+        },
+        {
+          "icon": "🎯",
+          "text": "float",
+          "sub": "Numbers with a decimal point: `2.5`, `3.14`"
+        },
+        {
+          "icon": "💬",
+          "text": "str",
+          "sub": "Text in quotes: `\"Hello\"`"
+        },
+        {
+          "icon": "✅",
+          "text": "bool",
+          "sub": "Yes or no: `True` or `False`"
+        }
+      ],
+      "title": "The four basic data types"
+    },
+    {
       "type": "paragraph",
-      "value": "Every value in Python has a kind, called its data type. The type tells Python what the value is and what you can do with it. Click any chip below to see what Python calls each value."
+      "value": "Every value has a **data type**: what kind of thing it is. The type decides what you can do with it. Click any chip to see what Python calls each value."
     },
     {
       "type": "widget",
@@ -21,43 +47,205 @@
       "value": "Numbers: int and float"
     },
     {
-      "type": "paragraph",
-      "value": "Whole numbers are called integers, or `int`. Numbers with a decimal point are called floats (the name comes from 'floating-point', because the decimal can float anywhere in the number). Use an int for counts and ages. Use a float when you need decimals."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "int (integer)",
+          "tone": "neutral",
+          "code": "apples = 5\nage = 11\nlevel = -2",
+          "text": "Whole numbers. Use them for counting things."
+        },
+        {
+          "title": "float",
+          "tone": "neutral",
+          "code": "cookies = 2.5\nheight = 4.2\nprice = 9.99",
+          "text": "Numbers with a decimal point. The name comes from \"floating point\"."
+        }
+      ],
+      "title": "Two kinds of number"
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "apples",
+          "value": "5",
+          "type": "int"
+        },
+        {
+          "name": "cookies",
+          "value": "2.5",
+          "type": "float"
+        },
+        {
+          "name": "height",
+          "value": "4.2",
+          "type": "float"
+        }
+      ],
+      "caption": "The dot is what makes a number a float."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "apples = 5      # int\ncookies = 2.5   # float\nheight = 4.2    # float"
+      "value": "apples = 5      # int\ncookies = 2.5   # float\nheight = 4.2    # float\nprint(apples)\nprint(cookies)",
+      "output": [
+        "5",
+        "2.5"
+      ]
+    },
+    {
+      "type": "check",
+      "question": "What type is `3.0`?",
+      "options": [
+        "float",
+        "int",
+        "str",
+        "bool"
+      ],
+      "answer": 0,
+      "explain": "It has a decimal point, so it is a `float`, even though the part after the dot is zero."
     },
     {
       "type": "heading",
       "value": "Text: str"
     },
     {
-      "type": "paragraph",
-      "value": "A string (`str`) is text: words, names, or sentences. Wrap it in quotation marks. You can use double quotes or single quotes, as long as you use the same one at the start and the end. Without quotes, Python thinks the word is a variable name and gives an error."
+      "type": "points",
+      "items": [
+        "A **string** (`str`) is text: letters, words, whole sentences.",
+        "Wrap it in quotes. Double `\" \"` or single `' '` both work.",
+        "Start and end with the same kind of quote."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "hero_name"
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "\"",
+          "label": "start",
+          "note": "The opening quote tells Python: text starts here."
+        },
+        {
+          "code": "Batman",
+          "label": "the text",
+          "note": "Everything between the quotes is kept exactly as written, spaces and all."
+        },
+        {
+          "code": "\"",
+          "label": "end",
+          "note": "The closing quote must match the opening one."
+        }
+      ],
+      "title": "Anatomy of a string"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "hero_name = \"Batman\"\nsecret_message = 'I love coding!'"
+      "value": "hero_name = \"Batman\"\nsecret_message = 'I love coding!'\nprint(hero_name)\nprint(secret_message)",
+      "output": [
+        "Batman",
+        "I love coding!"
+      ]
     },
     {
-      "type": "tip",
-      "value": "Watch out: the number 7 is an int, but \"7\" (with quotes) is a str. Same digit, different type. You can add 7 + 3 but not \"7\" + 3."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "7 is an int",
+          "tone": "good",
+          "code": "print(7 + 3)",
+          "text": "A number. Adding works: the result is `10`."
+        },
+        {
+          "title": "\"7\" is a str",
+          "tone": "bad",
+          "code": "print(\"7\" + 3)",
+          "text": "Text, because of the quotes. Python cannot add text to a number, so it stops with a `TypeError`."
+        }
+      ],
+      "title": "Same digit, different type"
+    },
+    {
+      "type": "check",
+      "question": "What type is `\"42\"`?",
+      "options": [
+        "int",
+        "str",
+        "float",
+        "bool"
+      ],
+      "answer": 1,
+      "explain": "The quotes make it text. It looks like a number, but Python treats it as a `str`."
     },
     {
       "type": "heading",
       "value": "Yes or No: bool"
     },
     {
-      "type": "paragraph",
-      "value": "A boolean (`bool`) has only two possible values: `True` or `False`. Python uses booleans to answer yes/no questions like 'is the door open?' or 'did the player win?'. Notice the capital letter. Writing `true` with a small t is not the same thing, and Python will give an error."
+      "type": "analogy",
+      "emoji": "💡",
+      "real": "A light switch",
+      "concept": "A boolean",
+      "code": "lights_on = True",
+      "text": "A switch is either on or off, never in between. A boolean is either `True` or `False`, nothing else."
+    },
+    {
+      "type": "points",
+      "items": [
+        "Only two values: `True` and `False`.",
+        "They answer yes or no questions: Is the game over? Is the door open?",
+        "Capital first letter, and no quotes."
+      ]
     },
     {
       "type": "code",
       "language": "python",
-      "value": "game_over = False\nlogged_in = True"
+      "value": "game_over = False\nlogged_in = True\nprint(game_over)\nprint(logged_in)",
+      "output": [
+        "False",
+        "True"
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Works",
+          "tone": "good",
+          "code": "done = True",
+          "text": "Capital `T`, no quotes."
+        },
+        {
+          "title": "Breaks",
+          "tone": "bad",
+          "code": "done = true\ndone = \"True\"",
+          "text": "Lowercase `true` is an error. `\"True\"` with quotes is just text, not a boolean."
+        }
+      ]
+    },
+    {
+      "type": "check",
+      "question": "Which line stores a boolean?",
+      "options": [
+        "is_sunny = \"True\"",
+        "is_sunny = true",
+        "is_sunny = yes",
+        "is_sunny = True"
+      ],
+      "answer": 3,
+      "explain": "`True` with a capital T and no quotes is a boolean. With quotes it becomes a string."
     }
   ],
   "editorCode": "apples = 5\ncookies = 2.5\nhero = \"Spiderman\"\ngame_over = False\n\nprint(apples)\nprint(cookies)\nprint(hero)\nprint(game_over)",

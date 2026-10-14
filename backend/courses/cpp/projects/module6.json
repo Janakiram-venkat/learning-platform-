@@ -1,0 +1,141 @@
+{
+  "moduleId": 6,
+  "title": "Number Toolkit",
+  "emoji": "🧰",
+  "brief": "Build a menu-driven toolbox. Five tools, each its own function: is it prime, how many digits and what they add up to, its digits reversed, its factorial, and a bar drawn from it. The menu keeps coming back until the user quits. This is the first program you write where main does almost nothing itself.",
+  "problem": {
+    "goal": "Show a menu, read a choice, ask for a number, and hand the work to a function. Repeat until the choice is 0.",
+    "example": {
+      "typed": [
+        "1",
+        "97",
+        "0"
+      ],
+      "output": [
+        "--- Number Toolkit ---",
+        "1. Is it prime?",
+        "2. Digit stats",
+        "3. Reverse it",
+        "4. Factorial",
+        "5. Draw a bar",
+        "0. Quit",
+        "97 is prime",
+        "--- Number Toolkit ---",
+        "1. Is it prime?",
+        "2. Digit stats",
+        "3. Reverse it",
+        "4. Factorial",
+        "5. Draw a bar",
+        "0. Quit",
+        "Goodbye."
+      ]
+    },
+    "rules": [
+      "Every tool is its own function, written above main. main reads the choice and the number, and prints; it works nothing out itself.",
+      "isPrime returns a bool. Nothing below 2 is prime, so 1 and 0 must come back false.",
+      "digitStats hands back two answers, the number of digits and their sum, through its two reference parameters. It sets both to 0 before counting, so a second call never starts from the first call's totals.",
+      "reverseDigits returns an int. factorial returns a long long, so 15! fits.",
+      "printBar is overloaded: printBar(n) draws with stars by calling printBar(n, '*'). Only the two-argument version contains the loop.",
+      "A choice of 1 to 5 asks for a number. Anything else except 0 prints \"No such option.\" and must NOT ask for a number.",
+      "Print exactly: \"97 is prime\", \"91 is not prime\", \"4071 has 4 digits adding up to 12\", \"4071 reversed is 1704\", \"5! is 120\", and for a bar, \"7 | *******\"."
+    ]
+  },
+  "steps": [
+    "Start with showMenu. It takes nothing and returns nothing, and it is the easiest function here. Press Run once it prints. Replace each placeholder `return` as you go: they are only there so the starter compiles.",
+    "Write isPrime next. Guard against n below 2 with an early return of false, then loop looking for a divisor and return false the moment you find one. The final return true is only reached if the loop found nothing.",
+    "Write digitStats. It is the digit loop from the while lesson, but instead of returning one answer it fills in count and sum, which are references to main's variables.",
+    "Write reverseDigits and factorial. Both are Module 5 loops with a return on the end, and both may chop up their own copy of n freely.",
+    "Write the two printBar overloads. The two-argument one holds the loop; the one-argument one is a single line that calls it with '*'.",
+    "Now fill in main: if the choice is 1 to 5, ask for a number and call the right function. Otherwise, if it is not 0, print \"No such option.\" without reading a number. For option 2, declare two int variables in main and pass them to digitStats.",
+    "Press Check Project. One test types a bad option first, so make sure that path does not swallow the next number."
+  ],
+  "starterCode": "// 🧰 Number Toolkit\n\n#include <iostream>\nusing namespace std;\n\n// TODO 1: showMenu takes nothing and returns nothing. Print the seven\n//         menu lines exactly as in the example.\nvoid showMenu() {\n\n}\n\n// TODO 2: isPrime returns true only when n is prime. Anything below 2\n//         is not prime. Otherwise look for a divisor between 2 and n - 1.\nbool isPrime(int n) {\n    return false;      // placeholder so this compiles: replace it\n}\n\n// TODO 3: digitStats works out two answers at once, so it hands them back\n//         through the two reference parameters. Set count and sum to 0\n//         first, then walk through n's digits, adding to both.\nvoid digitStats(int n, int& count, int& sum) {\n\n}\n\n// TODO 4: reverseDigits returns n with its digits backwards.\nint reverseDigits(int n) {\n    return 0;          // placeholder so this compiles: replace it\n}\n\n// TODO 4: factorial returns 1 x 2 x ... x n as a long long, because\n//         an int overflows after 12!.\nlong long factorial(int n) {\n    return 0;          // placeholder so this compiles: replace it\n}\n\n// TODO 5: this printBar does the real work: print n, then \" | \",\n//         then n copies of symbol, then end the line.\nvoid printBar(int n, char symbol) {\n\n}\n\n// TODO 5: this printBar must not repeat the loop. It supplies '*' as the\n//         symbol and hands over to the other printBar.\nvoid printBar(int n) {\n\n}\n\nint main() {\n    int choice;\n\n    do {\n        showMenu();\n\n        cout << \"Choice? \";\n        cin >> choice;\n\n        // TODO 6: if the choice is 1 to 5, ask \"Number? \" and read it,\n        //         then call the right function and print the result:\n        //           1 -> \"97 is prime\" or \"91 is not prime\"\n        //           2 -> \"4071 has 4 digits adding up to 12\"\n        //           3 -> \"4071 reversed is 1704\"\n        //           4 -> \"5! is 120\"\n        //           5 -> the one-argument printBar\n        //         If the choice is anything else except 0, print\n        //         \"No such option.\" and do NOT ask for a number.\n\n    } while (choice != 0);\n\n    cout << \"Goodbye.\" << endl;\n\n    return 0;\n}",
+  "hints": [
+    "Press Run before you change anything. It compiles, but the menu is blank and every tool hands back its placeholder value. Fill in showMenu first and Run again to see the menu appear.",
+    "isPrime has the same shape as the search in the break and continue lesson, except that a `return` replaces both the `break` and the `found` flag: return false the moment a divisor turns up, and return true only after the loop has finished. If `return true` ends up inside the loop, 9 looks prime.",
+    "digitStats is a void function that fills in its answers, like `divide` in the Pass by Reference lesson filled in quotient and remainder. Assign 0 to both references first, then on each turn of the digit loop add one to the count and the last digit to the sum.",
+    "In main, option 2 needs two variables to receive the answers. Declare them, pass them after the number, and print them once digitStats returns, just as main printed q and r after calling divide.",
+    "factorial must start its running product at 1. Starting at 0 makes every answer 0, because anything times 0 is 0. The product variable needs to be a long long too, not just the return type.",
+    "The overload pair follows the printBar example in the Overloading lesson: the short version is one line that calls the long version with the missing value filled in.",
+    "In main, read the number once, inside a single if that checks the choice is between 1 and 5, rather than in each branch. An else if that checks the choice is not 0 then prints \"No such option.\", and 0 falls through to the do while condition and ends the loop.",
+    "For option 1 you need the bool in an if: one cout for \"is prime\" and another for \"is not prime\". For option 4 the exclamation mark is just text printed after the number."
+  ],
+  "inputPlaceholder": "1\n97\n0",
+  "inputHint": "Type a menu choice, then a number, then another choice, and so on. Finish with 0.",
+  "tests": [
+    {
+      "name": "A prime number, then quit",
+      "input": [
+        "1",
+        "97",
+        "0"
+      ],
+      "expect": [
+        "--- Number Toolkit ---",
+        "1. Is it prime?",
+        "2. Digit stats",
+        "5. Draw a bar",
+        "0. Quit",
+        "97 is prime",
+        "Goodbye."
+      ]
+    },
+    {
+      "name": "Three tools in one session",
+      "input": [
+        "1",
+        "91",
+        "2",
+        "4071",
+        "3",
+        "4071",
+        "0"
+      ],
+      "expect": [
+        "91 is not prime",
+        "4071 has 4 digits adding up to 12",
+        "4071 reversed is 1704",
+        "Goodbye."
+      ]
+    },
+    {
+      "name": "Factorials and an overloaded bar",
+      "input": [
+        "4",
+        "5",
+        "4",
+        "15",
+        "5",
+        "7",
+        "0"
+      ],
+      "expect": [
+        "5! is 120",
+        "15! is 1307674368000",
+        "7 | *******",
+        "Goodbye."
+      ]
+    },
+    {
+      "name": "A bad option, an awkward number, and digit stats twice",
+      "input": [
+        "9",
+        "1",
+        "1",
+        "2",
+        "4071",
+        "2",
+        "90000",
+        "0"
+      ],
+      "expect": [
+        "No such option.",
+        "1 is not prime",
+        "4071 has 4 digits adding up to 12",
+        "90000 has 5 digits adding up to 9",
+        "Goodbye."
+      ]
+    }
+  ],
+  "successMessage": "The toolkit is built! 🧰 Seven functions, one pair of them overloaded, one handing back two answers through references, one returning a bool and one returning a long long, and a main that reads and prints and nothing else. Look at how little is left in main: that is what functions are for. Next module you meet arrays and vectors, so one variable can finally hold a whole list of numbers instead of one at a time."
+}

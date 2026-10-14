@@ -1,0 +1,358 @@
+{
+  "lessonId": "java_ternary",
+  "title": "The Ternary Operator",
+  "description": "A one-line if and else that produces a value, and when not to use it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "An if That Gives Back a Value"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "String r",
+          "label": "variable",
+          "note": "Receives the chosen value."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "(age >= 18)",
+          "label": "condition",
+          "note": "A question that is `true` or `false`."
+        },
+        {
+          "code": " ? "
+        },
+        {
+          "code": "\"adult\"",
+          "label": "if true",
+          "note": "Used when the condition is true."
+        },
+        {
+          "code": " : "
+        },
+        {
+          "code": "\"minor\"",
+          "label": "if false",
+          "note": "Used when the condition is false."
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "Anatomy of a ternary",
+      "caption": "It is called **ternary** because it takes three parts. It is the only Java operator that does."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "if and else",
+          "tone": "neutral",
+          "code": "String result;\nif (marks >= 40) {\n    result = \"Pass\";\n} else {\n    result = \"Fail\";\n}",
+          "text": "Fine, but long just to choose one word."
+        },
+        {
+          "title": "Ternary",
+          "tone": "good",
+          "code": "String result = marks >= 40 ? \"Pass\" : \"Fail\";",
+          "text": "Condition `?` value if true `:` value if false."
+        }
+      ],
+      "title": "Six lines become one",
+      "caption": "Both versions store `\"Pass\"` when `marks` is 72."
+    },
+    {
+      "type": "warning",
+      "value": "A ternary is an **expression**: it produces a value, so you must use it. `marks >= 40 ? \"Pass\" : \"Fail\";` on its own is a compile error. Assign it or print it."
+    },
+    {
+      "type": "check",
+      "question": "What is stored in `r` when `age` is `12`?",
+      "options": [
+        "\"minor\"",
+        "\"adult\"",
+        "true",
+        "12"
+      ],
+      "answer": 0,
+      "explain": "`12 >= 18` is false, so the value after the `:` is chosen.",
+      "code": "String r = (age >= 18) ? \"adult\" : \"minor\";"
+    },
+    {
+      "type": "heading",
+      "value": "Where It Reads Well"
+    },
+    {
+      "type": "paragraph",
+      "value": "A ternary shines inside a print, where an `if` and `else` would need four extra lines to pick one word."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int count = 1;\n        System.out.println(\"You have \" + count + (count == 1 ? \" item\" : \" items\"));\n\n        count = 3;\n        System.out.println(\"You have \" + count + (count == 1 ? \" item\" : \" items\"));\n\n        int a = 17;\n        int b = 42;\n        System.out.println(\"The larger is \" + (a > b ? a : b));\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "One item.",
+          "vars": {
+            "count": "1"
+          }
+        },
+        {
+          "line": 4,
+          "note": "`count == 1` is true, so it picks `\" item\"`.",
+          "out": [
+            "You have 1 item"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "Now three items.",
+          "vars": {
+            "count": "3"
+          }
+        },
+        {
+          "line": 7,
+          "note": "`count == 1` is false, so it picks `\" items\"`.",
+          "out": [
+            "You have 3 items"
+          ]
+        },
+        {
+          "line": 9,
+          "note": "Two numbers to compare.",
+          "vars": {
+            "a": "17"
+          }
+        },
+        {
+          "line": 10,
+          "note": "And `42` in `b`.",
+          "vars": {
+            "b": "42"
+          }
+        },
+        {
+          "line": 11,
+          "note": "`17 > 42` is false, so it picks `b`.",
+          "out": [
+            "The larger is 42"
+          ]
+        }
+      ],
+      "title": "Picking a word, picking a number",
+      "outro": "Keep the brackets round a ternary inside a print. Without them, `+` joins the text before the `?` is reached."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int age = 14;\n        int score = 88;\n        boolean member = true;\n\n        int price = age < 13 ? 120 : 250;\n        char grade = score >= 75 ? 'A' : 'B';\n        double discount = member ? 0.10 : 0.0;\n\n        System.out.println(\"Price: \" + price);\n        System.out.println(\"Grade: \" + grade);\n        System.out.println(\"Discount: \" + discount);\n    }\n}",
+      "output": [
+        "Price: 250",
+        "Grade: A",
+        "Discount: 0.1"
+      ],
+      "caption": "Any type works, numbers, `char`, `boolean`, text, as long as both sides give the **same** type."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Grade: A",
+        "Grade: 60",
+        "Grade: B",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`60 >= 75` is false, so the value after `:` is chosen.",
+      "code": "int score = 60;\nchar grade = score >= 75 ? 'A' : 'B';\nSystem.out.println(\"Grade: \" + grade);"
+    },
+    {
+      "type": "heading",
+      "value": "Where It Reads Badly"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🎯",
+          "text": "Only to choose a value",
+          "sub": "If the branches do real work, like several prints, use `if` and `else`."
+        },
+        {
+          "icon": "🚫",
+          "text": "Never nested",
+          "sub": "A ternary inside a ternary is legal, and almost unreadable."
+        }
+      ],
+      "title": "Two rules"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Nested ternary",
+          "tone": "bad",
+          "code": "String grade = marks >= 90 ? \"A\"\n    : marks >= 75 ? \"B\"\n    : marks >= 60 ? \"C\" : \"F\";",
+          "text": "Looks clever today. Costs ten minutes next week."
+        },
+        {
+          "title": "else if chain",
+          "tone": "good",
+          "code": "if (marks >= 90) {\n    grade = \"A\";\n} else if (marks >= 75) {\n    grade = \"B\";\n} else if (marks >= 60) {\n    grade = \"C\";\n} else {\n    grade = \"F\";\n}",
+          "text": "Longer, and instantly clear."
+        }
+      ],
+      "title": "The same grade rule, marks = 82",
+      "caption": "Both give B. If you have to count the `?` and `:` symbols to read a line, it should have been an `if`."
+    },
+    {
+      "type": "check",
+      "question": "You need to pick one of four messages. What fits best?",
+      "options": [
+        "An else if chain or a switch",
+        "A nested ternary",
+        "Four ternaries in a row"
+      ],
+      "answer": 0,
+      "explain": "A ternary chooses between exactly two values. Three or more alternatives belong in a chain or a switch."
+    },
+    {
+      "type": "heading",
+      "value": "Module 4 in One Program"
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "🪜",
+          "label": "else if chain",
+          "detail": "Ranges: age bands."
+        },
+        {
+          "icon": "🔀",
+          "label": "switch",
+          "detail": "Fixed values: day numbers."
+        },
+        {
+          "icon": "🪆",
+          "label": "nested if",
+          "detail": "A detail inside one branch."
+        },
+        {
+          "icon": "❓",
+          "label": "ternary",
+          "detail": "Choosing one of two words."
+        }
+      ],
+      "title": "Four ways to decide",
+      "caption": "Each decision has its own shape, so each gets the tool that fits it."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int age = 10;\n        int day = 6;\n\n        // A chain, because these are ranges.\n        String category;\n        int price;\n        if (age < 5) {\n            category = \"Infant\";\n            price = 0;\n        } else if (age < 13) {\n            category = \"Child\";\n            price = 120;\n        } else {\n            category = \"Adult\";\n            price = 250;\n        }\n\n        // A switch, because these are fixed values.\n        String dayName = switch (day) {\n            case 1 -> \"Monday\";\n            case 2 -> \"Tuesday\";\n            case 3 -> \"Wednesday\";\n            case 4 -> \"Thursday\";\n            case 5 -> \"Friday\";\n            case 6 -> \"Saturday\";\n            case 7 -> \"Sunday\";\n            default -> \"Unknown\";\n        };\n\n        // A nested if: the surcharge is only for paying tickets.\n        boolean weekend = day == 6 || day == 7;\n        if (price > 0) {\n            if (weekend) {\n                price += 50;\n            }\n        }\n\n        // A ternary, because it only chooses a word.\n        String rate = weekend ? \"weekend rate\" : \"weekday rate\";\n\n        System.out.println(dayName + \", \" + rate);\n        System.out.println(category + \": \" + price);\n    }\n}",
+      "output": [
+        "Saturday, weekend rate",
+        "Child: 170"
+      ],
+      "caption": "The module project in miniature. Change `age` and `day` and predict the output before you run it."
+    },
+    {
+      "type": "check",
+      "question": "With `age = 3` and `day = 6`, what is the second line?",
+      "options": [
+        "Infant: 50",
+        "Infant: 0",
+        "Child: 170",
+        "Adult: 300"
+      ],
+      "answer": 1,
+      "explain": "`3 < 5` makes the price 0, and the surcharge only applies when `price > 0`."
+    }
+  ],
+  "editorCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Marks out of 100? \");\n        int marks = scanner.nextInt();\n\n        String result = marks >= 40 ? \"Pass\" : \"Fail\";\n        System.out.println(\"Result: \" + result);\n\n        System.out.println(\"You scored \" + marks + (marks == 1 ? \" mark\" : \" marks\"));\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a number and use a ternary to print whether it is Even or Odd.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Number? \");\n        int n = scanner.nextInt();\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Rewrite this `if` and `else` as a single ternary.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int temperature = 38;\n        String advice;\n\n        if (temperature > 35) {\n            advice = \"Stay indoors\";\n        } else {\n            advice = \"Enjoy the weather\";\n        }\n\n        System.out.println(advice);\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Ask for a number of messages and print it with correct grammar: 1 new message, but 0 new messages and 5 new messages. Use a ternary inside the print.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"How many messages? \");\n        int count = scanner.nextInt();\n\n    }\n}"
+    },
+    {
+      "id": 4,
+      "question": "This nested ternary is hard to read. Rewrite it as an `else if` chain that gives the same answers.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int marks = 82;\n\n        String grade = marks >= 90 ? \"A\" : marks >= 75 ? \"B\" : marks >= 60 ? \"C\" : \"F\";\n\n        System.out.println(grade);\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What are the three parts of a ternary, in order?",
+      "options": [
+        "The condition, the value if true, the value if false",
+        "The value if true, the condition, the value if false",
+        "Three conditions"
+      ],
+      "answer": 0,
+      "explain": "`condition ? whenTrue : whenFalse`. The `?` separates the question from the answers and the `:` separates the two answers."
+    },
+    {
+      "question": "What does `int price = age < 13 ? 120 : 250;` store when age is 30?",
+      "options": [
+        "250",
+        "120",
+        "13"
+      ],
+      "answer": 0,
+      "explain": "The condition is false for 30, so the value after the `:` is chosen."
+    },
+    {
+      "question": "Why is `marks >= 40 ? \"Pass\" : \"Fail\";` on its own a compile error?",
+      "options": [
+        "A ternary produces a value, and that value has to be used.",
+        "A ternary cannot be used with text.",
+        "It needs an `if` in front of it."
+      ],
+      "answer": 0,
+      "explain": "It is an expression, not an instruction. Assign it to a variable or print it, so the answer has somewhere to go."
+    },
+    {
+      "question": "Why do you need brackets in `\"Total: \" + (a > b ? a : b)`?",
+      "options": [
+        "Without them the `+` would join the text before the ternary is reached.",
+        "Ternaries always require brackets.",
+        "To make the condition true."
+      ],
+      "answer": 0,
+      "explain": "`+` binds more tightly than `?`, so without brackets Java would build a piece of text first and the condition would no longer be comparing what you meant."
+    },
+    {
+      "question": "When should you NOT use a ternary?",
+      "options": [
+        "When the branches do real work, or when there are three or more alternatives",
+        "When choosing between two numbers",
+        "When choosing a word inside a print"
+      ],
+      "answer": 0,
+      "explain": "The ternary is for choosing one of two values. Work belongs in `if` and `else`, and several alternatives belong in a chain or a switch."
+    }
+  ]
+}

@@ -1,0 +1,394 @@
+{
+  "lessonId": "cpp_while",
+  "title": "The while Loop",
+  "description": "Repeat for as long as a condition holds, when you cannot count the turns in advance.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "When You Do Not Know How Many Times"
+    },
+    {
+      "type": "paragraph",
+      "value": "A `while` loop holds just one thing in its brackets: a condition. It repeats the body for as long as that condition is true."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔢",
+          "text": "Use `for` for a count",
+          "sub": "Ten rows, five questions, `n` numbers, a countdown."
+        },
+        {
+          "icon": "🚦",
+          "text": "Use `while` for an event",
+          "sub": "Until the user types 0, until the input is valid, until the digits run out."
+        }
+      ],
+      "title": "Which loop?"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "for",
+          "tone": "neutral",
+          "code": "for (int i = 1; i <= 3; i++) {\n    cout << i << endl;\n}",
+          "text": "All three parts in the brackets."
+        },
+        {
+          "title": "while",
+          "tone": "neutral",
+          "code": "int i = 1;\nwhile (i <= 3) {\n    cout << i << endl;\n    i++;\n}",
+          "text": "Start above, update inside."
+        }
+      ],
+      "title": "The same loop, written two ways",
+      "caption": "The three parts did not disappear, they moved. The start goes above the loop, the condition stays in the brackets, and the update becomes a line in the body."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int i = 1;\n    while (i <= 3) {\n        cout << \"i is \" << i << endl;\n        i++;\n    }\n    cout << \"Done.\" << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "The start value is set above the loop.",
+          "vars": {
+            "i": "1"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Check `1 <= 3`: true, so run the body."
+        },
+        {
+          "line": 7,
+          "note": "Print.",
+          "out": [
+            "i is 1"
+          ]
+        },
+        {
+          "line": 8,
+          "note": "The update is an ordinary line now.",
+          "vars": {
+            "i": "2"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Check `2 <= 3`: true."
+        },
+        {
+          "line": 7,
+          "note": "Print.",
+          "out": [
+            "i is 2"
+          ]
+        },
+        {
+          "line": 8,
+          "note": "`i` becomes 3.",
+          "vars": {
+            "i": "3"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Check `3 <= 3`: true."
+        },
+        {
+          "line": 7,
+          "note": "Print.",
+          "out": [
+            "i is 3"
+          ]
+        },
+        {
+          "line": 8,
+          "note": "`i` becomes 4.",
+          "vars": {
+            "i": "4"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Check `4 <= 3`: false. Skip the body."
+        },
+        {
+          "line": 10,
+          "note": "Carry on below the loop.",
+          "out": [
+            "Done."
+          ]
+        }
+      ],
+      "title": "Watch the while loop"
+    },
+    {
+      "type": "heading",
+      "value": "The Update Is Your Job"
+    },
+    {
+      "type": "paragraph",
+      "value": "A `for` loop cannot forget its `i++`. A `while` loop can. Then the condition never changes and the loop never ends."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Never ends",
+          "tone": "bad",
+          "code": "int i = 1;\nwhile (i <= 5) {\n    cout << i << endl;\n}",
+          "text": "No `i++`, so `i` stays 1 for ever."
+        },
+        {
+          "title": "Ends",
+          "tone": "good",
+          "code": "int i = 1;\nwhile (i <= 5) {\n    cout << i << endl;\n    i++;\n}",
+          "text": "`i` grows until `i <= 5` is false."
+        }
+      ],
+      "title": "Ends vs never ends",
+      "caption": "For every `while` you write, point at the line that will one day make the condition false. If you cannot, the loop does not end."
+    },
+    {
+      "type": "warning",
+      "value": "A loop that never ends is an **infinite loop**. It floods the output with the same line until the run is cut off after a few seconds. If that happens, look for a `while` whose body never changes its condition.",
+      "title": "Infinite loops"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "2",
+        "0",
+        "-2",
+        "6"
+      ],
+      "answer": 2,
+      "explain": "`n` goes 10, 6, 2, then -2. Only then is `n > 0` false, so the loop stops and prints -2.",
+      "code": "int n = 10;\nwhile (n > 0) {\n    n -= 4;\n}\ncout << n << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Stopping on a Signal"
+    },
+    {
+      "type": "paragraph",
+      "value": "The user types numbers to add up, and types 0 to finish. A value that means \"stop\" like this is called a **sentinel**."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "Read once",
+          "detail": "Before the loop"
+        },
+        {
+          "icon": "🚦",
+          "label": "Test",
+          "detail": "`n != 0`?"
+        },
+        {
+          "icon": "➕",
+          "label": "Use it",
+          "detail": "Add to the total"
+        },
+        {
+          "icon": "🔁",
+          "label": "Read again",
+          "detail": "Bottom of the body"
+        }
+      ],
+      "title": "The shape of a sentinel loop",
+      "caption": "Miss the read at the bottom and you get an infinite loop. Miss the read at the top and `n` holds a leftover garbage value, so the first test is nonsense."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 0;\n    int count = 0;\n\n    cout << \"Number (0 to stop)? \";\n    int n;\n    cin >> n;\n\n    while (n != 0) {\n        total += n;\n        count++;\n\n        cout << \"Number (0 to stop)? \";\n        cin >> n;\n    }\n\n    cout << \"You entered \" << count << \" numbers.\" << endl;\n    cout << \"Total: \" << total << endl;\n    return 0;\n}",
+      "caption": "Sample run: type 4, 6, then 0. It prints `You entered 2 numbers.` and `Total: 10`. Type 0 first and the body never runs: 0 numbers, total 0."
+    },
+    {
+      "type": "tip",
+      "value": "The same shape refuses bad input: `while (age < 1 || age > 120)` asks again. The condition is true when the input is **wrong**. Declare `age` above the loop so it still exists afterwards.",
+      "title": "Keep asking until it is valid"
+    },
+    {
+      "type": "heading",
+      "value": "Taking a Number Apart"
+    },
+    {
+      "type": "paragraph",
+      "value": "`n % 10` gives the last digit. `n / 10` chops it off, because whole-number division drops the remainder. A `while` loop repeats that until no digits are left."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int left = 47;\n    int sum = 0;\n    while (left > 0) {\n        sum += left % 10;\n        left /= 10;\n    }\n    cout << \"Digit sum: \" << sum << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "The number to take apart.",
+          "vars": {
+            "left": "47"
+          }
+        },
+        {
+          "line": 6,
+          "note": "An accumulator for the digits.",
+          "vars": {
+            "sum": "0"
+          }
+        },
+        {
+          "line": 7,
+          "note": "`47 > 0`: true."
+        },
+        {
+          "line": 8,
+          "note": "`47 % 10` is 7. Add it.",
+          "vars": {
+            "sum": "7"
+          }
+        },
+        {
+          "line": 9,
+          "note": "`47 / 10` is 4. The 7 is chopped off.",
+          "vars": {
+            "left": "4"
+          }
+        },
+        {
+          "line": 7,
+          "note": "`4 > 0`: true."
+        },
+        {
+          "line": 8,
+          "note": "`4 % 10` is 4. Add it.",
+          "vars": {
+            "sum": "11"
+          }
+        },
+        {
+          "line": 9,
+          "note": "`4 / 10` is 0.",
+          "vars": {
+            "left": "0"
+          }
+        },
+        {
+          "line": 7,
+          "note": "`0 > 0`: false. No digits left."
+        },
+        {
+          "line": 11,
+          "note": "Print the result.",
+          "out": [
+            "Digit sum: 11"
+          ]
+        }
+      ],
+      "title": "Chop off one digit per turn",
+      "outro": "Each turn shortens the number, so the loop always moves towards stopping. Add `digits++` in the body and it counts the digits too."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "123",
+        "6",
+        "321",
+        "3"
+      ],
+      "answer": 2,
+      "explain": "Each turn pushes the last digit onto `reversed`: 3, then 32, then 321. Then `n` is 0 and the loop stops.",
+      "code": "int n = 123;\nint reversed = 0;\nwhile (n > 0) {\n    reversed = reversed * 10 + n % 10;\n    n /= 10;\n}\ncout << reversed << endl;"
+    },
+    {
+      "type": "tip",
+      "value": "Work on a copy like `left` if you still need the original number later. And watch for 0: `0 > 0` is false, so the body never runs and a digit counter says 0 digits. A `do while`, next lesson, can fix that.",
+      "title": "Two details"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 0;\n    int count = 0;\n\n    cout << \"Number (0 to stop)? \";\n    int n;\n    cin >> n;\n\n    while (n != 0) {\n        total += n;\n        count++;\n\n        cout << \"Number (0 to stop)? \";\n        cin >> n;\n    }\n\n    cout << \"Count: \" << count << endl;\n    cout << \"Total: \" << total << endl;\n\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Use a while loop to count from 10 down to 1 on one line.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int i = 10;\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "This loop never stops. Add the one line that fixes it.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int i = 1;\n\n    while (i <= 5) {\n        cout << \"Turn \" << i << endl;\n    }\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Ask for a number and print its digit sum. For 4071 the answer is 12.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Number? \";\n    int n;\n    cin >> n;\n\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "Keep asking for numbers until the user types -1, then print the largest one they typed. Start your largest at a very low value.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int largest = -1000000;\n\n    cout << \"Number (-1 to stop)? \";\n    int n;\n    cin >> n;\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "When is a `while` loop the better choice than a `for` loop?",
+      "options": [
+        "When you need to count",
+        "When the loop ends on an event rather than after a known number of turns",
+        "When the block has more than one line in it"
+      ],
+      "answer": 1,
+      "explain": "A count belongs in a `for`. Waiting for a sentinel value, valid input or a game to finish belongs in a `while`."
+    },
+    {
+      "question": "What makes a `while` loop infinite?",
+      "options": [
+        "The condition uses a comparison",
+        "The loop has no counter variable",
+        "Nothing inside the block ever makes the condition false"
+      ],
+      "answer": 2,
+      "explain": "The condition is only re-tested, never changed by itself. Something in the block has to move it towards false."
+    },
+    {
+      "question": "In a sentinel loop, why do you read the input once before the loop as well as inside it?",
+      "options": [
+        "So the condition has a real value to test on the very first check",
+        "To make the loop run at least once",
+        "Because cin needs warming up"
+      ],
+      "answer": 0,
+      "explain": "The first read gives the condition something real to look at, and the read at the bottom of the block refreshes it for the next test."
+    },
+    {
+      "question": "What does `n % 10` give you, and what does `n / 10` do, for an int n?",
+      "options": [
+        "The first digit, and the number divided as a decimal",
+        "The last digit, and the number with that digit removed",
+        "The number of digits, and the digit sum"
+      ],
+      "answer": 1,
+      "explain": "The remainder after dividing by ten is the last digit, and whole-number division throws that digit away. Together they walk through a number digit by digit."
+    },
+    {
+      "question": "Why is a validation variable like `age` declared above the loop rather than inside it?",
+      "options": [
+        "Because cin can only be read outside a loop",
+        "So the condition can be changed later",
+        "So the value the loop accepted still exists after the loop ends"
+      ],
+      "answer": 2,
+      "explain": "A variable declared inside the block dies at the closing brace, so the rest of the program would have nothing to use."
+    }
+  ]
+}

@@ -1,0 +1,373 @@
+{
+  "lessonId": "cpp_break_continue",
+  "title": "break and continue",
+  "description": "Leave a loop early, or skip a single turn, without changing its condition.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "break: Leave the Loop Early"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sometimes you know halfway through a turn that there is no point carrying on. `break` ends the loop at once. The program carries on below the loop."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 10; i++) {\n        if (i == 3) {\n            break;\n        }\n        cout << i << endl;\n    }\n    cout << \"After the loop.\" << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "The loop is written to count to 10.",
+          "vars": {
+            "i": "1"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`1 == 3`? No."
+        },
+        {
+          "line": 9,
+          "note": "Print `i`.",
+          "out": [
+            "1"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "Next turn.",
+          "vars": {
+            "i": "2"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`2 == 3`? No."
+        },
+        {
+          "line": 9,
+          "note": "Print `i`.",
+          "out": [
+            "2"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "Next turn.",
+          "vars": {
+            "i": "3"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`3 == 3`? Yes!"
+        },
+        {
+          "line": 7,
+          "note": "`break`: the rest of the body is skipped and the condition is never tested again."
+        },
+        {
+          "line": 11,
+          "note": "Only the loop ended, not the program.",
+          "vars": {
+            "i": null
+          },
+          "out": [
+            "After the loop."
+          ]
+        }
+      ],
+      "title": "Watch break stop the loop"
+    },
+    {
+      "type": "tip",
+      "value": "You met `break` in a `switch` in Module 4, where it stops cases falling through. In a loop it does the matching job: it ends the thing it is inside.",
+      "title": "Seen it before"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "1 2 3 4",
+        "4",
+        "1 2 3",
+        "1 2 3 4 5"
+      ],
+      "answer": 2,
+      "explain": "When `i` is 4, `break` runs before the print. So only 1, 2 and 3 are printed.",
+      "code": "for (int i = 1; i <= 5; i++) {\n    if (i == 4) {\n        break;\n    }\n    cout << i << \" \";\n}"
+    },
+    {
+      "type": "heading",
+      "value": "continue: Skip One Turn"
+    },
+    {
+      "type": "paragraph",
+      "value": "`continue` is gentler. It abandons the current turn only, jumps to the next one, and leaves the loop running."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "break",
+          "tone": "neutral",
+          "code": "for (int i = 1; i <= 5; i++) {\n    if (i == 3) {\n        break;\n    }\n    cout << i << \" \";\n}",
+          "text": "Prints `1 2`. The whole loop is over."
+        },
+        {
+          "title": "continue",
+          "tone": "neutral",
+          "code": "for (int i = 1; i <= 5; i++) {\n    if (i == 3) {\n        continue;\n    }\n    cout << i << \" \";\n}",
+          "text": "Prints `1 2 4 5`. Only turn 3 is skipped."
+        }
+      ],
+      "title": "break vs continue",
+      "caption": "In a `for` loop, the update `i++` still runs after a `continue`, so the loop moves on safely."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 10; i++) {\n        if (i % 3 == 0) {\n            continue;       // skip the multiples of 3\n        }\n\n        cout << i << \" \";\n    }\n\n    cout << endl;\n    return 0;\n}",
+      "output": [
+        "1 2 4 5 7 8 10 "
+      ],
+      "caption": "An `if (i % 3 != 0)` around the print would do the same. `continue` earns its place when the rest of the body is long: the guard sits at the top and the real work stays flat."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "2 4",
+        "1 2 3 4 5",
+        "1 3 5",
+        "1"
+      ],
+      "answer": 2,
+      "explain": "On even turns, `continue` skips the print. The loop keeps going, so only the odd numbers appear.",
+      "code": "for (int i = 1; i <= 5; i++) {\n    if (i % 2 == 0) {\n        continue;\n    }\n    cout << i << \" \";\n}"
+    },
+    {
+      "type": "heading",
+      "value": "Searching With break"
+    },
+    {
+      "type": "paragraph",
+      "value": "The commonest use of `break` is a search. Look for the first thing that matches. Once you have it, there is nothing left to look for."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "🔢",
+          "label": "Try i",
+          "detail": "From 2 up to n - 1"
+        },
+        {
+          "icon": "❓",
+          "label": "Divides?",
+          "detail": "`n % i == 0`"
+        },
+        {
+          "icon": "🚩",
+          "label": "Yes",
+          "detail": "Set `found`, then `break`"
+        },
+        {
+          "icon": "✅",
+          "label": "After the loop",
+          "detail": "`!found` means prime"
+        }
+      ],
+      "title": "Is n prime?"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Check which number? \";\n    int n;\n    cin >> n;\n\n    bool found = false;\n\n    for (int i = 2; i < n; i++) {\n        if (n % i == 0) {\n            cout << n << \" divides by \" << i << endl;\n            found = true;\n            break;\n        }\n    }\n\n    if (!found) {\n        cout << n << \" is prime.\" << endl;\n    }\n    return 0;\n}",
+      "caption": "Sample run: type 91 and it reports `91 divides by 7` at once, without testing up to 90. Type 97 and the loop runs out: `97 is prime.`"
+    },
+    {
+      "type": "tip",
+      "value": "After the loop, the counter alone cannot tell you whether you left early or ran out. So you leave yourself a note: a `bool` **flag** like `found`, set just before the `break`.",
+      "title": "Why the flag?"
+    },
+    {
+      "type": "heading",
+      "value": "while (true) and break"
+    },
+    {
+      "type": "paragraph",
+      "value": "`while (true)` is true for ever, so the only way out is a `break` inside. This lets you read the input once, at the top, and test it in the middle."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "Ask",
+          "detail": "Read an amount"
+        },
+        {
+          "icon": "🚪",
+          "label": "0?",
+          "detail": "`break`: the only way out"
+        },
+        {
+          "icon": "⏭️",
+          "label": "Negative?",
+          "detail": "`continue`: back to the top"
+        },
+        {
+          "icon": "➕",
+          "label": "Add it",
+          "detail": "Then go round again"
+        }
+      ],
+      "title": "One turn of the loop below",
+      "caption": "This is the sentinel loop from the `while` lesson, without the duplicated read."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 0;\n\n    while (true) {\n        cout << \"Amount (0 to finish)? \";\n        int amount;\n        cin >> amount;\n\n        if (amount == 0) {\n            break;                  // the only way out\n        }\n\n        if (amount < 0) {\n            cout << \"Ignoring \" << amount << endl;\n            continue;               // back to the top, nothing added\n        }\n\n        total += amount;\n    }\n\n    cout << \"Total: \" << total << endl;\n    return 0;\n}",
+      "caption": "Sample run: 5, -2, 3, 0 prints `Ignoring -2` then `Total: 8`. Keep one clear exit near the top: a loop with scattered breaks is hard to read."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "10",
+        "12",
+        "15",
+        "20"
+      ],
+      "answer": 2,
+      "explain": "`n` goes 5, 10, 15. Only at 15 is `n > 12` true, so `break` runs and 15 is printed.",
+      "code": "int n = 0;\nwhile (true) {\n    n += 5;\n    if (n > 12) {\n        break;\n    }\n}\ncout << n << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Two Traps"
+    },
+    {
+      "type": "paragraph",
+      "value": "In a `while` loop the update is just a line in the body. A `continue` skips the rest of the body, and that can include your update."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Stuck for ever",
+          "tone": "bad",
+          "code": "int i = 1;\nwhile (i <= 5) {\n    if (i == 3) {\n        continue;\n    }\n    cout << i << endl;\n    i++;\n}",
+          "text": "At 3, `continue` skips `i++`, so `i` stays 3."
+        },
+        {
+          "title": "Safe",
+          "tone": "good",
+          "code": "for (int i = 1; i <= 5; i++) {\n    if (i == 3) {\n        continue;\n    }\n    cout << i << endl;\n}",
+          "text": "A `for` loop runs `i++` even after `continue`."
+        }
+      ],
+      "title": "continue and the update",
+      "caption": "If a loop seems frozen on one value, look for a `continue` that jumps over the update. Update before you skip, or use a `for` loop."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int row = 1; row <= 3; row++) {\n        for (int col = 1; col <= 5; col++) {\n            if (col == 3) {\n                break;              // leaves the col loop only\n            }\n\n            cout << col << \" \";\n        }\n\n        cout << \"<- end of row \" << row << endl;\n    }\n\n    cout << \"All rows done.\" << endl;\n    return 0;\n}",
+      "output": [
+        "1 2 <- end of row 1",
+        "1 2 <- end of row 2",
+        "1 2 <- end of row 3",
+        "All rows done."
+      ],
+      "caption": "The second trap: `break` leaves only the loop it is written in. With a loop inside a loop, the outer one carries on as normal."
+    },
+    {
+      "type": "tip",
+      "value": "To leave both loops at once, set a `bool` flag and test it in the outer loop's condition too. It is the clearest way, and the one you will see most often.",
+      "title": "Leaving both loops"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 0;\n\n    while (true) {\n        cout << \"Amount (0 to finish)? \";\n        int amount;\n        cin >> amount;\n\n        if (amount == 0) {\n            break;\n        }\n\n        if (amount < 0) {\n            cout << \"Ignoring \" << amount << endl;\n            continue;\n        }\n\n        total += amount;\n    }\n\n    cout << \"Total: \" << total << endl;\n\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Count from 1 to 100 but stop the loop as soon as the number divides by 17, printing that number.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 100; i++) {\n\n    }\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Print the numbers 1 to 20 but skip every multiple of 4, using continue.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 20; i++) {\n\n    }\n    cout << endl;\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Keep asking for numbers with a while (true) loop. Add up the positive ones, ignore the negative ones with continue, and break out on 0. Print the total and how many you ignored.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 0;\n    int ignored = 0;\n\n    while (true) {\n        // Remove this break once your own break on 0 is in place.\n        break;\n    }\n\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "This loop freezes and never gets past 2. Explain why in a comment, then fix it.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int i = 1;\n\n    while (i <= 5) {\n        if (i == 3) {\n            continue;\n        }\n\n        cout << i << endl;\n        i++;\n    }\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `break` do inside a loop?",
+      "options": [
+        "Ends the loop at once and carries on with the line after it",
+        "Skips the current turn and starts the next one",
+        "Ends the whole program"
+      ],
+      "answer": 0,
+      "explain": "The condition is never tested again. The program continues below the loop, not at the end of main."
+    },
+    {
+      "question": "What does `continue` do?",
+      "options": [
+        "Ends the loop",
+        "Abandons the current turn only and moves on to the next one",
+        "Restarts the loop from its first value"
+      ],
+      "answer": 1,
+      "explain": "The rest of the block is skipped for that turn, then the loop carries on as normal."
+    },
+    {
+      "question": "Why does a search loop often need a `bool found` as well as a `break`?",
+      "options": [
+        "Because break does not work without it",
+        "To stop the loop running twice",
+        "After the loop you cannot otherwise tell whether you found something or ran out"
+      ],
+      "answer": 2,
+      "explain": "Both endings leave the loop the same way, so the flag is the note you left yourself about which one happened."
+    },
+    {
+      "question": "Why can `continue` freeze a `while` loop but not a `for` loop?",
+      "options": [
+        "In a while loop the update is a line in the block, and continue skips the rest of the block",
+        "while loops test their condition less often",
+        "continue is not allowed in a for loop"
+      ],
+      "answer": 0,
+      "explain": "A `for` loop's update lives in the brackets and runs on every turn regardless. In a `while`, if the update sits after the `continue`, it never happens."
+    },
+    {
+      "question": "A `break` inside the inner of two nested loops does what?",
+      "options": [
+        "Leaves both loops",
+        "Leaves the inner loop only: the outer loop carries on",
+        "Is a compile error"
+      ],
+      "answer": 1,
+      "explain": "It ends the loop it was written in. Use a bool flag tested by the outer condition if you need to leave both."
+    }
+  ]
+}

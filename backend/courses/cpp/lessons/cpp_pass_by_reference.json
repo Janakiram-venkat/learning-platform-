@@ -1,0 +1,455 @@
+{
+  "lessonId": "cpp_pass_by_reference",
+  "title": "Pass by Reference",
+  "description": "Use & in a parameter so a function can change the caller's own variable.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "When a Copy Is Not What You Want"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A parameter is normally a copy. `score` in `main` never moved. Usually that is right, and returning is the clean way to send an answer back.",
+        "Sometimes changing the caller's variable **is** the job: swap two variables, update a running total, hand back two answers.",
+        "For those, a parameter can be a **reference** instead of a copy. It takes one character: `&`."
+      ]
+    },
+    {
+      "type": "analogy",
+      "emoji": "🏷️",
+      "real": "A nickname",
+      "concept": "A reference",
+      "code": "int& number",
+      "text": "Call your friend Alexander \"Alex\" and it is still the same person. A reference is a second name for a variable that already exists."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nvoid addTenCopy(int number) {\n    number = number + 10;           // changes the copy only\n}\n\nvoid addTenReal(int& number) {\n    number = number + 10;           // changes the caller's variable\n}\n\nint main() {\n    int score = 50;\n    addTenCopy(score);\n    cout << \"After addTenCopy: \" << score << endl;\n    addTenReal(score);\n    cout << \"After addTenReal: \" << score << endl;\n    return 0;\n}",
+      "output": [
+        "After addTenCopy: 50",
+        "After addTenReal: 60"
+      ],
+      "caption": "The two functions have identical bodies. The only difference is the `&` in `int& number`, and it changes everything."
+    },
+    {
+      "type": "check",
+      "question": "What does `int& n` in a parameter list mean?",
+      "options": [
+        "`n` is a copy of the argument",
+        "`n` must be positive",
+        "`n` is a constant",
+        "`n` is another name for the caller's variable"
+      ],
+      "answer": 3,
+      "explain": "The `&` makes `n` a reference: a second name for the variable passed in, so changes to `n` change it."
+    },
+    {
+      "type": "heading",
+      "value": "What a Reference Is"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Pass by value",
+          "tone": "neutral",
+          "code": "void f(int n)",
+          "text": "The function gets the value and keeps it to itself. The caller's variable is safe."
+        },
+        {
+          "title": "Pass by reference",
+          "tone": "neutral",
+          "code": "void f(int& n)",
+          "text": "The function gets the caller's variable itself. Changing `n` changes it."
+        }
+      ],
+      "title": "Two ways to pass",
+      "caption": "You can write `int& n` or `int &n`: both mean the same. This course keeps `&` against the type, because \"int reference\" is what it is."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nvoid changeIt(int& other) {\n    cout << \"Inside, other starts as \" << other << endl;\n    other = 99;\n}\n\nint main() {\n    int lives = 3;\n    changeIt(lives);\n    cout << \"Back in main, lives is \" << lives << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 10,
+          "note": "`main` makes `lives`.",
+          "vars": {
+            "lives": "3"
+          }
+        },
+        {
+          "line": 11,
+          "note": "Call `changeIt`, passing `lives`. Because of `&`, no copy is made."
+        },
+        {
+          "line": 4,
+          "note": "`other` is not a new box. It is a second name for `lives`.",
+          "vars": {
+            "lives": null,
+            "lives (also other)": "3"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Reading `other` reads `lives`.",
+          "out": [
+            "Inside, other starts as 3"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "Changing `other` changes the one shared box.",
+          "vars": {
+            "lives (also other)": "99"
+          }
+        },
+        {
+          "line": 12,
+          "note": "The function ended, so the name `other` is gone. The change it made stays.",
+          "vars": {
+            "lives (also other)": null,
+            "lives": "99"
+          },
+          "out": [
+            "Back in main, lives is 99"
+          ]
+        }
+      ],
+      "title": "Two names, one box",
+      "outro": "The names do not have to match. `other` and `lives` are one box for as long as the call lasts."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "5",
+        "3",
+        "8",
+        "Nothing, it does not compile"
+      ],
+      "answer": 2,
+      "explain": "`n` is a reference to `x`, so `n = 8` changes `x` itself.",
+      "code": "void setEight(int& n) {\n    n = 8;\n}\n\n// in main:\nint x = 5;\nsetEight(x);\ncout << x << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Swapping Two Variables"
+    },
+    {
+      "type": "paragraph",
+      "value": "`a = b; b = a;` cannot swap: the first line wipes out `a` before it is saved. You need a temporary third variable, `temp`, to hold one value for a moment."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Swaps the copies",
+          "tone": "bad",
+          "code": "void swapCopies(int a, int b) {\n    int temp = a;\n    a = b;\n    b = temp;\n}",
+          "text": "The copies swap, then get thrown away. `main` prints `x = 1, y = 2`."
+        },
+        {
+          "title": "Swaps main's variables",
+          "tone": "good",
+          "code": "void swapValues(int& a, int& b) {\n    int temp = a;\n    a = b;\n    b = temp;\n}",
+          "text": "`a` is `x` and `b` is `y`, so the swap happens to them."
+        }
+      ],
+      "title": "Add one `&` to each parameter"
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nvoid swapValues(int& a, int& b) {\n    int temp = a;\n    a = b;\n    b = temp;\n}\n\nint main() {\n    int x = 1;\n    int y = 2;\n    swapValues(x, y);\n    cout << \"x = \" << x << \", y = \" << y << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 11,
+          "note": "`main` makes `x`.",
+          "vars": {
+            "x": "1"
+          }
+        },
+        {
+          "line": 12,
+          "note": "And `y`.",
+          "vars": {
+            "y": "2"
+          }
+        },
+        {
+          "line": 13,
+          "note": "Pass both. With `&`, nothing is copied."
+        },
+        {
+          "line": 4,
+          "note": "`a` is another name for `x`, `b` for `y`.",
+          "vars": {
+            "x": null,
+            "y": null,
+            "x (also a)": "1",
+            "y (also b)": "2"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Save `a`'s value first.",
+          "vars": {
+            "temp": "1"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`a` gets 2, so `x` gets 2.",
+          "vars": {
+            "x (also a)": "2"
+          }
+        },
+        {
+          "line": 7,
+          "note": "`b` gets the saved 1, so `y` gets 1.",
+          "vars": {
+            "y (also b)": "1"
+          }
+        },
+        {
+          "line": 14,
+          "note": "Back in `main`. `temp`, `a` and `b` are gone, and the swap stayed.",
+          "vars": {
+            "temp": null,
+            "x (also a)": null,
+            "y (also b)": null,
+            "x": "2",
+            "y": "1"
+          },
+          "out": [
+            "x = 2, y = 1"
+          ]
+        }
+      ],
+      "title": "Watch the swap reach main",
+      "outro": "No `return` could do this: a function returns one value, and a swap changes two."
+    },
+    {
+      "type": "check",
+      "question": "Without `&`, what would `swapValues(x, y)` do to `x` and `y`?",
+      "options": [
+        "Swap them",
+        "Set both to 1",
+        "Nothing: they keep 1 and 2",
+        "It would not compile"
+      ],
+      "answer": 2,
+      "explain": "Plain parameters are copies. The copies get swapped, then thrown away when the function ends."
+    },
+    {
+      "type": "heading",
+      "value": "Handing Back Two Answers"
+    },
+    {
+      "type": "paragraph",
+      "value": "A `return` hands back one value. With references, the caller makes the variables and the function fills them in."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nvoid divide(int a, int b, int& quotient, int& remainder) {\n    quotient = a / b;\n    remainder = a % b;\n}\n\nint main() {\n    int q;\n    int r;\n\n    divide(17, 5, q, r);\n    cout << \"17 / 5 is \" << q << \" remainder \" << r << endl;\n\n    divide(100, 7, q, r);\n    cout << \"100 / 7 is \" << q << \" remainder \" << r << endl;\n    return 0;\n}",
+      "output": [
+        "17 / 5 is 3 remainder 2",
+        "100 / 7 is 14 remainder 2"
+      ],
+      "caption": "`a` and `b` are only read, so they are plain. `quotient` and `remainder` are filled in, so they are references, often called **output parameters**. `q` and `r` start without values: safe, because `divide` always sets both."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nvoid recordScore(int score, int& total, int& best) {\n    total += score;\n    if (score > best) {\n        best = score;\n    }\n}\n\nint main() {\n    int total = 0;\n    int best = 0;\n\n    recordScore(70, total, best);\n    recordScore(92, total, best);\n    recordScore(85, total, best);\n\n    cout << \"Total: \" << total << endl;\n    cout << \"Best: \" << best << endl;\n    return 0;\n}",
+      "output": [
+        "Total: 247",
+        "Best: 92"
+      ],
+      "caption": "The trackers live in `main` and every call updates them in place. The parameter list says exactly which of the caller's variables may change: the ones with `&`."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Does not compile",
+          "tone": "bad",
+          "code": "addTenReal(5);\naddTenReal(score + 1);",
+          "text": "`cannot bind non-const lvalue reference of type 'int&' to an rvalue of type 'int'`: a value has nowhere to keep the change."
+        },
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "addTenReal(score);",
+          "text": "A variable, so the change has somewhere to go."
+        }
+      ],
+      "title": "A reference needs a real variable"
+    },
+    {
+      "type": "check",
+      "question": "Given `void addTenReal(int& n)`, which call compiles?",
+      "options": [
+        "addTenReal(5);",
+        "addTenReal(score + 1);",
+        "addTenReal(score);",
+        "addTenReal(\"5\");"
+      ],
+      "answer": 2,
+      "explain": "A non-const reference must name a real variable. A plain value or a calculation has nowhere to store the change."
+    },
+    {
+      "type": "heading",
+      "value": "const References, and Which to Use"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "void printLabel("
+        },
+        {
+          "code": "const",
+          "label": "read only",
+          "note": "The function promises not to change `text`. Trying to would not compile."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "string&",
+          "label": "reference",
+          "note": "No copy is made of the caller's string."
+        },
+        {
+          "code": " text)"
+        }
+      ],
+      "title": "A read-only reference",
+      "caption": "Passing a long `string` by value copies every character. A reference skips the copy, and `const` promises not to change it."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nvoid printLabel(const string& text) {\n    cout << \"[ \" << text << \" ]\" << endl;\n}\n\nint main() {\n    string title = \"Pocket Lab\";\n    printLabel(title);\n    printLabel(\"Functions\");\n    return 0;\n}",
+      "output": [
+        "[ Pocket Lab ]",
+        "[ Functions ]"
+      ],
+      "caption": "Because nothing is changed, a `const` reference also accepts a plain value like `\"Functions\"`. You will see `const string&` all over real C++ code."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "1️⃣",
+          "text": "Plain parameter, `int n`",
+          "sub": "The default, for numbers and characters the function only reads."
+        },
+        {
+          "icon": "↩️",
+          "text": "Return value",
+          "sub": "When the function works out one answer."
+        },
+        {
+          "icon": "🔗",
+          "text": "Reference, `int& n`",
+          "sub": "Only when changing the caller's variable is the job, or for more than one answer."
+        },
+        {
+          "icon": "📜",
+          "text": "`const string&`",
+          "sub": "For a string the function only reads."
+        }
+      ],
+      "title": "Which one to use"
+    },
+    {
+      "type": "tip",
+      "value": "A `&` parameter warns the reader: \"this call may change your variable\". Use it when you mean it, so the warning stays meaningful. Module 8 shows what is underneath: memory addresses and pointers.",
+      "title": "A warning sign"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nvoid swapValues(int& a, int& b) {\n    int temp = a;\n    a = b;\n    b = temp;\n}\n\nvoid divide(int a, int b, int& quotient, int& remainder) {\n    quotient = a / b;\n    remainder = a % b;\n}\n\nint main() {\n    int x = 1;\n    int y = 2;\n\n    swapValues(x, y);\n    cout << \"x = \" << x << \", y = \" << y << endl;\n\n    int q;\n    int r;\n\n    divide(17, 5, q, r);\n    cout << \"17 / 5 is \" << q << \" remainder \" << r << endl;\n\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write swapValues(int& a, int& b) that swaps two ints, then use it to swap two variables in main and print them.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int left = 10;\n    int right = 20;\n\n    cout << left << \" \" << right << endl;\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "doubleIt is meant to double main's variable, but it prints 7. Change one character so it prints 14.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nvoid doubleIt(int n) {\n    n = n * 2;\n}\n\nint main() {\n    int value = 7;\n\n    doubleIt(value);\n\n    cout << value << endl;\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Write minMax(int a, int b, int c, int& smallest, int& largest) that fills in the smallest and largest of three numbers, then call it from main.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int smallest;\n    int largest;\n\n    // Call minMax here, then print both.\n\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "This does not compile. Read the error, explain it in a comment, then fix main so the program prints 15.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nvoid addTen(int& number) {\n    number = number + 10;\n}\n\nint main() {\n    addTen(5);\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does the `&` in `void addTen(int& number)` do?",
+      "options": [
+        "Makes number a copy of the caller's value",
+        "Makes number another name for the caller's variable, so changes reach it",
+        "Means the function returns two values"
+      ],
+      "answer": 1,
+      "explain": "That is pass by reference. Without the `&`, the function would only ever change its own copy."
+    },
+    {
+      "question": "After `int x = 1, y = 2;` and a call to `void swapValues(int& a, int& b)`, what are x and y?",
+      "options": [
+        "x is 1 and y is 2",
+        "Both are 2",
+        "x is 2 and y is 1"
+      ],
+      "answer": 2,
+      "explain": "a and b were other names for x and y, so the swap happened to main's variables."
+    },
+    {
+      "question": "Why does `addTen(5)` fail when the parameter is `int& number`?",
+      "options": [
+        "A reference must refer to a real variable, and 5 is just a value",
+        "Because 5 is too small",
+        "Because references only work with strings"
+      ],
+      "answer": 0,
+      "explain": "There is nowhere to keep the change. Pass a variable instead."
+    },
+    {
+      "question": "Which is the best way for a function to hand back two answers, like a quotient and a remainder?",
+      "options": [
+        "Two return statements",
+        "Two reference parameters that the function fills in",
+        "Print both and hope the caller reads them"
+      ],
+      "answer": 1,
+      "explain": "Only one `return` ever runs. Output parameters let the caller supply variables for the function to fill."
+    },
+    {
+      "question": "What does `const string& text` promise?",
+      "options": [
+        "The string will be changed for the caller",
+        "The string must be empty",
+        "The string is not copied, and the function will not change it"
+      ],
+      "answer": 2,
+      "explain": "A reference avoids the copy, and `const` forbids changes. It is the usual way to pass a string a function only reads."
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "moduleId": 4,
+  "title": "Cinema Ticket Desk",
+  "emoji": "🎬",
+  "brief": "Work the ticket desk. Your program asks for a name, an age and a day number, then decides the ticket category and price, names the day, and adds a weekend surcharge to everyone who is actually paying. Every decision tool from this module gets used once.",
+  "problem": {
+    "goal": "Ask for a name, an age and a day number (1 to 7). Print the customer's name, the day name, the age category, the base price, whether it is a weekend, and the total price.",
+    "example": {
+      "typed": ["Amara", "10", "6"],
+      "output": [
+        "Ticket for: Amara",
+        "Day: Saturday",
+        "Category: Child",
+        "Base price: 120",
+        "Weekend: true",
+        "Total: 170"
+      ]
+    },
+    "rules": [
+      "Categories by age: under 5 is Infant and free, under 13 is Child at 120, under 60 is Adult at 250, and 60 or over is Senior at 100.",
+      "Day names come from the day number: 1 is Monday through to 7 is Sunday. Use a switch, not a chain of ifs.",
+      "Weekend means day 6 or day 7.",
+      "The weekend surcharge is 50, and it is added only when the base price is more than 0. A free infant ticket stays free at the weekend.",
+      "Ask for the name first with nextLine(), then the two numbers with nextInt()."
+    ]
+  },
+  "steps": [
+    "The three questions are already written for you. Check which reading method each one uses and why the name comes first.",
+    "Use an if and else if chain on the age to set two things at once: a String for the category and an int for the base price. End it with a plain else so every age is covered.",
+    "Use a switch on the day number to get the day name. The arrow form is the tidiest, and it needs no breaks.",
+    "Make a boolean for weekend: true when the day is 6 or 7.",
+    "Work out the total. Start from the base price, then add 50 only when the price is above 0 and it is a weekend.",
+    "Print the six lines exactly as in the example, then press Check Project."
+  ],
+  "starterCode": "// 🎬 Cinema Ticket Desk\n\nimport java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        // ---- Already done for you ----\n        System.out.print(\"Name? \");\n        String name = scanner.nextLine();\n\n        System.out.print(\"Age? \");\n        int age = scanner.nextInt();\n\n        System.out.print(\"Day number (1 to 7)? \");\n        int day = scanner.nextInt();\n\n        // ---- Your turn ----\n\n        // TODO 1: the category and the base price, from the age.\n        //         Declare both before the chain, then assign in every branch:\n        //           String category;\n        //           int basePrice;\n        //         under 5   -> Infant, 0\n        //         under 13  -> Child, 120\n        //         under 60  -> Adult, 250\n        //         otherwise -> Senior, 100\n\n\n        // TODO 2: the day name, using a switch on day.\n        //         1 is Monday ... 7 is Sunday. Give default a value too.\n\n\n        // TODO 3: a boolean for weekend: day 6 or day 7.\n\n\n        // TODO 4: the total. Start from basePrice, then add 50 only when\n        //         basePrice is above 0 AND it is a weekend.\n\n\n        // TODO 5: print the six lines. The first one is done as a model:\n        System.out.println(\"Ticket for: \" + name);\n\n        //   Day: Saturday\n        //   Category: Child\n        //   Base price: 120\n        //   Weekend: true\n        //   Total: 170\n\n\n    }\n}\n",
+  "hints": [
+    "Press Run before changing anything. It asks three questions and prints one line. Answer Amara, 10, 6 to match the example while you build the rest.",
+    "Declare the two variables above the chain so they still exist after it: `String category;` and `int basePrice;` with no value yet. Each branch then assigns both. Java will tell you if you miss a branch.",
+    "Order the age tests from the smallest band upwards: under 5, then under 13, then under 60, then a plain `else` for everyone older. A chain stops at the first true test, so you never need to write `age >= 5 && age < 13`.",
+    "For the day, the arrow switch that produces a value is ideal: `String dayName = switch (day) { case 1 -> \"Monday\"; ... default -> \"Unknown\"; };` Do not forget the semicolon after the closing brace.",
+    "The weekend test is one line and needs no if: `boolean weekend = day == 6 || day == 7;`",
+    "For the total, start with `int total = basePrice;` then guard the surcharge: `if (basePrice > 0 && weekend) { total += 50; }`. That guard is what keeps a free infant ticket free.",
+    "The remaining prints all follow the model line, for example `System.out.println(\"Base price: \" + basePrice);` and `System.out.println(\"Total: \" + total);`"
+  ],
+  "inputPlaceholder": "Amara\n10\n6",
+  "inputHint": "Your program asks 3 questions, so type 3 answers: a name, then an age, then a day number from 1 to 7.",
+  "tests": [
+    {
+      "name": "A child on a Saturday pays the surcharge",
+      "input": ["Amara", "10", "6"],
+      "expect": [
+        "Ticket for: Amara",
+        "Day: Saturday",
+        "Category: Child",
+        "Base price: 120",
+        "Weekend: true",
+        "Total: 170"
+      ]
+    },
+    {
+      "name": "An adult on a Wednesday pays the base price",
+      "input": ["Sam", "30", "3"],
+      "expect": [
+        "Ticket for: Sam",
+        "Day: Wednesday",
+        "Category: Adult",
+        "Base price: 250",
+        "Weekend: false",
+        "Total: 250"
+      ]
+    },
+    {
+      "name": "A senior on a Sunday",
+      "input": ["Mia", "70", "7"],
+      "expect": [
+        "Day: Sunday",
+        "Category: Senior",
+        "Base price: 100",
+        "Weekend: true",
+        "Total: 150"
+      ]
+    },
+    {
+      "name": "A free infant ticket stays free at the weekend",
+      "input": ["Ravi", "3", "7"],
+      "expect": [
+        "Category: Infant",
+        "Base price: 0",
+        "Weekend: true",
+        "Total: 0"
+      ]
+    }
+  ],
+  "successMessage": "The ticket desk is open! 🎬 You used a chain for the age bands, a switch for the day, a guarded if for the surcharge and comparisons for the weekend, and every one of the four cases came out right, including the tricky free ticket on a Sunday. Next module you learn to repeat work with loops, and your programs stop running once and stopping."
+}

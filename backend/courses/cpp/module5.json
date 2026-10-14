@@ -1,0 +1,32 @@
+{
+  "moduleId": 5,
+  "title": "Loops and Repetition",
+  "lessons": [
+    {
+      "lessonId": "cpp_for",
+      "title": "The for Loop",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_while",
+      "title": "The while Loop",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_do_while",
+      "title": "The do while Loop",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "cpp_break_continue",
+      "title": "break and continue",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "cpp_nested_loops",
+      "title": "Nested Loops",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

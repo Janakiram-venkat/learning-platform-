@@ -9,34 +9,167 @@
       "value": "When Things Go Wrong"
     },
     {
-      "type": "paragraph",
-      "value": "Some problems cannot be spotted while you are writing the code, because they depend on what happens when it runs. Dividing by a number that turns out to be zero, turning the word \"hello\" into a number, reading a dictionary key that is not there: each of those stops the program dead and prints an error at the user."
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "▶️",
+          "label": "The program runs",
+          "detail": "Line by line, as usual."
+        },
+        {
+          "icon": "💥",
+          "label": "A line fails",
+          "detail": "Maybe the user typed a word, not a number."
+        },
+        {
+          "icon": "🛑",
+          "label": "Python stops",
+          "detail": "Every line after it is skipped."
+        },
+        {
+          "icon": "🏷️",
+          "label": "It names the error",
+          "detail": "The name tells you what kind of thing went wrong."
+        }
+      ],
+      "title": "What happens when a line fails",
+      "caption": "An error that happens while the program runs is called an **exception**."
     },
     {
-      "type": "paragraph",
-      "value": "You have already met several of these by name. The name matters, because it tells you what kind of thing went wrong."
+      "type": "points",
+      "items": [
+        {
+          "icon": "➗",
+          "text": "`10 / 0`",
+          "sub": "ZeroDivisionError: division by zero"
+        },
+        {
+          "icon": "🔤",
+          "text": "`int(\"hello\")`",
+          "sub": "ValueError: invalid literal for int()"
+        },
+        {
+          "icon": "📋",
+          "text": "`[1, 2, 3][5]`",
+          "sub": "IndexError: list index out of range"
+        },
+        {
+          "icon": "🔑",
+          "text": "`{\"a\": 1}[\"b\"]`",
+          "sub": "KeyError: 'b'"
+        }
+      ],
+      "title": "Errors you've already met"
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "10 / 0                  # ZeroDivisionError: division by zero\nint(\"hello\")            # ValueError: invalid literal for int()\n[1, 2, 3][5]            # IndexError: list index out of range\n{\"a\": 1}[\"b\"]           # KeyError: 'b'"
+      "type": "check",
+      "question": "Which error does `int(\"hello\")` cause?",
+      "options": [
+        "ZeroDivisionError",
+        "KeyError",
+        "IndexError",
+        "ValueError"
+      ],
+      "answer": 3,
+      "explain": "`\"hello\"` is the wrong kind of value to turn into a number, so Python raises a `ValueError`."
     },
     {
       "type": "heading",
       "value": "Catching It with try and except"
     },
     {
-      "type": "paragraph",
-      "value": "Put the risky code inside a `try` block, and write an `except` block underneath it. If everything in the `try` works, the `except` is skipped entirely. If something fails, Python abandons the rest of the `try` and runs the `except` instead, and the program carries on afterwards."
+      "type": "analogy",
+      "emoji": "🤸",
+      "real": "A safety net under a trapeze",
+      "concept": "try and except",
+      "code": "try:\n    risky()\nexcept:\n    print(\"Caught!\")",
+      "text": "The acrobat (your `try` code) does the risky trick. If they slip, the net (`except`) catches them and the show goes on. If they don't slip, the net is never used."
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "try:\n    result = 10 / 0\n    print(result)\nexcept:\n    print(\"Something went wrong.\")\n\nprint(\"The program is still running.\")"
+      "type": "points",
+      "items": [
+        "Put the risky code inside a `try` block.",
+        "Write an `except` block underneath it.",
+        "Everything in `try` works? The `except` is **skipped**.",
+        "Something fails? Python **abandons** the rest of `try` and runs `except` instead.",
+        "Either way, the program carries on afterwards."
+      ],
+      "title": "How it works"
+    },
+    {
+      "type": "stepper",
+      "code": "try:\n    result = 10 / 0\n    print(result)\nexcept:\n    print(\"Something went wrong.\")\n\nprint(\"The program is still running.\")",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Enter the `try` block. Python will watch for errors in here."
+        },
+        {
+          "line": 2,
+          "note": "Dividing by zero fails! An exception happens, so `result` is never stored."
+        },
+        {
+          "line": 4,
+          "note": "Python jumps straight to `except`. Line 3 is skipped: the rest of the `try` is abandoned."
+        },
+        {
+          "line": 5,
+          "note": "The safety net runs.",
+          "out": [
+            "Something went wrong."
+          ]
+        },
+        {
+          "line": 7,
+          "note": "No crash. The program carries on after the `try`/`except`.",
+          "out": [
+            "The program is still running."
+          ]
+        }
+      ],
+      "title": "Watch the jump to except",
+      "outro": "`print(result)` never ran. The `try` block gave up at the line that failed."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "A then B then C",
+        "B then C",
+        "A then C",
+        "A then B"
+      ],
+      "answer": 2,
+      "explain": "`print(\"A\")` runs, then `int(\"hi\")` fails. Python skips the rest of `try` (so no B) and runs `except`, which prints C.",
+      "code": "try:\n    print(\"A\")\n    x = int(\"hi\")\n    print(\"B\")\nexcept:\n    print(\"C\")"
+    },
+    {
+      "type": "heading",
+      "value": "Success or Failure?"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Works",
+          "tone": "good",
+          "code": "try:\n    print(10 / 2)\nexcept:\n    print(\"Oops\")",
+          "text": "Prints `5.0`. Nothing failed, so `except` is skipped."
+        },
+        {
+          "title": "Fails",
+          "tone": "bad",
+          "code": "try:\n    print(10 / 0)\nexcept:\n    print(\"Oops\")",
+          "text": "Prints `Oops`. The division failed, so Python jumped to `except`."
+        }
+      ],
+      "title": "Success vs failure"
     },
     {
       "type": "paragraph",
-      "value": "Notice that `print(result)` never runs. The try block gives up at the line that failed, and everything below it inside the block is abandoned. Change the numbers below and watch which lines survive."
+      "value": "Change the numbers below and watch which lines survive."
     },
     {
       "type": "widget",
@@ -47,38 +180,133 @@
       "value": "Naming the Error"
     },
     {
-      "type": "paragraph",
-      "value": "A bare `except` catches absolutely everything, which sounds helpful and is usually not. It cannot tell a typo from a divide by zero, so the best it can offer is one vague message, and it will happily hide bugs you would rather know about."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Bare except",
+          "tone": "bad",
+          "code": "except:",
+          "text": "Catches **everything**. It can't tell a typo from a divide by zero, gives one vague message, and hides bugs you'd want to know about."
+        },
+        {
+          "title": "Named except",
+          "tone": "good",
+          "code": "except ValueError:",
+          "text": "Only runs for that kind of problem. You can give a clear, specific message."
+        }
+      ],
+      "title": "Bare except vs named except"
     },
     {
-      "type": "paragraph",
-      "value": "Write the error's name after `except` and that block only runs for that kind of problem. You can have several, and Python uses the first one that matches."
+      "type": "points",
+      "items": [
+        "Write the error's name after `except`.",
+        "That block only runs for that kind of error.",
+        "You can have several `except` blocks.",
+        "Python uses the **first one that matches**."
+      ],
+      "title": "Named excepts"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "try:\n    a = int(input(\"First number: \"))\n    b = int(input(\"Second number: \"))\n    print(\"Answer:\", a / b)\nexcept ValueError:\n    print(\"Please type whole numbers.\")\nexcept ZeroDivisionError:\n    print(\"You cannot divide by zero.\")"
+      "value": "try:\n    a = int(input(\"First number: \"))\n    b = int(input(\"Second number: \"))\n    print(\"Answer:\", a / b)\nexcept ValueError:\n    print(\"Please type whole numbers.\")\nexcept ZeroDivisionError:\n    print(\"You cannot divide by zero.\")",
+      "caption": "Sample runs: typing `8` and `2` prints `Answer: 4.0`. Typing `8` and `zero` prints `Please type whole numbers.` Typing `8` and `0` prints `You cannot divide by zero.`"
     },
     {
       "type": "tip",
-      "value": "Keep the try block short. Only the lines that might actually fail belong inside it, so that a surprise error somewhere else is not quietly swallowed by your handler."
+      "value": "Keep the `try` block short. Only the lines that might actually fail belong inside it, so a surprise error somewhere else isn't quietly swallowed by your handler.",
+      "title": "Keep try small"
+    },
+    {
+      "type": "check",
+      "question": "Using the code above, the user types `5` and then `0`. What prints?",
+      "options": [
+        "You cannot divide by zero.",
+        "Please type whole numbers.",
+        "Answer: 0",
+        "The program crashes"
+      ],
+      "answer": 0,
+      "explain": "Both inputs are whole numbers, so `int()` works. Then `5 / 0` raises a `ZeroDivisionError`, which matches the second `except`."
     },
     {
       "type": "heading",
       "value": "Asking Again Until It Works"
     },
     {
-      "type": "paragraph",
-      "value": "Catching the error is most useful when you do something about it. Put the `try` inside a loop and you can keep asking until the answer makes sense. The `break` only runs when the risky line succeeded, because a failure jumps to the `except` and never reaches it."
+      "type": "points",
+      "items": [
+        "Catching an error is most useful when you **do something** about it.",
+        "Put the `try` inside a loop to keep asking until the answer makes sense.",
+        "`break` only runs if the risky line worked.",
+        "A failure jumps to `except` and never reaches `break`, so the loop goes round again."
+      ],
+      "title": "Retry loop"
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "while True:\n    try:\n        age = int(input(\"How old are you? \"))\n        break\n    except ValueError:\n        print(\"Whole numbers only, please. Try again.\")\n\nprint(\"Thanks! You are\", age)"
+      "type": "stepper",
+      "code": "while True:\n    try:\n        age = int(input(\"How old are you? \"))\n        break\n    except ValueError:\n        print(\"Whole numbers only, please. Try again.\")\n\nprint(\"Thanks! You are\", age)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Start a loop that would go on forever, unless something breaks out."
+        },
+        {
+          "line": 3,
+          "note": "The user types `ten`. `int(\"ten\")` fails with a `ValueError`.",
+          "out": [
+            "How old are you? ten"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "Python jumps to the matching `except`. The `break` on line 4 is skipped."
+        },
+        {
+          "line": 6,
+          "note": "Tell the user what went wrong.",
+          "out": [
+            "Whole numbers only, please. Try again."
+          ]
+        },
+        {
+          "line": 3,
+          "note": "Back round the loop. This time the user types `10`, and `int` works.",
+          "vars": {
+            "age": "10"
+          },
+          "out": [
+            "How old are you? 10"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "No error, so Python reaches `break` and leaves the loop."
+        },
+        {
+          "line": 8,
+          "note": "The program carries on with a good value.",
+          "out": [
+            "Thanks! You are 10"
+          ]
+        }
+      ],
+      "title": "A bad answer, then a good one",
+      "outro": "That's the difference between a program that crashes on a typo and one that simply asks again."
     },
     {
-      "type": "paragraph",
-      "value": "That is the difference between a program that crashes on a typo and one that simply asks again. The error handling is what makes it feel finished."
+      "type": "check",
+      "question": "In the retry loop, why does `break` only run when the input is valid?",
+      "options": [
+        "`break` checks the input itself",
+        "`except` runs `break` for you",
+        "`while True` stops on errors",
+        "A failed `int()` jumps to `except`, skipping `break`"
+      ],
+      "answer": 3,
+      "explain": "When the risky line fails, Python abandons the rest of `try`, including `break`, and runs `except`. So the loop repeats."
     }
   ],
   "editorCode": "try:\n    number = int(\"not_a_number\")\n    print(number)\nexcept ValueError:\n    print(\"That is not a valid number!\")\n\nprint(\"Still running.\")",

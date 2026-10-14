@@ -1,0 +1,457 @@
+{
+  "lessonId": "java_return",
+  "title": "Returning a Value",
+  "description": "Methods that work something out and hand the answer back.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Handing a Value Back"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A printed value is shown once. You cannot add to it, compare it or save it.",
+        "A method that **returns** its result hands back a value you can do anything with.",
+        "Two changes: swap `void` for the type you hand back, and use `return` to hand it back."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "static",
+          "label": "modifier",
+          "note": "Needed for methods beside `main`, as before."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "int",
+          "label": "return type",
+          "note": "A promise: this method hands back an `int`."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "add",
+          "label": "name",
+          "note": "What you write to call it."
+        },
+        {
+          "code": "(int a, int b)",
+          "label": "parameters",
+          "note": "Two ints come in, each with its own type."
+        }
+      ],
+      "title": "Anatomy of a returning method"
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int total = add(3, 4);\n        System.out.println(\"add(3, 4) gave \" + total);\n        System.out.println(\"Used straight away: \" + add(10, 5));\n        System.out.println(\"In a bigger sum: \" + (add(1, 2) * 10));\n    }\n\n    static int add(int a, int b) {\n        return a + b;\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "To work out the right side of `=`, Java must call `add`. It jumps in."
+        },
+        {
+          "line": 9,
+          "note": "The parameters arrive with the arguments.",
+          "vars": {
+            "a": "3",
+            "b": "4"
+          }
+        },
+        {
+          "line": 10,
+          "note": "`a + b` is 7. `return` hands 7 back and leaves the method."
+        },
+        {
+          "line": 3,
+          "note": "The call is replaced by 7, exactly as if you had typed `7`. `a` and `b` are gone.",
+          "vars": {
+            "a": null,
+            "b": null,
+            "total": "7"
+          }
+        },
+        {
+          "line": 4,
+          "note": "Print the stored value.",
+          "out": [
+            "add(3, 4) gave 7"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "`add(10, 5)` runs and becomes 15, used straight away.",
+          "out": [
+            "Used straight away: 15"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "`add(1, 2)` becomes 3, then `3 * 10` is 30.",
+          "out": [
+            "In a bigger sum: 30"
+          ]
+        }
+      ],
+      "title": "Watch the value come back",
+      "outro": "A returned value can be stored, printed or used in a bigger calculation. By the time the rest of the line runs, it is just a value."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "8",
+        "10",
+        "9",
+        "81"
+      ],
+      "answer": 2,
+      "explain": "`twice(4)` hands back 8, so the line becomes `8 + 1`, which is 9.",
+      "code": "static int twice(int n) {\n    return n * 2;\n}\n\n// in main:\nSystem.out.println(twice(4) + 1);"
+    },
+    {
+      "type": "heading",
+      "value": "return Ends the Method"
+    },
+    {
+      "type": "points",
+      "items": [
+        "`return` does two jobs: hands the value back, and **finishes** the method there and then.",
+        "Code straight after a `return` can never run. javac calls it unreachable and refuses to compile.",
+        "Leaving early is handy: deal with special cases first, with no `else` needed."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(grade(95));\n        System.out.println(grade(62));\n    }\n\n    static String grade(int marks) {\n        if (marks >= 90) {\n            return \"A\";\n        }\n        if (marks >= 40) {\n            return \"Pass\";\n        }\n        return \"Fail\";\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Call `grade` with 95."
+        },
+        {
+          "line": 7,
+          "note": "The parameter arrives.",
+          "vars": {
+            "marks": "95"
+          }
+        },
+        {
+          "line": 8,
+          "note": "95 >= 90 is true."
+        },
+        {
+          "line": 9,
+          "note": "Hand back `\"A\"` and leave. The lines below never run this time."
+        },
+        {
+          "line": 3,
+          "note": "The call became `\"A\"`, so it prints.",
+          "vars": {
+            "marks": null
+          },
+          "out": [
+            "A"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "Now with 62."
+        },
+        {
+          "line": 7,
+          "note": "A fresh `marks`.",
+          "vars": {
+            "marks": "62"
+          }
+        },
+        {
+          "line": 8,
+          "note": "62 >= 90 is false. Skip that block."
+        },
+        {
+          "line": 11,
+          "note": "62 >= 40 is true."
+        },
+        {
+          "line": 12,
+          "note": "Hand back `\"Pass\"` and leave."
+        },
+        {
+          "line": 4,
+          "note": "Print it. Three returns in the method, exactly one taken each time.",
+          "vars": {
+            "marks": null
+          },
+          "out": [
+            "Pass"
+          ]
+        }
+      ],
+      "title": "Watch return leave early",
+      "outro": "No `else` anywhere: once a `return` runs, nothing below it can. Try `grade(12)` and it reaches `return \"Fail\"`."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "missing return statement",
+          "tone": "bad",
+          "code": "static String grade(int marks) {\n    if (marks >= 40) {\n        return \"Pass\";\n    }\n}",
+          "text": "Below 40 there is no `return`. The error points at the closing brace: the spot reached with nothing to hand back."
+        },
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "static String grade(int marks) {\n    if (marks >= 40) {\n        return \"Pass\";\n    }\n    return \"Fail\";\n}",
+          "text": "Every route through the method ends in a `return`."
+        }
+      ],
+      "title": "Every path must return",
+      "caption": "Java refuses to let a gap through, the same reasoning as the `variable might not have been initialized` error from Module 4. Fix: a final `return` outside every `if`, or finish the chain with `else`."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "big, then big",
+        "small, then small",
+        "big, then small",
+        "small, then big"
+      ],
+      "answer": 2,
+      "explain": "50 makes the `if` true, so it returns `\"big\"`. 5 skips the `if` and reaches `return \"small\"`.",
+      "code": "static String size(int n) {\n    if (n > 10) {\n        return \"big\";\n    }\n    return \"small\";\n}\n\n// in main:\nSystem.out.println(size(50));\nSystem.out.println(size(5));"
+    },
+    {
+      "type": "heading",
+      "value": "Methods That Answer Yes or No"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A method can return a `boolean`. That lets you give a test a name.",
+        "Name them as questions: `isEven`, `isPrime`, `isValid`, `hasPaid`, `canVote`.",
+        "Then the call reads like English: `if (canVote(age))`."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Is 8 even? \" + isEven(8));\n        System.out.println(\"Is 7 even? \" + isEven(7));\n\n        int age = 15;\n        if (canVote(age)) {\n            System.out.println(\"Can vote.\");\n        } else {\n            System.out.println(\"Too young to vote.\");\n        }\n    }\n\n    static boolean isEven(int n) {\n        return n % 2 == 0;\n    }\n\n    static boolean canVote(int age) {\n        return age >= 18;\n    }\n}",
+      "output": [
+        "Is 8 even? true",
+        "Is 7 even? false",
+        "Too young to vote."
+      ],
+      "caption": "`isEven` has no `if`: `n % 2 == 0` already **is** true or false, so return it directly."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "The long way",
+          "tone": "bad",
+          "code": "static boolean isEven(int n) {\n    if (n % 2 == 0) {\n        return true;\n    } else {\n        return false;\n    }\n}",
+          "text": "Four lines to produce a value you already had."
+        },
+        {
+          "title": "The neat way",
+          "tone": "good",
+          "code": "static boolean isEven(int n) {\n    return n % 2 == 0;\n}",
+          "text": "Says exactly the same thing in one line."
+        }
+      ],
+      "title": "Return the comparison itself"
+    },
+    {
+      "type": "heading",
+      "value": "Building Real Tools"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Returns plus the loops from Module 5 make a toolbox. Each method does one job and hands back one answer.",
+        "`digitSum` and `reverse` divide `n` down to nothing. That is safe: `n` is their own copy, so the caller's number is untouched.",
+        "These four methods plus a menu are this module's project. You have already written the hard part."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"digitSum(4071) = \" + digitSum(4071));\n        System.out.println(\"reverse(4071)  = \" + reverse(4071));\n        System.out.println(\"factorial(5)   = \" + factorial(5));\n        System.out.println(\"isPrime(91)    = \" + isPrime(91));\n        System.out.println(\"isPrime(97)    = \" + isPrime(97));\n    }\n\n    static int digitSum(int n) {\n        int sum = 0;\n        while (n > 0) {\n            sum += n % 10;\n            n /= 10;\n        }\n        return sum;\n    }\n\n    static int reverse(int n) {\n        int result = 0;\n        while (n > 0) {\n            result = result * 10 + n % 10;\n            n /= 10;\n        }\n        return result;\n    }\n\n    static int factorial(int n) {\n        int product = 1;\n        for (int i = 2; i <= n; i++) {\n            product *= i;\n        }\n        return product;\n    }\n\n    static boolean isPrime(int n) {\n        if (n < 2) {\n            return false;       // 0, 1 and negatives are not prime\n        }\n        for (int i = 2; i < n; i++) {\n            if (n % i == 0) {\n                return false;   // found a divisor, so stop\n            }\n        }\n        return true;            // nothing divided it\n    }\n}",
+      "output": [
+        "digitSum(4071) = 12",
+        "reverse(4071)  = 1704",
+        "factorial(5)   = 120",
+        "isPrime(91)    = false",
+        "isPrime(97)    = true"
+      ],
+      "caption": "Each method can be tested on its own, with one line in `main`."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "🔢",
+          "label": "n < 2?",
+          "detail": "No, 91 is bigger"
+        },
+        {
+          "icon": "🔁",
+          "label": "i = 2 to 6",
+          "detail": "None of them divide 91"
+        },
+        {
+          "icon": "🎯",
+          "label": "i = 7",
+          "detail": "`91 % 7 == 0`"
+        },
+        {
+          "icon": "🚪",
+          "label": "return false",
+          "detail": "The loop stops at once"
+        }
+      ],
+      "title": "isPrime(91) leaves early",
+      "caption": "The final `return true` is only reached if the loop runs out without finding a divisor."
+    },
+    {
+      "type": "heading",
+      "value": "void or a Value?"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "void: prints",
+          "tone": "bad",
+          "code": "static void show(int n) {\n    System.out.println(n * 2);\n}\n\nint x = show(4);",
+          "text": "Does not compile: `incompatible types: void cannot be converted to int`. There is nothing to store."
+        },
+        {
+          "title": "int: returns",
+          "tone": "good",
+          "code": "static int twice(int n) {\n    return n * 2;\n}\n\nint x = twice(4);",
+          "text": "`x` holds 8, ready to use again."
+        }
+      ],
+      "title": "Printing is not returning",
+      "caption": "Let the method work out the answer and `return` it. The caller then decides: print it, save it, or use it in a calculation."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        printBar(9);\n        printBar(0);\n        printBar(-4);\n    }\n\n    static void printBar(int length) {\n        if (length <= 0) {\n            System.out.println(\"(nothing to draw)\");\n            return;                 // leave now, with no value\n        }\n        for (int i = 1; i <= length; i++) {\n            System.out.print(\"*\");\n        }\n        System.out.println();\n    }\n}",
+      "output": [
+        "*********",
+        "(nothing to draw)",
+        "(nothing to draw)"
+      ],
+      "caption": "A `void` method can use `return;` with no value. It just means \"I am finished\", like `break` for a whole method. A guard at the top deals with bad input first, so the rest can trust it."
+    },
+    {
+      "type": "tip",
+      "value": "One method, one job, one thing returned. Wanting to hand back two values means you need two methods or, from Module 8, an object.",
+      "title": "One job each"
+    },
+    {
+      "type": "check",
+      "question": "Which header promises to hand back a whole number?",
+      "options": [
+        "static void count()",
+        "static count() int",
+        "static return int count()",
+        "static int count()"
+      ],
+      "answer": 3,
+      "explain": "The return type sits between `static` and the name. `int` promises a whole number; `void` promises nothing."
+    }
+  ],
+  "editorCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Number? \");\n        int n = scanner.nextInt();\n\n        System.out.println(\"Digit sum: \" + digitSum(n));\n        System.out.println(\"Reversed:  \" + reverse(n));\n        System.out.println(\"Even?      \" + isEven(n));\n    }\n\n    static int digitSum(int n) {\n        int sum = 0;\n\n        while (n > 0) {\n            sum += n % 10;\n            n /= 10;\n        }\n\n        return sum;\n    }\n\n    static int reverse(int n) {\n        int result = 0;\n\n        while (n > 0) {\n            result = result * 10 + n % 10;\n            n /= 10;\n        }\n\n        return result;\n    }\n\n    static boolean isEven(int n) {\n        return n % 2 == 0;\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write square(int n) that returns n times n, then use a loop in main to print the squares of 1 to 5.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n\n}"
+    },
+    {
+      "id": 2,
+      "question": "Write largest(int a, int b) that returns the bigger of the two. A ternary makes it one line.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(largest(17, 42));\n        System.out.println(largest(99, 12));\n    }\n\n    static int largest(int a, int b) {\n        return 0;          // replace this\n    }\n\n}"
+    },
+    {
+      "id": 3,
+      "question": "Write isValidScore(int score) that returns true only for 0 to 100, then use it in an if to accept or reject a number.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Score? \");\n        int score = scanner.nextInt();\n\n    }\n\n}"
+    },
+    {
+      "id": 4,
+      "question": "This does not compile with `missing return statement`. Fix it so every possible age gets an answer.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(category(30));\n    }\n\n    static String category(int age) {\n        if (age < 13) {\n            return \"Child\";\n        } else if (age < 60) {\n            return \"Adult\";\n        }\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What do you change to make a method hand a value back?",
+      "options": [
+        "Replace void with the type of the value, and use return",
+        "Just add a return at the end",
+        "Print the value instead"
+      ],
+      "answer": 0,
+      "explain": "The return type is the promise and `return` keeps it. Java will not let the two disagree."
+    },
+    {
+      "question": "What does `return` do besides handing back a value?",
+      "options": [
+        "It ends the method immediately, so nothing below it runs",
+        "It prints the value",
+        "It restarts the method"
+      ],
+      "answer": 0,
+      "explain": "That is why early returns need no `else`, and why code written after a return will not compile."
+    },
+    {
+      "question": "Why does this fail: `static String grade(int m) { if (m >= 40) { return \"Pass\"; } }`?",
+      "options": [
+        "A mark below 40 reaches the end of the method with nothing returned",
+        "String cannot be a return type",
+        "The if needs an else if"
+      ],
+      "answer": 0,
+      "explain": "`missing return statement`. Java insists that every possible route out of the method hands back a value."
+    },
+    {
+      "question": "What is the tidy way to write `isEven`?",
+      "options": [
+        "`return n % 2 == 0;`",
+        "`if (n % 2 == 0) { return true; } else { return false; }`",
+        "`System.out.println(n % 2 == 0);`"
+      ],
+      "answer": 0,
+      "explain": "The comparison is already a boolean, so returning it directly says the same thing in one line."
+    },
+    {
+      "question": "What does a bare `return;` do in a void method?",
+      "options": [
+        "Leaves the method early without handing anything back",
+        "Returns 0",
+        "Is a compile error"
+      ],
+      "answer": 0,
+      "explain": "It is the method-level `break`, and it is ideal for a guard at the top that rejects impossible input."
+    }
+  ]
+}

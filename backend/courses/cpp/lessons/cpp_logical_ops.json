@@ -1,0 +1,368 @@
+{
+  "lessonId": "cpp_logical_ops",
+  "title": "Logical Operators",
+  "description": "Combining conditions with and, or and not, the range trap, and why C++ stops reading early.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Asking Two Questions at Once"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🎢",
+      "real": "A ride sign: \"12 or older AND 1.40 m tall\"",
+      "concept": "Logical operators",
+      "code": "age >= 12 && height >= 1.40",
+      "text": "Real conditions have several parts. Logical operators join bools into one answer."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🤝",
+          "text": "`&&` means **and**",
+          "sub": "true only when both sides are true"
+        },
+        {
+          "icon": "🔀",
+          "text": "`||` means **or**",
+          "sub": "true when at least one side is true"
+        },
+        {
+          "icon": "🔄",
+          "text": "`!` means **not**",
+          "sub": "flips true and false"
+        }
+      ],
+      "title": "Three logical operators"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 14;\n    double height = 1.55;\n\n    bool oldEnough = age >= 12;\n    bool tallEnough = height >= 1.40;\n\n    cout << boolalpha;\n    cout << \"Old enough:  \" << oldEnough << endl;\n    cout << \"Tall enough: \" << tallEnough << endl;\n    cout << \"Can ride:    \" << (oldEnough && tallEnough) << endl;\n    return 0;\n}",
+      "output": [
+        "Old enough:  true",
+        "Tall enough: true",
+        "Can ride:    true"
+      ],
+      "caption": "`age >= 12 && height >= 1.40` also works in one line, but named parts are kinder to the reader. Use two characters: a single `&` or `|` means something else."
+    },
+    {
+      "type": "heading",
+      "value": "&& Needs Both, || Needs One"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "&& (and)",
+          "tone": "neutral",
+          "code": "true  && true   // true\ntrue  && false  // false\nfalse && false  // false",
+          "text": "Only true when **both** sides are true."
+        },
+        {
+          "title": "|| (or)",
+          "tone": "neutral",
+          "code": "true  || true   // true\ntrue  || false  // true\nfalse || false  // false",
+          "text": "Only false when **both** sides are false. Read it as \"at least one\": `true || true` is `true`."
+        }
+      ],
+      "title": "AND versus OR"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << boolalpha;\n\n    cout << \"AND\" << endl;\n    cout << (true && true) << endl;\n    cout << (true && false) << endl;\n    cout << (false && false) << endl;\n\n    cout << \"OR\" << endl;\n    cout << (true || true) << endl;\n    cout << (true || false) << endl;\n    cout << (false || false) << endl;\n    return 0;\n}",
+      "output": [
+        "AND",
+        "true",
+        "false",
+        "false",
+        "OR",
+        "true",
+        "true",
+        "false"
+      ]
+    },
+    {
+      "type": "check",
+      "question": "With `boolalpha` on, what does `cout << (false || true);` print?",
+      "options": [
+        "false",
+        "An error",
+        "falsetrue",
+        "true"
+      ],
+      "answer": 3,
+      "explain": "`||` needs just one true side, and the right side is true."
+    },
+    {
+      "type": "heading",
+      "value": "! Flips the Answer"
+    },
+    {
+      "type": "paragraph",
+      "value": "`!` goes in front of a `bool` and flips it. Use it when the question you have is the opposite of the one you want."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    bool gameOver = false;\n\n    cout << boolalpha;\n    cout << \"Game over:     \" << gameOver << endl;\n    cout << \"Still playing: \" << !gameOver << endl;\n\n    int score = 40;\n    cout << !(score >= 50) << endl;   // not passed\n    cout << (score < 50) << endl;     // the same question, said plainly\n    return 0;\n}",
+      "output": [
+        "Game over:     false",
+        "Still playing: true",
+        "true",
+        "true"
+      ],
+      "caption": "The last two ask the same thing. Prefer the plain `score < 50`; save `!` for named bools like `!gameOver`. C++ also accepts the words `and`, `or`, `not`, but most code uses the symbols."
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "gameOver",
+          "value": "false",
+          "type": "bool"
+        },
+        {
+          "name": "!gameOver",
+          "value": "true",
+          "type": "bool"
+        }
+      ],
+      "title": "One value, flipped"
+    },
+    {
+      "type": "heading",
+      "value": "Combining and Ranges"
+    },
+    {
+      "type": "paragraph",
+      "value": "Mixed together, `!` goes first, then `&&`, then `||`. Rather than remember that, use brackets or build the condition in named steps."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day = 6;              // 6 = Saturday, 7 = Sunday\n    bool onHoliday = false;\n\n    bool weekend = day == 6 || day == 7;\n    bool dayOff = weekend || onHoliday;\n    bool working = !dayOff;\n\n    cout << boolalpha;\n    cout << \"Weekend: \" << weekend << endl;\n    cout << \"Day off: \" << dayOff << endl;\n    cout << \"Working: \" << working << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Day 6 is Saturday.",
+          "vars": {
+            "day": "6"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Not on holiday.",
+          "vars": {
+            "onHoliday": "false"
+          }
+        },
+        {
+          "line": 8,
+          "note": "`day == 6` is true, so the `||` is true.",
+          "vars": {
+            "weekend": "true"
+          }
+        },
+        {
+          "line": 9,
+          "note": "`true || false` is true.",
+          "vars": {
+            "dayOff": "true"
+          }
+        },
+        {
+          "line": 10,
+          "note": "`!` flips it: not working.",
+          "vars": {
+            "working": "false"
+          }
+        },
+        {
+          "line": 13,
+          "note": "Print each named answer.",
+          "out": [
+            "Weekend: true"
+          ]
+        },
+        {
+          "line": 14,
+          "note": "Next answer.",
+          "out": [
+            "Day off: true"
+          ]
+        },
+        {
+          "line": 15,
+          "note": "And the last one.",
+          "out": [
+            "Working: false"
+          ]
+        }
+      ],
+      "title": "Building a condition in named steps",
+      "outro": "`day == 6 || day == 7 || onHoliday` would work too, but three names tell a reader what each part means."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 15;\n\n    cout << boolalpha;\n    cout << (1 <= n <= 10) << endl;        // looks right, is wrong\n    cout << (n >= 1 && n <= 10) << endl;   // the correct way\n    return 0;\n}",
+      "output": [
+        "true",
+        "false"
+      ],
+      "caption": "The range trap: C++ compiles `1 <= n <= 10` and gets it wrong. `1 <= n` is true, which counts as 1, and `1 <= 10` is always true. A range needs two comparisons joined by `&&`."
+    },
+    {
+      "type": "check",
+      "question": "Which line checks that `n` is from 1 to 10?",
+      "options": [
+        "`1 <= n <= 10`",
+        "`n >= 1 && n <= 10`",
+        "`n >= 1 || n <= 10`",
+        "`n >= 1 && <= 10`"
+      ],
+      "answer": 1,
+      "explain": "Two full comparisons joined by `&&`. With `||` every number would pass, since each is either at least 1 or at most 10."
+    },
+    {
+      "type": "heading",
+      "value": "C++ Stops Reading Early"
+    },
+    {
+      "type": "paragraph",
+      "value": "With `&&`, a false left side means the answer is false, so C++ skips the right side. With `||`, a true left side is enough. This is **short-circuit evaluation**."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "👥",
+          "label": "people > 0",
+          "detail": "Checked first. Suppose it is false"
+        },
+        {
+          "icon": "⏭️",
+          "label": "Skip the right",
+          "detail": "`bill / people` never runs"
+        },
+        {
+          "icon": "🛡️",
+          "label": "false",
+          "detail": "No divide by zero crash"
+        }
+      ],
+      "title": "A guard on the left",
+      "caption": "So a safety check on the left can protect something risky on the right."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int people;\n    int bill;\n\n    cout << \"How many people? \";\n    cin >> people;\n\n    cout << \"Total bill? \";\n    cin >> bill;\n\n    // If people is 0, the division on the right is never run.\n    bool affordable = people > 0 && bill / people <= 500;\n\n    cout << boolalpha;\n    cout << \"Affordable each: \" << affordable << endl;\n    return 0;\n}",
+      "caption": "Sample run: type `0` then `900` and it prints `Affordable each: false` instead of crashing. Swap the two sides and it would crash: order matters."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int marks;\n    int attendance;\n\n    cout << \"Marks out of 100? \";\n    cin >> marks;\n\n    cout << \"Attendance percent? \";\n    cin >> attendance;\n\n    bool passedMarks = marks >= 40;\n    bool goodAttendance = attendance >= 75;\n    bool distinction = marks >= 75 && goodAttendance;\n\n    cout << boolalpha;\n    cout << \"Passed marks:     \" << passedMarks << endl;\n    cout << \"Good attendance:  \" << goodAttendance << endl;\n    cout << \"Gets certificate: \" << (passedMarks && goodAttendance) << endl;\n    cout << \"With distinction: \" << distinction << endl;\n    return 0;\n}",
+      "caption": "Putting it all together. Sample run: `80` and `70` gives true, false, false, false. Next module, `if` turns each bool into a fork in the road."
+    },
+    {
+      "type": "check",
+      "question": "`people` is 0. Which line is safe from a divide by zero?",
+      "options": [
+        "`bill / people <= 500 && people > 0`",
+        "`bill / people <= 500 || people > 0`",
+        "`people > 0 && bill / people <= 500`",
+        "`bill / people <= 500`"
+      ],
+      "answer": 2,
+      "explain": "The guard must come first. Once `people > 0` is false, `&&` never runs the division."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 14;\n    double height = 1.55;\n\n    bool oldEnough = age >= 12;\n    bool tallEnough = height >= 1.40;\n\n    cout << boolalpha;\n    cout << \"Can ride: \" << (oldEnough && tallEnough) << endl;\n    cout << \"Must wait: \" << !(oldEnough && tallEnough) << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a number and print whether it is between 1 and 10, using two comparisons joined with `&&`.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n\n    cout << \"Number? \";\n    cin >> n;\n\n    cout << boolalpha;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Store a day number (1 to 7) and print whether it is a weekend, using `||`. Then print whether it is a weekday, using `!`.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day = 3;\n\n    cout << boolalpha;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Predict each line before running. Four of these print true and four print false.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    int b = 10;\n\n    cout << boolalpha;\n    cout << (a < b && b < 20) << endl;\n    cout << (a > b || b > 5) << endl;\n    cout << !(a == 5) << endl;\n    cout << (a != 5 || b != 10) << endl;\n    cout << (a + b == 15 && a * b == 50) << endl;\n    cout << (a > 0 && b > 0 && a + b > 100) << endl;\n    cout << (a == 5 || b == 99) << endl;\n    cout << !(a < b) << endl;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "When is `a && b` true?",
+      "options": [
+        "When at least one of them is true",
+        "Only when both a and b are true",
+        "When they are different"
+      ],
+      "answer": 1,
+      "explain": "`&&` means and: every part has to be true. One false anywhere makes the whole thing false."
+    },
+    {
+      "question": "What does `false || true` give?",
+      "options": [
+        "true, because || needs only one true side",
+        "false, because the first side is false",
+        "An error"
+      ],
+      "answer": 0,
+      "explain": "`||` means at least one. It is false only when both sides are false."
+    },
+    {
+      "question": "`int n = 15;` What does `1 <= n <= 10` give?",
+      "options": [
+        "false, because 15 is bigger than 10",
+        "A compile error",
+        "true, even though 15 is not in the range"
+      ],
+      "answer": 2,
+      "explain": "C++ works out `1 <= n` first, gets true (which counts as 1), then checks `1 <= 10`. Always write a range as `n >= 1 && n <= 10`."
+    },
+    {
+      "question": "`bool gameOver = false;` What does `!gameOver` give?",
+      "options": [
+        "false",
+        "It depends on the score",
+        "true"
+      ],
+      "answer": 2,
+      "explain": "`!` flips the value, so `!false` is `true`. It reads nicely with a well named bool: `!gameOver` means still playing."
+    },
+    {
+      "question": "Why does `people > 0 && bill / people <= 500` not crash when people is 0?",
+      "options": [
+        "C++ replaces a division by zero with 0.",
+        "The left side is false, so C++ never works out the division.",
+        "It does crash."
+      ],
+      "answer": 1,
+      "explain": "This is short-circuit evaluation: once the left side of `&&` is false the answer is settled, so the right side is skipped. Putting the guard first is the whole point."
+    },
+    {
+      "question": "Which order are logical operators applied in when brackets are left out?",
+      "options": [
+        "`!` first, then `&&`, then `||`",
+        "`||` first, then `&&`, then `!`",
+        "Strictly left to right"
+      ],
+      "answer": 0,
+      "explain": "That is the order, but relying on it makes code hard to read. Add brackets and nobody has to remember."
+    }
+  ]
+}

@@ -10,15 +10,35 @@
     },
     {
       "type": "paragraph",
-      "value": "A computer is fast but it never guesses. It does exactly what it is told, in the exact order it is told, and nothing more. Programming is the job of writing those orders down. A program is just a list of instructions, written in a language the computer can be made to understand."
+      "value": "A computer is fast, but it never guesses. It does exactly what it is told, in the exact order it is told, and nothing more."
     },
     {
-      "type": "paragraph",
-      "value": "Think about making toast. You would tell a friend \"put in the bread, push the lever, wait, take it out\". A friend can fill in the gaps. A computer cannot. If you leave out \"push the lever\", it will stand there forever with cold bread. Every step has to be there, and in the right order."
+      "type": "analogy",
+      "emoji": "🍞",
+      "real": "Telling a friend how to make toast",
+      "concept": "Writing a program",
+      "text": "A friend fills in the gaps. A computer cannot. Leave out \"push the lever\" and it waits forever with cold bread. Every step must be there, in the right order."
     },
     {
-      "type": "tip",
-      "value": "Most bugs (mistakes in a program) are not the computer being difficult. They are the computer doing exactly what you wrote instead of what you meant."
+      "type": "points",
+      "items": [
+        "**Programming** is the job of writing those orders down.",
+        "A **program** is a list of instructions in a language the computer can be made to understand.",
+        "A **bug** is a mistake in a program: usually the computer doing what you wrote, not what you meant."
+      ],
+      "title": "Key ideas"
+    },
+    {
+      "type": "check",
+      "question": "Your program skips a step you forgot to write. What does the computer do?",
+      "options": [
+        "Exactly what you wrote, without the missing step",
+        "Guesses the missing step",
+        "Asks you what you meant",
+        "Refuses to turn on"
+      ],
+      "answer": 0,
+      "explain": "A computer never fills in gaps. It follows the instructions you wrote, even when one is missing."
     },
     {
       "type": "heading",
@@ -26,33 +46,106 @@
     },
     {
       "type": "paragraph",
-      "value": "Unless you tell it otherwise, a program runs one line at a time, starting at the top and working down. That single rule explains most of what you will see in this course. Here is a program with three instructions. Read them in order and you already know what it will do."
+      "value": "Unless you say otherwise, a program runs one line at a time, starting at the top and working down. That one rule explains most of what you will see."
     },
     {
-      "type": "code",
-      "language": "java",
-      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Bread in.\");\n        System.out.println(\"Lever down.\");\n        System.out.println(\"Toast!\");\n    }\n}"
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Bread in.\");\n        System.out.println(\"Lever down.\");\n        System.out.println(\"Toast!\");\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "The first instruction runs first. It prints `Bread in.`",
+          "out": [
+            "Bread in."
+          ]
+        },
+        {
+          "line": 4,
+          "note": "Then the next line down prints `Lever down.`",
+          "out": [
+            "Lever down."
+          ]
+        },
+        {
+          "line": 5,
+          "note": "Last line, last output: `Toast!`",
+          "out": [
+            "Toast!"
+          ]
+        }
+      ],
+      "title": "Watch the order",
+      "intro": "Ignore the words `public class Main` for now. Watch only the three instructions in the middle.",
+      "outro": "Three instructions, three lines of output, same order."
     },
     {
-      "type": "simulation",
-      "kind": "print",
-      "lines": ["Bread in.", "Lever down.", "Toast!"]
-    },
-    {
-      "type": "paragraph",
-      "value": "Three instructions, three lines of output, same order. Do not worry about the words `public class Main` yet. For now, notice only that each instruction sits on its own line and that the order is kept."
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "`A`, then `B` on the next line",
+        "`AB`",
+        "`B`, then `A` on the next line",
+        "`BA`"
+      ],
+      "answer": 2,
+      "explain": "Lines run top to bottom, so `B` prints first. Each `println` ends its line, so `A` goes on the next one.",
+      "code": "System.out.println(\"B\");\nSystem.out.println(\"A\");"
     },
     {
       "type": "heading",
       "value": "Why Learn to Program?"
     },
     {
-      "type": "paragraph",
-      "value": "Because it turns you from someone who uses software into someone who makes it. The apps on your phone, the games you play and the sites you visit are all lists of instructions somebody wrote. By the end of this course you will have written a quiz game, a bank machine and a program that keeps track of money, all in Java."
+      "type": "points",
+      "items": [
+        {
+          "icon": "📱",
+          "text": "Apps, games and websites",
+          "sub": "All of them are lists of instructions somebody wrote."
+        },
+        {
+          "icon": "🛠️",
+          "text": "From user to maker",
+          "sub": "Programming lets you build software, not just use it."
+        },
+        {
+          "icon": "☕",
+          "text": "What you will build in Java",
+          "sub": "A quiz game, a bank machine and a program that tracks money."
+        }
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "✏️",
+          "label": "Write",
+          "detail": "type instructions in the editor"
+        },
+        {
+          "icon": "▶️",
+          "label": "Run",
+          "detail": "press Run"
+        },
+        {
+          "icon": "🖥️",
+          "label": "See output",
+          "detail": "read what printed"
+        },
+        {
+          "icon": "🔁",
+          "label": "Change",
+          "detail": "fix or improve, then run again"
+        }
+      ],
+      "title": "How you will work",
+      "caption": "You cannot break anything. The worst that happens is an error message, and you will learn to read those too."
     },
     {
       "type": "paragraph",
-      "value": "Press Run on the editor beside this lesson to see the toast program work. You cannot break anything: the worst that happens is an error message, and you will learn to read those too."
+      "value": "Press Run on the editor beside this lesson to see the toast program work."
     }
   ],
   "editorCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Bread in.\");\n        System.out.println(\"Lever down.\");\n        System.out.println(\"Toast!\");\n    }\n}",

@@ -1,0 +1,427 @@
+{
+  "lessonId": "cpp_if",
+  "title": "The if Statement",
+  "description": "Running some instructions only when a condition is true.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Fork in the Road"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🚦",
+      "real": "A traffic light",
+      "concept": "An if statement",
+      "code": "if (light == GREEN) {\n    drive();\n}",
+      "text": "You only drive when the light is green. Until now every line of your program ran every time. An `if` lets a block run only when a condition is true."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "if",
+          "label": "keyword",
+          "note": "Starts the decision."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "(score > 50)",
+          "label": "condition",
+          "note": "Round brackets around a question that is `true` or `false`."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "{",
+          "label": "open brace",
+          "note": "The guarded block starts here and ends at the matching `}`."
+        }
+      ],
+      "title": "Anatomy of an if line",
+      "caption": "No semicolon at the end of this line: it ends with `{`."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 75;\n\n    if (score > 50) {\n        cout << \"You passed!\" << endl;\n    }\n\n    cout << \"Program finished.\" << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Store `75` in `score`.",
+          "vars": {
+            "score": "75"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Is `75 > 50`? Yes, `true`. C++ enters the block."
+        },
+        {
+          "line": 8,
+          "note": "Run the guarded line.",
+          "out": [
+            "You passed!"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "This line is after the closing brace, outside the `if`. It always runs.",
+          "out": [
+            "Program finished."
+          ]
+        }
+      ],
+      "title": "Follow the true path",
+      "outro": "Change `score` to 30 and the guarded line is skipped. Only `Program finished.` is left."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Big then Done",
+        "Big",
+        "Done",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`30 > 50` is false, so the block is skipped. The last line is outside the `if`, so it always runs.",
+      "code": "int n = 30;\nif (n > 50) {\n    cout << \"Big\" << endl;\n}\ncout << \"Done\" << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "What Goes in the Brackets"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "⚖️",
+          "text": "A comparison",
+          "sub": "`score >= 50`, `lives == 1`, from Module 3."
+        },
+        {
+          "icon": "🔗",
+          "text": "A combined condition",
+          "sub": "`age >= 12 && age < 18` with the logical operators."
+        },
+        {
+          "icon": "✅",
+          "text": "A bool variable on its own",
+          "sub": "`if (isAdult)` needs no comparison. Flip it with `!isAdult`."
+        }
+      ],
+      "title": "What can go in the brackets"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 15;\n    bool isAdult = age >= 18;\n\n    if (isAdult) {\n        cout << \"You may vote.\" << endl;\n    }\n\n    if (age >= 12 && age < 18) {\n        cout << \"You are a teenager.\" << endl;\n    }\n\n    if (!isAdult) {\n        cout << \"Too young to vote.\" << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "You are a teenager.",
+        "Too young to vote."
+      ],
+      "caption": "`if (isAdult == true)` also works, but the `== true` adds nothing: `isAdult` is already the answer."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Not zero",
+          "tone": "good",
+          "code": "int lives = 2;\nif (lives) { ... }",
+          "text": "2 counts as true, so the block runs."
+        },
+        {
+          "title": "Zero",
+          "tone": "neutral",
+          "code": "int coins = 0;\nif (coins) { ... }",
+          "text": "0 counts as false, so the block is skipped."
+        }
+      ],
+      "title": "Any number is a condition",
+      "caption": "C++ treats 0 as false and every other number as true. This course writes `if (lives != 0)` because it is clearer, but you will meet the short form in other code."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Go then Done",
+        "Go",
+        "Done",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`n` is 0, and 0 counts as false. The block is skipped and only `Done` prints.",
+      "code": "int n = 0;\nif (n) {\n    cout << \"Go\" << endl;\n}\ncout << \"Done\" << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "The = and == Trap"
+    },
+    {
+      "type": "paragraph",
+      "value": "The most famous bug in C++: writing `=` (store) where you meant `==` (compare). It compiles, because any number can be a condition."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int lives = 3;\n\n    if (lives = 1) {\n        cout << \"Last life!\" << endl;\n    }\n\n    cout << \"Lives: \" << lives << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "The player has 3 lives.",
+          "vars": {
+            "lives": "3"
+          }
+        },
+        {
+          "line": 7,
+          "note": "`lives = 1` does not ask anything. It **stores** 1 in `lives`, and that 1 is then used as the condition: true.",
+          "vars": {
+            "lives": "1"
+          }
+        },
+        {
+          "line": 8,
+          "note": "So the block runs, even though the player had 3 lives.",
+          "out": [
+            "Last life!"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "And `lives` itself has been changed.",
+          "out": [
+            "Lives: 1"
+          ]
+        }
+      ],
+      "title": "Two things go wrong at once",
+      "outro": "`if (x = 5)` is always true, whatever `x` was before, and it wipes out the old value."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Always true",
+          "tone": "bad",
+          "code": "if (lives = 1) {",
+          "text": "Stores 1 in `lives`, then treats 1 as true."
+        },
+        {
+          "title": "Asks a question",
+          "tone": "good",
+          "code": "if (lives == 1) {",
+          "text": "Compares, gives `true` or `false`, changes nothing."
+        }
+      ],
+      "title": "= stores, == asks",
+      "caption": "Many compilers warn: `suggest parentheses around assignment used as truth value`. When you see it, look for a missing `=`."
+    },
+    {
+      "type": "check",
+      "question": "`int x = 0;` then `if (x = 5)`. Does the block run?",
+      "options": [
+        "No, because x was 0",
+        "Yes, and x is now 5",
+        "It does not compile"
+      ],
+      "answer": 1,
+      "explain": "`x = 5` stores 5, and 5 is not zero, so it counts as true. The block runs every time."
+    },
+    {
+      "type": "heading",
+      "value": "Two Silent Traps"
+    },
+    {
+      "type": "paragraph",
+      "value": "These also compile without any error, yet the program does the wrong thing."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 10;\n\n    if (score >= 50);\n    {\n        cout << \"You passed!\" << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "You passed!"
+      ],
+      "caption": "A score of 10 passed! The `;` right after the brackets ends the `if`, so it guards nothing. An `if` line ends with `{`, never `;`."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "No braces",
+          "tone": "bad",
+          "code": "if (score >= 50)\n    cout << \"You passed!\" << endl;\n    cout << \"Well done!\" << endl;",
+          "text": "Only the first line is guarded. `Well done!` prints even for a score of 10."
+        },
+        {
+          "title": "Braces",
+          "tone": "good",
+          "code": "if (score >= 50) {\n    cout << \"You passed!\" << endl;\n    cout << \"Well done!\" << endl;\n}",
+          "text": "Both lines are guarded. It costs two characters."
+        }
+      ],
+      "title": "Always write the braces",
+      "caption": "C++ ignores indentation. The braces are what decide which lines belong to the `if`."
+    },
+    {
+      "type": "check",
+      "question": "With `score = 10`, what does the no-braces version print?",
+      "options": [
+        "You passed! then Well done!",
+        "Nothing",
+        "You passed!",
+        "Well done!"
+      ],
+      "answer": 3,
+      "explain": "Without braces only the first line after the `if` is guarded. The second line runs every time."
+    },
+    {
+      "type": "heading",
+      "value": "Several Independent ifs"
+    },
+    {
+      "type": "points",
+      "items": [
+        "You can write as many `if` statements in a row as you like.",
+        "Each one is checked **on its own**, so several, one or none may run.",
+        "Use this when more than one answer can apply at once."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int marks = 80;\n\n    if (marks >= 40) {\n        cout << \"Passed.\" << endl;\n    }\n\n    if (marks >= 75) {\n        cout << \"With distinction.\" << endl;\n    }\n\n    if (marks == 100) {\n        cout << \"Perfect score!\" << endl;\n    }\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Store `80` in `marks`.",
+          "vars": {
+            "marks": "80"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Is `80 >= 40`? Yes."
+        },
+        {
+          "line": 8,
+          "note": "Run that block.",
+          "out": [
+            "Passed."
+          ]
+        },
+        {
+          "line": 11,
+          "note": "A new, separate `if`. Is `80 >= 75`? Yes."
+        },
+        {
+          "line": 12,
+          "note": "Run that block too.",
+          "out": [
+            "With distinction."
+          ]
+        },
+        {
+          "line": 15,
+          "note": "Is `80 == 100`? No. Skip its block."
+        }
+      ],
+      "title": "Every if gets its own turn",
+      "outro": "Two of the three ran. When the answers are alternatives, like grades, you want `else` instead: that is the next lesson."
+    },
+    {
+      "type": "check",
+      "question": "With `marks = 100`, how many lines does it print?",
+      "options": [
+        "1",
+        "3",
+        "2",
+        "0"
+      ],
+      "answer": 1,
+      "explain": "All three conditions are true, and each `if` is checked separately, so all three blocks run."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score;\n\n    cout << \"Your score out of 100? \";\n    cin >> score;\n\n    if (score >= 50) {\n        cout << \"You passed!\" << endl;\n    }\n\n    if (score >= 90) {\n        cout << \"Top marks!\" << endl;\n    }\n\n    cout << \"Score recorded: \" << score << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a temperature. If it is above 35, print: Stay indoors. Nothing should print for cooler temperatures.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int temp;\n\n    cout << \"Temperature? \";\n    cin >> temp;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Ask for an age and print: You may ride. only when the age is 12 or more AND under 60. Use one `if` with `&&`.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age;\n\n    cout << \"Age? \";\n    cin >> age;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "This prints You passed! even for a score of 10. Find the extra character that breaks it and remove it.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 10;\n\n    if (score >= 50);\n    {\n        cout << \"You passed!\" << endl;\n    }\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "This says Last life! when the player has 3 lives, and it changes `lives` too. Fix the condition so it only asks the question.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int lives = 3;\n\n    if (lives = 1) {\n        cout << \"Last life!\" << endl;\n    }\n\n    cout << \"Lives: \" << lives << endl;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What can go inside the round brackets of an `if`?",
+      "options": [
+        "Only a bool variable",
+        "Something that gives true or false, or a number, where 0 counts as false",
+        "The instruction to run"
+      ],
+      "answer": 1,
+      "explain": "Comparisons, logical expressions and bool variables are the normal choice. C++ also accepts a number: 0 is false and anything else is true."
+    },
+    {
+      "question": "What does `if (score >= 50);` followed by a block do?",
+      "options": [
+        "Nothing is guarded: the semicolon ends the if, so the block always runs.",
+        "The block runs only when the score is 50 or more.",
+        "It fails to compile."
+      ],
+      "answer": 0,
+      "explain": "The semicolon is an empty instruction, and that becomes the whole body of the `if`. The block after it is then just an ordinary block that always runs."
+    },
+    {
+      "question": "Without braces, how much of the following code belongs to an `if`?",
+      "options": [
+        "Everything indented under it",
+        "Everything up to the next blank line",
+        "Only the first instruction"
+      ],
+      "answer": 2,
+      "explain": "C++ ignores indentation completely. Only one instruction is attached, which is why leaving the braces out is such a reliable source of bugs."
+    },
+    {
+      "question": "`int lives = 3;` What happens with `if (lives = 1) { ... }`?",
+      "options": [
+        "It compares lives with 1, so the block is skipped.",
+        "It fails to compile.",
+        "It stores 1 in lives, and because 1 counts as true the block always runs."
+      ],
+      "answer": 2,
+      "explain": "A single `=` assigns. The value 1 is then used as the condition, which is true. Use `==` to ask the question."
+    },
+    {
+      "question": "Three separate `if` statements are true at the same time. How many blocks run?",
+      "options": [
+        "Only the first one.",
+        "All three: each `if` is judged on its own.",
+        "Only the last one."
+      ],
+      "answer": 1,
+      "explain": "Independent `if` statements do not know about each other. When you want exactly one of several alternatives, you need `else`."
+    }
+  ]
+}

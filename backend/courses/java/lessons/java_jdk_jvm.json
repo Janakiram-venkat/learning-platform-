@@ -10,49 +10,148 @@
     },
     {
       "type": "paragraph",
-      "value": "When you press Run, your Java code does not go straight to the computer. It takes two steps. First it is compiled: a program called `javac` reads your text and translates it. Then it is executed: a program called `java` actually runs the translation."
+      "value": "When you press Run, your code does not go straight to the computer. It is first **compiled** (checked and translated), then **executed** (run)."
     },
     {
-      "type": "paragraph",
-      "value": "That is why Java can catch mistakes before anything runs. Compiling is a checking step. If you misspell a word or forget a semicolon, `javac` stops and tells you, and step two never happens."
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "📄",
+          "label": "Main.java",
+          "detail": "your code, text you can read"
+        },
+        {
+          "icon": "🔍",
+          "label": "javac",
+          "detail": "the compiler: checks and translates"
+        },
+        {
+          "icon": "📦",
+          "label": "Main.class",
+          "detail": "bytecode, instructions for the JVM"
+        },
+        {
+          "icon": "⚙️",
+          "label": "JVM",
+          "detail": "the `java` program runs the bytecode"
+        },
+        {
+          "icon": "🖥️",
+          "label": "Output",
+          "detail": "what you see in the terminal"
+        }
+      ],
+      "title": "What happens when you press Run",
+      "caption": "If `javac` finds a mistake, it stops and tells you. The JVM step never happens."
     },
     {
       "type": "code",
       "language": "java",
-      "value": "// What happens when you press Run:\n//\n//   Main.java        your code, text you can read\n//        |\n//        |   javac  (the compiler: checks and translates)\n//        v\n//   Main.class       bytecode, instructions for the JVM\n//        |\n//        |   java   (the JVM: runs the bytecode)\n//        v\n//   output in the terminal\n\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Compiled, then run.\");\n    }\n}"
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Compiled, then run.\");\n    }\n}",
+      "output": [
+        "Compiled, then run."
+      ],
+      "caption": "Even this one line goes through both steps."
+    },
+    {
+      "type": "check",
+      "question": "You forget a semicolon and press Run. What happens?",
+      "options": [
+        "`javac` stops with an error, and nothing runs",
+        "The program runs and skips that line",
+        "The JVM adds the semicolon for you",
+        "It runs, then crashes at the end"
+      ],
+      "answer": 0,
+      "explain": "Compiling is a checking step. A mistake there means step two, running, never happens."
     },
     {
       "type": "heading",
       "value": "Bytecode and the JVM"
     },
     {
-      "type": "paragraph",
-      "value": "What `javac` produces is not instructions for your particular computer. It is bytecode: instructions for an imaginary computer called the Java Virtual Machine, or JVM. The JVM is a real program that pretends to be that computer, and there is a version of it for Windows, Mac, Linux and Android."
+      "type": "points",
+      "items": [
+        {
+          "icon": "📦",
+          "text": "Bytecode",
+          "sub": "What `javac` makes: instructions for an imaginary computer, not for your exact machine."
+        },
+        {
+          "icon": "⚙️",
+          "text": "JVM (Java Virtual Machine)",
+          "sub": "A real program that pretends to be that imaginary computer."
+        },
+        {
+          "icon": "💻",
+          "text": "One JVM per system",
+          "sub": "There is a JVM for Windows, Mac, Linux and Android."
+        }
+      ]
     },
     {
-      "type": "paragraph",
-      "value": "This is the trick behind \"write once, run anywhere\". Your bytecode file does not care what machine it is on. Whatever the machine, its JVM knows how to run that same bytecode. Compile on a laptop, run on a server, no changes needed."
+      "type": "analogy",
+      "emoji": "💿",
+      "real": "A game disc that plays on any console of the right kind",
+      "concept": "Bytecode that runs on any JVM",
+      "text": "This is the trick behind \"write once, run anywhere\". Compile on a laptop, run on a server, no changes needed."
     },
     {
-      "type": "tip",
-      "value": "Bytecode lives in a `.class` file. Your source code lives in a `.java` file. You write the `.java`; `javac` writes the `.class` for you."
+      "type": "check",
+      "question": "Which file do **you** write?",
+      "options": [
+        "`Main.class`",
+        "The JVM",
+        "`Main.java`",
+        "`javac`"
+      ],
+      "answer": 2,
+      "explain": "You write the `.java` file (source code). `javac` writes the `.class` file (bytecode) for you."
     },
     {
       "type": "heading",
       "value": "JDK, JRE, JVM"
     },
     {
-      "type": "paragraph",
-      "value": "Three names that sound alike and mean different things. The JVM is the engine that runs bytecode. The JRE (Java Runtime Environment) is the JVM plus the standard library of ready made code that comes with Java. The JDK (Java Development Kit) is the JRE plus the developer tools, including the `javac` compiler."
+      "type": "analogy",
+      "emoji": "🪆",
+      "real": "Nesting dolls",
+      "concept": "JDK holds JRE holds JVM",
+      "text": "Three names that sound alike. Each one contains the one before it, plus a little more."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "⚙️",
+          "text": "JVM",
+          "sub": "The engine that runs bytecode."
+        },
+        {
+          "icon": "📚",
+          "text": "JRE (Java Runtime Environment)",
+          "sub": "The JVM plus the **standard library**: ready-made code that comes with Java."
+        },
+        {
+          "icon": "🧰",
+          "text": "JDK (Java Development Kit)",
+          "sub": "The JRE plus developer tools, including the `javac` compiler."
+        }
+      ]
     },
     {
       "type": "paragraph",
-      "value": "The short version: to run a Java program you need the JRE. To write one you need the JDK, because only the JDK can compile. On this platform the JDK is already installed for you on the server, so pressing Run is all you have to do."
+      "value": "To **run** Java you need the JRE. To **write** Java you need the JDK, because only it can compile. Here, the JDK is already installed on the server for you."
     },
     {
       "type": "code",
       "language": "java",
-      "value": "//  +--------------------------- JDK ---------------------------+\n//  |  javac (compiler), and other developer tools              |\n//  |                                                           |\n//  |  +----------------------- JRE ----------------------+     |\n//  |  |  the standard library (System, Scanner, String)   |     |\n//  |  |                                                   |     |\n//  |  |  +---------------- JVM ----------------+          |     |\n//  |  |  |  runs your bytecode                 |          |     |\n//  |  |  +-------------------------------------+          |     |\n//  |  +---------------------------------------------------+     |\n//  +-----------------------------------------------------------+\n\npublic class Main {\n    public static void main(String[] args) {\n        // System.out.println comes from the standard library in the JRE.\n        System.out.println(\"Hello from inside the JVM.\");\n    }\n}"
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello from inside the JVM.\");\n    }\n}",
+      "output": [
+        "Hello from inside the JVM."
+      ],
+      "caption": "`System.out.println` comes from the standard library in the JRE."
     }
   ],
   "editorCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Compiled by javac.\");\n        System.out.println(\"Run by the JVM.\");\n    }\n}",

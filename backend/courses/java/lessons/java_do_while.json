@@ -1,0 +1,305 @@
+{
+  "lessonId": "java_do_while",
+  "title": "The do-while Loop",
+  "description": "A loop that runs its block first and asks the question afterwards, so it always runs at least once.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Act First, Ask Later"
+    },
+    {
+      "type": "paragraph",
+      "value": "A `while` loop tests first, so it can run zero times. A `do-while` loop runs the body first and tests after, so it always runs **at least once**."
+    },
+    {
+      "type": "analogy",
+      "emoji": "🍲",
+      "real": "Tasting soup, then deciding if it needs more salt",
+      "concept": "A `do-while` loop",
+      "code": "do {\n    // taste the soup\n} while (needsSalt);",
+      "text": "You cannot decide whether to taste again until you have tasted once. In the same way, you cannot decide to ask the user again until you have asked once."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int n = 1;\n        do {\n            System.out.println(\"Turn \" + n);\n            n++;\n        } while (n <= 3);\n        System.out.println(\"Finished.\");\n    }\n}",
+      "output": [
+        "Turn 1",
+        "Turn 2",
+        "Turn 3",
+        "Finished."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "} "
+        },
+        {
+          "code": "while",
+          "label": "keyword",
+          "note": "Comes **after** the body."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "(n <= 3)",
+          "label": "condition",
+          "note": "Tested after each turn. True: go round again."
+        },
+        {
+          "code": ";",
+          "label": "semicolon",
+          "note": "Required. The `while (...)` here ends a statement, it does not start a block."
+        }
+      ],
+      "title": "How a do-while ends",
+      "caption": "It is the only Java loop that ends with a semicolon."
+    },
+    {
+      "type": "check",
+      "question": "How many times does this print Hi?",
+      "options": [
+        "Zero times",
+        "For ever",
+        "Once",
+        "Twice"
+      ],
+      "answer": 2,
+      "explain": "The body runs before the condition is ever tested. Then `10 < 5` is false, so it stops after one turn. A plain `while` would print nothing.",
+      "code": "int n = 10;\ndo {\n    System.out.println(\"Hi\");\n} while (n < 5);"
+    },
+    {
+      "type": "heading",
+      "value": "Asking Until the Answer Is Sensible"
+    },
+    {
+      "type": "paragraph",
+      "value": "Input checking is where `do-while` shines. With `while`, you wrote the question twice. With `do-while`, you write it once."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "while",
+          "tone": "neutral",
+          "code": "System.out.print(\"Score? \");\nscore = scanner.nextInt();\nwhile (score < 0 || score > 100) {\n    System.out.print(\"Score? \");\n    score = scanner.nextInt();\n}",
+          "text": "The question is written twice."
+        },
+        {
+          "title": "do-while",
+          "tone": "good",
+          "code": "do {\n    System.out.print(\"Score? \");\n    score = scanner.nextInt();\n} while (score < 0 || score > 100);",
+          "text": "Written once, and asked at least once."
+        }
+      ],
+      "title": "Validating a score",
+      "caption": "The do-while version has one prompt and one read, so the two copies can never drift apart when you edit one of them."
+    },
+    {
+      "type": "paragraph",
+      "value": "Declare `int score;` above the loop with no value. The condition and the lines after the loop need to see it, and the body always runs, so it always gets a value."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "0",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "explain": "`tries` becomes 1, 2, then 3. Then `3 < 3` is false and the loop stops. A do-while counter can never end at 0, because one turn is unavoidable.",
+      "code": "int tries = 0;\ndo {\n    tries++;\n} while (tries < 3);\nSystem.out.println(tries);"
+    },
+    {
+      "type": "heading",
+      "value": "A Menu That Comes Back"
+    },
+    {
+      "type": "paragraph",
+      "value": "The other classic use is a menu. Show the options, do what was chosen, then show them again, until the user picks quit."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "📋",
+          "label": "Show menu",
+          "detail": "Always at least once"
+        },
+        {
+          "icon": "⌨️",
+          "label": "Read choice",
+          "detail": "`scanner.nextInt()`"
+        },
+        {
+          "icon": "⚙️",
+          "label": "Do it",
+          "detail": "`if` / `else if`"
+        },
+        {
+          "icon": "🔁",
+          "label": "Again?",
+          "detail": "`choice != 0`"
+        }
+      ],
+      "title": "One turn of the menu loop"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        int choice;\n\n        do {\n            System.out.println(\"--- Menu ---\");\n            System.out.println(\"1. Say hello\");\n            System.out.println(\"2. Add two numbers\");\n            System.out.println(\"0. Quit\");\n            System.out.print(\"Choice? \");\n            choice = scanner.nextInt();\n\n            if (choice == 1) {\n                System.out.println(\"Hello!\");\n            } else if (choice == 2) {\n                System.out.print(\"First? \");\n                int a = scanner.nextInt();\n                System.out.print(\"Second? \");\n                int b = scanner.nextInt();\n                System.out.println(\"Sum: \" + (a + b));\n            } else if (choice != 0) {\n                System.out.println(\"I do not know option \" + choice + \".\");\n            }\n        } while (choice != 0);\n\n        System.out.println(\"Goodbye.\");\n    }\n}",
+      "caption": "Sample run: type 1 (prints `Hello!`), then 0 (prints `Goodbye.`). The `else if (choice != 0)` catch-all stops quitting from printing \"I do not know option 0\"."
+    },
+    {
+      "type": "heading",
+      "value": "Choosing Between the Three"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔢",
+          "text": "`for`",
+          "sub": "You know the number of turns before you start."
+        },
+        {
+          "icon": "🚦",
+          "text": "`while`",
+          "sub": "The number of turns might be zero."
+        },
+        {
+          "icon": "1️⃣",
+          "text": "`do-while`",
+          "sub": "It must run at least once: menus and input checks."
+        }
+      ],
+      "title": "Ask: how many times should the body run?"
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int items = 0;\n        for (int i = 1; i <= items; i++) {\n            System.out.println(\"for ran\");\n        }\n        while (items > 0) {\n            System.out.println(\"while ran\");\n        }\n        do {\n            System.out.println(\"do-while ran\");\n        } while (items > 0);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "There is nothing to process.",
+          "vars": {
+            "items": "0"
+          }
+        },
+        {
+          "line": 4,
+          "note": "`i` starts at 1. `1 <= 0` is false, so the body is skipped. Zero turns."
+        },
+        {
+          "line": 7,
+          "note": "`0 > 0` is false. The `while` body is skipped too."
+        },
+        {
+          "line": 10,
+          "note": "`do` goes straight into the body without testing."
+        },
+        {
+          "line": 11,
+          "note": "So this line runs.",
+          "out": [
+            "do-while ran"
+          ]
+        },
+        {
+          "line": 12,
+          "note": "Now test `0 > 0`: false. The loop ends after one turn."
+        }
+      ],
+      "title": "Three loops, nothing to do",
+      "outro": "Only the `do-while` printed. On data that might be empty, a `do-while` will process the thing that is not there."
+    },
+    {
+      "type": "tip",
+      "value": "`do-while` is the least used of the three. Reach for it for menus and input checks, and use `for` or `while` for everything else."
+    }
+  ],
+  "editorCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        int choice;\n\n        do {\n            System.out.println(\"1. Say hello\");\n            System.out.println(\"2. Count to three\");\n            System.out.println(\"0. Quit\");\n            System.out.print(\"Choice? \");\n            choice = scanner.nextInt();\n\n            if (choice == 1) {\n                System.out.println(\"Hello!\");\n            } else if (choice == 2) {\n                for (int i = 1; i <= 3; i++) {\n                    System.out.println(i);\n                }\n            } else if (choice != 0) {\n                System.out.println(\"No such option.\");\n            }\n        } while (choice != 0);\n\n        System.out.println(\"Goodbye.\");\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Rewrite this while loop as a do-while that produces the same output.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int i = 1;\n\n        while (i <= 5) {\n            System.out.println(\"Turn \" + i);\n            i++;\n        }\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Use a do-while to keep asking for a day number until the answer is between 1 and 7, then print it.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        int day;\n\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Build a menu with a do-while: option 1 prints your name, option 2 prints today as a word, option 0 quits. Anything else says it is not an option.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        int choice;\n\n    }\n}"
+    },
+    {
+      "id": 4,
+      "question": "This do-while will not compile. Find the two problems and fix them.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        do {\n            int n = 1;\n            System.out.println(n);\n            n++;\n        } while (n <= 3)\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is the one real difference between `while` and `do-while`?",
+      "options": [
+        "A do-while tests its condition after the block, so the block always runs at least once",
+        "A do-while can only count upwards",
+        "A do-while does not need a condition"
+      ],
+      "answer": 0,
+      "explain": "Everything else about them is the same. The order of block and test is the whole difference."
+    },
+    {
+      "question": "How many times does `do { System.out.println(\"hi\"); } while (false);` print?",
+      "options": [
+        "Once",
+        "Never",
+        "For ever"
+      ],
+      "answer": 0,
+      "explain": "The block runs before the condition is ever looked at, so a condition that is false from the start still allows one turn."
+    },
+    {
+      "question": "What is easy to forget when writing a do-while?",
+      "options": [
+        "The semicolon after the closing `while (condition)`",
+        "The braces around the block",
+        "The `do` keyword"
+      ],
+      "answer": 0,
+      "explain": "It is the only loop that ends with a semicolon, because that final `while (...)` completes a statement instead of opening a block."
+    },
+    {
+      "question": "Why is a do-while a good fit for input validation?",
+      "options": [
+        "You have to ask once before you can know whether to ask again",
+        "It stops the user typing letters",
+        "It is faster than a while loop"
+      ],
+      "answer": 0,
+      "explain": "The first question is unavoidable, so a loop that always runs once lets you write the prompt and the rule a single time."
+    },
+    {
+      "question": "Why must the variable tested by a do-while be declared above the `do`?",
+      "options": [
+        "The condition sits outside the block, so a variable declared inside is already gone",
+        "do-while cannot use int variables",
+        "Because it has to be final"
+      ],
+      "answer": 0,
+      "explain": "Anything declared inside the braces stops existing at the closing brace, and the condition comes after that closing brace."
+    }
+  ]
+}

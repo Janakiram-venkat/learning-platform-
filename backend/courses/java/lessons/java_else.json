@@ -1,0 +1,375 @@
+{
+  "lessonId": "java_else",
+  "title": "else and else if",
+  "description": "Choosing exactly one path out of several, and why the order of the tests matters.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Other Path"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🍦",
+      "real": "Ice cream or fruit",
+      "concept": "if and else",
+      "code": "if (sunny) {\n    eat(\"ice cream\");\n} else {\n    eat(\"fruit\");\n}",
+      "text": "If it is sunny you get ice cream, otherwise fruit. You always get exactly one of the two, never both and never neither."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int score = 42;\n\n        if (score >= 50) {\n            System.out.println(\"You passed!\");\n        } else {\n            System.out.println(\"Not this time. Try again.\");\n        }\n\n        System.out.println(\"Score recorded.\");\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Store `42` in `score`.",
+          "vars": {
+            "score": "42"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Is `42 >= 50`? No, `false`. Skip the `if` block."
+        },
+        {
+          "line": 7,
+          "note": "The condition was false, so Java takes the `else` path."
+        },
+        {
+          "line": 8,
+          "note": "Run the `else` block.",
+          "out": [
+            "Not this time. Try again."
+          ]
+        },
+        {
+          "line": 11,
+          "note": "After the whole if/else, this always runs.",
+          "out": [
+            "Score recorded."
+          ]
+        }
+      ],
+      "title": "Follow the false path",
+      "outro": "`else` has no condition of its own. It is everything the `if` did not catch."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Two conditions",
+          "tone": "bad",
+          "code": "if (score >= 50) { ... }\nif (score < 50) { ... }",
+          "text": "Works, but you must keep two tests exact opposites."
+        },
+        {
+          "title": "else",
+          "tone": "good",
+          "code": "if (score >= 50) { ... }\nelse { ... }",
+          "text": "One test. Between them they cover every score."
+        }
+      ],
+      "title": "Why not two opposite ifs?",
+      "caption": "Change one condition and forget the other, and some score falls through both. `else` cannot drift out of step."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Big then Small",
+        "Big",
+        "Small",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`7 > 10` is false, so the `else` block runs.",
+      "code": "int n = 7;\nif (n > 10) {\n    System.out.println(\"Big\");\n} else {\n    System.out.println(\"Small\");\n}"
+    },
+    {
+      "type": "heading",
+      "value": "The else if Ladder"
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "🅰️",
+          "label": "marks >= 90?",
+          "detail": "Yes: Grade A, stop."
+        },
+        {
+          "icon": "🅱️",
+          "label": "marks >= 75?",
+          "detail": "Yes: Grade B, stop."
+        },
+        {
+          "icon": "©️",
+          "label": "marks >= 60?",
+          "detail": "Yes: Grade C, stop."
+        },
+        {
+          "icon": "🔤",
+          "label": "marks >= 40?",
+          "detail": "Yes: Grade D, stop."
+        },
+        {
+          "icon": "🛟",
+          "label": "else",
+          "detail": "None were true: Grade F."
+        }
+      ],
+      "title": "Checked top to bottom",
+      "caption": "The first true test wins. After that the rest of the chain is never even looked at."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int marks = 80;\n\n        if (marks >= 90) {\n            System.out.println(\"Grade: A\");\n        } else if (marks >= 75) {\n            System.out.println(\"Grade: B\");\n        } else if (marks >= 60) {\n            System.out.println(\"Grade: C\");\n        } else if (marks >= 40) {\n            System.out.println(\"Grade: D\");\n        } else {\n            System.out.println(\"Grade: F\");\n        }\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Store `80` in `marks`.",
+          "vars": {
+            "marks": "80"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Is `80 >= 90`? No. Move down the ladder."
+        },
+        {
+          "line": 7,
+          "note": "Is `80 >= 75`? Yes. This branch wins."
+        },
+        {
+          "line": 8,
+          "note": "Run it. The chain is now finished.",
+          "out": [
+            "Grade: B"
+          ]
+        }
+      ],
+      "title": "Which branch wins?",
+      "outro": "80 is also `>= 60` and `>= 40`, but those tests never run. Separate `if`s would check them all; a chain stops at the first true one."
+    },
+    {
+      "type": "check",
+      "question": "What does the ladder print when `marks` is `65`?",
+      "options": [
+        "Grade: B",
+        "Grade: C",
+        "Grade: C then Grade: D",
+        "Grade: D"
+      ],
+      "answer": 1,
+      "explain": "`65 >= 90` and `65 >= 75` are false. `65 >= 60` is true, so `Grade: C` prints and the chain stops."
+    },
+    {
+      "type": "heading",
+      "value": "Order Decides the Answer"
+    },
+    {
+      "type": "paragraph",
+      "value": "Because the first true test wins, the order of a chain is part of its meaning."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int marks = 95;\n\n        // WRONG: the loosest test comes first\n        if (marks >= 40) {\n            System.out.println(\"Grade: D\");\n        } else if (marks >= 60) {\n            System.out.println(\"Grade: C\");\n        } else if (marks >= 90) {\n            System.out.println(\"Grade: A\");\n        }\n    }\n}",
+      "output": [
+        "Grade: D"
+      ],
+      "caption": "Top marks of 95 came out as a D. Every mark of 40 or more passes the first test, so nothing below it can run. Put the strictest test first."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Says too much",
+          "tone": "neutral",
+          "code": "if (marks >= 90) { ... }\nelse if (marks >= 75 && marks < 90) { ... }",
+          "text": "Works, but `&& marks < 90` is already known. Change a band and you edit two numbers."
+        },
+        {
+          "title": "Just enough",
+          "tone": "good",
+          "code": "if (marks >= 90) { ... }\nelse if (marks >= 75) { ... }",
+          "text": "Anything reaching the second test is below 90 already."
+        }
+      ],
+      "title": "Do not repeat the bound",
+      "caption": "Read a chain aloud with \"otherwise\": if 90 or more, A, otherwise if 75 or more, B. If it makes sense, the order is right."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Hot",
+        "Warm then Hot",
+        "Warm",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`35 > 20` is true first, so `Warm` prints and the `else if` is skipped, even though `35 > 30` is also true.",
+      "code": "int temp = 35;\nif (temp > 20) {\n    System.out.println(\"Warm\");\n} else if (temp > 30) {\n    System.out.println(\"Hot\");\n}"
+    },
+    {
+      "type": "heading",
+      "value": "The Final else Is a Safety Net"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🛟",
+          "text": "It catches the unexpected",
+          "sub": "A rating of 0 or 99 still gets an answer instead of silence."
+        },
+        {
+          "icon": "📦",
+          "text": "It lets a chain choose a value",
+          "sub": "Declare the variable first, then assign it in every branch."
+        }
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int age = 8;\n        String category;\n        int price;\n\n        if (age < 5) {\n            category = \"Infant\";\n            price = 0;\n        } else if (age < 13) {\n            category = \"Child\";\n            price = 120;\n        } else {\n            category = \"Adult\";\n            price = 250;\n        }\n\n        System.out.println(category + \": \" + price);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Store `8` in `age`.",
+          "vars": {
+            "age": "8"
+          }
+        },
+        {
+          "line": 4,
+          "note": "Declare `category` with no value yet.",
+          "vars": {
+            "category": "(empty)"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Same for `price`.",
+          "vars": {
+            "price": "(empty)"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Is `8 < 5`? No."
+        },
+        {
+          "line": 10,
+          "note": "Is `8 < 13`? Yes. This branch wins."
+        },
+        {
+          "line": 11,
+          "note": "Assign the category.",
+          "vars": {
+            "category": "\"Child\""
+          }
+        },
+        {
+          "line": 12,
+          "note": "Assign the price.",
+          "vars": {
+            "price": "120"
+          }
+        },
+        {
+          "line": 18,
+          "note": "Both now have a value, so they can be printed.",
+          "out": [
+            "Child: 120"
+          ]
+        }
+      ],
+      "title": "A chain that picks values"
+    },
+    {
+      "type": "warning",
+      "value": "Swap the last `else` for `else if (age >= 13)` and it stops compiling: `variable category might not have been initialized`. Java cannot prove every path sets it. A forgotten branch becomes an error, not a wrong answer.",
+      "title": "Java checks every path"
+    }
+  ],
+  "editorCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Marks out of 100? \");\n        int marks = scanner.nextInt();\n\n        if (marks >= 90) {\n            System.out.println(\"Grade: A\");\n        } else if (marks >= 75) {\n            System.out.println(\"Grade: B\");\n        } else if (marks >= 60) {\n            System.out.println(\"Grade: C\");\n        } else if (marks >= 40) {\n            System.out.println(\"Grade: D\");\n        } else {\n            System.out.println(\"Grade: F\");\n        }\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a number and print whether it is positive, negative, or zero. Use an `if`, an `else if` and an `else`.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Number? \");\n        int n = scanner.nextInt();\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "This gives every student a D. Reorder the chain so that 95 prints A and 65 prints C.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int marks = 95;\n\n        if (marks >= 40) {\n            System.out.println(\"Grade: D\");\n        } else if (marks >= 60) {\n            System.out.println(\"Grade: C\");\n        } else if (marks >= 90) {\n            System.out.println(\"Grade: A\");\n        }\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Ask for a month number and print the season: 12, 1 or 2 is Winter, 3 to 5 is Spring, 6 to 8 is Summer, 9 to 11 is Autumn. Add a final `else` for anything that is not 1 to 12.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Month number? \");\n        int month = scanner.nextInt();\n\n    }\n}"
+    },
+    {
+      "id": 4,
+      "question": "Run this and read the compile error. Then fix it by turning the last `else if` into a plain `else`.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int age = 30;\n        String category;\n\n        if (age < 13) {\n            category = \"Child\";\n        } else if (age >= 13) {\n            category = \"Adult\";\n        }\n\n        System.out.println(category);\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "In an `if` and `else` pair, how many blocks run?",
+      "options": [
+        "Exactly one, always",
+        "One or both, depending on the condition",
+        "Possibly neither"
+      ],
+      "answer": 0,
+      "explain": "The `else` covers every case the `if` did not, so exactly one of the two always runs."
+    },
+    {
+      "question": "In an `else if` chain, which block runs when three conditions are all true?",
+      "options": [
+        "Only the first true one, and the rest are skipped",
+        "All three",
+        "Only the last true one"
+      ],
+      "answer": 0,
+      "explain": "Java tests from the top and stops at the first true condition. That is what makes a chain pick exactly one alternative."
+    },
+    {
+      "question": "Why does this chain give 95 a grade of D?  `if (marks >= 40) D else if (marks >= 90) A`",
+      "options": [
+        "The loosest test comes first, so it catches every mark of 40 or more.",
+        "95 is not greater than 90.",
+        "The chain needs a final `else`."
+      ],
+      "answer": 0,
+      "explain": "The first true test wins, and 95 passes `>= 40`. Range tests must be ordered from narrowest to widest."
+    },
+    {
+      "question": "In a chain that already tested `marks >= 90` first, why is `marks >= 75 && marks < 90` more than you need?",
+      "options": [
+        "Anything reaching the second test is already below 90.",
+        "`&&` cannot be used inside an `else if`.",
+        "It is wrong: it would miss a mark of 89."
+      ],
+      "answer": 0,
+      "explain": "The earlier test has already removed everything at 90 or above, so the extra upper bound can only be true. One condition is fewer things to keep in step."
+    },
+    {
+      "question": "Why does dropping the final `else` sometimes cause `variable might not have been initialized`?",
+      "options": [
+        "Java cannot prove every path assigns the variable.",
+        "A chain must always end with `else`.",
+        "The variable was declared in the wrong place."
+      ],
+      "answer": 0,
+      "explain": "Without a catch-all branch there is a path where nothing is assigned, and Java refuses to let you read a local variable that might have no value."
+    }
+  ]
+}

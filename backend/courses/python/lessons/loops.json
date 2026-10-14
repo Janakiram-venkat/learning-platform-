@@ -9,56 +9,356 @@
       "value": "Repeating Without Retyping"
     },
     {
-      "type": "paragraph",
-      "value": "Imagine having to write 'I will not throw paper airplanes' one hundred times. By hand that takes an afternoon. A loop lets you write the action once and tell Python how many times to repeat it. The most common one is the `for` loop, which you use together with `range()`."
+      "type": "analogy",
+      "emoji": "✏️",
+      "real": "Writing a line 100 times by hand",
+      "concept": "A loop",
+      "code": "for i in range(100):\n    print(\"I will not throw paper airplanes\")",
+      "text": "By hand, writing 'I will not throw paper airplanes' one hundred times takes an afternoon. A **loop** lets you write the action once and tell Python how many times to repeat it."
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "for i in range(3):\n    print(\"Hello!\")"
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔁",
+          "text": "A loop repeats code",
+          "sub": "Write it once, run it many times."
+        },
+        {
+          "icon": "🔢",
+          "text": "`for` loop",
+          "sub": "The most common loop. It repeats a set number of times."
+        },
+        {
+          "icon": "📏",
+          "text": "`range()`",
+          "sub": "Tells the `for` loop how many times to go round."
+        }
+      ],
+      "title": "The big idea"
     },
     {
-      "type": "simulation",
-      "kind": "loop",
-      "times": 3,
-      "say": "I love Python!"
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "for",
+          "label": "keyword",
+          "note": "Starts a loop."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "i",
+          "label": "counter",
+          "note": "A variable that holds which turn you are on."
+        },
+        {
+          "code": " in "
+        },
+        {
+          "code": "range(3)",
+          "label": "how many",
+          "note": "`range(3)` means: go round 3 times."
+        },
+        {
+          "code": ":",
+          "label": "colon",
+          "note": "Ends the loop line. The repeated lines come next, indented."
+        }
+      ],
+      "title": "Anatomy of a for loop"
+    },
+    {
+      "type": "stepper",
+      "code": "for i in range(3):\n    print(\"Hello!\")",
+      "steps": [
+        {
+          "line": 1,
+          "note": "The loop starts. Turn 1: `i` is set to `0`.",
+          "vars": {
+            "i": "0"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Run the indented line.",
+          "out": [
+            "Hello!"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "Back to the top. Turn 2: `i` becomes `1`.",
+          "vars": {
+            "i": "1"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Run the indented line again.",
+          "out": [
+            "Hello!"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "Back to the top. Turn 3: `i` becomes `2`.",
+          "vars": {
+            "i": "2"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Run the indented line a third time.",
+          "out": [
+            "Hello!"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "`range(3)` has no numbers left, so the loop ends."
+        }
+      ],
+      "title": "Watch the loop go round",
+      "outro": "One `print` line, three lines of output."
+    },
+    {
+      "type": "check",
+      "question": "How many lines does this print?",
+      "options": [
+        "3",
+        "5",
+        "1",
+        "4"
+      ],
+      "answer": 3,
+      "explain": "`range(4)` makes the loop go round 4 times, and each turn prints one line.",
+      "code": "for i in range(4):\n    print(\"Hi\")"
     },
     {
       "type": "heading",
       "value": "Indentation"
     },
     {
-      "type": "paragraph",
-      "value": "Notice the space in front of `print`. That is called indentation, and you make it by pressing Tab or typing four spaces. The indented lines are the ones that get repeated, so indentation is how Python knows which lines belong inside the loop."
+      "type": "points",
+      "items": [
+        "Look at the space in front of `print` inside the loop.",
+        "That space is called **indentation**. Press Tab or type four spaces.",
+        "The indented lines are the ones that get repeated.",
+        "Indentation is how Python knows which lines belong inside the loop."
+      ],
+      "title": "Inside or outside?"
     },
     {
-      "type": "tip",
-      "value": "If you forget to indent the line inside the loop, Python stops with an error, because it cannot tell which lines you meant to repeat."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Inside the loop",
+          "tone": "good",
+          "code": "for i in range(2):\n    print(\"Hop\")\nprint(\"Done\")",
+          "text": "`Hop` is indented, so it repeats. `Done` is not, so it runs once, after the loop."
+        },
+        {
+          "title": "Error",
+          "tone": "bad",
+          "code": "for i in range(2):\nprint(\"Hop\")",
+          "text": "Nothing is indented, so Python cannot tell what to repeat. It stops with an `IndentationError`."
+        }
+      ],
+      "title": "Indented vs not indented",
+      "caption": "If you forget to indent the line inside the loop, Python stops with an error, because it cannot tell which lines you meant to repeat."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "for i in range(2):\n    print(\"Hop\")\nprint(\"Done\")",
+      "output": [
+        "Hop",
+        "Hop",
+        "Done"
+      ]
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "A, B, C",
+        "A, A, B, B, C",
+        "A, B, A, B, C (each on its own line)",
+        "A, B, C, A, B, C"
+      ],
+      "answer": 2,
+      "explain": "`A` and `B` are both indented, so both repeat on each of the 2 turns. `C` is not indented, so it prints once at the end.",
+      "code": "for i in range(2):\n    print(\"A\")\n    print(\"B\")\nprint(\"C\")"
     },
     {
       "type": "heading",
       "value": "The Counter Variable"
     },
     {
-      "type": "paragraph",
-      "value": "The `i` in the loop is a variable that holds which turn you are on. Python fills it in for you on every repeat. It starts at 0, so for `range(5)` the values go 0, 1, 2, 3, 4. You can print it like any other variable."
+      "type": "points",
+      "items": [
+        "The `i` in the loop is a variable that holds which turn you are on.",
+        "Python fills it in for you on every repeat.",
+        "It starts at **0**, so `range(5)` gives `0, 1, 2, 3, 4`.",
+        "You can print it like any other variable."
+      ],
+      "title": "Meet i"
+    },
+    {
+      "type": "stepper",
+      "code": "for i in range(3):\n    print(\"Repeat number:\", i)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Turn 1. Counting starts at `0`.",
+          "vars": {
+            "i": "0"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Print the text, then the value inside `i`.",
+          "out": [
+            "Repeat number: 0"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "Turn 2. Python changes `i` to `1` for you.",
+          "vars": {
+            "i": "1"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Same line, but `i` holds something new.",
+          "out": [
+            "Repeat number: 1"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "Turn 3. `i` becomes `2`.",
+          "vars": {
+            "i": "2"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Print again.",
+          "out": [
+            "Repeat number: 2"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "No numbers left in `range(3)`. The loop is done."
+        }
+      ],
+      "title": "Watch i change",
+      "outro": "Three turns, and `i` went 0, 1, 2. It never reached 3."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "for i in range(5):\n    print(\"Repeat number:\", i)"
+      "value": "for i in range(5):\n    print(\"Repeat number:\", i)",
+      "output": [
+        "Repeat number: 0",
+        "Repeat number: 1",
+        "Repeat number: 2",
+        "Repeat number: 3",
+        "Repeat number: 4"
+      ]
     },
     {
       "type": "tip",
       "value": "The counter does not have to be called `i`. Any variable name works, and a clear one often reads better: `for floor in range(5):`."
     },
     {
+      "type": "check",
+      "question": "What is the last number this prints?",
+      "options": [
+        "4",
+        "0",
+        "3",
+        "2"
+      ],
+      "answer": 2,
+      "explain": "`range(4)` gives `0, 1, 2, 3`. It starts at 0, so the last number is 3, not 4.",
+      "code": "for i in range(4):\n    print(i)"
+    },
+    {
       "type": "heading",
       "value": "Choosing Where to Start and Stop"
     },
     {
+      "type": "points",
+      "items": [
+        {
+          "icon": "1️⃣",
+          "text": "`range(stop)`",
+          "sub": "`range(5)` gives `0, 1, 2, 3, 4`"
+        },
+        {
+          "icon": "2️⃣",
+          "text": "`range(start, stop)`",
+          "sub": "`range(1, 6)` gives `1, 2, 3, 4, 5`"
+        },
+        {
+          "icon": "3️⃣",
+          "text": "`range(start, stop, step)`",
+          "sub": "`range(0, 10, 2)` gives `0, 2, 4, 6, 8`"
+        },
+        {
+          "icon": "🔙",
+          "text": "Negative step",
+          "sub": "Counts backwards: `range(5, 0, -1)` gives `5, 4, 3, 2, 1`"
+        }
+      ],
+      "title": "range can take 1, 2 or 3 numbers"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "range("
+        },
+        {
+          "code": "0",
+          "label": "start",
+          "note": "The first number you get."
+        },
+        {
+          "code": ", "
+        },
+        {
+          "code": "10",
+          "label": "stop",
+          "note": "Counting stops **before** this number. You never get it."
+        },
+        {
+          "code": ", "
+        },
+        {
+          "code": "2",
+          "label": "step",
+          "note": "How much to jump each time. A negative step counts backwards."
+        },
+        {
+          "code": ")"
+        }
+      ],
+      "title": "Anatomy of range with three numbers",
+      "caption": "`range` always stops **before** the stop number, never on it. That is why `range(5)` gives five numbers but the last one is 4."
+    },
+    {
       "type": "paragraph",
-      "value": "`range()` can take more than one number. With two numbers it starts at the first and stops before the second, so `range(1, 6)` gives 1, 2, 3, 4, 5. With a third number it counts in steps, and a negative step counts backwards. Turn the dials below to see exactly which numbers come out."
+      "value": "Turn the dials below to see exactly which numbers come out."
     },
     {
       "type": "widget",
@@ -70,11 +370,31 @@
     {
       "type": "code",
       "language": "python",
-      "value": "for i in range(1, 6):\n    print(i)        # 1 2 3 4 5\n\nfor i in range(0, 10, 2):\n    print(i)        # 0 2 4 6 8"
+      "value": "for i in range(1, 6):\n    print(i)        # 1 2 3 4 5\n\nfor i in range(0, 10, 2):\n    print(i)        # 0 2 4 6 8",
+      "output": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "0",
+        "2",
+        "4",
+        "6",
+        "8"
+      ]
     },
     {
-      "type": "tip",
-      "value": "range always stops before the stop number, never on it. That is why range(5) gives five numbers but the last one is 4."
+      "type": "check",
+      "question": "Which numbers does `range(2, 8, 2)` give?",
+      "options": [
+        "2, 4, 6, 8",
+        "2, 3, 4, 5, 6, 7",
+        "2, 4, 6",
+        "0, 2, 4, 6"
+      ],
+      "answer": 2,
+      "explain": "Start at 2, jump by 2, and stop before 8. So you get 2, 4 and 6."
     }
   ],
   "editorCode": "for i in range(5):\n    print(\"I am learning so fast!\")",

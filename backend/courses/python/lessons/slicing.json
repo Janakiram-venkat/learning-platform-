@@ -9,34 +9,136 @@
       "value": "Getting One Letter"
     },
     {
-      "type": "paragraph",
-      "value": "A string is a row of characters in order, exactly like a list of items, and it is numbered the same way. The first letter is at index 0, and negative numbers count back from the end, so index -1 is always the last letter."
+      "type": "analogy",
+      "emoji": "🚂",
+      "real": "Train carriages",
+      "concept": "A string",
+      "code": "word = \"Python\"",
+      "text": "A string is a row of characters in order, like carriages in a train. It is numbered exactly like a list: the first one is number 0."
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "0 / -6",
+          "value": "\"P\"",
+          "type": "str"
+        },
+        {
+          "name": "1 / -5",
+          "value": "\"y\"",
+          "type": "str"
+        },
+        {
+          "name": "2 / -4",
+          "value": "\"t\"",
+          "type": "str"
+        },
+        {
+          "name": "3 / -3",
+          "value": "\"h\"",
+          "type": "str"
+        },
+        {
+          "name": "4 / -2",
+          "value": "\"o\"",
+          "type": "str"
+        },
+        {
+          "name": "5 / -1",
+          "value": "\"n\"",
+          "type": "str"
+        }
+      ],
+      "title": "Each letter has an index",
+      "caption": "Index 0 is the first letter. Negative numbers count back from the end, so index -1 is always the last letter."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "word = \"Python\"\n\nprint(word[0])     # P\nprint(word[2])     # t\nprint(word[-1])    # n"
+      "value": "word = \"Python\"\n\nprint(word[0])\nprint(word[2])\nprint(word[-1])",
+      "output": [
+        "P",
+        "t",
+        "n"
+      ]
     },
     {
-      "type": "tip",
-      "value": "Six letters means the valid indexes are 0 to 5. Asking for `word[6]` raises an IndexError, the same error a list gives when you go past the end."
+      "type": "warning",
+      "value": "Six letters means the valid indexes are 0 to 5. Asking for `word[6]` raises an `IndexError`, the same error a list gives when you go past the end."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "c",
+        "r",
+        "e",
+        "a"
+      ],
+      "answer": 2,
+      "explain": "Index -1 is always the last letter. The last letter of `cake` is `e`.",
+      "code": "food = \"cake\"\nprint(food[-1])"
     },
     {
       "type": "heading",
       "value": "Getting a Section"
     },
     {
-      "type": "paragraph",
-      "value": "To take several letters at once you use a slice: a start index, a colon, and a stop index. The rule to hold on to is that the slice runs up to the stop index but does not include it. So `word[0:2]` gives the letters at 0 and 1, and stops just short of 2."
+      "type": "points",
+      "items": [
+        "A **slice** takes several letters at once.",
+        "Write a start index, a colon, and a stop index.",
+        "The slice runs **up to** the stop index but does **not include** it.",
+        "Number of letters you get = stop minus start."
+      ],
+      "title": "The slice rule"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "word"
+        },
+        {
+          "code": "["
+        },
+        {
+          "code": "0",
+          "label": "start",
+          "note": "The first index you get."
+        },
+        {
+          "code": ":",
+          "label": "colon",
+          "note": "Means: a range, not one letter."
+        },
+        {
+          "code": "2",
+          "label": "stop",
+          "note": "The first index left out. You get 0 and 1, then it stops just short of 2."
+        },
+        {
+          "code": "]"
+        }
+      ],
+      "title": "Anatomy of a slice"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "word = \"Python\"\n\nprint(word[0:2])   # Py\nprint(word[2:5])   # tho"
+      "value": "word = \"Python\"\n\nprint(word[0:2])\nprint(word[2:5])",
+      "output": [
+        "Py",
+        "tho"
+      ],
+      "caption": "`word[2:5]` gives indexes 2, 3 and 4: three letters, because 5 - 2 is 3."
     },
     {
       "type": "paragraph",
-      "value": "Move the two handles below and watch which tiles light up. The stop number is the first letter left out, and the number of letters you get is always stop minus start."
+      "value": "Move the two handles below and watch which tiles light up. The stop number is the first letter left out."
     },
     {
       "type": "widget",
@@ -44,25 +146,91 @@
       "word": "Python"
     },
     {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "anan",
+        "nan",
+        "ana",
+        "an"
+      ],
+      "answer": 2,
+      "explain": "Start at index 1 (`a`) and stop just before index 4: indexes 1, 2 and 3 give `ana`.",
+      "code": "fruit = \"banana\"\nprint(fruit[1:4])"
+    },
+    {
       "type": "heading",
       "value": "Leaving a Number Out"
     },
     {
-      "type": "paragraph",
-      "value": "Either number can be left out, and Python fills in the obvious answer. Leave out the start and it begins at the beginning. Leave out the stop and it runs to the end. Leave out both and you get the whole string back."
+      "type": "points",
+      "items": [
+        {
+          "icon": "⏮️",
+          "text": "`word[:2]`",
+          "sub": "No start: begins at the beginning."
+        },
+        {
+          "icon": "⏭️",
+          "text": "`word[2:]`",
+          "sub": "No stop: runs to the end."
+        },
+        {
+          "icon": "🔁",
+          "text": "`word[:]`",
+          "sub": "Neither: the whole string."
+        },
+        {
+          "icon": "🔚",
+          "text": "`word[-3:]`",
+          "sub": "The last three letters."
+        }
+      ],
+      "title": "Python fills in the obvious answer"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "word = \"Python\"\n\nprint(word[:2])    # Py, from the start\nprint(word[2:])    # thon, to the end\nprint(word[-3:])   # hon, the last three letters"
+      "value": "word = \"Python\"\n\nprint(word[:2])    # from the start\nprint(word[2:])    # to the end\nprint(word[-3:])   # the last three letters\nprint(word)        # unchanged",
+      "output": [
+        "Py",
+        "thon",
+        "hon",
+        "Python"
+      ],
+      "caption": "A slice is a new string: `word` itself never changes"
     },
     {
-      "type": "paragraph",
-      "value": "Because slicing never changes the original, `word` still holds \"Python\" after all of those. A slice hands you a new string, just like the methods in the last lesson."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Index past the end",
+          "tone": "bad",
+          "code": "print(word[99])",
+          "text": "One letter that is not there: `IndexError`."
+        },
+        {
+          "title": "Slice past the end",
+          "tone": "good",
+          "code": "print(word[2:99])",
+          "text": "Python quietly stops at the end: `thon`. If start and stop cross over, you get an empty string, not a crash."
+        }
+      ],
+      "title": "Slices never crash"
     },
     {
-      "type": "tip",
-      "value": "A slice never raises an IndexError. Ask for `word[2:99]` and Python quietly stops at the end of the string, and if start and stop have crossed over you get an empty string back rather than a crash."
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Gho",
+        "ghost",
+        "ost",
+        "st"
+      ],
+      "answer": 2,
+      "explain": "`[-3:]` starts three letters from the end and runs to the end.",
+      "code": "name = \"ghost\"\nprint(name[-3:])"
     }
   ],
   "editorCode": "secret = \"AbraCadabra\"\n\nprint(secret[0:4])    # Abra\nprint(secret[4:])     # Cadabra\nprint(secret[-1])     # a\nprint(\"Unchanged:\", secret)",

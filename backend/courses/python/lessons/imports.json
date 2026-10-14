@@ -9,73 +9,297 @@
       "value": "Using Code Other People Wrote"
     },
     {
-      "type": "paragraph",
-      "value": "You do not have to build everything from scratch. Python arrives with a large pile of ready-made code, sorted into modules, and each module is a collection of tools for one job. Bringing one in takes a single line at the top of your file."
+      "type": "analogy",
+      "emoji": "🧰",
+      "real": "Borrowing a toolbox",
+      "concept": "Importing a module",
+      "code": "import random",
+      "text": "You don't build a hammer every time you need one. You grab the toolbox. Python comes with lots of ready-made toolboxes called **modules**, and `import` brings one into your program."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "random",
+          "label": "module",
+          "note": "The toolbox you imported."
+        },
+        {
+          "code": ".",
+          "label": "dot",
+          "note": "Means: look inside this module."
+        },
+        {
+          "code": "randint",
+          "label": "tool",
+          "note": "The function you want from the toolbox."
+        },
+        {
+          "code": "(1, 6)",
+          "label": "arguments",
+          "note": "What you hand to the tool, like any function."
+        }
+      ],
+      "title": "Anatomy of using a module"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "import random\n\ndice = random.randint(1, 6)\nprint(\"You rolled a\", dice)"
+      "value": "import random\n\ndice = random.randint(1, 6)\nprint(\"You rolled a\", dice)",
+      "caption": "The number is random, so each run can print something different, like `You rolled a 4`."
     },
     {
       "type": "paragraph",
-      "value": "After the import, you reach a tool by writing the module's name, a dot, then the tool's name. Without the import the name `random` means nothing at all, and Python stops with a `NameError`. Switch the import off in the explorer below to see exactly that."
+      "value": "Without the import line, the name `random` means nothing and Python stops with a `NameError`. Switch the import off in the explorer below to see exactly that."
     },
     {
       "type": "widget",
       "kind": "import-explorer"
     },
     {
+      "type": "check",
+      "question": "What happens if you call `random.randint(1, 6)` without `import random`?",
+      "options": [
+        "It returns 0",
+        "A NameError",
+        "Python imports it for you",
+        "It prints nothing"
+      ],
+      "answer": 1,
+      "explain": "Without the import, Python has never heard of `random`, so it stops with a `NameError`."
+    },
+    {
       "type": "heading",
       "value": "random, for Anything Unpredictable"
     },
     {
-      "type": "paragraph",
-      "value": "The `random` module is what you reach for when a program should not do the same thing every time: rolling dice, shuffling a deck, picking a prize. `randint(a, b)` gives a whole number between the two, including both ends, and `choice()` picks one item out of a list."
+      "type": "points",
+      "items": [
+        {
+          "icon": "🎲",
+          "text": "`random.randint(a, b)`",
+          "sub": "A whole number from `a` to `b`, including both ends."
+        },
+        {
+          "icon": "🎯",
+          "text": "`random.choice(list)`",
+          "sub": "Picks one item out of a list."
+        }
+      ],
+      "title": "For when a program shouldn't do the same thing every time"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "import random\n\nprint(random.randint(1, 6))                       # 1 to 6, either end possible\nprint(random.choice([\"rock\", \"paper\", \"scissors\"]))"
+      "value": "import random\n\nprint(random.randint(1, 6))   # 1 to 6, either end possible\nprint(random.choice([\"rock\", \"paper\", \"scissors\"]))",
+      "caption": "Random each time: for example `3` and then `paper`."
     },
     {
-      "type": "tip",
-      "value": "`randint(1, 6)` includes 6, unlike `range(1, 6)`, which stops at 5. The two look alike and behave differently, so it is worth reading twice."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "randint(1, 6)",
+          "tone": "neutral",
+          "code": "random.randint(1, 6)",
+          "text": "Can give 1, 2, 3, 4, 5 **or 6**. Includes the end."
+        },
+        {
+          "title": "range(1, 6)",
+          "tone": "neutral",
+          "code": "range(1, 6)",
+          "text": "Gives 1, 2, 3, 4, 5. **Stops before** 6."
+        }
+      ],
+      "title": "Look alike, behave differently",
+      "caption": "`randint(1, 6)` includes 6, unlike `range(1, 6)`, which stops at 5. It's worth reading twice."
+    },
+    {
+      "type": "check",
+      "question": "Which numbers can `random.randint(1, 3)` give?",
+      "options": [
+        "1 or 2",
+        "1, 2 or 3",
+        "0, 1, 2 or 3",
+        "Only 3"
+      ],
+      "answer": 1,
+      "explain": "`randint` includes both ends, so 1, 2 and 3 are all possible."
     },
     {
       "type": "heading",
       "value": "math, for the Trickier Sums"
     },
     {
-      "type": "paragraph",
-      "value": "The everyday operators cover most arithmetic. The `math` module covers the rest: square roots, rounding in a chosen direction, and stored values such as pi. Note that `math.pi` is a value rather than a function, so it takes no parentheses."
+      "type": "points",
+      "items": [
+        {
+          "icon": "√",
+          "text": "`math.sqrt(25)`",
+          "sub": "Square root. Always a float: `5.0`."
+        },
+        {
+          "icon": "⬇️",
+          "text": "`math.floor(4.8)`",
+          "sub": "Rounds down: `4`."
+        },
+        {
+          "icon": "🥧",
+          "text": "`math.pi`",
+          "sub": "A stored value, not a function, so no parentheses."
+        }
+      ],
+      "title": "The math module covers what the operators don't"
+    },
+    {
+      "type": "stepper",
+      "code": "import math\n\nprint(math.sqrt(25))\nprint(math.pi)\nprint(math.floor(4.8))",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Load the `math` toolbox. Now the name `math` means something.",
+          "vars": {
+            "math": "module"
+          }
+        },
+        {
+          "line": 3,
+          "note": "`sqrt` finds the square root. It always gives a float.",
+          "out": [
+            "5.0"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "`pi` is a stored value, so there are no parentheses.",
+          "out": [
+            "3.141592653589793"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "`floor` rounds down, even though 4.8 is close to 5.",
+          "out": [
+            "4"
+          ]
+        }
+      ],
+      "title": "Step through the math tools"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "import math\n\nprint(math.sqrt(25))     # 5.0, always a float\nprint(math.pi)           # 3.141592653589793\nprint(math.floor(4.8))   # 4, rounded down"
+      "value": "import math\n\nprint(math.sqrt(25))     # always a float\nprint(math.pi)\nprint(math.floor(4.8))   # rounded down",
+      "output": [
+        "5.0",
+        "3.141592653589793",
+        "4"
+      ]
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "4",
+        "3.9",
+        "3",
+        "4.0"
+      ],
+      "answer": 2,
+      "explain": "`math.floor` always rounds down, so `3.9` becomes `3`.",
+      "code": "import math\nprint(math.floor(3.9))"
     },
     {
       "type": "heading",
-      "value": "time, and Another Way to Import"
+      "value": "Pausing with time"
     },
     {
-      "type": "paragraph",
-      "value": "The `time` module can pause your program, which is handy for letting a countdown land one line at a time instead of all at once."
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "💬",
+          "label": "`print(\"Starting...\")`",
+          "detail": "Shows straight away."
+        },
+        {
+          "icon": "⏳",
+          "label": "`time.sleep(1)`",
+          "detail": "The program waits one second."
+        },
+        {
+          "icon": "💬",
+          "label": "`print(\"One second later!\")`",
+          "detail": "Then carries on."
+        }
+      ],
+      "title": "What time.sleep(1) does",
+      "caption": "Handy for a countdown that appears one line at a time, instead of all at once."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "import time\n\nprint(\"Starting...\")\ntime.sleep(1)\nprint(\"One second later!\")"
+      "value": "import time\n\nprint(\"Starting...\")\ntime.sleep(1)\nprint(\"One second later!\")",
+      "output": [
+        "Starting...",
+        "One second later!"
+      ],
+      "caption": "The second line appears one second after the first."
     },
     {
-      "type": "paragraph",
-      "value": "There is a second form of import that pulls one tool out of a module by name. You then use it on its own, without the module name in front. It is shorter, but the module name is a useful reminder of where a tool came from, so use it for the handful of tools you call constantly."
+      "type": "check",
+      "question": "What does `time.sleep(2)` do?",
+      "options": [
+        "Prints the number 2",
+        "Waits 2 seconds, then carries on",
+        "Ends the program",
+        "Turns the computer off"
+      ],
+      "answer": 1,
+      "explain": "`sleep` pauses the program for that many seconds. Then the next line runs as normal."
+    },
+    {
+      "type": "heading",
+      "value": "Another Way to Import"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "import module",
+          "tone": "neutral",
+          "code": "import random\n\nprint(random.randint(1, 6))",
+          "text": "Use the module name in front. A useful reminder of where a tool came from."
+        },
+        {
+          "title": "from module import tool",
+          "tone": "neutral",
+          "code": "from random import randint\n\nprint(randint(1, 6))",
+          "text": "Pulls one tool out by name. Use it on its own, no `random.` in front."
+        }
+      ],
+      "title": "Two ways to import",
+      "caption": "The `from` form is shorter. Save it for the handful of tools you call constantly."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "from random import randint\n\nprint(randint(1, 6))   # no random. in front this time"
+      "value": "from random import randint\n\nprint(randint(1, 6))   # no random. in front this time",
+      "caption": "Random each time, a whole number from 1 to 6."
+    },
+    {
+      "type": "check",
+      "question": "After `from math import sqrt`, which line works?",
+      "options": [
+        "print(sqrt(16))",
+        "print(math.sqrt(16))",
+        "print(math(sqrt(16)))",
+        "print(sqrt.math(16))"
+      ],
+      "answer": 0,
+      "explain": "`from math import sqrt` brings in just `sqrt`, so you use it on its own. The name `math` itself was not imported."
     }
   ],
   "editorCode": "import random\nimport math\n\nprint(\"Dice roll:\", random.randint(1, 6))\nprint(\"Pick one:\", random.choice([\"rock\", \"paper\", \"scissors\"]))\nprint(\"Square root of 81:\", math.sqrt(81))\nprint(\"Rounded down:\", math.floor(9.7))",

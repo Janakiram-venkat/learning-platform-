@@ -1,16 +1,19 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  ArrowRight, Terminal, Bot, Rocket, Code2, Trophy,
-  MousePointerClick, CheckCircle2, Wrench, Cpu, Power, Play, RotateCcw,
-  Globe, Sparkles, Wand2,
+  ArrowRight, Rocket, Code2, Trophy,
+  MousePointerClick, CheckCircle2, Power, Play, RotateCcw,
+  Sparkles, Wand2,
 } from 'lucide-react';
+import {
+  PythonIcon, AiIcon, WebIcon, RoboticsIcon, GameIcon,
+} from '../components/course/TrackIcons';
 import logo from '../assets/pocketlab.png';
 
 /* ---------------------------------------------------------------------------
-   Pocket Lab — "Workbench" home page.
+   Pocket Lab: "Workbench" home page.
    Pocket Lab is a maker's bench for lots of subjects, not just coding: Python,
-   AI, web, games, robots — and physics and chemistry on the way. The identity
+   AI, web, games, robots, and physics and chemistry on the way. The identity
    stays the electronics-kit workbench (silkscreened panels, graph paper, mono
    readouts). The signature is the interactive Pocket Lab device below; flip a
    switch and the same little machine boots a different subject.
@@ -24,7 +27,7 @@ const MODES = {
   code: {
     tag: 'CODE',
     file: 'main.py',
-    Icon: Terminal,
+    Icon: PythonIcon,
     accent: 'text-signal',
     led: '#FFB40A',
     screen: (
@@ -40,7 +43,7 @@ const MODES = {
   ai: {
     tag: 'AI',
     file: 'vision.py',
-    Icon: Cpu,
+    Icon: AiIcon,
     accent: 'text-led',
     led: '#0097F8',
     screen: (
@@ -55,10 +58,10 @@ const MODES = {
   web: {
     tag: 'WEB',
     file: 'index.html',
-    Icon: Globe,
+    Icon: WebIcon,
     accent: 'text-magenta',
     led: '#BD16BB',
-    // The "screen" here isn't a terminal — it's a fake browser preview that
+    // The "screen" here isn't a terminal: it's a fake browser preview that
     // renders live under the code. Reinforces that web builds you something
     // you can see, unlike the other modes' terminal-first runs.
     screen: (
@@ -76,7 +79,7 @@ const MODES = {
   robot: {
     tag: 'ROBOT',
     file: 'rover.py',
-    Icon: Bot,
+    Icon: RoboticsIcon,
     accent: 'text-wire',
     led: '#E63C22',
     screen: (
@@ -93,7 +96,7 @@ const MODES = {
 
 const MODE_ORDER = ['code', 'ai', 'web', 'robot'];
 
-// The interactive Pocket Lab device — the page's signature element.
+// The interactive Pocket Lab device: the page's signature element.
 function PocketLabDevice() {
   const [mode, setMode] = useState('code');
   const active = MODES[mode];
@@ -111,7 +114,7 @@ function PocketLabDevice() {
         </div>
       </div>
 
-      {/* The screen — terminal that re-keys per mode so power-on replays */}
+      {/* The screen: terminal that re-keys per mode so power-on replays */}
       <div className="rounded-lg border-2 border-ink bg-well p-4 shadow-inner">
         <div className="mb-2 flex items-center justify-between border-b border-white/10 pb-2">
           <span className="font-mono-lab text-[0.7rem] text-white/45">{active.file}</span>
@@ -123,7 +126,7 @@ function PocketLabDevice() {
         </div>
       </div>
 
-      {/* The switch bank — flip one to run it. Four subjects, one row on
+      {/* The switch bank: flip one to run it. Four subjects, one row on
           desktop; wraps to 2×2 on the smallest screens. */}
       <div className="mt-4 rounded-lg border-2 border-ink bg-ink/90 p-3">
         <div className="mb-2.5 ref-tag text-white/45">Subject select: flip a switch</div>
@@ -138,7 +141,7 @@ function PocketLabDevice() {
                 aria-pressed={on}
                 className="group flex flex-col items-center gap-2 rounded-lg border-2 border-white/15 bg-white/5 px-2 py-2.5 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-signal"
               >
-                <m.Icon className={`h-5 w-5 transition-colors ${on ? m.accent : 'text-white/45'}`} />
+                <m.Icon className={`h-6 w-6 transition-colors ${on ? m.accent : 'text-white/45'}`} />
                 <span className={`ref-tag transition-colors ${on ? 'text-white' : 'text-white/45'}`}>{m.tag}</span>
                 {/* Physical toggle track + knob */}
                 <span
@@ -159,13 +162,13 @@ function PocketLabDevice() {
   );
 }
 
-// Readouts framed as gauges on the bench. Numbers on the honest side —
+// Readouts framed as gauges on the bench. Numbers on the honest side:
 // "6 subjects" is what's actually on the shelf right now (Python, AI, Games,
 // Robotics, Web, plus Physics/Chem on the workbench), and the "live labs" line
 // captures the live sim/editor/preview loops instead of counting features.
 const READOUTS = [
   { k: 'SUBJECTS', v: '7' },
-  { k: 'LIVE LABS', v: '∞' },
+  { k: 'THINGS TO BUILD', v: '∞' },
   { k: 'AGES', v: '8–14' },
 ];
 
@@ -211,7 +214,7 @@ function SimButton({ running, done, onRun, label }) {
   );
 }
 
-// MOD-01 — press RUN and a real loop lights up 5 LEDs one by one. Output stays
+// MOD-01: press RUN and a real loop lights up 5 LEDs one by one. Output stays
 // a single fixed-height row, so the card never grows as it runs.
 const LED_COUNT = 5;
 function CodeSim() {
@@ -258,7 +261,7 @@ function CodeSim() {
   );
 }
 
-// MOD-02 — press TRAIN: examples fly into the model, confidence fills, it predicts.
+// MOD-02, press TRAIN: examples fly into the model, confidence fills, it predicts.
 const AI_SAMPLES = ['🐱', '🐱', '🐶', '🐱'];
 function AiSim() {
   const { after, clear } = useTimers();
@@ -311,7 +314,7 @@ function AiSim() {
   );
 }
 
-// MOD-03 — press BUILD: the code → test → ship pipeline lights up, then ships.
+// MOD-03, press BUILD: the code → test → ship pipeline lights up, then ships.
 const BUILD_STEPS = [
   { k: 'code', label: 'writing code' },
   { k: 'test', label: 'running tests' },
@@ -362,17 +365,17 @@ function BuildSim() {
 // Accents reuse the hero device's four LED colors so the sequence reads as
 // the same machine booting: signal yellow → LED cyan → magenta → wire red.
 const STEPS = [
-  { n: '01', Icon: MousePointerClick, led: '#FFB40A', title: 'Pick a subject', desc: 'Choose Python, AI, web, games, or robotics. Every subject opens as its own lab — no setup, no downloads.' },
-  { n: '02', Icon: Code2, led: '#0097F8', title: 'Learn by doing', desc: 'Every lesson ships a live lab. Write code, train a model, drag a robot, or drop a webpage — hit Run and watch it react.' },
-  { n: '03', Icon: Trophy, led: '#E63C22', title: 'Build something real', desc: 'Finish each subject with a project you actually keep: a game, a mini-AI, a website, a robotics build.' },
+  { n: '01', Icon: MousePointerClick, led: '#FFB40A', title: 'Pick something you like', desc: 'Python, AI, web, games, robotics. Every subject opens as its own lab, with no setup and nothing to download.' },
+  { n: '02', Icon: Code2, led: '#0097F8', title: 'Make it, then learn it', desc: 'Write code, train a model, drive a robot, design a page. Hit Run and the thing you imagined starts doing something.' },
+  { n: '03', Icon: Trophy, led: '#E63C22', title: 'Make it your own', desc: 'Change the rules, add your own ideas, and keep a game, a website, a mini-AI or a robot that nobody else built quite the same way.' },
 ];
 
 // Field notes as lab-notebook entries. Rewritten to cover the wider surface
 // area of subjects, so nobody reads the page as a coding-only site.
 const NOTES = [
-  { quote: 'I built my number-guessing game on day one, and now I have my own tiny website too.', name: 'Aarav', age: 11, subject: 'Python · Web', ref: 'LOG-114' },
-  { quote: 'I taught the AI to spot cats. My little brother spent an hour trying to trick it.', name: 'Mia', age: 9, subject: 'AI', ref: 'LOG-207' },
-  { quote: 'The robotics simulator feels like a real bench. I wired the sensors myself.', name: 'Rohan', age: 12, subject: 'Robotics', ref: 'LOG-333' },
+  { quote: 'I made my own number-guessing game on day one, then kept changing the rules until it was properly mine.', name: 'Aarav', age: 11, subject: 'Python · Web', ref: 'LOG-114' },
+  { quote: 'I taught an AI to spot cats, then tried to invent pictures that would fool it.', name: 'Mia', age: 9, subject: 'AI', ref: 'LOG-207' },
+  { quote: 'I wired the sensors myself and made a rover that hunts for walls. Nobody told me to build that one.', name: 'Rohan', age: 12, subject: 'Robotics', ref: 'LOG-333' },
 ];
 
 function Eyebrow({ children }) {
@@ -386,23 +389,23 @@ function Eyebrow({ children }) {
 
 // Three-line pitch about what Pocket Lab actually is, framed as bench
 // diagnostics. The compact section this drives replaces the full subject
-// grid — cards live on /courses now; the home page's job is to sell the
+// grid: cards live on /courses now; the home page's job is to sell the
 // idea and hand traffic over.
 const PILLARS = [
   {
     Icon: Wand2, led: '#FFB40A',
-    title: 'Learn by making',
-    body: 'Every lesson is a live lab, not a lecture. You write, run, break, and see the result inside the same screen.',
+    title: 'A blank canvas with tools',
+    body: 'Nothing here is a lecture. You write it, run it, break it and fix it, and the learning turns up while you are busy making something.',
   },
   {
     Icon: Sparkles, led: '#0097F8',
-    title: 'Seven subjects, one workbench',
-    body: 'Python, AI, web, games, and robotics ship today. Physics and chemistry are wired in next.',
+    title: 'Follow your own curiosity',
+    body: 'Python, AI, web, games and robotics are open today, with physics and chemistry wiring in next. Start anywhere, wander, go deep where it gets fun.',
   },
   {
     Icon: Trophy, led: '#E63C22',
-    title: 'Real projects, real proof',
-    body: 'Every track ends with something you keep — a website, a game, a mini-AI, a robotics build you can show off.',
+    title: 'Everything you make is yours',
+    body: 'Games, websites, tiny AIs, robots you programmed. You keep them, you can keep changing them, and you can show them to anyone.',
   },
 ];
 
@@ -422,17 +425,18 @@ export default function Home() {
       <section className="bench-grid w-full border-b-2 border-ink/10">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 sm:py-24 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
-            <Eyebrow>Seven benches · one workbench</Eyebrow>
+            <Eyebrow>Your bench · your ideas</Eyebrow>
             <h1 className="font-lab text-[2.6rem] font-extrabold leading-[1.02] tracking-tight sm:text-6xl">
-              Flip a switch.
+              Build whatever
               <br />
-              Learn something <span className="text-pcb">real</span>.
+              you can <span className="text-pcb">imagine</span>.
             </h1>
             <p className="mt-6 max-w-xl text-lg font-semibold text-ink/70">
-              Pocket Lab is a maker's bench for the subjects that actually build
-              things — Python, AI, web, games, and robotics, with physics and
-              chemistry on the way. Every lesson runs live in your browser.
-              No installs. No lectures. Just build.
+              Pocket Lab is an open workbench for curious makers. Games,
+              robots, websites, AI experiments: you pick what to make, and the
+              lab teaches you what you need along the way. Everything runs live
+              in your browser, so there is nothing to install and nothing
+              stopping you.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -441,7 +445,7 @@ export default function Home() {
                 className="lab-btn group inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-signal px-7 py-3.5 text-lg font-extrabold text-ink"
               >
                 <Power className="h-5 w-5" />
-                Power on the lab
+                Start building
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <a
@@ -471,27 +475,28 @@ export default function Home() {
       </section>
 
       {/* ============ What Pocket Lab is (short, then send to /courses) ============
-          Replaces the full subject grid on the home page — the catalogue now
+          Replaces the full subject grid on the home page: the catalogue now
           lives on /courses. This section is a three-line pitch: what the lab
           is, what makes it different, and a single door to the catalogue. */}
       <section id="workshop" className="w-full scroll-mt-20 bg-paper py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-center">
-            {/* Left column — the pitch. Copy first, then the CTA to /courses. */}
+            {/* Left column: the pitch. Copy first, then the CTA to /courses. */}
             <div>
               <Eyebrow>About the lab</Eyebrow>
               <h2 className="font-lab mb-4 text-3xl font-extrabold sm:text-4xl">
-                Pocket Lab is a workshop, not a textbook.
+                A place to make things, not just study them.
               </h2>
               <p className="mb-4 max-w-xl text-lg font-semibold text-ink/70">
-                It's a maker's bench that fits in a browser tab. Every subject
-                opens as its own lab — code editor, live preview, one Run
-                button. You spend your time building the thing, not reading
-                about it.
+                It's a blank canvas that fits in a browser tab. Every subject
+                opens as its own lab, with a code editor, a live preview and one
+                Run button, so the idea in your head starts existing within
+                minutes.
               </p>
               <p className="mb-8 max-w-xl text-base font-semibold text-ink/60">
-                The full catalogue lives on the Courses page — pick a bench,
-                open the door, start building.
+                Chase whatever you are curious about. The full catalogue lives
+                on the Courses page: pick a subject, open it, and start making
+                something that is yours.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link
@@ -510,7 +515,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right column — three "bench readouts" that give the pitch a
+            {/* Right column: three "bench readouts" that give the pitch a
                 shape and match the workbench identity without duplicating
                 the catalogue. */}
             <div className="grid gap-4">
@@ -545,8 +550,8 @@ export default function Home() {
           <Eyebrow>Startup sequence</Eyebrow>
           <h2 className="font-lab mb-3 text-3xl font-extrabold sm:text-4xl">Three steps to your first build</h2>
           <p className="mb-12 max-w-2xl text-lg font-semibold text-ink/65">
-            Open the browser, plug in a subject, and you're building something
-            of your own inside ten minutes.
+            Open a tab, pick whatever sounds fun, and you are building
+            something of your own inside ten minutes.
           </p>
 
           <div className="grid gap-6 md:grid-cols-3">
@@ -583,19 +588,19 @@ export default function Home() {
       {/* ============ Live benches (three side-by-side mini simulators) ============ */}
       <section className="w-full bg-paper py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <Eyebrow>On the benches, right now</Eyebrow>
-          <h2 className="font-lab mb-3 text-3xl font-extrabold sm:text-4xl">Try three benches without signing in</h2>
+          <Eyebrow>Have a go, right now</Eyebrow>
+          <h2 className="font-lab mb-3 text-3xl font-extrabold sm:text-4xl">Play with three benches, no account needed</h2>
           <p className="mb-12 max-w-2xl text-lg font-semibold text-ink/65">
-            Every subject on Pocket Lab runs a loop like these — you write, you
-            run, and the machine reacts. Press a button on any of the three
-            panels below and watch it happen.
+            Every subject on Pocket Lab runs a loop like these: you make a
+            change, you press Run, the machine reacts. Try all three right
+            here and see how it feels.
           </p>
 
           <div className="grid gap-6 md:grid-cols-3">
             <div className="lab-panel flex flex-col p-6">
               <div className="mb-5 flex items-center justify-between">
                 <span className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-ink bg-pcb text-white">
-                  <Terminal className="h-6 w-6" />
+                  <PythonIcon className="h-7 w-7" />
                 </span>
                 <span className="ref-tag text-ink/45">BENCH-01</span>
               </div>
@@ -607,7 +612,7 @@ export default function Home() {
             <div className="lab-panel flex flex-col p-6">
               <div className="mb-5 flex items-center justify-between">
                 <span className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-ink bg-led text-white">
-                  <Cpu className="h-6 w-6" />
+                  <AiIcon className="h-7 w-7" />
                 </span>
                 <span className="ref-tag text-ink/45">BENCH-02</span>
               </div>
@@ -619,7 +624,7 @@ export default function Home() {
             <div className="lab-panel flex flex-col p-6">
               <div className="mb-5 flex items-center justify-between">
                 <span className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-ink bg-wire text-white">
-                  <Wrench className="h-6 w-6" />
+                  <GameIcon className="h-7 w-7" />
                 </span>
                 <span className="ref-tag text-ink/45">BENCH-03</span>
               </div>
@@ -640,15 +645,16 @@ export default function Home() {
               New to all this? Python first <span aria-hidden>🐍</span>
             </h2>
             <p className="mb-6 max-w-xl text-lg font-semibold text-ink/65">
-              Python is the front door to every other bench: AI needs it, games
-              use it, robotics runs on it. Twenty short levels take you from
-              "hello, world" to a program you built yourself.
+              Python is the front door to everything else here: AI needs it,
+              games use it, robotics runs on it. Twenty short levels take you
+              from your first line to a program that is entirely your own
+              idea.
             </p>
             <ul className="mb-8 space-y-2.5">
               {[
                 'Run real Python in your browser, no setup',
                 'Every lesson ships a working, editable example',
-                'Finish with a mini-project you can actually show off',
+                'Finish with a mini-project that is yours to keep and change',
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2.5 font-semibold text-ink/75">
                   <CheckCircle2 className="h-5 w-5 shrink-0 text-pcb" /> {item}
@@ -663,7 +669,7 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* A second little terminal — a different demo than the hero device */}
+          {/* A second little terminal: a different demo than the hero device */}
           <div className="lab-panel overflow-hidden p-0">
             <div className="flex items-center justify-between border-b-2 border-ink bg-ink px-4 py-2.5">
               <span className="font-mono-lab text-[0.72rem] text-white/50">guess.py</span>
@@ -684,7 +690,7 @@ export default function Home() {
       <section className="w-full bg-paper py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <Eyebrow>Field notes</Eyebrow>
-          <h2 className="font-lab mb-12 text-3xl font-extrabold sm:text-4xl">From the young makers' bench</h2>
+          <h2 className="font-lab mb-12 text-3xl font-extrabold sm:text-4xl">What young makers built here</h2>
 
           <div className="grid gap-6 md:grid-cols-3">
             {NOTES.map(({ quote, name, age, subject, ref }) => (

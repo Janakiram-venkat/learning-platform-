@@ -1,0 +1,32 @@
+{
+  "moduleId": 9,
+  "title": "Classes and Objects",
+  "lessons": [
+    {
+      "lessonId": "cpp_structs",
+      "title": "Structs",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_classes",
+      "title": "Classes",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_constructors",
+      "title": "Constructors",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_encapsulation",
+      "title": "Encapsulation",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_member_functions",
+      "title": "Member Functions and const",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

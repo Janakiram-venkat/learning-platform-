@@ -6,7 +6,7 @@ import { useCourseLock } from '../../hooks/useCoursePrerequisite';
 import { TRACK_ICONS } from './TrackIcons';
 
 /* ---------------------------------------------------------------------------
-   Bench finder — the "not sure where to start?" panel on the Courses page.
+   Bench finder: the "not sure where to start?" panel on the Courses page.
    It used to be a hard-coded "start with Python" button. Now it asks a few
    questions and points at the bench that fits the answers.
 

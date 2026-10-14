@@ -1,0 +1,192 @@
+{
+  "moduleId": 6,
+  "title": "Functions Checkpoint",
+  "intro": "You can split a program into named pieces now: functions, prototypes, parameters, returns, references, overloads and scope. Thirteen rounds, one from every idea in this module. First-try answers earn three stars!",
+  "emoji": "⚙️",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "`main` calls `sayHello();`, but sayHello is defined below main and there is no prototype. What happens?",
+      "options": [
+        "It works, because C++ reads the whole file before compiling",
+        "It compiles, but sayHello never runs",
+        "It runs sayHello after main finishes",
+        "A compile error: 'sayHello' was not declared in this scope"
+      ],
+      "answer": 3,
+      "explain": "The compiler reads from top to bottom. Define the function above main, or put a prototype such as `void sayHello();` above main."
+    },
+    {
+      "type": "predict",
+      "prompt": "In what order do these four lines appear?",
+      "code": "void step() {\n    cout << \"B\" << endl;\n    cout << \"C\" << endl;\n}\n\nint main() {\n    cout << \"A\" << endl;\n    step();\n    cout << \"D\" << endl;\n\n    return 0;\n}",
+      "options": [
+        "A B C D",
+        "A D B C",
+        "B C A D",
+        "A B D C"
+      ],
+      "answer": 0,
+      "explain": "A call is a detour: C++ runs the whole function, then comes back to the line right after the call. Being written first in the file does not make step run first."
+    },
+    {
+      "type": "bug",
+      "prompt": "This line compiles, but the banner never appears. Why?",
+      "code": "printBanner;",
+      "options": [
+        "It needs the word void in front",
+        "The round brackets are missing, so the function is mentioned but not called",
+        "A function name cannot start with a lower-case letter",
+        "Nothing: it prints the banner"
+      ],
+      "answer": 1,
+      "explain": "A bare name is not a call. g++ at most warns about it, so the only clue is the missing output. The brackets are needed even when there is nothing to put in them."
+    },
+    {
+      "type": "concept",
+      "prompt": "What is the difference between a parameter and an argument?",
+      "options": [
+        "An argument has a type, a parameter does not",
+        "They are two words for the same thing",
+        "The parameter is the slot declared in the function, the argument is the value passed in",
+        "Parameters are for numbers, arguments are for text"
+      ],
+      "answer": 2,
+      "explain": "`void printStars(int count)` declares the parameter. `printStars(7)` supplies the argument."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "void addTen(int number) {\n    number = number + 10;\n}\n\nint main() {\n    int score = 50;\n\n    addTen(score);\n\n    cout << score << endl;\n\n    return 0;\n}",
+      "options": [
+        "60",
+        "10",
+        "Nothing",
+        "50"
+      ],
+      "answer": 3,
+      "explain": "The function worked on a copy. Changing a plain parameter never touches the caller's variable: that is pass by value."
+    },
+    {
+      "type": "predict",
+      "prompt": "The only change from the last round is one character. What does this print now?",
+      "code": "void addTen(int& number) {\n    number = number + 10;\n}\n\nint main() {\n    int score = 50;\n\n    addTen(score);\n\n    cout << score << endl;\n\n    return 0;\n}",
+      "options": [
+        "60",
+        "50",
+        "10",
+        "It does not compile"
+      ],
+      "answer": 0,
+      "explain": "`int& number` makes number another name for score, so adding ten to it changes main's variable. That is pass by reference."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this function hand back for grade(62)?",
+      "code": "string grade(int marks) {\n    if (marks >= 90) {\n        return \"A\";\n    }\n\n    if (marks >= 40) {\n        return \"Pass\";\n    }\n\n    return \"Fail\";\n}",
+      "options": [
+        "A",
+        "Pass",
+        "Fail",
+        "Pass then Fail"
+      ],
+      "answer": 1,
+      "explain": "The first `return` reached ends the function at once, so nothing below it runs. That is why early returns need no `else`."
+    },
+    {
+      "type": "bug",
+      "prompt": "This compiles, but category(75) produces garbage or crashes. Why?",
+      "code": "string category(int age) {\n    if (age < 13) {\n        return \"Child\";\n    } else if (age < 60) {\n        return \"Adult\";\n    }\n}",
+      "options": [
+        "string is not allowed as a return type",
+        "There are two returns in one function",
+        "An age of 60 or more reaches the end of the function with nothing returned",
+        "The chain needs a switch instead"
+      ],
+      "answer": 2,
+      "explain": "Every path through a non-void function must return a value. C++ builds it anyway and the result is undefined, so add a final `else` or a `return` after the chain."
+    },
+    {
+      "type": "bug",
+      "prompt": "What is the tidier way to write this?",
+      "code": "bool isEven(int n) {\n    if (n % 2 == 0) {\n        return true;\n    } else {\n        return false;\n    }\n}",
+      "options": [
+        "`return n % 2;`",
+        "`if (n % 2 == 0) return;`",
+        "It is already as short as it can be",
+        "`return n % 2 == 0;`"
+      ],
+      "answer": 3,
+      "explain": "The comparison is already true or false, so it can be returned directly. Four lines become one."
+    },
+    {
+      "type": "predict",
+      "prompt": "Given `int half(int n)` and `double half(double n)`, both returning n / 2, what does this print?",
+      "code": "cout << half(9) << endl;\ncout << half(9.0) << endl;",
+      "options": [
+        "4 then 4.5",
+        "4.5 then 4.5",
+        "4 then 4",
+        "It does not compile: the call is ambiguous"
+      ],
+      "answer": 0,
+      "explain": "The type you write picks the overload. 9 is an int, so whole-number division chops the half off; 9.0 goes to the double version."
+    },
+    {
+      "type": "predict",
+      "prompt": "This function is called three times in a row. What does it print?",
+      "code": "void countVisit() {\n    int visits = 0;\n    visits++;\n    cout << \"Visits: \" << visits << endl;\n}",
+      "options": [
+        "Visits: 1, Visits: 2, Visits: 3",
+        "Visits: 1 three times",
+        "Visits: 0 three times",
+        "It does not compile"
+      ],
+      "answer": 1,
+      "explain": "A local variable is created fresh on every call and destroyed when the function ends, so it cannot remember anything between calls."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each piece of function vocabulary to what it means.",
+      "pairs": [
+        {
+          "left": "void",
+          "right": "Hands nothing back to the caller"
+        },
+        {
+          "left": "prototype",
+          "right": "The first line of a function, ending in a semicolon"
+        },
+        {
+          "left": "return",
+          "right": "Hands a value back and ends the function"
+        },
+        {
+          "left": "int& n",
+          "right": "A parameter that is another name for the caller's variable"
+        },
+        {
+          "left": "overloading",
+          "right": "One name, several parameter lists"
+        },
+        {
+          "left": "scope",
+          "right": "The region where a variable exists"
+        }
+      ],
+      "explain": "Six words that describe the whole module. Being able to name these makes every C++ error message easier to read."
+    },
+    {
+      "type": "order",
+      "prompt": "Write a function that swaps the values of two of the caller's variables.",
+      "solution": [
+        "void swapValues(int& a, int& b) {",
+        "    int temp = a;",
+        "    a = b;",
+        "    b = temp;",
+        "}"
+      ],
+      "explain": "Both parameters are references, so the swap reaches the caller's variables. `temp` holds a's value for a moment, because `a = b;` would otherwise wipe it out before it was saved."
+    }
+  ]
+}

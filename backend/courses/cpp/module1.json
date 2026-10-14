@@ -1,0 +1,37 @@
+{
+  "moduleId": 1,
+  "title": "Meet C++",
+  "lessons": [
+    {
+      "lessonId": "cpp_intro",
+      "title": "What Is Programming?",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "cpp_what_is_cpp",
+      "title": "What Is C++?",
+      "duration": "10 min"
+    },
+    {
+      "lessonId": "cpp_compiling",
+      "title": "Compilers and Executables",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "cpp_first_program",
+      "title": "Your First Program",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_printing",
+      "title": "Printing and Comments",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_reading_errors",
+      "title": "Reading Compiler Errors",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

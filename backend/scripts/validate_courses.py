@@ -156,6 +156,59 @@ def check_rounds(rounds, path: Path, report: Report):
             report.warn(path, f"{label}: no 'explain' text")
 
 
+# Teaching blocks the lesson renderer knows (frontend LessonBlock.jsx), and the
+# fields each one cannot render without. An unknown type renders as nothing,
+# so a typo silently drops a block from the lesson.
+BLOCK_FIELDS = {
+    "heading": ["value"],
+    "paragraph": ["value"],
+    "tip": ["value"],
+    "warning": ["value"],
+    "code": ["value"],
+    "points": ["items"],
+    "analogy": ["real", "concept"],
+    "diagram": ["kind"],
+    "check": ["question", "options", "answer"],
+    "stepper": ["code", "steps"],
+    "simulation": ["kind"],
+    "widget": ["kind"],
+    "image": [],
+}
+DIAGRAM_FIELDS = {"anatomy": "parts", "boxes": "items", "flow": "steps", "compare": "items"}
+
+
+def check_blocks(blocks, path: Path, report: Report):
+    """Lesson `content` blocks: known types, required fields, sane steppers."""
+    if not isinstance(blocks, list):
+        report.error(path, "'content' must be a list")
+        return
+    for i, b in enumerate(blocks):
+        label = f"content[{i}]"
+        kind = b.get("type")
+        if kind not in BLOCK_FIELDS:
+            report.error(path, f"{label}: unknown block type '{kind}'")
+            continue
+        require(b, BLOCK_FIELDS[kind], path, report, label)
+
+        if kind == "check":
+            check_mcq(b, path, report, label)
+        elif kind == "diagram":
+            field = DIAGRAM_FIELDS.get(b.get("kind"))
+            if field is None:
+                report.error(path, f"{label}: unknown diagram kind '{b.get('kind')}'")
+            elif not b.get(field):
+                report.error(path, f"{label}: '{b.get('kind')}' diagram needs '{field}'")
+        elif kind == "stepper":
+            # A step pointing past the end of the code highlights nothing.
+            n_lines = len(str(b.get("code", "")).split("\n"))
+            for j, step in enumerate(b.get("steps") or []):
+                line = step.get("line")
+                if not isinstance(line, int) or not 1 <= line <= n_lines:
+                    report.error(path, f"{label}.steps[{j}]: 'line' {line!r} is not a line of the code (1..{n_lines})")
+                if not step.get("note"):
+                    report.error(path, f"{label}.steps[{j}]: missing 'note'")
+
+
 def check_lessons_dir(course_dir: Path, referenced: set[str], report: Report):
     """Sweep the lessons folder for files no module points at.
 
@@ -194,6 +247,9 @@ def check_lesson(course_dir: Path, lesson_id: str, report: Report):
             path,
             f"lessonId is '{lesson.get('lessonId')}' but the filename says '{lesson_id}'",
         )
+
+    if "content" in lesson:
+        check_blocks(lesson["content"], path, report)
 
     if "quiz" in lesson:
         check_quiz(lesson["quiz"], path, report, "quiz")

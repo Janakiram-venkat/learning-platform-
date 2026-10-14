@@ -1,0 +1,32 @@
+{
+  "moduleId": 11,
+  "title": "The Standard Library",
+  "lessons": [
+    {
+      "lessonId": "cpp_maps",
+      "title": "Maps",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_sets",
+      "title": "Sets",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "cpp_iterators",
+      "title": "Iterators",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_algorithms",
+      "title": "The algorithm Header",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_lambdas",
+      "title": "Lambdas",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

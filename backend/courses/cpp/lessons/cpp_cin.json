@@ -1,0 +1,410 @@
+{
+  "lessonId": "cpp_cin",
+  "title": "Reading Input with cin",
+  "description": "Asking a question and storing whatever the person types.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Program That Listens"
+    },
+    {
+      "type": "paragraph",
+      "value": "Until now every value was typed into the code before it ran. `cin` (say \"see-in\") reads what a person types at the keyboard, so the same program can give a different answer each time."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "Keyboard",
+          "detail": "The person types and presses Enter"
+        },
+        {
+          "icon": "📥",
+          "label": "cin",
+          "detail": "C++'s name for the keyboard input"
+        },
+        {
+          "icon": "➡️",
+          "label": ">>",
+          "detail": "Pulls the typed value out"
+        },
+        {
+          "icon": "📦",
+          "label": "Variable",
+          "detail": "The answer is stored for you to use"
+        }
+      ],
+      "title": "From your fingers to a variable",
+      "caption": "`cin` lives in `<iostream>`, the same header that gives you `cout`."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age;\n\n    cout << \"How old are you? \";\n    cin >> age;\n\n    cout << \"Next year you will be \" << age + 1 << endl;\n    return 0;\n}",
+      "caption": "Sample run: the program stops at the question and waits. Type `14`, press Enter, and it prints `Next year you will be 15`. The question has no `endl`, so you type your answer right next to it."
+    },
+    {
+      "type": "heading",
+      "value": "What Each Line Does"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "cin",
+          "label": "source",
+          "note": "The keyboard input."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": ">>",
+          "label": "into",
+          "note": "Points from `cin` into the variable."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "age",
+          "label": "variable",
+          "note": "Must already exist. Its type decides what is read."
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "Reading into a variable",
+      "caption": "The arrows show the way the value travels: out of `cin`, into `age`."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "📦",
+          "text": "`int age;` comes first",
+          "sub": "Declare the variable before you read into it. `cin` needs somewhere to put the answer."
+        },
+        {
+          "icon": "⏳",
+          "text": "`cin >> age;` waits",
+          "sub": "It reads up to the Enter key, turns the characters into an `int`, and stores them."
+        },
+        {
+          "icon": "↔️",
+          "text": "Opposite arrows",
+          "sub": "`cout <<` sends a value out to the screen. `cin >>` pulls a value in."
+        }
+      ],
+      "title": "Three things to notice"
+    },
+    {
+      "type": "check",
+      "question": "Which line reads a number into `score`?",
+      "options": [
+        "`cin >> score;`",
+        "`cin << score;`",
+        "`cout >> score;`",
+        "`score >> cin;`"
+      ],
+      "answer": 0,
+      "explain": "`cin` comes first and the arrows point into the variable: `cin >> score;`."
+    },
+    {
+      "type": "heading",
+      "value": "Reading Different Types"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔢",
+          "text": "`int`",
+          "sub": "a whole number"
+        },
+        {
+          "icon": "📏",
+          "text": "`double`",
+          "sub": "a decimal number"
+        },
+        {
+          "icon": "🔤",
+          "text": "`char`",
+          "sub": "a single character"
+        },
+        {
+          "icon": "📝",
+          "text": "`string`",
+          "sub": "a single word"
+        }
+      ],
+      "title": "cin reads to match the variable's type"
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age;\n    double height;\n    char initial;\n\n    cout << \"How old are you? \";\n    cin >> age;\n\n    cout << \"How tall are you, in metres? \";\n    cin >> height;\n\n    cout << \"First letter of your name? \";\n    cin >> initial;\n\n    cout << \"Age \" << age << \", height \" << height << \" m, initial \" << initial << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Make three empty variables, one of each type.",
+          "vars": {
+            "age": "?",
+            "height": "?",
+            "initial": "?"
+          }
+        },
+        {
+          "line": 9,
+          "note": "Ask. Suppose you type `14` and press Enter.",
+          "out": [
+            "How old are you? 14"
+          ]
+        },
+        {
+          "line": 10,
+          "note": "`age` is an `int`, so `cin` reads a whole number.",
+          "vars": {
+            "age": "14"
+          }
+        },
+        {
+          "line": 12,
+          "note": "Ask again. Suppose you type `1.6`.",
+          "out": [
+            "How tall are you, in metres? 1.6"
+          ]
+        },
+        {
+          "line": 13,
+          "note": "`height` is a `double`, so a decimal is read.",
+          "vars": {
+            "height": "1.6"
+          }
+        },
+        {
+          "line": 15,
+          "note": "Suppose you type `M`.",
+          "out": [
+            "First letter of your name? M"
+          ]
+        },
+        {
+          "line": 16,
+          "note": "`initial` is a `char`: one character.",
+          "vars": {
+            "initial": "'M'"
+          }
+        },
+        {
+          "line": 18,
+          "note": "Print all three answers.",
+          "out": [
+            "Age 14, height 1.6 m, initial M"
+          ]
+        }
+      ],
+      "title": "One sample run",
+      "outro": "Because `age` really is an `int`, `age + 1` would be arithmetic. With a `string`, `age + 1` would not even compile."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a;\n    int b;\n\n    cout << \"Type two whole numbers: \";\n    cin >> a >> b;\n\n    cout << \"Their sum is \" << a + b << endl;\n    return 0;\n}",
+      "caption": "Chain the arrows to read several values: `cin >> a >> b;`. `cin` skips spaces and Enters between values, so `3 4` on one line or on two lines both print `Their sum is 7`."
+    },
+    {
+      "type": "warning",
+      "value": "Type letters where `cin` expects a number and the read fails: the variable gets 0 and every later `cin` is skipped. Checking input needs decisions, which is the next module."
+    },
+    {
+      "type": "heading",
+      "value": "A Word or a Line"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "cin >> name",
+          "tone": "neutral",
+          "code": "cin >> name;\n// name is \"Amara\"",
+          "text": "Stops at the first space. The rest waits in the queue for the next read."
+        },
+        {
+          "title": "getline(cin, name)",
+          "tone": "good",
+          "code": "getline(cin, name);\n// name is \"Amara Okafor\"",
+          "text": "Reads the whole line up to Enter, spaces and all. Needs `<string>`."
+        }
+      ],
+      "title": "Reading text",
+      "caption": "Type `Amara Okafor` into each one."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string name;\n\n    cout << \"What is your full name? \";\n    getline(cin, name);           // reads the whole line\n\n    cout << \"Hello, \" << name << \"!\" << endl;\n    return 0;\n}",
+      "caption": "Sample run: type `Amara Okafor` and it prints `Hello, Amara Okafor!`. Pick the one that fits the question: a first name is a word, a full address is a line."
+    },
+    {
+      "type": "check",
+      "question": "You type `New Delhi` for `cin >> city;` (a `string`). What is stored in `city`?",
+      "options": [
+        "`\"New Delhi\"`",
+        "`\"New\"`",
+        "`\"Delhi\"`",
+        "Nothing, it is an error"
+      ],
+      "answer": 1,
+      "explain": "`cin >>` stops at the first space. Only `getline` would keep the whole line."
+    },
+    {
+      "type": "heading",
+      "value": "The Trap: cin >> Then getline"
+    },
+    {
+      "type": "paragraph",
+      "value": "`cin >> age` reads the digits and stops. The invisible Enter is left waiting. The next `getline` finds it and hands you an empty string without waiting at all."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "14 + Enter",
+          "detail": "What was typed"
+        },
+        {
+          "icon": "🔢",
+          "label": "cin >> age",
+          "detail": "Takes `14`, leaves the Enter"
+        },
+        {
+          "icon": "↩️",
+          "label": "Leftover Enter",
+          "detail": "Still waiting in the queue"
+        },
+        {
+          "icon": "📝",
+          "label": "getline",
+          "detail": "Sees the Enter at once: name is `\"\"`"
+        }
+      ],
+      "title": "Where the Enter goes",
+      "caption": "The person typed `14` then Enter. Only the digits were taken."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Throw the Enter away",
+          "tone": "good",
+          "code": "cin >> age;\ncin.ignore();\ngetline(cin, name);",
+          "text": "`cin.ignore()` skips exactly one character: the leftover Enter."
+        },
+        {
+          "title": "Lines first",
+          "tone": "good",
+          "code": "getline(cin, name);\ncin >> age;",
+          "text": "Ask `getline` questions before number ones. The projects in this course do this."
+        }
+      ],
+      "title": "Two easy fixes"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string typed;\n\n    cout << \"How many tickets? \";\n    getline(cin, typed);          // text, even if it is digits\n    int tickets = stoi(typed);    // now a real number\n\n    cout << \"That will be \" << tickets * 250 << \" rupees.\" << endl;\n    return 0;\n}",
+      "caption": "A third way: read every answer as a line, then convert with Module 2's `stoi` (or `stod` for a `double`). Type `3` and it prints `That will be 750 rupees.` No leftover Enter can cause trouble."
+    },
+    {
+      "type": "check",
+      "question": "You type `14` for `cin >> age;`. What does the very next `getline(cin, name);` store?",
+      "options": [
+        "An empty string `\"\"`",
+        "`\"14\"`",
+        "It waits for new typing",
+        "A compile error"
+      ],
+      "answer": 0,
+      "explain": "The leftover Enter is still in the queue, so `getline` stops at once with nothing in it."
+    }
+  ],
+  "editorCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string name;\n    int age;\n\n    cout << \"What is your name? \";\n    getline(cin, name);\n\n    cout << \"How old are you? \";\n    cin >> age;\n\n    cout << \"Hello, \" << name << \"!\" << endl;\n    cout << \"Next year you will be \" << age + 1 << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a favourite colour and print: Nice, <colour> is a good choice. Use `getline` so that two-word colours like sky blue work too.",
+      "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string colour;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Ask for two whole numbers with `cin >>` and print their sum.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a;\n    int b;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Run this and watch the Name question get skipped. Then fix it by adding one `cin.ignore();` in the right place.",
+      "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int age;\n    string name;\n\n    cout << \"Age? \";\n    cin >> age;\n\n    cout << \"Name? \";\n    getline(cin, name);\n\n    cout << \"Name: [\" << name << \"]\" << endl;\n    cout << \"Age: \" << age << endl;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "A `string` called `name` is read with `cin >> name;` and the person types `Amara Okafor`. What does `name` hold?",
+      "options": [
+        "Amara, because `>>` stops at the first space",
+        "Amara Okafor, the whole line",
+        "Nothing, because a space is not allowed"
+      ],
+      "answer": 0,
+      "explain": "`cin >>` reads one word. To keep the spaces, read the whole line with `getline(cin, name);`."
+    },
+    {
+      "question": "Why leave `endl` off the end of a question?",
+      "options": [
+        "`cin` does not work after an `endl`.",
+        "It makes `cin` wait longer.",
+        "The cursor stays on the same line, so the answer is typed next to the question."
+      ],
+      "answer": 2,
+      "explain": "Without `endl` the cursor stays where it is. With it, the person types their answer on the line below, which looks wrong."
+    },
+    {
+      "question": "Which line reads a whole line of text, spaces included, into a `string` called `line`?",
+      "options": [
+        "cin >> line;",
+        "getline(cin, line);",
+        "cin << line;"
+      ],
+      "answer": 1,
+      "explain": "`getline` reads everything up to the Enter key. `cin >> line` stops at the first space, and `cin << line` does not compile because the arrows point the wrong way."
+    },
+    {
+      "question": "Why does a `getline` straight after a `cin >> age;` come back empty?",
+      "options": [
+        "`getline` can only be used once per program.",
+        "`cin >>` leaves the Enter key in the queue, and `getline` reads up to it.",
+        "`cin` has run out of input."
+      ],
+      "answer": 1,
+      "explain": "`cin >> age` takes the digits but not the Enter that follows them. The next `getline` finds that leftover Enter and decides the line has already ended."
+    },
+    {
+      "question": "What is the simplest way to avoid that trap?",
+      "options": [
+        "Ask the `getline` questions before the `cin >>` questions.",
+        "Never use `cin >>` for numbers.",
+        "Include `<iostream>` twice."
+      ],
+      "answer": 0,
+      "explain": "The problem only happens when a `getline` follows a `cin >>`. Reordering the questions, or adding `cin.ignore();` to throw away the Enter, both fix it."
+    }
+  ]
+}

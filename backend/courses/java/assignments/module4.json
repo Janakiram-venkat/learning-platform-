@@ -1,0 +1,141 @@
+{
+  "moduleId": 4,
+  "title": "Making Decisions Checkpoint",
+  "intro": "Your programs can now take different paths: if, else, chains, nesting, switch and the ternary. Twelve rounds, one from every idea in this module. First-try answers earn three stars!",
+  "emoji": "☕",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What must go inside the round brackets of an `if`?",
+      "options": [
+        "Something that produces true or false",
+        "Any number, where 0 counts as false",
+        "The instruction you want to run",
+        "A String"
+      ],
+      "answer": 0,
+      "explain": "Java insists on a boolean. A comparison, a logical expression, or a boolean variable all work; `if (score)` with an int is a compile error."
+    },
+    {
+      "type": "predict",
+      "prompt": "The score is only 10. What does this print?",
+      "code": "int score = 10;\n\nif (score >= 50);\n{\n    System.out.println(\"You passed!\");\n}",
+      "options": ["You passed!", "Nothing", "A compile error", "You passed! twice"],
+      "answer": 0,
+      "explain": "The semicolon ends the `if` immediately, so it guards an empty instruction. The block below is then just an ordinary block, and it always runs."
+    },
+    {
+      "type": "bug",
+      "prompt": "This congratulates a score of 20. What is missing?",
+      "code": "if (score >= 50)\n    System.out.println(\"You passed!\");\n    System.out.println(\"Well done!\");",
+      "options": [
+        "Braces: without them only the first instruction belongs to the if",
+        "A semicolon after the if",
+        "An else before the second print",
+        "Nothing: it is correct"
+      ],
+      "answer": 0,
+      "explain": "Java ignores indentation. Only one instruction attaches to a braceless `if`, so the second print always runs."
+    },
+    {
+      "type": "predict",
+      "prompt": "Marks are 80. How many lines does this print?",
+      "code": "if (marks >= 90) {\n    System.out.println(\"A\");\n} else if (marks >= 75) {\n    System.out.println(\"B\");\n} else if (marks >= 60) {\n    System.out.println(\"C\");\n}",
+      "options": ["One: B", "Two: B and C", "Three: A, B and C", "None"],
+      "answer": 0,
+      "explain": "A chain stops at the first true test. 80 is also 60 or more, but Java never reaches that test once B has matched."
+    },
+    {
+      "type": "bug",
+      "prompt": "Top marks of 95 come out as a D. What is wrong?",
+      "code": "if (marks >= 40) {\n    System.out.println(\"Grade: D\");\n} else if (marks >= 90) {\n    System.out.println(\"Grade: A\");\n}",
+      "options": [
+        "The loosest test is first, so nothing below it can ever run",
+        "`>=` should be `>`",
+        "The chain needs a final else",
+        "95 is not 90 or more"
+      ],
+      "answer": 0,
+      "explain": "Every mark of 40 or more matches the first test. Range tests have to be ordered from narrowest to widest."
+    },
+    {
+      "type": "concept",
+      "prompt": "Why does removing the final `else` sometimes cause `variable might not have been initialized`?",
+      "options": [
+        "Java cannot prove that every path gives the variable a value",
+        "Every chain must end with else",
+        "The variable should have been final",
+        "Because else if is slower"
+      ],
+      "answer": 0,
+      "explain": "Without a catch-all there is a route through the code where nothing is assigned, and Java refuses to let you read a local variable that might hold nothing."
+    },
+    {
+      "type": "concept",
+      "prompt": "Both conditions must be true and there is nothing to do in between. Which is better?",
+      "options": [
+        "One `if` with `&&`",
+        "Two nested `if` statements",
+        "Two separate `if` statements",
+        "A switch"
+      ],
+      "answer": 0,
+      "explain": "`&&` gives one condition and one level of indentation. Nesting is for when each branch needs to do something different."
+    },
+    {
+      "type": "predict",
+      "prompt": "There is no break after case 1. What does this print?",
+      "code": "int day = 1;\n\nswitch (day) {\n    case 1:\n        System.out.println(\"Monday\");\n    case 2:\n        System.out.println(\"Tuesday\");\n        break;\n    default:\n        System.out.println(\"Other\");\n}",
+      "options": ["Monday then Tuesday", "Monday", "Monday, Tuesday and Other", "A compile error"],
+      "answer": 0,
+      "explain": "This is fall-through: Java runs the matching case and keeps going downwards until it meets a `break`."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which of these can a switch NOT match?",
+      "options": [
+        "A range, like `case marks >= 75:`",
+        "An int",
+        "A String",
+        "A char"
+      ],
+      "answer": 0,
+      "explain": "A switch compares one value against fixed known values. Ranges and comparisons belong in an `else if` chain."
+    },
+    {
+      "type": "predict",
+      "prompt": "Age is 30. What does this store in price?",
+      "code": "int price = age < 13 ? 120 : 250;",
+      "options": ["250", "120", "13", "It does not compile"],
+      "answer": 0,
+      "explain": "The condition is false, so the ternary chooses the value after the colon. Read it as: condition ? whenTrue : whenFalse."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each tool to the job it fits best.",
+      "pairs": [
+        { "left": "if", "right": "Do something only when a condition holds" },
+        { "left": "else", "right": "The path taken when the if was false" },
+        { "left": "else if chain", "right": "Pick one of several ranges" },
+        { "left": "nested if", "right": "A detail that applies inside one branch" },
+        { "left": "switch", "right": "Match one value against fixed options" },
+        { "left": "ternary", "right": "Choose between two values in one line" }
+      ],
+      "explain": "Six tools, six shapes of decision. Choosing the one that fits is most of what makes code readable."
+    },
+    {
+      "type": "order",
+      "prompt": "Build a grade chain that works: highest band first, then the rest, ending with a catch-all.",
+      "solution": [
+        "if (marks >= 90) {",
+        "    grade = \"A\";",
+        "} else if (marks >= 75) {",
+        "    grade = \"B\";",
+        "} else {",
+        "    grade = \"C or below\";",
+        "}"
+      ],
+      "explain": "The narrowest test has to come first, because the chain stops at the first true condition. The closing `else` catches everything left and guarantees `grade` is always given a value."
+    }
+  ]
+}

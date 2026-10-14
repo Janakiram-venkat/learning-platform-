@@ -8,6 +8,7 @@
 export const LANGUAGES = {
   python: { label: 'Python', monaco: 'python', extension: 'py' },
   java: { label: 'Java', monaco: 'java', extension: 'java' },
+  cpp: { label: 'C++', monaco: 'cpp', extension: 'cpp' },
 };
 
 export const DEFAULT_LANGUAGE = 'python';

@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
-   Pocket Lab — the track catalogue.
+   Pocket Lab: the track catalogue.
    One list, shared by the Courses page cards and the bench finder quiz, so a
    new subject only ever has to be described once.
 
@@ -18,7 +18,7 @@ export const TRACKS = [
   {
     ref: 'TRK-PY', title: 'Python', tagline: 'Where every maker starts',
     line: 'Beginner friendly',
-    desc: 'Master the language behind games, AI, and the web, one puzzle at a time.',
+    desc: 'Learn the language behind games, AI and the web, then use it to make things of your own.',
     status: 'READY', led: '#FFB40A', to: '/course/python/lesson/intro',
     traits: { code: 3, puzzles: 3, brandNew: 3, foundation: 3, ai: 1, games: 1 },
   },
@@ -30,23 +30,30 @@ export const TRACKS = [
     traits: { code: 3, foundation: 2, puzzles: 2, games: 1, machines: 1 },
   },
   {
+    ref: 'TRK-CPP', title: 'C++', tagline: 'Close to the metal',
+    line: 'Beginner friendly',
+    desc: 'The language inside game engines, browsers and robots. Compile it, run it, and see how a program really talks to the machine.',
+    status: 'NEW', led: '#00599C', to: '/course/cpp/lesson/cpp_intro',
+    traits: { code: 3, machines: 2, puzzles: 2, games: 2, foundation: 1 },
+  },
+  {
     ref: 'TRK-AI', title: 'AI & Machine Learning', tagline: 'Teach a machine to see',
     line: 'Explorer',
-    desc: 'Train smart models, show them examples, then ask them to guess. AI you can actually poke at.',
+    desc: 'Feed a model your own examples, train it, then try to fool it. AI you can actually poke at.',
     status: 'READY', led: '#0097F8', to: '/course/ai/lesson/intro',
     traits: { ai: 3, data: 3, puzzles: 2, someCode: 2, science: 1 },
   },
   {
     ref: 'TRK-WEB', title: 'Web Development', tagline: 'Pages that talk back',
     line: 'Beginner friendly',
-    desc: 'Build real webpages with HTML, CSS and JavaScript. Every change refreshes live in the preview.',
+    desc: 'Design your own pages with HTML, CSS and JavaScript. Every change refreshes live in the preview.',
     status: 'NEW', led: '#BD16BB', to: '/course/webdev/lesson/wd1-intro',
     traits: { web: 3, design: 3, share: 3, brandNew: 2, code: 1 },
   },
   {
     ref: 'TRK-GAME', title: 'Game Development', tagline: 'Make it move, then win',
     line: 'After Python 1–5',
-    desc: 'Falling fruit, dodging balls, and a score to beat. Real physics, real loops, real games.',
+    desc: 'Falling fruit, dodging balls, a score to beat. Build the game, then bend the rules until it is yours.',
     status: 'READY', led: '#E63C22', to: '/course/gamedev/games',
     // Gated: the card and the finder read its lock state from gamedev/course.json.
     courseId: 'gamedev',
@@ -55,7 +62,7 @@ export const TRACKS = [
   {
     ref: 'TRK-BOT', title: 'Robotics', tagline: 'Sense, think, act',
     line: 'No electronics needed',
-    desc: 'Meet the machines that see the world and move through it. Build your own from parts, on screen.',
+    desc: 'Machines that sense the world and move through it. Build your own from parts, on screen.',
     status: 'READY', led: '#00C48C', to: '/course/robotics/lesson/robot-intro',
     traits: { robots: 3, motion: 3, machines: 3, science: 1, someCode: 1 },
   },

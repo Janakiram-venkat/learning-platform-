@@ -1,0 +1,324 @@
+{
+  "lessonId": "java_arithmetic",
+  "title": "Arithmetic Operators",
+  "description": "The five arithmetic operators, what the remainder is for, and the order Java works in.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Five Operators"
+    },
+    {
+      "type": "paragraph",
+      "value": "Java has five arithmetic operators. `+` adds, `-` subtracts, `*` multiplies, `/` divides, and `%` gives the **remainder** after a division."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int a = 17;\n        int b = 5;\n\n        System.out.println(a + b);\n        System.out.println(a - b);\n        System.out.println(a * b);\n        System.out.println(a / b);\n        System.out.println(a % b);\n    }\n}",
+      "output": [
+        "22",
+        "12",
+        "85",
+        "3",
+        "2"
+      ],
+      "caption": "17 divided by 5 is 3 with 2 left over: `/` gives the 3, `%` gives the 2."
+    },
+    {
+      "type": "analogy",
+      "emoji": "🍬",
+      "real": "Sharing 17 sweets among 5 friends",
+      "concept": "`/` and `%` on whole numbers",
+      "code": "17 / 5   // 3\n17 % 5   // 2",
+      "text": "Each friend gets 3 sweets: that is `/`. The 2 sweets nobody gets are left over: that is `%`."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Both int",
+          "tone": "neutral",
+          "code": "17 / 5    // 3",
+          "text": "Two `int` values give an `int`. The .4 is thrown away."
+        },
+        {
+          "title": "One double",
+          "tone": "good",
+          "code": "17 / 5.0  // 3.4",
+          "text": "Make one side a `double` when you want the decimal answer."
+        }
+      ],
+      "title": "Whole numbers drop the decimals"
+    },
+    {
+      "type": "check",
+      "question": "What does `System.out.println(7 / 2);` print?",
+      "options": [
+        "3.5",
+        "3",
+        "4",
+        "1"
+      ],
+      "answer": 1,
+      "explain": "Both are `int`, so the answer is a whole number: 2 goes into 7 three times. The 1 left over is what `7 % 2` gives."
+    },
+    {
+      "type": "heading",
+      "value": "What the Remainder Is For"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "⚖️",
+          "text": "Even or odd?",
+          "sub": "`n % 2` is 0 for even numbers, 1 for odd ones."
+        },
+        {
+          "icon": "✅",
+          "text": "Divides exactly?",
+          "sub": "If `a % b` is 0, b fits into a with nothing left."
+        },
+        {
+          "icon": "🔚",
+          "text": "Last digit",
+          "sub": "`n % 10` gives the last digit: `48 % 10` is 8."
+        }
+      ],
+      "title": "Three everyday uses of %"
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int totalSeconds = 3725;\n\n        int hours = totalSeconds / 3600;\n        int minutes = totalSeconds % 3600 / 60;\n        int seconds = totalSeconds % 60;\n\n        System.out.println(hours + \" h \" + minutes + \" min \" + seconds + \" s\");\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "A total number of seconds to split into units.",
+          "vars": {
+            "totalSeconds": "3725"
+          }
+        },
+        {
+          "line": 5,
+          "note": "3600 seconds make an hour. 3725 / 3600 is 1 whole hour.",
+          "vars": {
+            "hours": "1"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`3725 % 3600` is 125, the part that was not a whole hour. 125 / 60 is 2 whole minutes.",
+          "vars": {
+            "minutes": "2"
+          }
+        },
+        {
+          "line": 7,
+          "note": "`3725 % 60` is what is left after whole minutes: 5.",
+          "vars": {
+            "seconds": "5"
+          }
+        },
+        {
+          "line": 9,
+          "note": "Join it all into one line.",
+          "out": [
+            "1 h 2 min 5 s"
+          ]
+        }
+      ],
+      "title": "Splitting seconds into units",
+      "outro": "The pattern: divide for the big unit, take the remainder, repeat. It also turns paise into rupees."
+    },
+    {
+      "type": "check",
+      "question": "What does `System.out.println(29 % 10);` print?",
+      "options": [
+        "9",
+        "2",
+        "2.9",
+        "19"
+      ],
+      "answer": 0,
+      "explain": "10 goes into 29 twice with 9 left over, and `%` gives the left over part."
+    },
+    {
+      "type": "heading",
+      "value": "The Order of Operations"
+    },
+    {
+      "type": "paragraph",
+      "value": "Java follows maths: `*`, `/` and `%` happen before `+` and `-`. Equal rank goes left to right. Round brackets beat everything."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "🔍",
+          "label": "2 + 3 * 4",
+          "detail": "Find the highest rank: `*`"
+        },
+        {
+          "icon": "✖️",
+          "label": "2 + 12",
+          "detail": "3 * 4 is done first"
+        },
+        {
+          "icon": "➕",
+          "label": "14",
+          "detail": "Then the addition"
+        }
+      ],
+      "title": "How Java works out 2 + 3 * 4"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(2 + 3 * 4);      // the multiply goes first\n        System.out.println((2 + 3) * 4);    // brackets go first\n        System.out.println(20 - 6 / 2);     // the divide goes first\n        System.out.println(10 - 4 - 3);     // equal rank: left to right\n    }\n}",
+      "output": [
+        "14",
+        "20",
+        "17",
+        "3"
+      ],
+      "caption": "Tip: once a sum has more than two operators, add brackets even where Java does not need them. `price + (price * TAX_RATE)` says what you meant."
+    },
+    {
+      "type": "check",
+      "question": "What does `System.out.println(10 - 4 - 3);` print?",
+      "options": [
+        "9",
+        "-3",
+        "17",
+        "3"
+      ],
+      "answer": 3,
+      "explain": "Equal rank goes left to right: `(10 - 4) - 3` is 3. Right to left would give 9, a bug that is hard to see."
+    },
+    {
+      "type": "heading",
+      "value": "Typed Numbers and Zero"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Bill total? \");\n        double total = scanner.nextDouble();\n\n        System.out.print(\"How many people? \");\n        int people = scanner.nextInt();\n\n        double each = total / people;\n\n        System.out.println(\"Each person pays \" + each);\n    }\n}",
+      "caption": "Sample run: type `900` then `4` and it prints `Each person pays 225.0`. `total` is a `double`, so the division keeps decimals. Two `int` values would need a cast, as in Module 2."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "int: crash",
+          "tone": "bad",
+          "code": "5 / 0",
+          "text": "Stops the program with an `ArithmeticException: / by zero`."
+        },
+        {
+          "title": "double: odd values",
+          "tone": "neutral",
+          "code": "5.0 / 0   // Infinity\n0.0 / 0   // NaN",
+          "text": "No crash, but `NaN` means \"not a number\". Neither is useful."
+        }
+      ],
+      "title": "Dividing by zero"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(5.0 / 0);      // Infinity\n        System.out.println(0.0 / 0);      // NaN\n\n        // System.out.println(5 / 0);     // ArithmeticException: / by zero\n    }\n}",
+      "output": [
+        "Infinity",
+        "NaN"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "value": "So a program that divides by a typed number should check it first. That check is a decision, and decisions are the next module."
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        int totalSeconds = 3725;\n\n        int hours = totalSeconds / 3600;\n        int minutes = totalSeconds % 3600 / 60;\n        int seconds = totalSeconds % 60;\n\n        System.out.println(hours + \" h \" + minutes + \" min \" + seconds + \" s\");\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Store 47 in an `int`. Print whether it is even by printing `47 % 2`, then print its last digit.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int n = 47;\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Ask for a number of minutes, then print how many whole hours and how many minutes are left over.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Minutes? \");\n        int minutes = scanner.nextInt();\n\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Work out `2 + 3 * 4 - 6 / 2` in your head first, then print it and check whether you were right.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `17 % 5` give?",
+      "options": [
+        "2, the remainder after dividing",
+        "3, the whole part of the division",
+        "3.4, the exact answer"
+      ],
+      "answer": 0,
+      "explain": "5 goes into 17 three times with 2 left over. `/` gives the 3 and `%` gives the 2."
+    },
+    {
+      "question": "How do you test whether an `int` called `n` is even?",
+      "options": [
+        "Check whether `n % 2` is 0",
+        "Check whether `n / 2` is 0",
+        "Check whether `n % 10` is 0"
+      ],
+      "answer": 0,
+      "explain": "An even number divides by 2 with nothing left over, so its remainder is 0. Odd numbers give 1."
+    },
+    {
+      "question": "What does `System.out.println(2 + 3 * 4);` print?",
+      "options": [
+        "14",
+        "20",
+        "24"
+      ],
+      "answer": 0,
+      "explain": "Multiplication happens before addition, so `3 * 4` is worked out first. Brackets round `2 + 3` would give 20."
+    },
+    {
+      "question": "What does `10 - 4 - 3` give, and why?",
+      "options": [
+        "3, because equal ranking operators go left to right",
+        "9, because the right hand pair goes first",
+        "It is ambiguous, so Java reports an error"
+      ],
+      "answer": 0,
+      "explain": "Both operators rank the same, so Java works left to right: `(10 - 4) - 3`, which is 3."
+    },
+    {
+      "question": "Given `int totalSeconds = 3725;`, what does `totalSeconds % 60` give?",
+      "options": [
+        "5, the seconds left after taking whole minutes",
+        "62, the number of whole minutes",
+        "125, the seconds left after taking whole hours"
+      ],
+      "answer": 0,
+      "explain": "`% 60` is what remains once every whole minute has been removed, which is the seconds part of the time."
+    },
+    {
+      "question": "What happens when you run `System.out.println(5 / 0);`?",
+      "options": [
+        "The program stops with an ArithmeticException.",
+        "It prints Infinity.",
+        "It prints 0."
+      ],
+      "answer": 0,
+      "explain": "Whole-number division by zero has no answer, so Java throws an ArithmeticException. `5.0 / 0` is different: doubles give `Infinity`."
+    }
+  ]
+}

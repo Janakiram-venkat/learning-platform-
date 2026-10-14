@@ -1,0 +1,327 @@
+{
+  "lessonId": "java_strings_intro",
+  "title": "Strings",
+  "description": "Storing text, joining it together, and the traps of adding numbers to it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Text in a Box"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "String",
+          "label": "type",
+          "note": "Text of any length. Note the capital S."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "playerName",
+          "label": "name",
+          "note": "A camelCase name, as usual."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "\"Amara\"",
+          "label": "value",
+          "note": "Text always goes in double quotes."
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "Anatomy of a String variable",
+      "caption": "Declared exactly like the other types."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        String playerName = \"Amara\";\n        String greeting = \"Welcome back\";\n        String empty = \"\";          // legal: text with nothing in it\n\n        System.out.println(greeting + \", \" + playerName + \"!\");\n    }\n}",
+      "output": [
+        "Welcome back, Amara!"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "value": "Why the capital S? `String` is not a primitive. It is a **class**, like your `Main` class. Java ships thousands of ready-made classes."
+    },
+    {
+      "type": "tip",
+      "value": "Capital letter means a class (`String`, `Main`). Lower case means a primitive (`int`, `double`, `boolean`, `char`).",
+      "title": "Spot the difference"
+    },
+    {
+      "type": "heading",
+      "value": "Joining Text with +"
+    },
+    {
+      "type": "paragraph",
+      "value": "`+` joins text, left to right. Java adds nothing of its own, so every space must be inside the quotes."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        String first = \"Ada\";\n        String last = \"Lovelace\";\n        System.out.println(first + last);\n        System.out.println(first + \" \" + last);\n        String fullName = first + \" \" + last;\n        System.out.println(\"Name: \" + fullName);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "A String box holding `\"Ada\"`.",
+          "vars": {
+            "first": "\"Ada\""
+          }
+        },
+        {
+          "line": 4,
+          "note": "A second String box.",
+          "vars": {
+            "last": "\"Lovelace\""
+          }
+        },
+        {
+          "line": 5,
+          "note": "Joined with no space between them.",
+          "out": [
+            "AdaLovelace"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "The `\" \"` in the middle adds the space.",
+          "out": [
+            "Ada Lovelace"
+          ]
+        },
+        {
+          "line": 7,
+          "note": "The joined text is new text. Store it in its own variable.",
+          "vars": {
+            "fullName": "\"Ada Lovelace\""
+          }
+        },
+        {
+          "line": 8,
+          "note": "Use the stored result like any other String.",
+          "out": [
+            "Name: Ada Lovelace"
+          ]
+        }
+      ],
+      "title": "Joining step by step"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Hi ! Hi",
+        "HiHi!",
+        "Hi!Hi",
+        "a!a"
+      ],
+      "answer": 2,
+      "explain": "`+` joins the pieces in order and adds no spaces of its own.",
+      "code": "String a = \"Hi\";\nSystem.out.println(a + \"!\" + a);"
+    },
+    {
+      "type": "heading",
+      "value": "Numbers Joined to Text"
+    },
+    {
+      "type": "paragraph",
+      "value": "If one side of `+` is text, Java turns the other side into text too. Between two numbers, `+` still adds. In a chain, the order decides."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Joins",
+          "tone": "bad",
+          "code": "int a = 2;\nint b = 3;\n\"Sum: \" + a + b   // Sum: 23",
+          "text": "`\"Sum: \" + a` is already text, so `b` is stuck on the end."
+        },
+        {
+          "title": "Adds",
+          "tone": "good",
+          "code": "int a = 2;\nint b = 3;\n\"Sum: \" + (a + b) // Sum: 5",
+          "text": "Brackets make the addition happen first."
+        }
+      ],
+      "title": "Same numbers, different results",
+      "caption": "Java works left to right. Once text enters the chain, every `+` after it joins."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int a = 2;\n        int b = 3;\n\n        System.out.println(\"Sum: \" + a + b);\n        System.out.println(\"Sum: \" + (a + b));\n        System.out.println(a + b + \" is the sum\");\n    }\n}",
+      "output": [
+        "Sum: 23",
+        "Sum: 5",
+        "5 is the sum"
+      ],
+      "caption": "The last line starts with two numbers, so they are added before any text appears. Two numbers stuck together? Add brackets."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Total: 5",
+        "5 Total:",
+        "Total: 41",
+        "Total: 4 1"
+      ],
+      "answer": 2,
+      "explain": "`\"Total: \" + 4` is text first, so the 1 is joined on, not added.",
+      "code": "System.out.println(\"Total: \" + 4 + 1);"
+    },
+    {
+      "type": "heading",
+      "value": "Strings Can Do Things"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "word",
+          "label": "the text",
+          "note": "A String variable."
+        },
+        {
+          "code": ".",
+          "label": "dot",
+          "note": "Means: ask this value to do something."
+        },
+        {
+          "code": "length",
+          "label": "action",
+          "note": "Count the characters."
+        },
+        {
+          "code": "()",
+          "label": "do it now",
+          "note": "The empty brackets run the action."
+        }
+      ],
+      "title": "Asking a String a question",
+      "caption": "The same dotted path you used for `System.out.println`."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        String word = \"Java\";\n\n        System.out.println(word.length());\n        System.out.println(\"Pocket Lab\".length());   // spaces count too\n    }\n}",
+      "output": [
+        "4",
+        "10"
+      ],
+      "caption": "Strings can do a couple of dozen things like this. Module 7 covers the useful ones."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "char",
+          "tone": "neutral",
+          "code": "char initial = 'A';",
+          "text": "Single quotes. Exactly one character."
+        },
+        {
+          "title": "String",
+          "tone": "neutral",
+          "code": "String letter = \"A\";",
+          "text": "Double quotes. Any amount of text, even one character or none."
+        }
+      ],
+      "title": "char vs String",
+      "caption": "They print the same, which is why mixing them up confuses people."
+    },
+    {
+      "type": "check",
+      "question": "Which line is an error?",
+      "options": [
+        "char c = \"A\";",
+        "char c = 'A';",
+        "String s = \"A\";",
+        "String s = \"\";"
+      ],
+      "answer": 0,
+      "explain": "Double quotes make a String, and a String cannot go in a `char` box."
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        String first = \"Ada\";\n        String last = \"Lovelace\";\n\n        System.out.println(first + \" \" + last);\n        System.out.println(\"Letters in the first name: \" + first.length());\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Declare a `String` for your town and one for your country, then print them as one line: Town, Country.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Print `\"Total: \" + 10 + 5` and then print it again with brackets round the sum. Look at the two answers and explain the difference to yourself before moving on.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Store your full name in a `String`, then print a line saying how many characters it has, including the space.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why is `String` written with a capital S when `int` is not?",
+      "options": [
+        "`String` is a class, and every class name starts with a capital letter.",
+        "It is a mistake that Java never fixed.",
+        "Because text is more important than numbers."
+      ],
+      "answer": 0,
+      "explain": "Primitive types are lower case; classes are capitalised. `String` is a class, which is also why a piece of text can do things like `length()`."
+    },
+    {
+      "question": "What does `System.out.println(\"Sum: \" + 2 + 3);` print?",
+      "options": [
+        "Sum: 23",
+        "Sum: 5",
+        "Sum: 2 3"
+      ],
+      "answer": 0,
+      "explain": "Java works left to right. Once `\"Sum: \" + 2` has produced text, the `+ 3` joins on rather than adding. Brackets round `2 + 3` would give 5."
+    },
+    {
+      "question": "What does `System.out.println(2 + 3 + \" total\");` print?",
+      "options": [
+        "5 total",
+        "23 total",
+        "2 3 total"
+      ],
+      "answer": 0,
+      "explain": "The chain starts with two numbers, so `2 + 3` is arithmetic and gives 5. Only after the text appears does `+` start joining."
+    },
+    {
+      "question": "What does `\"Java\".length()` give back?",
+      "options": [
+        "4",
+        "Java",
+        "1"
+      ],
+      "answer": 0,
+      "explain": "`length()` counts the characters in the text. Spaces count as characters too, so `\"Pocket Lab\".length()` is 10."
+    },
+    {
+      "question": "Which line is correct?",
+      "options": [
+        "String letter = \"A\";",
+        "String letter = 'A';",
+        "char letter = \"A\";"
+      ],
+      "answer": 0,
+      "explain": "A `String` value needs double quotes. Single quotes make a `char`, and Java will not quietly swap one for the other."
+    }
+  ]
+}

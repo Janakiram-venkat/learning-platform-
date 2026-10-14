@@ -1,0 +1,131 @@
+{
+  "moduleId": 4,
+  "title": "Cinema Ticket Desk",
+  "emoji": "🎬",
+  "brief": "Work the ticket desk. Your program asks for a name, an age and a day number, then decides the ticket category and price, names the day, and adds a weekend surcharge to everyone who is actually paying. Every decision tool from this module gets used.",
+  "problem": {
+    "goal": "Ask for a name, an age and a day number (1 to 7). Print the customer's name, the day name, the age category, the base price, whether it is a weekend, and the total price.",
+    "example": {
+      "typed": [
+        "Amara",
+        "10",
+        "6"
+      ],
+      "output": [
+        "Ticket for: Amara",
+        "Day: Saturday",
+        "Category: Child",
+        "Base price: 120",
+        "Weekend: true",
+        "Total: 170"
+      ]
+    },
+    "rules": [
+      "Categories by age: under 5 is Infant and free, under 13 is Child at 120, under 60 is Adult at 250, and 60 or over is Senior at 100.",
+      "Day names come from the day number: 1 is Monday through to 7 is Sunday. Use a switch, not a chain of ifs.",
+      "Weekend means day 6 or day 7.",
+      "The weekend surcharge is 50, and it is added only when the base price is more than 0. A free infant ticket stays free at the weekend.",
+      "Ask for the name first with getline, then the two numbers with cin >>."
+    ]
+  },
+  "steps": [
+    "The three questions are already written for you. Check which way of reading each one uses and why the name comes first.",
+    "Use an if and else if chain on the age to set two things at once: a string for the category and an int for the base price. End it with a plain else so every age is covered.",
+    "Declare a string for the day name, then use a switch on the day number to set it. Every case needs a break, and default catches anything that is not 1 to 7.",
+    "Make a bool for weekend: true when the day is 6 or 7.",
+    "Work out the total. Start from the base price, then add 50 only when the price is above 0 and it is a weekend.",
+    "Print the six lines exactly as in the example, then press Check Project."
+  ],
+  "starterCode": "// 🎬 Cinema Ticket Desk\n\n#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    // ---- Already done for you ----\n    cout << boolalpha;    // print bools as true and false, not 1 and 0\n\n    string name;\n    cout << \"Name? \";\n    getline(cin, name);\n\n    int age = 0;\n    cout << \"Age? \";\n    cin >> age;\n\n    int day = 0;\n    cout << \"Day number (1 to 7)? \";\n    cin >> day;\n\n    // ---- Your turn ----\n\n    // TODO 1: the category and the base price, from the age.\n    //         Declare both before the chain, with starting values:\n    //           string category = \"\";\n    //           int basePrice = 0;\n    //         under 5   -> Infant, 0\n    //         under 13  -> Child, 120\n    //         under 60  -> Adult, 250\n    //         otherwise -> Senior, 100\n\n\n    // TODO 2: the day name, using a switch on day.\n    //         1 is Monday ... 7 is Sunday. Give default a value too.\n    //         Do not forget a break at the end of every case.\n\n\n    // TODO 3: a bool for weekend: day 6 or day 7.\n\n\n    // TODO 4: the total. Start from basePrice, then add 50 only when\n    //         basePrice is above 0 AND it is a weekend.\n\n\n    // TODO 5: print the six lines. The first one is done as a model:\n    cout << \"Ticket for: \" << name << endl;\n\n    //   Day: Saturday\n    //   Category: Child\n    //   Base price: 120\n    //   Weekend: true\n    //   Total: 170\n\n\n    return 0;\n}\n",
+  "hints": [
+    "Press Run before changing anything. It asks three questions and prints one line. Answer Amara, 10, 6 to match the example while you build the rest.",
+    "Declare the two variables above the chain so they still exist after it, then assign both in every branch. A chain that sets a shoe size and a price might start `if (footLength < 20) { size = \"Small\"; price = 300; } else if ...`.",
+    "Order the age tests from the smallest band upwards: under 5, then under 13, then under 60, then a plain `else` for everyone older. A chain stops at the first true test, so you never need to write a lower bound like `age >= 5` as well.",
+    "A switch that sets a variable looks like this for months: `switch (month) { case 1: monthName = \"January\"; break; case 2: monthName = \"February\"; break; ... default: monthName = \"Unknown\"; }`. Yours does the same with days.",
+    "The weekend test is one line and needs no `if`: a bool can store the result of two comparisons joined with `||`, just like `bool holiday = month == 8 || month == 12;` would.",
+    "For the total, start a new int at the base price, then guard the surcharge with an `if` whose condition joins two tests with `&&`: the price is above 0, and it is a weekend. Inside, add 50 with `+=`. That guard is what keeps a free infant ticket free.",
+    "The remaining lines all follow the model line, each with its own label, for example a line for a variable called `seats` would be `cout << \"Seats: \" << seats << endl;`."
+  ],
+  "inputPlaceholder": "Amara\n10\n6",
+  "inputHint": "Your program asks 3 questions, so type 3 answers: a name, then an age, then a day number from 1 to 7.",
+  "tests": [
+    {
+      "name": "A child on a Saturday pays the surcharge",
+      "input": [
+        "Amara",
+        "10",
+        "6"
+      ],
+      "expect": [
+        "Ticket for: Amara",
+        "Day: Saturday",
+        "Category: Child",
+        "Base price: 120",
+        "Weekend: true",
+        "Total: 170"
+      ]
+    },
+    {
+      "name": "An adult on a Wednesday pays the base price",
+      "input": [
+        "Sam",
+        "30",
+        "3"
+      ],
+      "expect": [
+        "Ticket for: Sam",
+        "Day: Wednesday",
+        "Category: Adult",
+        "Base price: 250",
+        "Weekend: false",
+        "Total: 250"
+      ]
+    },
+    {
+      "name": "A senior on a Sunday",
+      "input": [
+        "Mia",
+        "70",
+        "7"
+      ],
+      "expect": [
+        "Day: Sunday",
+        "Category: Senior",
+        "Base price: 100",
+        "Weekend: true",
+        "Total: 150"
+      ]
+    },
+    {
+      "name": "A free infant ticket stays free at the weekend",
+      "input": [
+        "Ravi",
+        "3",
+        "7"
+      ],
+      "expect": [
+        "Category: Infant",
+        "Base price: 0",
+        "Weekend: true",
+        "Total: 0"
+      ]
+    },
+    {
+      "name": "Exactly 60 counts as a senior on a Monday",
+      "input": [
+        "Lena Park",
+        "60",
+        "1"
+      ],
+      "expect": [
+        "Ticket for: Lena Park",
+        "Day: Monday",
+        "Category: Senior",
+        "Base price: 100",
+        "Weekend: false",
+        "Total: 100"
+      ]
+    }
+  ],
+  "successMessage": "The ticket desk is open! 🎬 You used a chain for the age bands, a switch for the day, a guarded if for the surcharge and comparisons for the weekend, and every case came out right, including the tricky free ticket on a Sunday. Next module you learn to repeat work with loops, and your programs stop running once and stopping."
+}

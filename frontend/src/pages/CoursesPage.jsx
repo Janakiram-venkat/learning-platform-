@@ -6,12 +6,12 @@ import BenchFinder from '../components/course/BenchFinder';
 import { TRACKS } from '../data/tracks';
 
 /* ---------------------------------------------------------------------------
-   Pocket Lab — Courses.
+   Pocket Lab: Courses.
    The catalogue lives here so the home page can stay a pitch. Every subject
    sits on the same workbench: silkscreened panel, LED hairline in the
    track's accent, silkscreened bench icon, tagline in violet ref-type, then
    the description and a single call to action. The card is the workbench
-   identity for a course — reused nowhere else — so it can afford this
+   identity for a course (reused nowhere else), so it can afford this
    density.
 --------------------------------------------------------------------------- */
 
@@ -53,7 +53,7 @@ function TrackCard({ track }) {
 
   return (
     <div className={`lab-panel relative flex flex-col overflow-hidden p-6 ${soon ? 'opacity-80' : 'lab-lift'}`}>
-      {/* LED hairline along the top edge — the bench-panel signature that
+      {/* LED hairline along the top edge: the bench-panel signature that
           separates one subject from the next at a glance. Rendered inside the
           border so it hugs the panel corners cleanly. */}
       <span
@@ -94,7 +94,7 @@ function TrackCard({ track }) {
             <><Lock className="h-4 w-4" /> See what unlocks it</>
           ) : (
             <>
-              <Zap className="h-4 w-4" /> Open the bench
+              <Zap className="h-4 w-4" /> Start building
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </>
           )}
@@ -111,13 +111,15 @@ export default function CoursesPage() {
         <div className="mx-auto max-w-6xl px-6">
           <span className="mb-4 inline-flex items-center gap-2 rounded-md border-2 border-ink bg-white px-3 py-1 ref-tag text-ink">
             <Sparkles className="h-3.5 w-3.5" />
-            The workshop · nine benches
+            The workshop · ten benches
           </span>
-          <h1 className="font-lab mb-3 text-3xl font-extrabold sm:text-5xl">Every subject, one bench</h1>
+          <h1 className="font-lab mb-3 text-3xl font-extrabold sm:text-5xl">Pick what you want to build</h1>
           <p className="mb-12 max-w-2xl text-lg font-semibold text-ink/65">
-            Pick any door: Python, Java, AI, web, games, robotics, or physics.
-            Chemistry and biology are wired up next. The tools, the editor, and
-            the live preview travel with you between subjects.
+            Ten benches, one workshop. Start wherever it sounds fun: Python,
+            Java, C++, AI, web, games, robotics or physics, with chemistry and
+            biology wiring in next. The editor, the live preview and the Run
+            button travel with you, so whatever you make stays yours to keep
+            changing.
           </p>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

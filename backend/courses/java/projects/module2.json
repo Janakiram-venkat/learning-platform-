@@ -1,0 +1,72 @@
+{
+  "moduleId": 2,
+  "title": "Quiz Report Card",
+  "emoji": "📊",
+  "brief": "Build a report card for a finished quiz. You will store the player and the score in the right types, work out a percentage without losing the decimals, and then chop that percentage down to a whole number with a cast. Both of this module's traps are waiting in here.",
+  "problem": {
+    "goal": "Print a six line report: the player's name, the score, the exact percentage, the percentage as a whole number, the grade letter and whether they passed.",
+    "example": {
+      "typed": [],
+      "output": [
+        "Player: Amara",
+        "Score: 7 out of 8",
+        "Percent: 87.5%",
+        "Whole: 87%",
+        "Grade: A",
+        "Passed: true"
+      ]
+    },
+    "rules": [
+      "The number of questions must be a constant called TOTAL_QUESTIONS holding 8.",
+      "The percentage must be worked out from the variables, not typed in as 87.5, and it must print as 87.5 rather than 87.0.",
+      "The Whole line must come from casting the percentage to an int. Note that 87.5 becomes 87, not 88.",
+      "Use a char for the grade and a boolean for whether they passed.",
+      "Keep the score at 7 out of 8 so the expected output matches."
+    ]
+  },
+  "steps": [
+    "The player name and the score are already declared for you. Read them and notice the type of each.",
+    "Add the constant: `final int TOTAL_QUESTIONS = 8;`",
+    "Work out the percentage as a `double`. 7 out of 8 must give 87.5, so make sure the division is not whole-number division: get that wrong and you will see 87.0.",
+    "Make a `char` for the grade holding 'A', and a `boolean` for passed holding true.",
+    "Print the six lines exactly as in the example (the first is written for you), then press Check Project."
+  ],
+  "starterCode": "// 📊 Quiz Report Card\n\npublic class Main {\n    public static void main(String[] args) {\n        // ---- Already done for you ----\n        String playerName = \"Amara\";\n        int correct = 7;\n\n        // ---- Your turn ----\n\n        // TODO 1: a constant for the number of questions, holding 8.\n        //         Constants use final and SHOUTING_NAMES.\n\n\n        // TODO 2: the percentage, as a double.\n        //         Careful: correct * 100 / TOTAL_QUESTIONS uses two ints, so it\n        //         throws the 0.5 away and you get 87.0 instead of 87.5.\n        //         One decimal point in the right place fixes the whole sum.\n\n\n        // TODO 3: the percentage as a whole number, using a cast to int.\n        //         A cast chops rather than rounds, so expect 87 and not 88.\n\n\n        // TODO 4: a char for the grade ('A') and a boolean for passed (true).\n\n\n        // TODO 5: print the six lines. The first one is done as a model:\n        System.out.println(\"Player: \" + playerName);\n\n        //   Score: 7 out of 8\n        //   Percent: 87.5%\n        //   Whole: 87%\n        //   Grade: A\n        //   Passed: true\n\n\n    }\n}\n",
+  "hints": [
+    "Press Run before you change anything: one line, `Player: Amara`, appears. Add the Score line next and run again. Growing a program one working line at a time is the whole trick.",
+    "For the percentage, think about what `7 * 100 / 8` does with two `int` values: 700 divided by 8 is 87 with a remainder, and the remainder is thrown away. Writing `100.0` instead of `100` makes the whole calculation a `double`.",
+    "Store it, do not just print it: `double percent = correct * 100.0 / TOTAL_QUESTIONS;` You need the value twice, once as it is and once cast to an int.",
+    "A cast is the target type in round brackets in front of the value: `int whole = (int) percent;` It chops the decimals off, so 87.5 gives 87.",
+    "The grade is a single character, so single quotes: `char grade = 'A';`. Passed is a yes or no, so `boolean passed = true;` with no quotes at all.",
+    "The remaining lines all follow the shape of the one written for you. For example: `System.out.println(\"Percent: \" + percent + \"%\");`"
+  ],
+  "inputPlaceholder": "",
+  "inputHint": "This program asks no questions, so leave this empty and just press Run.",
+  "tests": [
+    {
+      "name": "The player and score lines are right",
+      "input": [],
+      "expect": [
+        "Player: Amara",
+        "Score: 7 out of 8"
+      ]
+    },
+    {
+      "name": "The percentage kept its decimals (87.5, not 87.0)",
+      "input": [],
+      "expect": [
+        "Percent: 87.5%"
+      ]
+    },
+    {
+      "name": "The cast, the grade and the boolean all print",
+      "input": [],
+      "expect": [
+        "Whole: 87%",
+        "Grade: A",
+        "Passed: true"
+      ]
+    }
+  ],
+  "successMessage": "Your report card is complete! 📊 You used five different types in one program, locked a value with final, kept a percentage from being flattened by whole-number division, and then chopped it down on purpose with a cast. Next module you stop typing the values in and start asking the person at the keyboard for them."
+}

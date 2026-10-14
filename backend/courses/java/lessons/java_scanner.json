@@ -1,0 +1,430 @@
+{
+  "lessonId": "java_scanner",
+  "title": "Reading Input with Scanner",
+  "description": "Asking a question and storing whatever the person types.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Program That Listens"
+    },
+    {
+      "type": "paragraph",
+      "value": "Until now every value was typed into the code before it ran. A `Scanner` reads what a person types at the keyboard, so the same program can give a different answer each time."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "Keyboard",
+          "detail": "The person types and presses Enter"
+        },
+        {
+          "icon": "📥",
+          "label": "System.in",
+          "detail": "Java's name for the keyboard input"
+        },
+        {
+          "icon": "🔎",
+          "label": "Scanner",
+          "detail": "Reads the typed characters"
+        },
+        {
+          "icon": "📦",
+          "label": "Variable",
+          "detail": "The answer is stored for you to use"
+        }
+      ],
+      "title": "From your fingers to a variable",
+      "caption": "`System.in` is the keyboard: the opposite of the `System.out` you print to."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"What is your name? \");\n        String name = scanner.nextLine();\n\n        System.out.println(\"Hello, \" + name + \"!\");\n    }\n}",
+      "caption": "Sample run: the program stops at the question and waits. Type `Mia`, press Enter, and it prints `Hello, Mia!`. Using `print` (not `println`) keeps the cursor next to the question."
+    },
+    {
+      "type": "heading",
+      "value": "What Each Line Does"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "Scanner",
+          "label": "type",
+          "note": "The kind of thing being made."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "scanner",
+          "label": "name",
+          "note": "The variable name you will use to call it."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "new Scanner",
+          "label": "create",
+          "note": "`new` builds a fresh Scanner."
+        },
+        {
+          "code": "(System.in)",
+          "label": "source",
+          "note": "Read from the keyboard."
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "Making a Scanner",
+      "caption": "Read it like any declaration: a type, a name, and a value."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "📚",
+          "text": "`import java.util.Scanner;`",
+          "sub": "Goes above the class. It tells Java where to find the Scanner. Classes outside the basic set must be imported by name."
+        },
+        {
+          "icon": "🛠️",
+          "text": "`Scanner scanner = new Scanner(System.in);`",
+          "sub": "Creates one Scanner. You only need one per program."
+        },
+        {
+          "icon": "⏳",
+          "text": "`scanner.nextLine()`",
+          "sub": "Waits, reads everything up to Enter, and gives it back as a `String`."
+        }
+      ],
+      "title": "Three lines to set it up"
+    },
+    {
+      "type": "check",
+      "question": "Where does `import java.util.Scanner;` go?",
+      "options": [
+        "Inside `main`",
+        "Above the class",
+        "After the last `}`",
+        "Inside the brackets of `new Scanner()`"
+      ],
+      "answer": 1,
+      "explain": "Imports sit at the very top of the file, above `public class Main`."
+    },
+    {
+      "type": "heading",
+      "value": "Reading Numbers"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "int",
+          "label": "type",
+          "note": "The answer will be a whole number."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "age",
+          "label": "name",
+          "note": "Where the number is stored."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "scanner",
+          "label": "reader",
+          "note": "The Scanner you made earlier."
+        },
+        {
+          "code": ".nextInt()",
+          "label": "read",
+          "note": "Wait for typing and turn it into an `int`."
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "Reading a whole number",
+      "caption": "`nextLine()` always gives text, even for digits. For a real number, use `nextInt()` or `nextDouble()`."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "📝",
+          "text": "`nextLine()`",
+          "sub": "a whole line of text"
+        },
+        {
+          "icon": "🔢",
+          "text": "`nextInt()`",
+          "sub": "a whole number"
+        },
+        {
+          "icon": "📏",
+          "text": "`nextDouble()`",
+          "sub": "a decimal number"
+        },
+        {
+          "icon": "🔤",
+          "text": "`next()`",
+          "sub": "one word, stopping at the first space"
+        }
+      ],
+      "title": "Four reading methods"
+    },
+    {
+      "type": "stepper",
+      "code": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"How old are you? \");\n        int age = scanner.nextInt();\n\n        System.out.print(\"How tall are you, in metres? \");\n        double height = scanner.nextDouble();\n\n        System.out.println(\"Next year you will be \" + (age + 1));\n        System.out.println(\"You are \" + height + \" m tall.\");\n    }\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Create the Scanner, connected to the keyboard."
+        },
+        {
+          "line": 7,
+          "note": "Ask the question. Suppose you type `14` and press Enter.",
+          "out": [
+            "How old are you? 14"
+          ]
+        },
+        {
+          "line": 8,
+          "note": "`nextInt()` turns the typed `14` into a real `int`.",
+          "vars": {
+            "age": "14"
+          }
+        },
+        {
+          "line": 10,
+          "note": "Ask again. Suppose you type `1.6`.",
+          "out": [
+            "How tall are you, in metres? 1.6"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "`nextDouble()` gives a decimal number.",
+          "vars": {
+            "height": "1.6"
+          }
+        },
+        {
+          "line": 13,
+          "note": "`age` is an `int`, so `age + 1` is real arithmetic: `15`.",
+          "out": [
+            "Next year you will be 15"
+          ]
+        },
+        {
+          "line": 14,
+          "note": "Print the height that was typed.",
+          "out": [
+            "You are 1.6 m tall."
+          ]
+        }
+      ],
+      "title": "One sample run",
+      "outro": "Read with `nextLine()` instead and `age + 1` would join text: a 10 year old would be told they will be 101."
+    },
+    {
+      "type": "warning",
+      "value": "If the person types something that is not a number, `nextInt()` stops the program with an `InputMismatchException`. Checking input needs decisions: that is the next module."
+    },
+    {
+      "type": "heading",
+      "value": "The Trap: nextInt Then nextLine"
+    },
+    {
+      "type": "paragraph",
+      "value": "`nextInt()` reads the digits and stops. The invisible Enter key is left waiting. The next `nextLine()` finds it and returns empty text without waiting."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "⌨️",
+          "label": "14 + Enter",
+          "detail": "What was typed"
+        },
+        {
+          "icon": "🔢",
+          "label": "nextInt()",
+          "detail": "Takes `14`, leaves the Enter"
+        },
+        {
+          "icon": "↩️",
+          "label": "Leftover Enter",
+          "detail": "Still waiting in the queue"
+        },
+        {
+          "icon": "📝",
+          "label": "nextLine()",
+          "detail": "Sees the Enter at once: returns `\"\"`"
+        }
+      ],
+      "title": "Where the Enter goes",
+      "caption": "The person typed `14` then Enter. Only the digits were taken."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Swallow the Enter",
+          "tone": "good",
+          "code": "int age = scanner.nextInt();\nscanner.nextLine(); // eat the Enter\nString name = scanner.nextLine();",
+          "text": "One extra `nextLine()` throws the leftover Enter away."
+        },
+        {
+          "title": "Text first",
+          "tone": "good",
+          "code": "String name = scanner.nextLine();\nint age = scanner.nextInt();",
+          "text": "Ask text questions before number ones. No `nextLine()` follows a `nextInt()`."
+        }
+      ],
+      "title": "Two easy fixes"
+    },
+    {
+      "type": "check",
+      "question": "You type `14` for `nextInt()`. What does the very next `nextLine()` give back?",
+      "options": [
+        "`\"14\"`",
+        "It waits for new typing",
+        "An error",
+        "Empty text `\"\"`"
+      ],
+      "answer": 3,
+      "explain": "The leftover Enter is still in the queue, so `nextLine()` stops at once with nothing in it."
+    },
+    {
+      "type": "heading",
+      "value": "Text That Spells a Number"
+    },
+    {
+      "type": "paragraph",
+      "value": "Sometimes you already have text that holds digits. Module 2's `Integer.parseInt` (and `Double.parseDouble`) turns it into a real number."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"How many tickets? \");\n        String typed = scanner.nextLine();      // text, even if it is digits\n        int tickets = Integer.parseInt(typed);  // now a real number\n\n        System.out.println(\"That will be \" + (tickets * 250) + \" rupees.\");\n    }\n}",
+      "caption": "Sample run: type `3` and it prints `That will be 750 rupees.` Reading a line and then parsing avoids the leftover Enter trap completely, which is why many real programs do it."
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "typed",
+          "value": "\"3\"",
+          "type": "str"
+        },
+        {
+          "name": "tickets",
+          "value": "3",
+          "type": "int"
+        }
+      ],
+      "title": "Same digits, two types",
+      "caption": "Only the `int` can do arithmetic."
+    },
+    {
+      "type": "check",
+      "question": "Which line turns the text `\"42\"` into a number?",
+      "options": [
+        "`scanner.nextLine(\"42\")`",
+        "`(int) \"42\"`",
+        "`Integer.parseInt(\"42\")`",
+        "`\"42\" + 0`"
+      ],
+      "answer": 2,
+      "explain": "`Integer.parseInt` reads digits in text and gives back an `int`. A cast cannot turn text into a number."
+    }
+  ],
+  "editorCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"What is your name? \");\n        String name = scanner.nextLine();\n\n        System.out.print(\"How old are you? \");\n        int age = scanner.nextInt();\n\n        System.out.println(\"Hello, \" + name + \"!\");\n        System.out.println(\"Next year you will be \" + (age + 1));\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a favourite colour and print: Nice, <colour> is a good choice. Use `nextLine()`.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Ask for two whole numbers with `nextInt()` and print their sum. Remember to put brackets round the addition inside the print.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Run this and watch the Name question get skipped. Then fix it by adding one extra `scanner.nextLine();` in the right place.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Age? \");\n        int age = scanner.nextInt();\n\n        System.out.print(\"Name? \");\n        String name = scanner.nextLine();\n\n        System.out.println(\"Name: [\" + name + \"]\");\n        System.out.println(\"Age: \" + age);\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `scanner.nextLine()` give back?",
+      "options": [
+        "A String: everything typed up to the Enter key.",
+        "An int, if the person typed digits.",
+        "Nothing: it only waits."
+      ],
+      "answer": 0,
+      "explain": "`nextLine()` always hands back text. If you need a number from it, read with `nextInt()` instead or parse the text afterwards."
+    },
+    {
+      "question": "Why use `System.out.print` rather than `println` for a question?",
+      "options": [
+        "The cursor stays on the same line, so the answer is typed next to the question.",
+        "`println` cannot be used before a Scanner.",
+        "It makes the Scanner wait longer."
+      ],
+      "answer": 0,
+      "explain": "`print` leaves the cursor where it is. With `println` the person types their answer on the line below, which looks wrong."
+    },
+    {
+      "question": "A 10 year old types 10, read with `nextLine()` into a String called `age`. What does `System.out.println(age + 1)` print?",
+      "options": [
+        "101, because joining text puts the 1 on the end",
+        "11, because Java sees digits",
+        "An error"
+      ],
+      "answer": 0,
+      "explain": "`nextLine()` gives text, and `+` joins text rather than adding. Reading with `nextInt()` gives a real number, so `age + 1` would be 11."
+    },
+    {
+      "question": "Why does a `nextLine()` straight after a `nextInt()` come back empty?",
+      "options": [
+        "`nextInt()` leaves the Enter key in the queue, and `nextLine()` reads up to it.",
+        "`nextLine()` can only be used once per program.",
+        "The Scanner has run out of input."
+      ],
+      "answer": 0,
+      "explain": "`nextInt()` takes the digits but not the Enter that follows them. The next `nextLine()` finds that leftover Enter and decides the line has already ended."
+    },
+    {
+      "question": "What is the simplest way to avoid that trap?",
+      "options": [
+        "Ask the text questions before the number questions.",
+        "Never use `nextInt()`.",
+        "Create a second Scanner."
+      ],
+      "answer": 0,
+      "explain": "The problem only happens when a `nextLine()` follows a `nextInt()`. Reordering the questions, or adding one extra `scanner.nextLine()` to swallow the Enter, both fix it."
+    }
+  ]
+}

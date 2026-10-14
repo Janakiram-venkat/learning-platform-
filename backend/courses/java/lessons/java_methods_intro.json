@@ -1,0 +1,390 @@
+{
+  "lessonId": "java_methods_intro",
+  "title": "Writing Your First Method",
+  "description": "Give a block of code a name so you can run it whenever you like.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "You Have Used One Already"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Every program so far lived inside `public static void main(String[] args)`. That is a **method**.",
+        "A method is a named block of instructions.",
+        "Write it once. Run it whenever you like by writing its name and `()`. That is called **calling** the method."
+      ],
+      "title": "A method"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🧑‍🍳",
+      "real": "A recipe card",
+      "concept": "A method",
+      "code": "printBanner();",
+      "text": "A recipe keeps its steps in one place, under one name. You follow it whenever you need it. A method does the same for lines of code."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Starting up.\");\n        printBanner();\n        System.out.println(\"Doing some work.\");\n        printBanner();\n        System.out.println(\"Finished.\");\n    }\n\n    static void printBanner() {\n        System.out.println(\"=========================\");\n        System.out.println(\"   POCKET LAB REPORT\");\n        System.out.println(\"=========================\");\n    }\n}",
+      "output": [
+        "Starting up.",
+        "=========================",
+        "   POCKET LAB REPORT",
+        "=========================",
+        "Doing some work.",
+        "=========================",
+        "   POCKET LAB REPORT",
+        "=========================",
+        "Finished."
+      ],
+      "caption": "The three banner lines are written once and printed twice. Change the banner and both copies change, because there is only one copy."
+    },
+    {
+      "type": "check",
+      "question": "What is the main reason to write a method?",
+      "options": [
+        "To make the program run faster",
+        "To store one number",
+        "Write steps once, then reuse them by name",
+        "To repeat a line for ever"
+      ],
+      "answer": 2,
+      "explain": "A method keeps a group of steps in one place under one name. You call the name instead of copying lines, and a fix only needs one edit."
+    },
+    {
+      "type": "heading",
+      "value": "The Shape of a Method"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "static",
+          "label": "modifier",
+          "note": "Every method that sits beside `main` needs it. Module 8 explains what it means."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "void",
+          "label": "return type",
+          "note": "`void` means the method hands nothing back."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "printBanner",
+          "label": "name",
+          "note": "lowerCamelCase, like a variable. It should read as an instruction."
+        },
+        {
+          "code": "()",
+          "label": "parameters",
+          "note": "Empty brackets: the method needs nothing from the caller."
+        }
+      ],
+      "title": "Anatomy of a method header",
+      "caption": "Every method you write in the next two modules has this shape."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🏷️",
+          "text": "Name it as an instruction",
+          "sub": "`printBanner`, `drawLine`, `askAge`. If you cannot name it in two or three words, it does too many jobs."
+        },
+        {
+          "icon": "📦",
+          "text": "Inside the class, outside `main`",
+          "sub": "Methods sit side by side with `main`, never inside it."
+        },
+        {
+          "icon": "🔀",
+          "text": "Order does not matter",
+          "sub": "Java reads the whole class before it runs anything."
+        }
+      ],
+      "title": "Where methods go"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        drawLine();\n        sayHello();\n        drawLine();\n    }\n\n    // Written below where it is used: Java is happy with that.\n    static void sayHello() {\n        System.out.println(\"Hello there!\");\n    }\n\n    static void drawLine() {\n        System.out.println(\"-------------------\");\n    }\n}",
+      "output": [
+        "-------------------",
+        "Hello there!",
+        "-------------------"
+      ],
+      "caption": "`sayHello` and `drawLine` are written below `main`, and the calls still work."
+    },
+    {
+      "type": "check",
+      "question": "Which line correctly starts a method named `wave`?",
+      "options": [
+        "static void wave {",
+        "static wave() {",
+        "static void wave() {",
+        "void static wave() {"
+      ],
+      "answer": 2,
+      "explain": "You need the modifier `static`, the return type `void`, the name, and the brackets: `static void wave() {`."
+    },
+    {
+      "type": "heading",
+      "value": "Following the Jump"
+    },
+    {
+      "type": "paragraph",
+      "value": "A call is a detour. Java leaves the line it is on, runs the whole method, then comes back to exactly where it left off."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"1: in main, about to call\");\n        step();\n        System.out.println(\"4: back in main\");\n    }\n\n    static void step() {\n        System.out.println(\"2: inside the method\");\n        System.out.println(\"3: still inside the method\");\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "`main` runs first, as always.",
+          "out": [
+            "1: in main, about to call"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "A call. Java leaves `main` and jumps into `step`."
+        },
+        {
+          "line": 8,
+          "note": "Inside the method now."
+        },
+        {
+          "line": 9,
+          "note": "The method's first line runs.",
+          "out": [
+            "2: inside the method"
+          ]
+        },
+        {
+          "line": 10,
+          "note": "Then its second line.",
+          "out": [
+            "3: still inside the method"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "The method ran out of lines, so Java returns to `main`, just after the call.",
+          "out": [
+            "4: back in main"
+          ]
+        }
+      ],
+      "title": "Watch Java jump in and back",
+      "outro": "Nothing is skipped and nothing runs twice. If you can trace these four lines, you understand method calls."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        printReport();\n    }\n\n    static void printReport() {\n        drawLine();\n        System.out.println(\"  Daily total: 1420\");\n        drawLine();\n    }\n\n    static void drawLine() {\n        System.out.println(\"------------------\");\n    }\n}",
+      "output": [
+        "------------------",
+        "  Daily total: 1420",
+        "------------------"
+      ],
+      "caption": "A method can call another method. Here `main` calls `printReport`, which calls `drawLine` twice."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "A, C, B",
+        "B, A, C",
+        "A, B, C",
+        "A, C"
+      ],
+      "answer": 2,
+      "explain": "Java jumps into `hi` at the call, prints `B`, then comes back and carries on with `C`.",
+      "code": "public static void main(String[] args) {\n    System.out.println(\"A\");\n    hi();\n    System.out.println(\"C\");\n}\n\nstatic void hi() {\n    System.out.println(\"B\");\n}"
+    },
+    {
+      "type": "heading",
+      "value": "Why Bother"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🏷️",
+          "text": "A name",
+          "sub": "`printBanner()` says what is about to happen. Three `println` lines full of `=` do not."
+        },
+        {
+          "icon": "✂️",
+          "text": "No duplication",
+          "sub": "Repeated code has to be fixed in every copy, and one copy always gets missed."
+        },
+        {
+          "icon": "📖",
+          "text": "A shorter main",
+          "sub": "When `main` is a list of calls, you can read the whole program's shape on one screen."
+        }
+      ],
+      "title": "Three reasons"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Copied",
+          "tone": "bad",
+          "code": "for (int i = 1; i <= 3; i++) {\n    System.out.print(\"*\");\n}\nSystem.out.println();\n\nSystem.out.println(\"Some work.\");\n\nfor (int i = 1; i <= 3; i++) {\n    System.out.print(\"*\");\n}\nSystem.out.println();",
+          "text": "The same four lines, written twice."
+        },
+        {
+          "title": "With a method",
+          "tone": "good",
+          "code": "printThreeStars();\nSystem.out.println(\"Some work.\");\nprintThreeStars();\n\nstatic void printThreeStars() {\n    for (int i = 1; i <= 3; i++) {\n        System.out.print(\"*\");\n    }\n    System.out.println();\n}",
+          "text": "The loop lives in one place, under a name."
+        }
+      ],
+      "title": "Same output, two ways",
+      "caption": "Same output, and `main` now says **what** it does. But `printThreeStars` is stuck on three. Telling a method what to work with is the next lesson. Tip: if a method needs a comment, try a better name first."
+    },
+    {
+      "type": "check",
+      "question": "How many times does this print `***`?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "0"
+      ],
+      "answer": 2,
+      "explain": "Each call runs the whole method body again, and there are three calls.",
+      "code": "printThreeStars();\nprintThreeStars();\nprintThreeStars();"
+    },
+    {
+      "type": "heading",
+      "value": "Two Mistakes Worth Seeing"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Missing brackets",
+          "tone": "bad",
+          "code": "public static void main(String[] args) {\n    printBanner;\n}",
+          "text": "`error: not a statement`. Without `()`, Java sees a name, not a call. Fix: `printBanner();`"
+        },
+        {
+          "title": "Method inside main",
+          "tone": "bad",
+          "code": "public static void main(String[] args) {\n    static void printBanner() {\n        System.out.println(\"Hi\");\n    }\n}",
+          "text": "`error: illegal start of expression`. Fix: close `main` with `}` first, then write the method below it."
+        }
+      ],
+      "title": "Both of these fail to compile",
+      "caption": "The brackets are what make a call a call, even when there is nothing inside them. Methods are siblings of `main`, never children of it."
+    },
+    {
+      "type": "warning",
+      "value": "One misplaced method can produce three errors or more. Fix the **first** error and compile again: the rest are usually echoes of it.",
+      "title": "Fix the first error first"
+    },
+    {
+      "type": "check",
+      "question": "What does javac say about the line `printBanner;`?",
+      "options": [
+        "error: missing return statement",
+        "It compiles and prints the banner",
+        "error: not a statement",
+        "error: cannot find symbol"
+      ],
+      "answer": 2,
+      "explain": "Without brackets it is not a call, just a name on its own, and a name on its own is not an instruction."
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        printBanner();\n\n        System.out.println(\"  Scores loaded: 4\");\n        System.out.println(\"  Average:       60.0\");\n\n        printBanner();\n    }\n\n    static void printBanner() {\n        System.out.println(\"=========================\");\n        System.out.println(\"   POCKET LAB REPORT\");\n        System.out.println(\"=========================\");\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write a method called printGoodbye that prints two lines, then call it twice from main.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n\n}"
+    },
+    {
+      "id": 2,
+      "question": "Write drawLine so that it prints 20 dashes using a loop, then call it above and below a title in main.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n        System.out.println(\"  MENU\");\n\n    }\n\n    static void drawLine() {\n\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "This does not compile because the method is inside main. Move one brace to fix it.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        countToThree();\n\n        static void countToThree() {\n            for (int i = 1; i <= 3; i++) {\n                System.out.println(i);\n            }\n        }\n    }\n}"
+    },
+    {
+      "id": 4,
+      "question": "Write a method runAll that calls drawLine, then sayHello, then drawLine. main should call only runAll.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        runAll();\n    }\n\n    static void runAll() {\n\n    }\n\n    static void sayHello() {\n        System.out.println(\"Hello!\");\n    }\n\n    static void drawLine() {\n        System.out.println(\"--------\");\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is a method?",
+      "options": [
+        "A named block of instructions you can run by calling its name",
+        "A variable that holds several values",
+        "Another word for a class"
+      ],
+      "answer": 0,
+      "explain": "`main` is one too. Naming a block lets you run it from anywhere, as often as you like."
+    },
+    {
+      "question": "Where do your own methods go?",
+      "options": [
+        "Inside the class, beside main but not inside it",
+        "Inside main, at the top",
+        "Outside the class, below it"
+      ],
+      "answer": 0,
+      "explain": "Methods are siblings of `main`. A method declared inside `main` gives `illegal start of expression`."
+    },
+    {
+      "question": "What does `void` mean in `static void printBanner()`?",
+      "options": [
+        "The method hands nothing back to whoever called it",
+        "The method takes no values in",
+        "The method is empty"
+      ],
+      "answer": 0,
+      "explain": "`void` is the return type. The empty brackets are what say it takes nothing in."
+    },
+    {
+      "question": "What happens after a called method finishes?",
+      "options": [
+        "The program carries on at the line right after the call",
+        "The program ends",
+        "The method runs again"
+      ],
+      "answer": 0,
+      "explain": "A call is a detour, not a jump. Java always comes back to where it left off."
+    },
+    {
+      "question": "Why does `printBanner;` fail to compile?",
+      "options": [
+        "Without brackets it is not a call, and a bare name is not an instruction",
+        "The method name is wrong",
+        "It needs the word static in front of it"
+      ],
+      "answer": 0,
+      "explain": "The error is `not a statement`. The round brackets are what make a call, even when there is nothing to put in them."
+    }
+  ]
+}

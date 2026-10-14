@@ -9,34 +9,127 @@
       "value": "Storing Many Values"
     },
     {
-      "type": "paragraph",
-      "value": "So far every variable held one value. If you wanted to keep three toys you needed three variables, and ten toys meant ten variables and ten print lines. A list fixes that: one variable holds as many values as you like, kept in the order you put them in."
+      "type": "analogy",
+      "emoji": "🚂",
+      "real": "A train with carriages",
+      "concept": "A list",
+      "code": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]",
+      "text": "So far, every variable held **one** value. A list is one variable that holds many values, kept in order like carriages on a train."
     },
     {
-      "type": "paragraph",
-      "value": "You make a list by putting the items inside square brackets, separated by commas. The items can be strings, numbers, or a mix of both."
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "scores"
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "[",
+          "label": "open",
+          "note": "Square brackets start a list."
+        },
+        {
+          "code": "10, 25, 3",
+          "label": "items",
+          "note": "The values, separated by commas. Strings, numbers, or a mix of both."
+        },
+        {
+          "code": "]",
+          "label": "close",
+          "note": "The closing bracket ends the list."
+        }
+      ],
+      "title": "Anatomy of a list"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\nscores = [10, 25, 3]\nprint(toys)\nprint(len(toys))   # 3, the number of items"
+      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\nscores = [10, 25, 3]\nprint(toys)\nprint(len(toys))",
+      "output": [
+        "['Lego', 'Teddy Bear', 'Action Figure']",
+        "3"
+      ],
+      "caption": "`len()` tells you how many items the list holds."
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "toys",
+          "value": "['Lego', 'Teddy Bear', 'Action Figure']",
+          "type": "list"
+        },
+        {
+          "name": "scores",
+          "value": "[10, 25, 3]",
+          "type": "list"
+        }
+      ],
+      "caption": "Each list is still just one box, holding many values."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "3",
+        "12",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "explain": "`len()` counts the items. There are four numbers in the list.",
+      "code": "nums = [5, 3, 1, 3]\nprint(len(nums))"
     },
     {
       "type": "heading",
       "value": "Reading One Item"
     },
     {
-      "type": "paragraph",
-      "value": "To get a single item you use its position number, called its index. The catch is that Python starts counting at 0, so the first item is at index 0, the second at index 1, and the last one is always at `len(toys) - 1`."
+      "type": "points",
+      "items": [
+        "Each item has a position number called its **index**.",
+        "Python starts counting at **0**: the first item is index `0`, the second is index `1`.",
+        "The last item is always at `len(toys) - 1`.",
+        "Negative indexes count back from the end: `toys[-1]` is the last item."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Counting from the front",
+          "tone": "neutral",
+          "code": "toys[0]   # Lego\ntoys[1]   # Teddy Bear\ntoys[2]   # Action Figure",
+          "text": "Starts at 0, not 1."
+        },
+        {
+          "title": "Counting from the back",
+          "tone": "neutral",
+          "code": "toys[-1]  # Action Figure\ntoys[-2]  # Teddy Bear\ntoys[-3]  # Lego",
+          "text": "`-1` is always the last item."
+        }
+      ],
+      "title": "Indexes for toys",
+      "caption": "Ask for an index that does not exist and Python stops with an `IndexError`. Three items means the only valid indexes are `0`, `1` and `2`. Index `3` is already past the end."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\nprint(toys[0])    # Lego\nprint(toys[2])    # Action Figure\nprint(toys[-1])   # Action Figure again, counting back from the end"
+      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\nprint(toys[0])\nprint(toys[2])\nprint(toys[-1])",
+      "output": [
+        "Lego",
+        "Action Figure",
+        "Action Figure"
+      ]
     },
     {
       "type": "paragraph",
-      "value": "Ask for an index that does not exist and Python stops with an `IndexError`. Try it in the lab below: three items means the only valid indexes are 0, 1 and 2, and index 3 is already past the end."
+      "value": "Try it in the lab below: read each index, then try one past the end."
     },
     {
       "type": "widget",
@@ -44,38 +137,189 @@
       "mode": "list"
     },
     {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "red",
+        "green",
+        "blue",
+        "IndexError"
+      ],
+      "answer": 2,
+      "explain": "Counting starts at 0: `red` is index 0, `blue` is index 1.",
+      "code": "colors = [\"red\", \"blue\", \"green\"]\nprint(colors[1])"
+    },
+    {
       "type": "heading",
       "value": "Changing a List"
     },
     {
-      "type": "paragraph",
-      "value": "A list can be changed after you make it. `.append()` adds one item to the end, `.pop()` removes the last item, and assigning to an index replaces whatever was in that slot."
+      "type": "points",
+      "items": [
+        {
+          "icon": "➕",
+          "text": "`.append(item)`",
+          "sub": "Adds one item to the end."
+        },
+        {
+          "icon": "➖",
+          "text": "`.pop()`",
+          "sub": "Removes the last item."
+        },
+        {
+          "icon": "🔄",
+          "text": "`toys[0] = \"Robot\"`",
+          "sub": "Replaces whatever was in that slot."
+        }
+      ],
+      "title": "A list can change after you make it"
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "toys = [\"Lego\", \"Teddy Bear\"]\ntoys.append(\"Water Gun\")     # ['Lego', 'Teddy Bear', 'Water Gun']\ntoys[0] = \"Robot\"            # ['Robot', 'Teddy Bear', 'Water Gun']\ntoys.pop()                   # ['Robot', 'Teddy Bear']\nprint(toys)"
+      "type": "stepper",
+      "code": "toys = [\"Lego\", \"Teddy Bear\"]\ntoys.append(\"Water Gun\")\ntoys[0] = \"Robot\"\ntoys.pop()\nprint(toys)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "A list with two items.",
+          "vars": {
+            "toys": "['Lego', 'Teddy Bear']"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`.append()` adds `\"Water Gun\"` to the end. Now there are three items.",
+          "vars": {
+            "toys": "['Lego', 'Teddy Bear', 'Water Gun']"
+          }
+        },
+        {
+          "line": 3,
+          "note": "Index `0` is the first slot. `\"Lego\"` is replaced by `\"Robot\"`.",
+          "vars": {
+            "toys": "['Robot', 'Teddy Bear', 'Water Gun']"
+          }
+        },
+        {
+          "line": 4,
+          "note": "`.pop()` removes the last item, `\"Water Gun\"`.",
+          "vars": {
+            "toys": "['Robot', 'Teddy Bear']"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Print the list as it is now.",
+          "out": [
+            "['Robot', 'Teddy Bear']"
+          ]
+        }
+      ],
+      "title": "Watch the list change",
+      "outro": "Same variable the whole time. Only the items inside changed."
     },
     {
-      "type": "tip",
-      "value": "`.append()` changes the list in place and hands nothing back. Writing `toys = toys.append(\"Ball\")` throws the list away and leaves you with None, so call it on its own line."
+      "type": "warning",
+      "value": "`.append()` changes the list in place and hands nothing back. Writing `toys = toys.append(\"Ball\")` throws the list away and leaves you with `None`. Call it on its own line.",
+      "title": "append gives nothing back"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "[1, 2, 3, 4]",
+        "[2, 3, 4]",
+        "[1, 2, 4]",
+        "[1, 2, 3]"
+      ],
+      "answer": 2,
+      "explain": "Lines run in order. `.pop()` removes the last item, `3`, leaving `[1, 2]`. Then `.append(4)` adds `4` to the end.",
+      "code": "nums = [1, 2, 3]\nnums.pop()\nnums.append(4)\nprint(nums)"
     },
     {
       "type": "heading",
       "value": "Looping Over a List"
     },
     {
-      "type": "paragraph",
-      "value": "In Module 3 your `for` loops counted through numbers from `range()`. A `for` loop can walk straight through a list instead, handing you one item at a time. You do not need the indexes at all, and it works no matter how long the list is."
+      "type": "points",
+      "items": [
+        "In Module 3 your `for` loops counted through numbers from `range()`.",
+        "A `for` loop can walk straight through a list instead, one item at a time.",
+        "No indexes needed, and it works however long the list is."
+      ]
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\n\nfor toy in toys:\n    print(\"I packed my\", toy)"
+      "type": "stepper",
+      "code": "toys = [\"Lego\", \"Teddy Bear\", \"Action Figure\"]\n\nfor toy in toys:\n    print(\"I packed my\", toy)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "A list of three toys.",
+          "vars": {
+            "toys": "['Lego', 'Teddy Bear', 'Action Figure']"
+          }
+        },
+        {
+          "line": 3,
+          "note": "The loop takes the first item and puts it in `toy`.",
+          "vars": {
+            "toy": "\"Lego\""
+          }
+        },
+        {
+          "line": 4,
+          "note": "The body uses `toy`.",
+          "out": [
+            "I packed my Lego"
+          ]
+        },
+        {
+          "line": 3,
+          "note": "Back to the top: the next item.",
+          "vars": {
+            "toy": "\"Teddy Bear\""
+          }
+        },
+        {
+          "line": 4,
+          "note": "Same body, new value.",
+          "out": [
+            "I packed my Teddy Bear"
+          ]
+        },
+        {
+          "line": 3,
+          "note": "The last item.",
+          "vars": {
+            "toy": "\"Action Figure\""
+          }
+        },
+        {
+          "line": 4,
+          "note": "After this, there are no items left, so the loop ends.",
+          "out": [
+            "I packed my Action Figure"
+          ]
+        }
+      ],
+      "title": "Watch the loop walk the list"
     },
     {
-      "type": "paragraph",
-      "value": "This is the pairing that makes lists worth having. One list plus one loop replaces however many copied print lines you would otherwise write, and adding a fourth toy needs no new code at all."
+      "type": "tip",
+      "value": "One list plus one loop replaces however many copied print lines you would otherwise write. Adding a fourth toy needs no new code at all.",
+      "title": "Why lists and loops go together"
+    },
+    {
+      "type": "check",
+      "question": "How many times does the body of this loop run?",
+      "options": [
+        "4",
+        "3",
+        "1",
+        "5"
+      ],
+      "answer": 0,
+      "explain": "The loop runs once per item, and the list has four items.",
+      "code": "pets = [\"cat\", \"dog\", \"fish\", \"bird\"]\nfor pet in pets:\n    print(pet)"
     }
   ],
   "editorCode": "shopping = [\"Apples\", \"Cookies\", \"Milk\"]\nshopping.append(\"Juice\")\n\nprint(\"First item:\", shopping[0])\nprint(\"Items:\", len(shopping))\n\nfor item in shopping:\n    print(\"-\", item)",

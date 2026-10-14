@@ -1,0 +1,414 @@
+{
+  "lessonId": "java_scope",
+  "title": "Scope and Local Variables",
+  "description": "Where a variable exists, how long it lives, and why that keeps big programs manageable.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Where a Variable Lives"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A variable declared inside a method exists only there, from its declaration down to the closing brace.",
+        "That region is its **scope**. A variable like this is called a **local** variable.",
+        "So two methods can each have a `total`, and the two have nothing to do with each other."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int total = 100;\n        System.out.println(\"main has total = \" + total);\n        show();\n        System.out.println(\"main still has total = \" + total);\n    }\n\n    static void show() {\n        int total = 7;              // a completely separate variable\n        System.out.println(\"show has its own total = \" + total);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "`main` makes its own `total`.",
+          "vars": {
+            "total (main)": "100"
+          }
+        },
+        {
+          "line": 4,
+          "note": "Print it.",
+          "out": [
+            "main has total = 100"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "Call `show`. Inside it, `main`'s `total` cannot be seen at all."
+        },
+        {
+          "line": 10,
+          "note": "`show` makes a completely separate `total`.",
+          "vars": {
+            "total (show)": "7"
+          }
+        },
+        {
+          "line": 11,
+          "note": "It prints its own one.",
+          "out": [
+            "show has its own total = 7"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "`show` ended, so its `total` is gone. `main`'s was never touched.",
+          "vars": {
+            "total (show)": null
+          },
+          "out": [
+            "main still has total = 100"
+          ]
+        }
+      ],
+      "title": "Two totals, two scopes",
+      "outro": "No method can reach into another's variables, so a mistake in one method cannot quietly break the rest."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "2",
+        "3",
+        "1",
+        "Nothing, it does not compile"
+      ],
+      "answer": 2,
+      "explain": "`change` sets its own local `x` to 2. `main`'s `x` is a different variable and stays 1.",
+      "code": "static void change() {\n    int x = 2;\n}\n\n// in main:\nint x = 1;\nchange();\nSystem.out.println(x);"
+    },
+    {
+      "type": "heading",
+      "value": "Blocks Have Scope Too"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Scope is about braces, not just methods. Every `{ }` makes a new scope, including an `if` or a `for` block.",
+        "Declare each variable in the **smallest** block that needs it. A variable you can see from far away can be broken from far away."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Inside: fine",
+          "tone": "good",
+          "code": "for (int i = 1; i <= 3; i++) {\n    int doubled = i * 2;\n    System.out.println(doubled);\n}",
+          "text": "`doubled` is used inside the block where it was declared."
+        },
+        {
+          "title": "Outside: compile error",
+          "tone": "bad",
+          "code": "for (int i = 1; i <= 3; i++) {\n    int doubled = i * 2;\n}\nSystem.out.println(doubled);",
+          "text": "The block ended at `}`, and `doubled` went with it."
+        }
+      ],
+      "title": "Inside vs outside the block",
+      "caption": "The error is `cannot find symbol`. Outside the braces, `doubled` simply does not exist."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 3; i++) {\n            int doubled = i * 2;\n            System.out.println(i + \" doubled is \" + doubled);\n        }\n        // i and doubled are gone here.\n\n        int biggest = 0;            // declared outside, so it survives\n        for (int i = 1; i <= 5; i++) {\n            if (i > biggest) {\n                biggest = i;\n            }\n        }\n        System.out.println(\"Biggest was \" + biggest);\n    }\n}",
+      "output": [
+        "1 doubled is 2",
+        "2 doubled is 4",
+        "3 doubled is 6",
+        "Biggest was 5"
+      ],
+      "caption": "Both loops use `i` happily: the first `i` is gone before the second is born. `biggest` works because it is declared **outside** the loop, the accumulator rule from Module 5."
+    },
+    {
+      "type": "check",
+      "question": "Where must `count` be declared to print it after the loop?",
+      "options": [
+        "Inside the loop body",
+        "Above the loop",
+        "Inside the `for` brackets",
+        "Anywhere, Java finds it"
+      ],
+      "answer": 1,
+      "explain": "A variable lives until the closing brace of the block it was declared in. To survive the loop, it must be declared before it."
+    },
+    {
+      "type": "heading",
+      "value": "Methods Cannot Peek"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "cannot find symbol",
+          "tone": "bad",
+          "code": "int total = 100;\nshow();\n\nstatic void show() {\n    System.out.println(total);\n}",
+          "text": "From `show`'s point of view there is no `total`. The error says `symbol: variable total`."
+        },
+        {
+          "title": "Pass it in",
+          "tone": "good",
+          "code": "int total = 100;\nshow(total);\n\nstatic void show(int total) {\n    System.out.println(total);\n}",
+          "text": "A parameter gives `show` its own copy to use."
+        }
+      ],
+      "title": "Use a parameter, not another method's variable"
+    },
+    {
+      "type": "tip",
+      "value": "Seeing `cannot find symbol` for a variable? Ask in order: Is it declared in this method? Did I declare it inside an `if` or `for` I am now outside of? Is it another method's variable, which needs a parameter?",
+      "title": "Three questions"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int n = 5;\n        countdown(n);\n        System.out.println(\"main still has n = \" + n);\n    }\n\n    static void countdown(int n) {\n        while (n > 0) {\n            System.out.print(n + \" \");\n            n--;\n        }\n        System.out.println();\n    }\n}",
+      "output": [
+        "5 4 3 2 1 ",
+        "main still has n = 5"
+      ],
+      "caption": "Parameters are local too: a local variable that arrives with a value. `countdown` counts its `n` down to 0, and `main`'s `n` never moves."
+    },
+    {
+      "type": "heading",
+      "value": "Fresh On Every Call"
+    },
+    {
+      "type": "paragraph",
+      "value": "Locals are created when a method starts and destroyed when it ends. So a local cannot remember anything between calls."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        countVisit();\n        countVisit();\n        countVisit();\n    }\n\n    static void countVisit() {\n        int visits = 0;         // born here, dies at the closing brace\n        visits++;\n        System.out.println(\"Visits: \" + visits);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "First call."
+        },
+        {
+          "line": 9,
+          "note": "A brand new `visits` is born at 0.",
+          "vars": {
+            "visits": "0"
+          }
+        },
+        {
+          "line": 10,
+          "note": "Add one.",
+          "vars": {
+            "visits": "1"
+          }
+        },
+        {
+          "line": 11,
+          "note": "Print it.",
+          "out": [
+            "Visits: 1"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "The method ended and `visits` died. Second call.",
+          "vars": {
+            "visits": null
+          }
+        },
+        {
+          "line": 9,
+          "note": "Another brand new `visits`, back at 0.",
+          "vars": {
+            "visits": "0"
+          }
+        },
+        {
+          "line": 10,
+          "note": "One again.",
+          "vars": {
+            "visits": "1"
+          }
+        },
+        {
+          "line": 11,
+          "note": "Same output.",
+          "out": [
+            "Visits: 1"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "Third call: same story.",
+          "vars": {
+            "visits": null
+          },
+          "out": [
+            "Visits: 1"
+          ]
+        }
+      ],
+      "title": "Why it never counts past 1",
+      "outro": "Three calls, three brand new variables, three 1s. This catches everybody once."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int visits = 0;\n        visits = countVisit(visits);\n        visits = countVisit(visits);\n        visits = countVisit(visits);\n        System.out.println(\"Final count: \" + visits);\n    }\n\n    static int countVisit(int visits) {\n        visits++;\n        System.out.println(\"Visits: \" + visits);\n        return visits;\n    }\n}",
+      "output": [
+        "Visits: 1",
+        "Visits: 2",
+        "Visits: 3",
+        "Final count: 3"
+      ],
+      "caption": "The fix for now: keep the count in `main`. Pass it in, hand it back, assign it. In Module 8, **fields** (variables that belong to the whole class) can remember between calls."
+    },
+    {
+      "type": "check",
+      "question": "What does the third call print?",
+      "options": [
+        "Counter: 3",
+        "Counter: 0",
+        "Counter: 1",
+        "Counter: 2"
+      ],
+      "answer": 2,
+      "explain": "`c` is local, so every call starts it again at 0 and adds one.",
+      "code": "static void tick() {\n    int c = 0;\n    c++;\n    System.out.println(\"Counter: \" + c);\n}\n\n// in main:\ntick();\ntick();\ntick();"
+    },
+    {
+      "type": "heading",
+      "value": "Sharing a Constant"
+    },
+    {
+      "type": "points",
+      "items": [
+        "One thing can usefully sit outside every method: a **constant**, written `static final` just inside the class.",
+        "Every method can see it, and `final` means nothing can change it. Names in SHOUTY_CASE, as in Module 2.",
+        "The rule from now on: constants may be shared. Changing values are passed in and handed back."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "static final",
+          "label": "shared, fixed",
+          "note": "Belongs to the class, so every method sees it. `final` means it never changes."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "int",
+          "label": "type"
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "PASS_MARK",
+          "label": "name",
+          "note": "SHOUTY_CASE marks it as a constant."
+        },
+        {
+          "code": " = 40;"
+        }
+      ],
+      "title": "A class constant"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    static final int PASS_MARK = 40;\n    static final String COURSE = \"Java\";\n\n    public static void main(String[] args) {\n        System.out.println(COURSE + \" pass mark is \" + PASS_MARK);\n        report(92);\n        report(31);\n    }\n\n    static void report(int marks) {\n        if (marks >= PASS_MARK) {\n            System.out.println(marks + \": pass\");\n        } else {\n            System.out.println(marks + \": below \" + PASS_MARK);\n        }\n    }\n}",
+      "output": [
+        "Java pass mark is 40",
+        "92: pass",
+        "31: below 40"
+      ],
+      "caption": "Changing the pass mark is a one-line edit that every method picks up, and no method can change it by accident."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "import java.util.Scanner;\n\npublic class Main {\n    static final int PASS_MARK = 40;\n\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"How many scores? \");\n        int count = scanner.nextInt();\n\n        int total = 0;\n        for (int i = 1; i <= count; i++) {\n            System.out.print(\"Score \" + i + \"? \");\n            int score = scanner.nextInt();\n            total += score;\n            printBar(score);\n            System.out.println(verdict(score));\n        }\n\n        System.out.println(\"Average: \" + average(total, count));\n    }\n\n    static void printBar(int score) {\n        System.out.print(score + \" | \");\n        for (int i = 1; i <= score / 10; i++) {\n            System.out.print(\"*\");\n        }\n        System.out.println();\n    }\n\n    static String verdict(int score) {\n        return score >= PASS_MARK ? \"pass\" : \"fail\";\n    }\n\n    static double average(int total, int count) {\n        if (count == 0) {\n            return 0.0;\n        }\n        return (double) total / count;\n    }\n}",
+      "caption": "The Module 5 score board, split into methods. `main` now reads like a description of the program. `average` refuses to divide by zero, so the guard lives in the one method that needs it. Sample run: `2`, then `85` and `30` prints `85 | ********`, `pass`, `30 | ***`, `fail`, `Average: 57.5`. Next module: arrays, one variable holding a whole list of scores."
+    }
+  ],
+  "editorCode": "public class Main {\n    static final int PASS_MARK = 40;\n\n    public static void main(String[] args) {\n        int visits = 0;\n\n        visits = countVisit(visits);\n        visits = countVisit(visits);\n\n        report(92);\n        report(31);\n    }\n\n    static int countVisit(int visits) {\n        visits++;\n        System.out.println(\"Visits: \" + visits);\n        return visits;\n    }\n\n    static void report(int marks) {\n        if (marks >= PASS_MARK) {\n            System.out.println(marks + \": pass\");\n        } else {\n            System.out.println(marks + \": below \" + PASS_MARK);\n        }\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "This does not compile because the method cannot see main's variable. Fix it with a parameter.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int score = 92;\n\n        show();\n    }\n\n    static void show() {\n        System.out.println(\"The score is \" + score);\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Add a static final double TAX_RATE of 0.18 at the top of the class and use it in both methods.",
+      "starterCode": "public class Main {\n\n    public static void main(String[] args) {\n        printTax(1000);\n        printTotal(1000);\n    }\n\n    static void printTax(int amount) {\n        System.out.println(\"Tax: \" + amount * 0.18);\n    }\n\n    static void printTotal(int amount) {\n        System.out.println(\"Total: \" + (amount + amount * 0.18));\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "This prints 1 three times. Change the method so the count really goes 1, 2, 3, by passing the count in and returning the new value.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        countVisit();\n        countVisit();\n        countVisit();\n    }\n\n    static void countVisit() {\n        int visits = 0;\n        visits++;\n        System.out.println(\"Visits: \" + visits);\n    }\n}"
+    },
+    {
+      "id": 4,
+      "question": "main is doing too much. Move the bar drawing into a method called printBar(int score) and call it from the loop.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        for (int i = 1; i <= 3; i++) {\n            System.out.print(\"Score \" + i + \"? \");\n            int score = scanner.nextInt();\n\n            System.out.print(score + \" | \");\n\n            for (int star = 1; star <= score / 10; star++) {\n                System.out.print(\"*\");\n            }\n\n            System.out.println();\n        }\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Where does a variable declared inside a method exist?",
+      "options": [
+        "Only inside that method, from its declaration to the closing brace",
+        "Everywhere in the class",
+        "Everywhere in the program"
+      ],
+      "answer": 0,
+      "explain": "That is its scope. Two methods can each have a `total` and they are unrelated."
+    },
+    {
+      "question": "A method tries to use a variable belonging to main. What happens?",
+      "options": [
+        "`cannot find symbol` at compile time: pass it in as a parameter instead",
+        "It works, because main runs first",
+        "It compiles but the value is 0"
+      ],
+      "answer": 0,
+      "explain": "From inside the other method there is genuinely no such variable. A parameter is how a value crosses that boundary."
+    },
+    {
+      "question": "Why can two `for` loops in the same method both declare `int i`?",
+      "options": [
+        "Each loop's i belongs to that loop's block and is gone before the next starts",
+        "Java allows duplicate names for counters",
+        "Only if the loops count differently"
+      ],
+      "answer": 0,
+      "explain": "Every pair of braces makes a scope, so the first `i` no longer exists when the second is declared."
+    },
+    {
+      "question": "A method declares `int visits = 0;` then increments and prints it. Called three times, what does it print?",
+      "options": [
+        "1, 1, 1",
+        "1, 2, 3",
+        "0, 1, 2"
+      ],
+      "answer": 0,
+      "explain": "Locals are created fresh on every call. To carry a value across calls, pass it in and return it, until fields arrive in Module 8."
+    },
+    {
+      "question": "What may reasonably be declared outside every method, at class level?",
+      "options": [
+        "A `static final` constant that every method can read but none can change",
+        "Any variable you want several methods to share",
+        "Nothing at all"
+      ],
+      "answer": 0,
+      "explain": "Constants are safe to share because nothing can change them. Changing values should travel as parameters and return values."
+    }
+  ]
+}

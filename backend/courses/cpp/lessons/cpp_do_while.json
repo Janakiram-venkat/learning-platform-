@@ -1,0 +1,321 @@
+{
+  "lessonId": "cpp_do_while",
+  "title": "The do while Loop",
+  "description": "A loop that runs its block first and asks the question afterwards, so it always runs at least once.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Act First, Ask Later"
+    },
+    {
+      "type": "paragraph",
+      "value": "A `while` loop tests first, so it can run zero times. A `do while` loop runs the body first and tests after, so it always runs **at least once**."
+    },
+    {
+      "type": "analogy",
+      "emoji": "🍲",
+      "real": "Tasting soup, then deciding if it needs more salt",
+      "concept": "A `do while` loop",
+      "code": "do {\n    // taste the soup\n} while (needsSalt);",
+      "text": "You cannot decide whether to taste again until you have tasted once. In the same way, you cannot decide to ask the user again until you have asked once."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "while",
+          "tone": "neutral",
+          "code": "int i = 10;\nwhile (i <= 5) {\n    cout << \"ran\" << endl;\n    i++;\n}",
+          "text": "`10 <= 5` is false: prints nothing."
+        },
+        {
+          "title": "do while",
+          "tone": "neutral",
+          "code": "int j = 10;\ndo {\n    cout << \"ran\" << endl;\n    j++;\n} while (j <= 5);",
+          "text": "Prints `ran` once, then tests and stops."
+        }
+      ],
+      "title": "Same false condition, different result",
+      "caption": "`while` looked before it leapt, and did not leap. `do while` leapt once, then looked."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "} "
+        },
+        {
+          "code": "while",
+          "label": "keyword",
+          "note": "Comes **after** the body."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "(j <= 5)",
+          "label": "condition",
+          "note": "Tested after each turn. True: go round again."
+        },
+        {
+          "code": ";",
+          "label": "semicolon",
+          "note": "Required. The `while (...)` here ends a statement, it does not start a block."
+        }
+      ],
+      "title": "How a do while ends",
+      "caption": "It is the only C++ loop that ends with a semicolon."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "1 2 4 8 16",
+        "2 4 8",
+        "1 2 4 8",
+        "1"
+      ],
+      "answer": 2,
+      "explain": "The body prints `n`, then doubles it: 1, 2, 4, 8. After 8 it becomes 16, and `16 < 10` is false, so 16 is never printed.",
+      "code": "int n = 1;\ndo {\n    cout << n << \" \";\n    n *= 2;\n} while (n < 10);"
+    },
+    {
+      "type": "heading",
+      "value": "Asking Until the Answer Is Sensible"
+    },
+    {
+      "type": "paragraph",
+      "value": "Input checking is where `do while` shines. With `while`, you wrote the question twice. With `do while`, you write it once."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "while",
+          "tone": "neutral",
+          "code": "cout << \"Score? \";\ncin >> score;\nwhile (score < 0 || score > 100) {\n    cout << \"Score? \";\n    cin >> score;\n}",
+          "text": "The question is written twice."
+        },
+        {
+          "title": "do while",
+          "tone": "good",
+          "code": "do {\n    cout << \"Score? \";\n    cin >> score;\n} while (score < 0 || score > 100);",
+          "text": "Written once, and asked at least once."
+        }
+      ],
+      "title": "Validating a score",
+      "caption": "The do while version has one prompt and one read, so the two copies can never drift apart when you edit one of them."
+    },
+    {
+      "type": "warning",
+      "value": "Declare `int score;` above the loop so the condition and the lines after it can see it. Leaving it without a value is safe only because the body always runs and `cin` fills it first. C++ will not stop you reading a variable with no value: you get a leftover garbage number.",
+      "title": "A variable with no value"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "0",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "explain": "`tries` becomes 1, 2, then 3. Then `3 < 3` is false and the loop stops. A do while counter can never end at 0, because one turn is unavoidable.",
+      "code": "int tries = 0;\ndo {\n    tries++;\n} while (tries < 3);\ncout << tries << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "A Menu That Comes Back"
+    },
+    {
+      "type": "paragraph",
+      "value": "The other classic use is a menu. Show the options, do what was chosen, then show them again, until the user picks quit."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "📋",
+          "label": "Show menu",
+          "detail": "Always at least once"
+        },
+        {
+          "icon": "⌨️",
+          "label": "Read choice",
+          "detail": "`cin >> choice`"
+        },
+        {
+          "icon": "⚙️",
+          "label": "Do it",
+          "detail": "`if` / `else if`"
+        },
+        {
+          "icon": "🔁",
+          "label": "Again?",
+          "detail": "`choice != 0`"
+        }
+      ],
+      "title": "One turn of the menu loop",
+      "caption": "The `else if` chain from Module 4 does the deciding. The loop does the coming back."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int choice;\n\n    do {\n        cout << \"--- Menu ---\" << endl;\n        cout << \"1. Say hello\" << endl;\n        cout << \"2. Add two numbers\" << endl;\n        cout << \"0. Quit\" << endl;\n        cout << \"Choice? \";\n        cin >> choice;\n\n        if (choice == 1) {\n            cout << \"Hello!\" << endl;\n        } else if (choice == 2) {\n            cout << \"First? \";\n            int a;\n            cin >> a;\n            cout << \"Second? \";\n            int b;\n            cin >> b;\n            cout << \"Sum: \" << a + b << endl;\n        } else if (choice != 0) {\n            cout << \"I do not know option \" << choice << \".\" << endl;\n        }\n    } while (choice != 0);\n\n    cout << \"Goodbye.\" << endl;\n    return 0;\n}",
+      "caption": "Sample run: type 1 (prints `Hello!`), then 0 (prints `Goodbye.`). The `else if (choice != 0)` catch-all stops quitting from printing \"I do not know option 0\"."
+    },
+    {
+      "type": "tip",
+      "value": "A `switch` from Module 4 works just as well inside the loop. Its `break` only leaves the `switch`, not the loop, which is exactly what you want here.",
+      "title": "switch works too"
+    },
+    {
+      "type": "heading",
+      "value": "Choosing Between the Three"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔢",
+          "text": "`for`",
+          "sub": "You know the number of turns before you start."
+        },
+        {
+          "icon": "🚦",
+          "text": "`while`",
+          "sub": "The number of turns might be zero."
+        },
+        {
+          "icon": "1️⃣",
+          "text": "`do while`",
+          "sub": "It must run at least once: menus and input checks."
+        }
+      ],
+      "title": "Ask: how many times should the body run?"
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int items = 0;\n    for (int i = 1; i <= items; i++) {\n        cout << \"for ran\" << endl;\n    }\n    while (items > 0) {\n        cout << \"while ran\" << endl;\n    }\n    do {\n        cout << \"do while ran\" << endl;\n    } while (items > 0);\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "There is nothing to process.",
+          "vars": {
+            "items": "0"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`i` starts at 1. `1 <= 0` is false, so the body is skipped. Zero turns."
+        },
+        {
+          "line": 9,
+          "note": "`0 > 0` is false. The `while` body is skipped too."
+        },
+        {
+          "line": 12,
+          "note": "`do` goes straight into the body without testing."
+        },
+        {
+          "line": 13,
+          "note": "So this line runs.",
+          "out": [
+            "do while ran"
+          ]
+        },
+        {
+          "line": 14,
+          "note": "Now test `0 > 0`: false. The loop ends after one turn."
+        }
+      ],
+      "title": "Three loops, nothing to do",
+      "outro": "Only the `do while` printed. On data that might be empty, a `do while` will process the thing that is not there."
+    },
+    {
+      "type": "tip",
+      "value": "`do while` is the least used of the three. Reach for it for menus and input checks, and use `for` or `while` for everything else."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int choice;\n\n    do {\n        cout << \"1. Say hello\" << endl;\n        cout << \"2. Count to three\" << endl;\n        cout << \"0. Quit\" << endl;\n        cout << \"Choice? \";\n        cin >> choice;\n\n        if (choice == 1) {\n            cout << \"Hello!\" << endl;\n        } else if (choice == 2) {\n            for (int i = 1; i <= 3; i++) {\n                cout << i << endl;\n            }\n        } else if (choice != 0) {\n            cout << \"No such option.\" << endl;\n        }\n    } while (choice != 0);\n\n    cout << \"Goodbye.\" << endl;\n\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Rewrite this while loop as a do while loop that produces the same output.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int i = 1;\n\n    while (i <= 5) {\n        cout << \"Turn \" << i << endl;\n        i++;\n    }\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Use a do while loop to keep asking for a day number until the answer is between 1 and 7, then print it.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day;\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Build a menu with a do while loop: option 1 prints your name, option 2 prints today as a word, option 0 quits. Anything else says it is not an option.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int choice;\n\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "This do while loop will not compile. Find the two problems and fix them.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    do {\n        int n = 1;\n        cout << n << endl;\n        n++;\n    } while (n <= 3)\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is the one real difference between `while` and `do while`?",
+      "options": [
+        "A do while can only count upwards",
+        "A do while tests its condition after the block, so the block always runs at least once",
+        "A do while does not need a condition"
+      ],
+      "answer": 1,
+      "explain": "Everything else about them is the same. The order of block and test is the whole difference."
+    },
+    {
+      "question": "How many times does `do { cout << \"hi\" << endl; } while (false);` print?",
+      "options": [
+        "Never",
+        "For ever",
+        "Once"
+      ],
+      "answer": 2,
+      "explain": "The block runs before the condition is ever looked at, so a condition that is false from the start still allows one turn."
+    },
+    {
+      "question": "What is easy to forget when writing a do while loop?",
+      "options": [
+        "The semicolon after the closing `while (condition)`",
+        "The braces around the block",
+        "The `do` keyword"
+      ],
+      "answer": 0,
+      "explain": "It is the only loop that ends with a semicolon, because that final `while (...)` completes a statement instead of opening a block."
+    },
+    {
+      "question": "Why is a do while loop a good fit for input validation?",
+      "options": [
+        "It stops the user typing letters",
+        "You have to ask once before you can know whether to ask again",
+        "It is faster than a while loop"
+      ],
+      "answer": 1,
+      "explain": "The first question is unavoidable, so a loop that always runs once lets you write the prompt and the rule a single time."
+    },
+    {
+      "question": "Why must the variable tested by a do while loop be declared above the `do`?",
+      "options": [
+        "do while cannot use int variables",
+        "Because it has to be const",
+        "The condition sits outside the block, so a variable declared inside is already gone"
+      ],
+      "answer": 2,
+      "explain": "Anything declared inside the braces stops existing at the closing brace, and the condition comes after that closing brace."
+    }
+  ]
+}

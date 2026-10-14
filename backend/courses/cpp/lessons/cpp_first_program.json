@@ -1,0 +1,324 @@
+{
+  "lessonId": "cpp_first_program",
+  "title": "Your First Program",
+  "description": "Every word in a C++ program explained, line by line, so none of it is magic.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "The Smallest C++ Program"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here is a complete C++ program. It prints one line. Every program you write starts from this shape, so it is worth taking apart."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello, world!\" << endl;\n    return 0;\n}",
+      "output": [
+        "Hello, world!"
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "#include",
+          "label": "paste in",
+          "note": "An instruction for the preprocessor: copy in a part of the library."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "<iostream>",
+          "label": "which part",
+          "note": "Input/output stream: the part of the **standard library** (ready-made code that comes with C++) for printing and reading."
+        }
+      ],
+      "title": "Line 1: bring in the printing tools",
+      "caption": "Without this line the compiler has never heard of `cout`."
+    },
+    {
+      "type": "heading",
+      "value": "Names Live in std"
+    },
+    {
+      "type": "analogy",
+      "emoji": "👪",
+      "real": "A family surname",
+      "concept": "The `std` namespace",
+      "code": "std::cout",
+      "text": "The standard library keeps its names inside a **namespace** called `std` (short for standard). The screen's full name is really `std::cout`."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Short names",
+          "tone": "neutral",
+          "code": "using namespace std;\n\ncout << \"Hi\" << endl;",
+          "text": "Line 2 says \"also look in `std`\", so `cout` is enough."
+        },
+        {
+          "title": "Full names",
+          "tone": "neutral",
+          "code": "std::cout << \"Hi\" << std::endl;",
+          "text": "Leave line 2 out and write `std::` in front of each name."
+        }
+      ],
+      "title": "Two ways to write the same thing",
+      "caption": "Big projects often write `std::` every time to avoid name clashes. This course uses the short style, and now you can read both."
+    },
+    {
+      "type": "check",
+      "question": "You leave out `using namespace std;`. How do you write `cout`?",
+      "options": [
+        "`cout` still works",
+        "`std.cout`",
+        "`iostream::cout`",
+        "`std::cout`"
+      ],
+      "answer": 3,
+      "explain": "Without that line, you write the full name: the namespace `std`, then `::`, then `cout`."
+    },
+    {
+      "type": "heading",
+      "value": "Where the Program Starts"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "int",
+          "label": "hands back a number",
+          "note": "When `main` finishes, it returns a whole number."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "main",
+          "label": "special name",
+          "note": "Every program starts running here."
+        },
+        {
+          "code": "()",
+          "label": "inputs",
+          "note": "Empty brackets: `main` takes nothing in."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "{",
+          "label": "open",
+          "note": "Opens the function. Its matching `}` closes it."
+        }
+      ],
+      "title": "Line 4: the main function"
+    },
+    {
+      "type": "paragraph",
+      "value": "The last line inside, `return 0;`, hands 0 back to whoever started the program. 0 means \"finished with no problems\"."
+    },
+    {
+      "type": "warning",
+      "value": "Misspell `main` and the build fails with an `undefined reference` error. Nothing told the computer where to begin.",
+      "title": "The name matters"
+    },
+    {
+      "type": "check",
+      "question": "When your program starts, where does it begin?",
+      "options": [
+        "At the very first line of the file",
+        "At `#include <iostream>`",
+        "At the function named `main`",
+        "At `return 0;`"
+      ],
+      "answer": 2,
+      "explain": "Every C++ program begins running at the function called `main`."
+    },
+    {
+      "type": "heading",
+      "value": "The One Real Instruction"
+    },
+    {
+      "type": "paragraph",
+      "value": "Line 5 is the only line that does visible work. Everything else is the wrapper around it."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "cout",
+          "label": "the screen",
+          "note": "Say \"see out\": character output."
+        },
+        {
+          "code": " << ",
+          "label": "goes into",
+          "note": "Sends what is on its right into `cout`."
+        },
+        {
+          "code": "\"Hello, world!\"",
+          "label": "text",
+          "note": "Double quotes mark where the text starts and ends."
+        },
+        {
+          "code": " << ",
+          "label": "goes into"
+        },
+        {
+          "code": "endl",
+          "label": "end the line",
+          "note": "Moves the output to a new line."
+        },
+        {
+          "code": ";",
+          "label": "end",
+          "note": "The semicolon ends the instruction."
+        }
+      ],
+      "title": "Line 5: print something",
+      "caption": "Whenever you see `<<` next to `cout`, think \"goes into\"."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "`\"Hello, world!\"`",
+        "`cout << Hello, world!`",
+        "`Hello, world!`",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "The quotes only mark where the text starts and ends. `cout` prints what is inside them.",
+      "code": "cout << \"Hello, world!\" << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Braces Come in Pairs"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Every `{` needs a matching `}`. Here only `main` opens a pair, so the program ends with one `}`.",
+        "Indent inner lines four spaces. C++ doesn't require it, but it shows what is inside what.",
+        "Your code lives in `main.cpp`. Any name ending in `.cpp` works, but a program has exactly one `main`."
+      ],
+      "title": "Rules to keep"
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Line one.\" << endl;\n    cout << \"Line two.\" << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 1,
+          "note": "`#include <iostream>` brings in `cout` and `endl`."
+        },
+        {
+          "line": 4,
+          "note": "`{` opens `main`. The program starts running here."
+        },
+        {
+          "line": 5,
+          "note": "First instruction: prints `Line one.`",
+          "out": [
+            "Line one."
+          ]
+        },
+        {
+          "line": 6,
+          "note": "Next line down: prints `Line two.`",
+          "out": [
+            "Line two."
+          ]
+        },
+        {
+          "line": 7,
+          "note": "`return 0;` reports that everything went fine."
+        },
+        {
+          "line": 8,
+          "note": "The last `}` closes `main`. The program ends."
+        }
+      ],
+      "title": "Braces in pairs",
+      "outro": "Try it: add a third `cout` line between the others. It prints exactly where you put it, because instructions run top to bottom."
+    },
+    {
+      "type": "check",
+      "question": "How many `}` does this one-line program end with?",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "0"
+      ],
+      "answer": 1,
+      "explain": "Only `main` opens a pair of braces, so one `}` closes it.",
+      "code": "int main() {\n    cout << \"Hi\" << endl;\n    return 0;"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello, world!\" << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Print your own name on one line, then your favourite food on a second line. Two instructions inside `main`.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Print a three line message: C++ is strict. / Braces come in pairs. / And I am fine with that. Each on its own line.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Where does a C++ program start running?",
+      "options": [
+        "At the function called `main`.",
+        "At the first line of the file.",
+        "At the `#include` line."
+      ],
+      "answer": 0,
+      "explain": "The program begins at `main`, found by name. That is why the spelling of `main` matters so much."
+    },
+    {
+      "question": "What does `using namespace std;` let you do?",
+      "options": [
+        "Use the printing tools without `#include <iostream>`.",
+        "Skip the semicolons in your program.",
+        "Write `cout` instead of `std::cout`."
+      ],
+      "answer": 2,
+      "explain": "Standard names live in the `std` namespace. The line lets you use their short names; you still need the `#include` to bring the tools in."
+    },
+    {
+      "question": "What does `endl` do?",
+      "options": [
+        "Ends the program.",
+        "Ends the current line, so the next output starts underneath.",
+        "Prints the letters endl."
+      ],
+      "answer": 1,
+      "explain": "`endl` is short for end line. Without it, the next thing you print carries on along the same line."
+    },
+    {
+      "question": "What does `return 0;` at the end of `main` mean?",
+      "options": [
+        "The program finished with no problems.",
+        "Print the number 0.",
+        "Start the program again from the top."
+      ],
+      "answer": 0,
+      "explain": "`main` hands a number back when it ends. By agreement, 0 means success and anything else means something went wrong."
+    }
+  ]
+}

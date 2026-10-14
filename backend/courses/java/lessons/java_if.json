@@ -1,0 +1,350 @@
+{
+  "lessonId": "java_if",
+  "title": "The if Statement",
+  "description": "Running some instructions only when a condition is true.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Fork in the Road"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🚦",
+      "real": "A traffic light",
+      "concept": "An if statement",
+      "code": "if (light == GREEN) {\n    drive();\n}",
+      "text": "You only drive when the light is green. Until now every line of your program ran every time. An `if` lets a block run only when a condition is true."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "if",
+          "label": "keyword",
+          "note": "Starts the decision."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "(score > 50)",
+          "label": "condition",
+          "note": "Round brackets around a question that is `true` or `false`."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "{",
+          "label": "open brace",
+          "note": "The guarded block starts here and ends at the matching `}`."
+        }
+      ],
+      "title": "Anatomy of an if line",
+      "caption": "No semicolon at the end of this line: it ends with `{`."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int score = 75;\n\n        if (score >= 50) {\n            System.out.println(\"You passed!\");\n        }\n\n        System.out.println(\"Program finished.\");\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Store `75` in `score`.",
+          "vars": {
+            "score": "75"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Is `75 >= 50`? Yes, `true`. Java enters the block."
+        },
+        {
+          "line": 6,
+          "note": "Run the guarded line.",
+          "out": [
+            "You passed!"
+          ]
+        },
+        {
+          "line": 9,
+          "note": "This line is after the closing brace, outside the `if`. It always runs.",
+          "out": [
+            "Program finished."
+          ]
+        }
+      ],
+      "title": "Follow the true path",
+      "outro": "Change `score` to 30 and the guarded line is skipped. Only `Program finished.` is left."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Big then Done",
+        "Big",
+        "Done",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "`30 > 50` is false, so the block is skipped. The last line is outside the `if`, so it always runs.",
+      "code": "int n = 30;\nif (n > 50) {\n    System.out.println(\"Big\");\n}\nSystem.out.println(\"Done\");"
+    },
+    {
+      "type": "heading",
+      "value": "The Condition Is a boolean"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "⚖️",
+          "text": "A comparison",
+          "sub": "`score >= 50`, `lives == 1`, from Module 3."
+        },
+        {
+          "icon": "🔗",
+          "text": "A combined condition",
+          "sub": "`age >= 12 && age < 18` with the logical operators."
+        },
+        {
+          "icon": "✅",
+          "text": "A boolean variable on its own",
+          "sub": "`if (isAdult)` needs no comparison. Flip it with `!isAdult`."
+        }
+      ],
+      "title": "What can go in the brackets"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int age = 15;\n        boolean isAdult = age >= 18;\n\n        if (isAdult) {\n            System.out.println(\"You may vote.\");\n        }\n\n        if (age >= 12 && age < 18) {\n            System.out.println(\"You are a teenager.\");\n        }\n\n        if (!isAdult) {\n            System.out.println(\"Too young to vote.\");\n        }\n    }\n}",
+      "output": [
+        "You are a teenager.",
+        "Too young to vote."
+      ],
+      "caption": "`if (isAdult == true)` also works, but the `== true` adds nothing: `isAdult` is already the answer."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Breaks",
+          "tone": "bad",
+          "code": "if (lives = 1) {",
+          "text": "`=` stores a value. Compile error: int cannot be converted to boolean."
+        },
+        {
+          "title": "Works",
+          "tone": "good",
+          "code": "if (lives == 1) {",
+          "text": "`==` asks a question, so the answer is `true` or `false`."
+        }
+      ],
+      "title": "= is not ==",
+      "caption": "Java does not let a number act as a condition either: `if (score)` is a compile error unless `score` is a boolean."
+    },
+    {
+      "type": "check",
+      "question": "Which line compiles?",
+      "options": [
+        "if (lives = 1) {",
+        "if (lives) {",
+        "if (lives == 1) {"
+      ],
+      "answer": 2,
+      "explain": "Only `==` gives a boolean. `lives = 1` stores a value, and an `int` on its own is not a condition."
+    },
+    {
+      "type": "heading",
+      "value": "Two Silent Traps"
+    },
+    {
+      "type": "paragraph",
+      "value": "These two compile without any error, yet the program does the wrong thing."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int score = 10;\n\n        if (score >= 50);\n        {\n            System.out.println(\"You passed!\");\n        }\n    }\n}",
+      "output": [
+        "You passed!"
+      ],
+      "caption": "A score of 10 passed! The `;` right after the brackets ends the `if`, so it guards nothing. An `if` line ends with `{`, never `;`."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "No braces",
+          "tone": "bad",
+          "code": "if (score >= 50)\n    System.out.println(\"You passed!\");\n    System.out.println(\"Well done!\");",
+          "text": "Only the first line is guarded. `Well done!` prints even for a score of 10."
+        },
+        {
+          "title": "Braces",
+          "tone": "good",
+          "code": "if (score >= 50) {\n    System.out.println(\"You passed!\");\n    System.out.println(\"Well done!\");\n}",
+          "text": "Both lines are guarded. It costs two characters."
+        }
+      ],
+      "title": "Always write the braces",
+      "caption": "Java ignores indentation. The braces are what decide which lines belong to the `if`."
+    },
+    {
+      "type": "check",
+      "question": "With `score = 10`, what does the no-braces version print?",
+      "options": [
+        "You passed! then Well done!",
+        "Nothing",
+        "You passed!",
+        "Well done!"
+      ],
+      "answer": 3,
+      "explain": "Without braces only the first line after the `if` is guarded. The second line runs every time."
+    },
+    {
+      "type": "heading",
+      "value": "Several Independent ifs"
+    },
+    {
+      "type": "points",
+      "items": [
+        "You can write as many `if` statements in a row as you like.",
+        "Each one is checked **on its own**, so several, one or none may run.",
+        "Use this when more than one answer can apply at once."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int marks = 80;\n\n        if (marks >= 40) {\n            System.out.println(\"Passed.\");\n        }\n\n        if (marks >= 75) {\n            System.out.println(\"With distinction.\");\n        }\n\n        if (marks == 100) {\n            System.out.println(\"Perfect score!\");\n        }\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Store `80` in `marks`.",
+          "vars": {
+            "marks": "80"
+          }
+        },
+        {
+          "line": 5,
+          "note": "Is `80 >= 40`? Yes."
+        },
+        {
+          "line": 6,
+          "note": "Run that block.",
+          "out": [
+            "Passed."
+          ]
+        },
+        {
+          "line": 9,
+          "note": "A new, separate `if`. Is `80 >= 75`? Yes."
+        },
+        {
+          "line": 10,
+          "note": "Run that block too.",
+          "out": [
+            "With distinction."
+          ]
+        },
+        {
+          "line": 13,
+          "note": "Is `80 == 100`? No. Skip its block."
+        }
+      ],
+      "title": "Every if gets its own turn",
+      "outro": "Two of the three ran. When the answers are alternatives, like grades, you want `else` instead: that is the next lesson."
+    },
+    {
+      "type": "check",
+      "question": "With `marks = 100`, how many lines does it print?",
+      "options": [
+        "1",
+        "3",
+        "2",
+        "0"
+      ],
+      "answer": 1,
+      "explain": "All three conditions are true, and each `if` is checked separately, so all three blocks run."
+    }
+  ],
+  "editorCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Your score out of 100? \");\n        int score = scanner.nextInt();\n\n        if (score >= 50) {\n            System.out.println(\"You passed!\");\n        }\n\n        if (score >= 90) {\n            System.out.println(\"Top marks!\");\n        }\n\n        System.out.println(\"Score recorded: \" + score);\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a temperature. If it is above 35, print: Stay indoors. Nothing should print for cooler temperatures.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Temperature? \");\n        int temp = scanner.nextInt();\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Ask for an age and print: You may ride. only when the age is 12 or more AND under 60. Use one `if` with `&&`.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Age? \");\n        int age = scanner.nextInt();\n\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "This prints You passed! even for a score of 10. Find the extra character that breaks it and remove it.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int score = 10;\n\n        if (score >= 50);\n        {\n            System.out.println(\"You passed!\");\n        }\n    }\n}"
+    },
+    {
+      "id": 4,
+      "question": "This congratulates a failing score. Add the braces that were missing so both messages are guarded.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int score = 20;\n\n        if (score >= 50)\n            System.out.println(\"You passed!\");\n            System.out.println(\"Well done!\");\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What goes inside the round brackets of an `if`?",
+      "options": [
+        "Something that produces true or false",
+        "Any number, where 0 means false",
+        "The instruction to run"
+      ],
+      "answer": 0,
+      "explain": "Java requires a boolean. A comparison, a logical expression or a boolean variable all work; a bare number is a compile error."
+    },
+    {
+      "question": "What does `if (score >= 50);` followed by a block do?",
+      "options": [
+        "Nothing is guarded: the semicolon ends the if, so the block always runs.",
+        "The block runs only when the score is 50 or more.",
+        "It fails to compile."
+      ],
+      "answer": 0,
+      "explain": "The semicolon is an empty instruction, and that becomes the whole body of the `if`. The block after it is then just an ordinary block that always runs."
+    },
+    {
+      "question": "Without braces, how much of the following code belongs to an `if`?",
+      "options": [
+        "Only the first instruction",
+        "Everything indented under it",
+        "Everything up to the next blank line"
+      ],
+      "answer": 0,
+      "explain": "Java ignores indentation completely. Only one instruction is attached, which is why leaving the braces out is such a reliable source of bugs."
+    },
+    {
+      "question": "Why is `if (lives = 1)` a compile error in Java?",
+      "options": [
+        "It assigns rather than compares, and an int is not a boolean.",
+        "You cannot use numbers in a condition.",
+        "`lives` has to be final."
+      ],
+      "answer": 0,
+      "explain": "A single `=` stores a value, so the brackets end up holding an `int`, and Java insists on a boolean. Use `==` to ask the question."
+    },
+    {
+      "question": "Three separate `if` statements are true at the same time. How many blocks run?",
+      "options": [
+        "All three: each `if` is judged on its own.",
+        "Only the first one.",
+        "Only the last one."
+      ],
+      "answer": 0,
+      "explain": "Independent `if` statements do not know about each other. When you want exactly one of several alternatives, you need `else`."
+    }
+  ]
+}

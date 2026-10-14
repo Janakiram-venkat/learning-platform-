@@ -1,0 +1,27 @@
+{
+  "moduleId": 10,
+  "title": "Inheritance and Polymorphism",
+  "lessons": [
+    {
+      "lessonId": "cpp_inheritance",
+      "title": "Inheritance",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_virtual_functions",
+      "title": "Virtual Functions",
+      "duration": "25 min"
+    },
+    {
+      "lessonId": "cpp_abstract_classes",
+      "title": "Abstract Classes",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_operator_overloading",
+      "title": "Operator Overloading",
+      "duration": "20 min"
+    }
+  ],
+  "hasProject": true
+}

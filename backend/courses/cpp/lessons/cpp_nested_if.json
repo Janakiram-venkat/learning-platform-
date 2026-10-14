@@ -1,0 +1,371 @@
+{
+  "lessonId": "cpp_nested_if",
+  "title": "Nested Decisions",
+  "description": "Putting an if inside an if, when to use && instead, and how to keep it readable.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Decision Inside a Decision"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🎬",
+      "real": "A cinema door",
+      "concept": "A nested if",
+      "code": "if (hasTicket) {\n    if (age >= 18) { ... }\n}",
+      "text": "First the usher checks your ticket. Only if you have one do they ask your age. An `if` inside another `if` is called **nesting**."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    bool hasTicket = true;\n    int age = 15;\n\n    if (hasTicket) {\n        if (age >= 18) {\n            cout << \"Enjoy the film.\" << endl;\n        } else {\n            cout << \"This film is for adults only.\" << endl;\n        }\n    } else {\n        cout << \"Please buy a ticket first.\" << endl;\n    }\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "This person has a ticket.",
+          "vars": {
+            "hasTicket": "true"
+          }
+        },
+        {
+          "line": 6,
+          "note": "And is 15.",
+          "vars": {
+            "age": "15"
+          }
+        },
+        {
+          "line": 8,
+          "note": "Outer question: ticket? Yes. Go inside."
+        },
+        {
+          "line": 9,
+          "note": "Inner question, only asked of ticket holders: is `15 >= 18`? No."
+        },
+        {
+          "line": 12,
+          "note": "Run the inner `else`.",
+          "out": [
+            "This film is for adults only."
+          ]
+        }
+      ],
+      "title": "Outer first, then inner",
+      "outro": "Without a ticket, the age question is never reached at all. Each level gets one more step of indent, and each `{` needs its `}` at the same level."
+    },
+    {
+      "type": "check",
+      "question": "Change `hasTicket` to `false`. What prints?",
+      "options": [
+        "This film is for adults only.",
+        "Please buy a ticket first.",
+        "Enjoy the film.",
+        "Nothing"
+      ],
+      "answer": 1,
+      "explain": "The outer test fails, so C++ jumps to the outer `else`. The inner `if` is skipped entirely."
+    },
+    {
+      "type": "heading",
+      "value": "Nested or &&?"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Nested",
+          "tone": "neutral",
+          "code": "if (age >= 12) {\n    if (height >= 1.40) {\n        cout << \"Ride!\" << endl;\n    }\n}",
+          "text": "Two levels to hold in your head."
+        },
+        {
+          "title": "Flat",
+          "tone": "good",
+          "code": "if (age >= 12 && height >= 1.40) {\n    cout << \"Ride!\" << endl;\n}",
+          "text": "One level, same meaning."
+        }
+      ],
+      "title": "Same rule, two shapes",
+      "caption": "When both must be true and there is nothing to do in between, `&&` is easier to read."
+    },
+    {
+      "type": "paragraph",
+      "value": "Nesting earns its place when each failure needs a **different** message. `&&` can only say the whole thing failed, not which half."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 14;\n    double height = 1.20;\n\n    if (age >= 12) {\n        if (height >= 1.40) {\n            cout << \"You may ride.\" << endl;\n        } else {\n            cout << \"Old enough, but not tall enough.\" << endl;\n        }\n    } else {\n        cout << \"Too young for this ride.\" << endl;\n    }\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Age 14.",
+          "vars": {
+            "age": "14"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Height 1.20 m.",
+          "vars": {
+            "height": "1.2"
+          }
+        },
+        {
+          "line": 8,
+          "note": "Is `14 >= 12`? Yes. Go inside."
+        },
+        {
+          "line": 9,
+          "note": "Is `1.20 >= 1.40`? No."
+        },
+        {
+          "line": 12,
+          "note": "The inner `else` explains exactly what failed.",
+          "out": [
+            "Old enough, but not tall enough."
+          ]
+        }
+      ],
+      "title": "Three messages from two questions"
+    },
+    {
+      "type": "check",
+      "question": "With `age = 10` and `height = 1.50`, what prints?",
+      "options": [
+        "You may ride.",
+        "Too young for this ride.",
+        "Old enough, but not tall enough.",
+        "Nothing"
+      ],
+      "answer": 1,
+      "explain": "`10 >= 12` is false, so the outer `else` runs. The height is never checked."
+    },
+    {
+      "type": "heading",
+      "value": "Check Before You Calculate"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🪑",
+      "real": "Testing a chair before you sit",
+      "concept": "Checking a value before you use it",
+      "code": "if (people > 0) {\n    int each = bill / people;\n}",
+      "text": "Dividing a whole number by zero crashes the program. Check first, and only do the risky step when it is safe."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int bill = 900;\n    int people = 0;\n\n    if (people > 0) {\n        int each = bill / people;\n        cout << \"Each pays \" << each << endl;\n    } else {\n        cout << \"There has to be at least one person!\" << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "There has to be at least one person!"
+      ],
+      "caption": "Inside the `if`, `people` cannot be 0, so the division is safe. Set `people` to 3 and it prints `Each pays 300`."
+    },
+    {
+      "type": "tip",
+      "value": "A variable declared inside a block, like `each`, only exists until that block's `}`. You cannot print `each` after the `if`. Declare it before the `if` when you need it afterwards.",
+      "title": "Block variables stay in the block"
+    },
+    {
+      "type": "check",
+      "question": "Why is the division inside the `if` block?",
+      "options": [
+        "Because division needs braces",
+        "So it only runs when people is not 0",
+        "To make it run faster"
+      ],
+      "answer": 1,
+      "explain": "The block runs only when `people > 0`, so the program never divides by zero."
+    },
+    {
+      "type": "heading",
+      "value": "Too Deep to Read"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Deep",
+          "tone": "bad",
+          "code": "if (loggedIn) {\n    if (hasPaid) {\n        if (inStock) {\n            cout << \"Order confirmed.\" << endl;\n        }\n    }\n}",
+          "text": "The one line that matters is buried."
+        },
+        {
+          "title": "Flat",
+          "tone": "good",
+          "code": "if (loggedIn && hasPaid && inStock) {\n    cout << \"Order confirmed.\" << endl;\n}",
+          "text": "One condition, one level."
+        }
+      ],
+      "title": "Flatten a deep nest",
+      "caption": "Around three levels, readers lose track of which condition they are inside."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    bool loggedIn = true;\n    bool hasPaid = false;\n    bool inStock = true;\n\n    bool canOrder = loggedIn && hasPaid && inStock;\n\n    if (canOrder) {\n        cout << \"Order confirmed.\" << endl;\n    } else {\n        cout << \"Cannot order yet.\" << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "Cannot order yet."
+      ],
+      "caption": "Another way to flatten: name the combined condition in a `bool` first. `if (canOrder)` reads like a sentence."
+    },
+    {
+      "type": "tip",
+      "value": "In Module 6 you will move a block of decisions into a function of its own, the real cure for deep nesting. Until then, `&&` and a well named `bool` keep almost anything readable."
+    },
+    {
+      "type": "heading",
+      "value": "A Nested Chain in Full"
+    },
+    {
+      "type": "paragraph",
+      "value": "The outer chain picks the ticket type. An inner `if` adds a weekend surcharge, but only for tickets that cost money."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 10;\n    bool weekend = true;\n    int price = 0;\n\n    if (age < 5) {\n        price = 0;\n    } else if (age < 13) {\n        price = 120;\n        if (weekend) {\n            price += 50;\n        }\n    } else {\n        price = 250;\n        if (weekend) {\n            price += 50;\n        }\n    }\n\n    cout << \"Price: \" << price << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "A 10 year old.",
+          "vars": {
+            "age": "10"
+          }
+        },
+        {
+          "line": 6,
+          "note": "On a weekend.",
+          "vars": {
+            "weekend": "true"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Start `price` at 0.",
+          "vars": {
+            "price": "0"
+          }
+        },
+        {
+          "line": 9,
+          "note": "Is `10 < 5`? No."
+        },
+        {
+          "line": 11,
+          "note": "Is `10 < 13`? Yes. Child branch."
+        },
+        {
+          "line": 12,
+          "note": "Child price.",
+          "vars": {
+            "price": "120"
+          }
+        },
+        {
+          "line": 13,
+          "note": "Inner question: weekend? Yes."
+        },
+        {
+          "line": 14,
+          "note": "Add the surcharge.",
+          "vars": {
+            "price": "170"
+          }
+        },
+        {
+          "line": 23,
+          "note": "The chain is done. Print the result.",
+          "out": [
+            "Price: 170"
+          ]
+        }
+      ],
+      "title": "Outer chain, inner detail",
+      "outro": "The infant branch has no inner `if`: a free ticket stays free at the weekend."
+    },
+    {
+      "type": "check",
+      "question": "With `age = 3` and `weekend = true`, what is printed?",
+      "options": [
+        "Price: 50",
+        "Price: 120",
+        "Price: 0",
+        "Price: 170"
+      ],
+      "answer": 2,
+      "explain": "`3 < 5` is true, so the infant branch sets `price` to 0. It has no inner `if`, so no surcharge is added."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 14;\n    double height = 1.20;\n\n    if (age >= 12) {\n        if (height >= 1.40) {\n            cout << \"You may ride.\" << endl;\n        } else {\n            cout << \"Old enough, but not tall enough.\" << endl;\n        }\n    } else {\n        cout << \"Too young for this ride.\" << endl;\n    }\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a mark. If it is 40 or more print Passed, and inside that block also print With distinction when it is 75 or more. A failing mark should print Failed.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int marks;\n\n    cout << \"Marks? \";\n    cin >> marks;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Rewrite this nested pair as a single `if` using `&&`, keeping the same message.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 20;\n    bool hasLicence = true;\n\n    if (age >= 18) {\n        if (hasLicence) {\n            cout << \"You may drive.\" << endl;\n        }\n    }\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Ask for two numbers and divide the first by the second, but check the second is not zero first. Print a clear message instead of crashing.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a;\n    int b;\n\n    cout << \"First number? \";\n    cin >> a;\n\n    cout << \"Second number? \";\n    cin >> b;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "When does the inner `if` of a nested pair get tested?",
+      "options": [
+        "Always, at the same time as the outer one",
+        "Only when the outer condition was true",
+        "Only when the outer condition was false"
+      ],
+      "answer": 1,
+      "explain": "The inner `if` is an instruction inside the outer block, so it is only reached if the outer condition let the program in."
+    },
+    {
+      "question": "Both conditions must be true, and there is nothing to do in between. What is better?",
+      "options": [
+        "One `if` with `&&`",
+        "Two nested `if` statements",
+        "Two separate `if` statements"
+      ],
+      "answer": 0,
+      "explain": "`&&` gives one level of indentation and one condition to read. Nesting is for when the branches actually differ."
+    },
+    {
+      "question": "What can nesting do that a single `&&` condition cannot?",
+      "options": [
+        "Test two things at once",
+        "Handle bool variables",
+        "Give a different message depending on which half failed"
+      ],
+      "answer": 2,
+      "explain": "`&&` only reports that the whole condition failed. Nesting gives each failure its own `else`, and so its own explanation."
+    },
+    {
+      "question": "Why put `if (people > 0)` around a division?",
+      "options": [
+        "To make the division faster",
+        "Because C++ requires a check before every division",
+        "So the division never runs with a zero, which would crash the program"
+      ],
+      "answer": 2,
+      "explain": "Whole-number division by zero has no answer and usually crashes the program. Checking the value first lets you print a clear message instead."
+    },
+    {
+      "question": "Your code is nested four levels deep. What is the best first move?",
+      "options": [
+        "Remove the braces to save space",
+        "Combine conditions with `&&`, or name one in a bool variable",
+        "Leave it: depth does not matter"
+      ],
+      "answer": 1,
+      "explain": "Both flatten the code without changing what it does. Later you will also be able to move a block into a function of its own."
+    }
+  ]
+}

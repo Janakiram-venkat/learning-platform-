@@ -1,0 +1,401 @@
+{
+  "lessonId": "cpp_switch",
+  "title": "switch",
+  "description": "Choosing one of many fixed values, the break you must not forget, and what a switch cannot match.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "One Value, Many Cases"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🛗",
+      "real": "Lift buttons",
+      "concept": "A switch",
+      "code": "switch (floor) {\n    case 3: ...\n}",
+      "text": "Press 3 and the lift goes straight to floor 3. A `switch` takes one value and jumps straight to the matching case, instead of asking `day == 1`, `day == 2`... one by one."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🎯",
+          "text": "`switch (day)`",
+          "sub": "The one value being tested."
+        },
+        {
+          "icon": "🏷️",
+          "text": "`case 3:`",
+          "sub": "A value to match."
+        },
+        {
+          "icon": "🛑",
+          "text": "`break;`",
+          "sub": "Ends the switch."
+        },
+        {
+          "icon": "🛟",
+          "text": "`default:`",
+          "sub": "The catch-all, like the final `else` in a chain."
+        }
+      ],
+      "title": "Four parts"
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day = 3;\n\n    switch (day) {\n        case 1:\n            cout << \"Monday\" << endl;\n            break;\n        case 2:\n            cout << \"Tuesday\" << endl;\n            break;\n        case 3:\n            cout << \"Wednesday\" << endl;\n            break;\n        default:\n            cout << \"Some other day\" << endl;\n    }\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Store `3` in `day`.",
+          "vars": {
+            "day": "3"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Look at `day` once: it is 3. Jump to the matching case."
+        },
+        {
+          "line": 14,
+          "note": "Here is `case 3:`. Cases 1 and 2 were never run."
+        },
+        {
+          "line": 15,
+          "note": "Run its line.",
+          "out": [
+            "Wednesday"
+          ]
+        },
+        {
+          "line": 16,
+          "note": "`break` ends the switch. `default` is skipped."
+        }
+      ],
+      "title": "Jump to the match",
+      "outro": "`day` is written once, not on every line like an `else if` chain, so it cannot be mistyped halfway down."
+    },
+    {
+      "type": "check",
+      "question": "What prints if `day` is `9`?",
+      "options": [
+        "Some other day",
+        "Wednesday",
+        "Nothing",
+        "Monday"
+      ],
+      "answer": 0,
+      "explain": "No case matches 9, so `default` runs."
+    },
+    {
+      "type": "heading",
+      "value": "The break You Must Not Forget"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "With break",
+          "tone": "good",
+          "code": "case 1:\n    cout << \"Monday\" << endl;\n    break;\ncase 2:\n    cout << \"Tuesday\" << endl;\n    break;",
+          "text": "Day 1 prints only Monday."
+        },
+        {
+          "title": "No break",
+          "tone": "bad",
+          "code": "case 1:\n    cout << \"Monday\" << endl;\ncase 2:\n    cout << \"Tuesday\" << endl;\n    break;",
+          "text": "Day 1 prints Monday, then keeps going into case 2."
+        }
+      ],
+      "title": "With and without break",
+      "caption": "Write `break` on the last case too: the day you add another case below it, it is already correct."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day = 1;\n\n    switch (day) {\n        case 1:\n            cout << \"Monday\" << endl;\n        case 2:\n            cout << \"Tuesday\" << endl;\n        case 3:\n            cout << \"Wednesday\" << endl;\n            break;\n        default:\n            cout << \"Some other day\" << endl;\n    }\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Store `1` in `day`.",
+          "vars": {
+            "day": "1"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Jump to `case 1`."
+        },
+        {
+          "line": 9,
+          "note": "Run it. No `break` follows...",
+          "out": [
+            "Monday"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "...so C++ falls into case 2 and runs that too.",
+          "out": [
+            "Tuesday"
+          ]
+        },
+        {
+          "line": 13,
+          "note": "And case 3.",
+          "out": [
+            "Wednesday"
+          ]
+        },
+        {
+          "line": 14,
+          "note": "Finally a `break`. The switch ends."
+        }
+      ],
+      "title": "Fall-through",
+      "outro": "This is called **fall-through**: running on into the next case. It compiles fine, so the output is your only clue."
+    },
+    {
+      "type": "check",
+      "question": "No `break` anywhere, `day = 2`. What prints?",
+      "options": [
+        "Tuesday, Wednesday, Some other day",
+        "Tuesday",
+        "Monday, Tuesday",
+        "Nothing"
+      ],
+      "answer": 0,
+      "explain": "C++ jumps to `case 2`, then falls through every case below it, including `default`.",
+      "code": "switch (day) {\n    case 1: cout << \"Monday\" << endl;\n    case 2: cout << \"Tuesday\" << endl;\n    case 3: cout << \"Wednesday\" << endl;\n    default: cout << \"Some other day\" << endl;\n}"
+    },
+    {
+      "type": "heading",
+      "value": "Grouping Cases and chars"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day = 6;\n\n    switch (day) {\n        case 6:\n        case 7:\n            cout << \"Weekend!\" << endl;\n            break;\n        case 1:\n        case 2:\n        case 3:\n        case 4:\n        case 5:\n            cout << \"A working day.\" << endl;\n            break;\n        default:\n            cout << \"That is not a day number.\" << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "Weekend!"
+      ],
+      "caption": "Fall-through on purpose: stacked cases with no code between them share one block. Days 6 and 7 both reach `Weekend!`."
+    },
+    {
+      "type": "paragraph",
+      "value": "A switch also works on a `char`, which suits menus. A `char` case uses single quotes, like `case 'a':`."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char choice = 'Q';\n\n    switch (choice) {\n        case 'a':\n            cout << \"Your balance is 5000.\" << endl;\n            break;\n        case 'b':\n            cout << \"How much would you like to deposit?\" << endl;\n            break;\n        case 'q':\n        case 'Q':\n            cout << \"Goodbye!\" << endl;\n            break;\n        default:\n            cout << \"Not a valid option.\" << endl;\n    }\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "The user typed a capital `Q`.",
+          "vars": {
+            "choice": "'Q'"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Compare `'Q'` with each case."
+        },
+        {
+          "line": 14,
+          "note": "`'q'` is not `'Q'`: matching is exact. No match here."
+        },
+        {
+          "line": 15,
+          "note": "Match."
+        },
+        {
+          "line": 16,
+          "note": "Run it.",
+          "out": [
+            "Goodbye!"
+          ]
+        },
+        {
+          "line": 17,
+          "note": "Done."
+        }
+      ],
+      "title": "A menu with a char switch",
+      "outro": "Stacking `case 'q':` and `case 'Q':` lets both letters quit."
+    },
+    {
+      "type": "heading",
+      "value": "What a switch Cannot Do"
+    },
+    {
+      "type": "paragraph",
+      "value": "A switch only matches whole numbers and `char` values. `switch (command)` on a `string` is a compile error. Use an `else if` chain with `==` instead."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string command = \"stop\";\n\n    if (command == \"go\") {\n        cout << \"Going\" << endl;\n    } else if (command == \"stop\") {\n        cout << \"Stopping\" << endl;\n    } else {\n        cout << \"Unknown command\" << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "Stopping"
+      ],
+      "caption": "The fix for text: compare with `==` and finish with an `else` as the catch-all."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Error",
+          "tone": "bad",
+          "code": "case 1:\n    int bonus = 10;\n    cout << bonus << endl;\n    break;\ncase 2:   // jump to case label",
+          "text": "Case 2 could be reached without `bonus` ever being set up, so the compiler refuses."
+        },
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "case 1: {\n    int bonus = 10;\n    cout << bonus << endl;\n    break;\n}\ncase 2:",
+          "text": "`bonus` lives only inside the braces."
+        }
+      ],
+      "title": "A new variable inside a case",
+      "caption": "Braces give the variable its own block, so the other cases are safely outside it."
+    },
+    {
+      "type": "check",
+      "question": "Which of these can follow the word `case`?",
+      "options": [
+        "'a'",
+        "\"go\"",
+        "age > 18",
+        "a variable like limit"
+      ],
+      "answer": 0,
+      "explain": "A case must be a fixed whole number or `char`. Text, comparisons and variables are not allowed."
+    },
+    {
+      "type": "heading",
+      "value": "Which Should You Use?"
+    },
+    {
+      "type": "paragraph",
+      "value": "Both tools pick one path out of many. The deciding question is: fixed values, or ranges?"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "switch",
+          "tone": "good",
+          "code": "switch (option) {\n    case 1: ... break;\n    case 2: ... break;\n}",
+          "text": "One whole number or `char` against **fixed** values: menu options, day numbers, grade letters."
+        },
+        {
+          "title": "else if",
+          "tone": "good",
+          "code": "if (marks >= 75) { ... }\nelse if (marks >= 40) { ... }",
+          "text": "**Ranges**, comparisons like `marks >= 75`, and text."
+        }
+      ],
+      "title": "switch or else if?",
+      "caption": "A switch never does anything a chain cannot. For the right shape it is shorter and clearer: just remember every `break`."
+    },
+    {
+      "type": "check",
+      "question": "Which tool fits \"temperature above 30 is hot, above 20 is warm\"?",
+      "options": [
+        "A switch",
+        "An else if chain",
+        "A switch with fall-through"
+      ],
+      "answer": 1,
+      "explain": "These are ranges. A switch can only match fixed values, so use an `else if` chain."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day;\n\n    cout << \"Day number (1 to 7)? \";\n    cin >> day;\n\n    switch (day) {\n        case 1:\n            cout << \"Monday\" << endl;\n            break;\n        case 2:\n            cout << \"Tuesday\" << endl;\n            break;\n        case 3:\n            cout << \"Wednesday\" << endl;\n            break;\n        case 4:\n            cout << \"Thursday\" << endl;\n            break;\n        case 5:\n            cout << \"Friday\" << endl;\n            break;\n        case 6:\n            cout << \"Saturday\" << endl;\n            break;\n        case 7:\n            cout << \"Sunday\" << endl;\n            break;\n        default:\n            cout << \"Not a day number\" << endl;\n    }\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a month number from 1 to 12 and print its name with a switch. Add a `default` for anything else.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int month;\n\n    cout << \"Month number? \";\n    cin >> month;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "This prints three lines for a day of 1. Add the missing breaks so it prints only one.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day = 1;\n\n    switch (day) {\n        case 1:\n            cout << \"Monday\" << endl;\n        case 2:\n            cout << \"Tuesday\" << endl;\n        case 3:\n            cout << \"Wednesday\" << endl;\n            break;\n        default:\n            cout << \"Some other day\" << endl;\n    }\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Rewrite this `else if` chain as a switch on `grade`. Remember the single quotes and the breaks.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char grade = 'B';\n\n    if (grade == 'A') {\n        cout << \"Excellent\" << endl;\n    } else if (grade == 'B') {\n        cout << \"Good\" << endl;\n    } else if (grade == 'C') {\n        cout << \"Fair\" << endl;\n    } else {\n        cout << \"Unknown grade\" << endl;\n    }\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "Ask for one letter and print Vowel for a, e, i, o or u, using grouped cases. Print Not a vowel for anything else.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char letter;\n\n    cout << \"Type one letter: \";\n    cin >> letter;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `break` do inside a switch?",
+      "options": [
+        "Stops the whole program",
+        "Skips to the default case",
+        "Ends the switch, so C++ does not run the cases below"
+      ],
+      "answer": 2,
+      "explain": "Without it, C++ falls through into the next case and keeps going until it finds a `break` or reaches the end."
+    },
+    {
+      "question": "A switch on `day` matches `case 1`, which has no `break`. What happens?",
+      "options": [
+        "Only case 1 runs",
+        "The cases below it also run, until a break is found",
+        "The program stops with an error"
+      ],
+      "answer": 1,
+      "explain": "This is fall-through. It compiles cleanly, so the wrong output is the only sign that a `break` is missing."
+    },
+    {
+      "question": "What is `default` in a switch?",
+      "options": [
+        "The catch-all, like the final `else` in a chain",
+        "The case that always runs first",
+        "A required label on every case"
+      ],
+      "answer": 0,
+      "explain": "`default` runs when no case matched. Leaving it out means an unexpected value does nothing at all."
+    },
+    {
+      "question": "Which of these can a switch NOT do?",
+      "options": [
+        "Match a range, like `case marks >= 75:`",
+        "Match an int",
+        "Match a char"
+      ],
+      "answer": 0,
+      "explain": "A switch compares against fixed known values only. Ranges and comparisons need an `else if` chain."
+    },
+    {
+      "question": "Can you write `switch (command)` when `command` is a `string`?",
+      "options": [
+        "Yes, as long as every case is in double quotes.",
+        "Yes, but only with a default case.",
+        "No: it is a compile error, so use an `else if` chain with `==`."
+      ],
+      "answer": 2,
+      "explain": "A C++ switch needs a whole number or a `char`. For text, compare with `==` in a chain."
+    },
+    {
+      "question": "A case declares `int bonus = 10;` and the compiler says `jump to case label`. What fixes it?",
+      "options": [
+        "Add another break",
+        "Wrap that case's instructions in their own braces",
+        "Move the default case to the top"
+      ],
+      "answer": 1,
+      "explain": "The braces give the variable its own small block, so no other case can jump past its setup."
+    }
+  ]
+}

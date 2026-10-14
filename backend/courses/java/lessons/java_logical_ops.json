@@ -1,0 +1,351 @@
+{
+  "lessonId": "java_logical_ops",
+  "title": "Logical Operators",
+  "description": "Combining conditions with and, or and not, and why Java stops reading early.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Asking Two Questions at Once"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🎢",
+      "real": "A ride sign: \"12 or older AND 1.40 m tall\"",
+      "concept": "Logical operators",
+      "code": "age >= 12 && height >= 1.40",
+      "text": "Real conditions have several parts. Logical operators join booleans into one answer."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🤝",
+          "text": "`&&` means **and**",
+          "sub": "true only when both sides are true"
+        },
+        {
+          "icon": "🔀",
+          "text": "`||` means **or**",
+          "sub": "true when at least one side is true"
+        },
+        {
+          "icon": "🔄",
+          "text": "`!` means **not**",
+          "sub": "flips true and false"
+        }
+      ],
+      "title": "Three logical operators"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int age = 14;\n        double height = 1.55;\n\n        boolean oldEnough = age >= 12;\n        boolean tallEnough = height >= 1.40;\n\n        System.out.println(\"Old enough:  \" + oldEnough);\n        System.out.println(\"Tall enough: \" + tallEnough);\n        System.out.println(\"Can ride:    \" + (oldEnough && tallEnough));\n    }\n}",
+      "output": [
+        "Old enough:  true",
+        "Tall enough: true",
+        "Can ride:    true"
+      ],
+      "caption": "`age >= 12 && height >= 1.40` also works in one line, but named parts are kinder to the reader. Use two characters: a single `&` or `|` means something else."
+    },
+    {
+      "type": "heading",
+      "value": "&& Needs Both, || Needs One"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "&& (and)",
+          "tone": "neutral",
+          "code": "true  && true   // true\ntrue  && false  // false\nfalse && false  // false",
+          "text": "Only true when **both** sides are true."
+        },
+        {
+          "title": "|| (or)",
+          "tone": "neutral",
+          "code": "true  || true   // true\ntrue  || false  // true\nfalse || false  // false",
+          "text": "Only false when **both** sides are false. Read it as \"at least one\": `true || true` is `true`."
+        }
+      ],
+      "title": "AND versus OR"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"AND\");\n        System.out.println(true && true);\n        System.out.println(true && false);\n        System.out.println(false && false);\n\n        System.out.println(\"OR\");\n        System.out.println(true || true);\n        System.out.println(true || false);\n        System.out.println(false || false);\n    }\n}",
+      "output": [
+        "AND",
+        "true",
+        "false",
+        "false",
+        "OR",
+        "true",
+        "true",
+        "false"
+      ]
+    },
+    {
+      "type": "check",
+      "question": "What does `System.out.println(false || true);` print?",
+      "options": [
+        "false",
+        "true",
+        "An error",
+        "falsetrue"
+      ],
+      "answer": 1,
+      "explain": "`||` needs just one true side, and the right side is true."
+    },
+    {
+      "type": "heading",
+      "value": "! Flips the Answer"
+    },
+    {
+      "type": "paragraph",
+      "value": "`!` goes in front of a boolean and flips it. Use it when the question you have is the opposite of the one you want."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        boolean gameOver = false;\n\n        System.out.println(\"Game over:    \" + gameOver);\n        System.out.println(\"Still playing: \" + !gameOver);\n\n        int score = 40;\n        System.out.println(!(score >= 50));   // not passed\n        System.out.println(score < 50);       // the same question, said plainly\n    }\n}",
+      "output": [
+        "Game over:    false",
+        "Still playing: true",
+        "true",
+        "true"
+      ],
+      "caption": "The last two ask the same thing. Prefer the plain `score < 50`; save `!` for named booleans like `!gameOver`."
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "gameOver",
+          "value": "false",
+          "type": "bool"
+        },
+        {
+          "name": "!gameOver",
+          "value": "true",
+          "type": "bool"
+        }
+      ],
+      "title": "One value, flipped"
+    },
+    {
+      "type": "heading",
+      "value": "Combining Three or More"
+    },
+    {
+      "type": "paragraph",
+      "value": "Mixed together, `!` goes first, then `&&`, then `||`. Rather than remember that, use brackets or build the condition in named steps."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int day = 6;              // 6 = Saturday, 7 = Sunday\n        boolean onHoliday = false;\n\n        boolean weekend = day == 6 || day == 7;\n        boolean dayOff = weekend || onHoliday;\n        boolean working = !dayOff;\n\n        System.out.println(\"Weekend: \" + weekend);\n        System.out.println(\"Day off: \" + dayOff);\n        System.out.println(\"Working: \" + working);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Day 6 is Saturday.",
+          "vars": {
+            "day": "6"
+          }
+        },
+        {
+          "line": 4,
+          "note": "Not on holiday.",
+          "vars": {
+            "onHoliday": "false"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`day == 6` is true, so the `||` is true.",
+          "vars": {
+            "weekend": "true"
+          }
+        },
+        {
+          "line": 7,
+          "note": "`true || false` is true.",
+          "vars": {
+            "dayOff": "true"
+          }
+        },
+        {
+          "line": 8,
+          "note": "`!` flips it: not working.",
+          "vars": {
+            "working": "false"
+          }
+        },
+        {
+          "line": 10,
+          "note": "Print each named answer.",
+          "out": [
+            "Weekend: true"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "Next answer.",
+          "out": [
+            "Day off: true"
+          ]
+        },
+        {
+          "line": 12,
+          "note": "And the last one.",
+          "out": [
+            "Working: false"
+          ]
+        }
+      ],
+      "title": "Building a condition in named steps",
+      "outro": "`day == 6 || day == 7 || onHoliday` would work too, but three names tell a reader what each part means."
+    },
+    {
+      "type": "warning",
+      "value": "Maths allows `1 <= n <= 10`, Java does not. A range needs two comparisons joined by `&&`: `n >= 1 && n <= 10`.",
+      "title": "Ranges"
+    },
+    {
+      "type": "check",
+      "question": "Which line checks that `n` is from 1 to 10?",
+      "options": [
+        "`1 <= n <= 10`",
+        "`n >= 1 && n <= 10`",
+        "`n >= 1 || n <= 10`",
+        "`n >= 1 & <= 10`"
+      ],
+      "answer": 1,
+      "explain": "Two full comparisons joined by `&&`. With `||` every number would pass, since each is either at least 1 or at most 10."
+    },
+    {
+      "type": "heading",
+      "value": "Java Stops Reading Early"
+    },
+    {
+      "type": "paragraph",
+      "value": "With `&&`, a false left side means the answer is false, so Java skips the right side. With `||`, a true left side is enough. This is **short-circuit evaluation**."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "👥",
+          "label": "people > 0",
+          "detail": "Checked first. Suppose it is false"
+        },
+        {
+          "icon": "⏭️",
+          "label": "Skip the right",
+          "detail": "`bill / people` never runs"
+        },
+        {
+          "icon": "🛡️",
+          "label": "false",
+          "detail": "No divide by zero crash"
+        }
+      ],
+      "title": "A guard on the left",
+      "caption": "So a safety check on the left can protect something risky on the right."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"How many people? \");\n        int people = scanner.nextInt();\n\n        System.out.print(\"Total bill? \");\n        int bill = scanner.nextInt();\n\n        // If people is 0, the division on the right is never run.\n        boolean affordable = people > 0 && bill / people <= 500;\n\n        System.out.println(\"Affordable each: \" + affordable);\n    }\n}",
+      "caption": "Sample run: type `0` then `900` and it prints `Affordable each: false` instead of crashing. Swap the two sides and it would crash: order matters."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Marks out of 100? \");\n        int marks = scanner.nextInt();\n\n        System.out.print(\"Attendance percent? \");\n        int attendance = scanner.nextInt();\n\n        boolean passedMarks = marks >= 40;\n        boolean goodAttendance = attendance >= 75;\n        boolean distinction = marks >= 75 && goodAttendance;\n\n        System.out.println(\"Passed marks:     \" + passedMarks);\n        System.out.println(\"Good attendance:  \" + goodAttendance);\n        System.out.println(\"Gets certificate: \" + (passedMarks && goodAttendance));\n        System.out.println(\"With distinction: \" + distinction);\n    }\n}",
+      "caption": "Putting it all together. Sample run: `80` and `70` gives true, false, false, false. Next module, `if` turns each boolean into a fork in the road."
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        int age = 14;\n        double height = 1.55;\n\n        boolean oldEnough = age >= 12;\n        boolean tallEnough = height >= 1.40;\n\n        System.out.println(\"Can ride: \" + (oldEnough && tallEnough));\n        System.out.println(\"Must wait: \" + !(oldEnough && tallEnough));\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Ask for a number and print whether it is between 1 and 10, using two comparisons joined with `&&`.",
+      "starterCode": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Number? \");\n        int n = scanner.nextInt();\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Store a day number (1 to 7) and print whether it is a weekend, using `||`. Then print whether it is a weekday, using `!`.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int day = 3;\n\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Predict each line before running. Four of these print true and four print false.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int a = 5;\n        int b = 10;\n\n        System.out.println(a < b && b < 20);\n        System.out.println(a > b || b > 5);\n        System.out.println(!(a == 5));\n        System.out.println(a != 5 || b != 10);\n        System.out.println(a + b == 15 && a * b == 50);\n        System.out.println(a > 0 && b > 0 && a + b > 100);\n        System.out.println(a == 5 || b == 99);\n        System.out.println(!(a < b));\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "When is `a && b` true?",
+      "options": [
+        "Only when both a and b are true",
+        "When at least one of them is true",
+        "When they are different"
+      ],
+      "answer": 0,
+      "explain": "`&&` means and: every part has to be true. One false anywhere makes the whole thing false."
+    },
+    {
+      "question": "What does `false || true` give?",
+      "options": [
+        "true, because || needs only one true side",
+        "false, because the first side is false",
+        "An error"
+      ],
+      "answer": 0,
+      "explain": "`||` means at least one. It is false only when both sides are false."
+    },
+    {
+      "question": "How do you test that an `int n` is between 1 and 10 inclusive?",
+      "options": [
+        "n >= 1 && n <= 10",
+        "1 <= n <= 10",
+        "n >= 1 || n <= 10"
+      ],
+      "answer": 0,
+      "explain": "Java cannot chain comparisons the way mathematics does, so a range is two comparisons joined with `&&`. Using `||` there would be true for almost every number."
+    },
+    {
+      "question": "`boolean gameOver = false;` What does `!gameOver` give?",
+      "options": [
+        "true",
+        "false",
+        "It depends on the score"
+      ],
+      "answer": 0,
+      "explain": "`!` flips the value, so `!false` is `true`. It reads nicely with a well named boolean: `!gameOver` means still playing."
+    },
+    {
+      "question": "Why does `people > 0 && bill / people <= 500` not crash when people is 0?",
+      "options": [
+        "The left side is false, so Java never evaluates the division.",
+        "Java replaces a division by zero with 0.",
+        "It does crash."
+      ],
+      "answer": 0,
+      "explain": "This is short-circuit evaluation: once the left side of `&&` is false the answer is settled, so the right side is skipped. Putting the guard first is the whole point."
+    },
+    {
+      "question": "Which order are logical operators applied in when brackets are left out?",
+      "options": [
+        "`!` first, then `&&`, then `||`",
+        "`||` first, then `&&`, then `!`",
+        "Strictly left to right"
+      ],
+      "answer": 0,
+      "explain": "That is the order, but relying on it makes code hard to read. Add brackets and nobody has to remember."
+    }
+  ]
+}

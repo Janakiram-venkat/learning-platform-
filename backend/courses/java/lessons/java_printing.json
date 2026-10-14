@@ -9,26 +9,67 @@
       "value": "println and print"
     },
     {
-      "type": "paragraph",
-      "value": "There are two printing instructions and the difference is one letter. `System.out.println(...)` prints and then moves to a new line. `System.out.print(...)` prints and stays exactly where it is, so the next thing printed continues on the same line."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "println",
+          "tone": "neutral",
+          "code": "System.out.println(\"Hi\");",
+          "text": "Prints, then moves to a **new line**."
+        },
+        {
+          "title": "print",
+          "tone": "neutral",
+          "code": "System.out.print(\"Hi\");",
+          "text": "Prints and **stays** on the same line."
+        }
+      ],
+      "title": "One letter of difference",
+      "caption": "`print` is handy when you ask a question and the user types on the same line. You'll do that in Module 3."
     },
     {
-      "type": "code",
-      "language": "java",
-      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.print(\"Hello, \");\n        System.out.print(\"world\");\n        System.out.println(\"!\");\n        System.out.println(\"A brand new line.\");\n    }\n}"
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.print(\"Hello, \");\n        System.out.print(\"world\");\n        System.out.println(\"!\");\n        System.out.println(\"A brand new line.\");\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "`print` writes `Hello, ` and stays on the line. The line isn't finished yet."
+        },
+        {
+          "line": 4,
+          "note": "`world` continues on the same line."
+        },
+        {
+          "line": 5,
+          "note": "`println` adds `!` and then ends the line.",
+          "out": [
+            "Hello, world!"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "A fresh line starts.",
+          "out": [
+            "A brand new line."
+          ]
+        }
+      ],
+      "title": "Building one line",
+      "outro": "Four instructions, two lines of output."
     },
     {
-      "type": "simulation",
-      "kind": "print",
-      "lines": ["Hello, world!", "A brand new line."]
-    },
-    {
-      "type": "paragraph",
-      "value": "Four instructions, two lines of output. The three `print` calls built up one line between them, and the `println` at the end of it finished that line off."
-    },
-    {
-      "type": "tip",
-      "value": "`print` is what you want when you ask someone a question and expect them to type on the same line. You will use it for exactly that in Module 3."
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "`A`, `B` and `C` on three lines",
+        "`ABC` on one line",
+        "`AB` on one line, then `C` on the next",
+        "`A` on one line, then `BC`"
+      ],
+      "answer": 2,
+      "explain": "`print` stays on the line, so `B` follows `A`. `println` then ends that line, so `C` starts a new one.",
+      "code": "System.out.print(\"A\");\nSystem.out.println(\"B\");\nSystem.out.print(\"C\");"
     },
     {
       "type": "heading",
@@ -36,21 +77,60 @@
     },
     {
       "type": "paragraph",
-      "value": "Inside a print you can join pieces of text with `+`. Java sticks them together in order, with no extra spaces, so any space you want has to be inside the quotes."
+      "value": "Inside a print you can join pieces of text with `+`. Java sticks them together in order, with **no extra spaces**."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "\"Pocket\"",
+          "label": "text"
+        },
+        {
+          "code": " + ",
+          "label": "join"
+        },
+        {
+          "code": "\" \"",
+          "label": "a space",
+          "note": "The only space in the result comes from here."
+        },
+        {
+          "code": " + ",
+          "label": "join"
+        },
+        {
+          "code": "\"Lab\"",
+          "label": "text"
+        }
+      ],
+      "title": "Joining three pieces",
+      "caption": "Want a space? Put it inside quotes."
     },
     {
       "type": "code",
       "language": "java",
-      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Pocket\" + \"Lab\");\n        System.out.println(\"Pocket\" + \" \" + \"Lab\");\n        System.out.println(\"2 + 2 is \" + 4);\n    }\n}"
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Pocket\" + \"Lab\");\n        System.out.println(\"Pocket\" + \" \" + \"Lab\");\n        System.out.println(\"2 + 2 is \" + 4);\n    }\n}",
+      "output": [
+        "PocketLab",
+        "Pocket Lab",
+        "2 + 2 is 4"
+      ],
+      "caption": "A number joined to text becomes part of the text. Module 2 shows when that helps and when it catches people out."
     },
     {
-      "type": "simulation",
-      "kind": "print",
-      "lines": ["PocketLab", "Pocket Lab", "2 + 2 is 4"]
-    },
-    {
-      "type": "paragraph",
-      "value": "The third line shows something useful: a number joined to text becomes part of the text. Java turns the `4` into the characters `4` for you. In Module 2 you will see when that is a help and when it catches people out."
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "`Hi there`",
+        "`Hi + there`",
+        "`Hithere`",
+        "An error"
+      ],
+      "answer": 2,
+      "explain": "`+` adds no space. To get `Hi there`, put a space inside one of the quotes.",
+      "code": "System.out.println(\"Hi\" + \"there\");"
     },
     {
       "type": "heading",
@@ -58,51 +138,100 @@
     },
     {
       "type": "paragraph",
-      "value": "A piece of text starts and ends with a double quote, so how do you print a double quote? You escape it: write `\\\"` and Java prints the quote instead of ending the text. The backslash means \"treat the next character specially\"."
+      "value": "A backslash `\\` means \"treat the next character specially\". This is called an **escape sequence**."
     },
     {
-      "type": "paragraph",
-      "value": "Three escapes are worth memorising now. `\\n` is a new line, `\\t` is a tab, and `\\\\` is a single backslash. Everything else you can look up when you need it."
+      "type": "points",
+      "items": [
+        {
+          "icon": "❝",
+          "text": "`\\\"`",
+          "sub": "a double quote, without ending the text"
+        },
+        {
+          "icon": "↵",
+          "text": "`\\n`",
+          "sub": "a new line"
+        },
+        {
+          "icon": "⇥",
+          "text": "`\\t`",
+          "sub": "a tab"
+        },
+        {
+          "icon": "⧵",
+          "text": "`\\\\`",
+          "sub": "a single backslash"
+        }
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "\"Top"
+        },
+        {
+          "code": "\\n",
+          "label": "new line",
+          "note": "Two characters in the code, one line break in the output."
+        },
+        {
+          "code": "Bottom\""
+        }
+      ],
+      "title": "A new line inside the text"
     },
     {
       "type": "code",
       "language": "java",
-      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"She said \\\"hello\\\" and left.\");\n        System.out.println(\"Name:\\tAmara\");\n        System.out.println(\"Top\\nBottom\");\n    }\n}"
-    },
-    {
-      "type": "simulation",
-      "kind": "print",
-      "lines": ["She said \"hello\" and left.", "Name:\tAmara", "Top", "Bottom"]
-    },
-    {
-      "type": "tip",
-      "value": "`\\n` inside a `print` and a `println` do the same job. Use whichever keeps your code easiest to read: one `println` with `\\n` in it, or two separate `println` calls."
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"She said \\\"hello\\\" and left.\");\n        System.out.println(\"Name:\\tAmara\");\n        System.out.println(\"Top\\nBottom\");\n    }\n}",
+      "output": [
+        "She said \"hello\" and left.",
+        "Name:\tAmara",
+        "Top",
+        "Bottom"
+      ],
+      "caption": "`\\n` works the same in `print` and `println`. Use whichever keeps your code easiest to read."
     },
     {
       "type": "heading",
       "value": "Comments: Notes Java Ignores"
     },
     {
-      "type": "paragraph",
-      "value": "A comment is a note for humans. Java skips it completely, so you can write anything you like. Start a one line comment with `//`, and everything to the end of that line is a note. For several lines, open with `/*` and close with `*/`."
+      "type": "analogy",
+      "emoji": "🗒️",
+      "real": "A sticky note on a recipe",
+      "concept": "A comment in your code",
+      "text": "The cook reads the recipe and ignores the note. Java does the same: a **comment** is a note for humans, and Java skips it completely."
     },
     {
       "type": "code",
       "language": "java",
-      "value": "public class Main {\n    public static void main(String[] args) {\n        // This line is a note, and it does nothing.\n        System.out.println(\"I run.\");   // notes can also sit after code\n\n        /* A longer note,\n           spread over two lines. */\n\n        // System.out.println(\"I do not run.\");\n    }\n}"
+      "value": "public class Main {\n    public static void main(String[] args) {\n        // This line is a note, and it does nothing.\n        System.out.println(\"I run.\");   // notes can also sit after code\n\n        /* A longer note,\n           spread over two lines. */\n\n        // System.out.println(\"I do not run.\");\n    }\n}",
+      "output": [
+        "I run."
+      ],
+      "caption": "`//` starts a note that runs to the end of the line. `/*` and `*/` wrap a note over several lines."
     },
     {
-      "type": "simulation",
-      "kind": "print",
-      "lines": ["I run."]
+      "type": "tip",
+      "value": "Putting `//` in front of a real instruction switches it off without deleting it. This is called **commenting out**. Write comments that explain **why**: `// bonus point for a fast answer` beats `// add 1 to score`.",
+      "title": "Two good habits"
     },
     {
-      "type": "paragraph",
-      "value": "Look at that last line. Putting `//` in front of a real instruction switches it off without deleting it. That is called commenting out, and it is how programmers test which line is causing a problem."
-    },
-    {
-      "type": "paragraph",
-      "value": "Write comments to explain why you did something, not what the line says. `// add 1 to score` is noise next to `score = score + 1`. `// bonus point for a fast answer` tells the next reader something the code cannot."
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "`A`, `B` and `C`",
+        "`A` and `B`",
+        "`B`",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "The `A` line is commented out with `//` and the `C` line sits inside `/* */`. Only `B` runs.",
+      "code": "// System.out.println(\"A\");\nSystem.out.println(\"B\");\n/* System.out.println(\"C\"); */"
     }
   ],
   "editorCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.print(\"Hello, \");\n        System.out.println(\"world!\");\n        System.out.println(\"Name:\\tAmara\");\n    }\n}",

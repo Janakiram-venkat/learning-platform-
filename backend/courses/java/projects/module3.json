@@ -1,0 +1,85 @@
+{
+  "moduleId": 3,
+  "title": "Race Time Splitter",
+  "emoji": "⏱️",
+  "brief": "A stopwatch gives you one big number of seconds. Your program asks the runner's name and their time, then splits those seconds into hours, minutes and seconds, and answers two true or false questions about the run.",
+  "problem": {
+    "goal": "Ask for a name and a number of seconds, then print the name, the time split into hours, minutes and seconds, whether it took over an hour, and whether it was a fast run (under 30 minutes).",
+    "example": {
+      "typed": ["Amara", "3725"],
+      "output": [
+        "Runner: Amara",
+        "Hours: 1",
+        "Minutes: 2",
+        "Seconds: 5",
+        "Over an hour? true",
+        "Fast run? false"
+      ]
+    },
+    "rules": [
+      "Ask for the name first with nextLine(), then the seconds with nextInt(). That order avoids the leftover Enter trap.",
+      "Hours, minutes and seconds must be worked out with / and %, not typed in.",
+      "Minutes means the whole minutes left after the hours are taken out, so 3725 seconds is 1 hour and 2 minutes, not 62 minutes.",
+      "Over an hour? is true when the total is 3600 seconds or more.",
+      "Fast run? is true when the total is under 1800 seconds."
+    ]
+  },
+  "steps": [
+    "The two questions are already written for you. Read them and notice which reading method each one uses.",
+    "Work out the hours: the total divided by 3600, using whole-number division.",
+    "Work out the minutes: take the remainder after the hours (`% 3600`), then divide that by 60.",
+    "Work out the seconds left over: the total `% 60`.",
+    "Make two booleans with comparison operators: one for 3600 or more, one for under 1800.",
+    "Print the six lines exactly as in the example, then press Check Project."
+  ],
+  "starterCode": "// ⏱️ Race Time Splitter\n\nimport java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        // ---- Already done for you ----\n        System.out.print(\"Runner's name? \");\n        String name = scanner.nextLine();\n\n        System.out.print(\"Time in seconds? \");\n        int totalSeconds = scanner.nextInt();\n\n        // ---- Your turn ----\n\n        // TODO 1: whole hours. How many times does 3600 go into the total?\n\n\n        // TODO 2: the minutes left over after those hours.\n        //         Take totalSeconds % 3600 first, then divide that by 60.\n\n\n        // TODO 3: the seconds left over: totalSeconds % 60.\n\n\n        // TODO 4: two booleans.\n        //         overAnHour is true when the total is 3600 or more.\n        //         fastRun is true when the total is under 1800.\n\n\n        // TODO 5: print the six lines. The first one is done as a model:\n        System.out.println(\"Runner: \" + name);\n\n        //   Hours: 1\n        //   Minutes: 2\n        //   Seconds: 5\n        //   Over an hour? true\n        //   Fast run? false\n\n\n    }\n}\n",
+  "hints": [
+    "Press Run before changing anything. It asks two questions, then prints one line. Type a name, press Enter, type 3725, press Enter: the terminal waits for each answer in turn.",
+    "An hour is 3600 seconds, so `totalSeconds / 3600` is the number of whole hours. Both values are ints, so the division throws away the part that does not make a whole hour, which is exactly what you want here.",
+    "For the minutes, do it in two steps and print each one while you are learning. `totalSeconds % 3600` gives 125 for a time of 3725: the seconds that did not make up an hour. Dividing that by 60 gives 2.",
+    "You can write both steps on one line as `totalSeconds % 3600 / 60`, because `%` and `/` rank equally and are worked out left to right.",
+    "A boolean holds the answer to a comparison: `boolean overAnHour = totalSeconds >= 3600;`. No quotes, and no `if` needed. The second one uses `<` with 1800.",
+    "The remaining lines all follow the model line. For example: `System.out.println(\"Hours: \" + hours);` and `System.out.println(\"Over an hour? \" + overAnHour);`"
+  ],
+  "inputPlaceholder": "Amara\n3725",
+  "inputHint": "Your program asks 2 questions, so type 2 answers: a name on the first line and a number of seconds on the second.",
+  "tests": [
+    {
+      "name": "Amara ran 3725 seconds",
+      "input": ["Amara", "3725"],
+      "expect": [
+        "Runner: Amara",
+        "Hours: 1",
+        "Minutes: 2",
+        "Seconds: 5",
+        "Over an hour? true",
+        "Fast run? false"
+      ]
+    },
+    {
+      "name": "Sam sprinted for 45 seconds",
+      "input": ["Sam", "45"],
+      "expect": [
+        "Runner: Sam",
+        "Hours: 0",
+        "Minutes: 0",
+        "Seconds: 45",
+        "Over an hour? false",
+        "Fast run? true"
+      ]
+    },
+    {
+      "name": "Mia ran exactly two hours",
+      "input": ["Mia", "7200"],
+      "expect": [
+        "Runner: Mia",
+        "Hours: 2",
+        "Minutes: 0",
+        "Seconds: 0",
+        "Over an hour? true",
+        "Fast run? false"
+      ]
+    }
+  ],
+  "successMessage": "Your splitter works on every time we threw at it! ⏱️ You read two different kinds of input, split a total into units with / and %, and answered two questions with comparison operators. Next module your programs stop just reporting true or false and start doing something about it."
+}

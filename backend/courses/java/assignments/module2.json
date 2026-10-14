@@ -1,0 +1,129 @@
+{
+  "moduleId": 2,
+  "title": "Variables and Data Types Checkpoint",
+  "intro": "You can now store values, pick the right type for each one, join text together and move a value from one type to another. Twelve rounds, one from every idea in this module. First-try answers earn three stars!",
+  "emoji": "☕",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "Which line correctly stores the number 7 in a variable called `score`?",
+      "options": [
+        "int score = 7;",
+        "score = 7;",
+        "int 7 = score;",
+        "score int = 7;"
+      ],
+      "answer": 0,
+      "explain": "A declaration is type, then name, then `=`, then value. Without the type Java does not know what kind of box to make."
+    },
+    {
+      "type": "predict",
+      "prompt": "A variable can be given a new value. What does this print?",
+      "code": "int lives = 3;\nlives = 1;\nSystem.out.println(lives);",
+      "options": ["1", "3", "4", "3 1"],
+      "answer": 0,
+      "explain": "The second assignment replaces the value completely. By the time `println` runs, the box holds 1."
+    },
+    {
+      "type": "predict",
+      "prompt": "Read the right hand side first. What does this print?",
+      "code": "int coins = 10;\ncoins = coins + 5;\nSystem.out.println(coins);",
+      "options": ["15", "10", "5", "coins + 5"],
+      "answer": 0,
+      "explain": "Java works out `coins + 5` (which is 15) and then stores that answer back in `coins`. The `=` means store, not equals."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which type would you choose for a shop price like 249.99?",
+      "options": ["double", "int", "char", "boolean"],
+      "answer": 0,
+      "explain": "An `int` holds whole numbers only, so the decimal part would be lost. `double` is the normal choice for a value with decimals."
+    },
+    {
+      "type": "bug",
+      "prompt": "This line will not compile. Pick the fix.",
+      "code": "boolean ready = \"true\";",
+      "options": [
+        "Remove the quotes: boolean ready = true;",
+        "Capitalise it: boolean ready = True;",
+        "Change the type to int",
+        "Add a semicolon"
+      ],
+      "answer": 0,
+      "explain": "`\"true\"` in quotes is text. A boolean value is `true` or `false`, lower case and with no quotes at all."
+    },
+    {
+      "type": "concept",
+      "prompt": "What is the difference between `'J'` and `\"J\"`?",
+      "options": [
+        "`'J'` is a char and `\"J\"` is a String",
+        "There is no difference",
+        "`'J'` is a String and `\"J\"` is a char",
+        "`'J'` is not valid Java"
+      ],
+      "answer": 0,
+      "explain": "Single quotes make a `char`, exactly one character. Double quotes make a `String`, which can hold any amount of text."
+    },
+    {
+      "type": "predict",
+      "prompt": "Careful with the order here. What does this print?",
+      "code": "int a = 2;\nint b = 3;\nSystem.out.println(\"Sum: \" + a + b);",
+      "options": ["Sum: 23", "Sum: 5", "Sum: 2 3", "Sum: a + b"],
+      "answer": 0,
+      "explain": "Java works left to right. `\"Sum: \" + a` is already text, so the `+ b` joins on instead of adding. Brackets round `a + b` would give 5."
+    },
+    {
+      "type": "predict",
+      "prompt": "Both values are whole numbers. What does this print?",
+      "code": "System.out.println(7 / 2);",
+      "options": ["3", "3.5", "4", "3.0"],
+      "answer": 0,
+      "explain": "An `int` divided by an `int` gives whole-number division: the remainder is thrown away. Making either side a `double` gives 3.5."
+    },
+    {
+      "type": "predict",
+      "prompt": "A cast does not round. What does this print?",
+      "code": "double price = 7.9;\nSystem.out.println((int) price);",
+      "options": ["7", "8", "7.9", "0"],
+      "answer": 0,
+      "explain": "Casting to `int` chops the decimal part off rather than rounding it. `Math.round` is what rounds, and it arrives in Module 6."
+    },
+    {
+      "type": "bug",
+      "prompt": "This is meant to print 3.5 but prints 3.0. Pick the fix.",
+      "code": "int a = 7;\nint b = 2;\ndouble answer = a / b;",
+      "options": [
+        "Cast one side first: double answer = (double) a / b;",
+        "Change the print to show more decimals",
+        "Declare answer as an int instead",
+        "Swap a and b round"
+      ],
+      "answer": 0,
+      "explain": "The division happens before anything is stored, so 3 is produced and then widened to 3.0. Casting one side makes it a decimal division from the start."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each piece of Java to what it means.",
+      "pairs": [
+        { "left": "int", "right": "A whole number" },
+        { "left": "double", "right": "A number with a decimal point" },
+        { "left": "boolean", "right": "true or false" },
+        { "left": "char", "right": "One single character" },
+        { "left": "String", "right": "Text of any length" },
+        { "left": "final", "right": "A value that cannot change" }
+      ],
+      "explain": "Five types and one keyword: between them they cover every value you have stored in this module."
+    },
+    {
+      "type": "order",
+      "prompt": "Build the program: lock the tax rate as a constant, store a price, work out the total, then print it.",
+      "solution": [
+        "final double TAX_RATE = 0.18;",
+        "double price = 500;",
+        "double total = price + price * TAX_RATE;",
+        "System.out.println(\"Total: \" + total);"
+      ],
+      "explain": "A variable has to exist before it can be used. The constant and the price are both needed by the third line, and only then is there a total to print."
+    }
+  ]
+}

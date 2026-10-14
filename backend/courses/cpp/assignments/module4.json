@@ -1,0 +1,179 @@
+{
+  "moduleId": 4,
+  "title": "Making Decisions Checkpoint",
+  "intro": "Your programs can now take different paths: if, else, chains, nesting, switch and the conditional operator. Twelve rounds, one from every idea in this module. First-try answers earn three stars!",
+  "emoji": "⚙️",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "What can go inside the round brackets of an `if`?",
+      "options": [
+        "Only a bool variable",
+        "Something that gives true or false, or a number, where 0 counts as false",
+        "The instruction you want to run",
+        "Only a string"
+      ],
+      "answer": 1,
+      "explain": "Comparisons, logical expressions and bool variables are the normal choice. C++ also accepts any number, treating 0 as false and everything else as true."
+    },
+    {
+      "type": "predict",
+      "prompt": "The player has 3 lives. What does this print?",
+      "code": "int lives = 3;\n\nif (lives = 1) {\n    cout << \"Last life!\" << endl;\n}\ncout << \"Lives: \" << lives << endl;",
+      "options": [
+        "Last life! then Lives: 1",
+        "Lives: 3",
+        "Lives: 1",
+        "A compile error"
+      ],
+      "answer": 0,
+      "explain": "A single `=` stores 1 in `lives`, and 1 counts as true, so the block runs. The famous fix is `==`, which asks the question instead."
+    },
+    {
+      "type": "bug",
+      "prompt": "This congratulates a score of 20. What is missing?",
+      "code": "if (score >= 50)\n    cout << \"You passed!\" << endl;\n    cout << \"Well done!\" << endl;",
+      "options": [
+        "A semicolon after the if",
+        "An else before the second cout",
+        "Nothing: it is correct",
+        "Braces: without them only the first instruction belongs to the if"
+      ],
+      "answer": 3,
+      "explain": "C++ ignores indentation. Only one instruction attaches to a braceless `if`, so the second `cout` always runs."
+    },
+    {
+      "type": "predict",
+      "prompt": "Marks are 80. How many lines does this print?",
+      "code": "if (marks >= 90) {\n    cout << \"A\" << endl;\n} else if (marks >= 75) {\n    cout << \"B\" << endl;\n} else if (marks >= 60) {\n    cout << \"C\" << endl;\n}",
+      "options": [
+        "Two: B and C",
+        "Three: A, B and C",
+        "One: B",
+        "None"
+      ],
+      "answer": 2,
+      "explain": "A chain stops at the first true test. 80 is also 60 or more, but C++ never reaches that test once B has matched."
+    },
+    {
+      "type": "bug",
+      "prompt": "Top marks of 95 come out as a D. What is wrong?",
+      "code": "if (marks >= 40) {\n    cout << \"Grade: D\" << endl;\n} else if (marks >= 90) {\n    cout << \"Grade: A\" << endl;\n}",
+      "options": [
+        "`>=` should be `>`",
+        "The chain needs a final else",
+        "The loosest test is first, so nothing below it can ever run",
+        "95 is not 90 or more"
+      ],
+      "answer": 2,
+      "explain": "Every mark of 40 or more matches the first test. Range tests have to be ordered from narrowest to widest."
+    },
+    {
+      "type": "concept",
+      "prompt": "`int price;` is declared with no value, and a chain sets it, but no branch matches. What does `cout << price;` print?",
+      "options": [
+        "0, always",
+        "A garbage number left over in memory",
+        "Nothing: the program refuses to compile",
+        "The word price"
+      ],
+      "answer": 1,
+      "explain": "C++ does not check that every path sets a variable. End the chain with a plain `else`, and start variables with a value such as `int price = 0;`."
+    },
+    {
+      "type": "concept",
+      "prompt": "Both conditions must be true and there is nothing to do in between. Which is better?",
+      "options": [
+        "One `if` with `&&`",
+        "Two nested `if` statements",
+        "Two separate `if` statements",
+        "A switch"
+      ],
+      "answer": 0,
+      "explain": "`&&` gives one condition and one level of indentation. Nesting is for when each branch needs to do something different."
+    },
+    {
+      "type": "predict",
+      "prompt": "There is no break after case 1. What does this print?",
+      "code": "int day = 1;\n\nswitch (day) {\n    case 1:\n        cout << \"Monday\" << endl;\n    case 2:\n        cout << \"Tuesday\" << endl;\n        break;\n    default:\n        cout << \"Other\" << endl;\n}",
+      "options": [
+        "Monday",
+        "Monday, Tuesday and Other",
+        "A compile error",
+        "Monday then Tuesday"
+      ],
+      "answer": 3,
+      "explain": "This is fall-through: C++ runs the matching case and keeps going downwards until it meets a `break`."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which of these can a C++ switch NOT match?",
+      "options": [
+        "An int, like `case 3:`",
+        "A char, like `case 'y':`",
+        "Several stacked values, like `case 6: case 7:`",
+        "A string, like `case \"yes\":`"
+      ],
+      "answer": 3,
+      "explain": "A switch needs a whole number or a `char`. Text, ranges and comparisons belong in an `else if` chain."
+    },
+    {
+      "type": "predict",
+      "prompt": "Age is 30. What does this store in price?",
+      "code": "int price = age < 13 ? 120 : 250;",
+      "options": [
+        "120",
+        "13",
+        "250",
+        "It does not compile"
+      ],
+      "answer": 2,
+      "explain": "The condition is false, so the conditional operator chooses the value after the colon. Read it as: condition ? whenTrue : whenFalse."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each tool to the job it fits best.",
+      "pairs": [
+        {
+          "left": "if",
+          "right": "Do something only when a condition holds"
+        },
+        {
+          "left": "else",
+          "right": "The path taken when the if was false"
+        },
+        {
+          "left": "else if chain",
+          "right": "Pick one of several ranges"
+        },
+        {
+          "left": "nested if",
+          "right": "A detail that applies inside one branch"
+        },
+        {
+          "left": "switch",
+          "right": "Match one value against fixed options"
+        },
+        {
+          "left": "? :",
+          "right": "Choose between two values in one line"
+        }
+      ],
+      "explain": "Six tools, six shapes of decision. Choosing the one that fits is most of what makes code readable."
+    },
+    {
+      "type": "order",
+      "prompt": "Build a grade chain that works: highest band first, then the rest, ending with a catch-all.",
+      "solution": [
+        "if (marks >= 90) {",
+        "    grade = \"A\";",
+        "} else if (marks >= 75) {",
+        "    grade = \"B\";",
+        "} else {",
+        "    grade = \"C or below\";",
+        "}"
+      ],
+      "explain": "The narrowest test has to come first, because the chain stops at the first true condition. The closing `else` catches everything left and guarantees `grade` is always given a value."
+    }
+  ]
+}

@@ -1,0 +1,417 @@
+{
+  "lessonId": "cpp_scope",
+  "title": "Scope",
+  "description": "Where a variable exists, how long it lives, and why that keeps big programs manageable.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Where a Variable Lives"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A variable declared inside a function exists only there, from its declaration down to the closing brace.",
+        "That region is its **scope**. A variable like this is called a **local** variable.",
+        "So two functions can each have a `total`, and the two have nothing to do with each other."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nvoid show() {\n    // main's total does not exist here at all.\n    int total = 7;              // a completely separate variable\n    cout << \"show has its own total = \" << total << endl;\n}\n\nint main() {\n    int total = 100;\n    cout << \"main has total = \" << total << endl;\n    show();\n    cout << \"main still has total = \" << total << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 11,
+          "note": "`main` makes its own `total`.",
+          "vars": {
+            "total (main)": "100"
+          }
+        },
+        {
+          "line": 12,
+          "note": "Print it.",
+          "out": [
+            "main has total = 100"
+          ]
+        },
+        {
+          "line": 13,
+          "note": "Call `show`. Inside it, `main`'s `total` cannot be seen at all."
+        },
+        {
+          "line": 6,
+          "note": "`show` makes a completely separate `total`.",
+          "vars": {
+            "total (show)": "7"
+          }
+        },
+        {
+          "line": 7,
+          "note": "It prints its own one.",
+          "out": [
+            "show has its own total = 7"
+          ]
+        },
+        {
+          "line": 14,
+          "note": "`show` ended, so its `total` is gone. `main`'s was never touched.",
+          "vars": {
+            "total (show)": null
+          },
+          "out": [
+            "main still has total = 100"
+          ]
+        }
+      ],
+      "title": "Two totals, two scopes",
+      "outro": "No function can reach into another's local variables, so a mistake in one function cannot quietly break the rest."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "2",
+        "3",
+        "1",
+        "Nothing, it does not compile"
+      ],
+      "answer": 2,
+      "explain": "`change` sets its own local `x` to 2. `main`'s `x` is a different variable and stays 1.",
+      "code": "void change() {\n    int x = 2;\n}\n\n// in main:\nint x = 1;\nchange();\ncout << x << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Functions Cannot Peek"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Does not compile",
+          "tone": "bad",
+          "code": "void show() {\n    cout << total << endl;\n}\n\nint main() {\n    int total = 100;\n    show();\n}",
+          "text": "`'total' was not declared in this scope`. From `show`'s point of view there is no such variable."
+        },
+        {
+          "title": "Pass it in",
+          "tone": "good",
+          "code": "void show(int total) {\n    cout << total << endl;\n}\n\nint main() {\n    int total = 100;\n    show(total);\n}",
+          "text": "A parameter gives `show` its own copy to use."
+        }
+      ],
+      "title": "Use a parameter, not another function's variable"
+    },
+    {
+      "type": "tip",
+      "value": "Seeing `was not declared in this scope` for a variable? Ask in order: Is it declared in this function? Did I declare it inside an `if` or `for` I am now outside of? Is it another function's variable, which needs a parameter?",
+      "title": "Three questions"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nvoid countdown(int n) {\n    while (n > 0) {\n        cout << n << \" \";\n        n--;\n    }\n    cout << endl;\n}\n\nint main() {\n    int n = 5;\n    countdown(n);\n    cout << \"main still has n = \" << n << endl;\n    return 0;\n}",
+      "output": [
+        "5 4 3 2 1 ",
+        "main still has n = 5"
+      ],
+      "caption": "A plain parameter is local too: a local variable that arrives with a value. `countdown` counts its `n` to 0, and `main`'s `n` never moves. (A reference, `int& n`, is the exception: it names the caller's variable.)"
+    },
+    {
+      "type": "heading",
+      "value": "Blocks Have Scope Too"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Scope is about braces, not just functions. Every `{ }` makes a new scope, including an `if` or a `for` block.",
+        "Declare each variable in the **smallest** block that needs it. A variable you can see from far away can be broken from far away."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Inside: fine",
+          "tone": "good",
+          "code": "for (int i = 1; i <= 3; i++) {\n    int doubled = i * 2;\n    cout << doubled << endl;\n}",
+          "text": "`doubled` is used inside the block where it was declared."
+        },
+        {
+          "title": "Outside: compile error",
+          "tone": "bad",
+          "code": "for (int i = 1; i <= 3; i++) {\n    int doubled = i * 2;\n}\ncout << doubled << endl;",
+          "text": "The block ended at `}`, and `doubled` went with it."
+        }
+      ],
+      "title": "Inside vs outside the block",
+      "caption": "Outside the braces, `doubled` simply does not exist."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 3; i++) {\n        int doubled = i * 2;\n        cout << i << \" doubled is \" << doubled << endl;\n    }\n    // Both i and doubled have gone. Using either here is a compile error.\n\n    int biggest = 0;                  // declared outside, so it survives\n    for (int i = 1; i <= 5; i++) {\n        if (i > biggest) {\n            biggest = i;\n        }\n    }\n    cout << \"Biggest was \" << biggest << endl;\n    return 0;\n}",
+      "output": [
+        "1 doubled is 2",
+        "2 doubled is 4",
+        "3 doubled is 6",
+        "Biggest was 5"
+      ],
+      "caption": "Both loops use `i` happily: the first `i` is gone before the second is born. `biggest` works because it is declared **outside** the loop, the accumulator rule from Module 5."
+    },
+    {
+      "type": "check",
+      "question": "Where must `count` be declared to print it after the loop?",
+      "options": [
+        "Inside the loop body",
+        "Above the loop",
+        "Inside the `for` brackets",
+        "Anywhere, C++ finds it"
+      ],
+      "answer": 1,
+      "explain": "A variable lives until the closing brace of the block it was declared in. To survive the loop, it must be declared before it."
+    },
+    {
+      "type": "heading",
+      "value": "Fresh On Every Call"
+    },
+    {
+      "type": "paragraph",
+      "value": "Locals are created when a function starts and destroyed when it ends. So a local cannot remember anything between calls."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nvoid countVisit() {\n    int visits = 0;         // born here, dies at the closing brace\n    visits++;\n    cout << \"Visits: \" << visits << endl;\n}\n\nint main() {\n    countVisit();\n    countVisit();\n    countVisit();\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 11,
+          "note": "First call."
+        },
+        {
+          "line": 5,
+          "note": "A brand new `visits` is born at 0.",
+          "vars": {
+            "visits": "0"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Add one.",
+          "vars": {
+            "visits": "1"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Print it.",
+          "out": [
+            "Visits: 1"
+          ]
+        },
+        {
+          "line": 12,
+          "note": "The function ended and `visits` died. Second call.",
+          "vars": {
+            "visits": null
+          }
+        },
+        {
+          "line": 5,
+          "note": "Another brand new `visits`, back at 0.",
+          "vars": {
+            "visits": "0"
+          }
+        },
+        {
+          "line": 6,
+          "note": "One again.",
+          "vars": {
+            "visits": "1"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Same output.",
+          "out": [
+            "Visits: 1"
+          ]
+        },
+        {
+          "line": 13,
+          "note": "Third call: same story.",
+          "vars": {
+            "visits": null
+          },
+          "out": [
+            "Visits: 1"
+          ]
+        }
+      ],
+      "title": "Why it never counts past 1",
+      "outro": "Three calls, three brand new variables, three 1s. This catches everybody once."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nvoid countVisit(int& visits) {\n    visits++;\n    cout << \"Visits: \" << visits << endl;\n}\n\nint main() {\n    int visits = 0;\n    countVisit(visits);\n    countVisit(visits);\n    countVisit(visits);\n    cout << \"Final count: \" << visits << endl;\n    return 0;\n}",
+      "output": [
+        "Visits: 1",
+        "Visits: 2",
+        "Visits: 3",
+        "Final count: 3"
+      ],
+      "caption": "The fix: keep the count in `main`, where it survives. Pass it in and return the new value, or pass it by reference as here, and the `&` says openly that the function changes it. In Module 9, classes have variables that remember between calls."
+    },
+    {
+      "type": "check",
+      "question": "What does the third call print?",
+      "options": [
+        "Counter: 3",
+        "Counter: 0",
+        "Counter: 1",
+        "Counter: 2"
+      ],
+      "answer": 2,
+      "explain": "`c` is local, so every call starts it again at 0 and adds one.",
+      "code": "void tick() {\n    int c = 0;\n    c++;\n    cout << \"Counter: \" << c << endl;\n}\n\n// in main:\ntick();\ntick();\ntick();"
+    },
+    {
+      "type": "heading",
+      "value": "Variables Outside Every Function"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A variable declared outside every function, at the top of the file, is a **global**. Every function below it can see it.",
+        "With `const`, nothing can change it, so sharing it is safe. SHOUTY_CASE names, as in Module 2.",
+        "A global **without** `const` can be changed by any function, so finding who broke it means reading the whole program.",
+        "The rule from now on: constants may be shared. Changing values are passed in, and handed back by `return` or a reference."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "const",
+          "label": "fixed",
+          "note": "Nothing can change it, so every function can safely share it."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "int",
+          "label": "type"
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "PASS_MARK",
+          "label": "name",
+          "note": "SHOUTY_CASE marks it as a constant."
+        },
+        {
+          "code": " = 40;",
+          "label": "outside every function",
+          "note": "Written above all the functions, so all of them see it."
+        }
+      ],
+      "title": "A global constant"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nconst int PASS_MARK = 40;\nconst string COURSE = \"C++\";\n\nvoid report(int marks) {\n    if (marks >= PASS_MARK) {\n        cout << marks << \": pass\" << endl;\n    } else {\n        cout << marks << \": below \" << PASS_MARK << endl;\n    }\n}\n\nint main() {\n    cout << COURSE << \" pass mark is \" << PASS_MARK << endl;\n    report(92);\n    report(31);\n    return 0;\n}",
+      "output": [
+        "C++ pass mark is 40",
+        "92: pass",
+        "31: below 40"
+      ],
+      "caption": "Changing the pass mark is a one-line edit that every function picks up, and no function can change it by accident."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nconst int PASS_MARK = 40;\n\nvoid printBar(int score) {\n    cout << score << \" | \";\n    for (int i = 1; i <= score / 10; i++) {\n        cout << \"*\";\n    }\n    cout << endl;\n}\n\nstring verdict(int score) {\n    return score >= PASS_MARK ? \"pass\" : \"fail\";\n}\n\ndouble average(int total, int count) {\n    if (count == 0) {\n        return 0.0;\n    }\n    return static_cast<double>(total) / count;\n}\n\nint main() {\n    cout << \"How many scores? \";\n    int count;\n    cin >> count;\n\n    int total = 0;\n    for (int i = 1; i <= count; i++) {\n        cout << \"Score \" << i << \"? \";\n        int score;\n        cin >> score;\n        total += score;\n        printBar(score);\n        cout << verdict(score) << endl;\n    }\n\n    cout << \"Average: \" << average(total, count) << endl;\n    return 0;\n}",
+      "caption": "The Module 5 score chart, split into functions. `main` now reads like a description of the program. `average` refuses to divide by zero: the guard lives in the one function that needs it. Sample run: `2`, then `85` and `30` prints `85 | ********`, `pass`, `30 | ***`, `fail`, `Average: 57.5`. Next module: arrays and vectors, one variable holding a whole list."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nconst int PASS_MARK = 40;\n\nvoid countVisit(int& visits) {\n    visits++;\n    cout << \"Visits: \" << visits << endl;\n}\n\nvoid report(int marks) {\n    if (marks >= PASS_MARK) {\n        cout << marks << \": pass\" << endl;\n    } else {\n        cout << marks << \": below \" << PASS_MARK << endl;\n    }\n}\n\nint main() {\n    int visits = 0;\n\n    countVisit(visits);\n    countVisit(visits);\n\n    report(92);\n    report(31);\n\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "This does not compile because the function cannot see main's variable. Fix it with a parameter.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nvoid show() {\n    cout << \"The score is \" << score << endl;\n}\n\nint main() {\n    int score = 92;\n\n    show();\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Add a global `const double TAX_RATE = 0.18;` at the top of the file and use it in both functions instead of the number.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nvoid printTax(int amount) {\n    cout << \"Tax: \" << amount * 0.18 << endl;\n}\n\nvoid printTotal(int amount) {\n    cout << \"Total: \" << amount + amount * 0.18 << endl;\n}\n\nint main() {\n    printTax(1000);\n    printTotal(1000);\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "This prints 1 three times. Change the function so the count really goes 1, 2, 3, by keeping the count in main and passing it by reference.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nvoid countVisit() {\n    int visits = 0;\n    visits++;\n    cout << \"Visits: \" << visits << endl;\n}\n\nint main() {\n    countVisit();\n    countVisit();\n    countVisit();\n\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "main is doing too much. Move the bar drawing into a function called printBar(int score) and call it from the loop.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 3; i++) {\n        cout << \"Score \" << i << \"? \";\n        int score;\n        cin >> score;\n\n        cout << score << \" | \";\n\n        for (int star = 1; star <= score / 10; star++) {\n            cout << \"*\";\n        }\n\n        cout << endl;\n    }\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Where does a variable declared inside a function exist?",
+      "options": [
+        "Everywhere in the file",
+        "Everywhere in the program",
+        "Only inside that function, from its declaration to the closing brace"
+      ],
+      "answer": 2,
+      "explain": "That is its scope. Two functions can each have a `total` and they are unrelated."
+    },
+    {
+      "question": "A function tries to use a variable belonging to main. What happens?",
+      "options": [
+        "A compile error, `was not declared in this scope`: pass it in as a parameter instead",
+        "It works, because main runs first",
+        "It compiles but the value is 0"
+      ],
+      "answer": 0,
+      "explain": "From inside the other function there is genuinely no such variable. A parameter is how a value crosses that boundary."
+    },
+    {
+      "question": "Why can two `for` loops in the same function both declare `int i`?",
+      "options": [
+        "C++ allows duplicate names for counters",
+        "Each loop's i belongs to that loop's block and is gone before the next starts",
+        "Only if the loops count differently"
+      ],
+      "answer": 1,
+      "explain": "Every pair of braces makes a scope, so the first `i` no longer exists when the second is declared."
+    },
+    {
+      "question": "A function declares `int visits = 0;` then increments and prints it. Called three times, what does it print?",
+      "options": [
+        "1, 2, 3",
+        "0, 1, 2",
+        "1, 1, 1"
+      ],
+      "answer": 2,
+      "explain": "Locals are created fresh on every call. To carry a value across calls, keep it in main and pass it by reference, or pass it in and return it."
+    },
+    {
+      "question": "What may reasonably be declared outside every function, at the top of the file?",
+      "options": [
+        "A `const` global that every function can read but none can change",
+        "Any variable you want several functions to share",
+        "Nothing at all"
+      ],
+      "answer": 0,
+      "explain": "Constants are safe to share because nothing can change them. Changing values should travel as parameters, return values and references."
+    }
+  ]
+}

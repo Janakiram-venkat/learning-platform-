@@ -1,0 +1,438 @@
+{
+  "lessonId": "cpp_return",
+  "title": "Returning Values",
+  "description": "Functions that work something out and hand the answer back.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Handing a Value Back"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A printed value is shown once. You cannot add to it, compare it or save it.",
+        "A function that **returns** its result hands back a value you can do anything with.",
+        "Two changes: swap `void` for the type you hand back, and use `return` to hand it back. `main`'s `return 0;` has done this all along."
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "int",
+          "label": "return type",
+          "note": "A promise: this function hands back an `int`."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "add",
+          "label": "name",
+          "note": "What you write to call it."
+        },
+        {
+          "code": "(int a, int b)",
+          "label": "parameters",
+          "note": "Two ints come in, each with its own type."
+        }
+      ],
+      "title": "Anatomy of a returning function"
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint main() {\n    int total = add(3, 4);\n    cout << \"add(3, 4) gave \" << total << endl;\n    cout << \"Used straight away: \" << add(10, 5) << endl;\n    cout << \"In a bigger sum: \" << add(1, 2) * 10 << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 9,
+          "note": "To work out the right side of `=`, C++ must call `add`. It jumps in."
+        },
+        {
+          "line": 4,
+          "note": "The parameters arrive with the arguments.",
+          "vars": {
+            "a": "3",
+            "b": "4"
+          }
+        },
+        {
+          "line": 5,
+          "note": "`a + b` is 7. `return` hands 7 back and leaves the function."
+        },
+        {
+          "line": 9,
+          "note": "The call is replaced by 7, exactly as if you had typed `7`. `a` and `b` are gone.",
+          "vars": {
+            "a": null,
+            "b": null,
+            "total": "7"
+          }
+        },
+        {
+          "line": 10,
+          "note": "Print the stored value.",
+          "out": [
+            "add(3, 4) gave 7"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "`add(10, 5)` runs and becomes 15, used straight away.",
+          "out": [
+            "Used straight away: 15"
+          ]
+        },
+        {
+          "line": 12,
+          "note": "`add(1, 2)` becomes 3, then `3 * 10` is 30.",
+          "out": [
+            "In a bigger sum: 30"
+          ]
+        }
+      ],
+      "title": "Watch the value come back",
+      "outro": "A returned value can be stored, printed or used in a bigger calculation. By the time the rest of the line runs, it is just a value."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "8",
+        "10",
+        "9",
+        "81"
+      ],
+      "answer": 2,
+      "explain": "`twice(4)` hands back 8, so the line becomes `8 + 1`, which is 9.",
+      "code": "int twice(int n) {\n    return n * 2;\n}\n\n// in main:\ncout << twice(4) + 1 << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "return Ends the Function"
+    },
+    {
+      "type": "points",
+      "items": [
+        "`return` does two jobs: it hands the value back, and it **finishes** the function there and then.",
+        "C++ lets you write lines after a `return`, but they can never run. They are just clutter.",
+        "Leaving early is handy: deal with special cases first, with no `else` needed."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\n#include <string>\nusing namespace std;\n\nstring grade(int marks) {\n    if (marks >= 90) {\n        return \"A\";\n    }\n    if (marks >= 40) {\n        return \"Pass\";\n    }\n    return \"Fail\";\n}\n\nint main() {\n    cout << grade(95) << endl;\n    cout << grade(62) << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 16,
+          "note": "Call `grade` with 95."
+        },
+        {
+          "line": 5,
+          "note": "The parameter arrives.",
+          "vars": {
+            "marks": "95"
+          }
+        },
+        {
+          "line": 6,
+          "note": "95 >= 90 is true."
+        },
+        {
+          "line": 7,
+          "note": "Hand back `\"A\"` and leave. The lines below never run this time."
+        },
+        {
+          "line": 16,
+          "note": "The call became `\"A\"`, so it prints.",
+          "vars": {
+            "marks": null
+          },
+          "out": [
+            "A"
+          ]
+        },
+        {
+          "line": 17,
+          "note": "Now with 62."
+        },
+        {
+          "line": 5,
+          "note": "A fresh `marks`.",
+          "vars": {
+            "marks": "62"
+          }
+        },
+        {
+          "line": 6,
+          "note": "62 >= 90 is false. Skip that block."
+        },
+        {
+          "line": 9,
+          "note": "62 >= 40 is true."
+        },
+        {
+          "line": 10,
+          "note": "Hand back `\"Pass\"` and leave."
+        },
+        {
+          "line": 17,
+          "note": "Print it. Three returns in the function, exactly one taken each time.",
+          "vars": {
+            "marks": null
+          },
+          "out": [
+            "Pass"
+          ]
+        }
+      ],
+      "title": "Watch return leave early",
+      "outro": "No `else` anywhere: once a `return` runs, nothing below it can. Try `grade(12)` and it reaches `return \"Fail\"`."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nvoid printBar(int length) {\n    if (length <= 0) {\n        cout << \"(nothing to draw)\" << endl;\n        return;                 // leave now, with no value\n    }\n    for (int i = 1; i <= length; i++) {\n        cout << \"*\";\n    }\n    cout << endl;\n}\n\nint main() {\n    printBar(9);\n    printBar(0);\n    printBar(-4);\n    return 0;\n}",
+      "output": [
+        "*********",
+        "(nothing to draw)",
+        "(nothing to draw)"
+      ],
+      "caption": "A `void` function can use `return;` with no value. It just means \"I am finished\", like `break` for a whole function. A guard at the top deals with bad input first, so the rest can trust it."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "big, then big",
+        "small, then small",
+        "big, then small",
+        "small, then big"
+      ],
+      "answer": 2,
+      "explain": "50 makes the `if` true, so it returns `\"big\"`. 5 skips the `if` and reaches `return \"small\"`.",
+      "code": "string size(int n) {\n    if (n > 10) {\n        return \"big\";\n    }\n    return \"small\";\n}\n\n// in main:\ncout << size(50) << endl;\ncout << size(5) << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Every Path Must Return"
+    },
+    {
+      "type": "paragraph",
+      "value": "A function that promises a value must deliver one however it is called. You must keep this rule yourself: C++ does not enforce it strictly."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Builds, but is broken",
+          "tone": "bad",
+          "code": "string grade(int marks) {\n    if (marks >= 40) {\n        return \"Pass\";\n    }\n}",
+          "text": "`grade(12)` runs off the closing brace with nothing to hand back."
+        },
+        {
+          "title": "Safe",
+          "tone": "good",
+          "code": "string grade(int marks) {\n    if (marks >= 40) {\n        return \"Pass\";\n    }\n    return \"Fail\";\n}",
+          "text": "Every route through the function ends in a `return`."
+        }
+      ],
+      "title": "A missing return",
+      "caption": "Fix: a final `return` outside every `if`, or finish the chain with an `else` that returns."
+    },
+    {
+      "type": "warning",
+      "value": "g++ builds the broken version, at most with the warning `control reaches end of non-void function`. What happens then is **undefined**: C++ promises nothing. Garbage, an empty answer or a crash, and it can change between runs.",
+      "title": "Undefined behaviour"
+    },
+    {
+      "type": "check",
+      "question": "A returning function sometimes gives nonsense. What should you look for first?",
+      "options": [
+        "A missing `#include`",
+        "A misspelt `cout`",
+        "A path with no `return`",
+        "An extra blank line"
+      ],
+      "answer": 2,
+      "explain": "If one route through the function skips every `return`, the result is undefined. A missing return is one of the first things to check."
+    },
+    {
+      "type": "heading",
+      "value": "Functions That Answer Yes or No"
+    },
+    {
+      "type": "points",
+      "items": [
+        "A function can return a `bool`. That lets you give a test a name.",
+        "Name them as questions: `isEven`, `isPrime`, `isValid`, `hasPaid`, `canVote`. Then `if (canVote(age))` reads like English.",
+        "`cout << boolalpha;` prints `true` and `false`. Without it, a `bool` prints as `1` or `0`."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nbool isEven(int n) {\n    return n % 2 == 0;\n}\n\nbool canVote(int age) {\n    return age >= 18;\n}\n\nint main() {\n    cout << boolalpha;\n    cout << \"Is 8 even? \" << isEven(8) << endl;\n    cout << \"Is 7 even? \" << isEven(7) << endl;\n\n    int age = 15;\n    if (canVote(age)) {\n        cout << \"Can vote.\" << endl;\n    } else {\n        cout << \"Too young to vote.\" << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "Is 8 even? true",
+        "Is 7 even? false",
+        "Too young to vote."
+      ],
+      "caption": "`isEven` has no `if`: `n % 2 == 0` already **is** true or false, so return it directly."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "The long way",
+          "tone": "bad",
+          "code": "bool isEven(int n) {\n    if (n % 2 == 0) {\n        return true;\n    } else {\n        return false;\n    }\n}",
+          "text": "Four lines to produce a value you already had."
+        },
+        {
+          "title": "The neat way",
+          "tone": "good",
+          "code": "bool isEven(int n) {\n    return n % 2 == 0;\n}",
+          "text": "Says exactly the same thing in one line."
+        }
+      ],
+      "title": "Return the comparison itself"
+    },
+    {
+      "type": "heading",
+      "value": "Building Real Tools"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Returns plus the loops from Module 5 make a toolbox. Each function does one job, hands back one answer, and can be tested alone.",
+        "`digitSum` and `reverseDigits` divide `n` down to nothing. That is safe: `n` is their own copy.",
+        "`factorial` returns a `long long`: an `int` overflows after 12!. Pick a return type big enough for every answer."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint digitSum(int n) {\n    int sum = 0;\n    while (n > 0) {\n        sum += n % 10;\n        n /= 10;\n    }\n    return sum;\n}\n\nint reverseDigits(int n) {\n    int result = 0;\n    while (n > 0) {\n        result = result * 10 + n % 10;\n        n /= 10;\n    }\n    return result;\n}\n\nlong long factorial(int n) {\n    long long product = 1;\n    for (int i = 2; i <= n; i++) {\n        product *= i;\n    }\n    return product;\n}\n\nbool isPrime(int n) {\n    if (n < 2) {\n        return false;       // 0, 1 and negatives are not prime\n    }\n    for (int i = 2; i < n; i++) {\n        if (n % i == 0) {\n            return false;   // found a divisor, so stop\n        }\n    }\n    return true;            // nothing divided it\n}\n\nint main() {\n    cout << boolalpha;\n    cout << \"digitSum(4071)      = \" << digitSum(4071) << endl;\n    cout << \"reverseDigits(4071) = \" << reverseDigits(4071) << endl;\n    cout << \"factorial(15)       = \" << factorial(15) << endl;\n    cout << \"isPrime(91)         = \" << isPrime(91) << endl;\n    cout << \"isPrime(97)         = \" << isPrime(97) << endl;\n    return 0;\n}",
+      "output": [
+        "digitSum(4071)      = 12",
+        "reverseDigits(4071) = 1704",
+        "factorial(15)       = 1307674368000",
+        "isPrime(91)         = false",
+        "isPrime(97)         = true"
+      ],
+      "caption": "Tools like these plus a menu are this module's project. You have already seen the hard part."
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "🔢",
+          "label": "n < 2?",
+          "detail": "No, 91 is bigger"
+        },
+        {
+          "icon": "🔁",
+          "label": "i = 2 to 6",
+          "detail": "None of them divide 91"
+        },
+        {
+          "icon": "🎯",
+          "label": "i = 7",
+          "detail": "`91 % 7 == 0`"
+        },
+        {
+          "icon": "🚪",
+          "label": "return false",
+          "detail": "The loop stops at once"
+        }
+      ],
+      "title": "isPrime(91) leaves early",
+      "caption": "The final `return true` is only reached if the loop runs out without finding a divisor."
+    },
+    {
+      "type": "tip",
+      "value": "One function, one job, one thing returned. A `return` hands back only one value. Need two? The next lesson shows a C++ way.",
+      "title": "One job each"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint digitSum(int n) {\n    int sum = 0;\n\n    while (n > 0) {\n        sum += n % 10;\n        n /= 10;\n    }\n\n    return sum;\n}\n\nint reverseDigits(int n) {\n    int result = 0;\n\n    while (n > 0) {\n        result = result * 10 + n % 10;\n        n /= 10;\n    }\n\n    return result;\n}\n\nbool isEven(int n) {\n    return n % 2 == 0;\n}\n\nint main() {\n    cout << boolalpha;\n\n    cout << \"Number? \";\n    int n;\n    cin >> n;\n\n    cout << \"Digit sum: \" << digitSum(n) << endl;\n    cout << \"Reversed:  \" << reverseDigits(n) << endl;\n    cout << \"Even?      \" << isEven(n) << endl;\n\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Write square(int n) that returns n times n, then use a loop in main to print the squares of 1 to 5.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Write largest(int a, int b) that returns the bigger of the two. The conditional operator makes it one line.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint largest(int a, int b) {\n    return 0;          // replace this\n}\n\nint main() {\n    cout << largest(17, 42) << endl;\n    cout << largest(99, 12) << endl;\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Write isValidScore(int score) that returns true only for 0 to 100, then use it in an if to accept or reject a number.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Score? \";\n    int score;\n    cin >> score;\n\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "This compiles, but category(75) hands back nothing at all. Fix it so every possible age gets an answer.",
+      "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nstring category(int age) {\n    if (age < 13) {\n        return \"Child\";\n    } else if (age < 60) {\n        return \"Adult\";\n    }\n}\n\nint main() {\n    cout << category(30) << endl;\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What do you change to make a function hand a value back?",
+      "options": [
+        "Just add a return at the end",
+        "Replace void with the type of the value, and use return",
+        "Print the value instead"
+      ],
+      "answer": 1,
+      "explain": "The return type is the promise and `return` keeps it."
+    },
+    {
+      "question": "What does `return` do besides handing back a value?",
+      "options": [
+        "It prints the value",
+        "It restarts the function",
+        "It ends the function immediately, so nothing below it runs"
+      ],
+      "answer": 2,
+      "explain": "That is why early returns need no `else`, and why lines written after a return never run."
+    },
+    {
+      "question": "A `string` function reaches its closing brace without a `return`. What happens?",
+      "options": [
+        "The result is undefined: you might get garbage or a crash",
+        "It returns an empty string",
+        "The program always refuses to compile"
+      ],
+      "answer": 0,
+      "explain": "g++ builds it, at most with a warning. Every path through a non-void function must end in a return, and keeping that rule is your job."
+    },
+    {
+      "question": "What is the tidy way to write `isEven`?",
+      "options": [
+        "`if (n % 2 == 0) { return true; } else { return false; }`",
+        "`return n % 2 == 0;`",
+        "`cout << (n % 2 == 0);`"
+      ],
+      "answer": 1,
+      "explain": "The comparison is already a bool, so returning it directly says the same thing in one line."
+    },
+    {
+      "question": "What does a bare `return;` do in a void function?",
+      "options": [
+        "Returns 0",
+        "Is a compile error",
+        "Leaves the function early without handing anything back"
+      ],
+      "answer": 2,
+      "explain": "It is the function-level `break`, and it is ideal for a guard at the top that rejects impossible input."
+    }
+  ]
+}

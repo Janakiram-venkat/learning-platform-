@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------------------
-   Track icons — silkscreened SVGs in the workbench language.
-   2px ink strokes on white, no fill color. Sized to sit in a 48–56px well.
+   Track icons: silkscreened SVGs in the workbench language.
+   2px ink strokes on white, no fill color. Sized to sit in a 48-56px well.
    Each icon draws the track as a bench component, not as a topic metaphor,
    so they read as "printed on the side of a breadboard" rather than clip art.
 --------------------------------------------------------------------------- */
@@ -19,7 +19,7 @@ const base = {
   'aria-hidden': true,
 };
 
-// Python — a ribbon cable coiled like a serpent. Eight pin marks on the tail.
+// Python - a ribbon cable coiled like a serpent. Eight pin marks on the tail.
 export function PythonIcon(props) {
   return (
     <svg {...base} {...props}>
@@ -31,7 +31,7 @@ export function PythonIcon(props) {
   );
 }
 
-// AI — op-amp triangle with a neural node feeding the inverting input.
+// AI - op-amp triangle with a neural node feeding the inverting input.
 export function AiIcon(props) {
   return (
     <svg {...base} {...props}>
@@ -45,7 +45,7 @@ export function AiIcon(props) {
   );
 }
 
-// Game — top-down D-pad with a signal LED at the corner.
+// Game - top-down D-pad with a signal LED at the corner.
 export function GameIcon(props) {
   return (
     <svg {...base} {...props}>
@@ -58,7 +58,7 @@ export function GameIcon(props) {
   );
 }
 
-// Robotics — 3-joint kinematic arm, joints as pivots, gripper at the tip.
+// Robotics - 3-joint kinematic arm, joints as pivots, gripper at the tip.
 export function RoboticsIcon(props) {
   return (
     <svg {...base} {...props}>
@@ -73,7 +73,33 @@ export function RoboticsIcon(props) {
   );
 }
 
-// Web — wireframe globe, latitude + meridian, with two ports at the equator.
+// Java - a bench mug on a hot plate: body, handle, and two steam traces.
+export function JavaIcon(props) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M12 18h20v12a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8V18z" />
+      <path d="M32 21h4a4 4 0 0 1 0 8h-4" />
+      <path d="M8 42h32" />
+      <path d="M19 6c-2 3 2 4 0 7" />
+      <path d="M26 6c-2 3 2 4 0 7" />
+    </svg>
+  );
+}
+
+// C++ - a DIP chip with two plus marks silkscreened on the package.
+export function CppIcon(props) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="14" y="10" width="20" height="28" rx="2" />
+      <path d="M21 10a3 3 0 0 0 6 0" />
+      <path d="M8 16h6M8 22h6M8 28h6M8 34h6" />
+      <path d="M34 16h6M34 22h6M34 28h6M34 34h6" />
+      <path d="M18 26h5M20.5 23.5v5M25 26h5M27.5 23.5v5" />
+    </svg>
+  );
+}
+
+// Web - wireframe globe, latitude + meridian, with two ports at the equator.
 export function WebIcon(props) {
   return (
     <svg {...base} {...props}>
@@ -86,7 +112,7 @@ export function WebIcon(props) {
   );
 }
 
-// Physics — orbital diagram: nucleus + elliptical trace + one satellite.
+// Physics - orbital diagram: nucleus + elliptical trace + one satellite.
 export function PhysicsIcon(props) {
   return (
     <svg {...base} {...props}>
@@ -98,7 +124,7 @@ export function PhysicsIcon(props) {
   );
 }
 
-// Chemistry — beaker with meniscus and three schematic bubbles rising.
+// Chemistry - beaker with meniscus and three schematic bubbles rising.
 export function ChemistryIcon(props) {
   return (
     <svg {...base} {...props}>
@@ -112,7 +138,7 @@ export function ChemistryIcon(props) {
   );
 }
 
-// Biology — a cell under the lens: membrane, nucleus, and two organelles,
+// Biology - a cell under the lens: membrane, nucleus, and two organelles,
 // drawn as a schematic rather than a soft blob so it sits with the others.
 export function BiologyIcon(props) {
   return (
@@ -130,6 +156,8 @@ export function BiologyIcon(props) {
 // Registry keyed by track ref so CoursesPage stays declarative.
 export const TRACK_ICONS = {
   'TRK-PY':   PythonIcon,
+  'TRK-JAVA': JavaIcon,
+  'TRK-CPP':  CppIcon,
   'TRK-AI':   AiIcon,
   'TRK-GAME': GameIcon,
   'TRK-BOT':  RoboticsIcon,

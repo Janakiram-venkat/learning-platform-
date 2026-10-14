@@ -10,70 +10,238 @@
     },
     {
       "type": "paragraph",
-      "value": "Here is a complete Java program. It prints one line. Every other program you write this year starts from this shape, so it is worth taking apart properly."
+      "value": "Here is a complete Java program. It prints one line. Every program you write starts from this shape."
     },
     {
       "type": "code",
       "language": "java",
-      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, world!\");\n    }\n}"
+      "value": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, world!\");\n    }\n}",
+      "output": [
+        "Hello, world!"
+      ]
     },
     {
-      "type": "simulation",
-      "kind": "print",
-      "lines": ["Hello, world!"]
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "public",
+          "label": "who can use it",
+          "note": "Anything is allowed to use this class."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "class",
+          "label": "kind",
+          "note": "A **class** is a named container for code."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "Main",
+          "label": "name",
+          "note": "This class is called `Main`."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "{",
+          "label": "open",
+          "note": "Opens the container."
+        }
+      ],
+      "title": "Line 1: the class",
+      "caption": "The last `}` in the file closes this class."
     },
     {
       "type": "heading",
-      "value": "Line by Line"
+      "value": "The main Method"
     },
     {
-      "type": "paragraph",
-      "value": "`public class Main {` starts the class. A class is a named container for code, and this one is called `Main`. `public` means anything is allowed to use it. The `{` opens the container; the last `}` in the file closes it."
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "public",
+          "label": "open to all",
+          "note": "Anything may call it."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "static",
+          "label": "belongs to class",
+          "note": "The JVM can call it without building anything first."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "void",
+          "label": "returns nothing",
+          "note": "It hands nothing back when it finishes."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "main",
+          "label": "special name",
+          "note": "The JVM looks for `main` and starts here."
+        },
+        {
+          "code": "(String[] args)",
+          "label": "inputs",
+          "note": "Room for words typed on the command line. You won't need it for a while, but `main` must have it."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "{",
+          "label": "open",
+          "note": "Opens the method."
+        }
+      ],
+      "title": "Line 2: where the program starts"
     },
     {
-      "type": "paragraph",
-      "value": "`public static void main(String[] args) {` starts the method named `main`. This name is special: when the JVM starts your program it looks for `main` and begins there. Get the name wrong and your program compiles but refuses to start, because nothing told the JVM where to begin."
+      "type": "warning",
+      "value": "Spell `main` wrong and the program still compiles, but it refuses to start. Nothing told the JVM where to begin.",
+      "title": "The name matters"
     },
     {
-      "type": "paragraph",
-      "value": "The other words on that line each have a job. `static` means the method belongs to the class itself, so the JVM can call it without building anything first. `void` means the method hands nothing back when it finishes. `String[] args` is a place for words typed on the command line; you will not need it for a while, but `main` must have it."
+      "type": "check",
+      "question": "When your program starts, where does the JVM begin?",
+      "options": [
+        "At the very first line of the file",
+        "At the method named `main`",
+        "At the class named `Main`",
+        "At the last `}`"
+      ],
+      "answer": 1,
+      "explain": "The JVM always looks for the method called `main` and starts running there."
     },
     {
-      "type": "paragraph",
-      "value": "`System.out.println(\"Hello, world!\");` is the one real instruction. `System.out` is the screen, `println` means \"print this, then move to a new line\", and the text in double quotes is what gets printed. The semicolon ends the instruction."
+      "type": "heading",
+      "value": "The One Real Instruction"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "System.out",
+          "label": "the screen",
+          "note": "Where the text goes."
+        },
+        {
+          "code": "."
+        },
+        {
+          "code": "println",
+          "label": "action",
+          "note": "Print this, then move to a new line."
+        },
+        {
+          "code": "(\"Hello, world!\")",
+          "label": "what to print",
+          "note": "Text goes inside double quotes."
+        },
+        {
+          "code": ";",
+          "label": "end",
+          "note": "The semicolon ends the instruction."
+        }
+      ],
+      "title": "Line 3: print something"
     },
     {
       "type": "tip",
-      "value": "Read `System.out.println` as a path: in the `System`, find its `out` (the screen), and tell it to `println`. Java is full of these dotted paths, and they always read left to right like that."
+      "value": "Read `System.out.println` as a path, left to right: in the `System`, find its `out` (the screen), and tell it to `println`. Java is full of dotted paths like this.",
+      "title": "Reading the dots"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "`\"Hello, world!\"`",
+        "`println(\"Hello, world!\")`",
+        "`Hello, world!`",
+        "Nothing"
+      ],
+      "answer": 2,
+      "explain": "The quotes only mark where the text starts and ends. `println` prints what is inside them.",
+      "code": "System.out.println(\"Hello, world!\");"
     },
     {
       "type": "heading",
-      "value": "The File Name Rule"
+      "value": "File Names and Braces"
     },
     {
-      "type": "paragraph",
-      "value": "Java insists that a file holding a `public class Main` is named `Main.java`. The name in the code and the name of the file have to match, letter for letter, including capitals. Rename the class and you must rename the file too."
+      "type": "points",
+      "items": [
+        "A file holding `public class Main` must be named `Main.java`, capitals included.",
+        "Every `{` needs a matching `}`. A one-line program still ends with two `}`.",
+        "Indent inner lines four spaces. Java doesn't require it, but it shows the nesting."
+      ],
+      "title": "Rules to keep"
     },
     {
-      "type": "paragraph",
-      "value": "In this editor the file is already called `Main.java`, so keep your class named `Main` and you never have to think about it. If you do rename the class, the compiler will tell you at once, which is Java being strict on your behalf again."
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Line one.\");\n        System.out.println(\"Line two.\");\n    }\n}",
+      "steps": [
+        {
+          "line": 1,
+          "note": "`{` opens the class `Main`."
+        },
+        {
+          "line": 2,
+          "note": "`{` opens the method `main`. The JVM starts running here."
+        },
+        {
+          "line": 3,
+          "note": "First instruction: prints `Line one.`",
+          "out": [
+            "Line one."
+          ]
+        },
+        {
+          "line": 4,
+          "note": "Next line down: prints `Line two.`",
+          "out": [
+            "Line two."
+          ]
+        },
+        {
+          "line": 5,
+          "note": "This `}` closes the method. `main` is finished."
+        },
+        {
+          "line": 6,
+          "note": "The last `}` closes the class. The program ends."
+        }
+      ],
+      "title": "Braces in pairs",
+      "outro": "The editor's file is already `Main.java`, so keep the class named `Main`. Try adding a third `println`: it prints exactly where you put it."
     },
     {
-      "type": "heading",
-      "value": "Braces Come in Pairs"
-    },
-    {
-      "type": "paragraph",
-      "value": "Every `{` needs a matching `}`. The class opens one pair and the method opens another inside it, so a one-line program still ends with two closing braces. The indentation, those four spaces before each inner line, is not required by Java but it shows the nesting at a glance and every Java programmer uses it."
-    },
-    {
-      "type": "code",
-      "language": "java",
-      "value": "public class Main {                              // opens the class\n    public static void main(String[] args) {      // opens the method\n        System.out.println(\"Line one.\");\n        System.out.println(\"Line two.\");\n    }                                            // closes the method\n}                                                // closes the class"
-    },
-    {
-      "type": "paragraph",
-      "value": "Try it in the editor. Add a third `System.out.println` of your own between the existing ones and run it: your line appears exactly where you put it, because instructions run top to bottom."
+      "type": "check",
+      "question": "How many `}` does this one-line program end with?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "0"
+      ],
+      "answer": 1,
+      "explain": "One closes the method and one closes the class.",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hi\");"
     }
   ],
   "editorCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, world!\");\n    }\n}",

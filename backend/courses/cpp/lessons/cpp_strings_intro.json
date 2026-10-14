@@ -1,0 +1,356 @@
+{
+  "lessonId": "cpp_strings_intro",
+  "title": "Strings",
+  "description": "Storing text, joining it together, and why numbers need converting before they join.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Text in a Box"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "string",
+          "label": "type",
+          "note": "Text of any length: a word, a sentence, or nothing at all."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "playerName",
+          "label": "name",
+          "note": "A camelCase name, as usual."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "\"Amara\"",
+          "label": "value",
+          "note": "Text always goes in double quotes."
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "Anatomy of a string variable",
+      "caption": "Declared exactly like the other types."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string playerName = \"Amara\";\n    string greeting = \"Welcome back\";\n    string empty = \"\";          // legal: text with nothing in it\n\n    cout << greeting + \", \" + playerName + \"!\" << endl;\n    return 0;\n}",
+      "output": [
+        "Welcome back, Amara!"
+      ],
+      "caption": "To use `string`, add `#include <string>` next to `#include <iostream>`."
+    },
+    {
+      "type": "paragraph",
+      "value": "`string` is not a fundamental type. It is a **class**: a type built from simpler pieces and shipped in the standard library. Its full name is `std::string`."
+    },
+    {
+      "type": "tip",
+      "value": "Some programs seem to work without `#include <string>`, because `iostream` happens to pull it in on that compiler. Do not rely on luck.",
+      "title": "Always include it"
+    },
+    {
+      "type": "heading",
+      "value": "Joining Text with +"
+    },
+    {
+      "type": "paragraph",
+      "value": "`+` joins strings, left to right. C++ adds nothing of its own, so every space must be inside the quotes."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string first = \"Ada\";\n    string last = \"Lovelace\";\n    cout << first + last << endl;\n    cout << first + \" \" + last << endl;\n    string fullName = first + \" \" + last;\n    cout << \"Name: \" << fullName << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 6,
+          "note": "A string box holding `\"Ada\"`.",
+          "vars": {
+            "first": "\"Ada\""
+          }
+        },
+        {
+          "line": 7,
+          "note": "A second string box.",
+          "vars": {
+            "last": "\"Lovelace\""
+          }
+        },
+        {
+          "line": 8,
+          "note": "Joined with no space between them.",
+          "out": [
+            "AdaLovelace"
+          ]
+        },
+        {
+          "line": 9,
+          "note": "The `\" \"` in the middle adds the space.",
+          "out": [
+            "Ada Lovelace"
+          ]
+        },
+        {
+          "line": 10,
+          "note": "The joined text is new text. Store it in its own variable.",
+          "vars": {
+            "fullName": "\"Ada Lovelace\""
+          }
+        },
+        {
+          "line": 11,
+          "note": "Use the stored result like any other string.",
+          "out": [
+            "Name: Ada Lovelace"
+          ]
+        }
+      ],
+      "title": "Joining step by step"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Hi ! Hi",
+        "HiHi!",
+        "Hi!Hi",
+        "a!a"
+      ],
+      "answer": 2,
+      "explain": "`+` joins the pieces in order and adds no spaces of its own.",
+      "code": "string a = \"Hi\";\ncout << a + \"!\" + a << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Two Quoted Pieces Will Not Join"
+    },
+    {
+      "type": "paragraph",
+      "value": "A C++ quirk: quoted text on its own is not a `string` yet. It is an older kind of text from C. Two of those cannot be joined with `+`."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Error",
+          "tone": "bad",
+          "code": "string bad = \"Ada\" + \" Lovelace\";",
+          "text": "Both sides of the first `+` are quoted text."
+        },
+        {
+          "title": "Compiles",
+          "tone": "good",
+          "code": "string first = \"Ada\";\nstring ok = first + \" \" + \"Lovelace\";",
+          "text": "It starts with a real `string`, so every later `+` makes a `string` too."
+        }
+      ],
+      "title": "Where the chain starts matters",
+      "caption": "If the compiler complains about `invalid operands` to `+`, this is almost always why."
+    },
+    {
+      "type": "check",
+      "question": "Which line is an error?",
+      "options": [
+        "string s = \"Hi\" + \"!\";",
+        "string s = name + \"!\";",
+        "string s = name + \" \" + \"Lee\";",
+        "string s = \"Hi\";"
+      ],
+      "answer": 0,
+      "explain": "The first `+` joins two quoted pieces. Every other line starts its chain with the `string` variable `name`."
+    },
+    {
+      "type": "heading",
+      "value": "Numbers and Text"
+    },
+    {
+      "type": "paragraph",
+      "value": "Inside `cout` you never need `+` to mix numbers and text: `<<` prints each piece in turn. `+` is worked out before `<<`, so a sum in the chain is maths."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int a = 2;\n    int b = 3;\n\n    cout << \"Sum: \" << a + b << endl;\n    cout << \"Sum: \" << a << b << endl;\n\n    string label = \"Score: \" + to_string(100);\n    cout << label << endl;\n    return 0;\n}",
+      "output": [
+        "Sum: 5",
+        "Sum: 23",
+        "Score: 100"
+      ],
+      "caption": "Line two sends 2 then 3 with nothing between. Two numbers stuck together? A missing space or `+` is the reason."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Nonsense",
+          "tone": "bad",
+          "code": "\"Score: \" + 100",
+          "text": "Compiles, but joins nothing. It gives garbage or crashes."
+        },
+        {
+          "title": "Works",
+          "tone": "good",
+          "code": "\"Score: \" + to_string(100)",
+          "text": "`to_string` turns the number into text first."
+        }
+      ],
+      "title": "Joining a number into a string",
+      "caption": "Printing? Use `<<` and mix anything. Building a `string` to keep? Use `+` and wrap numbers in `to_string`."
+    },
+    {
+      "type": "heading",
+      "value": "Strings Can Do Things"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "word",
+          "label": "the text",
+          "note": "A string variable."
+        },
+        {
+          "code": ".",
+          "label": "dot",
+          "note": "Means: ask this value to do something. Classes can do things as well as hold a value."
+        },
+        {
+          "code": "length",
+          "label": "action",
+          "note": "Count the characters."
+        },
+        {
+          "code": "()",
+          "label": "do it now",
+          "note": "The empty brackets run the action."
+        }
+      ],
+      "title": "Asking a string a question",
+      "caption": "`size()` does exactly the same job as `length()`."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string word = \"C++\";\n    string place = \"Pocket Lab\";\n\n    cout << word.length() << endl;\n    cout << place.length() << endl;   // the space counts too\n    cout << place.size() << endl;     // another name for length()\n    return 0;\n}",
+      "output": [
+        "3",
+        "10",
+        "10"
+      ],
+      "caption": "Strings can find words, cut out pieces and more. Module 7 covers the ones worth knowing."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "char",
+          "tone": "neutral",
+          "code": "char initial = 'A';",
+          "text": "Single quotes. Exactly one character, like a grade or a menu key."
+        },
+        {
+          "title": "string",
+          "tone": "neutral",
+          "code": "string letter = \"A\";",
+          "text": "Double quotes. Any amount of text, even one character or none."
+        }
+      ],
+      "title": "char vs string",
+      "caption": "They print the same, which is exactly why mixing them up confuses people."
+    },
+    {
+      "type": "check",
+      "question": "Which line is an error?",
+      "options": [
+        "char c = \"A\";",
+        "char c = 'A';",
+        "string s = \"A\";",
+        "string s = \"\";"
+      ],
+      "answer": 0,
+      "explain": "Double quotes make text, and text cannot squeeze into a `char` box."
+    }
+  ],
+  "editorCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string first = \"Ada\";\n    string last = \"Lovelace\";\n\n    cout << first + \" \" + last << endl;\n    cout << \"Letters in the first name: \" << first.length() << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Declare a `string` for your town and one for your country, then print them as one line: Town, Country.",
+      "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Build a `string` called `message` that holds Level 5 unlocked, using `+` and `to_string` on an `int` variable called `level`. Then print `message`.",
+      "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int level = 5;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Store your full name in a `string`, then print a line saying how many characters it has, including the space.",
+      "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What must you add at the top of a program that uses `string`?",
+      "options": [
+        "#include <text>",
+        "#include <string>",
+        "Nothing: string is a fundamental type."
+      ],
+      "answer": 1,
+      "explain": "`string` comes from the standard library, so you include its header, just as `<iostream>` brings in `cout`."
+    },
+    {
+      "question": "What does `cout << \"Sum: \" << 2 + 3 << endl;` print?",
+      "options": [
+        "Sum: 23",
+        "Sum: 2 + 3",
+        "Sum: 5"
+      ],
+      "answer": 2,
+      "explain": "`+` is worked out before `<<`, so `2 + 3` becomes 5 and then 5 is printed."
+    },
+    {
+      "question": "What does `string s = \"Score: \" + to_string(7);` store?",
+      "options": [
+        "Score: to_string(7)",
+        "Score: 7",
+        "Nothing: it does not compile."
+      ],
+      "answer": 1,
+      "explain": "`to_string` turns the number 7 into the text \"7\", and `+` joins it onto the end of \"Score: \"."
+    },
+    {
+      "question": "If `string word = \"C++\";`, what does `word.length()` give back?",
+      "options": [
+        "C++",
+        "1",
+        "3"
+      ],
+      "answer": 2,
+      "explain": "`length()` counts the characters in the text, and `+` signs are characters too. Spaces count as well."
+    },
+    {
+      "question": "Which line is correct?",
+      "options": [
+        "string letter = \"A\";",
+        "string letter = 'A';",
+        "char letter = \"A\";"
+      ],
+      "answer": 0,
+      "explain": "A `string` value needs double quotes. Single quotes make a `char`, and C++ will not quietly swap one for the other here."
+    }
+  ]
+}

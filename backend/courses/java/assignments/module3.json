@@ -1,0 +1,131 @@
+{
+  "moduleId": 3,
+  "title": "Input and Operators Checkpoint",
+  "intro": "Your programs can now listen to a person, calculate with what they typed, compare values and combine conditions. Twelve rounds, one from every idea in this module. First-try answers earn three stars!",
+  "emoji": "☕",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "Which line creates a Scanner that reads from the keyboard?",
+      "options": [
+        "Scanner scanner = new Scanner(System.in);",
+        "Scanner scanner = new Scanner(System.out);",
+        "Scanner scanner = Scanner.read();",
+        "Scanner scanner = new Scanner();"
+      ],
+      "answer": 0,
+      "explain": "`System.in` is the keyboard, the opposite of the `System.out` you print to. It also needs `import java.util.Scanner;` above the class."
+    },
+    {
+      "type": "predict",
+      "prompt": "The person types 10. What does this print?",
+      "code": "String age = scanner.nextLine();\nSystem.out.println(age + 1);",
+      "options": ["101", "11", "10", "An error"],
+      "answer": 0,
+      "explain": "`nextLine()` gives text, so `+` joins rather than adds. Reading with `nextInt()` would make `age + 1` real arithmetic and print 11."
+    },
+    {
+      "type": "bug",
+      "prompt": "The Name question is skipped and never waits for an answer. What fixes it?",
+      "code": "int age = scanner.nextInt();\nSystem.out.print(\"Name? \");\nString name = scanner.nextLine();",
+      "options": [
+        "Add an extra scanner.nextLine(); after the nextInt()",
+        "Use two separate Scanner objects",
+        "Change nextLine() to nextInt()",
+        "Remove the print before it"
+      ],
+      "answer": 0,
+      "explain": "`nextInt()` leaves the Enter key in the queue, so the following `nextLine()` reads up to it and returns empty. One extra `nextLine()` swallows it."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "System.out.println(17 % 5);",
+      "options": ["2", "3", "3.4", "85"],
+      "answer": 0,
+      "explain": "`%` gives the remainder. 5 goes into 17 three times with 2 left over, so `/` would give 3 and `%` gives 2."
+    },
+    {
+      "type": "concept",
+      "prompt": "How do you check whether an `int n` is even?",
+      "options": [
+        "n % 2 == 0",
+        "n / 2 == 0",
+        "n % 10 == 0",
+        "n == 2"
+      ],
+      "answer": 0,
+      "explain": "An even number divides by 2 with nothing left over, so its remainder is 0. Odd numbers leave 1."
+    },
+    {
+      "type": "predict",
+      "prompt": "Splitting a total into units. What does this print?",
+      "code": "int totalSeconds = 3725;\nSystem.out.println(totalSeconds / 60);\nSystem.out.println(totalSeconds % 60);",
+      "options": ["62 then 5", "61 then 65", "5 then 62", "62.08 then 5"],
+      "answer": 0,
+      "explain": "`/ 60` gives the whole minutes (62) and `% 60` gives the seconds left over (5). Divide for the big unit, take the remainder for the rest."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does score hold at the end?",
+      "code": "int score = 100;\nscore += 50;\nscore /= 3;\nscore++;\nSystem.out.println(score);",
+      "options": ["51", "50", "151", "17"],
+      "answer": 0,
+      "explain": "150 divided by 3 is 50, then `++` adds one to give 51. Each shorthand reads the current value, applies the operator and stores the answer back."
+    },
+    {
+      "type": "predict",
+      "prompt": "The ++ is written after the name. What does this print?",
+      "code": "int a = 5;\nSystem.out.println(a++);\nSystem.out.println(a);",
+      "options": ["5 then 6", "6 then 6", "5 then 5", "6 then 7"],
+      "answer": 0,
+      "explain": "With the `++` after the name, the old value is handed back first and the increment happens after. `++a` would print 6 twice."
+    },
+    {
+      "type": "concept",
+      "prompt": "A person typed `yes` into a Scanner, stored as `answer`. Which line correctly checks it?",
+      "options": [
+        "answer.equals(\"yes\")",
+        "answer == \"yes\"",
+        "answer = \"yes\"",
+        "answer % \"yes\""
+      ],
+      "answer": 0,
+      "explain": "`==` compares objects rather than characters, and text from a Scanner is a new object, so it says false. `.equals` compares the letters."
+    },
+    {
+      "type": "predict",
+      "prompt": "Careful with the ranges. What does this print?",
+      "code": "int n = 15;\nSystem.out.println(n >= 1 && n <= 10);",
+      "options": ["false", "true", "15", "An error"],
+      "answer": 0,
+      "explain": "15 passes the first test but fails the second, and `&&` needs both to be true. Java cannot write this as `1 <= n <= 10`."
+    },
+    {
+      "type": "bug",
+      "prompt": "This crashes when the person enters 0 people. Which version cannot crash?",
+      "code": "boolean ok = bill / people <= 500 && people > 0;",
+      "options": [
+        "boolean ok = people > 0 && bill / people <= 500;",
+        "boolean ok = bill / people <= 500 || people > 0;",
+        "boolean ok = !(bill / people <= 500);",
+        "It cannot be fixed without an if statement."
+      ],
+      "answer": 0,
+      "explain": "`&&` stops as soon as the left side is false, so putting the guard first means the division is never reached when people is 0. Order matters."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each operator to what it does.",
+      "pairs": [
+        { "left": "%", "right": "The remainder after dividing" },
+        { "left": "+=", "right": "Add to a variable and store it back" },
+        { "left": "++", "right": "Add exactly one" },
+        { "left": "==", "right": "Ask whether two values are equal" },
+        { "left": "&&", "right": "True only when both sides are true" },
+        { "left": "||", "right": "True when at least one side is true" }
+      ],
+      "explain": "Six operators across the whole module: one arithmetic, two shorthands, one comparison and two logical."
+    }
+  ]
+}

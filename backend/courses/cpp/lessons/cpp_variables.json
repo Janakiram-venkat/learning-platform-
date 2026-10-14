@@ -1,0 +1,360 @@
+{
+  "lessonId": "cpp_variables",
+  "title": "Variables",
+  "description": "How to store a value under a name so your program can use it again later.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Labelled Box"
+    },
+    {
+      "type": "analogy",
+      "emoji": "📦",
+      "real": "A box with a label",
+      "concept": "A variable",
+      "code": "int score = 100;",
+      "text": "So far you wrote every value straight into `cout`. A variable stores a value under a name. Write the name later and C++ hands you back what is inside."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "int",
+          "label": "type",
+          "note": "The kind of value the box holds. `int` means a whole number. The type always comes first."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "score",
+          "label": "name",
+          "note": "The label you choose. You use it later to get the value back."
+        },
+        {
+          "code": " = ",
+          "label": "assign",
+          "note": "Puts the value on the right into the box named on the left."
+        },
+        {
+          "code": "100",
+          "label": "value",
+          "note": "What goes in the box."
+        },
+        {
+          "code": ";",
+          "label": "end",
+          "note": "Every C++ statement ends with a semicolon."
+        }
+      ],
+      "title": "Anatomy of a variable",
+      "caption": "Read it left to right: make a box for a whole number, call it `score`, put 100 in it."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 100;\n\n    cout << score << endl;\n    cout << \"Score: \" << score << endl;\n    return 0;\n}",
+      "output": [
+        "100",
+        "Score: 100"
+      ],
+      "caption": "No quotes means the value in the box. Quotes mean the exact characters you typed."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "100",
+        "Score: 100",
+        "score",
+        "Nothing, it is an error"
+      ],
+      "answer": 2,
+      "explain": "The quotes make `\"score\"` plain text, so C++ prints the word itself. Without quotes it would open the box and print 100.",
+      "code": "int score = 100;\ncout << \"score\" << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Declaring and Assigning"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🆕",
+          "text": "**Declaring** creates the box: `int lives;`",
+          "sub": "The type is written here, once."
+        },
+        {
+          "icon": "📥",
+          "text": "**Assigning** puts a value in it: `lives = 3;`",
+          "sub": "After declaring, use the name alone."
+        },
+        {
+          "icon": "⚡",
+          "text": "Or do both on one line: `int coins = 0;`"
+        },
+        {
+          "icon": "🚫",
+          "text": "You cannot declare the same name twice.",
+          "sub": "A second `int lives = 3;` is an error."
+        }
+      ],
+      "title": "Two jobs"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int lives;          // declare: the box exists, no useful value yet\n    lives = 3;          // assign: now it holds 3\n\n    int coins = 0;      // declare and assign together\n\n    cout << \"Lives: \" << lives << endl;\n    cout << \"Coins: \" << coins << endl;\n    return 0;\n}",
+      "output": [
+        "Lives: 3",
+        "Coins: 0"
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "lives",
+          "value": "3",
+          "type": "int"
+        },
+        {
+          "name": "coins",
+          "value": "0",
+          "type": "int"
+        }
+      ],
+      "title": "What C++ is holding now",
+      "caption": "Two `int` boxes. C++ already knows their type, so later lines just use the names."
+    },
+    {
+      "type": "heading",
+      "value": "Always Give a Starting Value"
+    },
+    {
+      "type": "paragraph",
+      "value": "Here C++ differs from many languages. A box declared without a value is not empty and not zero. It is **uninitialised**: it holds leftover junk from that memory."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Uninitialised",
+          "tone": "bad",
+          "code": "int mystery;\ncout << mystery;   // 0? 4199040?",
+          "text": "Could print anything, and something different every run."
+        },
+        {
+          "title": "Starts known",
+          "tone": "good",
+          "code": "int score = 0;\ncout << score;     // 0",
+          "text": "Costs nothing and removes a whole family of strange bugs."
+        }
+      ],
+      "title": "Junk vs a known value",
+      "caption": "Make it a habit: give every variable a value on the line you declare it, even if it is just 0."
+    },
+    {
+      "type": "check",
+      "question": "What does `coins` hold right after `int coins;`?",
+      "options": [
+        "0",
+        "Nothing, the box is empty",
+        "Unknown leftover junk",
+        "An error stops the program"
+      ],
+      "answer": 2,
+      "explain": "Without a starting value, C++ leaves whatever was already in that memory. That is why you always give one."
+    },
+    {
+      "type": "heading",
+      "value": "Changing the Value"
+    },
+    {
+      "type": "paragraph",
+      "value": "A variable can get a new value as often as you like. The new value **replaces** the old one. The label stays, the contents change."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int lives = 3;\n    cout << \"Lives: \" << lives << endl;\n    lives = 2;\n    cout << \"Lives: \" << lives << endl;\n    lives = lives - 1;\n    cout << \"Lives: \" << lives << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Declare an `int` box named `lives` and put 3 in it.",
+          "vars": {
+            "lives": "3"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Open the box and print what is inside.",
+          "out": [
+            "Lives: 3"
+          ]
+        },
+        {
+          "line": 7,
+          "note": "Put 2 in the box. The 3 is gone. No type this time: the box already exists.",
+          "vars": {
+            "lives": "2"
+          }
+        },
+        {
+          "line": 8,
+          "note": "Print again. Same name, new value.",
+          "out": [
+            "Lives: 2"
+          ]
+        },
+        {
+          "line": 9,
+          "note": "Right side first: `lives - 1` is 1. Then store that 1 back in `lives`.",
+          "vars": {
+            "lives": "1"
+          }
+        },
+        {
+          "line": 10,
+          "note": "Print the latest value.",
+          "out": [
+            "Lives: 1"
+          ]
+        }
+      ],
+      "title": "Watch the box change",
+      "outro": "`=` is not the equals of maths. It means: work this out, then store it here. Module 3 shows a shorthand, `lives--`, the same `++`/`--` idea as in the name C++."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "5",
+        "3",
+        "8",
+        "x + 3"
+      ],
+      "answer": 2,
+      "explain": "C++ works out `x + 3` first, which is 8, then stores 8 back in `x`.",
+      "code": "int x = 5;\nx = x + 3;\ncout << x << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Naming Your Variables"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Valid",
+          "tone": "good",
+          "code": "int playerScore = 42;\nint highScore = 9001;\nint level2 = 5;",
+          "text": "Letters, digits and `_`. Do not start with a digit."
+        },
+        {
+          "title": "Error",
+          "tone": "bad",
+          "code": "int 2ndPlace = 3;\nint high score = 3;\nint return = 5;",
+          "text": "Starts with a digit. Has a space. `return` is a **keyword**: a word C++ already uses."
+        }
+      ],
+      "title": "Valid vs invalid names"
+    },
+    {
+      "type": "points",
+      "items": [
+        "C++ is case sensitive: `score` and `Score` are two different boxes.",
+        "This course uses **camelCase**: `playerScore`. Some projects use snake_case: `player_score`. Pick one and stick to it.",
+        "Pick names that say what they mean: `daysLeft`, not `d`."
+      ],
+      "title": "Good habits"
+    },
+    {
+      "type": "check",
+      "question": "Which one is a valid C++ variable name?",
+      "options": [
+        "livesLeft",
+        "2lives",
+        "lives left",
+        "int"
+      ],
+      "answer": 0,
+      "explain": "`livesLeft` uses only letters. The others start with a digit, contain a space, or are a keyword."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 100;\n    cout << \"Score: \" << score << endl;\n\n    score = 250;\n    cout << \"Score: \" << score << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Declare an `int` called `age`, store your age in it, and print it with a label, like: Age: 12",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Declare `int coins = 10;`, print it, then add 5 to it using `coins = coins + 5;` and print it again.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int coins = 10;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Fix the two naming mistakes in this program so it compiles.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int 1stPlace = 10;\n    int high score = 20;\n\n    cout << 1stPlace << endl;\n    cout << high score << endl;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What are the three parts of `int score = 100;`?",
+      "options": [
+        "A function, a name, and an instruction.",
+        "A type, a name, and a value.",
+        "Three separate variables."
+      ],
+      "answer": 1,
+      "explain": "`int` is the type (what kind of value), `score` is the name, and `100` is the value being stored."
+    },
+    {
+      "question": "What does `cout << score << endl;` print when `score` holds 100?",
+      "options": [
+        "score",
+        "\"score\"",
+        "100"
+      ],
+      "answer": 2,
+      "explain": "Without quotes, C++ looks up what is stored under that name. With quotes it would print the word score instead."
+    },
+    {
+      "question": "Which of these is a legal C++ variable name?",
+      "options": [
+        "high score",
+        "highScore",
+        "2ndScore"
+      ],
+      "answer": 1,
+      "explain": "Names cannot contain spaces or start with a digit. `highScore` also follows the camelCase style this course uses."
+    },
+    {
+      "question": "What does `lives = lives - 1;` do when `lives` holds 3?",
+      "options": [
+        "Nothing: it is not a true statement.",
+        "Stores the words `lives - 1` in `lives`.",
+        "Works out 2, then stores 2 in `lives`."
+      ],
+      "answer": 2,
+      "explain": "The right hand side is worked out first, giving 2, and that answer is then stored back under the same name."
+    },
+    {
+      "question": "You write `int total;` and print `total` straight away. What does it print?",
+      "options": [
+        "Always 0.",
+        "Anything: an uninitialised variable holds leftover junk.",
+        "Nothing: the line is skipped."
+      ],
+      "answer": 1,
+      "explain": "C++ does not clear the box for you. Give every variable a starting value, such as `int total = 0;`, and the problem never appears."
+    }
+  ]
+}

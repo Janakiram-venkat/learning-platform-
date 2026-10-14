@@ -1,0 +1,129 @@
+{
+  "moduleId": 6,
+  "title": "Number Toolkit",
+  "emoji": "🧰",
+  "brief": "Build a menu-driven toolbox. Five tools, five methods: is it prime, its digit sum, its digits reversed, its factorial, and a bar drawn from it. The menu keeps coming back until the user quits. This is the first program you write where main does almost nothing itself.",
+  "problem": {
+    "goal": "Show a menu, read a choice, ask for a number, and hand the work to a method. Repeat until the choice is 0.",
+    "example": {
+      "typed": [
+        "1",
+        "97",
+        "0"
+      ],
+      "output": [
+        "--- Number Toolkit ---",
+        "1. Is it prime?",
+        "2. Digit sum",
+        "3. Reverse it",
+        "4. Factorial",
+        "5. Draw a bar",
+        "0. Quit",
+        "97 is prime",
+        "--- Number Toolkit ---",
+        "1. Is it prime?",
+        "2. Digit sum",
+        "3. Reverse it",
+        "4. Factorial",
+        "5. Draw a bar",
+        "0. Quit",
+        "Goodbye."
+      ]
+    },
+    "rules": [
+      "Every tool is its own method. main reads the choice and the number, and prints; it works nothing out itself.",
+      "isPrime returns a boolean. Nothing below 2 is prime, so 1 and 0 must come back false.",
+      "digitSum, reverse and factorial each return an int.",
+      "printBar is overloaded: printBar(n) draws with stars by calling printBar(n, '*'). Only the two-argument version contains the loop.",
+      "A choice of 1 to 5 asks for a number. Anything else except 0 prints \"No such option.\" and must NOT ask for a number.",
+      "Print exactly: \"97 is prime\", \"91 is not prime\", \"Digit sum of 4071 is 12\", \"4071 reversed is 1704\", \"5! is 120\", and for a bar, \"7 | *******\"."
+    ]
+  },
+  "steps": [
+    "Start with showMenu. It takes nothing and returns nothing, and it is the easiest method here. Press Run once it prints. Replace each `return 0;` and `return false;` placeholder as you go: they are only there so the starter compiles.",
+    "Write isPrime next. Guard against n below 2 with an early return of false, then loop looking for a divisor and return false the moment you find one. The final return true is only reached if the loop found nothing.",
+    "Write digitSum, reverse and factorial. All three are Module 5 loops with a return on the end, and all three may chop up their own copy of n freely.",
+    "Write the two printBar overloads. The two-argument one holds the loop; the one-argument one is a single line that calls it with '*'.",
+    "Now fill in main: if the choice is 1 to 5, ask for a number and call the right method. Otherwise, if it is not 0, print \"No such option.\" without reading a number.",
+    "Press Check Project. One test types a bad option first, so make sure that path does not swallow the next number."
+  ],
+  "starterCode": "// 🧰 Number Toolkit\n\nimport java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        int choice;\n\n        do {\n            showMenu();\n\n            System.out.print(\"Choice? \");\n            choice = scanner.nextInt();\n\n            // TODO 5: if the choice is 1 to 5, ask \"Number? \" and read it,\n            //         then call the right method and print the result:\n            //           1 -> \"97 is prime\" or \"91 is not prime\"\n            //           2 -> \"Digit sum of 4071 is 12\"\n            //           3 -> \"4071 reversed is 1704\"\n            //           4 -> \"5! is 120\"\n            //           5 -> printBar(n)\n            //         If the choice is anything else except 0, print\n            //         \"No such option.\" and do NOT ask for a number.\n\n        } while (choice != 0);\n\n        System.out.println(\"Goodbye.\");\n    }\n\n    // TODO 1: showMenu takes nothing and returns nothing. Print the six\n    //         menu lines exactly as in the example.\n    static void showMenu() {\n\n    }\n\n    // TODO 2: isPrime returns true only when n is prime. Anything below 2\n    //         is not prime, so return false straight away. Then loop from 2\n    //         up to n and return false the moment something divides it.\n    static boolean isPrime(int n) {\n        return false;      // replace this\n    }\n\n    // TODO 3: digitSum returns the total of n's digits. Use the while loop\n    //         from Module 5: n % 10 is the last digit, n /= 10 chops it off.\n    static int digitSum(int n) {\n        return 0;          // replace this\n    }\n\n    // TODO 3: reverse returns n with its digits backwards.\n    //         result = result * 10 + n % 10 on every turn.\n    static int reverse(int n) {\n        return 0;          // replace this\n    }\n\n    // TODO 3: factorial returns 1 x 2 x ... x n. Start the running\n    //         product at 1, not 0.\n    static int factorial(int n) {\n        return 0;          // replace this\n    }\n\n    // TODO 4: the one-argument printBar must not repeat the loop. It fills\n    //         in the default symbol and calls the other overload.\n    static void printBar(int n) {\n\n    }\n\n    // TODO 4: this one does the real work: print n, then \" | \",\n    //         then n copies of symbol, then end the line.\n    static void printBar(int n, char symbol) {\n\n    }\n}\n",
+  "hints": [
+    "Press Run before you change anything. It compiles, but the menu is blank and every tool hands back the placeholder value it was given. Fill in showMenu first and Run again to see the menu appear.",
+    "isPrime is two returns and a loop: `if (n < 2) { return false; }` then `for (int i = 2; i < n; i++) { if (n % i == 0) { return false; } }` and finally `return true;` outside the loop. If `return true` is inside the loop, every even number looks prime.",
+    "digitSum is the Module 5 digit loop with a return: `int sum = 0; while (n > 0) { sum += n % 10; n /= 10; } return sum;` Changing n is safe here, because it is this method's own copy.",
+    "factorial must start its running product at 1. Starting at 0 makes every answer 0, because anything times 0 is 0.",
+    "The overload pair is the pattern from the overloading lesson: `static void printBar(int n) { printBar(n, '*'); }` and the real loop lives only in `printBar(int n, char symbol)`.",
+    "In main, read the number inside one `if (choice >= 1 && choice <= 5)` block rather than in each branch. Then an `else if (choice != 0)` prints \"No such option.\", and 0 falls through to the do-while condition and ends the loop.",
+    "For option 1 you need the boolean: `if (isPrime(n)) { System.out.println(n + \" is prime\"); } else { System.out.println(n + \" is not prime\"); }`",
+    "For option 4 the exclamation mark is just text: `System.out.println(n + \"! is \" + factorial(n));`"
+  ],
+  "inputPlaceholder": "1\n97\n0",
+  "inputHint": "Type a menu choice, then a number, then another choice, and so on. Finish with 0.",
+  "tests": [
+    {
+      "name": "A prime number, then quit",
+      "input": [
+        "1",
+        "97",
+        "0"
+      ],
+      "expect": [
+        "--- Number Toolkit ---",
+        "1. Is it prime?",
+        "5. Draw a bar",
+        "0. Quit",
+        "97 is prime",
+        "Goodbye."
+      ]
+    },
+    {
+      "name": "Three tools in one session",
+      "input": [
+        "1",
+        "91",
+        "2",
+        "4071",
+        "3",
+        "4071",
+        "0"
+      ],
+      "expect": [
+        "91 is not prime",
+        "Digit sum of 4071 is 12",
+        "4071 reversed is 1704",
+        "Goodbye."
+      ]
+    },
+    {
+      "name": "Factorial and an overloaded bar",
+      "input": [
+        "4",
+        "5",
+        "5",
+        "7",
+        "0"
+      ],
+      "expect": [
+        "5! is 120",
+        "7 | *******",
+        "Goodbye."
+      ]
+    },
+    {
+      "name": "A bad option, then the smallest awkward number",
+      "input": [
+        "9",
+        "1",
+        "1",
+        "0"
+      ],
+      "expect": [
+        "No such option.",
+        "1 is not prime",
+        "Goodbye."
+      ]
+    }
+  ],
+  "successMessage": "The toolkit is built! 🧰 Six methods, one of them overloaded, three returning ints, one returning a boolean, and a main that reads and prints and nothing else. Look at how little is left in main: that is what methods are for. Next module you meet arrays, so one variable can finally hold a whole list of numbers instead of one at a time."
+}

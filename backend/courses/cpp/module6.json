@@ -1,0 +1,37 @@
+{
+  "moduleId": 6,
+  "title": "Functions",
+  "lessons": [
+    {
+      "lessonId": "cpp_functions_intro",
+      "title": "Writing Functions",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_parameters",
+      "title": "Parameters",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_return",
+      "title": "Returning Values",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_pass_by_reference",
+      "title": "Pass by Reference",
+      "duration": "20 min"
+    },
+    {
+      "lessonId": "cpp_overloading",
+      "title": "Overloading",
+      "duration": "15 min"
+    },
+    {
+      "lessonId": "cpp_scope",
+      "title": "Scope",
+      "duration": "15 min"
+    }
+  ],
+  "hasProject": true
+}

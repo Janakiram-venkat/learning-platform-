@@ -9,68 +9,331 @@
       "value": "Looking Things Up by Name"
     },
     {
-      "type": "paragraph",
-      "value": "In a list you find an item by its position. That works when order is what matters, but it is hopeless for a phone book: nobody remembers that their friend is number 14. A dictionary links a key, such as a name, to a value, such as a number, so you look things up by the key instead of by counting."
+      "type": "analogy",
+      "emoji": "📒",
+      "real": "A phone book",
+      "concept": "A dictionary",
+      "code": "phonebook = {\"Alex\": 5551234}",
+      "text": "Nobody remembers that their friend is number 14 in a list. You look them up by **name**. A dictionary links a **key** (like a name) to a **value** (like a phone number), so you find things by key instead of by counting."
     },
     {
-      "type": "paragraph",
-      "value": "You write a dictionary with curly braces. Inside, each pair is a key, a colon, then its value, and the pairs are separated by commas."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "List: find by position",
+          "tone": "neutral",
+          "code": "numbers = [5551234, 5558888]\nprint(numbers[0])",
+          "text": "Good when order matters. You must know the item's index."
+        },
+        {
+          "title": "Dictionary: find by key",
+          "tone": "good",
+          "code": "phonebook = {\"Alex\": 5551234}\nprint(phonebook[\"Alex\"])",
+          "text": "Good for looking things up. Use the key you already know."
+        }
+      ],
+      "title": "List or dictionary?"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Wrap a dictionary in curly braces `{ }`.",
+        "Each pair is a key, a colon `:`, then its value.",
+        "Separate the pairs with commas.",
+        "`len()` counts the **pairs**, not the keys and values separately."
+      ],
+      "title": "How to write one"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "{",
+          "label": "open",
+          "note": "Curly braces start and end a dictionary."
+        },
+        {
+          "code": "\"Alex\"",
+          "label": "key",
+          "note": "The name you look things up by."
+        },
+        {
+          "code": ": ",
+          "label": "colon",
+          "note": "Links the key to its value."
+        },
+        {
+          "code": "5551234",
+          "label": "value",
+          "note": "What you get back when you use the key."
+        },
+        {
+          "code": "}",
+          "label": "close",
+          "note": "Closes the dictionary."
+        }
+      ],
+      "title": "Anatomy of a key-value pair"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "phonebook = {\n    \"Alex\": 5551234,\n    \"Sarah\": 5558888\n}\n\nprint(phonebook[\"Alex\"])    # 5551234\nprint(len(phonebook))       # 2, the number of pairs"
+      "value": "phonebook = {\n    \"Alex\": 5551234,\n    \"Sarah\": 5558888\n}\n\nprint(phonebook[\"Alex\"])\nprint(len(phonebook))",
+      "output": [
+        "5551234",
+        "2"
+      ],
+      "caption": "`len(phonebook)` is 2: two pairs."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "4",
+        "1",
+        "2",
+        "\"Bo\""
+      ],
+      "answer": 2,
+      "explain": "`len()` counts key-value pairs. There are two pairs, so the answer is `2`.",
+      "code": "ages = {\"Ann\": 10, \"Bo\": 12}\nprint(len(ages))"
     },
     {
       "type": "heading",
       "value": "Reading, Adding and Updating"
     },
     {
-      "type": "paragraph",
-      "value": "Square brackets do all three jobs. With a key that already exists you read its value, or assign to replace it. With a key that does not exist yet, assigning creates the pair. Every key can only appear once, which is why assigning to an existing key overwrites instead of adding a second copy."
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔍",
+          "text": "Read",
+          "sub": "`hero[\"power\"]` gives back the value."
+        },
+        {
+          "icon": "✏️",
+          "text": "Update",
+          "sub": "Key already there? `=` **replaces** its value. Each key appears only once."
+        },
+        {
+          "icon": "➕",
+          "text": "Add",
+          "sub": "Key not there yet? `=` **creates** a new pair."
+        }
+      ],
+      "title": "Square brackets do all three jobs"
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "hero = {\n    \"name\": \"Peter Parker\",\n    \"power\": \"Spider webs\"\n}\n\nhero[\"power\"] = \"Shooting spider webs\"   # key exists, so this replaces\nhero[\"city\"] = \"New York\"                # new key, so this adds a pair\nprint(hero)"
+      "type": "stepper",
+      "code": "hero = {\"name\": \"Peter Parker\", \"power\": \"Spider webs\"}\nhero[\"power\"] = \"Shooting spider webs\"\nhero[\"city\"] = \"New York\"\nprint(hero[\"city\"])",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Make a dictionary with two pairs: `name` and `power`.",
+          "vars": {
+            "hero": "{\"name\": \"Peter Parker\", \"power\": \"Spider webs\"}"
+          }
+        },
+        {
+          "line": 2,
+          "note": "The key `power` already exists, so its value is **replaced**. Still two pairs.",
+          "vars": {
+            "hero": "{\"name\": \"Peter Parker\", \"power\": \"Shooting spider webs\"}"
+          }
+        },
+        {
+          "line": 3,
+          "note": "The key `city` is new, so a third pair is **added**.",
+          "vars": {
+            "hero": "{\"name\": \"Peter Parker\", \"power\": \"Shooting spider webs\", \"city\": \"New York\"}"
+          }
+        },
+        {
+          "line": 4,
+          "note": "Look up the key `city` and print its value.",
+          "out": [
+            "New York"
+          ]
+        }
+      ],
+      "title": "Watch the dictionary change",
+      "outro": "Same `=` sign, two different jobs: replace if the key exists, add if it does not."
+    },
+    {
+      "type": "paragraph",
+      "value": "Try it yourself: look up keys, add new ones and replace values below."
     },
     {
       "type": "widget",
       "kind": "dict-lookup"
     },
     {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Silver",
+        "Silver Gold",
+        "Gold",
+        "2"
+      ],
+      "answer": 2,
+      "explain": "`medal` already exists, so line 2 replaces `Silver` with `Gold`. A key can only appear once.",
+      "code": "prize = {\"medal\": \"Silver\"}\nprize[\"medal\"] = \"Gold\"\nprint(prize[\"medal\"])"
+    },
+    {
       "type": "heading",
       "value": "When the Key Is Not There"
     },
     {
-      "type": "paragraph",
-      "value": "Reading a key that does not exist does not give you a blank or a None. It stops the program with a `KeyError`. When you are not certain the key is there, `.get()` is the safe version: it hands back None instead of raising an error, and you can give it a fallback value to use instead."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Square brackets",
+          "tone": "bad",
+          "code": "print(hero[\"age\"])",
+          "text": "No blank, no `None`. The program stops with a `KeyError`."
+        },
+        {
+          "title": ".get()",
+          "tone": "good",
+          "code": "print(hero.get(\"age\"))\nprint(hero.get(\"age\", \"unknown\"))",
+          "text": "The safe version. Gives `None`, or a fallback value you choose."
+        }
+      ],
+      "title": "Two ways to read a missing key"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "hero = {\"name\": \"Peter Parker\"}\n\n# print(hero[\"age\"])            # KeyError, the program stops here\nprint(hero.get(\"age\"))          # None, no crash\nprint(hero.get(\"age\", \"unknown\"))   # unknown, your own fallback"
+      "value": "hero = {\"name\": \"Peter Parker\"}\n\n# print(hero[\"age\"])            # KeyError, the program stops here\nprint(hero.get(\"age\"))          # None, no crash\nprint(hero.get(\"age\", \"unknown\"))   # unknown, your own fallback",
+      "output": [
+        "None",
+        "unknown"
+      ]
     },
     {
-      "type": "tip",
-      "value": "You can also ask before you look: `if \"age\" in hero:` is True only when that key exists. For a dictionary, `in` checks the keys, never the values."
+      "type": "points",
+      "items": [
+        "You can also ask **before** you look: `if \"age\" in hero:`",
+        "It is `True` only when that key exists.",
+        "For a dictionary, `in` checks the **keys**, never the values."
+      ],
+      "title": "Check first with in"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "value": "hero = {\"name\": \"Peter Parker\"}\n\nprint(\"name\" in hero)\nprint(\"Peter Parker\" in hero)",
+      "output": [
+        "True",
+        "False"
+      ],
+      "caption": "`\"Peter Parker\"` is a value, not a key, so `in` says `False`."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "None",
+        "KeyError",
+        "0",
+        "3"
+      ],
+      "answer": 2,
+      "explain": "The key `gold` is missing, so `.get()` hands back the fallback you gave it: `0`.",
+      "code": "coins = {\"silver\": 3}\nprint(coins.get(\"gold\", 0))"
     },
     {
       "type": "heading",
       "value": "Looping Over a Dictionary"
     },
     {
-      "type": "paragraph",
-      "value": "Looping straight over a dictionary gives you the keys, one at a time, and you can use each key to reach its value. When you want both at once, `.items()` hands you the pair together."
+      "type": "points",
+      "items": [
+        {
+          "icon": "🔑",
+          "text": "`for key in hero:`",
+          "sub": "Gives you the keys, one at a time. Use `hero[key]` to reach each value."
+        },
+        {
+          "icon": "🤝",
+          "text": "`for key, value in hero.items():`",
+          "sub": "Gives you the key and the value together. Choose it when you need the value as well."
+        }
+      ],
+      "title": "Two ways to loop"
+    },
+    {
+      "type": "stepper",
+      "code": "hero = {\"name\": \"Spider-Man\", \"city\": \"New York\"}\nfor key, value in hero.items():\n    print(key, \"is\", value)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Make a dictionary with two pairs.",
+          "vars": {
+            "hero": "{\"name\": \"Spider-Man\", \"city\": \"New York\"}"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`.items()` hands over the first pair, split into `key` and `value`.",
+          "vars": {
+            "key": "\"name\"",
+            "value": "\"Spider-Man\""
+          }
+        },
+        {
+          "line": 3,
+          "note": "Print the pair.",
+          "out": [
+            "name is Spider-Man"
+          ]
+        },
+        {
+          "line": 2,
+          "note": "Next pair.",
+          "vars": {
+            "key": "\"city\"",
+            "value": "\"New York\""
+          }
+        },
+        {
+          "line": 3,
+          "note": "Print it. There are no pairs left, so the loop ends.",
+          "out": [
+            "city is New York"
+          ]
+        }
+      ],
+      "title": "Looping with .items()"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "hero = {\"name\": \"Spider-Man\", \"city\": \"New York\"}\n\nfor key in hero:\n    print(key, \"is\", hero[key])\n\nfor key, value in hero.items():\n    print(key, \"is\", value)"
+      "value": "hero = {\"name\": \"Spider-Man\", \"city\": \"New York\"}\n\nfor key in hero:\n    print(key, \"is\", hero[key])\n\nfor key, value in hero.items():\n    print(key, \"is\", value)",
+      "output": [
+        "name is Spider-Man",
+        "city is New York",
+        "name is Spider-Man",
+        "city is New York"
+      ],
+      "caption": "Both loops print the same two lines."
     },
     {
-      "type": "paragraph",
-      "value": "Both loops print the same two lines. Choose the second when you need the value as well, because it saves looking each one up again."
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "1\n2",
+        "a 1\nb 2",
+        "a\nb",
+        "{'a': 1, 'b': 2}"
+      ],
+      "answer": 2,
+      "explain": "Looping straight over a dictionary gives you the **keys**, not the values.",
+      "code": "d = {\"a\": 1, \"b\": 2}\nfor k in d:\n    print(k)"
     }
   ],
   "editorCode": "hero = {\n    \"name\": \"Spider-Man\",\n    \"city\": \"New York\",\n    \"power\": \"Web-slinging\"\n}\n\nhero[\"team\"] = \"Avengers\"\n\nfor key, value in hero.items():\n    print(key, \"->\", value)\n\nprint(hero.get(\"age\", \"not recorded\"))",

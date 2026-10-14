@@ -9,25 +9,78 @@
       "value": "True and False"
     },
     {
-      "type": "paragraph",
-      "value": "A Boolean is a data type that can only be one of two values: True or False. It is how Python answers a yes-or-no question. You met booleans in the last module, and now you will start making them yourself."
+      "type": "analogy",
+      "emoji": "💡",
+      "real": "A light switch",
+      "concept": "A boolean",
+      "code": "lights_on = True",
+      "text": "A switch is on or off, never in between. A **Boolean** is a data type with only two values: `True` or `False`. It is how Python answers a yes or no question."
+    },
+    {
+      "type": "points",
+      "items": [
+        "You met booleans in the last module.",
+        "Now you will start **making** them yourself.",
+        "Two values only: `True` and `False`.",
+        "Capital first letter, and no quotes."
+      ],
+      "title": "The big idea"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "game_over = False\nlogged_in = True"
+      "value": "game_over = False\nlogged_in = True\nprint(game_over)\nprint(logged_in)",
+      "output": [
+        "False",
+        "True"
+      ]
     },
     {
-      "type": "tip",
-      "value": "True and False must start with a capital letter. Writing 'true' or 'false' in lowercase gives an error, and \"True\" in quotes is a string, not a boolean."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Works",
+          "tone": "good",
+          "code": "done = True\nlost = False",
+          "text": "Capital `T` and capital `F`, no quotes."
+        },
+        {
+          "title": "Breaks",
+          "tone": "bad",
+          "code": "done = true\ndone = \"True\"",
+          "text": "Lowercase `true` is an error. `\"True\"` in quotes is a string, not a boolean."
+        }
+      ],
+      "title": "Spelling counts"
+    },
+    {
+      "type": "check",
+      "question": "Which line stores a boolean?",
+      "options": [
+        "logged_in = false",
+        "logged_in = \"False\"",
+        "logged_in = no",
+        "logged_in = False"
+      ],
+      "answer": 3,
+      "explain": "`False` with a capital F and no quotes is a boolean. Lowercase `false` is an error, and quotes make it a string."
     },
     {
       "type": "heading",
       "value": "Comparing Two Values"
     },
     {
+      "type": "points",
+      "items": [
+        "A **comparison operator** asks a question about two values.",
+        "The answer is always a boolean: `True` or `False`."
+      ],
+      "title": "Asking Python a question"
+    },
+    {
       "type": "paragraph",
-      "value": "You can ask Python to compare two values using a comparison operator. The answer is always a Boolean. Try the lab below: change the numbers, change the operator, and watch the answer flip between True and False."
+      "value": "Try the lab below: change the numbers, change the operator, and watch the answer flip between True and False."
     },
     {
       "type": "widget",
@@ -37,30 +90,216 @@
       "op": ">"
     },
     {
-      "type": "paragraph",
-      "value": "There are six comparison operators. Greater than and less than ask which number is bigger. Adding an equals sign to either one (>= and <=) also counts the case where the two sides match. Then == asks whether the two sides are exactly the same, and != asks whether they are different."
+      "type": "heading",
+      "value": "The Six Operators"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "▶️",
+          "text": "`>` greater than",
+          "sub": "`5 > 3` is `True`"
+        },
+        {
+          "icon": "◀️",
+          "text": "`<` less than",
+          "sub": "`5 < 3` is `False`"
+        },
+        {
+          "icon": "⏩",
+          "text": "`>=` greater than or equal",
+          "sub": "Also True when both sides match: `7 >= 7` is `True`"
+        },
+        {
+          "icon": "⏪",
+          "text": "`<=` less than or equal",
+          "sub": "Also True when both sides match: `4 <= 4` is `True`"
+        },
+        {
+          "icon": "🟰",
+          "text": "`==` equal to",
+          "sub": "Are both sides exactly the same? `2 == 4` is `False`"
+        },
+        {
+          "icon": "≠",
+          "text": "`!=` not equal to",
+          "sub": "Are the sides different? `10 != 9` is `True`"
+        }
+      ],
+      "title": "The six comparison operators"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "7",
+          "label": "left",
+          "note": "The first value to compare."
+        },
+        {
+          "code": " >= ",
+          "label": "operator",
+          "note": "The question: is the left side greater than or equal to the right side?"
+        },
+        {
+          "code": "7",
+          "label": "right",
+          "note": "The second value. Here both sides match, so `>=` says `True`."
+        }
+      ],
+      "title": "Anatomy of a comparison"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "print(5 > 3)     # True\nprint(2 == 4)    # False\nprint(10 != 9)   # True\nprint(7 >= 7)    # True, because they are equal"
+      "value": "print(5 > 3)\nprint(2 == 4)\nprint(10 != 9)\nprint(7 >= 7)    # True, because they are equal",
+      "output": [
+        "True",
+        "False",
+        "True",
+        "True"
+      ]
     },
     {
-      "type": "tip",
-      "value": "Watch the equals signs carefully. One equals sign (=) stores a value in a variable. Two equals signs (==) ask whether two values match. Mixing them up is the most common beginner mistake in this module."
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "True",
+        "5",
+        "False",
+        "Error"
+      ],
+      "answer": 2,
+      "explain": "`<` asks if 5 is smaller than 5. They are equal, so the answer is `False`. Only `<=` would also count the equal case.",
+      "code": "print(5 < 5)"
+    },
+    {
+      "type": "heading",
+      "value": "One Equals Sign or Two?"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "=  stores",
+          "tone": "neutral",
+          "code": "lives = 3",
+          "text": "One `=` puts a value in a variable."
+        },
+        {
+          "title": "==  asks",
+          "tone": "neutral",
+          "code": "print(lives == 3)",
+          "text": "Two `==` ask whether two values match. The answer is `True` or `False`."
+        }
+      ],
+      "title": "One equals sign or two?",
+      "caption": "Mixing up `=` and `==` is the most common beginner mistake in this module. Read `==` as \"is equal to?\"."
+    },
+    {
+      "type": "check",
+      "question": "Which line asks whether `lives` is 3?",
+      "options": [
+        "lives = 3",
+        "lives =! 3",
+        "lives == 3",
+        "lives := 3"
+      ],
+      "answer": 2,
+      "explain": "Two equals signs ask the question. One equals sign would store 3 in `lives` instead."
     },
     {
       "type": "heading",
       "value": "Saving an Answer"
     },
     {
-      "type": "paragraph",
-      "value": "A comparison gives back True or False, and like any other value you can store it in a variable. That lets you work out an answer once and use it later."
+      "type": "points",
+      "items": [
+        "A comparison gives back `True` or `False`.",
+        "Like any value, you can store it in a variable.",
+        "Work out the answer once, then use it later."
+      ]
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "score = 12\npassed = score >= 10\nprint(passed)    # True"
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "passed",
+          "label": "name",
+          "note": "The variable that will hold the answer."
+        },
+        {
+          "code": " = ",
+          "label": "store",
+          "note": "One `=`: store whatever the right side works out to."
+        },
+        {
+          "code": "score >= 10",
+          "label": "question",
+          "note": "Python works this out first. It becomes `True` or `False`."
+        }
+      ],
+      "title": "Storing a comparison"
+    },
+    {
+      "type": "stepper",
+      "code": "score = 12\npassed = score >= 10\nprint(passed)\nscore = 4\nprint(score >= 10)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Make a box named `score` holding `12`.",
+          "vars": {
+            "score": "12"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Python works out the right side first: is `12 >= 10`? Yes, so `True` goes into `passed`.",
+          "vars": {
+            "passed": "True"
+          }
+        },
+        {
+          "line": 3,
+          "note": "Print the saved answer.",
+          "out": [
+            "True"
+          ]
+        },
+        {
+          "line": 4,
+          "note": "Change `score` to `4`. The `passed` box keeps its old answer: it was worked out back on line 2.",
+          "vars": {
+            "score": "4"
+          }
+        },
+        {
+          "line": 5,
+          "note": "A fresh comparison: is `4 >= 10`? No, so this prints `False`.",
+          "out": [
+            "False"
+          ]
+        }
+      ],
+      "title": "Watch the answer get saved",
+      "outro": "A saved answer does not update by itself. Compare again when the values change."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "False",
+        "7",
+        "True",
+        "age >= 7"
+      ],
+      "answer": 2,
+      "explain": "`9 >= 7` is `True`, and that answer is stored in `can_ride`, so printing it shows `True`.",
+      "code": "age = 9\ncan_ride = age >= 7\nprint(can_ride)"
     }
   ],
   "editorCode": "print(12 > 15)\nprint(7 == 7)\nprint(4 != 5)",

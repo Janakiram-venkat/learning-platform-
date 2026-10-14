@@ -1,0 +1,470 @@
+{
+  "lessonId": "cpp_for",
+  "title": "The for Loop",
+  "description": "Repeat a block a known number of times with a counter you control.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Repeating Without Retyping"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every program so far ran each line once. Computers shine when they do the same job again and again, without getting bored or making a typo."
+    },
+    {
+      "type": "analogy",
+      "emoji": "✏️",
+      "real": "Writing a line 300 times by hand",
+      "concept": "A `for` loop",
+      "code": "for (int i = 1; i <= 300; i++) {\n    cout << \"Line \" << i << endl;\n}",
+      "text": "By hand, 300 lines takes an afternoon. A **loop** is code that repeats. You write the action once, and the loop counts the turns for you."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // The long way.\n    cout << \"Line 1\" << endl;\n    cout << \"Line 2\" << endl;\n    cout << \"Line 3\" << endl;\n\n    // The short way.\n    for (int i = 1; i <= 3; i++) {\n        cout << \"Line \" << i << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "Line 1",
+        "Line 2",
+        "Line 3",
+        "Line 1",
+        "Line 2",
+        "Line 3"
+      ],
+      "caption": "Both halves print the same lines. Changing `3` to `300` in the loop is a one-character edit. The long way would need 297 more lines."
+    },
+    {
+      "type": "heading",
+      "value": "The Three Parts"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "for ("
+        },
+        {
+          "code": "int i = 0",
+          "label": "start",
+          "note": "Runs once, before the first turn. Makes the counter `i`."
+        },
+        {
+          "code": "; "
+        },
+        {
+          "code": "i < 3",
+          "label": "condition",
+          "note": "Tested before every turn. True: run the body. False: stop."
+        },
+        {
+          "code": "; "
+        },
+        {
+          "code": "i++",
+          "label": "update",
+          "note": "Runs after every turn. Adds 1 to `i`."
+        },
+        {
+          "code": ")"
+        }
+      ],
+      "title": "Anatomy of a for loop",
+      "caption": "Semicolons split the three parts. The counter is usually called `i`, short for index. When it means something real, name it: `row`, `day`, `attempt`."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 0; i < 3; i++) {\n        cout << \"i is now \" << i << endl;\n    }\n    cout << \"Done.\" << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Start: `int i = 0` runs once. Then the condition `0 < 3` is true, so the body runs.",
+          "vars": {
+            "i": "0"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Run the body with `i` as 0.",
+          "out": [
+            "i is now 0"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "Update: `i++` makes `i` 1. Check `1 < 3`: true.",
+          "vars": {
+            "i": "1"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Run the body again.",
+          "out": [
+            "i is now 1"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "`i++` makes `i` 2. Check `2 < 3`: still true.",
+          "vars": {
+            "i": "2"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Third turn.",
+          "out": [
+            "i is now 2"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "`i++` makes `i` 3. Check `3 < 3`: false, so the loop ends.",
+          "vars": {
+            "i": "3"
+          }
+        },
+        {
+          "line": 8,
+          "note": "The program carries on below the loop. `i` belonged to the loop, so it no longer exists.",
+          "vars": {
+            "i": null
+          },
+          "out": [
+            "Done."
+          ]
+        }
+      ],
+      "title": "Watch the loop go round",
+      "outro": "Start once, then check, body, update, check, body, update... until the check is false."
+    },
+    {
+      "type": "check",
+      "question": "How many lines does this print?",
+      "options": [
+        "3",
+        "5",
+        "0",
+        "4"
+      ],
+      "answer": 3,
+      "explain": "`i` takes the values 0, 1, 2 and 3. When it reaches 4, `4 < 4` is false and the loop stops. Four turns, four lines.",
+      "code": "for (int i = 0; i < 4; i++) {\n    cout << \"Hi\" << endl;\n}"
+    },
+    {
+      "type": "tip",
+      "value": "The condition is tested **before** every turn, even the first. If `items` is 0, then `for (int i = 1; i <= items; i++)` runs zero times. That is often exactly what you want.",
+      "title": "A loop can run zero times"
+    },
+    {
+      "type": "heading",
+      "value": "Counting Your Own Way"
+    },
+    {
+      "type": "paragraph",
+      "value": "Change the start, the condition or the update and you get any sequence you like: downwards with `i--`, or in steps of 2 with `i += 2`."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "No endl inside",
+          "tone": "good",
+          "code": "for (int i = 1; i <= 3; i++) {\n    cout << i << \" \";\n}\ncout << endl;",
+          "text": "Stays on one line: `1 2 3`"
+        },
+        {
+          "title": "endl inside",
+          "tone": "neutral",
+          "code": "for (int i = 1; i <= 3; i++) {\n    cout << i << endl;\n}",
+          "text": "Each number on its own line."
+        }
+      ],
+      "title": "One line or many?",
+      "caption": "To build one line out of many turns, print the pieces with no `endl`, then end the line once with `cout << endl;` after the loop."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Downwards.\n    for (int i = 5; i >= 1; i--) {\n        cout << i << \" \";\n    }\n    cout << endl;\n\n    // In steps of 2.\n    for (int i = 0; i <= 10; i += 2) {\n        cout << i << \" \";\n    }\n    cout << endl;\n\n    // The 7 times table.\n    for (int i = 1; i <= 5; i++) {\n        cout << \"7 x \" << i << \" = \" << 7 * i << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "5 4 3 2 1 ",
+        "0 2 4 6 8 10 ",
+        "7 x 1 = 7",
+        "7 x 2 = 14",
+        "7 x 3 = 21",
+        "7 x 4 = 28",
+        "7 x 5 = 35"
+      ],
+      "caption": "`7 * i` needs no brackets: C++ works out the maths before `<<` prints it. Do not glue a number onto text with `+`: `\"Line \" + i` compiles but prints something strange. Use `<<` for each piece."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "10 7 4",
+        "7 4 1",
+        "10 7 4 1",
+        "10 7 4 1 -2"
+      ],
+      "answer": 2,
+      "explain": "Start at 10 and take away 3 each turn: 10, 7, 4, 1. The next value, -2, fails `i > 0`, so it never prints.",
+      "code": "for (int i = 10; i > 0; i -= 3) {\n    cout << i << \" \";\n}"
+    },
+    {
+      "type": "heading",
+      "value": "Adding Things Up"
+    },
+    {
+      "type": "paragraph",
+      "value": "A loop can build up an answer. Declare a variable **before** the loop, then change it on every turn. A running total like this is called an **accumulator**."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 0;\n    for (int i = 1; i <= 4; i++) {\n        total += i;\n    }\n    cout << \"Total: \" << total << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "The total starts at 0, so adding to it does not change the answer.",
+          "vars": {
+            "total": "0"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`i` starts at 1. `1 <= 4` is true.",
+          "vars": {
+            "i": "1"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Add `i` to the total: 0 + 1.",
+          "vars": {
+            "total": "1"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`i` becomes 2.",
+          "vars": {
+            "i": "2"
+          }
+        },
+        {
+          "line": 7,
+          "note": "1 + 2.",
+          "vars": {
+            "total": "3"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`i` becomes 3.",
+          "vars": {
+            "i": "3"
+          }
+        },
+        {
+          "line": 7,
+          "note": "3 + 3.",
+          "vars": {
+            "total": "6"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`i` becomes 4. `4 <= 4` is still true.",
+          "vars": {
+            "i": "4"
+          }
+        },
+        {
+          "line": 7,
+          "note": "6 + 4.",
+          "vars": {
+            "total": "10"
+          }
+        },
+        {
+          "line": 6,
+          "note": "`i` becomes 5. `5 <= 4` is false: the loop ends.",
+          "vars": {
+            "i": "5"
+          }
+        },
+        {
+          "line": 9,
+          "note": "`total` was declared outside the loop, so it still exists here.",
+          "vars": {
+            "i": null
+          },
+          "out": [
+            "Total: 10"
+          ]
+        }
+      ],
+      "title": "Watch the total grow"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "0️⃣",
+          "text": "Sums start at 0",
+          "sub": "Adding 0 does not change the answer."
+        },
+        {
+          "icon": "1️⃣",
+          "text": "Products start at 1",
+          "sub": "Multiplying by 1 does not change the answer: `product *= i`."
+        },
+        {
+          "icon": "📦",
+          "text": "Declare it outside the loop",
+          "sub": "Then it still exists when the loop has finished."
+        }
+      ],
+      "title": "Accumulator rules"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"How many numbers? \";\n    int count;\n    cin >> count;\n\n    int total = 0;\n\n    for (int i = 1; i <= count; i++) {\n        cout << \"Number \" << i << \"? \";\n        int n;\n        cin >> n;\n        total += n;\n    }\n\n    cout << \"Total: \" << total << endl;\n    cout << \"Average: \" << static_cast<double>(total) / count << endl;\n    return 0;\n}",
+      "caption": "Sample run: type 2, then 7 and 8. It prints `Total: 15` and `Average: 7.5`. The same lines handle 3 numbers or 3000. `static_cast<double>` stops whole-number division turning 7.5 into 7."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "10",
+        "0",
+        "24",
+        "4"
+      ],
+      "answer": 2,
+      "explain": "`product` starts at 1, then becomes 1, 2, 6 and 24. That is 1 x 2 x 3 x 4.",
+      "code": "int product = 1;\nfor (int i = 1; i <= 4; i++) {\n    product *= i;\n}\ncout << product << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Two Easy Mistakes"
+    },
+    {
+      "type": "paragraph",
+      "value": "Most loop bugs are **off-by-one**: the loop runs one time too many or one too few. It usually comes down to `<` against `<=`."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "i <= 5",
+          "tone": "neutral",
+          "code": "for (int i = 1; i <= 5; i++) {\n    cout << i << \" \";\n}",
+          "text": "Prints `1 2 3 4 5`. Five turns."
+        },
+        {
+          "title": "i < 5",
+          "tone": "neutral",
+          "code": "for (int i = 1; i < 5; i++) {\n    cout << i << \" \";\n}",
+          "text": "Prints `1 2 3 4`. Four turns."
+        }
+      ],
+      "title": "<= vs <",
+      "caption": "`for (int i = 0; i < 5; i++)` also runs five times, it just counts 0 to 4. When a loop gives one result too few, look here first."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // The bug: a semicolon right after the brackets.\n    for (int i = 1; i <= 3; i++);\n    {\n        cout << \"This prints once, not three times.\" << endl;\n    }\n    return 0;\n}",
+      "output": [
+        "This prints once, not three times."
+      ],
+      "caption": "A `;` right after the brackets gives the loop an empty body, the same trap you met with `if`. The loop spins doing nothing, then the block below runs once."
+    },
+    {
+      "type": "tip",
+      "value": "`i` belongs to the loop. After the closing brace, using it is a compile error: `'i' was not declared in this scope`. To keep the counter, declare `int i;` above the loop and write `for (i = 1; i <= 5; i++)`.",
+      "title": "The counter disappears"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Which times table? \";\n    int n;\n    cin >> n;\n\n    for (int i = 1; i <= 10; i++) {\n        cout << n << \" x \" << i << \" = \" << n * i << endl;\n    }\n\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Print the numbers 1 to 20, one per line, using a for loop.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Print all the even numbers from 2 to 20 on a single line, separated by spaces. Change only the update part of the loop.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 2; i <= 20; i++) {\n        cout << i << \" \";\n    }\n    cout << endl;\n\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Ask for a number n and print the sum of all the numbers from 1 to n. For 5 the answer is 15.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"n? \";\n    int n;\n    cin >> n;\n\n    return 0;\n}"
+    },
+    {
+      "id": 4,
+      "question": "This countdown prints nothing. Fix the loop so it counts from 10 down to 1.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 10; i <= 1; i++) {\n        cout << i << \" \";\n    }\n    cout << endl;\n\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What are the three parts inside `for (int i = 1; i <= 5; i++)`, in order?",
+      "options": [
+        "The start value, the update, and the condition",
+        "The start value, the condition to keep going, and the update after each turn",
+        "The condition, the start value, and the end value"
+      ],
+      "answer": 1,
+      "explain": "Start, condition, update. C++ runs the start once, then tests the condition before every turn and runs the update after every turn."
+    },
+    {
+      "question": "How many times does the block in `for (int i = 0; i < 4; i++)` run?",
+      "options": [
+        "3",
+        "5",
+        "4"
+      ],
+      "answer": 2,
+      "explain": "It runs with i as 0, 1, 2 and 3, which is four turns. Starting at 0 with `<` is the same count as starting at 1 with `<=`."
+    },
+    {
+      "question": "Why must an accumulator like `int total = 0;` be declared before the loop?",
+      "options": [
+        "So it survives the loop, instead of being created fresh on every turn",
+        "Because C++ does not allow new variables inside a loop",
+        "So the loop runs faster"
+      ],
+      "answer": 0,
+      "explain": "A variable declared inside the block is created and destroyed on every turn, so it could never build up a total, and it would not exist after the loop either."
+    },
+    {
+      "question": "What does `for (int i = 1; i <= 3; i++);` followed by a block print, if that block has one `cout` in it?",
+      "options": [
+        "The line three times",
+        "The line once, because the semicolon gave the loop an empty body",
+        "Nothing at all"
+      ],
+      "answer": 1,
+      "explain": "The semicolon ends the loop immediately, so it repeats nothing. The block below is then an ordinary block and runs once."
+    },
+    {
+      "question": "Where does `i` exist in a `for (int i = ...)` loop?",
+      "options": [
+        "Everywhere in main",
+        "Everywhere in the file",
+        "Only inside the loop: using it afterwards is a compile error"
+      ],
+      "answer": 2,
+      "explain": "Declaring the counter in the brackets keeps it local to the loop. Declare it on the line above if you need its final value later."
+    }
+  ]
+}

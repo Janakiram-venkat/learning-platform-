@@ -1,15 +1,16 @@
 /**
- * Course text with `backticked` words rendered as inline code.
+ * Course text with `backticked` words rendered as inline code and **double
+ * starred** words rendered bold.
  *
  * The lesson JSON has always been written with Markdown style backticks around
  * things like `def` and `.append()`, but the renderer printed the backticks
  * literally, so every one of them read as a typo. This is deliberately not a
- * Markdown parser: one rule, applied to a course-wide convention that already
- * exists.
+ * Markdown parser: two rules, applied to course-wide conventions. Backticks
+ * win, so `2 ** 3` inside code is never mistaken for bold.
  */
 export default function RichText({ value, className }) {
   const text = String(value ?? '');
-  if (!text.includes('`')) return <span className={className}>{text}</span>;
+  if (!text.includes('`') && !text.includes('**')) return <span className={className}>{text}</span>;
 
   // Odd-numbered pieces sit between a pair of backticks. A trailing unpaired
   // backtick therefore stays plain text rather than swallowing the rest.
@@ -27,8 +28,23 @@ export default function RichText({ value, className }) {
             {part}
           </code>
         ) : (
-          <span key={i}>{part}</span>
+          <Bold key={i} text={part} />
         ),
+      )}
+    </span>
+  );
+}
+
+function Bold({ text }) {
+  if (!text.includes('**')) return <span>{text}</span>;
+  const parts = text.split('**');
+  const paired = parts.length % 2 === 1;
+  return (
+    <span>
+      {parts.map((part, i) =>
+        paired && i % 2 === 1
+          ? <strong key={i} className="font-extrabold text-ink">{part}</strong>
+          : <span key={i}>{part}</span>,
       )}
     </span>
   );

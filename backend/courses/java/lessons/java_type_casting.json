@@ -1,0 +1,311 @@
+{
+  "lessonId": "java_type_casting",
+  "title": "Type Casting",
+  "description": "Moving a value from one type to another, and the whole-number division trap.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Widening and Narrowing"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Widening: automatic",
+          "tone": "good",
+          "code": "int whole = 7;\ndouble d = whole;   // 7.0",
+          "text": "Every whole number is also a decimal. Nothing can be lost."
+        },
+        {
+          "title": "Narrowing: needs a cast",
+          "tone": "bad",
+          "code": "double price = 7.9;\nint n = price;      // error",
+          "text": "An `int` cannot hold .9, so Java stops: `possible lossy conversion`."
+        }
+      ],
+      "title": "Two directions"
+    },
+    {
+      "type": "paragraph",
+      "value": "To narrow anyway, write a **cast**: the target type in round brackets before the value. It tells Java: I know, do it anyway."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int whole = 7;\n        double decimal = whole;        // widening: automatic\n        double price = 7.9;\n        int chopped = (int) price;     // narrowing: a cast\n\n        System.out.println(decimal);\n        System.out.println(chopped);\n    }\n}",
+      "output": [
+        "7.0",
+        "7"
+      ],
+      "caption": "7.9 became 7, not 8. A cast to `int` cuts off the decimal part. Real rounding uses `Math.round`, in Module 6."
+    },
+    {
+      "type": "check",
+      "question": "What is `(int) -2.7`?",
+      "options": [
+        "-3",
+        "-2.7",
+        "An error",
+        "-2"
+      ],
+      "answer": 3,
+      "explain": "A cast to `int` throws the decimal part away. It never rounds, so -2.7 becomes -2."
+    },
+    {
+      "type": "heading",
+      "value": "The Whole-Number Division Trap"
+    },
+    {
+      "type": "paragraph",
+      "value": "When both sides of `/` are `int`, Java does whole-number division: it throws the remainder away straight away."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int correct = 7;\n        int total = 2;\n        System.out.println(correct / total);\n        System.out.println(7.0 / 2);\n        double broken = correct / total;\n        double fixed = (double) correct / total;\n        System.out.println(\"broken: \" + broken);\n        System.out.println(\"fixed:  \" + fixed);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Two `int` boxes.",
+          "vars": {
+            "correct": "7"
+          }
+        },
+        {
+          "line": 4,
+          "vars": {
+            "total": "2"
+          },
+          "note": "Both sides of the coming division are `int`."
+        },
+        {
+          "line": 5,
+          "note": "`int / int`: the 0.5 never exists.",
+          "out": [
+            "3"
+          ]
+        },
+        {
+          "line": 6,
+          "note": "One side is a `double`, so the answer keeps its fraction.",
+          "out": [
+            "3.5"
+          ]
+        },
+        {
+          "line": 7,
+          "note": "Not a fix: `7 / 2` is worked out as 3 first, then widened to 3.0.",
+          "vars": {
+            "broken": "3.0"
+          }
+        },
+        {
+          "line": 8,
+          "note": "The cast turns 7 into 7.0 before dividing. Fixed in time.",
+          "vars": {
+            "fixed": "3.5"
+          }
+        },
+        {
+          "line": 9,
+          "out": [
+            "broken: 3.0"
+          ],
+          "note": "The type on the left could not repair it."
+        },
+        {
+          "line": 10,
+          "out": [
+            "fixed:  3.5"
+          ],
+          "note": "Casting one side gives the real answer."
+        }
+      ],
+      "title": "Where the 0.5 goes"
+    },
+    {
+      "type": "tip",
+      "value": "Percentages bite hardest. `correct * 100 / total` loses the fraction. `correct * 100.0 / total` keeps it.",
+      "title": "Percentages"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "4.5",
+        "5",
+        "4",
+        "4.0"
+      ],
+      "answer": 2,
+      "explain": "Both numbers are `int`, so Java divides in whole numbers and drops the .5.",
+      "code": "System.out.println(9 / 2);"
+    },
+    {
+      "type": "heading",
+      "value": "char and int"
+    },
+    {
+      "type": "paragraph",
+      "value": "A `char` is stored as a number code. `'A'` is 65. So a `char` widens into an `int`, and an `int` casts back to a `char`."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        char letter = 'A';\n        int code = letter;              // widening: a char fits in an int\n        int next = code + 1;\n        char nextLetter = (char) next;  // narrowing: needs a cast\n\n        System.out.println(letter + \" has code \" + code);\n        System.out.println(\"The next letter is \" + nextLetter);\n    }\n}",
+      "output": [
+        "A has code 65",
+        "The next letter is B"
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "letter",
+          "value": "'A'",
+          "type": "str"
+        },
+        {
+          "name": "code",
+          "value": "65",
+          "type": "int"
+        },
+        {
+          "name": "nextLetter",
+          "value": "'B'",
+          "type": "str"
+        }
+      ],
+      "title": "Same letter, two views",
+      "caption": "Adding two chars adds their codes: `'A' + 'B'` is 131. Join them as text with `\"\" + 'A' + 'B'`."
+    },
+    {
+      "type": "heading",
+      "value": "What You Cannot Cast"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Cast: error",
+          "tone": "bad",
+          "code": "String text = \"42\";\nint n = (int) text;",
+          "text": "`String` is not related to the number types. Text is still text."
+        },
+        {
+          "title": "Parse: works",
+          "tone": "good",
+          "code": "String text = \"42\";\nint n = Integer.parseInt(text);",
+          "text": "**Parsing** reads the characters and works out the number."
+        }
+      ],
+      "title": "Text that spells a number"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        String text = \"42\";\n        int number = Integer.parseInt(text);\n\n        System.out.println(number + 8);\n    }\n}",
+      "output": [
+        "50"
+      ],
+      "caption": "`number` really is an `int`, so `+ 8` adds: 50, not 428. Module 3 parses every number a person types."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "51",
+        "5",
+        "6",
+        "An error"
+      ],
+      "answer": 2,
+      "explain": "`Integer.parseInt` turns the text into the number 5, so `+ 1` is real addition.",
+      "code": "String s = \"5\";\nint n = Integer.parseInt(s);\nSystem.out.println(n + 1);"
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        int correct = 7;\n        int total = 2;\n\n        System.out.println(correct / total);\n        System.out.println((double) correct / total);\n        System.out.println((int) 7.9);\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Store 9.7 in a `double`, then print both the original and the value cast to an `int`. Check that it chops rather than rounds.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "A student scored 17 out of 20. Both are `int`. Print the percentage as a `double`, so it reads 85.0 and not 85 or 0.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int correct = 17;\n        int total = 20;\n\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "This program prints 3.0 when it should print 3.3333333333333335. Fix it with one cast.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int a = 10;\n        int b = 3;\n        double answer = a / b;\n\n        System.out.println(answer);\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Why does `double d = 7;` compile without a cast?",
+      "options": [
+        "It is widening: an int fits inside a double, so nothing can be lost.",
+        "Java ignores types when the number is small.",
+        "It does not compile."
+      ],
+      "answer": 0,
+      "explain": "Every whole number is a valid decimal number, so the move is safe and Java does it automatically. It stores 7.0."
+    },
+    {
+      "question": "What does `(int) 7.9` give?",
+      "options": [
+        "7, because a cast chops the decimal part off",
+        "8, because it rounds to the nearest whole number",
+        "7.9, because the cast changes nothing"
+      ],
+      "answer": 0,
+      "explain": "Casting to `int` throws the fractional part away rather than rounding. For rounding you need `Math.round`, which comes in Module 6."
+    },
+    {
+      "question": "What does `System.out.println(7 / 2);` print?",
+      "options": [
+        "3",
+        "3.5",
+        "4"
+      ],
+      "answer": 0,
+      "explain": "Both values are `int`, so Java does whole-number division and drops the remainder. Making either side a `double` gives 3.5."
+    },
+    {
+      "question": "Does `double answer = 7 / 2;` fix that problem?",
+      "options": [
+        "No: the division happens first as ints, so it stores 3.0.",
+        "Yes: the type on the left makes it a decimal division.",
+        "No: it does not compile at all."
+      ],
+      "answer": 0,
+      "explain": "The right hand side is worked out before anything is stored, so 3 is produced and then widened to 3.0. Cast one side of the division instead."
+    },
+    {
+      "question": "How do you turn the text `\"42\"` into the number 42?",
+      "options": [
+        "Integer.parseInt(\"42\")",
+        "(int) \"42\"",
+        "You cannot: text can never become a number."
+      ],
+      "answer": 0,
+      "explain": "A cast only works between related types, and `String` is not a number type. Parsing reads the characters and works out the value they spell."
+    },
+    {
+      "question": "What is `(char) 66` if `'A'` has code 65?",
+      "options": [
+        "'B'",
+        "66",
+        "'66'"
+      ],
+      "answer": 0,
+      "explain": "Characters are stored as codes, so the code one after `'A'` is `'B'`. Casting an `int` to a `char` looks up the character with that code."
+    }
+  ]
+}

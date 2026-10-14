@@ -9,72 +9,234 @@
       "value": "Why Functions Exist"
     },
     {
-      "type": "paragraph",
-      "value": "Imagine your program cheers for three different teams. Without functions you would write the same two print lines three times over. If you later wanted to change the wording, you would have to find and fix every copy, and miss one."
+      "type": "points",
+      "items": [
+        "Some programs need the same steps again and again.",
+        "Copying the lines works, but it gets long fast.",
+        "Want to change the wording? You must fix **every** copy, and it's easy to miss one."
+      ],
+      "title": "The copy-paste problem"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "print(\"Go!\")\nprint(\"Team!\")\n\nprint(\"Go!\")\nprint(\"Team!\")\n\nprint(\"Go!\")\nprint(\"Team!\")"
+      "value": "print(\"Go!\")\nprint(\"Team!\")\n\nprint(\"Go!\")\nprint(\"Team!\")\n\nprint(\"Go!\")\nprint(\"Team!\")",
+      "output": [
+        "Go!",
+        "Team!",
+        "Go!",
+        "Team!",
+        "Go!",
+        "Team!"
+      ],
+      "caption": "Cheering for three teams without functions: the same two lines, three times."
     },
     {
-      "type": "paragraph",
-      "value": "A function is a group of steps with a name. You write the steps once, give them a name, and from then on you just use the name. It is the same idea as a recipe: the instructions live in one place, and you follow them whenever you need them."
+      "type": "analogy",
+      "emoji": "🧑‍🍳",
+      "real": "A recipe card",
+      "concept": "A function",
+      "code": "def cheer():\n    print(\"Go!\")\n    print(\"Team!\")",
+      "text": "A recipe keeps its steps in one place, under one name. You follow it whenever you need it. A **function** is a group of steps with a name: write the steps once, then just use the name."
+    },
+    {
+      "type": "check",
+      "question": "What is the main reason to use a function?",
+      "options": [
+        "To make a program run faster",
+        "To store one number",
+        "To repeat a line forever",
+        "Write steps once, then reuse them by name"
+      ],
+      "answer": 3,
+      "explain": "A function keeps a group of steps in one place under one name. You reuse the name instead of copying the lines, and a change only needs one edit."
     },
     {
       "type": "heading",
       "value": "Writing Your Own"
     },
     {
-      "type": "paragraph",
-      "value": "You create a function with the keyword `def`, which is short for define. After `def` comes the function's name, a pair of parentheses, and a colon. The steps go underneath, indented, exactly like the body of a loop."
+      "type": "points",
+      "items": [
+        "Start with the keyword `def`, short for **define**.",
+        "Then the function's name, a pair of parentheses `()` and a colon `:`.",
+        "The steps go underneath, **indented**, just like the body of a loop."
+      ],
+      "title": "Making a function"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "def",
+          "label": "keyword",
+          "note": "Short for define. It tells Python: a new function starts here."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "cheer",
+          "label": "name",
+          "note": "The name you choose. You will use it later to run the steps."
+        },
+        {
+          "code": "()",
+          "label": "parentheses",
+          "note": "Every function has them, even when they are empty."
+        },
+        {
+          "code": ":",
+          "label": "colon",
+          "note": "Says: the indented body comes next."
+        }
+      ],
+      "title": "Anatomy of a def line"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "def cheer():\n    print(\"Go!\")\n    print(\"Team!\")"
+      "value": "def cheer():\n    print(\"Go!\")\n    print(\"Team!\")",
+      "caption": "This prints nothing yet. The next section shows why."
     },
     {
-      "type": "tip",
-      "value": "Function names follow the same rules as variable names: lowercase, words joined by underscores, and no spaces. A name that says what the function does, like `cheer` or `show_score`, saves you reading the body later."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Good names",
+          "tone": "good",
+          "code": "def cheer():\n    print(\"Go!\")\n\ndef show_score():\n    print(100)",
+          "text": "Lowercase, words joined by underscores. The name says what it does."
+        },
+        {
+          "title": "Not allowed",
+          "tone": "bad",
+          "code": "def show score():\ndef 2cheer():",
+          "text": "Same rules as variable names: no spaces, no starting with a digit."
+        }
+      ],
+      "title": "Naming a function",
+      "caption": "A name that says what the function does, like `cheer` or `show_score`, saves you reading the body later."
+    },
+    {
+      "type": "check",
+      "question": "Which line correctly starts a function named `wave`?",
+      "options": [
+        "def wave:",
+        "wave():",
+        "def wave():",
+        "define wave():"
+      ],
+      "answer": 2,
+      "explain": "You need `def`, the name, parentheses and a colon: `def wave():`."
     },
     {
       "type": "heading",
       "value": "Defining Is Not Running"
     },
     {
-      "type": "paragraph",
-      "value": "This is the part that surprises everyone. Running a `def` line does not run the steps inside it. It only teaches Python what the name means, and Python puts it aside for later. To actually run the steps you have to call the function: write its name followed by parentheses."
+      "type": "points",
+      "items": [
+        "A `def` line does **not** run the steps inside it.",
+        "It only teaches Python what the name means. Python puts it aside for later.",
+        "To run the steps, **call** the function: write its name followed by `()`.",
+        "When the body runs out, Python jumps back to exactly where it left off."
+      ],
+      "title": "The surprise"
     },
     {
-      "type": "code",
-      "language": "python",
-      "value": "def cheer():\n    print(\"Go!\")\n    print(\"Team!\")\n\nprint(\"Start\")\ncheer()\nprint(\"End\")"
-    },
-    {
       "type": "paragraph",
-      "value": "Step through the tracer below to watch the order Python really uses. The definition lights up once and prints nothing. The call is what jumps into the body, and when the body runs out, Python comes back to exactly where it left off."
+      "value": "The tracer below shows the same thing on its own code. Step through it and watch where Python goes."
     },
     {
       "type": "widget",
       "kind": "call-tracer"
     },
     {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "Start, Go!, Team!, End",
+        "Go! then Team!",
+        "Start then End",
+        "Nothing at all"
+      ],
+      "answer": 2,
+      "explain": "The function is defined but never called, so its body never runs. Only the two outside prints happen.",
+      "code": "def cheer():\n    print(\"Go!\")\n    print(\"Team!\")\n\nprint(\"Start\")\nprint(\"End\")"
+    },
+    {
       "type": "heading",
       "value": "Calling It Again and Again"
     },
     {
-      "type": "paragraph",
-      "value": "Once a function is defined you can call it as many times as you like, and every call runs the whole body again. That is where the saving comes in: three cheers now cost one definition and three short lines, and changing the wording means editing one place."
+      "type": "points",
+      "items": [
+        {
+          "icon": "📝",
+          "text": "Define once",
+          "sub": "The steps live in one place."
+        },
+        {
+          "icon": "🔁",
+          "text": "Call many times",
+          "sub": "Every call runs the whole body again."
+        },
+        {
+          "icon": "✏️",
+          "text": "Change once",
+          "sub": "Edit the body, and every call uses the new version."
+        }
+      ],
+      "title": "Where the saving comes in"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "def cheer():\n    print(\"Go!\")\n    print(\"Team!\")\n\ncheer()\ncheer()\ncheer()"
+      "value": "def cheer():\n    print(\"Go!\")\n    print(\"Team!\")\n\ncheer()\ncheer()\ncheer()",
+      "output": [
+        "Go!",
+        "Team!",
+        "Go!",
+        "Team!",
+        "Go!",
+        "Team!"
+      ],
+      "caption": "Same output as the copy-paste version: one definition and three short calls."
     },
     {
-      "type": "tip",
-      "value": "Define a function before you call it. Python reads your file from top to bottom, so a call written above the `def` fails with a NameError: at that moment the name does not exist yet."
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Works",
+          "tone": "good",
+          "code": "def cheer():\n    print(\"Go!\")\n\ncheer()",
+          "text": "The `def` comes first, so Python knows the name when the call arrives."
+        },
+        {
+          "title": "NameError",
+          "tone": "bad",
+          "code": "cheer()\n\ndef cheer():\n    print(\"Go!\")",
+          "text": "Python reads top to bottom. At the call, the name `cheer` does not exist yet."
+        }
+      ],
+      "title": "Order matters"
+    },
+    {
+      "type": "check",
+      "question": "How many lines does this print?",
+      "options": [
+        "2",
+        "1",
+        "0",
+        "4"
+      ],
+      "answer": 3,
+      "explain": "Each call runs the whole two-line body. Two calls, two lines each, makes 4.",
+      "code": "def hi():\n    print(\"Hi\")\n    print(\"there\")\n\nhi()\nhi()"
     }
   ],
   "editorCode": "def greet():\n    print(\"Welcome!\")\n    print(\"Let's write some code!\")\n\ngreet()\ngreet()",

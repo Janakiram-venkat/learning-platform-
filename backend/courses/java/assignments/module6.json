@@ -1,0 +1,189 @@
+{
+  "moduleId": 6,
+  "title": "Methods Checkpoint",
+  "intro": "You can split a program into named pieces now: methods, parameters, returns, overloads and scope. Thirteen rounds, one from every idea in this module. First-try answers earn three stars!",
+  "emoji": "☕",
+  "rounds": [
+    {
+      "type": "concept",
+      "prompt": "Where must your own methods be written?",
+      "options": [
+        "Inside the class, beside main but not inside it",
+        "Inside main, above the code that calls them",
+        "Outside the class, below the closing brace",
+        "In a separate file, always"
+      ],
+      "answer": 0,
+      "explain": "Methods are siblings of `main`. One written inside `main` gives `illegal start of expression`."
+    },
+    {
+      "type": "predict",
+      "prompt": "In what order do these four lines appear?",
+      "code": "public static void main(String[] args) {\n    System.out.println(\"A\");\n    step();\n    System.out.println(\"D\");\n}\n\nstatic void step() {\n    System.out.println(\"B\");\n    System.out.println(\"C\");\n}",
+      "options": [
+        "A B C D",
+        "A D B C",
+        "B C A D",
+        "A B D C"
+      ],
+      "answer": 0,
+      "explain": "A call is a detour: Java runs the whole method, then comes back to the line right after the call."
+    },
+    {
+      "type": "bug",
+      "prompt": "This line will not compile. What is wrong with it?",
+      "code": "printBanner;",
+      "options": [
+        "The round brackets are missing, so it is not a call",
+        "It needs the word static in front",
+        "A method name cannot start with a lower-case letter",
+        "Nothing: it is correct"
+      ],
+      "answer": 0,
+      "explain": "The error is `not a statement`. The brackets are what make a call, even when there is nothing to put in them."
+    },
+    {
+      "type": "concept",
+      "prompt": "What is the difference between a parameter and an argument?",
+      "options": [
+        "The parameter is the slot declared in the method, the argument is the value passed in",
+        "An argument has a type, a parameter does not",
+        "They are two words for the same thing",
+        "Parameters are for numbers, arguments are for text"
+      ],
+      "answer": 0,
+      "explain": "`static void printStars(int count)` declares the parameter. `printStars(7)` supplies the argument."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "int score = 50;\n\naddTen(score);\n\nSystem.out.println(score);\n\n// elsewhere in the class\nstatic void addTen(int number) {\n    number = number + 10;\n}",
+      "options": [
+        "50",
+        "60",
+        "10",
+        "Nothing"
+      ],
+      "answer": 0,
+      "explain": "The method worked on a copy. Changing a parameter never touches the caller's variable, which is why a method that works something out must return it."
+    },
+    {
+      "type": "concept",
+      "prompt": "How do you give a method an optional argument in Java?",
+      "options": [
+        "You cannot: write a shorter overload that fills in the default and calls the longer one",
+        "Write `int count = 3` in the parameter list",
+        "Pass null and check for it inside",
+        "Mark the parameter as final"
+      ],
+      "answer": 0,
+      "explain": "Java has no default parameter values. Only the long overload should hold the real logic."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this method hand back for grade(62)?",
+      "code": "static String grade(int marks) {\n    if (marks >= 90) {\n        return \"A\";\n    }\n\n    if (marks >= 40) {\n        return \"Pass\";\n    }\n\n    return \"Fail\";\n}",
+      "options": [
+        "Pass",
+        "A",
+        "Fail",
+        "Pass then Fail"
+      ],
+      "answer": 0,
+      "explain": "The first `return` reached ends the method at once, so nothing below it runs. That is why early returns need no `else`."
+    },
+    {
+      "type": "bug",
+      "prompt": "javac says `missing return statement`. Why?",
+      "code": "static String category(int age) {\n    if (age < 13) {\n        return \"Child\";\n    } else if (age < 60) {\n        return \"Adult\";\n    }\n}",
+      "options": [
+        "An age of 60 or more reaches the end of the method with nothing returned",
+        "String is not allowed as a return type",
+        "There are two returns in one method",
+        "The chain needs a switch instead"
+      ],
+      "answer": 0,
+      "explain": "Java insists every possible route out of the method hands back a value. Add a final `else` or a `return` after the chain."
+    },
+    {
+      "type": "bug",
+      "prompt": "What is the tidier way to write this?",
+      "code": "static boolean isEven(int n) {\n    if (n % 2 == 0) {\n        return true;\n    } else {\n        return false;\n    }\n}",
+      "options": [
+        "`return n % 2 == 0;`",
+        "`return n % 2;`",
+        "`if (n % 2 == 0) return;`",
+        "It is already as short as it can be"
+      ],
+      "answer": 0,
+      "explain": "The comparison is already true or false, so it can be returned directly. Four lines become one."
+    },
+    {
+      "type": "predict",
+      "prompt": "Given `int half(int n)` and `double half(double n)`, both returning n / 2, what does `half(9)` give?",
+      "code": "System.out.println(half(9));\nSystem.out.println(half(9.0));",
+      "options": [
+        "4 then 4.5",
+        "4.5 then 4.5",
+        "4 then 4",
+        "It does not compile: the call is ambiguous"
+      ],
+      "answer": 0,
+      "explain": "The type you write picks the overload. 9 is an int, so whole-number division chops the half off; 9.0 goes to the double version."
+    },
+    {
+      "type": "predict",
+      "prompt": "This method is called three times in a row. What does it print?",
+      "code": "static void countVisit() {\n    int visits = 0;\n    visits++;\n    System.out.println(\"Visits: \" + visits);\n}",
+      "options": [
+        "Visits: 1 three times",
+        "Visits: 1, Visits: 2, Visits: 3",
+        "Visits: 0 three times",
+        "It does not compile"
+      ],
+      "answer": 0,
+      "explain": "A local variable is created fresh on every call and destroyed when the method ends, so it cannot remember anything between calls."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each piece of method vocabulary to what it means.",
+      "pairs": [
+        {
+          "left": "void",
+          "right": "Hands nothing back to the caller"
+        },
+        {
+          "left": "parameter",
+          "right": "A variable that receives a value from the call"
+        },
+        {
+          "left": "return",
+          "right": "Hands a value back and ends the method"
+        },
+        {
+          "left": "signature",
+          "right": "The name plus the parameter list"
+        },
+        {
+          "left": "overloading",
+          "right": "One name, several parameter lists"
+        },
+        {
+          "left": "scope",
+          "right": "The region where a variable exists"
+        }
+      ],
+      "explain": "Six words that describe the whole module. Being able to name these makes every Java error message easier to read."
+    },
+    {
+      "type": "order",
+      "prompt": "Write a method that returns true only when a score is a valid 0 to 100, and use it.",
+      "solution": [
+        "static boolean isValid(int score) {",
+        "    return score >= 0 && score <= 100;",
+        "}"
+      ],
+      "explain": "A boolean method named as a question. `&&` combines the two halves of the range, and the comparison is returned directly rather than wrapped in an if."
+    }
+  ]
+}

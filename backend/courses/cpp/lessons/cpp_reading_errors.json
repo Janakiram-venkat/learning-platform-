@@ -1,0 +1,352 @@
+{
+  "lessonId": "cpp_reading_errors",
+  "title": "Reading Compiler Errors",
+  "description": "What an IDE does for you, and how to read a g++ error message instead of fearing it.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "What an IDE Gives You"
+    },
+    {
+      "type": "paragraph",
+      "value": "An **IDE** (Integrated Development Environment) is an editor built for programming. Visual Studio, CLion and VS Code are popular for C++."
+    },
+    {
+      "type": "analogy",
+      "emoji": "🧑‍🔧",
+      "real": "A workshop with every tool on the wall",
+      "concept": "An IDE",
+      "text": "You could write C++ in any plain text editor and compile by typing commands. An IDE does the boring parts for you, so mistakes are cheaper to find."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🎨",
+          "text": "Colours your code",
+          "sub": "Text, numbers and keywords look different."
+        },
+        {
+          "icon": "🚩",
+          "text": "Flags problems early",
+          "sub": "A missing brace is highlighted before you compile."
+        },
+        {
+          "icon": "💡",
+          "text": "Suggests names as you type",
+          "sub": "Type `co` and it offers `cout`."
+        },
+        {
+          "icon": "▶️",
+          "text": "Compiles and runs in one step",
+          "sub": "Here, Run or Ctrl+Enter does both."
+        }
+      ],
+      "title": "What it does"
+    },
+    {
+      "type": "paragraph",
+      "value": "The editor beside this lesson is a small IDE. It still can't stop every mistake, so reading error messages is the skill that matters."
+    },
+    {
+      "type": "heading",
+      "value": "Compile Errors"
+    },
+    {
+      "type": "paragraph",
+      "value": "A **compile error** means `g++` refused to build your code, so nothing ran at all. Read the message in order: where, then what."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "main.cpp",
+          "label": "file",
+          "note": "Which file has the problem."
+        },
+        {
+          "code": ":"
+        },
+        {
+          "code": "5",
+          "label": "line",
+          "note": "Go to this line number first."
+        },
+        {
+          "code": ":"
+        },
+        {
+          "code": "25",
+          "label": "column",
+          "note": "How many characters along the line."
+        },
+        {
+          "code": ": error: "
+        },
+        {
+          "code": "expected ';'",
+          "label": "what",
+          "note": "What C++ wanted to find."
+        }
+      ],
+      "title": "Reading the message",
+      "caption": "Below it, `g++` repeats your line and a `^` points at the exact spot."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Compile error",
+          "tone": "bad",
+          "code": "cout << \"Hi\" << endl\nreturn 0;",
+          "text": "`error: expected ';' before 'return'`"
+        },
+        {
+          "title": "Fixed",
+          "tone": "good",
+          "code": "cout << \"Hi\" << endl;\nreturn 0;",
+          "text": "Add the `;` and it compiles and runs."
+        }
+      ],
+      "title": "Broken vs fixed",
+      "caption": "A missing `;` is reported at the start of the next line, so look at the end of the line just above."
+    },
+    {
+      "type": "check",
+      "question": "You see `main.cpp:7:12: error: ...`. Which line do you look at first?",
+      "options": [
+        "Line 12",
+        "Line 1",
+        "The last line of the file",
+        "Line 7"
+      ],
+      "answer": 3,
+      "explain": "After the file name comes the line (7), then the column (12). Go to line 7, then read what C++ expected."
+    },
+    {
+      "type": "heading",
+      "value": "The Usual Suspects"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "1️⃣",
+          "text": "`expected ';'`",
+          "sub": "A semicolon is missing, usually at the end of the line above."
+        },
+        {
+          "icon": "2️⃣",
+          "text": "`was not declared in this scope`",
+          "sub": "C++ doesn't know a name: usually a typo or a missing `#include`."
+        },
+        {
+          "icon": "3️⃣",
+          "text": "`expected '}' at end of input`",
+          "sub": "A closing brace is missing."
+        }
+      ],
+      "title": "Three errors cover most of a beginner's week"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Unknown name",
+          "tone": "bad",
+          "code": "cot << \"Hi\" << endl;",
+          "text": "`'cot' was not declared in this scope`"
+        },
+        {
+          "title": "Exact name",
+          "tone": "good",
+          "code": "cout << \"Hi\" << endl;",
+          "text": "C++ names must match letter for letter."
+        }
+      ],
+      "title": "was not declared in this scope"
+    },
+    {
+      "type": "tip",
+      "value": "Fix the **first** error, then compile again. One missing brace can cause a dozen complaints, and the later ones often vanish once the first is fixed.",
+      "title": "First things first"
+    },
+    {
+      "type": "heading",
+      "value": "Warnings and Runtime Errors"
+    },
+    {
+      "type": "paragraph",
+      "value": "A **warning** means `g++` built your program, but spotted something that looks like a mistake. Don't ignore warnings: in C++ they are often the bug you are about to hunt for an hour."
+    },
+    {
+      "type": "paragraph",
+      "value": "A **runtime error** is different: the code compiled, the program started, then something went wrong part way through."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Starting up.\" << endl;\n    // cout << 10 / 0 << endl;\n    cout << \"Still running.\" << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "This line works, so `Starting up.` prints.",
+          "out": [
+            "Starting up."
+          ]
+        },
+        {
+          "line": 6,
+          "note": "Dividing by zero has no answer. If this line ran, the program could stop right here, often with no helpful message. It is commented out so this version runs safely."
+        },
+        {
+          "line": 7,
+          "note": "With the bad line switched off, the program carries on.",
+          "out": [
+            "Still running."
+          ]
+        }
+      ],
+      "title": "Where did it stop?",
+      "outro": "C++ is not polite about runtime errors: you may only see `Segmentation fault`, or wrong values. The last line that printed is your clue: the problem is after it."
+    },
+    {
+      "type": "check",
+      "question": "Your program prints two lines, then stops. What kind of error is it?",
+      "options": [
+        "A runtime error",
+        "A compile error",
+        "A warning",
+        "Not an error"
+      ],
+      "answer": 0,
+      "explain": "If anything printed, the code compiled and started. It broke while running, so it is a runtime error."
+    },
+    {
+      "type": "heading",
+      "value": "A Habit Worth Building"
+    },
+    {
+      "type": "diagram",
+      "kind": "flow",
+      "steps": [
+        {
+          "icon": "🔢",
+          "label": "Find the line",
+          "detail": "go to the line number"
+        },
+        {
+          "icon": "🔎",
+          "label": "Read the end",
+          "detail": "what did C++ want?"
+        },
+        {
+          "icon": "✏️",
+          "label": "Change one thing",
+          "detail": "just one"
+        },
+        {
+          "icon": "▶️",
+          "label": "Run again",
+          "detail": "and read the result"
+        }
+      ],
+      "title": "When an error appears",
+      "caption": "Change one thing at a time. If you change four things and the error goes away, you learn nothing about which one mattered."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Run this as it is: it works.\n    // Then break it on purpose, one change at a time, and read each error:\n    //   1. delete the semicolon at the end of the cout line\n    //   2. put it back, then change cout to cot\n    //   3. put it back, then delete the last } in the file\n    cout << \"Break me, then read the message.\" << endl;\n    return 0;\n}",
+      "output": [
+        "Break me, then read the message."
+      ],
+      "caption": "Fast programmers aren't the ones who avoid errors. They read them properly the first time."
+    },
+    {
+      "type": "check",
+      "question": "You change four things at once and the error goes away. What is the problem?",
+      "options": [
+        "You don't know which change fixed it",
+        "Nothing, that is the fastest way",
+        "The program will no longer compile",
+        "C++ undoes your changes"
+      ],
+      "answer": 0,
+      "explain": "Change one thing, run, and read. That way you learn exactly what each error means."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Run this as it is: it works.\n    // Then break it on purpose, one change at a time, and read each error:\n    //   1. delete the semicolon at the end of the cout line\n    //   2. put it back, then change cout to cot\n    //   3. put it back, then delete the last } in the file\n    cout << \"Break me, then read the message.\" << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "This program has a missing semicolon. Run it first, read the error and note the line number, then fix it.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"One\" << endl;\n    cout << \"Two\" << endl\n    cout << \"Three\" << endl;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "This one has a misspelled name. Run it, find the `was not declared in this scope` message, and correct the spelling.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cuot << \"Nearly right.\" << endl;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "This one is missing a closing brace. Run it to see what C++ says about the end of the input, then add the brace back.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Where does this end?\" << endl;\n    return 0;\n"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What is a compile error?",
+      "options": [
+        "A mistake found before the program runs, so nothing runs.",
+        "A mistake that only happens on slow computers.",
+        "A mistake that appears halfway through running."
+      ],
+      "answer": 0,
+      "explain": "`g++` checks first. If it reports an error, no executable is produced and the program never starts."
+    },
+    {
+      "question": "g++ says `main.cpp:7:5: error: expected ';' before 'return'`. Where do you look?",
+      "options": [
+        "The first line of the file.",
+        "Anywhere: the line number is a rough guess.",
+        "Line 7, and the end of line 6 just above it."
+      ],
+      "answer": 2,
+      "explain": "The numbers are line 7, column 5. A missing semicolon is reported where the compiler noticed it, which is often the start of the next line, so check the line above too."
+    },
+    {
+      "question": "Your program prints two lines and then stops without finishing. What kind of error is it?",
+      "options": [
+        "A runtime error: it compiled and started, then broke.",
+        "A compile error: the code never compiled.",
+        "Both at once."
+      ],
+      "answer": 0,
+      "explain": "Output appearing proves the code compiled and started running. Anything that goes wrong after that is a runtime error."
+    },
+    {
+      "question": "You have fifteen errors after one small change. What is the best next step?",
+      "options": [
+        "Fix the last one, since it is the newest.",
+        "Fix the first one and compile again.",
+        "Undo everything you have written today."
+      ],
+      "answer": 1,
+      "explain": "Errors cascade: one missing brace confuses everything after it. Fixing the first often clears most of the rest."
+    },
+    {
+      "question": "What does an IDE do for you?",
+      "options": [
+        "Writes the program so you do not have to.",
+        "Makes errors impossible.",
+        "Colours code, spots mistakes early, suggests names, and runs your program."
+      ],
+      "answer": 2,
+      "explain": "An IDE shortens the loop between writing and finding out. The thinking, and the reading of error messages, is still yours."
+    }
+  ]
+}

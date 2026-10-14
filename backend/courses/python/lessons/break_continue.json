@@ -9,12 +9,31 @@
       "value": "Controlling a Loop"
     },
     {
-      "type": "paragraph",
-      "value": "Normally a loop runs every turn from start to finish. Two keywords let you change that. `break` stops the loop completely, and `continue` skips the rest of the current turn and moves on to the next one. Both are usually written inside an `if`, so they only happen in the case you care about."
+      "type": "points",
+      "items": [
+        {
+          "icon": "🛑",
+          "text": "`break`",
+          "sub": "Stops the loop completely."
+        },
+        {
+          "icon": "⏭️",
+          "text": "`continue`",
+          "sub": "Skips the rest of this turn and moves on to the next one."
+        }
+      ],
+      "title": "Normally a loop runs every turn. Two keywords change that."
+    },
+    {
+      "type": "analogy",
+      "emoji": "🛗",
+      "real": "A lift going up a building",
+      "concept": "break and continue",
+      "text": "`break` is getting out and leaving the building: no more floors. `continue` is skipping one floor: the lift still carries on to the top."
     },
     {
       "type": "paragraph",
-      "value": "The two are easy to mix up, so the widget below runs the same loop with each keyword. Switch between them and watch what changes in the trace."
+      "value": "Both usually sit inside an `if`, so they only happen in the case you care about. They are easy to mix up, so the widget below runs the same loop with each one. Switch between them and watch the trace change."
     },
     {
       "type": "widget",
@@ -25,42 +44,249 @@
       "mode": "break"
     },
     {
+      "type": "check",
+      "question": "Which keyword ends the whole loop right away?",
+      "options": [
+        "continue",
+        "break",
+        "if",
+        "range"
+      ],
+      "answer": 1,
+      "explain": "`break` leaves the loop entirely. `continue` only skips the rest of one turn."
+    },
+    {
       "type": "heading",
       "value": "break stops the loop"
     },
     {
-      "type": "paragraph",
-      "value": "As soon as Python reaches `break`, it leaves the loop entirely. The turns that were still to come never happen at all."
+      "type": "points",
+      "items": [
+        "As soon as Python reaches `break`, it leaves the loop entirely.",
+        "The turns that were still to come never happen at all."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "for n in range(1, 5):\n    if n == 3:\n        break\n    print(n)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Turn 1: `n` is `1`.",
+          "vars": {
+            "n": "1"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Is `1 == 3`? No, so skip the `break`."
+        },
+        {
+          "line": 4,
+          "note": "Print `n`.",
+          "out": [
+            "1"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "Turn 2: `n` is `2`.",
+          "vars": {
+            "n": "2"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Is `2 == 3`? No."
+        },
+        {
+          "line": 4,
+          "note": "Print `n`.",
+          "out": [
+            "2"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "Turn 3: `n` is `3`.",
+          "vars": {
+            "n": "3"
+          }
+        },
+        {
+          "line": 2,
+          "note": "Is `3 == 3`? Yes! Go inside the `if`."
+        },
+        {
+          "line": 3,
+          "note": "`break`: leave the loop now. `print(n)` is skipped, and turn 4 never happens."
+        }
+      ],
+      "title": "Watch break end the loop",
+      "outro": "Only 1 and 2 were printed. `n` never reached 4."
     },
     {
       "type": "code",
       "language": "python",
-      "value": "for cookie in range(1, 6):\n    if cookie == 4:\n        print(\"Stop! Something is wrong with cookie 4.\")\n        break\n    print(\"Eating cookie\", cookie)"
+      "value": "for cookie in range(1, 6):\n    if cookie == 4:\n        print(\"Stop! Something is wrong with cookie 4.\")\n        break\n    print(\"Eating cookie\", cookie)",
+      "output": [
+        "Eating cookie 1",
+        "Eating cookie 2",
+        "Eating cookie 3",
+        "Stop! Something is wrong with cookie 4."
+      ],
+      "caption": "Cookies 1, 2 and 3 get eaten. The break on cookie 4 stops the loop, so cookie 5 is never reached."
     },
     {
-      "type": "paragraph",
-      "value": "That loop eats cookies 1, 2 and 3, then hits the break on cookie 4 and stops. Cookie 5 is never reached."
+      "type": "check",
+      "question": "What is the last number this prints?",
+      "options": [
+        "3",
+        "5",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "explain": "When `n` is 3 the `break` runs before `print`, so the loop ends. The last number printed was 2.",
+      "code": "for n in range(1, 6):\n    if n == 3:\n        break\n    print(n)"
     },
     {
       "type": "heading",
       "value": "continue skips one turn"
     },
     {
-      "type": "paragraph",
-      "value": "`continue` does not stop the loop. It jumps straight to the next turn, skipping whatever was left in the current one. The loop still runs to the end, but one turn does less work than the others."
+      "type": "points",
+      "items": [
+        "`continue` does **not** stop the loop.",
+        "It jumps straight to the next turn, skipping whatever was left in this one.",
+        "The loop still runs to the end. One turn just does less work."
+      ]
+    },
+    {
+      "type": "stepper",
+      "code": "for n in range(1, 5):\n    if n == 3:\n        continue\n    print(n)",
+      "steps": [
+        {
+          "line": 1,
+          "note": "Turn 1: `n` is `1`.",
+          "vars": {
+            "n": "1"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`1 == 3` is `False`, so skip the `continue`."
+        },
+        {
+          "line": 4,
+          "note": "Print `n`.",
+          "out": [
+            "1"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "Turn 2: `n` is `2`.",
+          "vars": {
+            "n": "2"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`2 == 3` is `False`."
+        },
+        {
+          "line": 4,
+          "note": "Print `n`.",
+          "out": [
+            "2"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "Turn 3: `n` is `3`.",
+          "vars": {
+            "n": "3"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`3 == 3` is `True`. Go inside the `if`."
+        },
+        {
+          "line": 3,
+          "note": "`continue`: skip the rest of this turn. `print(n)` does not run for 3."
+        },
+        {
+          "line": 1,
+          "note": "The loop does NOT end. Turn 4: `n` is `4`.",
+          "vars": {
+            "n": "4"
+          }
+        },
+        {
+          "line": 2,
+          "note": "`4 == 3` is `False`."
+        },
+        {
+          "line": 4,
+          "note": "Print `n`.",
+          "out": [
+            "4"
+          ]
+        },
+        {
+          "line": 1,
+          "note": "`range(1, 5)` has no numbers left, so the loop ends normally."
+        }
+      ],
+      "title": "Watch continue skip a turn",
+      "outro": "1, 2 and 4 were printed. Only 3 was skipped."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "break",
+          "tone": "bad",
+          "code": "for n in range(1, 5):\n    if n == 3:\n        break\n    print(n)",
+          "text": "Prints `1` and `2`. The loop ends at 3."
+        },
+        {
+          "title": "continue",
+          "tone": "good",
+          "code": "for n in range(1, 5):\n    if n == 3:\n        continue\n    print(n)",
+          "text": "Prints `1`, `2` and `4`. Only 3 is skipped."
+        }
+      ],
+      "title": "Same loop, one word different"
     },
     {
       "type": "code",
       "language": "python",
-      "value": "for floor in range(1, 6):\n    if floor == 3:\n        print(\"Skipping floor 3\")\n        continue\n    print(\"Visiting floor\", floor)"
+      "value": "for floor in range(1, 6):\n    if floor == 3:\n        print(\"Skipping floor 3\")\n        continue\n    print(\"Visiting floor\", floor)",
+      "output": [
+        "Visiting floor 1",
+        "Visiting floor 2",
+        "Skipping floor 3",
+        "Visiting floor 4",
+        "Visiting floor 5"
+      ],
+      "caption": "Floors 1, 2, 4 and 5 are visited. Floor 3 is skipped, but the lift still carries on to the top."
     },
     {
-      "type": "paragraph",
-      "value": "That loop visits floors 1, 2, 4 and 5. Floor 3 is skipped, but the lift still carries on to the top."
-    },
-    {
-      "type": "tip",
-      "value": "A quick way to remember it: break leaves the building, continue skips a floor."
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "1",
+        "2",
+        "1, 3 (each on its own line)",
+        "1, 2, 3"
+      ],
+      "answer": 2,
+      "explain": "When `n` is 2, `continue` skips the `print` for that turn only. The loop carries on, so 1 and 3 are printed.",
+      "code": "for n in range(1, 4):\n    if n == 2:\n        continue\n    print(n)"
     }
   ],
   "editorCode": "for i in range(1, 6):\n    if i == 3:\n        break\n    print(i)",

@@ -1,0 +1,320 @@
+{
+  "lessonId": "java_variables",
+  "title": "Variables",
+  "description": "How to store a value under a name so your program can use it again later.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Labelled Box"
+    },
+    {
+      "type": "analogy",
+      "emoji": "📦",
+      "real": "A box with a label",
+      "concept": "A variable",
+      "code": "int score = 100;",
+      "text": "The label is the variable's name. The value sits inside. Write the name later and Java hands you back what is in the box."
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "int",
+          "label": "type",
+          "note": "The kind of value the box holds. `int` means a whole number. The type always comes first."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "score",
+          "label": "name",
+          "note": "The label you choose. You use it later to get the value back."
+        },
+        {
+          "code": " = ",
+          "label": "assign",
+          "note": "Puts the value on the right into the box named on the left."
+        },
+        {
+          "code": "100",
+          "label": "value",
+          "note": "What goes in the box."
+        },
+        {
+          "code": ";",
+          "label": "end",
+          "note": "Every Java statement ends with a semicolon."
+        }
+      ],
+      "title": "Anatomy of a variable",
+      "caption": "Read it left to right: make a box for a whole number, call it `score`, put 100 in it."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int score = 100;\n\n        System.out.println(score);\n        System.out.println(\"Score: \" + score);\n    }\n}",
+      "output": [
+        "100",
+        "Score: 100"
+      ],
+      "caption": "No quotes means the value in the box. Quotes mean the exact characters you typed."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "100",
+        "Score: 100",
+        "score",
+        "Nothing, it is an error"
+      ],
+      "answer": 2,
+      "explain": "The quotes make `\"score\"` plain text, so Java prints the word itself. Without quotes it would open the box and print 100.",
+      "code": "int score = 100;\nSystem.out.println(\"score\");"
+    },
+    {
+      "type": "heading",
+      "value": "Declaring and Assigning"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🆕",
+          "text": "**Declaring** creates the box: `int lives;`",
+          "sub": "The type is written here, once."
+        },
+        {
+          "icon": "📥",
+          "text": "**Assigning** puts a value in it: `lives = 3;`",
+          "sub": "After declaring, use the name alone."
+        },
+        {
+          "icon": "⚡",
+          "text": "Or do both on one line: `int coins = 0;`"
+        },
+        {
+          "icon": "🚫",
+          "text": "You cannot declare the same name twice.",
+          "sub": "A second `int lives = 3;` is an error."
+        }
+      ],
+      "title": "Two jobs"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "value": "public class Main {\n    public static void main(String[] args) {\n        int lives;          // declare: the box exists but is empty\n        lives = 3;          // assign: now it holds 3\n\n        int coins = 0;      // declare and assign together\n\n        System.out.println(\"Lives: \" + lives);\n        System.out.println(\"Coins: \" + coins);\n    }\n}",
+      "output": [
+        "Lives: 3",
+        "Coins: 0"
+      ]
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "lives",
+          "value": "3",
+          "type": "int"
+        },
+        {
+          "name": "coins",
+          "value": "0",
+          "type": "int"
+        }
+      ],
+      "title": "What Java is holding now",
+      "caption": "Two `int` boxes. Java already knows their type, so later lines just use the names."
+    },
+    {
+      "type": "heading",
+      "value": "Changing the Value"
+    },
+    {
+      "type": "paragraph",
+      "value": "A variable can get a new value as often as you like. The new value **replaces** the old one. The label stays, the contents change."
+    },
+    {
+      "type": "stepper",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        int lives = 3;\n        System.out.println(\"Lives: \" + lives);\n        lives = 2;\n        System.out.println(\"Lives: \" + lives);\n        lives = lives - 1;\n        System.out.println(\"Lives: \" + lives);\n    }\n}",
+      "steps": [
+        {
+          "line": 3,
+          "note": "Declare an `int` box named `lives` and put 3 in it.",
+          "vars": {
+            "lives": "3"
+          }
+        },
+        {
+          "line": 4,
+          "note": "Open the box and print what is inside.",
+          "out": [
+            "Lives: 3"
+          ]
+        },
+        {
+          "line": 5,
+          "note": "Put 2 in the box. The 3 is gone. No type this time: the box already exists.",
+          "vars": {
+            "lives": "2"
+          }
+        },
+        {
+          "line": 6,
+          "note": "Print again. Same name, new value.",
+          "out": [
+            "Lives: 2"
+          ]
+        },
+        {
+          "line": 7,
+          "note": "Right side first: `lives - 1` is 1. Then store that 1 back in `lives`.",
+          "vars": {
+            "lives": "1"
+          }
+        },
+        {
+          "line": 8,
+          "note": "Print the latest value.",
+          "out": [
+            "Lives: 1"
+          ]
+        }
+      ],
+      "title": "Watch the box change",
+      "outro": "`=` is not the equals of maths. It means: work this out, then store it here. Module 3 shows a shorthand, `lives--`."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "5",
+        "3",
+        "8",
+        "x + 3"
+      ],
+      "answer": 2,
+      "explain": "Java works out `x + 3` first, which is 8, then stores 8 back in `x`.",
+      "code": "int x = 5;\nx = x + 3;\nSystem.out.println(x);"
+    },
+    {
+      "type": "heading",
+      "value": "Naming Your Variables"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Valid",
+          "tone": "good",
+          "code": "int playerScore = 42;\nint highScore = 9001;\nint level2 = 5;",
+          "text": "Letters, digits, `_` and `$`. Start with a letter."
+        },
+        {
+          "title": "Error",
+          "tone": "bad",
+          "code": "int 2ndPlace = 3;\nint high score = 3;",
+          "text": "Cannot start with a digit. No spaces."
+        }
+      ],
+      "title": "Valid vs invalid names"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Java is case sensitive: `score` and `Score` are two different boxes.",
+        "Use **camelCase**: first word lower case, each later word starts with a capital.",
+        "Pick names that say what they mean: `daysLeft`, not `d`."
+      ],
+      "title": "Good habits"
+    },
+    {
+      "type": "check",
+      "question": "Which one is a valid Java variable name?",
+      "options": [
+        "2lives",
+        "lives left",
+        "livesLeft",
+        "lives-left"
+      ],
+      "answer": 2,
+      "explain": "`livesLeft` uses only letters. The others start with a digit, contain a space, or use a dash."
+    }
+  ],
+  "editorCode": "public class Main {\n    public static void main(String[] args) {\n        int score = 100;\n        System.out.println(\"Score: \" + score);\n\n        score = 250;\n        System.out.println(\"Score: \" + score);\n    }\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Declare an `int` called `age`, store your age in it, and print it with a label, like: Age: 12",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n\n    }\n}"
+    },
+    {
+      "id": 2,
+      "question": "Declare `int coins = 10;`, print it, then add 5 to it using `coins = coins + 5;` and print it again.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int coins = 10;\n\n    }\n}"
+    },
+    {
+      "id": 3,
+      "question": "Fix the two naming mistakes in this program so it compiles.",
+      "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int 1stPlace = 10;\n        int high score = 20;\n\n        System.out.println(1stPlace);\n        System.out.println(high score);\n    }\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What are the three parts of `int score = 100;`?",
+      "options": [
+        "A type, a name, and a value.",
+        "A class, a method, and an instruction.",
+        "Three separate variables."
+      ],
+      "answer": 0,
+      "explain": "`int` is the type (what kind of value), `score` is the name, and `100` is the value being stored."
+    },
+    {
+      "question": "What does `System.out.println(score);` print when `score` holds 100?",
+      "options": [
+        "100",
+        "score",
+        "\"score\""
+      ],
+      "answer": 0,
+      "explain": "Without quotes, Java looks up what is stored under that name. With quotes it would print the word score instead."
+    },
+    {
+      "question": "Which of these is a legal Java variable name?",
+      "options": [
+        "highScore",
+        "high score",
+        "2ndScore"
+      ],
+      "answer": 0,
+      "explain": "Names cannot contain spaces or start with a digit. `highScore` also follows the camelCase style Java programmers use."
+    },
+    {
+      "question": "What does `lives = lives - 1;` do when `lives` holds 3?",
+      "options": [
+        "Works out 2, then stores 2 in `lives`.",
+        "Nothing: it is not a true statement.",
+        "Stores the words `lives - 1` in `lives`."
+      ],
+      "answer": 0,
+      "explain": "The right hand side is worked out first, giving 2, and that answer is then stored back under the same name."
+    },
+    {
+      "question": "Are `score` and `Score` the same variable?",
+      "options": [
+        "No: Java is case sensitive, so they are two different variables.",
+        "Yes: capitals are ignored.",
+        "Yes, but only inside `main`."
+      ],
+      "answer": 0,
+      "explain": "Java treats upper and lower case as different characters, so `score` and `Score` name two separate boxes."
+    }
+  ]
+}

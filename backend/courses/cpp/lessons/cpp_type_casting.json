@@ -1,0 +1,365 @@
+{
+  "lessonId": "cpp_type_casting",
+  "title": "Converting Between Types",
+  "description": "Moving a value from one type to another, static_cast, and the whole-number division trap.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Some Types Fit Inside Others"
+    },
+    {
+      "type": "paragraph",
+      "value": "Every whole number is also a decimal: 7 is the same value as 7.0. So an `int` moves into a `double` automatically. This is **widening**: nothing can be lost."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int whole = 7;\n    double decimal = whole;      // widening: automatic, nothing lost\n\n    cout << \"int:    \" << whole << endl;\n    cout << \"double: \" << decimal << endl;\n    cout << \"half:   \" << decimal / 2 << endl;\n    return 0;\n}",
+      "output": [
+        "int:    7",
+        "double: 7",
+        "half:   3.5"
+      ],
+      "caption": "The `double` prints as `7` because `cout` drops zeros it does not need. Half of it is 3.5, not 3: it really is a `double`."
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "whole",
+          "value": "7",
+          "type": "int"
+        },
+        {
+          "name": "decimal",
+          "value": "7.0",
+          "type": "float"
+        }
+      ],
+      "title": "Same value, wider box"
+    },
+    {
+      "type": "heading",
+      "value": "Going the Other Way"
+    },
+    {
+      "type": "paragraph",
+      "value": "A `double` can hold 7.9, an `int` cannot. Many languages refuse this move. C++ does it **silently**, so a mistake can slip past."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Silent",
+          "tone": "bad",
+          "code": "double price = 7.9;\nint quiet = price;   // 7",
+          "text": "Compiles, but nothing tells the reader that .9 was lost."
+        },
+        {
+          "title": "static_cast",
+          "tone": "good",
+          "code": "double price = 7.9;\nint n = static_cast<int>(price);",
+          "text": "Same result, clearly on purpose."
+        }
+      ],
+      "title": "Same result, different message",
+      "caption": "A **cast** names the type you are converting to. It says: I know this loses something, and I mean it."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    double price = 7.9;\n\n    int quiet = price;                       // allowed, but easy to miss\n    int chopped = static_cast<int>(price);   // same result, on purpose\n\n    cout << \"double:  \" << price << endl;\n    cout << \"quiet:   \" << quiet << endl;\n    cout << \"chopped: \" << chopped << endl;\n    return 0;\n}",
+      "output": [
+        "double:  7.9",
+        "quiet:   7",
+        "chopped: 7"
+      ],
+      "caption": "7.9 became 7, not 8: converting to `int` throws the decimal part away. Old code writes `(int) price`, the C style. This course uses `static_cast`."
+    },
+    {
+      "type": "check",
+      "question": "What is `static_cast<int>(-2.7)`?",
+      "options": [
+        "-2",
+        "-3",
+        "-2.7",
+        "An error"
+      ],
+      "answer": 0,
+      "explain": "A cast to `int` throws the decimal part away. It never rounds, so -2.7 becomes -2. Real rounding uses `round`, later in the course."
+    },
+    {
+      "type": "heading",
+      "value": "The Whole-Number Division Trap"
+    },
+    {
+      "type": "paragraph",
+      "value": "When both sides of `/` are `int`, C++ does whole-number division: it throws the remainder away before anything else happens."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int correct = 7;\n    int total = 2;\n    cout << correct / total << endl;\n    cout << 7.0 / 2 << endl;\n    double broken = correct / total;\n    double fixed = static_cast<double>(correct) / total;\n    cout << \"broken: \" << broken << endl;\n    cout << \"fixed:  \" << fixed << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "Two `int` boxes.",
+          "vars": {
+            "correct": "7"
+          }
+        },
+        {
+          "line": 6,
+          "vars": {
+            "total": "2"
+          },
+          "note": "Both sides of the coming division are `int`."
+        },
+        {
+          "line": 7,
+          "note": "`int / int`: the 0.5 never exists.",
+          "out": [
+            "3"
+          ]
+        },
+        {
+          "line": 8,
+          "note": "One side is a `double`, so the answer keeps its fraction.",
+          "out": [
+            "3.5"
+          ]
+        },
+        {
+          "line": 9,
+          "note": "Not a fix: `7 / 2` is worked out as 3 first, then widened to 3.0.",
+          "vars": {
+            "broken": "3.0"
+          }
+        },
+        {
+          "line": 10,
+          "note": "The cast turns 7 into 7.0 before dividing. Fixed in time.",
+          "vars": {
+            "fixed": "3.5"
+          }
+        },
+        {
+          "line": 11,
+          "out": [
+            "broken: 3"
+          ],
+          "note": "The type on the left could not repair it. `cout` prints 3.0 as `3`."
+        },
+        {
+          "line": 12,
+          "out": [
+            "fixed:  3.5"
+          ],
+          "note": "Casting one side gives the real answer."
+        }
+      ],
+      "title": "Where the 0.5 goes"
+    },
+    {
+      "type": "tip",
+      "value": "Percentages bite hardest. `correct * 100 / total` loses the fraction. `correct * 100.0 / total` keeps it.",
+      "title": "Percentages"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "4.5",
+        "5",
+        "4",
+        "4.0"
+      ],
+      "answer": 2,
+      "explain": "Both numbers are `int`, so C++ divides in whole numbers and drops the .5.",
+      "code": "cout << 9 / 2 << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Converting char and int"
+    },
+    {
+      "type": "paragraph",
+      "value": "A `char` is stored as a number code. `'A'` is 65. So a `char` fits in an `int`, and `static_cast<char>` turns a number back into a character."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char letter = 'A';\n    int code = letter;                           // a char fits in an int\n\n    int next = code + 1;\n    char nextLetter = static_cast<char>(next);   // back to a character\n\n    cout << letter << \" has code \" << code << endl;\n    cout << \"The next letter is \" << nextLetter << endl;\n    cout << 'A' + 'B' << endl;                   // adds the codes!\n    return 0;\n}",
+      "output": [
+        "A has code 65",
+        "The next letter is B",
+        "131"
+      ],
+      "caption": "Adding two chars adds their codes: 65 plus 66 is 131."
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "letter",
+          "value": "'A'",
+          "type": "str"
+        },
+        {
+          "name": "code",
+          "value": "65",
+          "type": "int"
+        },
+        {
+          "name": "nextLetter",
+          "value": "'B'",
+          "type": "str"
+        }
+      ],
+      "title": "Same letter, two views"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "B",
+        "A1",
+        "66",
+        "An error"
+      ],
+      "answer": 2,
+      "explain": "`'A' + 1` is arithmetic on the code: 65 plus 1. To get the letter B you must cast with `static_cast<char>`.",
+      "code": "cout << 'A' + 1 << endl;"
+    },
+    {
+      "type": "heading",
+      "value": "Text That Spells a Number"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Cast: error",
+          "tone": "bad",
+          "code": "string text = \"42\";\nint n = static_cast<int>(text);",
+          "text": "`string` is not related to the number types. Text is still text."
+        },
+        {
+          "title": "Parse: works",
+          "tone": "good",
+          "code": "string text = \"42\";\nint n = stoi(text);",
+          "text": "**Parsing** reads the characters and works out the number."
+        }
+      ],
+      "title": "Cast vs parse",
+      "caption": "`stoi` and `stod` come with `#include <string>`."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string text = \"42\";\n    int number = stoi(text);        // stoi: string to int\n    double half = stod(\"0.5\");      // stod: string to double\n\n    cout << number + 8 << endl;\n    cout << half * 3 << endl;\n    return 0;\n}",
+      "output": [
+        "50",
+        "1.5"
+      ],
+      "caption": "`number` really is an `int`, so `+ 8` adds. The other direction, number to text, is `to_string` from the last lesson."
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "51",
+        "5",
+        "6",
+        "An error"
+      ],
+      "answer": 2,
+      "explain": "`stoi` turns the text into the number 5, so `+ 1` is real addition.",
+      "code": "string s = \"5\";\nint n = stoi(s);\ncout << n + 1 << endl;"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int correct = 7;\n    int total = 2;\n\n    cout << correct / total << endl;\n    cout << static_cast<double>(correct) / total << endl;\n    cout << static_cast<int>(7.9) << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Store 9.7 in a `double`, then print both the original and the value converted with `static_cast<int>`. Check that it chops rather than rounds.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "A student scored 17 out of 40. Both are `int`. Print the percentage so it reads 42.5 and not 42.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int correct = 17;\n    int total = 40;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "This program prints 3 when it should print 3.33333. Fix it with one cast.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10;\n    int b = 3;\n    double answer = a / b;\n\n    cout << answer << endl;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `double d = 7; cout << d << endl;` print?",
+      "options": [
+        "7",
+        "7.0",
+        "Nothing: it does not compile."
+      ],
+      "answer": 0,
+      "explain": "Widening an `int` into a `double` is automatic and safe. `cout` then leaves off the `.0` because it adds nothing."
+    },
+    {
+      "question": "What does `static_cast<int>(7.9)` give?",
+      "options": [
+        "8, because it rounds to the nearest whole number",
+        "7, because it chops the decimal part off",
+        "7.9, because the cast changes nothing"
+      ],
+      "answer": 1,
+      "explain": "Converting to `int` throws the fractional part away rather than rounding. For rounding there is a separate tool, `round`."
+    },
+    {
+      "question": "What does `cout << 7 / 2 << endl;` print?",
+      "options": [
+        "3.5",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "explain": "Both values are `int`, so C++ does whole-number division and drops the remainder. Making either side a `double` gives 3.5."
+    },
+    {
+      "question": "Does `double answer = 7 / 2;` store 3.5?",
+      "options": [
+        "Yes: the type on the left makes it a decimal division.",
+        "No: the division happens first as ints, so it stores 3.",
+        "No: it does not compile at all."
+      ],
+      "answer": 1,
+      "explain": "The right hand side is worked out before anything is stored, so 3 is produced and then widened. Convert one side of the division instead."
+    },
+    {
+      "question": "How do you turn the text `\"42\"` into the number 42?",
+      "options": [
+        "static_cast<int>(\"42\")",
+        "You cannot: text can never become a number.",
+        "stoi(\"42\")"
+      ],
+      "answer": 2,
+      "explain": "A cast only works between related types, and text is not a number type. `stoi` parses the characters and works out the value they spell."
+    },
+    {
+      "question": "What is `static_cast<char>(66)` if `'A'` has code 65?",
+      "options": [
+        "66",
+        "'B'",
+        "'66'"
+      ],
+      "answer": 1,
+      "explain": "Characters are stored as codes, so the code one after `'A'` is `'B'`. Converting an `int` to a `char` looks up the character with that code."
+    }
+  ]
+}

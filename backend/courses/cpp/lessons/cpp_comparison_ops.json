@@ -1,0 +1,415 @@
+{
+  "lessonId": "cpp_comparison_ops",
+  "title": "Comparison Operators",
+  "description": "Asking questions that produce true or false, comparing text, and the brackets cout needs.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "Questions with a Yes or No Answer"
+    },
+    {
+      "type": "paragraph",
+      "value": "Arithmetic gives a number. A **comparison** gives a `bool`: `true` or `false`, nothing else. It is how a program asks about its own values."
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "↕️",
+          "text": "`>` and `<`",
+          "sub": "greater than, less than"
+        },
+        {
+          "icon": "📐",
+          "text": "`>=` and `<=`",
+          "sub": "greater or equal, less or equal"
+        },
+        {
+          "icon": "🟰",
+          "text": "`==` and `!=`",
+          "sub": "equal to, not equal to"
+        }
+      ],
+      "title": "The six comparison operators"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 75;\n    int pass = 50;\n\n    cout << (score > pass) << endl;\n    cout << (score < pass) << endl;\n    cout << (score >= 75) << endl;\n    cout << (score <= 74) << endl;\n    cout << (score == 75) << endl;\n    cout << (score != 75) << endl;\n    return 0;\n}",
+      "output": [
+        "1",
+        "0",
+        "1",
+        "0",
+        "1",
+        "0"
+      ],
+      "caption": "Ones and zeros: `cout` prints a `bool` as 1 for true and 0 for false. The brackets are required: `<<` is worked out before `>`, so `cout << score > pass;` does not compile."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Plain cout",
+          "tone": "neutral",
+          "code": "cout << (5 > 3);\n// 1",
+          "text": "A `bool` prints as 1 or 0."
+        },
+        {
+          "title": "With boolalpha",
+          "tone": "good",
+          "code": "cout << boolalpha;\ncout << (5 > 3);\n// true",
+          "text": "From then on it prints `true` or `false`."
+        }
+      ],
+      "title": "Numbers or words?",
+      "caption": "Send `boolalpha` to `cout` once, and every later `bool` prints as a word."
+    },
+    {
+      "type": "check",
+      "question": "No `boolalpha` has been used. What does `cout << (8 >= 8) << endl;` print?",
+      "options": [
+        "1",
+        "0",
+        "true",
+        "8"
+      ],
+      "answer": 0,
+      "explain": "`>=` means greater than **or equal to**, and 8 equals 8, so the answer is true. Plain `cout` prints true as 1."
+    },
+    {
+      "type": "heading",
+      "value": "One Equals Sign or Two"
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "= stores",
+          "tone": "neutral",
+          "code": "lives = 1;",
+          "text": "Puts 1 into `lives`. Assignment."
+        },
+        {
+          "title": "== asks",
+          "tone": "good",
+          "code": "lives == 1",
+          "text": "Is `lives` equal to 1? Gives `true` or `false`."
+        }
+      ],
+      "title": "Store or ask?"
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int lives = 3;\n    cout << boolalpha;\n\n    lives = 1;\n    cout << lives << endl;\n\n    cout << (lives == 1) << endl;\n    cout << (lives == 3) << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "`lives` starts at 3.",
+          "vars": {
+            "lives": "3"
+          }
+        },
+        {
+          "line": 6,
+          "note": "From now on, bools print as words."
+        },
+        {
+          "line": 8,
+          "note": "One `=`: store 1. The 3 is gone.",
+          "vars": {
+            "lives": "1"
+          }
+        },
+        {
+          "line": 9,
+          "note": "Print the value.",
+          "out": [
+            "1"
+          ]
+        },
+        {
+          "line": 11,
+          "note": "Two `==`: ask \"is it 1?\" Yes. Nothing changes.",
+          "out": [
+            "true"
+          ]
+        },
+        {
+          "line": 12,
+          "note": "Is it 3? Not any more.",
+          "out": [
+            "false"
+          ]
+        }
+      ],
+      "title": "Watch = and == at work",
+      "outro": "Writing `=` where you meant `==` is a famous C++ bug: it often compiles anyway and silently changes your variable. Module 4 shows exactly how."
+    },
+    {
+      "type": "check",
+      "question": "Which line checks whether `lives` is 0?",
+      "options": [
+        "`lives == 0`",
+        "`lives = 0`",
+        "`lives =! 0`",
+        "`lives := 0`"
+      ],
+      "answer": 0,
+      "explain": "Two equals signs ask a question. One equals sign would store 0."
+    },
+    {
+      "type": "heading",
+      "value": "Storing the Answer"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "bool",
+          "label": "type",
+          "note": "Holds only `true` or `false`."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "passed",
+          "label": "name",
+          "note": "A name that says what the answer means."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "score >= 50",
+          "label": "question",
+          "note": "Worked out once, giving `true` or `false`."
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "A comparison stored in a bool",
+      "caption": "No brackets needed here: `=` is always worked out last. Naming the answer makes code easier to read."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score;\n\n    cout << \"Your score out of 100? \";\n    cin >> score;\n\n    bool passed = score >= 50;\n    bool perfect = score == 100;\n\n    cout << boolalpha;\n    cout << \"Passed:  \" << passed << endl;\n    cout << \"Perfect: \" << perfect << endl;\n    return 0;\n}",
+      "caption": "Sample run: type `75` and it prints `Passed:  true` then `Perfect: false`."
+    },
+    {
+      "type": "diagram",
+      "kind": "boxes",
+      "items": [
+        {
+          "name": "score",
+          "value": "75",
+          "type": "int"
+        },
+        {
+          "name": "passed",
+          "value": "true",
+          "type": "bool"
+        },
+        {
+          "name": "perfect",
+          "value": "false",
+          "type": "bool"
+        }
+      ],
+      "title": "After typing 75"
+    },
+    {
+      "type": "check",
+      "question": "What is stored in `passed`?",
+      "options": [
+        "true",
+        "50",
+        "false",
+        "An error"
+      ],
+      "answer": 2,
+      "explain": "50 is not **greater** than 50, so `score > 50` is `false`. `>=` would have given `true`.",
+      "code": "int score = 50;\nbool passed = score > 50;"
+    },
+    {
+      "type": "heading",
+      "value": "Comparing Text"
+    },
+    {
+      "type": "paragraph",
+      "value": "Good news: in C++, `==` on two `string` values compares the letters. That is exactly what you want when you check what somebody typed."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Typed yes",
+          "tone": "good",
+          "code": "answer == \"yes\"\n// true",
+          "text": "Every letter matches."
+        },
+        {
+          "title": "Typed Yes",
+          "tone": "bad",
+          "code": "answer == \"yes\"\n// false",
+          "text": "The capital `Y` does not match `y`."
+        }
+      ],
+      "title": "Case matters",
+      "caption": "`Y` and `y` are different characters. Module 7 shows how to change the case of text."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string a = \"apple\";\n    string b = \"banana\";\n    string c = \"Zebra\";\n    string d = \"app\";\n\n    cout << boolalpha;\n    cout << (a < b) << endl;      // a comes before b\n    cout << (c < a) << endl;      // capitals come before small letters\n    cout << (d < a) << endl;      // a shorter start comes first\n    return 0;\n}",
+      "output": [
+        "true",
+        "true",
+        "true"
+      ],
+      "caption": "`<` and `>` put text in dictionary order, letter by letter. The surprise: every capital letter comes before every small letter."
+    },
+    {
+      "type": "warning",
+      "value": "This only works for `string` variables. Two quoted pieces of text, as in `\"apple\" < \"banana\"`, are not `string` values yet, and comparing them gives nonsense. Put at least one side in a `string` first."
+    },
+    {
+      "type": "heading",
+      "value": "Doubles and Mixed Types"
+    },
+    {
+      "type": "paragraph",
+      "value": "Decimals are not stored exactly, so two sums that should agree can differ in the last digit. Use `<` and `>` freely on doubles, but be careful with `==`."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    double sum = 0.1 + 0.2;\n\n    cout << boolalpha;\n    cout << sum << endl;\n    cout << (sum == 0.3) << endl;\n    return 0;\n}",
+      "output": [
+        "0.3",
+        "false"
+      ],
+      "caption": "`cout` shows only 6 significant digits, which hides the truth: the real sum is 0.30000000000000004. Real programs check that the difference is tiny instead."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Compile error",
+          "tone": "bad",
+          "code": "string typed = \"10\";\ntyped > 5",
+          "text": "Text and a number: C++ refuses to guess what this means."
+        },
+        {
+          "title": "Convert first",
+          "tone": "good",
+          "code": "stoi(typed) > 5",
+          "text": "Turn the text into an `int` with `stoi`, then compare. Gives `true`."
+        }
+      ],
+      "title": "Compare like with like"
+    },
+    {
+      "type": "check",
+      "question": "What does this print?",
+      "options": [
+        "true",
+        "0.3",
+        "false",
+        "1"
+      ],
+      "answer": 2,
+      "explain": "`boolalpha` makes it print a word, and the sum is not exactly 0.3, so `==` is `false`.",
+      "code": "double sum = 0.1 + 0.2;\ncout << boolalpha << (sum == 0.3);"
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score;\n\n    cout << \"Your score out of 100? \";\n    cin >> score;\n\n    bool passed = score >= 50;\n\n    cout << boolalpha;\n    cout << \"Score:  \" << score << endl;\n    cout << \"Passed: \" << passed << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Store two ages in `int` variables. Print whether the first is older, whether they are the same age, and whether they are different. Use `boolalpha` so you see words.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int ageA = 12;\n    int ageB = 15;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Ask for a password with `getline` and print whether it equals `pocketlab`.",
+      "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string typed;\n\n    cout << \"Password? \";\n    getline(cin, typed);\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Ask for a temperature and store two bools: whether it is above 35, and whether it is below 10. Print both with labels.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int temp;\n\n    cout << \"Temperature? \";\n    cin >> temp;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `cout << (5 > 3);` print, with no `boolalpha`?",
+      "options": [
+        "true",
+        "5",
+        "1"
+      ],
+      "answer": 2,
+      "explain": "A comparison produces a `bool`, and `cout` prints a `bool` as 1 or 0 until you send it `boolalpha`."
+    },
+    {
+      "question": "What is the difference between `=` and `==`?",
+      "options": [
+        "They are the same, but `==` is clearer.",
+        "`=` stores a value; `==` asks whether two values are equal.",
+        "`=` compares numbers and `==` compares text."
+      ],
+      "answer": 1,
+      "explain": "One equals sign assigns. Two equals signs compare and produce a `bool`. Mixing them up is the classic beginner bug."
+    },
+    {
+      "question": "A person typed `yes`, stored in a `string` called `answer`. What does `answer == \"yes\"` give?",
+      "options": [
+        "true, because == compares the letters of a string",
+        "false, because == cannot compare text",
+        "A compile error"
+      ],
+      "answer": 0,
+      "explain": "In C++, `==` on a `string` compares the characters one by one. It is case sensitive, so `Yes` would give false."
+    },
+    {
+      "question": "Why does `cout << score > pass;` fail to compile?",
+      "options": [
+        "`<<` is worked out before `>`, so it needs brackets: `cout << (score > pass);`",
+        "You cannot print a comparison.",
+        "`>` only works on doubles."
+      ],
+      "answer": 0,
+      "explain": "Without brackets C++ sends `score` to `cout` first, then tries to compare the result with `pass`. Brackets make the comparison happen first."
+    },
+    {
+      "question": "`cout` prints `0.1 + 0.2` as 0.3. Why does `(0.1 + 0.2) == 0.3` give false?",
+      "options": [
+        "You cannot use == on doubles at all.",
+        "C++ rounds all doubles to one decimal place.",
+        "The real sum is 0.30000000000000004; cout only shows 6 significant digits."
+      ],
+      "answer": 2,
+      "explain": "Binary fractions cannot represent 0.1 exactly, so the sum is a hair away from 0.3. `cout` rounds what it shows, but `==` checks the exact value."
+    },
+    {
+      "question": "Two `string` variables are compared with `<`. Which of these comparisons is true?",
+      "options": [
+        "apple < Apple",
+        "Zebra < apple",
+        "banana < apple"
+      ],
+      "answer": 1,
+      "explain": "Text is compared letter by letter, and every capital letter comes before every small letter. So `Zebra` comes before `apple`, and `Apple` comes before `apple`."
+    }
+  ]
+}

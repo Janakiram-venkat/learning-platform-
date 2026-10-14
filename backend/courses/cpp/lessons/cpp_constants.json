@@ -1,0 +1,391 @@
+{
+  "lessonId": "cpp_constants",
+  "title": "Constants and auto",
+  "description": "Values that must never change, letting the compiler work out a type with auto, and naming conventions.",
+  "difficulty": "Beginner",
+  "content": [
+    {
+      "type": "heading",
+      "value": "A Value That Must Not Change"
+    },
+    {
+      "type": "analogy",
+      "emoji": "🔒",
+      "real": "A rule written in permanent ink",
+      "concept": "A `const` variable",
+      "code": "const int MAX_LIVES = 3;",
+      "text": "Some values are decided once: starting lives, a tax rate. `const` locks the value so nothing can overwrite it."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Normal variable",
+          "tone": "good",
+          "code": "int lives = 3;\nlives = 5;   // fine",
+          "text": "A normal variable can change any time."
+        },
+        {
+          "title": "const variable",
+          "tone": "bad",
+          "code": "const int MAX_LIVES = 3;\nMAX_LIVES = 5;   // error",
+          "text": "Compile error: `assignment of read-only variable 'MAX_LIVES'`."
+        }
+      ],
+      "title": "Changing a normal vs a const variable",
+      "caption": "C++ catches the mistake before the program ever runs."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    const int MAX_LIVES = 3;\n    const double TAX_RATE = 0.18;\n\n    cout << \"You get \" << MAX_LIVES << \" lives.\" << endl;\n    cout << \"Tax rate: \" << TAX_RATE << endl;\n    return 0;\n}",
+      "output": [
+        "You get 3 lives.",
+        "Tax rate: 0.18"
+      ],
+      "caption": "A `const` variable is a **constant**. Give it its value when you declare it: `const int MAX_LIVES;` alone is an error."
+    },
+    {
+      "type": "paragraph",
+      "value": "`const` is not mainly about speed. It states your intention, so a mistake becomes an error instead of a bug nobody notices."
+    },
+    {
+      "type": "heading",
+      "value": "Constants Are Written in Capitals"
+    },
+    {
+      "type": "diagram",
+      "kind": "anatomy",
+      "parts": [
+        {
+          "code": "const",
+          "label": "lock",
+          "note": "The value can never be changed after this."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "int",
+          "label": "type",
+          "note": "Same types as any variable."
+        },
+        {
+          "code": " "
+        },
+        {
+          "code": "MAX_LIVES",
+          "label": "name",
+          "note": "UPPER_SNAKE_CASE: capitals, underscores between words."
+        },
+        {
+          "code": " = "
+        },
+        {
+          "code": "3",
+          "label": "value",
+          "note": "Set once, right here."
+        },
+        {
+          "code": ";"
+        }
+      ],
+      "title": "Anatomy of a constant"
+    },
+    {
+      "type": "paragraph",
+      "value": "Capitals are a convention, not a rule: `const int maxLives = 3;` compiles. But `TAX_RATE` tells any reader: decided once, never changed."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\nusing namespace std;\n\nint main() {\n    const int SECONDS_PER_MINUTE = 60;\n    const int MINUTES_PER_HOUR = 60;\n\n    int hours = 3;\n    int seconds = hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;\n\n    cout << hours << \" hours is \" << seconds << \" seconds.\" << endl;\n    return 0;\n}",
+      "output": [
+        "3 hours is 10800 seconds."
+      ]
+    },
+    {
+      "type": "check",
+      "question": "Which name follows the convention for a constant?",
+      "options": [
+        "TAX_RATE",
+        "taxRate",
+        "TaxRate",
+        "tax rate"
+      ],
+      "answer": 0,
+      "explain": "Constants use capitals with underscores between words."
+    },
+    {
+      "type": "heading",
+      "value": "Why Not Just Write the Number?"
+    },
+    {
+      "type": "paragraph",
+      "value": "A bare number in the middle of your code is a **magic number**: it works, but nothing says what it means."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Magic numbers",
+          "tone": "bad",
+          "code": "price + price * 0.18 + 40",
+          "text": "What are 0.18 and 40 supposed to be?"
+        },
+        {
+          "title": "Named constants",
+          "tone": "good",
+          "code": "price + price * GST_RATE\n      + DELIVERY_FEE",
+          "text": "Reads like a sentence. Change the rate on one line."
+        }
+      ],
+      "title": "Magic numbers vs named constants",
+      "caption": "Both give 630. Only one explains itself."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int price = 500;\n    const double GST_RATE = 0.18;\n    const int DELIVERY_FEE = 40;\n    double total = price + price * GST_RATE + DELIVERY_FEE;\n    cout << \"Total: \" << total << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "A normal variable: the price could change.",
+          "vars": {
+            "price": "500"
+          }
+        },
+        {
+          "line": 6,
+          "note": "A constant with a name that says what 0.18 is.",
+          "vars": {
+            "GST_RATE": "0.18"
+          }
+        },
+        {
+          "line": 7,
+          "note": "Another constant: the delivery fee.",
+          "vars": {
+            "DELIVERY_FEE": "40"
+          }
+        },
+        {
+          "line": 8,
+          "note": "500 + 90 + 40. One side is a `double`, so the result is the double 630.0.",
+          "vars": {
+            "total": "630.0"
+          }
+        },
+        {
+          "line": 9,
+          "note": "`cout` drops the unneeded zero.",
+          "out": [
+            "Total: 630"
+          ]
+        }
+      ],
+      "title": "The named version, step by step",
+      "outro": "When the tax rate changes, you edit one line, instead of hunting for every 0.18 in a long program."
+    },
+    {
+      "type": "heading",
+      "value": "auto: Let the Compiler Work It Out"
+    },
+    {
+      "type": "paragraph",
+      "value": "Write `auto` instead of a type and the compiler works the type out from the starting value. This is **type deduction**."
+    },
+    {
+      "type": "stepper",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    auto lives = 3;\n    auto price = 4.5;\n    lives = 2.9;\n    cout << lives << \" \" << price << endl;\n    return 0;\n}",
+      "steps": [
+        {
+          "line": 5,
+          "note": "3 is a whole number, so `lives` becomes an `int`.",
+          "vars": {
+            "lives": "3"
+          }
+        },
+        {
+          "line": 6,
+          "note": "4.5 has a decimal point, so `price` becomes a `double`.",
+          "vars": {
+            "price": "4.5"
+          }
+        },
+        {
+          "line": 7,
+          "note": "`lives` is still an `int`. The type was fixed on line 1, so 0.9 is chopped off.",
+          "vars": {
+            "lives": "2"
+          }
+        },
+        {
+          "line": 8,
+          "note": "Print both.",
+          "out": [
+            "2 4.5"
+          ]
+        }
+      ],
+      "title": "auto picks the type once",
+      "outro": "`auto` does not mean \"holds anything\". It also needs a starting value, or there is nothing to work the type out from."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "auto: old C text",
+          "tone": "bad",
+          "code": "auto shortName = \"Amara\";\nshortName.length();  // error",
+          "text": "Quoted text alone is the older C kind. No `length()`, no joining with `+`."
+        },
+        {
+          "title": "A real string",
+          "tone": "good",
+          "code": "string name = \"Amara\";\nname.length();       // 5",
+          "text": "Write the type and you get every string feature."
+        }
+      ],
+      "title": "auto and text: a trap",
+      "caption": "Use `auto` when the type is obvious. For text, write `string` yourself. Module 11 shows where `auto` really earns its place."
+    },
+    {
+      "type": "check",
+      "question": "What type does `auto ready = true;` give `ready`?",
+      "options": [
+        "bool",
+        "int",
+        "string",
+        "It can hold any type"
+      ],
+      "answer": 0,
+      "explain": "`true` is a `bool`, so `ready` is a `bool`, fixed for good."
+    },
+    {
+      "type": "heading",
+      "value": "Naming Conventions"
+    },
+    {
+      "type": "points",
+      "items": [
+        {
+          "icon": "🐫",
+          "text": "**camelCase** for variables: `playerScore`.",
+          "sub": "Functions in Module 6 too."
+        },
+        {
+          "icon": "📢",
+          "text": "**UPPER_SNAKE_CASE** for constants: `MAX_PLAYERS`."
+        },
+        {
+          "icon": "📚",
+          "text": "The standard library uses lower case with underscores: `to_string`, `static_cast`.",
+          "sub": "Classes you design in Module 9 start with a capital."
+        }
+      ],
+      "title": "Which style says what"
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "value": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    const int MAX_PLAYERS = 4;        // UPPER_SNAKE_CASE: a constant\n    int playerScore = 0;              // camelCase: a variable\n    const auto START_SPEED = 2.5;     // const and auto work together\n\n    string label = to_string(playerScore);   // a standard library name\n\n    cout << label << \" / \" << MAX_PLAYERS << \" at speed \" << START_SPEED << endl;\n    return 0;\n}",
+      "output": [
+        "0 / 4 at speed 2.5"
+      ],
+      "caption": "C++ compiles almost any name. These styles let a reader tell a constant from a variable at a glance."
+    },
+    {
+      "type": "diagram",
+      "kind": "compare",
+      "items": [
+        {
+          "title": "Hard to read",
+          "tone": "bad",
+          "code": "int n = 24;\ndouble p = 45.5;\ndouble t = n * p;",
+          "text": "What are n, p and t?"
+        },
+        {
+          "title": "Reads aloud",
+          "tone": "good",
+          "code": "int quantity = 24;\ndouble unitPrice = 45.5;\ndouble totalCost = quantity * unitPrice;",
+          "text": "A good name makes a comment unnecessary."
+        }
+      ],
+      "title": "Names that say what they mean",
+      "caption": "Short names like `i` are fine for a tiny counter (Module 5), and almost nowhere else."
+    }
+  ],
+  "editorCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    const int MAX_LIVES = 3;\n    const double TAX_RATE = 0.18;\n\n    int price = 500;\n    double total = price + price * TAX_RATE;\n\n    cout << \"Lives: \" << MAX_LIVES << endl;\n    cout << \"Total: \" << total << endl;\n    return 0;\n}",
+  "practice": [
+    {
+      "id": 1,
+      "question": "Declare a constant `PI` holding 3.14159, then use it to print the area of a circle with radius 5. The area is PI times radius times radius.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int radius = 5;\n    return 0;\n}"
+    },
+    {
+      "id": 2,
+      "question": "Try to change a `const` variable and read the error C++ gives you. Then comment that line out so the program runs.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    const int MAX_SCORE = 100;\n    MAX_SCORE = 200;\n\n    cout << MAX_SCORE << endl;\n    return 0;\n}"
+    },
+    {
+      "id": 3,
+      "question": "Rewrite this program with two named constants so no magic numbers are left, keeping the same answer.",
+      "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nights = 3;\n    double total = nights * 1200 + 250;\n\n    cout << \"Total: \" << total << endl;\n    return 0;\n}"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "What does `const` do to a variable?",
+      "options": [
+        "Deletes it when the program ends.",
+        "Locks its value, so changing it later is a compile error.",
+        "Lets it hold any type of value."
+      ],
+      "answer": 1,
+      "explain": "`const` makes the variable a constant. You set the value where you declare it, and C++ refuses any later assignment."
+    },
+    {
+      "question": "How are constant names written in this course?",
+      "options": [
+        "UPPER_SNAKE_CASE, like MAX_LIVES",
+        "camelCase, like maxLives",
+        "lower_snake_case, like max_lives"
+      ],
+      "answer": 0,
+      "explain": "Capitals with underscores mark a constant at a glance. C++ would compile other styles, but the capitals tell a reader the value never changes."
+    },
+    {
+      "question": "What is a magic number?",
+      "options": [
+        "A number too large for an int.",
+        "A bare value in the code with nothing to say what it means.",
+        "A number that changes while the program runs."
+      ],
+      "answer": 1,
+      "explain": "A `0.18` sitting in the middle of a calculation tells the reader nothing. Naming it `GST_RATE` explains it and gives you one place to change it."
+    },
+    {
+      "question": "What type does `auto speed = 4.5;` give `speed`?",
+      "options": [
+        "int",
+        "It can hold any type at all.",
+        "double"
+      ],
+      "answer": 2,
+      "explain": "`auto` takes the type from the starting value. 4.5 has a decimal point, so `speed` is a `double`, fixed from then on."
+    },
+    {
+      "question": "Why is `auto name = \"Amara\";` a trap?",
+      "options": [
+        "It is the older C kind of text, not a `string`, so `length()` and `+` do not work.",
+        "It does not compile.",
+        "`auto` always picks `char` for text."
+      ],
+      "answer": 0,
+      "explain": "Quoted text on its own is the C style type, and `auto` copies that type exactly. Write `string name = \"Amara\";` to get a real `string`."
+    }
+  ]
+}

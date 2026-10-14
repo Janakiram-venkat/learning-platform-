@@ -1,0 +1,165 @@
+{
+  "moduleId": 1,
+  "title": "Meet C++ Checkpoint",
+  "intro": "You have met the compiler, written a main function, printed text and read your first error messages. Eleven rounds, one from every idea in this module. Get them right first time to earn three stars!",
+  "emoji": "⚙️",
+  "rounds": [
+    {
+      "type": "predict",
+      "prompt": "Run this program. What appears on the screen?",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello, world!\" << endl;\n    return 0;\n}",
+      "options": [
+        "\"Hello, world!\"",
+        "cout << Hello, world!",
+        "Hello, world!",
+        "Nothing: it needs a second endl"
+      ],
+      "answer": 2,
+      "explain": "`cout` prints whatever is inside the double quotes. The quotes mark where the text starts and ends, so they are not printed themselves."
+    },
+    {
+      "type": "concept",
+      "prompt": "Where does a C++ program start running?",
+      "options": [
+        "At the first line of the file",
+        "At the function called `main`",
+        "At the `#include` line",
+        "At whichever line prints something"
+      ],
+      "answer": 1,
+      "explain": "Every program begins at `main`. Misspell it and the build fails, because nothing tells the computer where to begin."
+    },
+    {
+      "type": "bug",
+      "prompt": "This line will not compile. Pick the fix.",
+      "code": "cout << \"Almost there\" << endl",
+      "options": [
+        "Add a semicolon: cout << \"Almost there\" << endl;",
+        "Remove the << arrows",
+        "Change cout to print",
+        "Put the whole line in curly braces"
+      ],
+      "answer": 0,
+      "explain": "Every C++ instruction ends with a semicolon. Without it `g++` keeps reading onto the next line and reports `expected ';'`."
+    },
+    {
+      "type": "concept",
+      "prompt": "What does `#include <iostream>` do?",
+      "options": [
+        "Prints the word iostream",
+        "Starts the program",
+        "Brings in the standard tools for printing, such as `cout`",
+        "Lets you skip writing `std::`"
+      ],
+      "answer": 2,
+      "explain": "The preprocessor pastes in the declarations of the input and output tools. Without it the compiler has never heard of `cout`. Skipping `std::` is the job of `using namespace std;`."
+    },
+    {
+      "type": "predict",
+      "prompt": "Careful: only one of these ends the line. What is the output?",
+      "code": "cout << \"Pocket\";\ncout << \"Lab\" << endl;",
+      "options": [
+        "PocketLab",
+        "Pocket Lab",
+        "Pocket\nLab",
+        "Lab Pocket"
+      ],
+      "answer": 0,
+      "explain": "The first `cout` has no `endl`, so `Lab` continues straight after `Pocket` with no space. Only the `endl` ends the line."
+    },
+    {
+      "type": "predict",
+      "prompt": "What does this print?",
+      "code": "cout << \"Score: \" << 10 << endl;",
+      "options": [
+        "Score: << 10",
+        "Score: 10",
+        "Score: \"10\"",
+        "Nothing: you cannot print a number after text"
+      ],
+      "answer": 1,
+      "explain": "`<<` sends each piece to the screen in turn. Text comes out as written, and the number 10 is printed as the digits 1 and 0."
+    },
+    {
+      "type": "concept",
+      "prompt": "Which escape sequence prints a double quote?",
+      "options": [
+        "\\\"",
+        "\\n",
+        "\\t",
+        "\\\\"
+      ],
+      "answer": 0,
+      "explain": "`\\n` is a new line, `\\t` is a tab and `\\\\` is a single backslash. `\\\"` prints a double quote without ending the text."
+    },
+    {
+      "type": "bug",
+      "prompt": "This program compiles and prints nothing at all. Why?",
+      "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // cout << \"Where did I go?\" << endl;\n    return 0;\n}",
+      "options": [
+        "`cout` cannot be used inside `main`",
+        "The `//` turned the instruction into a comment, so it is ignored",
+        "The text is too long",
+        "`return 0;` stops it before it starts"
+      ],
+      "answer": 1,
+      "explain": "Anything after `//` is a note for humans. Commenting out a line switches it off without deleting it, which is a handy way to test what a line was doing."
+    },
+    {
+      "type": "concept",
+      "prompt": "Your program prints two lines and then stops without finishing. What kind of error is it?",
+      "options": [
+        "A compile error: `g++` refused to build it",
+        "Both a compile and a runtime error",
+        "Not an error: programs always print two lines first",
+        "A runtime error: it compiled, started, then broke"
+      ],
+      "answer": 3,
+      "explain": "Output appearing proves the code compiled and started running, so whatever went wrong happened while the program was running."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each piece of C++ to what it does.",
+      "pairs": [
+        {
+          "left": "g++",
+          "right": "Checks your code and builds an executable"
+        },
+        {
+          "left": "#include",
+          "right": "Pastes in ready made tools"
+        },
+        {
+          "left": "main",
+          "right": "Where the program starts"
+        },
+        {
+          "left": "endl",
+          "right": "Ends the current line"
+        },
+        {
+          "left": ";",
+          "right": "Marks the end of an instruction"
+        },
+        {
+          "left": "//",
+          "right": "Starts a note the compiler ignores"
+        }
+      ],
+      "explain": "These six cover the whole module: building your code, bringing in tools, the starting point, printing, and the two bits of punctuation you will type most often."
+    },
+    {
+      "type": "order",
+      "prompt": "Build the smallest working program: include the printing tools, use the std names, open main, print a greeting, report success, then close main.",
+      "solution": [
+        "#include <iostream>",
+        "using namespace std;",
+        "int main() {",
+        "    cout << \"Hi!\" << endl;",
+        "    return 0;",
+        "}"
+      ],
+      "explain": "The setup lines come first so the compiler knows about `cout` before `main` uses it. Inside `main` the greeting is printed, `return 0;` reports success, and the brace closes `main`."
+    }
+  ]
+}

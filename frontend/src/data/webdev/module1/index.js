@@ -1,9 +1,9 @@
 // Module 1 — Web Foundations & HTML.
 //
-// This file is the SOURCE OF TRUTH for the module's shape. The backend stubs
-// under backend/courses/webdev/ are generated from it by
-// frontend/scripts/sync-webdev-course.mjs — edit here, then re-run that script.
-// Nothing reads the backend copy except the course list on the dashboard.
+// This file owns the module's own shape and content. Anything that crosses a
+// module boundary — the course metadata, "what section comes next", what the
+// sidebar draws — belongs to the registry in ../index.js, which is also what
+// the backend stubs are generated from.
 
 import wd1Intro from './wd1-intro';
 import wd1HtmlBasics from './wd1-html-basics';
@@ -43,11 +43,6 @@ export const SECTIONS = [
  */
 export const CHALLENGE = wd1Challenge;
 
-/** @returns {object} The module's challenge data. */
-export function getChallenge() {
-  return CHALLENGE;
-}
-
 /**
  * The Mini Project.
  *
@@ -64,11 +59,6 @@ export function getChallenge() {
  */
 export const PROJECT = wd1Project;
 
-/** @returns {object} The module's mini project data. */
-export function getProject() {
-  return PROJECT;
-}
-
 export const MODULE = {
   // Not 1. Challenge and project completion live in flat, course-agnostic
   // localStorage sets (`completedAssignments`/`completedProjects`) keyed only
@@ -82,55 +72,16 @@ export const MODULE = {
   emoji: '🌐',
   tagline: 'How the web works, and how to build a page for it from scratch.',
   hasProject: true,
+  // Shown when the student finishes the module's last SECTION — the one place
+  // they would otherwise hit a full stop, since the Module Challenge and Mini
+  // Project are reached from the sidebar rather than by paging on. Authored per
+  // module because it names what this module's challenge and project actually
+  // are, which no generic sentence can.
+  outro:
+    'That is every section of Module 1. The Module Challenge is next — six tasks in the sidebar ' +
+    'that put the whole module together. After it comes the Mini Project: five milestones that ' +
+    'build one page about you.',
 };
-
-export const COURSE = {
-  courseId: 'webdev',
-  title: 'Web Development',
-  description: 'Build pages and apps for the browser with HTML, CSS and JavaScript.',
-  level: 'Beginner',
-  estimatedHours: 20,
-  emoji: '🌐',
-  thumbnail: '/images/webdev.png',
-};
-
-/** @param {string} id @returns {object|null} The section data, or null if unwritten. */
-export function getSection(id) {
-  return SECTIONS.find((s) => s.id === id)?.section ?? null;
-}
-
-/** @param {string} id @returns {boolean} Is this a section id we know about at all? */
-export function isKnownSection(id) {
-  return SECTIONS.some((s) => s.id === id);
-}
-
-/** @param {string} id @returns {{id:string,title:string}|null} The next section after this one. */
-export function getNextSection(id) {
-  const i = SECTIONS.findIndex((s) => s.id === id);
-  return i === -1 ? null : SECTIONS[i + 1] ?? null;
-}
-
-/**
- * The course document the shared Sidebar expects, built from the data above so
- * the lesson page never has to wait on a network request to draw its own
- * navigation. Shape matches backend/courses/<id>/course.json + moduleN.json.
- */
-export function buildCourse() {
-  return {
-    ...COURSE,
-    modules: [
-      {
-        ...MODULE,
-        lessons: SECTIONS.map(({ id, title, duration, section }) => ({
-          lessonId: id,
-          // Unwritten sections say so in the sidebar rather than looking ready.
-          title: section ? title : `${title} (coming soon)`,
-          duration,
-        })),
-      },
-    ],
-  };
-}
 
 // Author-time safety net: validate every written section once, on import.
 //

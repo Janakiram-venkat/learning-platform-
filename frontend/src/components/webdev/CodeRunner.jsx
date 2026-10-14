@@ -86,6 +86,7 @@ export default function CodeRunner({
 
   const {
     iframeRef, srcDoc, frameKey, lines, running, title,
+    measureFrames, setMeasureRef,
     run, stop, reset: resetRunner, handleFrameLoad,
   } = useWebRunner({ onChecks: onCheckResults });
 
@@ -163,7 +164,7 @@ export default function CodeRunner({
     (active ? 'border-pcb text-pcb' : 'border-transparent text-ink/45 hover:text-ink');
 
   return (
-    <div className={`overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(27,27,27,0.9)] ${className}`}>
+    <div className={`relative overflow-hidden rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_rgba(27,27,27,0.9)] ${className}`}>
       {/* Action bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink bg-pcb px-3 py-2">
         <span className="font-lab text-sm font-bold text-white">{label || 'Try it'}</span>
@@ -353,6 +354,50 @@ export default function CodeRunner({
           </div>
         </div>
       </div>
+
+      {/* Measure frames — the same page, rendered again at a fixed width so a
+          check can ask what it looks like on a phone. Not a second preview: a
+          media query responds to the viewport, so the only way to read the
+          mobile branch of one is to be in a viewport that narrow.
+
+          Hidden with `opacity: 0`, and positioned `fixed` inside the viewport,
+          which looks like a strange way to hide something and is the whole
+          point. Chrome does not run the rendering lifecycle for a cross-origin
+          frame it is not rendering — and a sandboxed frame is cross-origin by
+          design here. Any of `display: none`, zero height, `visibility:
+          hidden` or parking it at `left: -9999px` puts the frame in exactly
+          that state, where it still reports the right `innerWidth` but answers
+          getBoundingClientRect with zeroes. That is the worst possible failure
+          for this component: every element measures 0x0, so no two of them
+          overlap, and "are these cards in a row?" comes back "no" over a page
+          that is obviously a row. `opacity: 0` is the one way to make
+          something invisible that keeps it rendered, and `fixed` keeps it in
+          the viewport even when the task itself has been scrolled past.
+
+          So it is an invisible overlay while a run is in flight. `inert` is
+          what makes that safe: no pointer events, no focus, and out of the
+          accessibility tree, so neither a mouse, the Tab key nor a screen
+          reader can reach it. */}
+      {measureFrames.length > 0 && (
+        <div
+          // `inert` is a standard HTML attribute; React 19 passes it through.
+          inert={true}
+          aria-hidden="true"
+          className="pointer-events-none fixed left-0 top-0 opacity-0"
+        >
+          {measureFrames.map(({ width, srcDoc: doc, key }) => (
+            <iframe
+              key={key}
+              ref={(el) => setMeasureRef(key, el)}
+              title={`Measuring your page at ${width} pixels wide`}
+              srcDoc={doc}
+              sandbox="allow-scripts"
+              tabIndex={-1}
+              style={{ width: `${width}px`, height: '900px', border: 0 }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

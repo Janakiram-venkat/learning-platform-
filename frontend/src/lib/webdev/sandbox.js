@@ -224,6 +224,355 @@ export function normalizeText(s) {
   return String(s == null ? '' : s).replace(/\s+/g, ' ').trim().toLowerCase();
 }
 
+// ---------------------------------------------------------------------------
+// CSS checkers
+//
+// Module 1 graded HTML structure, so a selector and a count said everything
+// worth saying. Module 2 grades CSS, which asks three questions that need three
+// different answers:
+//
+//   "is it painted this colour?"   -> getComputedStyle. The `style` check.
+//   "is it this big / over there?" -> geometry and relative position, which no
+//                                     computed value reports. The `layout` check.
+//   "did you write this rule?"     -> the student's CSS source. The `cssRule`
+//                                     check, for :hover and @media — states the
+//                                     browser is not currently in, so nothing
+//                                     computed can see them.
+//
+// The three functions below are the comparisons behind those checks, and like
+// `matchElements` they are injected into the sandbox BY SOURCE (see RUNTIME),
+// so the rule the browser applies and the rule a Node test applies are the same
+// function rather than two copies that drift. Hence ES5 with no outer
+// references: everything they need arrives as an argument.
+// ---------------------------------------------------------------------------
+
+/**
+ * Compare one value read off the page against what a check asked for.
+ *
+ * Five modes, checked in this order, because they are mutually exclusive ways
+ * of describing the same property:
+ *
+ *   not     — "anything but this". The specificity lesson's question: the
+ *             student's rule has to actually win, and "not still black" is the
+ *             only way to say that without pinning the exact colour.
+ *   approx  — within `tolerance` (default 1) of a number. Layout values come
+ *             back as fractional pixels, so `20px` of padding can measure
+ *             19.9969.
+ *   min/max — a range, for "at least this much" and "no wider than this".
+ *   value   — exact equality, which is what Module 1's `style` check already did.
+ *
+ * `want` is the AUTHORED value already resolved to the computed form the browser
+ * would report (the caller does that through a probe element, so "red" and
+ * "rgb(255, 0, 0)" compare equal). The numeric modes ignore it.
+ *
+ * @param {object} check  The authored check.
+ * @param {string} got    The value read off the page, normalised.
+ * @param {string} [want] `check.value` / `check.not`, resolved and normalised.
+ * @returns {true|{passed: false, detail: string}}
+ */
+export function compareStyleValue(check, got, want) {
+  var g = String(got == null ? "" : got);
+  var label = check.prop || check.box || "value";
+  var sawNothing = g === "" ? "nothing" : g;
+
+  if (check.not != null) {
+    if (g !== want) return true;
+    return {
+      passed: false,
+      detail: "found " + label + ": " + sawNothing + ", which is the value this is meant to change",
+    };
+  }
+
+  if (check.approx != null || check.min != null || check.max != null) {
+    var n = parseFloat(g);
+    if (isNaN(n)) {
+      return { passed: false, detail: "found " + label + ": " + sawNothing + ", which is not a measurement" };
+    }
+    if (check.approx != null) {
+      var tol = check.tolerance == null ? 1 : check.tolerance;
+      if (Math.abs(n - check.approx) <= tol) return true;
+      return {
+        passed: false,
+        detail: "found " + label + ": " + g + ", and this wants about " + check.approx,
+      };
+    }
+    if (check.min != null && n < check.min) {
+      return { passed: false, detail: "found " + label + ": " + g + ", and this wants at least " + check.min };
+    }
+    if (check.max != null && n > check.max) {
+      return { passed: false, detail: "found " + label + ": " + g + ", and this wants at most " + check.max };
+    }
+    return true;
+  }
+
+  if (g === want) return true;
+  return { passed: false, detail: "found " + label + ": " + sawNothing };
+}
+
+/**
+ * The verdict of a `layout` check's `rel`: are these elements in a row, or
+ * stacked one above another?
+ *
+ * This is the flexbox question, and it is deliberately not a computed-style
+ * question. `display: flex` on the parent tells you the student typed the
+ * property; it does not tell you the cards ended up side by side — `flex-wrap`,
+ * a width, or a `flex-direction` further down can all still stack them. Real
+ * boxes are the only honest answer, so this compares vertical overlap: two
+ * elements in the same row overlap vertically, two stacked ones cannot.
+ *
+ * Injected by source, hence ES5 with no outer references.
+ *
+ * @param {object} check
+ * @param {Array<{top: number, height: number}>} boxes One per matched element.
+ * @returns {true|{passed: false, detail: string}}
+ */
+export function relationVerdict(check, boxes) {
+  if (!boxes || boxes.length < 2) {
+    var n = boxes ? boxes.length : 0;
+    return {
+      passed: false,
+      detail: 'this compares the position of two or more "' + check.selector + '" elements, and the page has ' +
+        (n === 0 ? "none" : "only one"),
+    };
+  }
+
+  var pairs = 0;
+  var overlapping = 0;
+  for (var i = 0; i < boxes.length; i++) {
+    for (var j = i + 1; j < boxes.length; j++) {
+      pairs += 1;
+      var a = boxes[i];
+      var b = boxes[j];
+      // A shared row means the two boxes cover some of the same vertical space.
+      if (a.top < b.top + b.height && b.top < a.top + a.height) overlapping += 1;
+    }
+  }
+
+  if (check.rel === "sameRow") {
+    if (overlapping === pairs) return true;
+    return { passed: false, detail: "they are still stacked one above another, not side by side" };
+  }
+  if (check.rel === "stacked") {
+    if (overlapping === 0) return true;
+    return { passed: false, detail: "they are still side by side, not stacked one above another" };
+  }
+  return { passed: false, detail: 'unknown rel "' + check.rel + '"' };
+}
+
+/**
+ * Find a rule in the student's CSS source: "did you write `.btn:hover { … }`?"
+ *
+ * The one checker that reads what was WRITTEN rather than what the browser
+ * computed, because `:hover` and `@media` describe states the page is not
+ * currently in. No width trick reaches a hover state, and nothing computed
+ * reports a rule that is not currently applying, so the source is the only
+ * place the answer lives.
+ *
+ * Matching is forgiving about everything that does not change meaning —
+ * whitespace, case, the spacing around combinators and colons, the brackets
+ * around a media condition — and strict about everything that does.
+ *
+ * Injected by source, hence ES5 with no outer references. `norm` arrives as an
+ * argument for the same reason.
+ *
+ * @param {string} cssText Every stylesheet on the page, concatenated.
+ * @param {object} check   { selector, prop, value?, media? }
+ * @param {(v: any) => string} norm
+ * @returns {true|{passed: false, detail: string}}
+ */
+export function findCssRule(cssText, check, norm) {
+  // Comments can hold anything, including a commented-out version of the very
+  // rule being asked for. Strip them first so one cannot pass a check.
+  var src = String(cssText == null ? "" : cssText).replace(/\/\*[\s\S]*?\*\//g, "");
+
+  // "Same meaning" normalisation: `.a > .b` and `.a>.b` are one selector, and
+  // `(max-width: 600px)` and `max-width:600px` are one condition.
+  function tidySelector(s) {
+    return norm(s).replace(/\s*([>+~])\s*/g, "$1");
+  }
+  function tidyCondition(s) {
+    return norm(s).replace(/[()]/g, "").replace(/\s*:\s*/g, ":").replace(/\s+and\s+/g, " and ");
+  }
+
+  var wantSelector = tidySelector(check.selector);
+  var wantProp = norm(check.prop);
+  var wantMedia = check.media == null ? null : tidyCondition(check.media);
+  var wantValue = check.value == null ? null : norm(check.value);
+
+  // What the walk learned, for a failure message that says which step broke.
+  var selectorSeenAnywhere = false;
+  var selectorSeenHere = false;   // ...inside the right media block
+  var valuesFound = [];
+
+  function scan(text, media) {
+    var at = 0;
+    while (at < text.length) {
+      var open = text.indexOf("{", at);
+      if (open === -1) return;
+
+      var prelude = text.substring(at, open).trim();
+
+      // Walk to this block's own closing brace, counting nested ones so an
+      // @media body is taken whole rather than cut at its first inner rule.
+      var depth = 1;
+      var k = open + 1;
+      while (k < text.length && depth > 0) {
+        var ch = text.charAt(k);
+        if (ch === "{") depth += 1;
+        else if (ch === "}") depth -= 1;
+        k += 1;
+      }
+      var body = text.substring(open + 1, depth === 0 ? k - 1 : text.length);
+      at = k;
+
+      if (prelude.charAt(0) === "@") {
+        // Only @media nests rules in a way this course uses. Anything else
+        // (@import, @font-face, @keyframes) holds no rule worth finding.
+        // The recursive result has to be carried back out: a rule found inside
+        // the block is still found.
+        if (/^@media/i.test(prelude)) {
+          if (scan(body, tidyCondition(prelude.replace(/^@media/i, ""))) === true) return true;
+        }
+        continue;
+      }
+
+      var selectors = prelude.split(",");
+      var hit = false;
+      for (var s = 0; s < selectors.length; s++) {
+        if (tidySelector(selectors[s]) === wantSelector) hit = true;
+      }
+      if (!hit) continue;
+
+      selectorSeenAnywhere = true;
+      if (wantMedia !== null && media !== wantMedia) continue;
+      selectorSeenHere = true;
+
+      var decls = body.split(";");
+      for (var d = 0; d < decls.length; d++) {
+        var colon = decls[d].indexOf(":");
+        if (colon === -1) continue;
+        if (norm(decls[d].substring(0, colon)) !== wantProp) continue;
+        var value = norm(decls[d].substring(colon + 1));
+        if (wantValue === null || value.indexOf(wantValue) !== -1) return true;
+        valuesFound.push(value);
+      }
+    }
+    return undefined;
+  }
+
+  if (scan(src, null) === true) return true;
+
+  var where = wantMedia === null ? "" : " inside @media (" + check.media + ")";
+  if (!selectorSeenAnywhere) {
+    return { passed: false, detail: 'there is no rule for "' + check.selector + '" in your CSS' };
+  }
+  if (!selectorSeenHere) {
+    return {
+      passed: false,
+      detail: 'there is a rule for "' + check.selector + '", but not' + where,
+    };
+  }
+  if (valuesFound.length) {
+    return {
+      passed: false,
+      detail: 'the "' + check.selector + '" rule sets ' + check.prop + ": " + valuesFound[0],
+    };
+  }
+  return {
+    passed: false,
+    detail: 'the "' + check.selector + '" rule' + where + " does not set " + check.prop,
+  };
+}
+
+/**
+ * The viewport width a width-sensitive check is graded at unless it says
+ * otherwise.
+ *
+ * This constant exists because the visible preview is NOT a desktop viewport
+ * and cannot be made into one. It is a pane inside a 1024px-capped lesson
+ * sheet, which works out at roughly 469px on a desktop — and it is not even
+ * stable at that: below the `lg` breakpoint the editor and the output unstack
+ * and the preview jumps to about 940px. So grading a width-sensitive check
+ * "where the student can see it" means grading it at a tablet width that
+ * changes with the student's own screen. Two students would get two verdicts
+ * for the same CSS, and `@media (max-width: 600px)` — the single most common
+ * breakpoint anyone teaches — would be permanently active while grading.
+ *
+ * 1100 instead: a real desktop viewport, comfortably above any breakpoint this
+ * course teaches, and the SAME on every device. A check that cares about width
+ * either accepts this or names its own with `at`.
+ */
+export const DEFAULT_GRADING_WIDTH = 1100;
+
+/**
+ * The check types whose answer depends on the viewport width, and which are
+ * therefore graded in a frame of known width rather than in the preview.
+ *
+ * `dom`, `console`, `link` and `every` are not here on purpose. They ask about
+ * structure, text and terminal output, none of which a viewport width changes —
+ * and `console` positively must stay in the preview, because that is the frame
+ * whose console the student's own code wrote to.
+ */
+export const WIDTH_SENSITIVE_CHECKS = ['style', 'layout'];
+
+/**
+ * Which viewport width this check has to be measured at, or null for "the
+ * preview frame, whatever width it happens to be".
+ *
+ * @param {object} check
+ * @returns {number|null}
+ */
+export function gradingWidth(check) {
+  if (check?.at != null) return Number(check.at);
+  return WIDTH_SENSITIVE_CHECKS.includes(check?.type) ? DEFAULT_GRADING_WIDTH : null;
+}
+
+/**
+ * Split a task's checks into the frames that have to measure them.
+ *
+ * A check with `at: 375` asks what the page looks like in a 375px-wide browser.
+ * No amount of reading can answer that from another width: a `@media
+ * (max-width: 600px)` rule is either applying or it is not. So the page is
+ * rendered again in a hidden frame of exactly that width and the check is
+ * graded there — and by {@link DEFAULT_GRADING_WIDTH}, so is every other
+ * width-sensitive check, because the preview's own width is both too narrow and
+ * not the same twice.
+ *
+ * What stays in the preview frame is everything a width cannot change:
+ * structure, attributes, links, and console output.
+ *
+ * Every check keeps its authored position as `__index`, because the verdicts
+ * come back from several frames and have to be put back in the order the author
+ * wrote them.
+ *
+ * Pure, and the reason the multi-frame bookkeeping is testable at all.
+ *
+ * @param {Array<object>|null} checks
+ * @returns {{ main: Array<object>|null,
+ *             groups: Array<{width: number, checks: Array<object>}>,
+ *             reporters: number }}
+ *          `reporters` is how many frames will post a verdict — the count the
+ *          parent waits for before it reports anything.
+ */
+export function partitionChecks(checks) {
+  if (!checks || !checks.length) return { main: null, groups: [], reporters: 0 };
+
+  const tagged = checks.map((check, index) => ({ ...check, __index: index }));
+  const main = tagged.filter((c) => gradingWidth(c) === null);
+  const widths = [...new Set(tagged.map(gradingWidth).filter((w) => w !== null))]
+    .sort((a, b) => a - b);
+  const groups = widths.map((width) => ({
+    width,
+    checks: tagged.filter((c) => gradingWidth(c) === width),
+  }));
+
+  return {
+    main: main.length ? main : null,
+    groups,
+    reporters: (main.length ? 1 : 0) + groups.length,
+  };
+}
+
 /**
  * The shim injected as the very first thing in <head>.
  *
@@ -472,11 +821,80 @@ const RUNTIME = `
     return el.getAttribute(name);
   }
 
-  // Both injected by source from the parent module, so the Node tests grade
+  // All injected by source from the parent module, so the Node tests grade
   // with this exact function rather than a second copy of the rule.
   var matchElementsFn = __MATCH_ELEMENTS__;
   var domVerdictFn = __DOM_VERDICT__;
   var everyVerdictFn = __EVERY_VERDICT__;
+  var compareStyleValueFn = __COMPARE_STYLE__;
+  var relationVerdictFn = __RELATION_VERDICT__;
+  var findCssRuleFn = __FIND_CSS_RULE__;
+
+  // Every stylesheet on the page, as text: the <style> this sandbox writes from
+  // the css tab, plus any <style> the student put in their own HTML (which
+  // Section 1 of Module 2 teaches them to do). Inline style="" attributes are
+  // not rules and are correctly absent.
+  function allCssText() {
+    var styles = document.getElementsByTagName("style");
+    var out = [];
+    for (var i = 0; i < styles.length; i++) out.push(styles[i].textContent || "");
+    return out.join("\\n");
+  }
+
+  // The authored value ("red", "2rem") resolved to the computed form the browser
+  // reports, or undefined when the check is a numeric comparison with no
+  // authored value to resolve.
+  function wantedValue(check) {
+    var authored = check.not != null ? check.not : check.value;
+    if (authored == null) return undefined;
+    // A "box" check measures a number of pixels rather than reading a property,
+    // so there is no property to resolve the value through — and handing
+    // resolveStyle an undefined prop would set a declaration named "undefined".
+    if (!check.prop) return norm(authored);
+    return resolveStyle(check.prop, authored);
+  }
+
+  // A width-sensitive check that fails is the one place the measurement width
+  // matters to whoever reads the verdict. "found flex-direction: column" is
+  // baffling on its own and obvious once it says which window it was measured
+  // in - and it is the difference between a wrong rule and a rule being graded
+  // at a width the author did not intend.
+  function withWidth(out) {
+    if (out === true || !out || out.passed) return out;
+    var w = Math.round(window.innerWidth);
+    return {
+      passed: false,
+      detail: (out.detail ? out.detail + " " : "") + "(measured at " + w + "px wide)",
+    };
+  }
+
+  // "At least one of them" by default, "all of them" with every:true — the
+  // difference between "a heading is green" and "every card has padding".
+  function gradeEach(check, targets, read) {
+    var want = wantedValue(check);
+    var firstFailure = null;
+    var failures = 0;
+
+    for (var i = 0; i < targets.length; i++) {
+      var out = compareStyleValueFn(check, read(targets[i]), want);
+      if (out === true) {
+        if (!check.every) return true;
+      } else {
+        failures += 1;
+        if (firstFailure === null) firstFailure = out;
+      }
+    }
+
+    if (check.every && failures === 0) return true;
+    if (check.every && targets.length > 1) {
+      return {
+        passed: false,
+        detail: failures + " of the " + targets.length + ' "' + check.selector + '" elements do not — ' +
+          (firstFailure && firstFailure.detail ? firstFailure.detail : "no match"),
+      };
+    }
+    return firstFailure || { passed: false, detail: "no match" };
+  }
 
   var MATCH_CTX = {
     queryAll: function (selector) {
@@ -586,18 +1004,54 @@ const RUNTIME = `
     // color: rgb(0, 0, 0)", which tells the student whether their rule was
     // ignored entirely or just set to the wrong value.
     if (check.type === "style") {
-      var targets = matchElements(check);
-      if (!targets.length) {
+      var styleTargets = matchElements(check);
+      if (!styleTargets.length) {
         return { passed: false, detail: 'nothing on the page matches "' + check.selector + '"' };
       }
-      var want = resolveStyle(check.prop, check.value);
-      var found = null;
-      for (var t = 0; t < targets.length; t++) {
-        var got = norm(getComputedStyle(targets[t]).getPropertyValue(check.prop));
-        if (got === want) return true;
-        if (found === null) found = got;
+      return withWidth(gradeEach(check, styleTargets, function (el) {
+        return norm(getComputedStyle(el).getPropertyValue(check.prop));
+      }));
+    }
+
+    // "How big is it, and where did it end up" — the questions a computed value
+    // cannot answer. "box" measures the real rendered size, which is the only
+    // way to show what box-sizing changed; "rel" compares positions, which is
+    // the only way to show that flexbox actually put the cards in a row.
+    //
+    // A layout check with "at" is graded in a frame of that width (the parent
+    // mounts it; see partitionChecks), so by the time it reaches here the
+    // window is already the right size and "at" needs no handling.
+    if (check.type === "layout") {
+      var layoutTargets = matchElements(check);
+      if (!layoutTargets.length) {
+        return { passed: false, detail: 'nothing on the page matches "' + check.selector + '"' };
       }
-      return { passed: false, detail: "found " + check.prop + ": " + found };
+
+      if (check.rel) {
+        var boxes = [];
+        for (var b = 0; b < layoutTargets.length; b++) {
+          var rect = layoutTargets[b].getBoundingClientRect();
+          boxes.push({ top: rect.top, height: rect.height });
+        }
+        return withWidth(relationVerdictFn(check, boxes));
+      }
+
+      if (check.box) {
+        return withWidth(gradeEach(check, layoutTargets, function (el) {
+          var r = el.getBoundingClientRect();
+          return (check.box === "height" ? r.height : r.width) + "px";
+        }));
+      }
+
+      return withWidth(gradeEach(check, layoutTargets, function (el) {
+        return norm(getComputedStyle(el).getPropertyValue(check.prop));
+      }));
+    }
+
+    // "Did you write this rule?" — for :hover and @media, states the page is
+    // not currently in, so the source is the only place to look.
+    if (check.type === "cssRule") {
+      return findCssRuleFn(allCssText(), check, norm);
     }
 
     return false;
@@ -611,16 +1065,21 @@ const RUNTIME = `
     var results;
     try {
       results = checks.map(function (check, index) {
+        // __index is the check's position in what the AUTHOR wrote. It differs
+        // from "index" whenever the parent split the checks across frames to
+        // measure some of them at another width, and it is what lets the
+        // verdicts be put back in the authored order.
+        var at = check && check.__index != null ? check.__index : index;
         try {
           // runOne answers with a boolean, or with { passed, detail } when it
           // has something useful to say about why it failed.
           var out = runOne(check);
           var verdict = out === true || !!(out && out.passed);
           var note = out && out.detail ? out.detail : undefined;
-          return { index: index, passed: verdict, message: check.message, detail: note };
+          return { index: at, passed: verdict, message: check.message, detail: note };
         } catch (e) {
           return {
-            index: index,
+            index: at,
             passed: false,
             message: check.message,
             detail: "this check could not run: " + (e && e.message ? e.message : String(e)),
@@ -639,7 +1098,8 @@ const RUNTIME = `
         var count = checks && typeof checks.length === "number" ? checks.length : 0;
         for (var i = 0; i < count; i++) {
           var c = checks[i];
-          results.push({ index: i, passed: false, message: c && c.message, detail: reason });
+          var ci = c && c.__index != null ? c.__index : i;
+          results.push({ index: ci, passed: false, message: c && c.message, detail: reason });
         }
       } catch (inner) {
         results = [{ index: 0, passed: false, message: "This task could not be graded.", detail: reason }];
@@ -657,10 +1117,34 @@ const RUNTIME = `
 })();
 `;
 
-/** The tail script that grades the task, if there is one. */
-function checksScript(checks, runId) {
+/**
+ * How long a measure frame will wait for the embedder to give it its width
+ * before it refuses to grade.
+ *
+ * Comfortably under the parent's own CHECKS_TIMEOUT_MS (6000): the frame should
+ * always be the one to report the bad news, because it is the only place that
+ * knows what width it actually had. The parent's timeout stays as the backstop
+ * for a frame that never loaded at all.
+ */
+export const MEASURE_READY_TIMEOUT_MS = 2500;
+
+/**
+ * The tail script that grades the task, if there is one.
+ *
+ * @param {Array<object>|null} checks
+ * @param {number|string} runId
+ * @param {number|null} [measureWidth] The viewport width this document was
+ *        mounted at, when it is a measure frame. `null` for the visible
+ *        preview, which grades at whatever width it happens to have — and
+ *        which may legitimately have no layout at all, because CodeRunner
+ *        keeps the preview mounted under `display: none` while the terminal
+ *        pane is open. Only `dom`, `console` and `link` checks are ever graded
+ *        there, and none of them can be changed by a width.
+ */
+function checksScript(checks, runId, measureWidth = null) {
   if (!checks || !checks.length) return '';
   const payload = escapeScript(JSON.stringify(checks));
+  const want = measureWidth == null ? 'null' : String(Number(measureWidth));
   // Wait for load so images/late scripts have settled, then give the event
   // loop one tick — enough for a student's `setTimeout(…, 0)` to have fired.
   // Independent of the runtime script above: if that one failed to parse,
@@ -670,7 +1154,40 @@ function checksScript(checks, runId) {
   return `<script>
 (function () {
   var checks = ${payload};
+  // The width this frame was mounted at, or null in the visible preview.
+  var WANT_WIDTH = ${want};
+  var DEADLINE_MS = ${MEASURE_READY_TIMEOUT_MS};
+
+  // Post every check as failed, with one shared reason. Used both when the
+  // runtime is missing and when this frame never got a width to measure at:
+  // a verdict must always be posted, and a wrong verdict is worse than none.
+  function postAllFailed(reason) {
+    try {
+      parent.postMessage({
+        source: "${RUNNER_SOURCE}",
+        runId: "${runId}",
+        kind: "checks",
+        results: checks.map(function (c, i) {
+          return {
+            index: c && c.__index != null ? c.__index : i,
+            passed: false,
+            message: c && c.message,
+            detail: reason,
+          };
+        })
+      }, "*");
+    } catch (ignored) { /* frame detached */ }
+  }
+
+  // Exactly one verdict per frame. The wait below has two ways to finish (the
+  // resize shortcut and the poll), and a frame that posted twice would make
+  // the parent think another frame had reported - so a three-frame task would
+  // hand over a partial result list as if it were complete.
+  var reported = false;
+
   function report() {
+    if (reported) return;
+    reported = true;
     try {
       if (typeof window.__webdevRunChecks === "function") {
         window.__webdevRunChecks(checks);
@@ -678,20 +1195,91 @@ function checksScript(checks, runId) {
       }
       throw new Error("the sandbox runtime did not load");
     } catch (e) {
-      var reason = e && e.message ? e.message : String(e);
-      try {
-        parent.postMessage({
-          source: "${RUNNER_SOURCE}",
-          runId: "${runId}",
-          kind: "checks",
-          results: checks.map(function (c, i) {
-            return { index: i, passed: false, message: c && c.message, detail: reason };
-          })
-        }, "*");
-      } catch (ignored) { /* frame detached */ }
+      postAllFailed(e && e.message ? e.message : String(e));
     }
   }
-  var run = function () { setTimeout(report, 30); };
+
+  // A measure frame exists to answer "what does this look like at N pixels",
+  // and until the embedder has actually sized it, it cannot. An unsized frame
+  // reports innerWidth 0, and at 0 EVERY answer is wrong in the same silent
+  // way: getBoundingClientRect returns zeroes, so a flex row reads as stacked
+  // and a 300px box measures 0 - and every "max-width" media query is active,
+  // so the mobile branch of the student's CSS is what gets graded. Both look
+  // exactly like a student mistake. So: wait for the width, and if it never
+  // comes, say so instead of grading.
+  // Whether anything in this frame asks a question about real geometry. A
+  // "box" or "rel" check reads getBoundingClientRect; everything else reads
+  // computed style, which is correct as soon as the frame has its width
+  // (because that is what the media queries resolve against) and does not
+  // need the page to have been laid out.
+  var NEEDS_LAYOUT = (function () {
+    for (var i = 0; i < checks.length; i++) {
+      if (checks[i] && (checks[i].box || checks[i].rel)) return true;
+    }
+    return false;
+  })();
+
+  function widthIsReady() {
+    // Fractional device pixel ratios can land a 1100px frame on 1099.6.
+    return Math.abs(window.innerWidth - WANT_WIDTH) <= 1;
+  }
+
+  // Having a width is not the same as having been laid out. Chrome does not
+  // run the rendering lifecycle for a frame it is not rendering, and a frame
+  // in that state answers getBoundingClientRect with zeroes while still
+  // reporting the right innerWidth. Zero boxes are the dangerous kind of
+  // wrong: every element lands at top 0 with height 0, so no two of them
+  // overlap, and "are these cards in a row" comes back "no, they are stacked"
+  // over a page that is plainly a row. The body having a real box is the
+  // cheapest proof that layout has actually run.
+  function layoutIsReady() {
+    if (!NEEDS_LAYOUT) return true;
+    return !!document.body && document.body.getBoundingClientRect().width > 0;
+  }
+
+  function isReady() {
+    return widthIsReady() && layoutIsReady();
+  }
+
+  function reportWhenSized() {
+    var started = Date.now();
+
+    // setTimeout, deliberately not requestAnimationFrame. An off-screen frame
+    // can have its rendering throttled, and a throttled frame's rAF callback
+    // may never run at all - which would hang this wait instead of timing it
+    // out. Timers still fire.
+    function poll() {
+      if (isReady()) { report(); return; }
+      if (Date.now() - started >= DEADLINE_MS) {
+        if (reported) return;
+        reported = true;
+        // Say which of the two went wrong. "It never got its width" and "it
+        // had the width but was never laid out" have different causes, and
+        // whoever reads this is debugging the lesson engine, not the CSS.
+        var saw = Math.round(window.innerWidth);
+        postAllFailed(
+          "this check could not be measured: the hidden frame grading your page at " +
+          WANT_WIDTH + "px " +
+          (widthIsReady()
+            ? "was never laid out, so every element measured 0 by 0"
+            : "never got that width (it reported " + saw + "px)") +
+          ". Nothing was graded, because a measurement taken then would be wrong " +
+          "rather than merely missing. This is a bug in the lesson, not in your code."
+        );
+        return;
+      }
+      setTimeout(poll, 16);
+    }
+
+    // The frame is usually ready within a tick or two of load; resize is just
+    // a shortcut so the common case does not sit out a 16ms poll.
+    window.addEventListener("resize", function () { if (isReady()) report(); });
+    poll();
+  }
+
+  var run = function () {
+    setTimeout(WANT_WIDTH == null ? report : reportWhenSized, 30);
+  };
   if (document.readyState === "complete") run();
   else window.addEventListener("load", run);
 })();
@@ -712,9 +1300,13 @@ function checksScript(checks, runId) {
  * @param {string} [options.js]
  * @param {Array<object>} [options.checks] Task checks, graded inside the frame.
  * @param {number|string} options.runId    Echoed back on every message.
+ * @param {number|null} [options.measureWidth] The width this document is being
+ *        mounted at, when it is one of the hidden measure frames. Passing it
+ *        makes the frame refuse to grade until it really has that width — see
+ *        {@link MEASURE_READY_TIMEOUT_MS}. Omit for the visible preview.
  * @returns {string} A complete HTML document for `<iframe srcDoc>`.
  */
-export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId = 0 }) {
+export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId = 0, measureWidth = null }) {
   const runtime = RUNTIME
     .replace('__RUN_ID__', String(runId))
     .replace('__SOURCE__', RUNNER_SOURCE)
@@ -723,7 +1315,10 @@ export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId
     .replace('__RESOLVE_SAMPLE__', () => resolveSampleName.toString())
     .replace('__MATCH_ELEMENTS__', () => matchElements.toString())
     .replace('__DOM_VERDICT__', () => domVerdict.toString())
-    .replace('__EVERY_VERDICT__', () => everyVerdict.toString());
+    .replace('__EVERY_VERDICT__', () => everyVerdict.toString())
+    .replace('__COMPARE_STYLE__', () => compareStyleValue.toString())
+    .replace('__RELATION_VERDICT__', () => relationVerdict.toString())
+    .replace('__FIND_CSS_RULE__', () => findCssRule.toString());
 
   const head =
     `<script>${runtime}</script>` +
@@ -731,7 +1326,7 @@ export function buildSrcDoc({ html = '', css = '', js = '', checks = null, runId
 
   const tail =
     (js.trim() ? `<script>\n${escapeScript(js)}\n</script>` : '') +
-    checksScript(checks, runId);
+    checksScript(checks, runId, measureWidth);
 
   const body = String(html ?? '').replace(/<!doctype[^>]*>/i, '');
 

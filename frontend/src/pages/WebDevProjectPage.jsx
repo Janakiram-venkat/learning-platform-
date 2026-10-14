@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Menu, X, Hammer } from 'lucide-react';
+import { Menu, X, Hammer, Construction } from 'lucide-react';
 import Sidebar from '../components/layout/Sidebar';
 import ProjectPager from '../components/lesson-engine/ProjectPager';
 import Celebration from '../components/feedback/Celebration';
-import { buildCourse, getProject, MODULE } from '../data/webdev/module1';
+import { buildCourse, getProject, getModule } from '../data/webdev';
 
 // ---------------------------------------------------------------------------
 // WebDevProjectPage — the web-dev course's Mini Project route.
@@ -34,12 +34,18 @@ export default function WebDevProjectPage() {
   const [celebration, setCelebration] = useState(null);
 
   const course = useMemo(() => buildCourse(), []);
-  const project = getProject();
+  const module = getModule(moduleId);
+  const project = getProject(moduleId);
 
-  // The route is per-module, but this course has one module so far. Anything
-  // else is a typed URL, not a real place.
-  const projectKey = `module${MODULE.moduleId}`;
-  const known = String(moduleId) === projectKey;
+  // Three outcomes, not two. A module id that names no visible module is a
+  // typed URL; a visible module whose project is not written yet is a real
+  // place that is not ready.
+  const known = !!module;
+  const ready = known && !!project;
+  const projectKey = known ? `module${module.moduleId}` : null;
+
+  // The sidebar numbers modules by position, so this has to as well.
+  const moduleNumber = course.modules.findIndex((m) => m.moduleId === module?.moduleId) + 1;
 
   const handleComplete = useCallback((progress) => {
     setCelebration({
@@ -92,19 +98,30 @@ export default function WebDevProjectPage() {
         </button>
         <Sidebar
           course={course}
-          currentProjectKey={known ? projectKey : undefined}
+          currentProjectKey={ready ? projectKey : undefined}
           onNavigate={() => setSidebarOpen(false)}
         />
       </div>
 
       <main className="bench-grid min-w-0 flex-1 overflow-y-auto p-4 sm:p-8">
         <div className="mx-auto w-full max-w-5xl rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_rgba(27,27,27,0.9)] sm:p-10">
-          {known ? (
+          {ready ? (
             <ProjectPager
               project={project}
-              moduleId={MODULE.moduleId}
+              moduleId={module.moduleId}
               onComplete={handleComplete}
             />
+          ) : known ? (
+            <div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
+              <Construction className="h-12 w-12 text-ink/30" aria-hidden="true" />
+              <h1 className="font-lab text-2xl font-extrabold text-ink">
+                Module {moduleNumber} Mini Project
+              </h1>
+              <p className="max-w-md text-ink/60">
+                This project is still being written. The sections of Module {moduleNumber} that are
+                ready are in the sidebar.
+              </p>
+            </div>
           ) : (
             <div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
               <Hammer className="h-12 w-12 text-ink/30" aria-hidden="true" />

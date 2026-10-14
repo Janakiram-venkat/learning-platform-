@@ -4,7 +4,10 @@ import { Menu, X, Construction, PartyPopper } from 'lucide-react';
 import Sidebar from '../components/layout/Sidebar';
 import LessonPager from '../components/lesson-engine/LessonPager';
 import Celebration from '../components/feedback/Celebration';
-import { buildCourse, getSection, getNextSection, isKnownSection } from '../data/webdev/module1';
+import {
+  buildCourse, getSection, getNextSection, isKnownSection, getModuleOfSection,
+} from '../data/webdev';
+import { sectionOutro } from '../lib/webdev/outro';
 
 // ---------------------------------------------------------------------------
 // WebDevLessonPage — the web-dev course's lesson route.
@@ -49,25 +52,18 @@ export default function WebDevLessonPage() {
   const course = useMemo(() => buildCourse(), []);
   const section = getSection(lessonId);
   const next = getNextSection(lessonId);
+  const module = getModuleOfSection(lessonId);
 
+  // The sidebar numbers modules by position, so this has to as well — a
+  // moduleId of 101 must never be shown to a student as "Module 101".
+  const moduleNumber = course.modules.findIndex((m) => m.moduleId === module?.moduleId) + 1;
+
+  // The section is already recorded by the pager; this decides what to say and
+  // where to go next. The decision itself is pure and lives in
+  // lib/webdev/outro.js, because a module boundary is what changes it.
   const handleSectionComplete = useCallback(() => {
-    // The section is already recorded by the pager; this decides where to go.
-    const nextReady = next?.section ? next : null;
-    // No next section at all means the last section of the module, not an
-    // unfinished course — so say what actually comes next instead of leaving
-    // the student on a full stop. Both the Module Challenge and the Mini
-    // Project are built and waiting in the sidebar.
-    const endOfModule = !next;
-    setCelebration({
-      title: endOfModule ? 'Module 1 complete! 🏆' : 'Section complete! ✅',
-      message: nextReady
-        ? `Nice work. Up next: ${nextReady.title}.`
-        : endOfModule
-          ? 'That is every section of Module 1. The Module Challenge is next — six tasks in the sidebar that put the whole module together. After it comes the Mini Project: five milestones that build one page about you.'
-          : 'That is every section written so far. More of Module 1 is on the way.',
-      next: nextReady?.id ?? null,
-    });
-  }, [next]);
+    setCelebration(sectionOutro({ module, moduleNumber, next }));
+  }, [next, module, moduleNumber]);
 
   const closeCelebration = () => {
     const goTo = celebration?.next;
@@ -125,7 +121,13 @@ export default function WebDevLessonPage() {
           {section ? (
             <LessonPager section={section} onSectionComplete={handleSectionComplete} />
           ) : isKnownSection(lessonId) ? (
-            <ComingSoon title={course.modules[0].lessons.find((l) => l.lessonId === lessonId)?.title || 'Coming soon'} />
+            <ComingSoon
+              title={
+                course.modules
+                  .flatMap((m) => m.lessons)
+                  .find((l) => l.lessonId === lessonId)?.title || 'Coming soon'
+              }
+            />
           ) : (
             <div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
               <PartyPopper className="h-12 w-12 text-ink/30" aria-hidden="true" />
